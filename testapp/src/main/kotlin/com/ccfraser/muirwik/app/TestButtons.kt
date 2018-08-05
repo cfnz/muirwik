@@ -1,0 +1,283 @@
+package com.ccfraser.muirwik.app
+
+import com.ccfraser.muirwik.app.TestButtons.ComplexComponentStyles.focusVisible
+import com.ccfraser.muirwik.app.TestButtons.ComplexComponentStyles.image
+import com.ccfraser.muirwik.app.TestButtons.ComplexComponentStyles.imageBackdrop
+import com.ccfraser.muirwik.app.TestButtons.ComplexComponentStyles.imageButton
+import com.ccfraser.muirwik.app.TestButtons.ComplexComponentStyles.imageMarked
+import com.ccfraser.muirwik.app.TestButtons.ComplexComponentStyles.imageSrc
+import com.ccfraser.muirwik.app.TestButtons.ComplexComponentStyles.imageTitle
+import com.ccfraser.muirwik.app.TestButtons.ComplexComponentStyles.root
+import com.ccfraser.muirwik.app.TestButtons.ComponentStyles.buttonMargin
+import com.ccfraser.muirwik.wrapper.*
+import kotlinext.js.js
+import kotlinx.css.*
+import kotlinx.css.properties.*
+import kotlinx.html.InputType
+import kotlinx.html.id
+import kotlinx.html.js.onClickFunction
+import kotlinx.html.js.onMouseMoveFunction
+import react.*
+import react.dom.br
+import react.dom.button
+import react.dom.label
+import react.dom.span
+import styled.*
+import kotlin.browser.window
+
+
+class TestButtons : RComponent<RProps, RState>() {
+
+    private fun handleMouseMove() {
+        console.log("Another Move")
+    }
+
+    private object ComponentStyles : StyleSheet("ComponentStyles", isStatic = true) {
+        val buttonMargin by css {
+            margin(1.spacingUnits)
+        }
+    }
+
+    // Since we are creating 3 sets of buttons almost the same, we will put them into a function
+    private fun RBuilder.buttonSet(heading: String, variant: MButtonVariant = MButtonVariant.Flat, margin: Boolean = false) {
+        styledDiv {
+            mTypography(heading)
+            mButton("Default1", variant = variant) {
+                if (margin) css(buttonMargin)
+            }
+            mButton("Primary", true, variant = variant) {
+                if (margin) css(buttonMargin)
+            }
+            mButton("Secondary", color = MColor.Secondary, variant = variant) {
+                if (margin) css(buttonMargin)
+            }
+            mButton("Disabled", disabled = true, variant = variant) {
+                if (margin) css(buttonMargin)
+            }
+            mButton("Link", href = "#", variant = variant) {
+                if (margin) css(buttonMargin)
+            }
+            styledInput {
+                css { display = Display.none }
+                attrs {
+                    accept = "image/*"
+                    id = "button-file"
+                    multiple = true
+                    type = InputType.file
+                }
+            }
+            label {
+                attrs["htmlFor"] = "button-file" // This worked whereas (for some reason) attrs.hmlFor did not
+                mButton("Upload", component = "span", variant = variant) {
+                    if (margin)  css(buttonMargin)
+                }
+            }
+        }
+    }
+
+    override fun RBuilder.render() {
+        buttonSet("Standard (Flat) buttons")
+        br { }
+        buttonSet("Outlined buttons", MButtonVariant.Outlined, true)
+        br { }
+        buttonSet("Raised buttons", MButtonVariant.Raised, true)
+        br { }
+        styledDiv {
+            mTypography("Icon buttons")
+            mIconButton("send", onClick = { window.alert("I was clicked")})
+            mIconButton("star")
+            mIconButton("delete", true)
+            mIconButton("delete", color = MColor.Secondary)
+        }
+        br { }
+        styledDiv {
+            mTypography("FABs")
+            mButtonFab("add", true)
+            styledSpan { css {paddingLeft = 2.spacingUnits}}
+            mButtonFab("edit-icon", color = MColor.Secondary)
+        }
+        br { }
+        styledDiv {
+            mTypography("Some play around buttons (Check the console for event notifications...)")
+            button {
+                +"Normal React Button"
+                attrs.onClickFunction = { console.log("Hello, I am clicked") }
+                attrs.onMouseMoveFunction = { console.log("Move") }
+            }
+            br { }
+            br { }
+            mButton("Clk, Dbl Clk and Move", onClick = { console.log("Yay, I clicked") }) {
+                css(buttonMargin)
+                // Just playing... probably better to do it the above more typesafe way
+                attrs.asDynamic().onDoubleClick = { console.log("A Double Click?") }
+                attrs.asDynamic().onMouseMove = { handleMouseMove() }
+            }
+            mButton("Raised", variant = MButtonVariant.Raised) { css(buttonMargin) }
+            mButton("Primary", primary = true, variant = MButtonVariant.Raised) { css(buttonMargin) }
+            mButton("Secondary with HRef", color = MColor.Secondary, href = "http://www.ptsonline.com", variant = MButtonVariant.Raised) { css(buttonMargin) }
+            mButton("Styled Button") {
+                css {
+                    background = "linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)"
+                    borderRadius = 3.px
+                    borderStyle = BorderStyle.none
+                    color = Color.white
+                    height = 48.px
+                    padding(0.px, 30.px)
+                    boxShadow += BoxShadow(false, 0.px, 3.px, 5.px, 2.px, rgba(255, 105, 135, 0.3))
+                    margin(1.spacingUnits)
+                }
+            }
+            mButton("Icon", primary = true, variant = MButtonVariant.Raised) {
+                css(buttonMargin)
+                mIcon("send", color = MIconColor.Inherit) {
+                    css { marginLeft = 1.em }
+                }
+            }
+        }
+        br { }
+        mTypography("More complex button...")
+        moreComplexButton()
+    }
+
+    private object ComplexComponentStyles : StyleSheet("ComplexComponentStyles", isStatic = true) {
+        val root by css {
+            display = Display.flex
+            flexWrap = FlexWrap.wrap
+            minWidth = 300.px
+            maxWidth = 800.px
+//            width = 100.pct
+        }
+        val image by css {
+            position = Position.relative
+            height = 200.px
+//            currentTheme.breakpoints.dow [theme.breakpoints.down('xs')]: {
+//                width: '100% !important', // Overrides inline-style
+//                height: 100,
+//            }
+            hover {
+                zIndex = 1
+                children {
+                    opacity = 0.75
+                    border(4.px, BorderStyle.solid, Color.white)
+                }
+//                child(".${ComplexComponentStyles.name}-${ComplexComponentStyles::imageBackdrop.name}") {
+//                    opacity = 0.15
+//                }
+
+                child(".${ComplexComponentStyles.name}-${ComplexComponentStyles::imageTitle.name}") {
+                    border(4.px, BorderStyle.solid, Color.white)
+                }
+//                ancestorHover("${ComplexComponentStyles.name}-${ComplexComponentStyles::imageBackdrop.name}") {
+//                    opacity = 0.15
+//                }
+            }
+//                '&:hover, &$focusVisible': {
+//                zIndex: 1,
+//                '& $imageBackdrop': {
+//                opacity: 0.15,
+//            },
+//                '& $imageMarked': {
+//                opacity: 0,
+//            },
+//                '& $imageTitle': {
+//                border: '4px solid currentColor',
+//            },
+//            },
+
+//            }
+        }
+        val focusVisible by css {
+
+        }
+        val imageButton by css {
+            position = Position.absolute
+            left = 0.px
+            right = 0.px
+            top = 0.px
+            bottom = 0.px
+            display = Display.flex
+            alignItems = Align.center
+            justifyContent = JustifyContent.center
+            color = Color(currentTheme.palette.common.white)
+        }
+        val imageSrc by css {
+            position = Position.absolute
+            left = 0.px
+            right = 0.px
+            top = 0.px
+            bottom = 0.px
+            backgroundSize = "cover"
+            backgroundPosition = "center 40%"
+        }
+        val imageBackdrop by css {
+            position = Position.absolute
+            left = 0.px
+            right = 0.px
+            top = 0.px
+            bottom = 0.px
+            backgroundColor = Color(currentTheme.palette.common.black)
+            opacity = 0.4
+//            hover {
+//                opacity = 0.15
+//            }
+//            focus {
+//                opacity = 0.15
+//            }
+            transition += Transition("opacity", 195.ms, Timing.materialStandard, 0.ms)
+        }
+        val imageTitle by css {
+            position = Position.relative
+            padding(2.spacingUnits, 4.spacingUnits, 1.spacingUnits + 6.px)
+        }
+        val imageMarked by css {
+            height = 3.px
+            width = 18.px
+            backgroundColor = Color(currentTheme.palette.common.white)
+            position = Position.absolute
+            bottom = -2.px
+            left = 50.pct - 9.px
+//            put("transition", js("theme.transitions.create('opacity')"))
+        }
+    }
+
+    private fun RBuilder.moreComplexButton() {
+        data class ImageInfo(val imageName: String, val title: String, val width: String)
+        val imageInfos = listOf(
+                ImageInfo("breakfast.jpg", "Breakfast", "40%"),
+                ImageInfo("burgers.jpg", "Burgers", "30%"),
+                ImageInfo("camera.jpg", "Camera", "30%")
+        )
+
+        styledDiv {
+            css(root)
+            imageInfos.forEach {
+                mButton(it.title) {
+                    css(image)
+                    attrs.focusRipple = true
+                    attrs.key = it.title
+//                    attrs.asDynamic().focusVisibleClassname = "${ComplexComponentStyles.name}-${ComplexComponentStyles::focusVisible.name}"
+                    attrs.asDynamic().style = js { width = it.width }
+                    styledSpan {
+                        css {
+                            +imageSrc
+                            backgroundImage = Image("url(/static/images/grid-list/${it.imageName})")
+                        }
+                    }
+                    styledSpan { css(imageBackdrop) }
+                    styledSpan {
+                        css(imageButton)
+                        mTypography(color = MTypographyColor.Inherit, variant = MTypographyVariant.Subheading) {
+                            css(imageTitle)
+                            +it.title
+                            //                        attrs.component = "span"
+                            styledSpan { css(imageMarked) }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+fun RBuilder.testButtons() = child(TestButtons::class) {}
