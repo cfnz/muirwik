@@ -26,14 +26,19 @@ enum class MListSubheaderColor {
 
 interface MListSubheaderProps : MButtonBaseProps {
     var color: String
+    var disableGutters: Boolean
     var disableSticky: Boolean
     var inset: Boolean
 }
 
+/**
+ * A list sub-header which allows you to pass a string to use for the heading.
+ */
 fun RBuilder.mListSubheader(
         heading: String,
         color: MListSubheaderColor = MListSubheaderColor.Default,
         component: String? = null,
+        disableGutters: Boolean = false,
         disableSticky: Boolean = false,
         inset: Boolean = false,
 
@@ -42,6 +47,7 @@ fun RBuilder.mListSubheader(
         handler: StyledHandler<MListSubheaderProps>? = null) = createStyled(listSubheaderComponent, addAsChild) {
     attrs.color = color.toString()
     component?.let { attrs.component = component }
+    attrs.disableGutters = disableGutters
     attrs.disableSticky = disableSticky
     attrs.inset = inset
 
@@ -49,9 +55,13 @@ fun RBuilder.mListSubheader(
     setStyledPropsAndRunHandler(className, handler)
 }
 
+/**
+ * The 'standard' list sub-header... you need to create a child item for the heading.
+ */
 fun RBuilder.mListSubheader(
         color: MListSubheaderColor = MListSubheaderColor.Default,
         component: String? = null,
+        disableGutters: Boolean = false,
         disableSticky: Boolean = false,
         inset: Boolean = false,
 
@@ -60,6 +70,7 @@ fun RBuilder.mListSubheader(
         handler: StyledHandler<MListSubheaderProps>? = null) = createStyled(listSubheaderComponent, addAsChild) {
     attrs.color = color.toString()
     component?.let { attrs.component = component }
+    attrs.disableGutters = disableGutters
     attrs.disableSticky = disableSticky
     attrs.inset = inset
 

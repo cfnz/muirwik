@@ -24,6 +24,7 @@ class TestDialogs : RComponent<RProps, TestOptionControls.MyTestState>() {
     private var simpleDialogOpen: Boolean = false
     private var alertDialogOpen: Boolean = false
     private var confirmationDialogOpen: Boolean = false
+    private var confirmationDialogScrollOpen: Boolean = false
     private var fullScreenDialogOpen: Boolean = false
     private var formDialogOpen: Boolean = false
 
@@ -98,6 +99,10 @@ class TestDialogs : RComponent<RProps, TestOptionControls.MyTestState>() {
                 confirmationDialogValue = confirmationDialogSelectedValue
                 confirmationDialogOpen = true
             }})
+            mButton("Confirmation Diff Scroll", onClick = { setState {
+                confirmationDialogValue = confirmationDialogSelectedValue
+                confirmationDialogScrollOpen = true
+            }})
             mButton("Full Screen", onClick = { setState {fullScreenDialogOpen = true}})
             mButton("Form", onClick = { setState {formDialogOpen = true}})
 
@@ -105,6 +110,7 @@ class TestDialogs : RComponent<RProps, TestOptionControls.MyTestState>() {
             simpleDialog(simpleDialogOpen)
             alertDialog(alertDialogOpen)
             confirmationDialog(confirmationDialogOpen)
+            confirmationDialog(confirmationDialogScrollOpen, DialogScroll.Body)
             fullScreenDialog(fullScreenDialogOpen)
             formDialog(formDialogOpen)
         }
@@ -156,13 +162,13 @@ class TestDialogs : RComponent<RProps, TestOptionControls.MyTestState>() {
         }
     }
 
-    private fun RBuilder.confirmationDialog(open: Boolean) {
+    private fun RBuilder.confirmationDialog(open: Boolean, scroll: DialogScroll = DialogScroll.Paper) {
         val options = arrayOf("None", "Atria", "Callisto", "Dione", "Ganymede", "Hangouts Call", "Luna", "Oberon",
                 "Phobos", "Pyxis", "Sedna", "Titania", "Triton", "Umbriel")
 //        mDialog(disableBackdropClick = true, disableEscapeKeyDown = true, maxWidth = DialogMaxWidth.xs) {
 //        mDialog(disableEscapeKeyDown = true, maxWidth = DialogMaxWidth.xs) {
 
-        mDialog(open, disableEscapeKeyDown = true, transitionProps = if (slow) slowTransitionProps else null) {
+        mDialog(open, scroll = scroll, disableEscapeKeyDown = true, transitionProps = if (slow) slowTransitionProps else null) {
             mDialogTitle("Phone Ringtone")
             mDialogContent {
                 mRadioGroup(value = confirmationDialogValue, onChange = {_, value -> setState { confirmationDialogValue = value }} ) {
@@ -172,8 +178,15 @@ class TestDialogs : RComponent<RProps, TestOptionControls.MyTestState>() {
                 }
             }
             mDialogActions {
-                mButton("Cancel", color = MColor.Primary, onClick = { setState { confirmationDialogOpen = false } })
-                mButton("Ok", color = MColor.Primary, onClick = { setState { confirmationDialogSelectedValue = confirmationDialogValue; confirmationDialogOpen = false }})
+                mButton("Cancel", color = MColor.Primary, onClick = { setState {
+                    confirmationDialogOpen = false
+                    confirmationDialogScrollOpen = false
+                }})
+                mButton("Ok", color = MColor.Primary, onClick = { setState {
+                    confirmationDialogSelectedValue = confirmationDialogValue;
+                    confirmationDialogOpen = false
+                    confirmationDialogScrollOpen = false
+                }})
             }
         }
     }
@@ -190,7 +203,7 @@ class TestDialogs : RComponent<RProps, TestOptionControls.MyTestState>() {
                 mToolbar {
                     mIconButton(iconName = "close", color = MColor.Inherit, iconColor = MIconColor.Inherit, onClick = { handleClose() })
                     mToolbarTitle("Sound")
-                    mButton("save", variant = MButtonVariant.Flat, color = MColor.Inherit, onClick = { handleClose() })
+                    mButton("save", variant = MButtonVariant.Text, color = MColor.Inherit, onClick = { handleClose() })
                 }
             }
             mListItem(primaryText = "Phone ringtone", secondaryText = "Titania", divider = true)
@@ -209,8 +222,8 @@ class TestDialogs : RComponent<RProps, TestOptionControls.MyTestState>() {
                 mTextField("Email Address", autoFocus = true, margin = MTextFieldMargin.Dense, type = InputType.email, fullWidth = true)
             }
             mDialogActions {
-                mButton("Cancel", color = MColor.Primary, onClick = { handleClose() }, variant = MButtonVariant.Flat)
-                mButton("Subscribe", color = MColor.Primary, onClick = { handleClose() }, variant = MButtonVariant.Flat)
+                mButton("Cancel", color = MColor.Primary, onClick = { handleClose() }, variant = MButtonVariant.Text)
+                mButton("Subscribe", color = MColor.Primary, onClick = { handleClose() }, variant = MButtonVariant.Text)
             }
         }
     }

@@ -2,17 +2,13 @@ package com.ccfraser.muirwik.app
 
 import com.ccfraser.muirwik.wrapper.*
 import com.ccfraser.muirwik.wrapper.card.*
-import com.ccfraser.muirwik.wrapper.transitions.TransitionDuration
 import com.ccfraser.muirwik.wrapper.transitions.mCollapse
-import kotlinext.js.js
-import kotlinx.css.LinearDimension
-import kotlinx.css.padding
+import kotlinx.css.*
 import kotlinx.css.properties.*
-import kotlinx.css.px
 import react.*
-import react.dom.p
 import styled.css
 import styled.styledDiv
+import kotlin.browser.window
 
 class TestCards : RComponent<RProps, RState>() {
     private var count = 0
@@ -27,30 +23,7 @@ class TestCards : RComponent<RProps, RState>() {
             mGridContainer {
                 mGridItem(md = MGridSize.Cells6, xs = MGridSize.Cells12) {
                     mCard {
-                        mCardHeader(title = "Hello there, I am the title",
-                                action = mIconButton("expand_more",
-                                        onClick = { setState { leftExpanded = !leftExpanded; count++ }},
-                                        addAsChild = false) {
-                                    css {
-                                        if (leftExpanded) transform.rotate(180.deg)
-                                        else transform.rotate(0.deg)
-
-                                        transition(::transform, 500.ms, Timing.easeInOut)
-                                    }
-                                }
-                        )
-                        mCollapse(show = leftExpanded) {
-                            mCardContent {
-                                mTypography(paragraph = true) {
-                                    +"Heat 1/2 cup of the broth in a pot until simmering, add saffron and set aside for 10 minutes."
-                                }
-                            }
-                        }
-                    }
-                }
-                mGridItem(md = MGridSize.Cells6, xs = MGridSize.Cells12) {
-                    mCard {
-                        mCardHeader(title = "Hello there, I am the title", subHeader = "And my subtitle",
+                        mCardHeader(title = "Shrimp and Chorizo Paella", subHeader = "September 14",
                                 avatar = mAvatar(addAsChild = false) {+"R"},
                                 action = mIconButton("more_vert", addAsChild = false)
                         )
@@ -58,13 +31,7 @@ class TestCards : RComponent<RProps, RState>() {
                             css { height = 150.px }
                         }
                         mCardContent {
-                            mTypography(variant = MTypographyVariant.Display1) {
-                                +"This impressive paella"
-                            }
                             mTypography {
-                                +"This impressive paella is a perfect party dish and a fun meal to cook together with your guests. Add 1 cup of frozen peas along with the mussels, if you like."
-                            }
-                            mTypography(variant = MTypographyVariant.Body2) {
                                 +"This impressive paella is a perfect party dish and a fun meal to cook together with your guests. Add 1 cup of frozen peas along with the mussels, if you like."
                             }
                         }
@@ -88,6 +55,83 @@ class TestCards : RComponent<RProps, RState>() {
                                     +"Heat 1/2 cup of the broth in a pot until simmering, add saffron and set aside for 10 minutes."
                                 }
                             }
+                        }
+                    }
+                }
+                mGridItem(md = MGridSize.Cells6, xs = MGridSize.Cells12) {
+                    mCard {
+                        mCardActionArea(onClick = { window.alert("You clicked the action area.") }) {
+                            mCardMedia(image = "/static/images/cards/contemplative-reptile.jpg",
+                                    title = "Contemplative Reptile") {
+                                css { height = 140.px }
+                            }
+                            mCardContent {
+                                mTypography("Lizard", gutterBottom = true, variant = MTypographyVariant.HeadLine, component = "h2")
+                                mTypography("Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging\n" +
+                                        "            across all continents except Antarctica", component = "p")
+                            }
+                        }
+                        mCardActions {
+                            mButton("Share", true, size = MButtonSize.Small)
+                            mButton("Learn More", true, size = MButtonSize.Small)
+                        }
+                    }
+                }
+                mGridItem(md = MGridSize.Cells6, xs = MGridSize.Cells12) {
+                    mCard {
+                        mCardHeader(title = "Expand for more info",
+                                action = mIconButton("expand_more",
+                                        onClick = { setState { leftExpanded = !leftExpanded; count++ }},
+                                        addAsChild = false) {
+                                    css {
+                                        if (leftExpanded) transform.rotate(180.deg)
+                                        else transform.rotate(0.deg)
+
+                                        transition(::transform, 500.ms, Timing.easeInOut)
+                                    }
+                                }
+                        )
+                        mCollapse(show = leftExpanded) {
+                            mCardContent {
+                                mTypography(paragraph = true) {
+                                    +("As well as being a card demo, this is shows use of the Grid component. Resize" +
+                                            "the window to see the responsive positioning of the items")
+                                }
+                            }
+                        }
+                    }
+                }
+                mGridItem(md = MGridSize.Cells6, xs = MGridSize.Cells12) {
+                    mCard {
+                        css { display = Display.flex }
+                        styledDiv {
+                            css {
+                                display = Display.flex
+                                flexDirection = FlexDirection.column
+                                flexGrow = 1.0
+                            }
+                            mCardContent {
+                                css { flex(1.0, 0.0, FlexBasis.auto) }
+                                mTypography("Live From Space", variant = MTypographyVariant.HeadLine)
+                                mTypography("Mac Miller", variant = MTypographyVariant.Subheading, color = MTypographyColor.TextSecondary)
+                            }
+                            styledDiv {
+                                css {
+                                    display = Display.flex
+                                    alignItems = Align.center
+                                    paddingLeft = 1.spacingUnits
+                                    paddingBottom = 1.spacingUnits
+                                }
+                                mIconButton("skip_previous")
+
+                                // Demo was using an svg icon, so could easily change the size...we will keep it the same for now
+                                mIconButton("play_arrow")
+
+                                mIconButton("skip_next")
+                            }
+                        }
+                        mCardMedia("/static/images/cards/live-from-space.jpg", "Live from space album cover") {
+                            css { css { height = 151.px; width = 151.px } }
                         }
                     }
                 }

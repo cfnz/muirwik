@@ -40,6 +40,7 @@ enum class MTypographyVariant {
 interface MTypographyProps : StyledProps {
     var align: String
     var color: String
+    var component: String
     var gutterBottom: Boolean
     var noWrap: Boolean
     var paragraph: Boolean
@@ -54,11 +55,13 @@ fun RBuilder.mTypography(
         gutterBottom: Boolean = false,
         noWrap: Boolean = false,
         paragraph: Boolean = false,
+        component: String? = null,
 
         className: String? = null,
         handler: StyledHandler<MTypographyProps>? = null) = createStyled(typographyComponent) {
     attrs.align = align.toString()
     attrs.color = color.toString()
+    component?.let { attrs.component = it }
     attrs.gutterBottom = gutterBottom
     attrs.noWrap = noWrap
     attrs.paragraph = paragraph

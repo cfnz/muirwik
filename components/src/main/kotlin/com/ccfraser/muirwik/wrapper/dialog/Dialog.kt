@@ -18,7 +18,15 @@ private val dialogComponent: RComponent<MDialogProps, RState> = dialogModule.def
 
 @Suppress("EnumEntryName")
 enum class DialogMaxWidth {
-    xs, sm, md, Disable;
+    xs, sm, md, lg, Disable;
+
+    override fun toString(): String {
+        return super.toString().toLowerCase()
+    }
+}
+
+enum class DialogScroll {
+    Paper, Body;
 
     override fun toString(): String {
         return super.toString().toLowerCase()
@@ -73,6 +81,8 @@ interface MDialogProps : MModalProps {
 
     @JsName("TransitionProps")
     var transitionProps: RProps
+
+    var scroll: String
 }
 
 /**
@@ -106,6 +116,8 @@ fun RBuilder.mDialog(
         onExiting: SimpleEvent? = null,
 
         paperProps: MPaperProps? = null,
+
+        scroll: DialogScroll = DialogScroll.Paper,
 
         transitionComponent: KClass<out RComponent<MTransitionProps, RState>>? = null,
         // Can't seem to get the transitionDuration working, but you can use the transitionProps, e.g.
@@ -142,6 +154,7 @@ fun RBuilder.mDialog(
     onExited?.let { attrs.onExited = it }
     onExiting?.let { attrs.onExiting = it }
     paperProps?.let { attrs.paperProps = it }
+    attrs.scroll = scroll.toString()
     transitionComponent?.let { attrs.transitionComponent = it.js }
 //    transitionDuration?.let { attrs.transitionDuration = it }
     transitionProps?.let { attrs.transitionProps = it }

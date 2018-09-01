@@ -233,7 +233,6 @@ class TestDrawers : RComponent<RProps, TestOptionControls.MyTestState>() {
 
         fun responsiveDrawer() {
             styledDiv {
-//                  attrs.jsStyle = js { width = "100%"; height = 430; overflow = "hidden"; position = "relative"; display = "flex" }
                 css {
                     flexGrow = 1.0
                     width = 100.pct
@@ -250,7 +249,6 @@ class TestDrawers : RComponent<RProps, TestOptionControls.MyTestState>() {
                         marginLeft = drawerWidth.px
                         media(currentTheme.breakpoints.up(Breakpoint.md)) {
                             width = 100.pct - drawerWidth.px
-//                            width: "calc(100% - ${drawerWidth}px)");
                         }
                     }
                     mToolbar {

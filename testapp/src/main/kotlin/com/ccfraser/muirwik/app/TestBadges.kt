@@ -68,7 +68,7 @@ class TestBadges : RComponent<RProps, RState>() {
             }
             mBadge("4", color = MBadgeColor.Primary) {
                 css(ComponentStyles.margin)
-                mButton("Button", variant = MButtonVariant.Raised)
+                mButton("Button", variant = MButtonVariant.Contained)
             }
         }
     }

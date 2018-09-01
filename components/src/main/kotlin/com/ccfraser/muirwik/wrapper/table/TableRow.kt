@@ -19,7 +19,6 @@ private val tableRowComponent: RComponent<MTableRowProps, RState> = tableRowModu
 interface MTableRowProps : MButtonBaseProps {
     var hover: Boolean
     var key: Any
-    var onClick: (Event) -> Unit
     var selected: Boolean
 
 }

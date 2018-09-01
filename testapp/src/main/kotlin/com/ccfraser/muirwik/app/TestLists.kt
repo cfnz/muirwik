@@ -17,9 +17,9 @@ import styled.css
 import styled.styledDiv
 
 class TestLists : RComponent<RProps, TestOptionControls.MyTestState>() {
-    var expanded: Boolean = false
-    var checked = Array(3, { false })
-
+    private var expanded: Boolean = false
+    private var checked = Array(3, { false })
+    private var selected = 0
 
     override fun RBuilder.render() {
         // For building things that we don't want to render now (e.g. the component will render it later), we need another builder
@@ -56,8 +56,10 @@ class TestLists : RComponent<RProps, TestOptionControls.MyTestState>() {
                         mListItemText(primary = builder2.span { +"Spam" })
                     }
                     mListItem("Using shorter mListItem", null, "star")
-                    mListItem("My Simple Two", null, "alarm")
-                    mListItem("My Simple Three", "Some Data", "add_shopping_cart")
+                    mListItem("My Simple One Compact", null, "alarm", compact = true)
+                    mListItem("My Simple Two Compact", null, "alarm", compact = true)
+                    mListItem("My Simple Three", null, "alarm")
+                    mListItem("My Simple Four", "Some Data", "add_shopping_cart")
 
                     mListItem(button = true) {
                         mAvatar { mIcon("image") }
@@ -134,6 +136,20 @@ class TestLists : RComponent<RProps, TestOptionControls.MyTestState>() {
                 }
             }
         }
+        styledDiv {
+            css { display = Display.inlineFlex; padding(2.spacingUnits) }
+            mList {
+                css {
+                    width = 320.px
+                    backgroundColor = Color(currentTheme.palette.background.paper)
+                }
+                (0..4).forEach {i ->
+                    mListItem("Selectable Item $i", selected = (selected == i), key = i.toString(),
+                            onClick = { setState { selected = i }})
+                }
+            }
+        }
+
     }
 }
 

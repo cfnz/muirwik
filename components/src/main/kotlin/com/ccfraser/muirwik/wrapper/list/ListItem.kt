@@ -27,7 +27,7 @@ interface MListItemProps : MButtonBaseProps {
     var disableGutters: Boolean
     var divider: Boolean
     var href: String?
-    var onClick: ((Event) -> Unit)?
+    var selected: Boolean
 
     // TODO: should this have a value?
 }
@@ -40,27 +40,25 @@ interface MListItemProps : MButtonBaseProps {
  * form.
  *
  * However, we found that if you don't use an avatar, your list item would actually turn out bigger than using an
- * mListItemAvatar... so, if you set compact to be true and do not use an avatar, we override the usuall padding (which
+ * mListItemAvatar... so, if you set compact to be true and do not use an avatar, we override the usual padding (which
  * seems to be 1.5 spacing units) and make it just 1 spacing unit as defined by the theme.
  *
- * The default for compact is true if there is secondary text or an icon (i.e. things that make it already a bit higher)
- * and false otherwise.
- *
- * Note this is not the same as dense which also makes the font smaller.
+ * Note that compact is is not the same as dense which also makes the font smaller.
  */
 fun RBuilder.mListItem(
         primaryText: String,
         secondaryText: String? = null,
         iconName: String? = null,
+        selected: Boolean = false,
         key: String? = null,
         href: String? = null,
         divider: Boolean = true,
-        compact: Boolean = secondaryText != null || iconName != null,
+        compact: Boolean = false,
         useAvatar: Boolean = false,
         onClick: ((Event) -> Unit)? = null,
         className: String? = null,
         handler: StyledHandler<MListItemProps>? = null): ReactElement {
-    val e = mListItem(button = true, divider = divider, key = key, href = href,
+    val e = mListItem(button = true, divider = divider, key = key, selected = selected, href = href,
             onClick = onClick, className = className) {
 
         if (!useAvatar && compact) {
@@ -97,6 +95,7 @@ fun RBuilder.mListItem(
         button: Boolean = false,
         component: String? = null,
         containerComponent: String = "li",
+        selected: Boolean = false,
         key: String? = null,
         containerProps: RProps? = null,
         dense: Boolean = false,
@@ -116,7 +115,9 @@ fun RBuilder.mListItem(
     attrs.divider = divider
     href?.let { attrs.href = href }
     onClick?.let { attrs.onClick = onClick }
+    attrs.selected = selected
     key?.let { attrs.key = key }
+    attrs.selected = selected
 
     setStyledPropsAndRunHandler(className, handler)
 }

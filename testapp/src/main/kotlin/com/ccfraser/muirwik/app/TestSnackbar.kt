@@ -104,7 +104,7 @@ class TestSnackbar : RComponent<RProps, RState>() {
                     autoHideDuration = 4000,
                     onClose = { handleClose() },
                     action = altBuilder.div {
-                        mButton("UNDO", color = MColor.Secondary, variant = MButtonVariant.Flat, size = MButtonSize.Small, onClick = { handleClose() })
+                        mButton("UNDO", color = MColor.Secondary, variant = MButtonVariant.Text, size = MButtonSize.Small, onClick = { handleClose() })
                         mIconButton("close", onClick = { handleClose() } , color = MColor.Inherit)
                     }
             )
@@ -113,7 +113,7 @@ class TestSnackbar : RComponent<RProps, RState>() {
                     autoHideDuration = 4000,
                     onClose = { handleClose() },
                     action = altBuilder.div {
-                        mButton("UNDO", color = MColor.Secondary, variant = MButtonVariant.Flat, size = MButtonSize.Small, onClick = { handleClose() })
+                        mButton("UNDO", color = MColor.Secondary, variant = MButtonVariant.Text, size = MButtonSize.Small, onClick = { handleClose() })
                         mIconButton("close", onClick = { handleClose() } , color = MColor.Inherit)
                     }
             )
@@ -122,13 +122,13 @@ class TestSnackbar : RComponent<RProps, RState>() {
                     autoHideDuration = 4000,
                     onClose = { handleClose() },
                     action = altBuilder.div {
-                        mButton("UNDO", color = MColor.Secondary, variant = MButtonVariant.Flat, size = MButtonSize.Small, onClick = { handleClose() })
+                        mButton("UNDO", color = MColor.Secondary, variant = MButtonVariant.Text, size = MButtonSize.Small, onClick = { handleClose() })
                         mIconButton("close", onClick = { handleClose() } , color = MColor.Inherit)
                     }
             )
 
             mSnackbar("Transitioned by Sliding...", altBuilder.div {
-                mButton("UNDO", color = MColor.Secondary, variant = MButtonVariant.Flat, size = MButtonSize.Small, onClick = { handleClose() })
+                mButton("UNDO", color = MColor.Secondary, variant = MButtonVariant.Text, size = MButtonSize.Small, onClick = { handleClose() })
                 mIconButton("close", onClick = { handleClose() } , color = MColor.Inherit)
             },
                     open = transition1SnackbarOpen,
@@ -136,7 +136,7 @@ class TestSnackbar : RComponent<RProps, RState>() {
             )
 
             mSnackbar("Transitioned by Fade...", altBuilder.div {
-                mButton("UNDO", color = MColor.Secondary, variant = MButtonVariant.Flat, size = MButtonSize.Small, onClick = { handleClose() })
+                mButton("UNDO", color = MColor.Secondary, variant = MButtonVariant.Text, size = MButtonSize.Small, onClick = { handleClose() })
                 mIconButton("close", onClick = { handleClose() } , color = MColor.Inherit)
             },
                     open = transition2SnackbarOpen,

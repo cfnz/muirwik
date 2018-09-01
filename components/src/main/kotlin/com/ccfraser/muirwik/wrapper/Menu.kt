@@ -5,6 +5,7 @@ import com.ccfraser.muirwik.wrapper.list.mListItemAvatar
 import com.ccfraser.muirwik.wrapper.list.mListItemIcon
 import com.ccfraser.muirwik.wrapper.list.mListItemText
 import com.ccfraser.muirwik.wrapper.transitions.MTransitionProps
+import com.ccfraser.muirwik.wrapper.transitions.TransitionTimeout
 import org.w3c.dom.Node
 import org.w3c.dom.events.Event
 import react.*
@@ -39,7 +40,7 @@ external interface MMenuProps : StyledProps {
 
     @JsName("TransitionComponent")
     var transitionComponent: dynamic
-//    var transitionDuration: uni
+    var transitionDuration: dynamic
     var value: Any
 }
 
@@ -57,7 +58,7 @@ fun RBuilder.mMenu(
         popoverClasses: String? = null,
 //        transitionComponent: KClass<out RComponent<RProps, RState>>? = null,
         transitionComponent: KClass<out RComponent<MTransitionProps, RState>>? = null,
-        //    var transitionDuration: uni
+        transitionDuration: TransitionTimeout? = null,
 
         className: String? = null,
         handler: StyledHandler<MMenuProps>) = createStyled(menuComponent) {
@@ -73,7 +74,7 @@ fun RBuilder.mMenu(
     attrs.open = open
     popoverClasses?.let { attrs.popoverClasses = popoverClasses }
     transitionComponent?.let { attrs.transitionComponent = transitionComponent.js }
-//    var transitionDuration: uni
+    transitionDuration?.let { attrs.transitionDuration = it.value() }
 
     setStyledPropsAndRunHandler(className, handler)
 }
@@ -86,7 +87,8 @@ private external val menuItemModule: dynamic
 private val menuItemComponent: RComponent<MMenuItemProps, RState> = menuItemModule.default
 
 interface MMenuItemProps : MListItemProps {
-    var selected: Boolean
+    // Selected has been moved to ListItemProps
+    // var selected: Boolean
 }
 
 /**
@@ -97,7 +99,7 @@ fun RBuilder.mMenuItem(
         primaryText: String,
         secondaryText: String? = null,
         iconName: String? = null,
-        selected: Boolean? = null,
+        selected: Boolean = false,
 //        value: Any? = null,
         key: String? = null,
         href: String? = null,
@@ -143,7 +145,7 @@ fun RBuilder.mMenuItem(
  * Includes the props from ListItem
  */
 fun RBuilder.mMenuItem(
-        selected: Boolean? = null,
+        selected: Boolean = false,
 //        value: Any? = null,
         button: Boolean = false,
         component: String? = null,
@@ -159,7 +161,6 @@ fun RBuilder.mMenuItem(
 
         className: String? = null,
         handler: StyledHandler<MMenuItemProps>? = null) = createStyled(menuItemComponent) {
-    selected?.let { attrs.selected = it }
     attrs.button = button
     component?.let { attrs.component = it }
     attrs.containerComponent = containerComponent
@@ -170,6 +171,7 @@ fun RBuilder.mMenuItem(
     href?.let { attrs.href = it }
     onClick?.let { attrs.onClick = it }
     key?.let { attrs.key = it }
+    attrs.selected = selected
 
     setStyledPropsAndRunHandler(className, handler)
 }

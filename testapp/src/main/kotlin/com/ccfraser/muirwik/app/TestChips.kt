@@ -3,17 +3,10 @@ package com.ccfraser.muirwik.app
 import com.ccfraser.muirwik.app.TestChips.CustomStyles.margin
 import com.ccfraser.muirwik.wrapper.*
 import kotlinx.css.*
-import kotlinx.css.properties.BoxShadow
-import kotlinx.html.js.onClickFunction
-import kotlinx.html.js.onMouseMoveFunction
 import react.*
-import react.dom.br
-import react.dom.button
-import react.dom.span
 import styled.StyleSheet
 import styled.css
 import styled.styledDiv
-import styled.styledSpan
 import kotlin.browser.window
 
 
@@ -62,6 +55,15 @@ class TestChips : RComponent<RProps, RState>() {
                     deleteIcon = mIcon("done", addAsChild = false)) {
                 css(margin)
             }
+            mChip("Primary Color Chip", color = MChipColor.Primary, onClick = { handleClick() }, onDelete = { handleDelete() }) {
+                css(margin)
+            }
+            mChip("Secondary Color Chip", color = MChipColor.Secondary, onClick = { handleClick() }, onDelete = { handleDelete() }) {
+                css(margin)
+            }
+            mChip("Primary Outline Chip", color = MChipColor.Primary, variant = MChipVariant.Outlined, onClick = { handleClick() }, onDelete = { handleDelete() }) {
+                css(margin)
+            }
         }
 
         mTypography("Chip Array Example") {
@@ -72,7 +74,7 @@ class TestChips : RComponent<RProps, RState>() {
             css { display = Display.flex; justifyContent = JustifyContent.center; flexWrap = FlexWrap.wrap; padding(2.spacingUnits) }
 
             chipData.forEach { entry ->
-                mChip(entry.value.asDynamic(), key = entry.key,
+                mChip(entry.value, key = entry.key,
                         avatar = if (entry.value == "React" || entry.value == "Kotlin") (mAvatar(addAsChild = false, handler = { mIcon("tag_faces")})) else null,
                         onDelete = {
                             if (entry.value == "React" || entry.value == "Kotlin") {

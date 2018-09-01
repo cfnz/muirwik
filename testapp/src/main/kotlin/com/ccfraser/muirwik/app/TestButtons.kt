@@ -39,10 +39,10 @@ class TestButtons : RComponent<RProps, RState>() {
     }
 
     // Since we are creating 3 sets of buttons almost the same, we will put them into a function
-    private fun RBuilder.buttonSet(heading: String, variant: MButtonVariant = MButtonVariant.Flat, margin: Boolean = false) {
+    private fun RBuilder.buttonSet(heading: String, variant: MButtonVariant = MButtonVariant.Text, margin: Boolean = false) {
         styledDiv {
             mTypography(heading)
-            mButton("Default1", variant = variant) {
+            mButton("Default", variant = variant) {
                 if (margin) css(buttonMargin)
             }
             mButton("Primary", true, variant = variant) {
@@ -76,11 +76,11 @@ class TestButtons : RComponent<RProps, RState>() {
     }
 
     override fun RBuilder.render() {
-        buttonSet("Standard (Flat) buttons")
+        buttonSet("Standard (Text) buttons")
         br { }
         buttonSet("Outlined buttons", MButtonVariant.Outlined, true)
         br { }
-        buttonSet("Raised buttons", MButtonVariant.Raised, true)
+        buttonSet("Contained buttons", MButtonVariant.Contained, true)
         br { }
         styledDiv {
             mTypography("Icon buttons")
@@ -92,9 +92,11 @@ class TestButtons : RComponent<RProps, RState>() {
         br { }
         styledDiv {
             mTypography("FABs")
-            mButtonFab("add", true)
-            styledSpan { css {paddingLeft = 2.spacingUnits}}
-            mButtonFab("edit-icon", color = MColor.Secondary)
+            mButtonFab("add", true) { css(buttonMargin) }
+            mButtonFab("edit-icon", color = MColor.Secondary) { css(buttonMargin) }
+            mButtonFab("navigation-icon", disabled = true) { css(buttonMargin) }
+            mButtonFab("navigation-icon", "Extended", color = MColor.Secondary) { css(buttonMargin) }
+            mButtonFab("add", mini = true, color = MColor.Secondary) { css(buttonMargin) }
         }
         br { }
         styledDiv {
@@ -112,9 +114,9 @@ class TestButtons : RComponent<RProps, RState>() {
                 attrs.asDynamic().onDoubleClick = { console.log("A Double Click?") }
                 attrs.asDynamic().onMouseMove = { handleMouseMove() }
             }
-            mButton("Raised", variant = MButtonVariant.Raised) { css(buttonMargin) }
-            mButton("Primary", primary = true, variant = MButtonVariant.Raised) { css(buttonMargin) }
-            mButton("Secondary with HRef", color = MColor.Secondary, href = "http://www.ptsonline.com", variant = MButtonVariant.Raised) { css(buttonMargin) }
+            mButton("Contained", variant = MButtonVariant.Contained) { css(buttonMargin) }
+            mButton("Primary", primary = true, variant = MButtonVariant.Contained) { css(buttonMargin) }
+            mButton("Secondary with HRef", color = MColor.Secondary, href = "http://www.ptsonline.com", variant = MButtonVariant.Contained) { css(buttonMargin) }
             mButton("Styled Button") {
                 css {
                     background = "linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)"
@@ -127,7 +129,7 @@ class TestButtons : RComponent<RProps, RState>() {
                     margin(1.spacingUnits)
                 }
             }
-            mButton("Icon", primary = true, variant = MButtonVariant.Raised) {
+            mButton("Icon", primary = true, variant = MButtonVariant.Contained) {
                 css(buttonMargin)
                 mIcon("send", color = MIconColor.Inherit) {
                     css { marginLeft = 1.em }

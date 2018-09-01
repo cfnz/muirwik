@@ -38,6 +38,7 @@ class MainFrame() : RComponent<MainFrameProps, MyState>() {
         "Dialogs" to RBuilder::testDialogs,
         "Drawers" to RBuilder::testDrawers,
         //                            "Gridsto RBuilder::> testGrids,
+        "Grid Lists" to RBuilder::testGridLists,
         "Lists" to RBuilder::testLists,
         "Menus" to RBuilder::testMenus,
         "Options" to RBuilder::testOptionControls,

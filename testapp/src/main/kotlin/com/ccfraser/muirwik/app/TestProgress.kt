@@ -131,7 +131,7 @@ class TestProgress : RComponent<RProps, RState>() {
             }
             styledDiv {
                 css(wrapper)
-                mButton("Accept terms", true, disabled = loading, variant = MButtonVariant.Raised, onClick = { onClick() }) {
+                mButton("Accept terms", true, disabled = loading, variant = MButtonVariant.Contained, onClick = { onClick() }) {
                     if (success) {
                         css(buttonSuccess)
                     }

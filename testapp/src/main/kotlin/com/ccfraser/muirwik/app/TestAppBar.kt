@@ -16,6 +16,8 @@ class TestAppBar : RComponent<RProps, RState>() {
 
     override fun RBuilder.render() {
 
+        mTypography("This demo also shows the Toolbar component")
+
         styledDiv {
             css { maxWidth = 800.px }
 
@@ -34,7 +36,7 @@ class TestAppBar : RComponent<RProps, RState>() {
 
                 mAppBar(position = MAppBarPosition.Static) {
                     mToolbar {
-                        mIconButton("menu", color = MColor.Inherit)
+                        mIconButton("menu", color = MColor.Inherit) { css { marginLeft = -12.px; marginRight = 20.px }}
                         mTypography("Title", variant = MTypographyVariant.Title, color = MTypographyColor.Inherit) {
                             css { flexGrow = 1.0 }
                         }
@@ -53,7 +55,7 @@ class TestAppBar : RComponent<RProps, RState>() {
 
                 mAppBar(position = MAppBarPosition.Static) {
                     mToolbar {
-                        mIconButton("menu", color = MColor.Inherit)
+                        mIconButton("menu", color = MColor.Inherit) { css { marginLeft = -12.px; marginRight = 20.px }}
                         mToolbarTitle("Toolbar Title One Liner")
                         if (loggedIn) {
                             mIconButton ("account_circle", color = MColor.Inherit )
@@ -61,6 +63,42 @@ class TestAppBar : RComponent<RProps, RState>() {
                         } else {
                             mButton("Login", color = MColor.Inherit)
                         }
+                    }
+                }
+            }
+
+            styledDiv {
+                css { flexGrow = 1.0; padding(2.spacingUnits) }
+
+                mAppBar(position = MAppBarPosition.Static) {
+                    mToolbar(disableGutters = true) {
+                        mIconButton("menu", color = MColor.Inherit)
+                        mToolbarTitle("Toolbar No Gutters")
+                        mIconButton ("account_circle", color = MColor.Inherit )
+                    }
+                }
+            }
+
+            styledDiv {
+                css { flexGrow = 1.0; padding(2.spacingUnits) }
+
+                mAppBar(position = MAppBarPosition.Static) {
+                    mToolbar(variant = ToolbarVariant.Dense) {
+                        mIconButton("menu", color = MColor.Inherit) { css { marginLeft = -12.px; marginRight = 20.px }}
+                        mToolbarTitle("Toolbar Dense (for Desktop use)")
+                        mIconButton ("account_circle", color = MColor.Inherit )
+                    }
+                }
+            }
+
+            styledDiv {
+                css { flexGrow = 1.0; padding(2.spacingUnits) }
+
+                mAppBar(position = MAppBarPosition.Static) {
+                    mToolbar(variant = ToolbarVariant.Dense, disableGutters = true) {
+                        mIconButton("menu", color = MColor.Inherit)
+                        mToolbarTitle("Toolbar Dense and no gutters")
+                        mButton("Login", color = MColor.Inherit)
                     }
                 }
             }

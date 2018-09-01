@@ -6,6 +6,7 @@ import org.w3c.dom.events.Event
 import react.RBuilder
 import react.RComponent
 import react.RState
+import react.ReactElement
 import styled.StyledHandler
 import styled.StyledProps
 
@@ -19,6 +20,10 @@ private val tableSortLabelComponent: RComponent<MTableSortLabelProps, RState> = 
 interface MTableSortLabelProps : StyledProps {
     var active: Boolean
     var direction: String
+
+    @JsName("IconComponent")
+    var iconFunction: (() -> ReactElement)?
+
     var onClick: (Event) -> Unit
 }
 
@@ -34,11 +39,12 @@ fun RBuilder.mTableSortLabel(
         active: Boolean = false,
         direction: MTableSortLabelDirection = MTableSortLabelDirection.Desc,
         onClick: ((event: Event) -> Unit)? = null,
-
+        iconFunction: (() -> ReactElement)? = null,
         className: String? = null,
         handler: StyledHandler<MTableSortLabelProps>? = null) = createStyled(tableSortLabelComponent) {
     attrs.active = active
     attrs.direction = direction.toString()
+    iconFunction?.let { attrs.iconFunction = iconFunction }
     onClick?.let { attrs.onClick = onClick }
 
     setStyledPropsAndRunHandler(className, handler)
@@ -49,11 +55,13 @@ fun RBuilder.mTableSortLabel(
         active: Boolean = false,
         direction: MTableSortLabelDirection = MTableSortLabelDirection.Desc,
         onClick: ((event: Event) -> Unit)? = null,
+        iconFunction: (() -> ReactElement)? = null,
 
         className: String? = null,
         handler: StyledHandler<MTableSortLabelProps>? = null) = createStyled(tableSortLabelComponent) {
     attrs.active = active
     attrs.direction = direction.toString()
+    iconFunction?.let { attrs.iconFunction = iconFunction }
     onClick?.let { attrs.onClick = onClick }
 
     childList.add(label)

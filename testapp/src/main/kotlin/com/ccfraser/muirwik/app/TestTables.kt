@@ -225,6 +225,7 @@ class TestTables : RComponent<RProps, RState>() {
                             sortDirection = if (orderByColumn == data.name) order else MTableCellSortDirection.False) {
                         mTooltip("Sort", if (data.rightAligned) TooltipPlacement.BottomEnd else TooltipPlacement.BottomStart, enterDelay = 300) {
                             mTableSortLabel(data.label, orderByColumn == data.name,
+//                                    iconFunction = { mIcon("star", addAsChild = false) },
                                     direction = if (order == MTableCellSortDirection.Asc) MTableSortLabelDirection.Asc else MTableSortLabelDirection.Desc,
                                     onClick = { onRequestSort(data.name) }) 
                         }

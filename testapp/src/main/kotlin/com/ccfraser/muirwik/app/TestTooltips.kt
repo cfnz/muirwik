@@ -18,13 +18,13 @@ class TestTooltips : RComponent<RProps, RState>() {
             css { height = 100.px }
             mTypography {+"Simple Tooltips"}
             mTooltip("Delete", id = "tooltip-icon") {
-                mIconButton("delete")
+                mIconButton("delete") { css { marginRight = 2.spacingUnits }}
             }
             mTooltip("Add", id = "tooltip-fab") {
-                mButtonFab("add", primary = true)
+                mButtonFab("add", primary = true) { css { marginRight = 2.spacingUnits }}
             }
             mTooltip("No Delay", id = "tooltip-icon", enterDelay = 0) {
-                mButton("No Delay")
+                mButton("No Delay") { css { marginRight = 2.spacingUnits }}
             }
             mTooltip("Long Delay", id = "tooltip-icon", enterDelay = 750) {
                 mButton("Long Delay")

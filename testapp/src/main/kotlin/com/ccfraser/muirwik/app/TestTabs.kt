@@ -81,13 +81,13 @@ class TestTabs : RComponent<RProps, RState>() {
             mAppBar(position = MAppBarPosition.Static, color = MColor.Default) {
                 mTabs(tab2Value, scrollable = true, textColor = MTabTextColor.Primary, indicatorColor = MTabIndicatorColor.Primary,
                         onChange = { _, value -> setState { tab2Value = value }}) {
-                    mTab("Item One", icon = mIcon("phone", addAsChild = false))
-                    mTab("Item Two", icon = mIcon("favorite", addAsChild = false))
-                    mTab("Item Three", icon = mIcon("person_pin", addAsChild = false))
-                    mTab("Item Four", icon = mIcon("help", addAsChild = false))
-                    mTab("Item Five", icon = mIcon("shopping_basket", addAsChild = false))
-                    mTab("Item Six", icon = mIcon("thumb_down", addAsChild = false))
-                    mTab("Item Seven", icon = mIcon("thumb_up", addAsChild = false))
+                    mTab("Item One", 0, icon = mIcon("phone", addAsChild = false))
+                    mTab("Item Two", 1, icon = mIcon("favorite", addAsChild = false))
+                    mTab("Item Three", 2, icon = mIcon("person_pin", addAsChild = false))
+                    mTab("Item Four", 3, icon = mIcon("help", addAsChild = false))
+                    mTab("Item Five", 4, icon = mIcon("shopping_basket", addAsChild = false))
+                    mTab("Item Six", 5, icon = mIcon("thumb_down", addAsChild = false))
+                    mTab("Item Seven", 6, icon = mIcon("thumb_up", addAsChild = false))
                 }
             }
             when (tab2Value) {

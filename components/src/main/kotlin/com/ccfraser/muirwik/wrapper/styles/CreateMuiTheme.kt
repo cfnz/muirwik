@@ -1,30 +1,36 @@
 package com.ccfraser.muirwik.wrapper.styles
 
+import react.RProps
+
 /**
  * ts2kt types with tweaks from material-ui/styles/createMuiTheme
  */
 external interface ThemeOptions {
-    var direction: dynamic /* String /* "ltr" */ | String /* "rtl" */ */ get() = definedExternally; set(value) = definedExternally
-    var palette: PaletteOptions? get() = definedExternally; set(value) = definedExternally
-    var typography: dynamic /* TypographyOptions | (palette: Palette) -> TypographyOptions */ get() = definedExternally; set(value) = definedExternally
-    var mixins: dynamic
+    var shape: ShapeOptions
     var breakpoints: Breakpoints
-    var shadows: dynamic
-    var transitions: TransitionsOptions? get() = definedExternally; set(value) = definedExternally
-    var spacing: dynamic
-    var zIndex: dynamic
+    var direction: dynamic /* String /* "ltr" */ | String /* "rtl" */ */ get() = definedExternally; set(value) = definedExternally
+    var mixins: dynamic
     var overrides: dynamic
+    var palette: PaletteOptions? get() = definedExternally; set(value) = definedExternally
+    var props: RProps
+    var shadows: dynamic
+    var spacing: dynamic
+    var transitions: TransitionsOptions? get() = definedExternally; set(value) = definedExternally
+    var typography: dynamic /* TypographyOptions | (palette: Palette) -> TypographyOptions */ get() = definedExternally; set(value) = definedExternally
+    var zIndex: dynamic
 }
 
 external interface Theme {
-    var direction: dynamic /* String /* "ltr" */ | String /* "rtl" */ */
-    var palette: Palette
-    var typography: Typography
-    var mixins: Mixins
+    var shape: ShapeOptions
     var breakpoints: Breakpoints
-    var shadows: dynamic
-    var transitions: Transitions
-    var spacing: Spacing
-    var zIndex: ZIndex
+    var direction: dynamic /* String /* "ltr" */ | String /* "rtl" */ */
+    var mixins: Mixins
     var overrides: dynamic
+    var palette: Palette
+    var props: RProps
+    var shadows: dynamic
+    var spacing: Spacing
+    var transitions: Transitions
+    var typography: Typography
+    var zIndex: ZIndex
 }

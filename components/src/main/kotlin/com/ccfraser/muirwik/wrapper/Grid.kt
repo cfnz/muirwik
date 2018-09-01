@@ -46,10 +46,10 @@ enum class MGridJustify {
     }
 }
 
-enum class MGridSize(val size: Int) {
-    Auto(0), Cells1(1), Cells2(2), Cells3(3), Cells4(4),
-    Cells5(5), Cells6(6), Cells7(7), Cells8(8),
-    Cells9(9), Cells10(10), Cells11(11), Cells12(12);
+enum class MGridSize(internal val sizeVal: Any) {
+    False(false), Auto("auto"), True(true), Cells1(1), Cells2(2),
+    Cells3(3), Cells4(4), Cells5(5), Cells6(6), Cells7(7),
+    Cells8(8), Cells9(9), Cells10(10), Cells11(11), Cells12(12);
 }
 
 enum class MGridWrap {
@@ -79,6 +79,11 @@ interface MGridProps : StyledProps {
     var zeroMinWidth: Boolean
 }
 
+/**
+ * The material design components allows a grid item to be a container and an item. We have simplified things here
+ * since different properties apply depending on if it is a container or an item. So, if you want both, you will have
+ * to add an extra child item.
+ */
 fun RBuilder.mGridContainer(
         spacing: MGridSpacing = MGridSpacing.Spacing16,
         alignContent: MGridAlignContent = MGridAlignContent.Stretch,
@@ -102,17 +107,17 @@ fun RBuilder.mGridItem(
         md: MGridSize = MGridSize.Auto,
         lg: MGridSize = MGridSize.Auto,
         xl: MGridSize = MGridSize.Auto,
-        zeroMinWidth: Boolean = false,
+        zeroMinWidth: Boolean? = null,
 
         className: String? = null,
         handler: RHandler<MGridProps>? = null) = createStyled(gridComponent) {
     attrs.item = true
-    attrs.sm = if (sm == MGridSize.Auto) true else sm.size
-    attrs.md = if (md == MGridSize.Auto) true else md.size
-    attrs.lg = if (lg == MGridSize.Auto) true else lg.size
-    attrs.xs = if (xs == MGridSize.Auto) true else xs.size
-    attrs.xl = if (xl == MGridSize.Auto) true else xl.size
-    attrs.zeroMinWidth = zeroMinWidth
+    attrs.sm = sm.sizeVal
+    attrs.md = md.sizeVal
+    attrs.lg = lg.sizeVal
+    attrs.xs = xs.sizeVal
+    attrs.xl = xl.sizeVal
+    zeroMinWidth?.let { attrs.zeroMinWidth = it }
 
     setStyledPropsAndRunHandler(className, handler)
 }

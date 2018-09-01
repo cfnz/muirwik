@@ -15,16 +15,27 @@ private external val toolbarModule: dynamic
 @Suppress("UnsafeCastFromDynamic")
 private val toolbarComponent: RComponent<MToolbarProps, RState> = toolbarModule.default
 
+enum class ToolbarVariant {
+    Regular, Dense;
+
+    override fun toString(): String {
+        return super.toString().toLowerCase()
+    }
+}
+
 interface MToolbarProps : StyledProps {
     var disableGutters: Boolean
+    var variant: String
 }
 
 fun RBuilder.mToolbar(
         disableGutters: Boolean = false,
+        variant: ToolbarVariant = ToolbarVariant.Regular,
 
         className: String? = null,
         handler: StyledHandler<MToolbarProps>? = null) = createStyled(toolbarComponent) {
     attrs.disableGutters = disableGutters
+    attrs.variant = variant.toString()
 
     setStyledPropsAndRunHandler(className, handler)
 }
