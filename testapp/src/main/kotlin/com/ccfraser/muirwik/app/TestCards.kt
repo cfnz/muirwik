@@ -71,14 +71,14 @@ class TestCards : RComponent<RProps, RState>() {
                                 css { height = 140.px }
                             }
                             mCardContent {
-                                mTypography("Lizard", gutterBottom = true, variant = MTypographyVariant.HeadLine, component = "h2")
+                                mTypography("Lizard", gutterBottom = true, variant = MTypographyVariant.headline, component = "h2")
                                 mTypography("Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging\n" +
                                         "            across all continents except Antarctica", component = "p")
                             }
                         }
                         mCardActions {
-                            mButton("Share", true, size = MButtonSize.Small)
-                            mButton("Learn More", true, size = MButtonSize.Small)
+                            mButton("Share", true, size = MButtonSize.small)
+                            mButton("Learn More", true, size = MButtonSize.small)
                         }
                     }
                 }
@@ -117,8 +117,8 @@ class TestCards : RComponent<RProps, RState>() {
                             }
                             mCardContent {
                                 css { flex(1.0, 0.0, FlexBasis.auto) }
-                                mTypography("Live From Space", variant = MTypographyVariant.HeadLine)
-                                mTypography("Mac Miller", variant = MTypographyVariant.Subheading, color = MTypographyColor.TextSecondary)
+                                mTypography("Live From Space", variant = MTypographyVariant.headline)
+                                mTypography("Mac Miller", variant = MTypographyVariant.subheading, color = MTypographyColor.textSecondary)
                             }
                             styledDiv {
                                 css {

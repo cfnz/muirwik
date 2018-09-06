@@ -7,7 +7,9 @@ import com.ccfraser.muirwik.wrapper.list.mList
 import com.ccfraser.muirwik.wrapper.list.mListItem
 import com.ccfraser.muirwik.wrapper.list.mListItemAvatar
 import com.ccfraser.muirwik.wrapper.list.mListItemText
-import com.ccfraser.muirwik.wrapper.transitions.*
+import com.ccfraser.muirwik.wrapper.transitions.MTransitionProps
+import com.ccfraser.muirwik.wrapper.transitions.SlideTransitionDirection
+import com.ccfraser.muirwik.wrapper.transitions.mSlide
 import kotlinext.js.jsObject
 import kotlinx.css.Position
 import kotlinx.html.InputType
@@ -60,21 +62,21 @@ class TestDialogs : RComponent<RProps, TestOptionControls.MyTestState>() {
 
 
             // This works but with a warning in the console
-//            val e2 = React.cloneElement(mSlide(direction = SlideTransitionDirection.Up, handler = {
+//            val e2 = React.cloneElement(mSlide(direction = SlideTransitionDirection.up, handler = {
 //                attrs.direction = "left"
 //            }), props )
 //            childList.add(e2)
 
 
             // Yay, this works with no warning... just have to use a different RBuilder or addAsChild = false!!
-//            childList.add(cloneElement(RBuilder().mSlide(direction = SlideTransitionDirection.Up, handler = {}), props))
-            childList.add(cloneElement(mSlide(direction = SlideTransitionDirection.Down, addAsChild = false), props))
+//            childList.add(cloneElement(RBuilder().mSlide(direction = SlideTransitionDirection.up, handler = {}), props))
+            childList.add(cloneElement(mSlide(direction = SlideTransitionDirection.down, addAsChild = false), props))
         }
     }
 
 //    class SlideUpTransitionComponent2(props: MTransitionProps) : RComponent<MTransitionProps, RState>(props) {
 //        override fun RBuilder.render() {
-//            childList.add(mSlide(props.show, direction = SlideTransitionDirection.Down, timeout = SimpleTransitionTimeout(3000), addAsChild = false) {
+//            childList.add(mSlide(props.show, direction = SlideTransitionDirection.down, timeout = SimpleTransitionTimeout(3000), addAsChild = false) {
 //                props.children()
 //            })
 //        }
@@ -83,10 +85,10 @@ class TestDialogs : RComponent<RProps, TestOptionControls.MyTestState>() {
 
     override fun RBuilder.render() {
         div {
-            mTypography(variant = MTypographyVariant.Subheading) {
+            mTypography(variant = MTypographyVariant.subheading) {
                 +"Selected Value: $selectedValue"
                 br {  }
-                mCheckboxInLabel("Slow the transition down a bit", checked = slow, onChange = { _, value -> setState { slow = value } })
+                mCheckboxInLabel("Slow the transition down a bit", id="t", checked = slow, onChange = { _, value -> setState { slow = value } })
                 br {  }
                 br {  }
                 +"Dialog Types:"
@@ -110,7 +112,7 @@ class TestDialogs : RComponent<RProps, TestOptionControls.MyTestState>() {
             simpleDialog(simpleDialogOpen)
             alertDialog(alertDialogOpen)
             confirmationDialog(confirmationDialogOpen)
-            confirmationDialog(confirmationDialogScrollOpen, DialogScroll.Body)
+            confirmationDialog(confirmationDialogScrollOpen, DialogScroll.body)
             fullScreenDialog(fullScreenDialogOpen)
             formDialog(formDialogOpen)
         }
@@ -162,7 +164,7 @@ class TestDialogs : RComponent<RProps, TestOptionControls.MyTestState>() {
         }
     }
 
-    private fun RBuilder.confirmationDialog(open: Boolean, scroll: DialogScroll = DialogScroll.Paper) {
+    private fun RBuilder.confirmationDialog(open: Boolean, scroll: DialogScroll = DialogScroll.paper) {
         val options = arrayOf("None", "Atria", "Callisto", "Dione", "Ganymede", "Hangouts Call", "Luna", "Oberon",
                 "Phobos", "Pyxis", "Sedna", "Titania", "Triton", "Umbriel")
 //        mDialog(disableBackdropClick = true, disableEscapeKeyDown = true, maxWidth = DialogMaxWidth.xs) {
@@ -178,11 +180,11 @@ class TestDialogs : RComponent<RProps, TestOptionControls.MyTestState>() {
                 }
             }
             mDialogActions {
-                mButton("Cancel", color = MColor.Primary, onClick = { setState {
+                mButton("Cancel", color = MColor.primary, onClick = { setState {
                     confirmationDialogOpen = false
                     confirmationDialogScrollOpen = false
                 }})
-                mButton("Ok", color = MColor.Primary, onClick = { setState {
+                mButton("Ok", color = MColor.primary, onClick = { setState {
                     confirmationDialogSelectedValue = confirmationDialogValue;
                     confirmationDialogOpen = false
                     confirmationDialogScrollOpen = false
@@ -201,9 +203,9 @@ class TestDialogs : RComponent<RProps, TestOptionControls.MyTestState>() {
                     position = Position.relative
                 }
                 mToolbar {
-                    mIconButton(iconName = "close", color = MColor.Inherit, iconColor = MIconColor.Inherit, onClick = { handleClose() })
+                    mIconButton(iconName = "close", color = MColor.inherit, iconColor = MIconColor.inherit, onClick = { handleClose() })
                     mToolbarTitle("Sound")
-                    mButton("save", variant = MButtonVariant.Text, color = MColor.Inherit, onClick = { handleClose() })
+                    mButton("save", variant = MButtonVariant.text, color = MColor.inherit, onClick = { handleClose() })
                 }
             }
             mListItem(primaryText = "Phone ringtone", secondaryText = "Titania", divider = true)
@@ -219,11 +221,11 @@ class TestDialogs : RComponent<RProps, TestOptionControls.MyTestState>() {
             mDialogTitle("Subscribe")
             mDialogContent {
                 mDialogContentText("To subscribe to this website, please enter your email address here. We will send updates occationally.")
-                mTextField("Email Address", autoFocus = true, margin = MTextFieldMargin.Dense, type = InputType.email, fullWidth = true)
+                mTextField("Email Address", autoFocus = true, margin = MTextFieldMargin.dense, type = InputType.email, fullWidth = true)
             }
             mDialogActions {
-                mButton("Cancel", color = MColor.Primary, onClick = { handleClose() }, variant = MButtonVariant.Text)
-                mButton("Subscribe", color = MColor.Primary, onClick = { handleClose() }, variant = MButtonVariant.Text)
+                mButton("Cancel", color = MColor.primary, onClick = { handleClose() }, variant = MButtonVariant.text)
+                mButton("Subscribe", color = MColor.primary, onClick = { handleClose() }, variant = MButtonVariant.text)
             }
         }
     }

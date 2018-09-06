@@ -14,12 +14,9 @@ private external val iconModule: dynamic
 @Suppress("UnsafeCastFromDynamic")
 private val iconComponent: RComponent<MIconProps, RState> = iconModule.default
 
+@Suppress("EnumEntryName")
 enum class MIconColor {
-    Inherit, Secondary, Action, Disabled, Error, Primary;
-
-    override fun toString(): String {
-        return super.toString().toLowerCase()
-    }
+    inherit, secondary, action, disabled, error, primary
 }
 
 interface MIconProps : StyledProps {
@@ -36,7 +33,7 @@ fun RBuilder.mIcon(
         className: String? = null,
         handler: StyledHandler<MIconProps>? = null) = createStyled(iconComponent, addAsChild) {
     if (primary) {
-        attrs.color = MColor.Primary.toString()
+        attrs.color = MColor.primary.toString()
     } else {
         color?.let { attrs.color = color.toString() }
     }

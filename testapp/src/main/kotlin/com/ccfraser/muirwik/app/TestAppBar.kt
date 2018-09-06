@@ -24,9 +24,9 @@ class TestAppBar : RComponent<RProps, RState>() {
             styledDiv {
                 css { flexGrow = 1.0; padding(2.spacingUnits) }
 
-                mAppBar(MColor.Default, MAppBarPosition.Static) {
+                mAppBar(MColor.default, MAppBarPosition.static) {
                     mToolbar {
-                        mTypography("Title", variant = MTypographyVariant.Title, color = MTypographyColor.Inherit)
+                        mTypography("Title", variant = MTypographyVariant.title, color = MTypographyColor.inherit)
                     }
                 }
             }
@@ -34,17 +34,17 @@ class TestAppBar : RComponent<RProps, RState>() {
             styledDiv {
                 css { flexGrow = 1.0; padding(2.spacingUnits) }
 
-                mAppBar(position = MAppBarPosition.Static) {
+                mAppBar(position = MAppBarPosition.static) {
                     mToolbar {
-                        mIconButton("menu", color = MColor.Inherit) { css { marginLeft = -12.px; marginRight = 20.px }}
-                        mTypography("Title", variant = MTypographyVariant.Title, color = MTypographyColor.Inherit) {
+                        mIconButton("menu", color = MColor.inherit) { css { marginLeft = -12.px; marginRight = 20.px }}
+                        mTypography("Title", variant = MTypographyVariant.title, color = MTypographyColor.inherit) {
                             css { flexGrow = 1.0 }
                         }
                         if (loggedIn) {
-                            mIconButton ("account_circle", color = MColor.Inherit )
+                            mIconButton ("account_circle", color = MColor.inherit )
 //                            mMenu(true, anchorEl = ) {  }
                         } else {
-                            mButton("Login", color = MColor.Inherit)
+                            mButton("Login", color = MColor.inherit)
                         }
                     }
                 }
@@ -53,15 +53,15 @@ class TestAppBar : RComponent<RProps, RState>() {
             styledDiv {
                 css { flexGrow = 1.0; padding(2.spacingUnits) }
 
-                mAppBar(position = MAppBarPosition.Static) {
+                mAppBar(position = MAppBarPosition.static) {
                     mToolbar {
-                        mIconButton("menu", color = MColor.Inherit) { css { marginLeft = -12.px; marginRight = 20.px }}
+                        mIconButton("menu", color = MColor.inherit) { css { marginLeft = -12.px; marginRight = 20.px }}
                         mToolbarTitle("Toolbar Title One Liner")
                         if (loggedIn) {
-                            mIconButton ("account_circle", color = MColor.Inherit )
+                            mIconButton ("account_circle", color = MColor.inherit )
 //                            mMenu(true, anchorEl = ) {  }
                         } else {
-                            mButton("Login", color = MColor.Inherit)
+                            mButton("Login", color = MColor.inherit)
                         }
                     }
                 }
@@ -70,11 +70,11 @@ class TestAppBar : RComponent<RProps, RState>() {
             styledDiv {
                 css { flexGrow = 1.0; padding(2.spacingUnits) }
 
-                mAppBar(position = MAppBarPosition.Static) {
+                mAppBar(position = MAppBarPosition.static) {
                     mToolbar(disableGutters = true) {
-                        mIconButton("menu", color = MColor.Inherit)
+                        mIconButton("menu", color = MColor.inherit)
                         mToolbarTitle("Toolbar No Gutters")
-                        mIconButton ("account_circle", color = MColor.Inherit )
+                        mIconButton ("account_circle", color = MColor.inherit )
                     }
                 }
             }
@@ -82,11 +82,11 @@ class TestAppBar : RComponent<RProps, RState>() {
             styledDiv {
                 css { flexGrow = 1.0; padding(2.spacingUnits) }
 
-                mAppBar(position = MAppBarPosition.Static) {
-                    mToolbar(variant = ToolbarVariant.Dense) {
-                        mIconButton("menu", color = MColor.Inherit) { css { marginLeft = -12.px; marginRight = 20.px }}
-                        mToolbarTitle("Toolbar Dense (for Desktop use)")
-                        mIconButton ("account_circle", color = MColor.Inherit )
+                mAppBar(position = MAppBarPosition.static) {
+                    mToolbar(variant = ToolbarVariant.dense) {
+                        mIconButton("menu", color = MColor.inherit) { css { marginLeft = -12.px; marginRight = 20.px }}
+                        mToolbarTitle("Toolbar dense (for Desktop use)")
+                        mIconButton ("account_circle", color = MColor.inherit )
                     }
                 }
             }
@@ -94,11 +94,11 @@ class TestAppBar : RComponent<RProps, RState>() {
             styledDiv {
                 css { flexGrow = 1.0; padding(2.spacingUnits) }
 
-                mAppBar(position = MAppBarPosition.Static) {
-                    mToolbar(variant = ToolbarVariant.Dense, disableGutters = true) {
-                        mIconButton("menu", color = MColor.Inherit)
-                        mToolbarTitle("Toolbar Dense and no gutters")
-                        mButton("Login", color = MColor.Inherit)
+                mAppBar(position = MAppBarPosition.static) {
+                    mToolbar(variant = ToolbarVariant.dense, disableGutters = true) {
+                        mIconButton("menu", color = MColor.inherit)
+                        mToolbarTitle("Toolbar dense and no gutters")
+                        mButton("Login", color = MColor.inherit)
                     }
                 }
             }

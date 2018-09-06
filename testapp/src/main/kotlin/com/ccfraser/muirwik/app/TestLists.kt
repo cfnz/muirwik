@@ -95,7 +95,7 @@ class TestLists : RComponent<RProps, TestOptionControls.MyTestState>() {
                     (0..2).forEach {i ->
                         mListItem(dense = true, button = true, onClick = { setState {checked[i] = !checked[i]} }) {
                             mCheckbox(checked = checked[i], disableRipple = true) { }
-                            mListItemText(primary = "Dense Line Item ${i + 1}")
+                            mListItemText(primary = "dense Line Item ${i + 1}")
                             mListItemSecondaryAction {
                                 mIconButton("comment", onClick = {})
                             }

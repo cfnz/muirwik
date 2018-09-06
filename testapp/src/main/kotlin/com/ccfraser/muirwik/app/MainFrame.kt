@@ -76,7 +76,7 @@ class MainFrame() : RComponent<MainFrameProps, MyState>() {
                 // App Frame
                 css { overflow = Overflow.hidden; position = Position.relative; display = Display.flex; width = 100.pct}
 
-                mAppBar(position = MAppBarPosition.Absolute) {
+                mAppBar(position = MAppBarPosition.absolute) {
                     css {
                         zIndex = currentTheme.zIndex.drawer + 1
                     }
@@ -91,7 +91,7 @@ class MainFrame() : RComponent<MainFrameProps, MyState>() {
 
                 val p: MPaperProps = jsObject { }
                 p.asDynamic().style = js { position = "relative"; width = drawerWidth.value; display = "block"; height = "100%"; minHeight = "100vh" }
-                mDrawer(true, MDrawerAnchor.Left, MDrawerVariant.Permanent, paperProps = p) {
+                mDrawer(true, MDrawerAnchor.left, MDrawerVariant.permanent, paperProps = p) {
                     spacer()
                     demoItems()
                 }

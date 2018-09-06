@@ -14,20 +14,14 @@ import styled.StyledProps
 private external val gridListTileBarModule: dynamic
 private val gridListTileBarComponent: RComponent<MGridListTileBarProps, RState> =gridListTileBarModule.default
 
+@Suppress("EnumEntryName")
 enum class ActionPosition {
-    Left, Right;
-
-    override fun toString(): String {
-        return super.toString().toLowerCase()
-    }
+    left, right
 }
 
+@Suppress("EnumEntryName")
 enum class TitlePosition {
-    Top, Bottom;
-
-    override fun toString(): String {
-        return super.toString().toLowerCase()
-    }
+    top, bottom
 }
 
 interface MGridListTileBarProps: StyledProps {
@@ -45,8 +39,8 @@ fun RBuilder.mGridListTileBar(
         title: String,
         subtitle: String? = null,
         actionIcon: ReactElement? = null,
-        titlePosition: TitlePosition = TitlePosition.Bottom,
-        actionPosition: ActionPosition = ActionPosition.Right,
+        titlePosition: TitlePosition = TitlePosition.bottom,
+        actionPosition: ActionPosition = ActionPosition.right,
 
         className: String? = null,
         handler: StyledHandler<MGridListTileBarProps>? = null) = createStyled(gridListTileBarComponent) {
@@ -68,8 +62,8 @@ fun RBuilder.mGridListTileBar(
         title: ReactElement,
         subtitle: ReactElement? = null,
         actionIcon: ReactElement? = null,
-        titlePosition: TitlePosition = TitlePosition.Bottom,
-        actionPosition: ActionPosition = ActionPosition.Right,
+        titlePosition: TitlePosition = TitlePosition.bottom,
+        actionPosition: ActionPosition = ActionPosition.right,
 
         className: String? = null,
         handler: StyledHandler<MGridListTileBarProps>? = null) = createStyled(gridListTileBarComponent) {

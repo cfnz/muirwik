@@ -5,12 +5,14 @@ import com.ccfraser.muirwik.app.TestAvatars.ComponentStyles.orange
 import com.ccfraser.muirwik.app.TestAvatars.ComponentStyles.pink
 import com.ccfraser.muirwik.app.TestAvatars.ComponentStyles.standard
 import com.ccfraser.muirwik.wrapper.*
-import com.ccfraser.muirwik.wrapper.card.*
-import com.ccfraser.muirwik.wrapper.transitions.mCollapse
-import kotlinext.js.js
-import kotlinx.css.*
-import react.*
-import react.dom.p
+import kotlinx.css.Display
+import kotlinx.css.margin
+import kotlinx.css.padding
+import kotlinx.css.px
+import react.RBuilder
+import react.RComponent
+import react.RProps
+import react.RState
 import styled.StyleSheet
 import styled.css
 import styled.styledDiv
@@ -47,7 +49,7 @@ class TestAvatars : RComponent<RProps, RState>() {
             css {
                 padding(16.px)
             }
-            mTypography("Image Avatars", MTypographyVariant.HeadLine)
+            mTypography("Image Avatars", MTypographyVariant.headline)
             styledDiv {
                 css { display = Display.flex; marginBottom = 3.spacingUnits }
                 mAvatar(src = "/static/images/cards/contemplative-reptile.jpg", alt = "Reptile") {
@@ -62,7 +64,7 @@ class TestAvatars : RComponent<RProps, RState>() {
                 }
             }
 
-            mTypography("Icon Avatars", MTypographyVariant.HeadLine)
+            mTypography("Icon Avatars", MTypographyVariant.headline)
             styledDiv {
                 css { display = Display.flex; marginBottom = 3.spacingUnits }
                 mAvatar {
@@ -79,7 +81,7 @@ class TestAvatars : RComponent<RProps, RState>() {
                 }
             }
 
-            mTypography("Letter Avatars", MTypographyVariant.HeadLine)
+            mTypography("Letter Avatars", MTypographyVariant.headline)
             styledDiv {
                 css { display = Display.flex; marginBottom = 3.spacingUnits }
                 mAvatar {

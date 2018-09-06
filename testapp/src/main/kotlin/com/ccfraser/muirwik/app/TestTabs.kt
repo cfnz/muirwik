@@ -1,7 +1,10 @@
 package com.ccfraser.muirwik.app
 
 import com.ccfraser.muirwik.wrapper.*
-import kotlinx.css.*
+import kotlinx.css.Color
+import kotlinx.css.FontWeight
+import kotlinx.css.TextTransform
+import kotlinx.css.padding
 import react.*
 import styled.StyleSheet
 import styled.css
@@ -62,7 +65,7 @@ class TestTabs : RComponent<RProps, RState>() {
     override fun RBuilder.render() {
         styledDiv {
             css { flexGrow = 1.0; backgroundColor = Color(currentTheme.palette.background.paper) }
-            mAppBar(position = MAppBarPosition.Static) {
+            mAppBar(position = MAppBarPosition.static) {
                 mTabs(tab1Value, onChange = { _, value -> setState { tab1Value = value } }) {
                     mTab("New Arrivals in the Longest Text of Notification", "one")
                     mTab("Item Two", "two")
@@ -78,8 +81,8 @@ class TestTabs : RComponent<RProps, RState>() {
 
         styledDiv {
             css { marginTop = 3.spacingUnits; flexGrow = 1.0; backgroundColor = Color(currentTheme.palette.background.paper) }
-            mAppBar(position = MAppBarPosition.Static, color = MColor.Default) {
-                mTabs(tab2Value, scrollable = true, textColor = MTabTextColor.Primary, indicatorColor = MTabIndicatorColor.Primary,
+            mAppBar(position = MAppBarPosition.static, color = MColor.default) {
+                mTabs(tab2Value, scrollable = true, textColor = MTabTextColor.primary, indicatorColor = MTabIndicatorColor.primary,
                         onChange = { _, value -> setState { tab2Value = value }}) {
                     mTab("Item One", 0, icon = mIcon("phone", addAsChild = false))
                     mTab("Item Two", 1, icon = mIcon("favorite", addAsChild = false))
@@ -103,7 +106,7 @@ class TestTabs : RComponent<RProps, RState>() {
 
         styledDiv {
             css { marginTop = 3.spacingUnits; flexGrow = 1.0; backgroundColor = Color(currentTheme.palette.background.paper) }
-            mTabs(tab3Value, textColor = MTabTextColor.Primary,
+            mTabs(tab3Value, textColor = MTabTextColor.primary,
                     onChange = { _, value -> setState { tab3Value = value }}) {
                 css { +CustomTabStyles.tabsRoot }
                 // TODO: Not sure how to set the style of the indicator... leave it for now...

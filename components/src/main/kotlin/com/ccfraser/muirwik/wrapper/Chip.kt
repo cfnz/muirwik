@@ -16,20 +16,14 @@ private external val chipModule: dynamic
 @Suppress("UnsafeCastFromDynamic")
 private val chipComponent: RComponent<MChipProps, RState> = chipModule.default
 
+@Suppress("EnumEntryName")
 enum class MChipVariant {
-    Default, Outlined;
-
-    override fun toString(): String {
-        return super.toString().toLowerCase()
-    }
+    default, outlined
 }
 
+@Suppress("EnumEntryName")
 enum class MChipColor {
-    Default, Primary, Secondary;
-
-    override fun toString(): String {
-        return super.toString().toLowerCase()
-    }
+    default, primary, secondary
 }
 
 interface MChipProps : StyledProps {
@@ -56,8 +50,8 @@ fun RBuilder.mChip(
         onDelete: ((Event) -> Unit)? = null,
         deleteIcon: ReactElement? = null,
         key: Any? = null,
-        color: MChipColor = MChipColor.Default,
-        variant: MChipVariant = MChipVariant.Default,
+        color: MChipColor = MChipColor.default,
+        variant: MChipVariant = MChipVariant.default,
         component: String = "div",
         clickable: Boolean = false, /* Note if onClick is set, the component will be clickable regardless of this. See material UI docs for more info */
         addAsChild: Boolean = true,
@@ -81,17 +75,17 @@ fun RBuilder.mChip(
  * This is the simpler version of the chip component allowing you to pass in a label for the chip
  */
 fun RBuilder.mChip(
-        label: String,
-        avatar: ReactElement? = null,
-        onClick: ((Event) -> Unit)? = null,
-        onDelete: ((Event) -> Unit)? = null,
-        key: Any? = null,
-        color: MChipColor = MChipColor.Default,
-        variant: MChipVariant = MChipVariant.Default,
+                label: String,
+                avatar: ReactElement? = null,
+                onClick: ((Event) -> Unit)? = null,
+                onDelete: ((Event) -> Unit)? = null,
+                key: Any? = null,
+                color: MChipColor = MChipColor.default,
+                variant: MChipVariant = MChipVariant.default,
 
-        addAsChild: Boolean = true,
-        className: String? = null,
-        handler: StyledHandler<MChipProps>? = null) = createStyled(chipComponent, addAsChild) {
+                addAsChild: Boolean = true,
+                className: String? = null,
+                handler: StyledHandler<MChipProps>? = null) = createStyled(chipComponent, addAsChild) {
     avatar?.let { attrs.avatar = it }
     attrs.color = color.toString()
     attrs.component = "div"

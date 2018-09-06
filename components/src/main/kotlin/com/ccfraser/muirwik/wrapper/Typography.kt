@@ -13,28 +13,19 @@ private external val typographyDefault: dynamic
 @Suppress("UnsafeCastFromDynamic")
 private val typographyComponent: RComponent<MTypographyProps, RState> = typographyDefault.default
 
+@Suppress("EnumEntryName")
 enum class MTypographyAlign {
-    Inherit, Left, Center, Right, Justify;
-
-    override fun toString(): String {
-        return super.toString().toLowerCase()
-    }
+    inherit, left, center, right, justify
 }
 
+@Suppress("EnumEntryName")
 enum class MTypographyColor {
-    Inherit, Primary, TextSecondary, Secondary, Error, Default;
-
-    override fun toString(): String {
-        return super.toString().toHyphenCase()
-    }
+    inherit, primary, textSecondary, secondary, error, default
 }
 
+@Suppress("EnumEntryName")
 enum class MTypographyVariant {
-    Display4, Display3, Display2, Display1, HeadLine, Title, Subheading, Body2, Body1, Caption, Button;
-
-    override fun toString(): String {
-        return super.toString().toLowerCase()
-    }
+    display4, display3, display2, display1, headline, title, subheading, body2, body1, caption, button
 }
 
 interface MTypographyProps : StyledProps {
@@ -49,9 +40,9 @@ interface MTypographyProps : StyledProps {
 
 fun RBuilder.mTypography(
         text: String? = null,
-        variant: MTypographyVariant = MTypographyVariant.Body1,
-        color: MTypographyColor = MTypographyColor.Default,
-        align: MTypographyAlign = MTypographyAlign.Left,
+        variant: MTypographyVariant = MTypographyVariant.body1,
+        color: MTypographyColor = MTypographyColor.default,
+        align: MTypographyAlign = MTypographyAlign.left,
         gutterBottom: Boolean = false,
         noWrap: Boolean = false,
         paragraph: Boolean = false,

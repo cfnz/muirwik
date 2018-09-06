@@ -15,12 +15,9 @@ private external val toolbarModule: dynamic
 @Suppress("UnsafeCastFromDynamic")
 private val toolbarComponent: RComponent<MToolbarProps, RState> = toolbarModule.default
 
+@Suppress("EnumEntryName")
 enum class ToolbarVariant {
-    Regular, Dense;
-
-    override fun toString(): String {
-        return super.toString().toLowerCase()
-    }
+    regular, dense
 }
 
 interface MToolbarProps : StyledProps {
@@ -30,7 +27,7 @@ interface MToolbarProps : StyledProps {
 
 fun RBuilder.mToolbar(
         disableGutters: Boolean = false,
-        variant: ToolbarVariant = ToolbarVariant.Regular,
+        variant: ToolbarVariant = ToolbarVariant.regular,
 
         className: String? = null,
         handler: StyledHandler<MToolbarProps>? = null) = createStyled(toolbarComponent) {
@@ -44,5 +41,5 @@ fun RBuilder.mToolbar(
  * Just a simple title with padding to push any items to the right
  */
 fun RBuilder.mToolbarTitle(text: String): ReactElement {
-    return mTypography(text, variant = MTypographyVariant.Title, color = MTypographyColor.Inherit) { css { flexGrow = 1.0 }}
+    return mTypography(text, variant = MTypographyVariant.title, color = MTypographyColor.inherit) { css { flexGrow = 1.0 }}
 }

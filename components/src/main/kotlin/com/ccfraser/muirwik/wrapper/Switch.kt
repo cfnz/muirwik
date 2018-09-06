@@ -46,7 +46,7 @@ fun RBuilder.mSwitch(
         handler: StyledHandler<MSwitchProps>? = null) = createStyled(switchComponent, addAsChild) {
     attrs.checked = checked
     checkedIcon?.let { attrs.checkedIcon = checkedIcon }
-    attrs.color = if (primary) MColor.Primary.toString() else MColor.Secondary.toString()
+    attrs.color = if (primary) MColor.primary.toString() else MColor.secondary.toString()
     attrs.disabled = disabled
     attrs.disableRipple = disableRipple
     icon?.let { attrs.icon = icon }

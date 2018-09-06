@@ -61,13 +61,13 @@ class TestDrawers : RComponent<RProps, TestOptionControls.MyTestState>() {
                 mDrawer(leftOpen, onClose = { setState { leftOpen = false } }) {
                     mailPlaceholder(false)
                 }
-                mDrawer(rightOpen, MDrawerAnchor.Right, onClose = { setState { rightOpen = false } }, transitionDuration = SimpleTransitionDuration(1000)) {
+                mDrawer(rightOpen, MDrawerAnchor.right, onClose = { setState { rightOpen = false } }, transitionDuration = SimpleTransitionDuration(1000)) {
                     mailPlaceholder(false)
                 }
-                mDrawer(topOpen, MDrawerAnchor.Top, onClose = { setState { topOpen = false } }) {
+                mDrawer(topOpen, MDrawerAnchor.top, onClose = { setState { topOpen = false } }) {
                     mailPlaceholder(true)
                 }
-                mDrawer(bottomOpen, MDrawerAnchor.Bottom, onClose = { setState { bottomOpen = false } }) {
+                mDrawer(bottomOpen, MDrawerAnchor.bottom, onClose = { setState { bottomOpen = false } }) {
                     mailPlaceholder(true)
                 }
             }
@@ -80,7 +80,7 @@ class TestDrawers : RComponent<RProps, TestOptionControls.MyTestState>() {
                     zIndex = 1
                 }
 
-                mAppBar(position = MAppBarPosition.Absolute) {
+                mAppBar(position = MAppBarPosition.absolute) {
                     mToolbar {
                         css { marginLeft = drawerWidth.px }
                         mToolbarTitle("Permanent drawer - Full Height Nav")
@@ -90,7 +90,7 @@ class TestDrawers : RComponent<RProps, TestOptionControls.MyTestState>() {
                 //TODO: Not sure about this style... seems to work though...
                 val pp: MPaperProps = jsObject {  }
                 pp.asDynamic().style = js { position = "relative" }
-                mDrawer(true, MDrawerAnchor.Left, MDrawerVariant.Permanent, paperProps = pp) {
+                mDrawer(true, MDrawerAnchor.left, MDrawerVariant.permanent, paperProps = pp) {
                     spacer()
                     mailPlaceholder(false)
                 }
@@ -108,7 +108,7 @@ class TestDrawers : RComponent<RProps, TestOptionControls.MyTestState>() {
             styledDiv {
                 css(drawer)
 
-                mAppBar(position = MAppBarPosition.Absolute) {
+                mAppBar(position = MAppBarPosition.absolute) {
                     css {
                         zIndex = currentTheme.zIndex.drawer + 1
                     }
@@ -119,7 +119,7 @@ class TestDrawers : RComponent<RProps, TestOptionControls.MyTestState>() {
 
                 val pp: MPaperProps = jsObject { }
                 pp.asDynamic().style = js { position = "relative" }
-                mDrawer(true, MDrawerAnchor.Left, MDrawerVariant.Permanent, paperProps = pp) {
+                mDrawer(true, MDrawerAnchor.left, MDrawerVariant.permanent, paperProps = pp) {
                     spacer()
                     mailPlaceholder(false)
                 }
@@ -137,7 +137,7 @@ class TestDrawers : RComponent<RProps, TestOptionControls.MyTestState>() {
             styledDiv {
                 css(drawer)
 
-                mAppBar(position = MAppBarPosition.Absolute) {
+                mAppBar(position = MAppBarPosition.absolute) {
                     css {
                         position = Position.absolute
                         transition += Transition("width", 195.ms, Timing.easeInOut, 0.ms)
@@ -148,7 +148,7 @@ class TestDrawers : RComponent<RProps, TestOptionControls.MyTestState>() {
 
                     mToolbar(disableGutters = !slideOutDrawerOpen) {
                         if (!slideOutDrawerOpen) {
-                            mIconButton("menu", color = MColor.Inherit, onClick = { setState { slideOutDrawerOpen = true } })
+                            mIconButton("menu", color = MColor.inherit, onClick = { setState { slideOutDrawerOpen = true } })
                         }
                         mToolbarTitle("Persistent drawer - Slideout Nav")
                     }
@@ -156,7 +156,7 @@ class TestDrawers : RComponent<RProps, TestOptionControls.MyTestState>() {
 
                 val pp: MPaperProps = jsObject { }
                 pp.asDynamic().style = js { position = "relative" }
-                mDrawer(slideOutDrawerOpen, MDrawerAnchor.Left, MDrawerVariant.Persistent, paperProps = pp) {
+                mDrawer(slideOutDrawerOpen, MDrawerAnchor.left, MDrawerVariant.persistent, paperProps = pp) {
                     css {
                         transition += Transition("left", 5000.ms, Timing.easeIn, 0.ms)
                     }
@@ -187,7 +187,7 @@ class TestDrawers : RComponent<RProps, TestOptionControls.MyTestState>() {
             styledDiv {
                 css(drawer)
 
-                mAppBar(position = MAppBarPosition.Absolute) {
+                mAppBar(position = MAppBarPosition.absolute) {
                     css {
                         transition += Transition("width", 195.ms, Timing.materialStandard, 0.ms)
                         zIndex = 1201
@@ -195,7 +195,7 @@ class TestDrawers : RComponent<RProps, TestOptionControls.MyTestState>() {
                     }
                     mToolbar(disableGutters = !miniDrawerOpen) {
                         if (!miniDrawerOpen) {
-                            mIconButton("menu", color = MColor.Inherit, onClick = { setState { miniDrawerOpen = true } })
+                            mIconButton("menu", color = MColor.inherit, onClick = { setState { miniDrawerOpen = true } })
                         }
                         mToolbarTitle("Mini drawer")
                     }
@@ -212,7 +212,7 @@ class TestDrawers : RComponent<RProps, TestOptionControls.MyTestState>() {
                         width = drawerWidth
                     }
                 }
-                mDrawer(miniDrawerOpen, MDrawerAnchor.Left, MDrawerVariant.Permanent, paperProps = pp) {
+                mDrawer(miniDrawerOpen, MDrawerAnchor.left, MDrawerVariant.permanent, paperProps = pp) {
                     div {
                         attrs.jsStyle = js { display = "flex"; alignItems = "center"; justifyContent = "flex-end"; height = 64 }
                         mIconButton("chevron_left", onClick = { setState { miniDrawerOpen = false } })
@@ -243,7 +243,7 @@ class TestDrawers : RComponent<RProps, TestOptionControls.MyTestState>() {
                     display = Display.flex
                 }
 
-                mAppBar(position = MAppBarPosition.Absolute) {
+                mAppBar(position = MAppBarPosition.absolute) {
                     css {
                         position = Position.absolute
                         marginLeft = drawerWidth.px
@@ -253,7 +253,7 @@ class TestDrawers : RComponent<RProps, TestOptionControls.MyTestState>() {
                     }
                     mToolbar {
                         mHidden(mdUp = true, implementation = MHiddenImplementation.css) {
-                            mIconButton("menu", color = MColor.Inherit, onClick = { setState { responsiveDrawerOpen = true } })
+                            mIconButton("menu", color = MColor.inherit, onClick = { setState { responsiveDrawerOpen = true } })
                         }
                         mToolbarTitle("Responsive Drawer")
                     }
@@ -265,13 +265,13 @@ class TestDrawers : RComponent<RProps, TestOptionControls.MyTestState>() {
                     position = "relative"
                 }
                 mHidden(mdUp = true) {
-                    mDrawer(responsiveDrawerOpen, variant = MDrawerVariant.Temporary, onClose = { setState {responsiveDrawerOpen = !responsiveDrawerOpen} }, paperProps = pp) {
+                    mDrawer(responsiveDrawerOpen, variant = MDrawerVariant.temporary, onClose = { setState {responsiveDrawerOpen = !responsiveDrawerOpen} }, paperProps = pp) {
                         css { width = drawerWidth.px }
                         mailPlaceholder(false)
                     }
                 }
                 mHidden(smDown = true, implementation = MHiddenImplementation.css) {
-                    mDrawer(true, variant = MDrawerVariant.Permanent, paperProps = pp) {
+                    mDrawer(true, variant = MDrawerVariant.permanent, paperProps = pp) {
                         spacer()
                         mailPlaceholder(false)
                     }

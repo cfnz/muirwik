@@ -1,7 +1,5 @@
 package com.ccfraser.muirwik.wrapper
 
-import kotlinx.css.LinearDimension
-import kotlinx.css.px
 import react.RBuilder
 import react.RComponent
 import react.RState
@@ -15,20 +13,14 @@ private external val linearProgressModule: dynamic
 @Suppress("UnsafeCastFromDynamic")
 private val linearProgressComponent: RComponent<MLinearProgressProps, RState> = linearProgressModule.default
 
+@Suppress("EnumEntryName")
 enum class MLinearProgressColor {
-    Primary, Secondary;
-
-    override fun toString(): String {
-        return super.toString().toLowerCase()
-    }
+    primary, secondary
 }
 
+@Suppress("EnumEntryName")
 enum class MLinearProgressVariant {
-    Determinate, Indeterminate, Buffer, Query;
-
-    override fun toString(): String {
-        return super.toString().toLowerCase()
-    }
+    determinate, indeterminate, buffer, query
 }
 
 interface MLinearProgressProps : StyledProps {
@@ -41,8 +33,8 @@ interface MLinearProgressProps : StyledProps {
 fun RBuilder.mLinearProgress(
         value: Double? = null,
         valueBuffer: Double? = null,
-        variant: MLinearProgressVariant = MLinearProgressVariant.Indeterminate,
-        color: MLinearProgressColor = MLinearProgressColor.Primary,
+        variant: MLinearProgressVariant = MLinearProgressVariant.indeterminate,
+        color: MLinearProgressColor = MLinearProgressColor.primary,
 
         className: String? = null,
         handler: StyledHandler<MLinearProgressProps>? = null) = createStyled(linearProgressComponent) {

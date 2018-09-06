@@ -16,12 +16,9 @@ private external val textFieldDefault: dynamic
 @Suppress("UnsafeCastFromDynamic")
 private val textFieldComponent: RComponent<MTextFieldProps, RState> = textFieldDefault.default
 
+@Suppress("EnumEntryName")
 enum class MTextFieldMargin {
-    None, Dense, Normal;
-
-    override fun toString(): String {
-        return super.toString().toLowerCase()
-    }
+    none, dense, normal
 }
 
 interface MTextFieldProps : StyledProps {
@@ -85,7 +82,7 @@ fun RBuilder.mTextField(
         nativeInputProps: RProps? = null,
         formHelperTextProps: RProps? = null,
 
-        margin: MTextFieldMargin = MTextFieldMargin.Normal,
+        margin: MTextFieldMargin = MTextFieldMargin.normal,
 
         autoComplete: String? = null,
         id: String? = null,
@@ -137,7 +134,7 @@ fun RBuilder.mTextFieldMultiLine(
         nativeInputProps: RProps? = null,
         formHelperTextProps: RProps? = null,
 
-        margin: MTextFieldMargin = MTextFieldMargin.None,
+        margin: MTextFieldMargin = MTextFieldMargin.none,
         rows: Int? = null,
         rowsMax: Int? = null,
 
@@ -195,7 +192,7 @@ fun RBuilder.mTextFieldSelect(
         formHelperTextProps: RProps? = null,
         selectProps: RProps? = null,
 
-        margin: MTextFieldMargin = MTextFieldMargin.None,
+        margin: MTextFieldMargin = MTextFieldMargin.none,
 
         autoComplete: String? = null,
         id: String? = null,
@@ -254,7 +251,7 @@ fun RBuilder.mTextFieldFull(
         formHelperTextProps: RProps? = null,
         selectProps: RProps? = null,
 
-        margin: MTextFieldMargin = MTextFieldMargin.None,
+        margin: MTextFieldMargin = MTextFieldMargin.none,
         multiline: Boolean = false,
         rows: Int? = null,
         rowsMax: Int? = null,

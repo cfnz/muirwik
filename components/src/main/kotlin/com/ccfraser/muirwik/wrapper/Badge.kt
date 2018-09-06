@@ -12,12 +12,9 @@ import styled.StyledProps
 private external val badgeModule: dynamic
 private val badgeComponent: RComponent<MBadgeProps, RState> = badgeModule.default
 
+@Suppress("EnumEntryName")
 enum class MBadgeColor {
-    Primary, Secondary, Error, Default;
-
-    override fun toString(): String {
-        return super.toString().toLowerCase()
-    }
+    primary, secondary, error, default
 }
 
 interface MBadgeProps: StyledProps {
@@ -28,7 +25,7 @@ interface MBadgeProps: StyledProps {
 
 fun RBuilder.mBadge(
         badgeContent: Node,
-        color: MBadgeColor = MBadgeColor.Default,
+        color: MBadgeColor = MBadgeColor.default,
         component: String? = "span",
 
         className: String? = null,
@@ -43,7 +40,7 @@ fun RBuilder.mBadge(
 
 fun RBuilder.mBadge(
         badgeContent: String,
-        color: MBadgeColor = MBadgeColor.Default,
+        color: MBadgeColor = MBadgeColor.default,
         component: String? = "span",
 
         addAsChild: Boolean = true,

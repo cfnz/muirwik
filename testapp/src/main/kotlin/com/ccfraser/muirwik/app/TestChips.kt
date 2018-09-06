@@ -55,13 +55,13 @@ class TestChips : RComponent<RProps, RState>() {
                     deleteIcon = mIcon("done", addAsChild = false)) {
                 css(margin)
             }
-            mChip("Primary Color Chip", color = MChipColor.Primary, onClick = { handleClick() }, onDelete = { handleDelete() }) {
+            mChip("Primary Color Chip", color = MChipColor.primary, onClick = { handleClick() }, onDelete = { handleDelete() }) {
                 css(margin)
             }
-            mChip("Secondary Color Chip", color = MChipColor.Secondary, onClick = { handleClick() }, onDelete = { handleDelete() }) {
+            mChip("Secondary Color Chip", color = MChipColor.secondary, onClick = { handleClick() }, onDelete = { handleDelete() }) {
                 css(margin)
             }
-            mChip("Primary Outline Chip", color = MChipColor.Primary, variant = MChipVariant.Outlined, onClick = { handleClick() }, onDelete = { handleDelete() }) {
+            mChip("Primary Outline Chip", color = MChipColor.primary, variant = MChipVariant.outlined, onClick = { handleClick() }, onDelete = { handleDelete() }) {
                 css(margin)
             }
         }

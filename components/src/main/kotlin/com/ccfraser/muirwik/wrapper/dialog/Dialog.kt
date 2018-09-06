@@ -1,8 +1,10 @@
 package com.ccfraser.muirwik.wrapper.dialog
 
-import com.ccfraser.muirwik.wrapper.*
+import com.ccfraser.muirwik.wrapper.MPaperProps
+import com.ccfraser.muirwik.wrapper.SimpleEvent
+import com.ccfraser.muirwik.wrapper.createStyled
+import com.ccfraser.muirwik.wrapper.setStyledPropsAndRunHandler
 import com.ccfraser.muirwik.wrapper.transitions.MTransitionProps
-import com.ccfraser.muirwik.wrapper.transitions.TransitionTimeout
 import org.w3c.dom.events.Event
 import react.*
 import styled.StyledHandler
@@ -18,19 +20,12 @@ private val dialogComponent: RComponent<MDialogProps, RState> = dialogModule.def
 
 @Suppress("EnumEntryName")
 enum class DialogMaxWidth {
-    xs, sm, md, lg, Disable;
-
-    override fun toString(): String {
-        return super.toString().toLowerCase()
-    }
+    xs, sm, md, lg, disable
 }
 
+@Suppress("EnumEntryName")
 enum class DialogScroll {
-    Paper, Body;
-
-    override fun toString(): String {
-        return super.toString().toLowerCase()
-    }
+    paper, body
 }
 
 interface MModalProps : StyledProps {
@@ -117,7 +112,7 @@ fun RBuilder.mDialog(
 
         paperProps: MPaperProps? = null,
 
-        scroll: DialogScroll = DialogScroll.Paper,
+        scroll: DialogScroll = DialogScroll.paper,
 
         transitionComponent: KClass<out RComponent<MTransitionProps, RState>>? = null,
         // Can't seem to get the transitionDuration working, but you can use the transitionProps, e.g.

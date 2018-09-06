@@ -103,7 +103,7 @@ class TestProgress : RComponent<RProps, RState>() {
         div{
             mCircularProgress { css { margin(2.spacingUnits) }}
             mCircularProgress(size = 50.px) { css { margin(2.spacingUnits) }}
-            mCircularProgress(color = MCircularProgressColor.Secondary) { css { margin(2.spacingUnits) }}
+            mCircularProgress(color = MCircularProgressColor.secondary) { css { margin(2.spacingUnits) }}
             mCircularProgress(thickness = 7.0) {
                 css {
                     margin(2.spacingUnits)
@@ -131,7 +131,7 @@ class TestProgress : RComponent<RProps, RState>() {
             }
             styledDiv {
                 css(wrapper)
-                mButton("Accept terms", true, disabled = loading, variant = MButtonVariant.Contained, onClick = { onClick() }) {
+                mButton("Accept terms", true, disabled = loading, variant = MButtonVariant.contained, onClick = { onClick() }) {
                     if (success) {
                         css(buttonSuccess)
                     }
@@ -144,10 +144,10 @@ class TestProgress : RComponent<RProps, RState>() {
         br { }
         mTypography("Circular Determinate")
         div {
-            mCircularProgress(variant = MCircularProgressVariant.Determinate, value = circularDeterminateValue.toDouble()) { css { margin(2.spacingUnits) }}
-            mCircularProgress(variant = MCircularProgressVariant.Determinate, value = circularDeterminateValue.toDouble(), size = 50.px) { css { margin(2.spacingUnits) }}
-            mCircularProgress(variant = MCircularProgressVariant.Determinate, value = circularDeterminateValue.toDouble(), color = MCircularProgressColor.Secondary) { css { margin(2.spacingUnits) }}
-            mCircularProgress(variant = MCircularProgressVariant.Determinate, value = circularDeterminateValue.toDouble(), thickness = 7.0) {
+            mCircularProgress(variant = MCircularProgressVariant.determinate, value = circularDeterminateValue.toDouble()) { css { margin(2.spacingUnits) }}
+            mCircularProgress(variant = MCircularProgressVariant.determinate, value = circularDeterminateValue.toDouble(), size = 50.px) { css { margin(2.spacingUnits) }}
+            mCircularProgress(variant = MCircularProgressVariant.determinate, value = circularDeterminateValue.toDouble(), color = MCircularProgressColor.secondary) { css { margin(2.spacingUnits) }}
+            mCircularProgress(variant = MCircularProgressVariant.determinate, value = circularDeterminateValue.toDouble(), thickness = 7.0) {
                 css {
                     margin(2.spacingUnits)
                     color = Colors.Purple.shade500
@@ -159,10 +159,10 @@ class TestProgress : RComponent<RProps, RState>() {
         mLinearProgress()
         br { }
         mTypography("Linear Determinate")
-        mLinearProgress(color = MLinearProgressColor.Secondary, variant = MLinearProgressVariant.Determinate, value = linearValue.toDouble())
+        mLinearProgress(color = MLinearProgressColor.secondary, variant = MLinearProgressVariant.determinate, value = linearValue.toDouble())
         br { }
         mTypography("Linear Buffer")
-        mLinearProgress(variant = MLinearProgressVariant.Buffer, value = linearValue.toDouble(), valueBuffer = linearBuffer.toDouble())
+        mLinearProgress(variant = MLinearProgressVariant.buffer, value = linearValue.toDouble(), valueBuffer = linearBuffer.toDouble())
     }
 }
 

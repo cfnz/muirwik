@@ -15,36 +15,24 @@ private external val gridDefault: dynamic
 @Suppress("UnsafeCastFromDynamic")
 private val gridComponent: RComponent<MGridProps, RState> = gridDefault.default
 
+@Suppress("EnumEntryName")
 enum class MGridAlignContent {
-    Stretch, Center, FlexStart, FlexEnd, SpaceBetween, SpaceAround;
-
-    override fun toString(): String {
-        return super.toString().toHyphenCase()
-    }
+    stretch, center, flexStart, flexEnd, spaceBetween, spaceAround
 }
 
+@Suppress("EnumEntryName")
 enum class MGridAlignItems {
-    Stretch, Center, FlexStart, FlexEnd, Baseline;
-
-    override fun toString(): String {
-        return super.toString().toHyphenCase()
-    }
+    stretch, center, flexStart, flexEnd, baseline
 }
 
+@Suppress("EnumEntryName")
 enum class MGridDirection {
-    Row, RowReverse, Column, ColumnReverse;
-
-    override fun toString(): String {
-        return super.toString().toHyphenCase()
-    }
+    row, rowReverse, column, columnReverse
 }
 
+@Suppress("EnumEntryName")
 enum class MGridJustify {
-    FlexStart, Center, FlexEnd, SpaceBetween, SpaceAround;
-
-    override fun toString(): String {
-        return super.toString().toHyphenCase()
-    }
+    flexStart, center, flexEnd, spaceBetween, spaceAround
 }
 
 enum class MGridSize(internal val sizeVal: Any) {
@@ -53,16 +41,13 @@ enum class MGridSize(internal val sizeVal: Any) {
     Cells8(8), Cells9(9), Cells10(10), Cells11(11), Cells12(12);
 }
 
+@Suppress("EnumEntryName")
 enum class MGridWrap {
-    NoWrap, Wrap, WrapReverse;
-
-    override fun toString(): String {
-        return super.toString().toLowerCase()
-    }
+    noWrap, wrap, wrapReverse
 }
 
 enum class MGridSpacing(val size: Int) {
-    Spacing0(0), Spacing8(8), Spacing16(16), Spacing24(24), Spacing40(40);
+    spacing0(0), spacing8(8), spacing16(16), spacing24(24), spacing40(40);
 }
 
 /**
@@ -119,10 +104,10 @@ interface MGridProps : StyledProps {
  * to add an extra child item.
  */
 fun RBuilder.mGridContainer(
-        spacing: MGridSpacing = MGridSpacing.Spacing16,
-        alignContent: MGridAlignContent = MGridAlignContent.Stretch,
-        alignItems: MGridAlignItems = MGridAlignItems.Stretch,
-        wrap: MGridWrap = MGridWrap.Wrap,
+        spacing: MGridSpacing = MGridSpacing.spacing16,
+        alignContent: MGridAlignContent = MGridAlignContent.stretch,
+        alignItems: MGridAlignItems = MGridAlignItems.stretch,
+        wrap: MGridWrap = MGridWrap.wrap,
 
         className: String? = null,
         handler: StyledHandler<MGridProps>? = null) = createStyled(gridComponent) {

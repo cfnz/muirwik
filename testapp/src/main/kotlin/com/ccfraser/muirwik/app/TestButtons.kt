@@ -1,6 +1,5 @@
 package com.ccfraser.muirwik.app
 
-import com.ccfraser.muirwik.app.TestButtons.ComplexComponentStyles.focusVisible
 import com.ccfraser.muirwik.app.TestButtons.ComplexComponentStyles.image
 import com.ccfraser.muirwik.app.TestButtons.ComplexComponentStyles.imageBackdrop
 import com.ccfraser.muirwik.app.TestButtons.ComplexComponentStyles.imageButton
@@ -21,7 +20,6 @@ import react.*
 import react.dom.br
 import react.dom.button
 import react.dom.label
-import react.dom.span
 import styled.*
 import kotlin.browser.window
 
@@ -39,7 +37,7 @@ class TestButtons : RComponent<RProps, RState>() {
     }
 
     // Since we are creating 3 sets of buttons almost the same, we will put them into a function
-    private fun RBuilder.buttonSet(heading: String, variant: MButtonVariant = MButtonVariant.Text, margin: Boolean = false) {
+    private fun RBuilder.buttonSet(heading: String, variant: MButtonVariant = MButtonVariant.text, margin: Boolean = false) {
         styledDiv {
             mTypography(heading)
             mButton("Default", variant = variant) {
@@ -48,7 +46,7 @@ class TestButtons : RComponent<RProps, RState>() {
             mButton("Primary", true, variant = variant) {
                 if (margin) css(buttonMargin)
             }
-            mButton("Secondary", color = MColor.Secondary, variant = variant) {
+            mButton("Secondary", color = MColor.secondary, variant = variant) {
                 if (margin) css(buttonMargin)
             }
             mButton("Disabled", disabled = true, variant = variant) {
@@ -78,25 +76,25 @@ class TestButtons : RComponent<RProps, RState>() {
     override fun RBuilder.render() {
         buttonSet("Standard (Text) buttons")
         br { }
-        buttonSet("Outlined buttons", MButtonVariant.Outlined, true)
+        buttonSet("Outlined buttons", MButtonVariant.outlined, true)
         br { }
-        buttonSet("Contained buttons", MButtonVariant.Contained, true)
+        buttonSet("Contained buttons", MButtonVariant.contained, true)
         br { }
         styledDiv {
             mTypography("Icon buttons")
             mIconButton("send", onClick = { window.alert("I was clicked")})
             mIconButton("star")
             mIconButton("delete", true)
-            mIconButton("delete", color = MColor.Secondary)
+            mIconButton("delete", color = MColor.secondary)
         }
         br { }
         styledDiv {
             mTypography("FABs")
             mButtonFab("add", true) { css(buttonMargin) }
-            mButtonFab("edit-icon", color = MColor.Secondary) { css(buttonMargin) }
+            mButtonFab("edit-icon", color = MColor.secondary) { css(buttonMargin) }
             mButtonFab("navigation-icon", disabled = true) { css(buttonMargin) }
-            mButtonFab("navigation-icon", "Extended", color = MColor.Secondary) { css(buttonMargin) }
-            mButtonFab("add", mini = true, color = MColor.Secondary) { css(buttonMargin) }
+            mButtonFab("navigation-icon", "Extended", color = MColor.secondary) { css(buttonMargin) }
+            mButtonFab("add", mini = true, color = MColor.secondary) { css(buttonMargin) }
         }
         br { }
         styledDiv {
@@ -114,9 +112,9 @@ class TestButtons : RComponent<RProps, RState>() {
                 attrs.asDynamic().onDoubleClick = { console.log("A Double Click?") }
                 attrs.asDynamic().onMouseMove = { handleMouseMove() }
             }
-            mButton("Contained", variant = MButtonVariant.Contained) { css(buttonMargin) }
-            mButton("Primary", primary = true, variant = MButtonVariant.Contained) { css(buttonMargin) }
-            mButton("Secondary with HRef", color = MColor.Secondary, href = "http://www.ptsonline.com", variant = MButtonVariant.Contained) { css(buttonMargin) }
+            mButton("Contained", variant = MButtonVariant.contained) { css(buttonMargin) }
+            mButton("Primary", primary = true, variant = MButtonVariant.contained) { css(buttonMargin) }
+            mButton("Secondary with HRef", color = MColor.secondary, href = "http://www.ptsonline.com", variant = MButtonVariant.contained) { css(buttonMargin) }
             mButton("Styled Button") {
                 css {
                     background = "linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)"
@@ -129,9 +127,9 @@ class TestButtons : RComponent<RProps, RState>() {
                     margin(1.spacingUnits)
                 }
             }
-            mButton("Icon", primary = true, variant = MButtonVariant.Contained) {
+            mButton("Icon", primary = true, variant = MButtonVariant.contained) {
                 css(buttonMargin)
-                mIcon("send", color = MIconColor.Inherit) {
+                mIcon("send", color = MIconColor.inherit) {
                     css { marginLeft = 1.em }
                 }
             }
@@ -268,7 +266,7 @@ class TestButtons : RComponent<RProps, RState>() {
                     styledSpan { css(imageBackdrop) }
                     styledSpan {
                         css(imageButton)
-                        mTypography(color = MTypographyColor.Inherit, variant = MTypographyVariant.Subheading) {
+                        mTypography(color = MTypographyColor.inherit, variant = MTypographyVariant.subheading) {
                             css(imageTitle)
                             +it.title
                             //                        attrs.component = "span"

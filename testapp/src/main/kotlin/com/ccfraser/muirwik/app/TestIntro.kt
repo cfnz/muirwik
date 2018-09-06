@@ -34,7 +34,7 @@ class TestIntro : RComponent<RProps, RState>() {
                 textAlign = TextAlign.center
             }
 
-            mTypography("Welcome to Muirwik", MTypographyVariant.Display2) { css { paddingBottom = 3.spacingUnits }}
+            mTypography("Welcome to Muirwik", MTypographyVariant.display2) { css { paddingBottom = 3.spacingUnits }}
             mTypography{
                 css(typographyStyle)
                 +"Muirwik gets it name from being a "

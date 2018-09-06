@@ -45,7 +45,7 @@ fun RBuilder.mRadio(
         handler: StyledHandler<MRadioProps>? = null) = createStyled(radioComponent, addAsChild) {
     checked?.let { attrs.checked = it }
     checkedIcon?.let { attrs.checkedIcon = it }
-    attrs.color = if (primary) MColor.Primary.toString() else MColor.Secondary.toString()
+    attrs.color = if (primary) MColor.primary.toString() else MColor.secondary.toString()
     attrs.disabled = disabled
     attrs.disableRipple = disableRipple
     icon?.let { attrs.icon = it }

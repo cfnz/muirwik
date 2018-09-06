@@ -1,7 +1,5 @@
 package com.ccfraser.muirwik.wrapper
 
-import kotlinext.js.Object
-import org.w3c.dom.Node
 import org.w3c.dom.events.Event
 import react.*
 import styled.StyledHandler
@@ -12,28 +10,19 @@ import styled.StyledProps
 private external val tabsModule: dynamic
 private val tabsComponent: RComponent<MTabsProps, RState> = tabsModule.default
 
+@Suppress("EnumEntryName")
 enum class MTabTextColor {
-    Secondary, Primary, Inherit;
-
-    override fun toString(): String {
-        return super.toString().toLowerCase()
-    }
+    secondary, primary, inherit
 }
 
+@Suppress("EnumEntryName")
 enum class MTabScrollButtons {
-    Auto, On, Off;
-
-    override fun toString(): String {
-        return super.toString().toLowerCase()
-    }
+    auto, on, off
 }
 
+@Suppress("EnumEntryName")
 enum class MTabIndicatorColor {
-    Secondary, Primary;
-
-    override fun toString(): String {
-        return super.toString().toLowerCase()
-    }
+    secondary, primary
 }
 
 interface MTabsProps: StyledProps {
@@ -61,10 +50,10 @@ fun RBuilder.mTabs(
         centered: Boolean = false,
         fullWidth: Boolean = false,
         scrollable: Boolean = false,
-        indicatorColor: MTabIndicatorColor = MTabIndicatorColor.Secondary,
-        textColor: MTabTextColor = MTabTextColor.Inherit,
+        indicatorColor: MTabIndicatorColor = MTabIndicatorColor.secondary,
+        textColor: MTabTextColor = MTabTextColor.inherit,
         tabIndicatorProps: RProps? = null,
-        scrollButtons: MTabScrollButtons = MTabScrollButtons.Auto,
+        scrollButtons: MTabScrollButtons = MTabScrollButtons.auto,
         scrollButtonComponent: ReactElement? = null,
 
         onChange: ((event: Event, value: Any) -> Unit)? = null,

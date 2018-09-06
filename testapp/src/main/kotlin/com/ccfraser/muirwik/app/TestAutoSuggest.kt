@@ -1,7 +1,6 @@
 package com.ccfraser.muirwik.app
 
 import com.ccfraser.muirwik.wrapper.*
-import kotlinx.css.embed
 import kotlinx.css.padding
 import kotlinx.css.px
 import react.RBuilder
@@ -300,9 +299,9 @@ class TestAutoSuggest : RComponent<RProps, RState>() {
             styledDiv {
                 css { flexGrow = 1.0; padding(2.spacingUnits) }
 
-                mAppBar(MColor.Default, MAppBarPosition.Static) {
+                mAppBar(MColor.default, MAppBarPosition.static) {
                     mToolbar {
-                        mTypography("Title", variant = MTypographyVariant.Title, color = MTypographyColor.Inherit)
+                        mTypography("Title", variant = MTypographyVariant.title, color = MTypographyColor.inherit)
                     }
                 }
             }
@@ -310,10 +309,10 @@ class TestAutoSuggest : RComponent<RProps, RState>() {
             styledDiv {
                 css { flexGrow = 1.0; padding(2.spacingUnits) }
 
-                mAppBar(position = MAppBarPosition.Static) {
+                mAppBar(position = MAppBarPosition.static) {
                     mToolbar {
-                        mIconButton("menu", color = MColor.Inherit)
-                        mTypography("Title", variant = MTypographyVariant.Title, color = MTypographyColor.Inherit) {
+                        mIconButton("menu", color = MColor.inherit)
+                        mTypography("Title", variant = MTypographyVariant.title, color = MTypographyColor.inherit) {
                             css { flexGrow = 1.0 }
                         }
                     }
@@ -323,9 +322,9 @@ class TestAutoSuggest : RComponent<RProps, RState>() {
             styledDiv {
                 css { flexGrow = 1.0; padding(2.spacingUnits) }
 
-                mAppBar(position = MAppBarPosition.Static) {
+                mAppBar(position = MAppBarPosition.static) {
                     mToolbar {
-                        mIconButton("menu", color = MColor.Inherit)
+                        mIconButton("menu", color = MColor.inherit)
                         mToolbarTitle("Toolbar Title One Liner")
                     }
                 }

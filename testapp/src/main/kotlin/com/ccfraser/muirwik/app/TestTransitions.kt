@@ -92,7 +92,7 @@ class TestTransitions : RComponent<RProps, TestOptionControls.MyTestState>() {
                 mFormControlLabel("Slide", altBuilder.mSwitch(checked = slideShown, onChange = {_, _ ->  setState {slideShown = ! slideShown}}))
                 styledDiv {
                     css { display = Display.flex }
-                    mSlide(show = slideShown, direction = SlideTransitionDirection.Up) {
+                    mSlide(show = slideShown, direction = SlideTransitionDirection.up) {
                         mPaper(elevation = 4) { css(paper) }
                     }
                 }

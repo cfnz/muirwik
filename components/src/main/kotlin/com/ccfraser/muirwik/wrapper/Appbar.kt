@@ -13,12 +13,9 @@ private external val iconModule: dynamic
 @Suppress("UnsafeCastFromDynamic")
 private val iconComponent: RComponent<MAppBarProps, RState> = iconModule.default
 
+@Suppress("EnumEntryName")
 enum class MAppBarPosition {
-    Fixed, Absolute, Sticky, Static;
-
-    override fun toString(): String {
-        return super.toString().toLowerCase()
-    }
+    fixed, absolute, sticky, static
 }
 
 interface MAppBarProps : StyledProps {
@@ -27,8 +24,8 @@ interface MAppBarProps : StyledProps {
 }
 
 fun RBuilder.mAppBar(
-        color: MColor = MColor.Primary,
-        position: MAppBarPosition = MAppBarPosition.Fixed,
+        color: MColor = MColor.primary,
+        position: MAppBarPosition = MAppBarPosition.fixed,
 
         className: String? = null,
         handler: StyledHandler<MAppBarProps>? = null) = createStyled(iconComponent) {

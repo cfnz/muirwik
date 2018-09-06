@@ -1,8 +1,6 @@
 package com.ccfraser.muirwik.wrapper
 
-import kotlinx.css.TextTransform
 import kotlinx.html.InputType
-import org.w3c.dom.Node
 import org.w3c.dom.events.Event
 import react.*
 import styled.StyledHandler
@@ -15,8 +13,9 @@ private external val inputDefault: dynamic
 @Suppress("UnsafeCastFromDynamic")
 private val inputComp: RComponent<MInputProps, RState> = inputDefault.default
 
+@Suppress("EnumEntryName")
 enum class MInputMargin {
-    Dense, None;
+    dense, none
 }
 
 interface MInputProps : StyledProps {

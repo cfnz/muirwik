@@ -2,23 +2,6 @@ package com.ccfraser.muirwik.wrapper
 
 import kotlinx.css.Color
 
-//enum class Amber(val rgb: String) {
-//    C50 ("#fff831"),
-//    C100("#ffecb3"),
-//    C200("#ffe082"),
-//    C300("#ffd54f"),
-//    C400("#ffca28"),
-//    C500("#ffc107"),
-//    C600("#ffb300"),
-//    C700("#ffa000"),
-//    C800("#ff8f00"),
-//    C900("#ff6f00"),
-//    A100("#ffe57f"),
-//    A200("#ffd740"),
-//    A400("#ffc400"),
-//    A700("#ffab00"),
-//}
-
 @Suppress("unused")
 class Colors {
     object Red {
@@ -150,7 +133,7 @@ class Colors {
         val shade600 = Color("#00acc1")
         val shade700 = Color("#0097a7")
         val shade800 = Color("#00838f")
-        val shade900 = Color("#6064")
+        val shade900 = Color("#006064")
         val accent100 = Color("#84ffff")
         val accent200 = Color("#18ffff")
         val accent400 = Color("#00e5ff")
@@ -187,7 +170,7 @@ class Colors {
         val shade900 = Color("#1b5e20")
         val accent100 = Color("#b9f6ca")
         val accent200 = Color("#69f0ae")
-        val accent400 = Color("#0")
+        val accent400 = Color("#00E676")
         val accent700 = Color("#00c853")
     }
 
@@ -303,7 +286,7 @@ class Colors {
         val shade600 = Color("#6d4c41")
         val shade700 = Color("#5d4037")
         val shade800 = Color("#4e342e")
-        val shade900 = Color("#1.79769313486232e+308")
+        val shade900 = Color("#3E2723")
     }
 
     object Grey {

@@ -9,7 +9,6 @@ import org.w3c.dom.HTMLInputElement
 import org.w3c.dom.HTMLTextAreaElement
 import org.w3c.dom.events.Event
 import react.*
-import react.dom.div
 import styled.StyledElementBuilder
 import styled.StyledHandler
 import styled.StyledProps
@@ -117,28 +116,19 @@ class PropsWithJsStyle(var style: JsObject?) : RProps
 @Suppress("UNCHECKED_CAST_TO_EXTERNAL_INTERFACE")
 fun CSSBuilder.toJsStyle() = toStyle() as JsObject
 
+@Suppress("EnumEntryName")
 enum class MAlignment {
-    Inherit, Left, Center, Right, Justify;
-
-    override fun toString(): String {
-        return super.toString().toLowerCase()
-    }
+    inherit, left, center, right, justify
 }
 
+@Suppress("EnumEntryName")
 enum class MColor {
-    Default, Inherit, Primary, Secondary;
-
-    override fun toString(): String {
-        return super.toString().toLowerCase()
-    }
+    default, inherit, primary, secondary
 }
 
+@Suppress("EnumEntryName")
 enum class MMargin {
-    None, Dense, Normal;
-
-    override fun toString(): String {
-        return super.toString().toLowerCase()
-    }
+    none, dense, normal
 }
 
 // This is moving to Breakpoint
@@ -159,12 +149,12 @@ fun String.toHyphenCase(): String {
     var isFirst = true
     this.forEach {
         if (it in 'A'..'Z') {
-            if (isFirst) isFirst = false
-            else text += "-"
+            if (!isFirst) text += "-"
             text += it.toLowerCase()
         } else {
             text += it
         }
+        isFirst = false
     }
     return text
 }

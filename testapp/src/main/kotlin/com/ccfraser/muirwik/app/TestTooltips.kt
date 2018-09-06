@@ -32,7 +32,7 @@ class TestTooltips : RComponent<RProps, RState>() {
             br {  }
             br {  }
             mTooltip("FAB") {
-                mButtonFab("add", color = MColor.Secondary) {
+                mButtonFab("add", color = MColor.secondary) {
                     css {
                         position = Position.absolute
                         bottom = 2.spacingUnits

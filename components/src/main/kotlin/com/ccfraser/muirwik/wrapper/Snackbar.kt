@@ -3,7 +3,6 @@ package com.ccfraser.muirwik.wrapper
 import com.ccfraser.muirwik.wrapper.transitions.MTransitionProps
 import org.w3c.dom.events.Event
 import react.*
-import react.dom.span
 import styled.StyledHandler
 import styled.StyledProps
 import kotlin.reflect.KClass
@@ -15,20 +14,14 @@ private external val SnackbarModule: dynamic
 @Suppress("UnsafeCastFromDynamic")
 private val snackbarComponent: RComponent<MSnackbarProps, RState> = SnackbarModule.default
 
+@Suppress("EnumEntryName")
 enum class SnackbarHorizAnchor {
-    Left, Center, Right;
-
-    override fun toString(): String {
-        return super.toString().toLowerCase()
-    }
+    left, center, right
 }
 
+@Suppress("EnumEntryName")
 enum class SnackbarVertAnchor {
-    Top, Center, Bottom;
-
-    override fun toString(): String {
-        return super.toString().toLowerCase()
-    }
+    top, center, bottom
 }
 
 interface MSnackbarProps : StyledProps {
@@ -61,8 +54,8 @@ fun RBuilder.mSnackbar(
         action: ReactElement? = null,
         open: Boolean? = null,
 
-        horizAnchor: SnackbarHorizAnchor = SnackbarHorizAnchor.Center,
-        vertAnchor: SnackbarVertAnchor = SnackbarVertAnchor.Bottom,
+        horizAnchor: SnackbarHorizAnchor = SnackbarHorizAnchor.center,
+        vertAnchor: SnackbarVertAnchor = SnackbarVertAnchor.bottom,
 
         transitionComponent: KClass<out RComponent<MTransitionProps, RState>>? = null,
 
@@ -119,8 +112,8 @@ fun RBuilder.mSnackbar(
         action: ReactElement? = null,
         open: Boolean? = null,
 
-        horizAnchor: SnackbarHorizAnchor = SnackbarHorizAnchor.Center,
-        vertAnchor: SnackbarVertAnchor = SnackbarVertAnchor.Bottom,
+        horizAnchor: SnackbarHorizAnchor = SnackbarHorizAnchor.center,
+        vertAnchor: SnackbarVertAnchor = SnackbarVertAnchor.bottom,
 
         transitionComponent: KClass<out RComponent<MTransitionProps, RState>>? = null,
 

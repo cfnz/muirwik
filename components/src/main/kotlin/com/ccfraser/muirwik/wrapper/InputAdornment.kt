@@ -13,8 +13,9 @@ private external val inputAdornmentDefault: dynamic
 @Suppress("UnsafeCastFromDynamic")
 private val inputAdornmentComponent: RComponent<MInputAdornmentProps, RState> = inputAdornmentDefault.default
 
+@Suppress("EnumEntryName")
 enum class MInputAdornmentPosition {
-    Start, End;
+    start, end
 }
 
 interface MInputAdornmentProps : StyledProps {
@@ -23,7 +24,7 @@ interface MInputAdornmentProps : StyledProps {
 }
 
 fun RBuilder.mInputAdornment(
-        position: MInputAdornmentPosition = MInputAdornmentPosition.Start,
+        position: MInputAdornmentPosition = MInputAdornmentPosition.start,
         disableTypography: Boolean = false,
 
         className: String? = null,

@@ -15,28 +15,23 @@ private external val tableCellModule: dynamic
 @Suppress("UnsafeCastFromDynamic")
 private val TableCellComponent: RComponent<MTableCellProps, RState> = tableCellModule.default
 
+@Suppress("EnumEntryName")
 enum class MTableCellPadding {
-    Default, Checkbox, Dense, None;
-
-    override fun toString(): String {
-        return super.toString().toLowerCase()
-    }
+    default, checkbox, dense, none
 }
 
+@Suppress("EnumEntryName")
 enum class MTableCellSortDirection {
-    Asc, Desc, False;
+    asc, desc, False;
 
     override fun toString(): String {
         return super.toString().toLowerCase()
     }
 }
 
+@Suppress("EnumEntryName")
 enum class MTableCellVariant {
-    Head, Body, Footer;
-
-    override fun toString(): String {
-        return super.toString().toLowerCase()
-    }
+    head, body, footer
 }
 
 interface MTableCellProps : StyledProps {
@@ -52,10 +47,10 @@ interface MTableCellProps : StyledProps {
 
 fun RBuilder.mTableCell(
         key: Any? = null,
-        variant: MTableCellVariant = MTableCellVariant.Body,
+        variant: MTableCellVariant = MTableCellVariant.body,
         sortDirection: MTableCellSortDirection = MTableCellSortDirection.False,
         alignRight: Boolean = false,
-        padding: MTableCellPadding = MTableCellPadding.Default,
+        padding: MTableCellPadding = MTableCellPadding.default,
         colSpan: Int? = null,
         component: String? = null,
         scope: String? = null,

@@ -3,10 +3,8 @@ package com.ccfraser.muirwik.app
 import com.ccfraser.muirwik.app.TestOptionControls.ComponentStyles.paddingLeft
 import com.ccfraser.muirwik.wrapper.*
 import com.ccfraser.muirwik.wrapper.form.*
-import kotlinext.js.js
 import kotlinx.css.Display
 import kotlinx.css.px
-import kotlinx.html.style
 import react.*
 import react.dom.br
 import react.dom.div
@@ -80,7 +78,7 @@ class TestOptionControls : RComponent<RProps, TestOptionControls.MyTestState>() 
             }
             styledDiv {
                 css { paddingLeft = 3.spacingUnits }
-                mFormControl(component = MFormControlComponent.FieldSet) {
+                mFormControl(component = MFormControlComponent.fieldSet) {
                     mFormLabel("In a FormGroup", component = "legend")
                     mFormGroup {
                         mCheckboxInLabel("Option 1", checked1, onChange = { _, _ -> setState { checked1 = !checked1 } })
@@ -102,7 +100,7 @@ class TestOptionControls : RComponent<RProps, TestOptionControls.MyTestState>() 
                 mFormControlLabel("My Label C", value = "c", control = altBuilder.mRadio()) { css(paddingLeft) } // With a label it seems to need a bit of left padding
                 mFormControlLabel("My Label D", value = "d", control = altBuilder.mRadio()) { css(paddingLeft) } // With a label it seems to need a bit of left padding
             }
-            mFormControl(component = MFormControlComponent.FieldSet) {
+            mFormControl(component = MFormControlComponent.fieldSet) {
                 css { display = Display.inlineFlex }
                 mFormLabel("Gender", required = true, component = "legend")
                 mRadioGroup(value = state.gender2Value, onChange = { _, value -> setState { gender2Value = value; println("Value: $value") } }) {
@@ -112,7 +110,7 @@ class TestOptionControls : RComponent<RProps, TestOptionControls.MyTestState>() 
                     mFormControlLabel("Disabled Option", value = "disabled", disabled = true, control = altBuilder.mRadio())
                 }
             }
-            mFormControl(component = MFormControlComponent.FieldSet, required = true, error = true) {
+            mFormControl(component = MFormControlComponent.fieldSet, required = true, error = true) {
                 css { display = Display.inlineFlex }
                 mFormLabel("Gender2", required = true, component = "legend")
                 mRadioGroup(value = gender1Value, name = "gender1", onChange = { _, value -> setState { gender1Value = value; println("Value: $value") } }) {
@@ -122,7 +120,7 @@ class TestOptionControls : RComponent<RProps, TestOptionControls.MyTestState>() 
                     mFormControlLabel("Disabled Option", value = "disabled", disabled = true, control = altBuilder.mRadio())
                 }
             }
-            mFormControl(component = MFormControlComponent.FieldSet, required = true, error = true) {
+            mFormControl(component = MFormControlComponent.fieldSet, required = true, error = true) {
                 css { display = Display.inlineFlex }
                 mFormLabel("Gender3", required = true, component = "legend")
                 mRadioGroup(value = gender1Value, name = "gender1", onChange = { _, value -> setState { gender1Value = value; println("Value: $value") } }) {

@@ -16,15 +16,12 @@ private val hiddenComponent: RComponent<MHiddenProps, RState> = hiddenModule.def
 
 @Suppress("EnumEntryName")
 enum class MHiddenImplementation {
-    js, css;
+    js, css
 }
 
+@Suppress("EnumEntryName")
 enum class MHiddenVariant {
-    Permanent, Persistent, Temporary;
-
-    override fun toString(): String {
-        return super.toString().toLowerCase()
-    }
+    permanent, persistent, temporary
 }
 
 interface MHiddenProps : StyledProps {

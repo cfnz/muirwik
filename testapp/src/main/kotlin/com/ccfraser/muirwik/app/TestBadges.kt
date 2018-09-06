@@ -1,24 +1,17 @@
 package com.ccfraser.muirwik.app
 
 import com.ccfraser.muirwik.wrapper.*
-import kotlinext.js.js
-import kotlinx.css.*
-import kotlinx.css.properties.BoxShadow
-import kotlinx.html.js.onClickFunction
-import kotlinx.html.js.onMouseMoveFunction
-import kotlinx.html.style
+import kotlinx.css.margin
+import kotlinx.css.padding
+import kotlinx.css.px
 import react.RBuilder
 import react.RComponent
 import react.RProps
 import react.RState
-import react.dom.br
-import react.dom.button
 import react.dom.div
 import react.dom.span
 import styled.StyleSheet
 import styled.css
-import styled.styledSpan
-import kotlin.browser.window
 
 
 class TestBadges : RComponent<RProps, RState>() {
@@ -35,26 +28,26 @@ class TestBadges : RComponent<RProps, RState>() {
     override fun RBuilder.render() {
         div {
             div {
-                mBadge("4", color = MBadgeColor.Primary) {
+                mBadge("4", color = MBadgeColor.primary) {
                     css(ComponentStyles.margin)
                     mIcon("mail")
                 }
-                mBadge("10", color = MBadgeColor.Secondary) {
+                mBadge("10", color = MBadgeColor.secondary) {
                     css(ComponentStyles.margin)
                     mIcon("mail")
                 }
                 mIconButton("mail") {
                     css(ComponentStyles.margin)
-                    mBadge("4", color = MBadgeColor.Primary) {
+                    mBadge("4", color = MBadgeColor.primary) {
                         css(ComponentStyles.margin)
                         mIcon("mail")
                     }
                 }
             }
-            mAppBar(position = MAppBarPosition.Static) {
+            mAppBar(position = MAppBarPosition.static) {
                 css(ComponentStyles.margin)
                 mTabs(0) {
-                    mTab(label = mBadge("4", color = MBadgeColor.Secondary, addAsChild = false) {
+                    mTab(label = mBadge("4", color = MBadgeColor.secondary, addAsChild = false) {
                         css(ComponentStyles.padding)
                         +"Item 1"
                     })
@@ -62,13 +55,13 @@ class TestBadges : RComponent<RProps, RState>() {
                     mTab(label = RBuilder().span { +"Item 3" })
                 }
             }
-            mBadge("4", color = MBadgeColor.Primary) {
+            mBadge("4", color = MBadgeColor.primary) {
                 css(ComponentStyles.margin)
                 mTypography("Typography") { css(ComponentStyles.padding)}
             }
-            mBadge("4", color = MBadgeColor.Primary) {
+            mBadge("4", color = MBadgeColor.primary) {
                 css(ComponentStyles.margin)
-                mButton("Button", variant = MButtonVariant.Contained)
+                mButton("Button", variant = MButtonVariant.contained)
             }
         }
     }

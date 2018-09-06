@@ -15,20 +15,14 @@ private external val circularProgressModule: dynamic
 @Suppress("UnsafeCastFromDynamic")
 private val circularProgressComponent: RComponent<MCircularProgressProps, RState> = circularProgressModule.default
 
+@Suppress("EnumEntryName")
 enum class MCircularProgressColor {
-    Primary, Secondary, Inherit;
-
-    override fun toString(): String {
-        return super.toString().toLowerCase()
-    }
+    primary, secondary, inherit
 }
 
+@Suppress("EnumEntryName")
 enum class MCircularProgressVariant {
-    Determinate, Indeterminate, Static;
-
-    override fun toString(): String {
-        return super.toString().toLowerCase()
-    }
+    determinate, indeterminate, static
 }
 
 interface MCircularProgressProps : StyledProps {
@@ -41,9 +35,9 @@ interface MCircularProgressProps : StyledProps {
 
 fun RBuilder.mCircularProgress(
         value: Double? = null,
-        variant: MCircularProgressVariant = MCircularProgressVariant.Indeterminate,
+        variant: MCircularProgressVariant = MCircularProgressVariant.indeterminate,
         size: LinearDimension = 40.px,
-        color: MCircularProgressColor = MCircularProgressColor.Primary,
+        color: MCircularProgressColor = MCircularProgressColor.primary,
         thickness: Double = 3.6,
 
         className: String? = null,

@@ -65,7 +65,7 @@ class TestGridLists : RComponent<RProps, RState>() {
     }
 
     override fun RBuilder.render() {
-        mTypography("Image-only Grid list", MTypographyVariant.Display1)
+        mTypography("Image-only Grid list", MTypographyVariant.display1)
         styledDiv {
             css(rootDiv)
             mGridList(3, cellHeight = 160) {
@@ -78,7 +78,7 @@ class TestGridLists : RComponent<RProps, RState>() {
             }
         }
 
-        mTypography("Grid list with titlebars", MTypographyVariant.Display1) { css { paddingTop = 3.spacingUnits }}
+        mTypography("Grid list with titlebars", MTypographyVariant.display1) { css { paddingTop = 3.spacingUnits }}
         styledDiv {
             css(rootDiv)
             mGridList(cellHeight = 180) {
@@ -93,7 +93,7 @@ class TestGridLists : RComponent<RProps, RState>() {
                     mGridListTile(key = it.img) {
                         img(src = "/static/images/grid-list/${it.img}", alt = it.title) {}
                         mGridListTileBar(it.title, "by ${it.author}",
-                                mIconButton("info", iconColor = MIconColor.Inherit) {
+                                mIconButton("info", iconColor = MIconColor.inherit) {
                                     css(icon)
                                 }
                         )
@@ -102,7 +102,7 @@ class TestGridLists : RComponent<RProps, RState>() {
             }
         }
 
-        mTypography("With Rows and Cols", MTypographyVariant.Display1) { css { paddingTop = 3.spacingUnits }}
+        mTypography("With Rows and Cols", MTypographyVariant.display1) { css { paddingTop = 3.spacingUnits }}
         styledDiv {
             css(rootDiv)
             mGridList(cellHeight = 200, spacing = 1) {
@@ -110,8 +110,8 @@ class TestGridLists : RComponent<RProps, RState>() {
                 tileData.forEach {
                     mGridListTile(key = it.img, cols = if (it.featured) 2 else 1, rows = if (it.featured) 2 else 1) {
                         img(src = "/static/images/grid-list/${it.img}", alt = it.title) {}
-                        mGridListTileBar(it.title, titlePosition = TitlePosition.Top, actionPosition = ActionPosition.Left,
-                                actionIcon = mIconButton("star-border", iconColor = MIconColor.Inherit) {
+                        mGridListTileBar(it.title, titlePosition = TitlePosition.top, actionPosition = ActionPosition.left,
+                                actionIcon = mIconButton("star-border", iconColor = MIconColor.inherit) {
                                     css(icon)
                                 }
                         ) {
@@ -122,7 +122,7 @@ class TestGridLists : RComponent<RProps, RState>() {
             }
         }
 
-        mTypography("Single Line List", MTypographyVariant.Display1) { css { paddingTop = 3.spacingUnits }}
+        mTypography("Single Line List", MTypographyVariant.display1) { css { paddingTop = 3.spacingUnits }}
         styledDiv {
             css(rootDiv)
             mGridList(cellHeight = 200, cols = 2.5) {

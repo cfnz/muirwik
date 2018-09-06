@@ -17,20 +17,14 @@ private external val drawerModule: dynamic
 @Suppress("UnsafeCastFromDynamic")
 private val drawerComponent: RComponent<MDrawerProps, RState> = drawerModule.default
 
+@Suppress("EnumEntryName")
 enum class MDrawerAnchor {
-    Left, Top, Right, Bottom;
-
-    override fun toString(): String {
-        return super.toString().toLowerCase()
-    }
+    left, top, right, bottom
 }
 
+@Suppress("EnumEntryName")
 enum class MDrawerVariant {
-    Permanent, Persistent, Temporary;
-
-    override fun toString(): String {
-        return super.toString().toLowerCase()
-    }
+    permanent, persistent, temporary
 }
 
 interface MDrawerProps : StyledProps {
@@ -55,8 +49,8 @@ interface MDrawerProps : StyledProps {
 
 fun RBuilder.mDrawer(
         open: Boolean = false,
-        anchor: MDrawerAnchor = MDrawerAnchor.Left,
-        variant: MDrawerVariant = MDrawerVariant.Temporary,
+        anchor: MDrawerAnchor = MDrawerAnchor.left,
+        variant: MDrawerVariant = MDrawerVariant.temporary,
         onClose: ((Event) -> Unit)? = null,
         elevation: Int = 16,
         modalProps: RProps? = null,

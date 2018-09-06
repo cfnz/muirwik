@@ -27,17 +27,14 @@ interface MTableSortLabelProps : StyledProps {
     var onClick: (Event) -> Unit
 }
 
+@Suppress("EnumEntryName")
 enum class MTableSortLabelDirection {
-    Asc, Desc;
-
-    override fun toString(): String {
-        return super.toString().toLowerCase()
-    }
+    asc, desc
 }
 
 fun RBuilder.mTableSortLabel(
         active: Boolean = false,
-        direction: MTableSortLabelDirection = MTableSortLabelDirection.Desc,
+        direction: MTableSortLabelDirection = MTableSortLabelDirection.desc,
         onClick: ((event: Event) -> Unit)? = null,
         iconFunction: (() -> ReactElement)? = null,
         className: String? = null,
@@ -53,7 +50,7 @@ fun RBuilder.mTableSortLabel(
 fun RBuilder.mTableSortLabel(
         label: String,
         active: Boolean = false,
-        direction: MTableSortLabelDirection = MTableSortLabelDirection.Desc,
+        direction: MTableSortLabelDirection = MTableSortLabelDirection.desc,
         onClick: ((event: Event) -> Unit)? = null,
         iconFunction: (() -> ReactElement)? = null,
 

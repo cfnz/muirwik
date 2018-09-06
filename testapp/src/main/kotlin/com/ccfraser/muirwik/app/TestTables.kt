@@ -43,7 +43,7 @@ class TestTables : RComponent<RProps, RState>() {
 
     // State for sort and select example
     private val selectedIds = mutableSetOf<Int>()
-    private var order = MTableCellSortDirection.Asc
+    private var order = MTableCellSortDirection.asc
     private var orderByColumn: ColumnId = ColumnId.Name
     private var page = 0
     private var rowsPerPage = 5
@@ -133,9 +133,9 @@ class TestTables : RComponent<RProps, RState>() {
     private fun handleRequestSort(id: ColumnId): Unit {
         setState {
             if (orderByColumn == id) {
-                order = if (order == MTableCellSortDirection.Asc) MTableCellSortDirection.Desc else MTableCellSortDirection.Asc
+                order = if (order == MTableCellSortDirection.asc) MTableCellSortDirection.desc else MTableCellSortDirection.asc
             } else {
-                order = MTableCellSortDirection.Asc
+                order = MTableCellSortDirection.asc
             }
 
             orderByColumn = id
@@ -148,7 +148,7 @@ class TestTables : RComponent<RProps, RState>() {
                 ColumnId.Protein -> a.protein.compareTo(b.protein)
             }
 
-            if (order == MTableCellSortDirection.Asc) {
+            if (order == MTableCellSortDirection.asc) {
                 androidDeserts.sortWith( Comparator { a, b -> compareDesserts(a, b) })
             } else {
                 androidDeserts.sortWith( Comparator { a, b -> compareDesserts(b, a) })
@@ -175,10 +175,10 @@ class TestTables : RComponent<RProps, RState>() {
 //                                attrs.asDynamic().tabIndex = -1
 //                                attrs.asDynamic().role = "checkbox"
 
-                                mTableCell(padding = MTableCellPadding.Checkbox) {
+                                mTableCell(padding = MTableCellPadding.checkbox) {
                                     mCheckbox(isSelected, primary = false)
                                 }
-                                mTableCell(alignRight = false, padding = MTableCellPadding.None) { +it.dessertName }
+                                mTableCell(alignRight = false, padding = MTableCellPadding.none) { +it.dessertName }
                                 mTableCell(alignRight = true) { +it.calories.toString() }
                                 mTableCell(alignRight = true) { +it.fat.toString() }
                                 mTableCell(alignRight = true) { +it.carbs.toString() }
@@ -212,7 +212,7 @@ class TestTables : RComponent<RProps, RState>() {
                                    onRequestSort: (id: ColumnId) -> Unit) {
         mTableHead {
             mTableRow {
-                mTableCell(padding = MTableCellPadding.Checkbox) {
+                mTableCell(padding = MTableCellPadding.checkbox) {
                     mCheckbox(indeterminate = numSelected > 0 && numSelected < rowCount,
                             primary = false,
                             checked = numSelected == rowCount,
@@ -221,12 +221,12 @@ class TestTables : RComponent<RProps, RState>() {
                 columnData.forEach { data ->
                     mTableCell(data.name, 
                             alignRight = data.rightAligned,
-                            padding = if (data.disablePadding) MTableCellPadding.None else MTableCellPadding.Default,
+                            padding = if (data.disablePadding) MTableCellPadding.none else MTableCellPadding.default,
                             sortDirection = if (orderByColumn == data.name) order else MTableCellSortDirection.False) {
-                        mTooltip("Sort", if (data.rightAligned) TooltipPlacement.BottomEnd else TooltipPlacement.BottomStart, enterDelay = 300) {
+                        mTooltip("Sort", if (data.rightAligned) TooltipPlacement.bottomEnd else TooltipPlacement.bottomStart, enterDelay = 300) {
                             mTableSortLabel(data.label, orderByColumn == data.name,
 //                                    iconFunction = { mIcon("star", addAsChild = false) },
-                                    direction = if (order == MTableCellSortDirection.Asc) MTableSortLabelDirection.Asc else MTableSortLabelDirection.Desc,
+                                    direction = if (order == MTableCellSortDirection.asc) MTableSortLabelDirection.asc else MTableSortLabelDirection.desc,
                                     onClick = { onRequestSort(data.name) }) 
                         }
                     }
@@ -241,9 +241,9 @@ class TestTables : RComponent<RProps, RState>() {
             styledDiv {
                 css { flex(0.0, 0.0, FlexBasis.auto) }
                 if (numSelected > 0) {
-                    mTypography("$numSelected selected", variant = MTypographyVariant.Subheading)
+                    mTypography("$numSelected selected", variant = MTypographyVariant.subheading)
                 } else {
-                    mTypography("Nutrition", variant = MTypographyVariant.Title)
+                    mTypography("Nutrition", variant = MTypographyVariant.title)
                 }
             }
             styledDiv { css(ComponentStyles.spacer) }

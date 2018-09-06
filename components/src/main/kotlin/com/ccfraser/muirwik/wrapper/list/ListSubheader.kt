@@ -2,7 +2,6 @@ package com.ccfraser.muirwik.wrapper.list
 
 import com.ccfraser.muirwik.wrapper.MButtonBaseProps
 import com.ccfraser.muirwik.wrapper.createStyled
-import com.ccfraser.muirwik.wrapper.mDivider
 import com.ccfraser.muirwik.wrapper.setStyledPropsAndRunHandler
 import react.RBuilder
 import react.RComponent
@@ -16,12 +15,9 @@ private external val listSubheaderModule: dynamic
 @Suppress("UnsafeCastFromDynamic")
 val listSubheaderComponent: RComponent<MListSubheaderProps, RState> = listSubheaderModule.default
 
+@Suppress("EnumEntryName")
 enum class MListSubheaderColor {
-    Default, Primary, Inherit;
-
-    override fun toString(): String {
-        return super.toString().toLowerCase()
-    }
+    default, primary, inherit
 }
 
 interface MListSubheaderProps : MButtonBaseProps {
@@ -36,7 +32,7 @@ interface MListSubheaderProps : MButtonBaseProps {
  */
 fun RBuilder.mListSubheader(
         heading: String,
-        color: MListSubheaderColor = MListSubheaderColor.Default,
+        color: MListSubheaderColor = MListSubheaderColor.default,
         component: String? = null,
         disableGutters: Boolean = false,
         disableSticky: Boolean = false,
@@ -59,7 +55,7 @@ fun RBuilder.mListSubheader(
  * The 'standard' list sub-header... you need to create a child item for the heading.
  */
 fun RBuilder.mListSubheader(
-        color: MListSubheaderColor = MListSubheaderColor.Default,
+        color: MListSubheaderColor = MListSubheaderColor.default,
         component: String? = null,
         disableGutters: Boolean = false,
         disableSticky: Boolean = false,

@@ -1,6 +1,5 @@
 package com.ccfraser.muirwik.wrapper
 
-import kotlinext.js.JsObject
 import org.w3c.dom.events.Event
 import react.RBuilder
 import react.RComponent
@@ -43,25 +42,16 @@ interface MIconButtonProps : MButtonBaseProps {
     var href: String
 }
 
+@Suppress("EnumEntryName")
 enum class MButtonSize {
-    Small, Medium, Large;
-
-    override fun toString(): String {
-        return super.toString().toLowerCase()
-    }
+    small, medium, large
 }
 
 // Have removed Flat and Raised as these terms are depreciated for Text and Contained respectively and look like they
 // will be removed in the future
+@Suppress("EnumEntryName")
 enum class MButtonVariant {
-    Text, Outlined, Contained, Fab, ExtendedFab;
-
-    override fun toString(): String {
-        return when (this) {
-            ExtendedFab -> "extendedFab"
-            else -> super.toString().toLowerCase()
-        }
-    }
+    text, outlined, contained, fab, extendedFab
 }
 
 fun RBuilder.mButton(
@@ -69,11 +59,11 @@ fun RBuilder.mButton(
         primary: Boolean = false, // If true, then this overrides the color... just an easier setter...
         onClick: ((Event) -> Unit)? = null,
         disabled: Boolean = false,
-        color: MColor = MColor.Default,
-        variant: MButtonVariant = MButtonVariant.Text,
+        color: MColor = MColor.default,
+        variant: MButtonVariant = MButtonVariant.text,
         onKeyboardFocus: ((Event) -> Unit)? = null,
 
-        size: MButtonSize = MButtonSize.Medium,
+        size: MButtonSize = MButtonSize.medium,
         href: String? = null,
         fullWidth: Boolean = false,
 
@@ -89,7 +79,7 @@ fun RBuilder.mButton(
         className: String? = null,
         handler: StyledHandler<MButtonProps>? = null) = createStyled(buttonComponent, addAsChild) {
     attrs.centerRipple = centerRipple
-    attrs.color = if (primary) MColor.Primary.toString() else color.toString()
+    attrs.color = if (primary) MColor.primary.toString() else color.toString()
     component?.let { attrs.component = component}
     attrs.disabled = disabled
     attrs.disableFocusRipple = disableFocusRipple
@@ -110,14 +100,14 @@ fun RBuilder.mButton(
 }
 
 /**
- * mButtonFab automatically changes the variant to be Fab and has a convenience iconName.
+ * mButtonFab automatically changes the variant to be fab and has a convenience iconName.
  */
 fun RBuilder.mButtonFab(
         iconName: String,
         primary: Boolean = false, // If true, then this overrides the color... just an easier setter...
         onClick: ((Event) -> Unit)? = null,
         disabled: Boolean = false,
-        color: MColor = MColor.Default,
+        color: MColor = MColor.default,
         onKeyboardFocus: ((Event) -> Unit)? = null,
 
         mini: Boolean = false,
@@ -133,7 +123,7 @@ fun RBuilder.mButtonFab(
         className: String? = null,
         handler: StyledHandler<MButtonProps>? = null) = createStyled(buttonComponent, addAsChild) {
     attrs.centerRipple = centerRipple
-    attrs.color = if (primary) MColor.Primary.toString() else color.toString()
+    attrs.color = if (primary) MColor.primary.toString() else color.toString()
     attrs.disabled = disabled
     attrs.disableFocusRipple = disableFocusRipple
     attrs.disableRipple = disableRipple
@@ -142,9 +132,9 @@ fun RBuilder.mButtonFab(
     attrs.mini = mini
     onClick?.let { attrs.onClick = onClick }
     onKeyboardFocus?.let {attrs.onKeyboardFocus = onKeyboardFocus}
-    attrs.size = MButtonSize.Medium.toString()
+    attrs.size = MButtonSize.medium.toString()
     touchRippleProps?.let { attrs.touchRippleProps = touchRippleProps }
-    attrs.variant = MButtonVariant.Fab.toString()
+    attrs.variant = MButtonVariant.fab.toString()
 
     mIcon(iconName)
 
@@ -152,7 +142,7 @@ fun RBuilder.mButtonFab(
 }
 
 /**
- * mButtonFab but with a caption which turns into an ExtendedFab type.
+ * mButtonFab but with a caption which turns into an extendedFab type.
  */
 fun RBuilder.mButtonFab(
         iconName: String,
@@ -160,7 +150,7 @@ fun RBuilder.mButtonFab(
         primary: Boolean = false, // If true, then this overrides the color... just an easier setter...
         onClick: ((Event) -> Unit)? = null,
         disabled: Boolean = false,
-        color: MColor = MColor.Default,
+        color: MColor = MColor.default,
         onKeyboardFocus: ((Event) -> Unit)? = null,
 
         mini: Boolean = false,
@@ -176,7 +166,7 @@ fun RBuilder.mButtonFab(
         className: String? = null,
         handler: StyledHandler<MButtonProps>? = null) = createStyled(buttonComponent, addAsChild) {
     attrs.centerRipple = centerRipple
-    attrs.color = if (primary) MColor.Primary.toString() else color.toString()
+    attrs.color = if (primary) MColor.primary.toString() else color.toString()
     attrs.disabled = disabled
     attrs.disableFocusRipple = disableFocusRipple
     attrs.disableRipple = disableRipple
@@ -185,9 +175,9 @@ fun RBuilder.mButtonFab(
     attrs.mini = mini
     onClick?.let { attrs.onClick = onClick }
     onKeyboardFocus?.let {attrs.onKeyboardFocus = onKeyboardFocus}
-    attrs.size = MButtonSize.Medium.toString()
+    attrs.size = MButtonSize.medium.toString()
     touchRippleProps?.let { attrs.touchRippleProps = touchRippleProps }
-    attrs.variant = MButtonVariant.ExtendedFab.toString()
+    attrs.variant = MButtonVariant.extendedFab.toString()
 
     mIcon(iconName)
     childList.add(caption)
@@ -212,7 +202,7 @@ fun RBuilder.mIconButton(
         primary: Boolean = false, // If true, then this overrides the color... just an easier setter...
         onClick: ((Event) -> Unit)? = null,
         disabled: Boolean = false,
-        color: MColor = MColor.Default,
+        color: MColor = MColor.default,
         href: String? = null,
 
         disableRipple: Boolean = false,
@@ -227,7 +217,7 @@ fun RBuilder.mIconButton(
         className: String? = null,
         handler: StyledHandler<MIconButtonProps>? = null) = createStyled(iconButtonComponent, addAsChild) {
     attrs.centerRipple = centerRipple
-    attrs.color = if (primary) MColor.Primary.toString() else color.toString()
+    attrs.color = if (primary) MColor.primary.toString() else color.toString()
     attrs.disabled = disabled
     attrs.disableRipple = disableRipple
     attrs.focusRipple = focusRipple
@@ -240,10 +230,10 @@ fun RBuilder.mIconButton(
     // If the iconColor is null, we shall map to the button color if we can
     if (iconColorToUse == null) {
         iconColorToUse = when (color) {
-            MColor.Inherit -> MIconColor.Inherit
-            MColor.Default -> MIconColor.Action
-            MColor.Secondary -> MIconColor.Secondary
-            MColor.Primary -> MIconColor.Primary
+            MColor.inherit -> MIconColor.inherit
+            MColor.default -> MIconColor.action
+            MColor.secondary -> MIconColor.secondary
+            MColor.primary -> MIconColor.primary
         }
     }
 

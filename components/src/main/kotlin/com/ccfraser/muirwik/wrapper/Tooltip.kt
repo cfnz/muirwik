@@ -15,8 +15,9 @@ private external val tooltipModule: dynamic
 @Suppress("UnsafeCastFromDynamic")
 private val tooltipComponent: RComponent<MTooltipProps, RState> = tooltipModule.default
 
+@Suppress("EnumEntryName")
 enum class TooltipPlacement {
-    BottomEnd, BottomStart, Bottom, LeftEnd, LeftStart, Left, RightEnd, RightStart, Right, TopEnd, TopStart, Top;
+    bottomEnd, bottomStart, bottom, leftEnd, leftStart, left, rightEnd, rightStart, right, topEnd, topStart, top;
 
     override fun toString(): String {
         return super.toString().toHyphenCase()
@@ -44,7 +45,7 @@ interface MTooltipProps : StyledProps {
 
 fun RBuilder.mTooltip(
         title: String,
-        placement: TooltipPlacement = TooltipPlacement.Bottom,
+        placement: TooltipPlacement = TooltipPlacement.bottom,
 
         enterDelay: Int? = null,
         enterTouchDelay: Int? = null,
@@ -68,7 +69,7 @@ fun RBuilder.mTooltip(
 
 fun RBuilder.mTooltip(
         title: String,
-        placement: TooltipPlacement = TooltipPlacement.Bottom,
+        placement: TooltipPlacement = TooltipPlacement.bottom,
 
         open: Boolean? = null,
         popperProps: RProps? = null,

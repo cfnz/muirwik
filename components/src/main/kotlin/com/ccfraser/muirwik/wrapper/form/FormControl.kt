@@ -21,8 +21,9 @@ private val formControlComponent: RComponent<MFormControlProps, RState> = formCo
  * Div and FieldSet seem to be the most used values for this prop, so we shall enum these... if you need something
  * else, you will have to use the attrs directly.
  */
+@Suppress("EnumEntryName")
 enum class MFormControlComponent {
-    Div, FieldSet;
+    div, fieldSet;
 
     override fun toString(): String {
         return super.toString().toHyphenCase()
@@ -39,7 +40,7 @@ interface MFormControlProps : StyledProps {
 }
 
 fun RBuilder.mFormControl(
-        component: MFormControlComponent = MFormControlComponent.Div,
+        component: MFormControlComponent = MFormControlComponent.div,
         disabled: Boolean = false,
         error: Boolean = false,
         fullWidth: Boolean = false,
