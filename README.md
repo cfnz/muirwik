@@ -1,6 +1,6 @@
 # Muirwik
 
-Welcome to Muirwik
+Welcome to Muirwik.
 
 Muirwik gets it name from being a [Material UI](https://material-ui.com/) [React](https://reactjs.org/) wrapper written 
 in [Kotlin](https://kotlinlang.org/).
@@ -37,12 +37,12 @@ work.
 ## Todo
 Well, lots really, but as mentioned, it is in a working state as it is...
 
-###Tests
+### Tests
 There are none, zip, zero, naught. The Material UI framework has them, but other than the test app, which is for user
 based testing and experimentation, there is nothing else. I am not familiar with any javascript testing framework, so 
 the only way I have tested thus far is with the demo app.
 
-###State Management
+### State Management
 State management via Redux (or something) is something I have been meaning to look into. In the test app, most of 
 state is in local vars rather than in State objects. I tried both, but saw no real benefit in the state objects rather 
 than state vars. It didn't seem to help with hot module reloading either. It didn't seem to help with anything much. 
