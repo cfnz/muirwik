@@ -36,6 +36,8 @@ work.
     gradle build
     gradle webpackDevServerOpenBrowser
 
+Note that I have not taken the time to make the demo app perfect. Some of the components could be
+laid out better. To see what is possible, see the [Material UI](https://material-ui.com/) demo.
 ## Todo
 Well, lots really, but as mentioned, it is in a working state as it is...
 
