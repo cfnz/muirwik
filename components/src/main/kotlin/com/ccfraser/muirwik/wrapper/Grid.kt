@@ -1,5 +1,6 @@
 package com.ccfraser.muirwik.wrapper
 
+import com.ccfraser.muirwik.wrapper.styles.Breakpoint
 import react.RBuilder
 import react.RComponent
 import react.RHandler
@@ -64,6 +65,39 @@ enum class MGridSpacing(val size: Int) {
     Spacing0(0), Spacing8(8), Spacing16(16), Spacing24(24), Spacing40(40);
 }
 
+/**
+ * This class as no companion in MaterialUI. We just use it to make setting grid breakpoints a bit easier
+ */
+data class MGridBreakpoints(
+        val xs: MGridSize = MGridSize.Auto,
+        val sm: MGridSize = MGridSize.Auto,
+        val md: MGridSize = MGridSize.Auto,
+        val lg: MGridSize = MGridSize.Auto,
+        val xl: MGridSize = MGridSize.Auto) {
+    constructor(defaultGridSize: MGridSize) : this(defaultGridSize, defaultGridSize, defaultGridSize, defaultGridSize, defaultGridSize)
+
+    fun down(breakpoint: Breakpoint, gridSize: MGridSize): MGridBreakpoints {
+        return when (breakpoint) {
+            Breakpoint.xs -> copy(xs = gridSize)
+            Breakpoint.sm -> copy(xs = gridSize, sm = gridSize)
+            Breakpoint.md -> copy(xs = gridSize, sm = gridSize, md = gridSize)
+            Breakpoint.lg -> copy(xs = gridSize, sm = gridSize, md = gridSize, lg = gridSize)
+            Breakpoint.xl -> copy(xs = gridSize, sm = gridSize, md = gridSize, lg = gridSize, xl = gridSize)
+        }
+    }
+
+    fun up(breakpoint: Breakpoint, gridSize: MGridSize): MGridBreakpoints {
+        return when (breakpoint) {
+            Breakpoint.xs -> copy(xl = gridSize, lg = gridSize, md = gridSize, sm = gridSize, xs = gridSize)
+            Breakpoint.sm -> copy(xl = gridSize, lg = gridSize, md = gridSize, sm = gridSize)
+            Breakpoint.md -> copy(xl = gridSize, lg = gridSize, md = gridSize)
+            Breakpoint.lg -> copy(xl = gridSize, lg = gridSize)
+            Breakpoint.xl -> copy(xl = gridSize)
+        }
+    }
+}
+
+
 interface MGridProps : StyledProps {
     var alignContent: String
     var alignItems: String
@@ -122,3 +156,17 @@ fun RBuilder.mGridItem(
     setStyledPropsAndRunHandler(className, handler)
 }
 
+fun RBuilder.mGridItem(
+        breakpoints: MGridBreakpoints,
+        className: String? = null,
+        handler: RHandler<MGridProps>? = null) =
+        mGridItem(
+                breakpoints.xs,
+                breakpoints.sm,
+                breakpoints.md,
+                breakpoints.lg,
+                breakpoints.xl,
+                null,
+                className,
+                handler
+        )

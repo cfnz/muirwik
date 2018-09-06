@@ -11,10 +11,11 @@ enum class Breakpoint {
 
 /**
  * The js up, down, etc calls all return a string beginning with "@media". We usually use these functions in
- * css { media {...} } calls (e.g. media(currentTheme.breakpoints.up(Breakpoint.md)) ), so we don't need the "@media" prefix as css { media {...} } adds the prefix as well.
+ * css { media {...} } calls (e.g. media(currentTheme.breakpoints.up(Breakpoint.md)) ), so we don't need the
+ * "@media" prefix as css { media {...} } adds the prefix as well.
  *
- * Also note that we using String keys in the js calls as for some calls using the breakpoint value compiles and runs,
- * but returns nonsense values... so not sure what is getting called there, but calling with a string works.
+ * Also note that we are using String keys in the js calls as for some calls using the breakpoint value compiles and
+ * runs, but returns nonsense values... so not sure what is getting called there, but calling with a string works.
  */
 external interface Breakpoints {
     var keys: Array<Breakpoint>

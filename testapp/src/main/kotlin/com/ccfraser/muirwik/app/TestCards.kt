@@ -2,6 +2,7 @@ package com.ccfraser.muirwik.app
 
 import com.ccfraser.muirwik.wrapper.*
 import com.ccfraser.muirwik.wrapper.card.*
+import com.ccfraser.muirwik.wrapper.styles.Breakpoint
 import com.ccfraser.muirwik.wrapper.transitions.mCollapse
 import kotlinx.css.*
 import kotlinx.css.properties.*
@@ -21,7 +22,11 @@ class TestCards : RComponent<RProps, RState>() {
                 padding(16.px)
             }
             mGridContainer {
-                mGridItem(md = MGridSize.Cells6, xs = MGridSize.Cells12) {
+                val breakpoints = MGridBreakpoints(MGridSize.Cells6)
+                        .up(Breakpoint.lg, MGridSize.Cells4)
+                        .down(Breakpoint.sm, MGridSize.Cells12)
+
+                mGridItem(breakpoints) {
                     mCard {
                         mCardHeader(title = "Shrimp and Chorizo Paella", subHeader = "September 14",
                                 avatar = mAvatar(addAsChild = false) {+"R"},
@@ -58,7 +63,7 @@ class TestCards : RComponent<RProps, RState>() {
                         }
                     }
                 }
-                mGridItem(md = MGridSize.Cells6, xs = MGridSize.Cells12) {
+                mGridItem(breakpoints) {
                     mCard {
                         mCardActionArea(onClick = { window.alert("You clicked the action area.") }) {
                             mCardMedia(image = "/static/images/cards/contemplative-reptile.jpg",
@@ -77,7 +82,7 @@ class TestCards : RComponent<RProps, RState>() {
                         }
                     }
                 }
-                mGridItem(md = MGridSize.Cells6, xs = MGridSize.Cells12) {
+                mGridItem(breakpoints) {
                     mCard {
                         mCardHeader(title = "Expand for more info",
                                 action = mIconButton("expand_more",
@@ -101,7 +106,7 @@ class TestCards : RComponent<RProps, RState>() {
                         }
                     }
                 }
-                mGridItem(md = MGridSize.Cells6, xs = MGridSize.Cells12) {
+                mGridItem(breakpoints) {
                     mCard {
                         css { display = Display.flex }
                         styledDiv {
