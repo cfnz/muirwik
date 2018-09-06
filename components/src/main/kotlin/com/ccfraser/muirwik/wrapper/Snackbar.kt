@@ -91,6 +91,7 @@ fun RBuilder.mSnackbar(
 
         transitionComponent: KClass<out RComponent<MTransitionProps, RState>>? = null,
         transitionDuration: TransitionTimeout? = null,
+        transitionProps: RProps? = null,
 
         key: String? = null,
 
@@ -119,6 +120,8 @@ fun RBuilder.mSnackbar(
     attrs.anchorOrigin.vertical = vertAnchor.toString()
 
     autoHideDuration?.let { attrs.autoHideDuration = it }
+    clickAwayListenerProps?.let { attrs.clickAwayListenerProps = it }
+    contentProps?.let { attrs.contentProps = it }
     attrs.disableWindowBlurListener = disableWindowBlurListener
     key?.let { attrs.key = it }
     attrs.message = message
@@ -131,10 +134,9 @@ fun RBuilder.mSnackbar(
     onExiting?.let { attrs.onExiting = it }
     open?.let { attrs.open = it }
     resumeHideDuration?.let { attrs.resumeHideDuration = it }
-    clickAwayListenerProps?.let { attrs.clickAwayListenerProps = it }
-    contentProps?.let { attrs.contentProps = it }
     transitionComponent?.let { attrs.transitionComponent = it.js }
     transitionDuration?.let { attrs.transitionDuration = transitionDuration.value() }
+    transitionProps?.let { attrs.transitionProps = transitionProps }
 
     setStyledPropsAndRunHandler(className, handler)
 }
@@ -152,6 +154,7 @@ fun RBuilder.mSnackbar(
 
         transitionComponent: KClass<out RComponent<MTransitionProps, RState>>? = null,
         transitionDuration: TransitionTimeout? = null,
+        transitionProps: RProps? = null,
 
         key: String? = null,
 
@@ -176,6 +179,6 @@ fun RBuilder.mSnackbar(
     @Suppress("UnsafeCastFromDynamic")
     val dynamicElement: ReactElement = message.asDynamic()
     return mSnackbar(dynamicElement, action, open, horizAnchor, vertAnchor, transitionComponent, transitionDuration,
-            key, contentProps, clickAwayListenerProps, onClose, onEnter, onEntered, onEntering, onExit, onExited,
-            onExiting, autoHideDuration, resumeHideDuration, disableWindowBlurListener, className, handler)
+            transitionProps, key, contentProps, clickAwayListenerProps, onClose, onEnter, onEntered, onEntering, onExit,
+            onExited, onExiting, autoHideDuration, resumeHideDuration, disableWindowBlurListener, className, handler)
 }
