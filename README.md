@@ -32,6 +32,8 @@ work.
 ## To Get Started
     git clone https://github.com/cfnz/muirwik.git
     cd muirwik/testapp
+    gradle yarn
+    gradle build
     gradle webpackDevServerOpenBrowser
 
 ## Todo
