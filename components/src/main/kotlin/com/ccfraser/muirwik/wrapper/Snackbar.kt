@@ -1,6 +1,7 @@
 package com.ccfraser.muirwik.wrapper
 
 import com.ccfraser.muirwik.wrapper.transitions.MTransitionProps
+import com.ccfraser.muirwik.wrapper.transitions.TransitionTimeout
 import org.w3c.dom.events.Event
 import react.*
 import styled.StyledHandler
@@ -24,14 +25,27 @@ enum class SnackbarVertAnchor {
     top, center, bottom
 }
 
+@Suppress("EnumEntryName")
+enum class OnCloseReason {
+    timeout, clickAway
+}
+
+
 interface MSnackbarProps : StyledProps {
     var action: ReactElement
     var anchorOrigin: dynamic
     var autoHideDuration: Int
+
+    @JsName("ClickAwayListenerProps")
+    var clickAwayListenerProps: RProps
+
+    @JsName("ContentProps")
+    var contentProps: RProps
+
     var disableWindowBlurListener: Boolean
     var key: String
     var message: ReactElement
-    var onClose: (Event) -> Unit
+    var onClose: (Event, String) -> Unit
     var onEnter: Event
     var onEntered: Event
     var onEntering: Event
@@ -41,12 +55,30 @@ interface MSnackbarProps : StyledProps {
     var open: Boolean
     var resumeHideDuration: Int
 
-    @JsName("ContentProps")
-    var contentProps: RProps
 
     @JsName("TransitionComponent")
     var transitionComponent: dynamic
-//    var transitionDuration: dynamic
+
+    var transitionDuration: dynamic
+
+    @JsName("TransitionProps")
+    var transitionProps: RProps
+}
+
+/**
+ * We want to get ourselves in-between the javascript callback and the user who may have registered a callback so
+ * we can change the type of the parameter. Rather than a class, we just create a couple of private "local globals"
+ * to track things.
+ */
+private var onCloseParam: ((Event, OnCloseReason) -> Unit)? = null
+private fun internalOnClose(event: Event, reason: String) {
+    onCloseParam?.let {
+        if (reason.toLowerCase() == "timeout") {
+            it(event, OnCloseReason.timeout)
+        } else {
+            it(event, OnCloseReason.clickAway)
+        }
+    }
 }
 
 fun RBuilder.mSnackbar(
@@ -58,12 +90,14 @@ fun RBuilder.mSnackbar(
         vertAnchor: SnackbarVertAnchor = SnackbarVertAnchor.bottom,
 
         transitionComponent: KClass<out RComponent<MTransitionProps, RState>>? = null,
+        transitionDuration: TransitionTimeout? = null,
 
         key: String? = null,
 
         contentProps: RProps? = null,
+        clickAwayListenerProps: RProps? = null,
 
-        onClose: ((Event) -> Unit)? = null,
+        onClose: ((Event, OnCloseReason) -> Unit)? = null,
         onEnter: Event? = null,
         onEntered: Event? = null,
         onEntering: Event? = null,
@@ -88,7 +122,7 @@ fun RBuilder.mSnackbar(
     attrs.disableWindowBlurListener = disableWindowBlurListener
     key?.let { attrs.key = it }
     attrs.message = message
-    onClose?.let { attrs.onClose = it }
+    onClose?.let { attrs.onClose = ::internalOnClose; onCloseParam = it }
     onEnter?.let { attrs.onEnter = it }
     onEntered?.let { attrs.onEntered = it }
     onEntering?.let { attrs.onEntering = it }
@@ -97,9 +131,10 @@ fun RBuilder.mSnackbar(
     onExiting?.let { attrs.onExiting = it }
     open?.let { attrs.open = it }
     resumeHideDuration?.let { attrs.resumeHideDuration = it }
+    clickAwayListenerProps?.let { attrs.clickAwayListenerProps = it }
     contentProps?.let { attrs.contentProps = it }
     transitionComponent?.let { attrs.transitionComponent = it.js }
-//        transitionDuration?.let { attrs.transitionDuration = transitionDuration }
+    transitionDuration?.let { attrs.transitionDuration = transitionDuration.value() }
 
     setStyledPropsAndRunHandler(className, handler)
 }
@@ -116,12 +151,14 @@ fun RBuilder.mSnackbar(
         vertAnchor: SnackbarVertAnchor = SnackbarVertAnchor.bottom,
 
         transitionComponent: KClass<out RComponent<MTransitionProps, RState>>? = null,
+        transitionDuration: TransitionTimeout? = null,
 
         key: String? = null,
 
         contentProps: RProps? = null,
+        clickAwayListenerProps: RProps? = null,
 
-        onClose: ((Event) -> Unit)? = null,
+        onClose: ((Event, OnCloseReason) -> Unit)? = null,
         onEnter: Event? = null,
         onEntered: Event? = null,
         onEntering: Event? = null,
@@ -138,7 +175,7 @@ fun RBuilder.mSnackbar(
         handler: StyledHandler<MSnackbarProps>? = null): ReactElement {
     @Suppress("UnsafeCastFromDynamic")
     val dynamicElement: ReactElement = message.asDynamic()
-    return mSnackbar(dynamicElement, action, open, horizAnchor, vertAnchor, transitionComponent,
-                key, contentProps, onClose, onEnter, onEntered, onEntering, onExit, onExited, onExiting,
-                autoHideDuration, resumeHideDuration, disableWindowBlurListener, className, handler)
+    return mSnackbar(dynamicElement, action, open, horizAnchor, vertAnchor, transitionComponent, transitionDuration,
+            key, contentProps, clickAwayListenerProps, onClose, onEnter, onEntered, onEntering, onExit, onExited,
+            onExiting, autoHideDuration, resumeHideDuration, disableWindowBlurListener, className, handler)
 }

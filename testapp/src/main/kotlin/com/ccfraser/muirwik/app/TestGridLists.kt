@@ -65,7 +65,7 @@ class TestGridLists : RComponent<RProps, RState>() {
     }
 
     override fun RBuilder.render() {
-        mTypography("Image-only Grid list", MTypographyVariant.display1)
+        mTypography("Image-only Grid list", MTypographyVariant.headline)
         styledDiv {
             css(rootDiv)
             mGridList(3, cellHeight = 160) {
@@ -78,7 +78,7 @@ class TestGridLists : RComponent<RProps, RState>() {
             }
         }
 
-        mTypography("Grid list with titlebars", MTypographyVariant.display1) { css { paddingTop = 3.spacingUnits }}
+        mTypography("Grid list with titlebars", MTypographyVariant.headline) { css { paddingTop = 3.spacingUnits }}
         styledDiv {
             css(rootDiv)
             mGridList(cellHeight = 180) {
@@ -102,7 +102,7 @@ class TestGridLists : RComponent<RProps, RState>() {
             }
         }
 
-        mTypography("With Rows and Cols", MTypographyVariant.display1) { css { paddingTop = 3.spacingUnits }}
+        mTypography("With Rows and Cols", MTypographyVariant.headline) { css { paddingTop = 3.spacingUnits }}
         styledDiv {
             css(rootDiv)
             mGridList(cellHeight = 200, spacing = 1) {
@@ -122,7 +122,7 @@ class TestGridLists : RComponent<RProps, RState>() {
             }
         }
 
-        mTypography("Single Line List", MTypographyVariant.display1) { css { paddingTop = 3.spacingUnits }}
+        mTypography("Single Line List", MTypographyVariant.headline) { css { paddingTop = 3.spacingUnits }}
         styledDiv {
             css(rootDiv)
             mGridList(cellHeight = 200, cols = 2.5) {
