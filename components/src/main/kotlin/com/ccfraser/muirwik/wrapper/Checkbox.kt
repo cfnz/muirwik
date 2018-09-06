@@ -59,7 +59,7 @@ fun RBuilder.mCheckbox(
     indeterminateIcon?.let { attrs.indeterminateIcon = indeterminateIcon}
     inputProps?.let { attrs.inputProps = inputProps }
     onChange?.let { attrs.onChange = onChange }
-    attrs.type = InputType.checkBox.toString().toHyphenCase()
+    attrs.type = InputType.checkBox.realValue
     value?.let {attrs.value = value}
 
     setStyledPropsAndRunHandler(className, handler)

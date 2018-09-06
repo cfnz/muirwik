@@ -53,7 +53,7 @@ fun RBuilder.mSwitch(
     id?.let { attrs.id = id }
     inputProps?.let { attrs.inputProps = inputProps }
     onChange?.let { attrs.onChange = onChange }
-    attrs.type = InputType.checkBox.toString().toHyphenCase()
+    attrs.type = InputType.checkBox.realValue
     value?.let {attrs.value = value}
 
     setStyledPropsAndRunHandler(className, handler)

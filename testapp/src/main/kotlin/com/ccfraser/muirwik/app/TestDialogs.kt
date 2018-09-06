@@ -88,7 +88,7 @@ class TestDialogs : RComponent<RProps, TestOptionControls.MyTestState>() {
             mTypography(variant = MTypographyVariant.subheading) {
                 +"Selected Value: $selectedValue"
                 br {  }
-                mCheckboxInLabel("Slow the transition down a bit", id="t", checked = slow, onChange = { _, value -> setState { slow = value } })
+                mCheckboxInLabel("Slow the transition down a bit", checked = slow, onChange = { _, value -> setState { slow = value } })
                 br {  }
                 br {  }
                 +"Dialog Types:"
