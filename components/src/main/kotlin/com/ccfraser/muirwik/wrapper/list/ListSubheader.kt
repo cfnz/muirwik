@@ -3,10 +3,14 @@ package com.ccfraser.muirwik.wrapper.list
 import com.ccfraser.muirwik.wrapper.MButtonBaseProps
 import com.ccfraser.muirwik.wrapper.createStyled
 import com.ccfraser.muirwik.wrapper.setStyledPropsAndRunHandler
+import com.ccfraser.muirwik.wrapper.spacingUnits
+import kotlinx.css.padding
+import kotlinx.css.properties.LineHeight
 import react.RBuilder
 import react.RComponent
 import react.RState
 import styled.StyledHandler
+import styled.css
 
 
 @JsModule("@material-ui/core/ListSubheader")
@@ -37,6 +41,7 @@ fun RBuilder.mListSubheader(
         disableGutters: Boolean = false,
         disableSticky: Boolean = false,
         inset: Boolean = false,
+        compact: Boolean = false,
 
         addAsChild: Boolean = true,
         className: String? = null,
@@ -48,6 +53,14 @@ fun RBuilder.mListSubheader(
     attrs.inset = inset
 
     childList.add(heading)
+
+    if (compact) {
+        css {
+            lineHeight = LineHeight("1em")
+            padding(vertical = 1.spacingUnits)
+        }
+    }
+
     setStyledPropsAndRunHandler(className, handler)
 }
 

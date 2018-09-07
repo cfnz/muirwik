@@ -21,6 +21,14 @@ class TestLists : RComponent<RProps, TestOptionControls.MyTestState>() {
     private var checked = Array(3, { false })
     private var selected = 0
 
+    private fun getNameForImageNr(i: Int): String {
+        return when(i) {
+            0 -> "contemplative-reptile.jpg"
+            1 -> "paella.jpg"
+            else -> "live-from-space.jpg"
+        }
+    }
+
     override fun RBuilder.render() {
         // For building things that we don't want to render now (e.g. the component will render it later), we need another builder
         val builder2 = RBuilder()
@@ -30,14 +38,16 @@ class TestLists : RComponent<RProps, TestOptionControls.MyTestState>() {
                 css { display = Display.inlineFlex; padding(2.spacingUnits) }
                 //            val h = mListSubheader(addAsChild = false) { +"Test Sub Header" }
                 val h = builder2.div {
-                    mListSubheader() { +"Test Sub Header" }
+                    mListSubheader { +"Sub Header" }
                 }
 
-                mList(subheader = h, component = "nav") { //}, style = js { width = 320; backgroundColor = "white" }) {
+                mList(subheader = h, component = "nav") {
+                    //}, style = js { width = 320; backgroundColor = "white" }) {
                     css {
                         width = 320.px
                         backgroundColor = Color(currentTheme.palette.background.paper)
                     }
+                    // Using the "full version"
                     mListItem(button = true) {
                         mListItemIcon() {
                             mIcon("drafts")
@@ -55,18 +65,17 @@ class TestLists : RComponent<RProps, TestOptionControls.MyTestState>() {
                     mListItem(containerComponent = "a", button = false, href = "http://www.ptsonline.com") {
                         mListItemText(primary = builder2.span { +"Spam" })
                     }
-                    mListItem("Using shorter mListItem", null, "star")
-                    mListItem("My Simple One Compact", null, "alarm", compact = true)
-                    mListItem("My Simple Two Compact", null, "alarm", compact = true)
-                    mListItem("My Simple Three", null, "alarm")
-                    mListItem("My Simple Four", "Some Data", "add_shopping_cart")
-
-                    mListItem(button = true) {
-                        mAvatar { mIcon("image") }
-                        mListItemText(builder2.div { +"Photos" })
-                    }
-                    mListItem("My Simple One", "Secondary Data", iconName = "work", compact = false, useAvatar = true)
-                    mListItem("Vacation", "Data, Line 2", iconName = "beach_access", compact = true, useAvatar = true)
+                    mDivider()
+                    mListSubheader("Simpler Code Versions")
+                    mListItem("Drafts", null, "drafts")
+                    mListItem("Inbox", null, "inbox")
+                    mDivider()
+                    mListSubheader("Compact Items", compact = true)
+                    mListItem("Item 1", null, "alarm", compact = true)
+                    mListItem("Item 2", null, "alarm", compact = true)
+                    mListItem("Item 3", null, "alarm", compact = true)
+                    mDivider()
+                    mListItem("With Primary Text", "And secondary text", "add_shopping_cart")
                     mListSubheader() { +"Nested List Items" }
                     mListItem("Sent mail", iconName = "send", compact = false)
                     mListItem("Inbox", iconName = "inbox", compact = false, onClick = { setState { expanded = !expanded } }) {
@@ -77,9 +86,17 @@ class TestLists : RComponent<RProps, TestOptionControls.MyTestState>() {
                             mListItem(button = true) {
                                 css { paddingLeft = 8.spacingUnits}
                                 mIcon("star")
-                                mListItemText(builder2.span { +"Starred" }, inset = true)
+                                mListItemText(builder2.span { +"Starred (v1)" }, inset = true)
                             }
-                            mListItem("Starred", iconName = "star") { css { paddingLeft = 8.spacingUnits }}
+                            mListItem("Starred (v2)", iconName = "star") { css { paddingLeft = 8.spacingUnits }}
+                        }
+                    }
+                    (0..2).forEach {i ->
+                        mListItem(dense = true, button = true) {
+                            mListItemText(primary = "Dense Line Item ${i + 1}")
+                            mListItemSecondaryAction {
+                                mIconButton("comment", onClick = {})
+                            }
                         }
                     }
                 }
@@ -92,19 +109,21 @@ class TestLists : RComponent<RProps, TestOptionControls.MyTestState>() {
                         backgroundColor = Color(currentTheme.palette.background.paper)
                     }
 
-                    (0..2).forEach {i ->
-                        mListItem(dense = true, button = true, onClick = { setState {checked[i] = !checked[i]} }) {
-                            mCheckbox(checked = checked[i], disableRipple = true) { }
-                            mListItemText(primary = "dense Line Item ${i + 1}")
-                            mListItemSecondaryAction {
-                                mIconButton("comment", onClick = {})
-                            }
-                        }
+                    mListSubheader("Avatar Icons")
+                    // "Full" version
+                    mListItem(button = true) {
+                        mAvatar { mIcon("image") }
+                        mListItemText(builder2.div { +"Photos" })
                     }
+                    // Simpler version
+                    mListItem("Business", "Using simple version", iconName = "work", compact = false, useAvatar = true)
+                    mListItem("Vacation", "Data, Line 2", iconName = "beach_access", compact = true, useAvatar = true)
+
                     mDivider()
+                    mListSubheader("Avatar Images")
                     (0..2).forEach {i ->
                         mListItem(button = true) {
-                            mAvatar(src = "/static/images/cards/paella.jpg")
+                            mAvatar(src = "/static/images/cards/${getNameForImageNr(i)}")
                             mListItemText(primary = "Avatar Item ${i + 1}")
                             mListItemSecondaryAction {
                                 mCheckbox(checked[i], onChange = {_, _ -> setState {checked[i] = !checked[i]} })
@@ -112,10 +131,11 @@ class TestLists : RComponent<RProps, TestOptionControls.MyTestState>() {
                         }
                     }
                     mDivider()
+                    mListSubheader("Avatars using ListItemAvatar")
                     (0..2).forEach {i ->
                         mListItem(button = true) {
                             mListItemAvatar {
-                                mAvatar(src = "/static/images/cards/paella.jpg")
+                                mAvatar(src = "/static/images/cards/${getNameForImageNr(i)}")
                             }
                             mListItemText(primary = "List item avatar item ${i + 1}")
                             mListItemSecondaryAction {
@@ -124,9 +144,10 @@ class TestLists : RComponent<RProps, TestOptionControls.MyTestState>() {
                         }
                     }
                     mDivider()
+                    mListSubheader("\"Simple\" ListItemAvatars")
                     (0..2).forEach {i ->
                         mListItem(button = true) {
-                            mListItemAvatar(src = "/static/images/cards/paella.jpg")
+                            mListItemAvatar(src = "/static/images/cards/${getNameForImageNr(i)}")
                             mListItemText(primary = "Simple avatar list item ${i + 1}")
                             mListItemSecondaryAction {
                                 mCheckbox(checked[i], onChange = {_, _ -> setState {checked[i] = !checked[i]} })
