@@ -285,7 +285,7 @@ class TestSelects : RComponent<RProps, RState>() {
             }
             mFormControl {
                 css(formControl)
-                mInputLabel("Name Checkbox", htmlFor = "select-multiple-checkbox")
+                mInputLabel("Checkbox", htmlFor = "select-multiple-checkbox")
                 mSelect(selectedNames, multiple = true, input = mInput(id = "select-multiple-checkbox", addAsChild = false),
                         renderValue = { value: Any ->
                             span {+(value as Array<String>).joinToString(", ")}
