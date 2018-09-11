@@ -17,18 +17,18 @@ private val checkboxComponent : RComponent<MCheckboxProps, RState> = checkboxMod
 
 interface MCheckboxProps : StyledProps {
     var checked: Boolean
-    var checkedIcon: ReactElement?
+    var checkedIcon: ReactElement
     var color: String
     var disabled: Boolean
     var disableRipple: Boolean
     var icon: ReactElement?
     var id: String?
     var indeterminate: Boolean
-    var indeterminateIcon: ReactElement?
+    var indeterminateIcon: ReactElement
     var inputProps: RProps?
-    var onChange: ((Event, Boolean) -> Unit)?
+    var onChange: ((Event, Boolean) -> Unit)
     var type: String
-    var value: String?
+    var value: String
 }
 
 fun RBuilder.mCheckbox(

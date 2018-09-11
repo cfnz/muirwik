@@ -19,25 +19,30 @@ interface MFormLabelProps : StyledProps {
     var component: String
     var disabled: Boolean
     var error: Boolean
+    var filled: Boolean
     var focused: Boolean
+    var htmlFor: String
     var required: Boolean
 }
 
 fun RBuilder.mFormLabel (
         caption: String,
+        htmlFor: String? = null,
+        required: Boolean? = null,
+        disabled: Boolean? = null,
+        error: Boolean? = null,
+        focused: Boolean? = null,
+        filled: Boolean? = null,
         component: String = "label",
-        disabled: Boolean = false,
-        error: Boolean = false,
-        focused: Boolean = false,
-        required: Boolean = false,
-
         className: String? = null,
         handler: StyledHandler<MFormLabelProps>? = null) = createStyled(formLabelComponent) {
     attrs.component = component
-    attrs.disabled = disabled
-    attrs.error = error
-    attrs.focused = focused
-    attrs.required = required
+    disabled?.let { attrs.disabled = it }
+    error?.let { attrs.error = it }
+    filled?.let { attrs.filled = it }
+    focused?.let { attrs.focused = it }
+    htmlFor?.let { attrs.htmlFor = it }
+    required?.let { attrs.required = it }
 
     childList.add(caption)
     setStyledPropsAndRunHandler(className,  handler)

@@ -20,12 +20,11 @@ interface MainFrameProps : RProps {
 }
 
 interface MyState: RState {
-    var myShowView: String
+    var showView: String
 }
 
 class MainFrame() : RComponent<MainFrameProps, MyState>() {
     private var themeColor = "light"
-//    private var showView = "Tables"
     private val nameTestMap = hashMapOf(
 //            "Intro" to RBuilder::appIntro,
         "An Intro" to RBuilder::testIntro,
@@ -43,6 +42,7 @@ class MainFrame() : RComponent<MainFrameProps, MyState>() {
         "Menus" to RBuilder::testMenus,
         "Options" to RBuilder::testOptionControls,
         "Progress" to RBuilder::testProgress,
+        "Selects" to RBuilder::testSelects,
         "Snackbars" to RBuilder::testSnackbar,
         "Styles" to RBuilder::testStyles,
         "Tables" to RBuilder::testTables,
@@ -54,7 +54,8 @@ class MainFrame() : RComponent<MainFrameProps, MyState>() {
     )
 
     override fun MyState.init() {
-        myShowView = "An Intro"
+//        showView = "An Intro"
+        showView = "Selects"
     }
 
     override fun RBuilder.render() {
@@ -81,7 +82,7 @@ class MainFrame() : RComponent<MainFrameProps, MyState>() {
                         zIndex = currentTheme.zIndex.drawer + 1
                     }
                     mToolbar {
-                        mToolbarTitle("Muirwik - Material-UI React Wrapper in Kotlin - Demo (or play) Area - ${state.myShowView}")
+                        mToolbarTitle("Muirwik - Material-UI React Wrapper in Kotlin - Demo (or play) Area - ${state.showView}")
                         mIconButton("lightbulb_outline", onClick = {
                             themeColor = if (themeColor == "light") "dark" else "light"
                             props.onThemeTypeChange(themeColor)
@@ -117,7 +118,7 @@ class MainFrame() : RComponent<MainFrameProps, MyState>() {
                             padding(2.spacingUnits)
                             backgroundColor = Color(currentTheme.palette.background.default)
                         }
-                        nameTestMap[state.myShowView]?.invoke(this)
+                        nameTestMap[state.showView]?.invoke(this)
                     }
                 }
             }
@@ -128,11 +129,11 @@ class MainFrame() : RComponent<MainFrameProps, MyState>() {
         fun RBuilder.addListItem(caption: String): Unit {
 //            mListItem(caption, onClick = {setState {showView = caption}})
             // We want to get rid of the extra right padding, so must use the longer version as below
-            mListItem(true, onClick = {setState { myShowView = caption}}) {
+            mListItem(true, onClick = {setState { showView = caption}}) {
                 mListItemText(caption) {
                     css {
                         paddingRight = 0.px
-                        if (caption == state.myShowView) {
+                        if (caption == state.showView) {
                             descendants {
                                 color = Colors.Blue.shade500
                             }

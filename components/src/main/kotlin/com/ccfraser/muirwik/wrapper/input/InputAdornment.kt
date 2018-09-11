@@ -1,5 +1,7 @@
-package com.ccfraser.muirwik.wrapper
+package com.ccfraser.muirwik.wrapper.input
 
+import com.ccfraser.muirwik.wrapper.createStyled
+import com.ccfraser.muirwik.wrapper.setStyledPropsAndRunHandler
 import react.RBuilder
 import react.RComponent
 import react.RState

@@ -12,8 +12,6 @@ import styled.StyleSheet
 import styled.css
 import styled.styledDiv
 
-private external val withStyles: dynamic
-
 class TestOptionControls : RComponent<RProps, TestOptionControls.MyTestState>() {
     var checked1: Boolean = false
     var checked2: Boolean = false

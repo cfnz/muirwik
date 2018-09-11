@@ -17,14 +17,14 @@ private val switchComponent: RComponent<MSwitchProps, RState> = switchDefault.de
 
 interface MSwitchProps : StyledProps {
     var checked: Boolean
-    var checkedIcon: ReactElement?
+    var checkedIcon: ReactElement
     var color: String
     var disabled: Boolean
     var disableRipple: Boolean
-    var icon: ReactElement?
+    var icon: ReactElement
     var id: String?
-    var inputProps: RProps?
-    var onChange: ((Event, Boolean) -> Unit)?
+    var inputProps: RProps
+    var onChange: ((Event, Boolean) -> Unit)
     var type: String
     var value: String?
 }

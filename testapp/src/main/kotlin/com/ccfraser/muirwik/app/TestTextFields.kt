@@ -2,25 +2,16 @@ package com.ccfraser.muirwik.app
 
 import com.ccfraser.muirwik.app.TestTextFields.ComponentStyles.textField
 import com.ccfraser.muirwik.wrapper.*
-import kotlinext.js.js
+import com.ccfraser.muirwik.wrapper.input.mInputAdornment
 import kotlinx.css.Display
 import kotlinx.css.FlexWrap
 import kotlinx.css.px
 import kotlinx.html.InputType
-import kotlinx.html.style
-import org.w3c.dom.HTMLInputElement
-import org.w3c.dom.HTMLTextAreaElement
 import org.w3c.dom.events.Event
 import react.*
-import react.dom.form
 import styled.StyleSheet
 import styled.css
 import styled.styledForm
-
-@JsModule("@material-ui/core/styles")
-@JsName("withStyles")
-private external val withStyles: dynamic
-
 
 class TestTextFields : RComponent<RProps, TestTextFields.MyTestState>() {
     var name: String = "Name via local var 'state'"
@@ -63,11 +54,11 @@ class TestTextFields : RComponent<RProps, TestTextFields.MyTestState>() {
                 css(textField)
             }
             mTextFieldMultiLine(label = "Multiline", rowsMax = 4, value = state.multiLineValue,
-                    onChange = {val v = it.inputValue; setState { multiLineValue = v }}) {
+                    onChange = {val v = it.targetInputValue; setState { multiLineValue = v }}) {
                 css(textField)
             }
             mTextFieldMultiLine(label = "Multiline Fixed Rows", rows = 4, value = state.multiLineValue,
-                    onChange = {event -> event.persist(); setState { multiLineValue = event.inputValue }}) {
+                    onChange = {event -> event.persist(); setState { multiLineValue = event.targetInputValue }}) {
                 css(textField)
             }
             mTextField(label = "Helper", defaultValue = "Default Value", helperText = "Some important helper text", autoComplete = "current-password") {
@@ -80,7 +71,7 @@ class TestTextFields : RComponent<RProps, TestTextFields.MyTestState>() {
                 css(textField)
             }
             mTextField(label = "Number", type = InputType.number, inputLabelProps = object : RProps { val shrink = true },
-                    value = state.age.toString(), onChange = { val value = it.inputValue; setState { age = value.toIntOrNull() ?: 0 }},
+                    value = state.age.toString(), onChange = { val value = it.targetInputValue; setState { age = value.toIntOrNull() ?: 0 }},
                     helperText = "Note as well as a number, this also has a pre shrunk label") {
                 css(textField)
             }

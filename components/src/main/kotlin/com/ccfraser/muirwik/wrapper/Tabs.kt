@@ -30,7 +30,7 @@ interface MTabsProps: StyledProps {
     var centered: Boolean
     var fullWidth: Boolean
     var indicatorColor: String
-    var onChange: (event: Event, value: Int) -> Unit
+    var onChange: (event: Event, indexValue: Int) -> Unit
     var scrollable: Boolean
 
     @JsName("ScrollButtonComponent")
@@ -46,7 +46,7 @@ interface MTabsProps: StyledProps {
 }
 
 fun RBuilder.mTabs(
-        value: Any = false,
+        value: Any = false, // false means none selected
         centered: Boolean = false,
         fullWidth: Boolean = false,
         scrollable: Boolean = false,
@@ -56,7 +56,7 @@ fun RBuilder.mTabs(
         scrollButtons: MTabScrollButtons = MTabScrollButtons.auto,
         scrollButtonComponent: ReactElement? = null,
 
-        onChange: ((event: Event, value: Any) -> Unit)? = null,
+        onChange: ((event: Event, indexValue: Any) -> Unit)? = null,
         action: ((actions: Any) -> Unit)? = null,
 
         className: String? = null,

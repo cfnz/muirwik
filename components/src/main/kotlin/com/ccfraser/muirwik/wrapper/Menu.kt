@@ -89,6 +89,7 @@ private val menuItemComponent: RComponent<MMenuItemProps, RState> = menuItemModu
 interface MMenuItemProps : MListItemProps {
     // Selected has been moved to ListItemProps
     // var selected: Boolean
+    var value: String
 }
 
 /**
@@ -100,7 +101,8 @@ fun RBuilder.mMenuItem(
         secondaryText: String? = null,
         iconName: String? = null,
         selected: Boolean = false,
-//        value: Any? = null,
+        value: String? = null,
+        disabled: Boolean = false,
         key: String? = null,
         href: String? = null,
         onClick: ((Event) -> Unit)? = null,
@@ -108,9 +110,9 @@ fun RBuilder.mMenuItem(
         useAvatar: Boolean = false,
         compactAvatar: Boolean = true,
         className: String? = null,
-        handler: RHandler<MMenuItemProps>? = null): ReactElement {
-    val e = mMenuItem(selected, button = true, divider = divider, key = key, href = href,
-            onClick = onClick, className = className) {
+        handler: StyledHandler<MMenuItemProps>? = null): ReactElement {
+    val e = mMenuItem(selected, button = true, divider = divider, key = key, href = href, value = value,
+            disabled = disabled, onClick = onClick, className = className) {
 
         // NOTE: This code is similar to mListItem... if you make changes here, look there too...
         // TODO: Refactor similar code
@@ -136,6 +138,7 @@ fun RBuilder.mMenuItem(
             mListItemText(primary = altBuilder.span { +primaryText }, secondary = altBuilder.span { +secondaryText })
         }
 
+        // We don't call setStyledPropsAndRunHandler as this is called in the original mListItem above (but the handler below is not)
         if (handler != null) handler()
     }
     return e
@@ -146,10 +149,11 @@ fun RBuilder.mMenuItem(
  */
 fun RBuilder.mMenuItem(
         selected: Boolean = false,
-//        value: Any? = null,
         button: Boolean = false,
         component: String? = null,
         containerComponent: String = "li",
+        value: String? = null,
+        disabled: Boolean = false,
         key: String? = null,
         containerProps: RProps? = null,
         dense: Boolean = false,
@@ -166,17 +170,17 @@ fun RBuilder.mMenuItem(
     attrs.containerComponent = containerComponent
     containerProps?.let { attrs.containerProps = it }
     attrs.dense = dense
+    attrs.disabled = disabled
     attrs.disableGutters = disableGutters
     attrs.divider = divider
     href?.let { attrs.href = it }
     onClick?.let { attrs.onClick = it }
     key?.let { attrs.key = it }
     attrs.selected = selected
+    value?.let { attrs.value = it }
 
     setStyledPropsAndRunHandler(className, handler)
 }
-
-
 
 
 @JsModule("@material-ui/core/MenuList")

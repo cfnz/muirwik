@@ -5,13 +5,14 @@ import com.ccfraser.muirwik.wrapper.list.mList
 import com.ccfraser.muirwik.wrapper.list.mListItem
 import com.ccfraser.muirwik.wrapper.list.mListItemIcon
 import com.ccfraser.muirwik.wrapper.list.mListItemText
-import com.ccfraser.muirwik.wrapper.transitions.MSlideProps
 import com.ccfraser.muirwik.wrapper.transitions.MTransitionProps
 import com.ccfraser.muirwik.wrapper.transitions.SimpleTransitionTimeout
 import com.ccfraser.muirwik.wrapper.transitions.mFade
 import kotlinext.js.js
 import kotlinext.js.jsObject
-import kotlinx.css.*
+import kotlinx.css.Color
+import kotlinx.css.Display
+import kotlinx.css.padding
 import org.w3c.dom.Node
 import org.w3c.dom.events.Event
 import react.*
@@ -142,7 +143,7 @@ class TestMenus : RComponent<RProps, RState>() {
                 mMenu(selectedItemIndex == 6, anchorElement = anchorElement, onClose = { handleClose() },
                         transitionComponent = FadeTransition::class,
                         transitionDuration = SimpleTransitionTimeout(1000)) {
-                mMenuItem("Profile", onClick = { handleClose() })
+                    mMenuItem("Profile", onClick = { handleClose() })
                     mMenuItem("My account", onClick = { handleClose() })
                     mMenuItem("Logout", onClick = { handleClose() })
                 }

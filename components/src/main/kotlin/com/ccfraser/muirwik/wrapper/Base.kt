@@ -161,11 +161,19 @@ fun String.toHyphenCase(): String {
 
 /**
  * Often for text fields we want to get the value that has changed from the event.
- * This makes it easier to do so.
+ * This makes it easier to do so (it also works for all input fields).
  */
-val Event.inputValue: String
+val Event.targetInputValue: String
     get() = (target as? HTMLInputElement)?.value ?: (target as? HTMLTextAreaElement)?.value ?: ""
 
+/**
+ * If the input is a checkbox, and it is checked, then return true otherwise return false.
+ */
+val Event.targetChecked: Boolean
+    get() = (target as? HTMLInputElement)?.checked ?: false
+
+val Event.targetValue: Any
+    get() = target.asDynamic().value as Any
 
 /**
  * Sometimes we want to persist the event so that we can use it later (e.g. in a setState). This
