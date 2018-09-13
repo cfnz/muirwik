@@ -62,13 +62,13 @@ fun RBuilder.mDrawer(
         handler: StyledHandler<MDrawerProps>) = createStyled(drawerComponent) {
     attrs.anchor = anchor.toString()
     attrs.elevation = elevation
-    modalProps?.let { attrs.modalProps = modalProps }
-    onClose?.let { attrs.onClose = onClose }
+    modalProps?.let { attrs.modalProps = it }
+    onClose?.let { attrs.onClose = it }
     attrs.open = open
-    paperProps?.let { attrs.paperProps = paperProps }
-    slideProps?.let { attrs.slideProps = slideProps }
+    paperProps?.let { attrs.paperProps = it }
+    slideProps?.let { attrs.slideProps = it }
     attrs.variant = variant.toString()
-    transitionDuration?.let { attrs.transitionDuration = transitionDuration.value() }
+    transitionDuration?.let { attrs.transitionDuration = it.value() }
 
     setStyledPropsAndRunHandler(className, handler)
 }
