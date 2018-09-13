@@ -150,44 +150,16 @@ class TestButtons : RComponent<RProps, RState>() {
         val image by css {
             position = Position.relative
             height = 200.px
-//            currentTheme.breakpoints.dow [theme.breakpoints.down('xs')]: {
-//                width: '100% !important', // Overrides inline-style
-//                height: 100,
-//            }
             hover {
                 zIndex = 1
                 children {
                     opacity = 0.75
                     border(4.px, BorderStyle.solid, Color.white)
                 }
-//                child(".${ComplexComponentStyles.name}-${ComplexComponentStyles::imageBackdrop.name}") {
-//                    opacity = 0.15
-//                }
-
                 child(".${ComplexComponentStyles.name}-${ComplexComponentStyles::imageTitle.name}") {
                     border(4.px, BorderStyle.solid, Color.white)
                 }
-//                ancestorHover("${ComplexComponentStyles.name}-${ComplexComponentStyles::imageBackdrop.name}") {
-//                    opacity = 0.15
-//                }
             }
-//                '&:hover, &$focusVisible': {
-//                zIndex: 1,
-//                '& $imageBackdrop': {
-//                opacity: 0.15,
-//            },
-//                '& $imageMarked': {
-//                opacity: 0,
-//            },
-//                '& $imageTitle': {
-//                border: '4px solid currentColor',
-//            },
-//            },
-
-//            }
-        }
-        val focusVisible by css {
-
         }
         val imageButton by css {
             position = Position.absolute
@@ -217,12 +189,6 @@ class TestButtons : RComponent<RProps, RState>() {
             bottom = 0.px
             backgroundColor = Color(currentTheme.palette.common.black)
             opacity = 0.4
-//            hover {
-//                opacity = 0.15
-//            }
-//            focus {
-//                opacity = 0.15
-//            }
             transition += Transition("opacity", 195.ms, Timing.materialStandard, 0.ms)
         }
         val imageTitle by css {
