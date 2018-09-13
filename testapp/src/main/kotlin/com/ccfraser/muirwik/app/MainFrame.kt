@@ -54,8 +54,7 @@ class MainFrame() : RComponent<MainFrameProps, MyState>() {
     )
 
     override fun MyState.init() {
-//        showView = "An Intro"
-        showView = "Selects"
+        showView = "An Intro"
     }
 
     override fun RBuilder.render() {
