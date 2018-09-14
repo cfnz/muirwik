@@ -25,11 +25,14 @@ By reading the above, you will note that I am no Kotlin, javascript (and by exte
 has been lots of leanings along the way, and I no doubt have done things in not the most perfect way.
 
 However, what this is is a working multi-module Kotlin DSL gradle build that wraps quite a large javascript material 
-design library. It provides a working demo app (see [screen shots](https://github.com/cfnz/muirwik/issues/1)) and is quite a good starting point for real 
-applications... (at least I think so). Quite a few hours were spent just trying to make the basic development workflow
-work.
+design library. It provides a working demo app (see [screen shots](https://github.com/cfnz/muirwik/issues/1)) and is 
+quite a good starting point for real applications... (at least I think so). Quite a few hours were spent just trying to 
+make the basic development workflow work.
 
 ## To Get Started
+Make sure you have gradle and the yarn package manager installed (and not the yarn that comes with cmdtest in Ubuntu :-)), 
+then the following should work:
+
     git clone https://github.com/cfnz/muirwik.git
     cd muirwik/testapp
     gradle yarn
