@@ -15,7 +15,7 @@ private val iconComponent: RComponent<MAppBarProps, RState> = iconModule.default
 
 @Suppress("EnumEntryName")
 enum class MAppBarPosition {
-    fixed, absolute, sticky, static
+    fixed, absolute, sticky, static, relative
 }
 
 interface MAppBarProps : StyledProps {

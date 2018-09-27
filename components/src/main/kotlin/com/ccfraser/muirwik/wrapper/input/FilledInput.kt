@@ -8,22 +8,17 @@ import react.*
 import styled.StyledHandler
 
 
-@JsModule("@material-ui/core/Input")
-private external val inputModule: dynamic
+@JsModule("@material-ui/core/FilledInput")
+private external val filledInputModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")
-private val inputComponent: RComponent<MInputProps, RState> = inputModule.default
+private val filledInputComponent: RComponent<MFilledInputProps, RState> = filledInputModule.default
 
-@Suppress("EnumEntryName")
-enum class MInputMargin {
-    dense, none
+interface MFilledInputProps : MInputBaseProps {
+    // No extra props
 }
 
-interface MInputProps : MInputBaseProps {
-    var disableUnderline: Boolean
-}
-
-fun RBuilder.mInput(
+fun RBuilder.mFilledInput(
         value: String? = null,
         required: Boolean? = null,
         disabled: Boolean? = null,
@@ -34,7 +29,6 @@ fun RBuilder.mInput(
         placeholder: String? = null,
         startAdornment: ReactElement? = null,
         endAdornment: ReactElement? = null,
-        disableUnderline: Boolean = false,
         autoFocus: Boolean? = null,
         type: InputType = InputType.text,
         id: String? = null,
@@ -52,12 +46,11 @@ fun RBuilder.mInput(
         addAsChild: Boolean = true,
         className: String? = null,
 
-        handler: StyledHandler<MInputProps>? = null) = createStyled(com.ccfraser.muirwik.wrapper.input.inputComponent, addAsChild) {
+        handler: StyledHandler<MFilledInputProps>? = null) = createStyled(filledInputComponent, addAsChild) {
     autoComplete?.let { attrs.autoComplete = it }
     autoFocus?.let{ attrs.autoFocus = it }
     defaultValue?.let { attrs.defaultValue = it }
     disabled?.let { attrs.disabled = it }
-    attrs.disableUnderline = disableUnderline
     endAdornment?.let { attrs.endAdornment = it }
     error?.let { attrs.error = it }
     attrs.fullWidth = fullWidth

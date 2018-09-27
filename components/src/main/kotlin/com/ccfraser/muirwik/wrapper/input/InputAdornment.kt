@@ -1,6 +1,7 @@
 package com.ccfraser.muirwik.wrapper.input
 
 import com.ccfraser.muirwik.wrapper.createStyled
+import com.ccfraser.muirwik.wrapper.form.MFormControlVariant
 import com.ccfraser.muirwik.wrapper.setStyledPropsAndRunHandler
 import react.RBuilder
 import react.RComponent
@@ -23,17 +24,20 @@ enum class MInputAdornmentPosition {
 interface MInputAdornmentProps : StyledProps {
     var disableTypography: Boolean
     var position: String
+    var variant: String
 }
 
 fun RBuilder.mInputAdornment(
         position: MInputAdornmentPosition = MInputAdornmentPosition.start,
         disableTypography: Boolean = false,
+        variant: MFormControlVariant = MFormControlVariant.standard,
 
         className: String? = null,
 
         handler: StyledHandler<MInputAdornmentProps>? = null) = createStyled(inputAdornmentComponent, false) {
     attrs.disableTypography = disableTypography
     attrs.position = position.toString().toLowerCase()
+    attrs.variant = variant.toString()
 
     setStyledPropsAndRunHandler(className, handler)
 }

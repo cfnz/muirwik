@@ -16,11 +16,17 @@ private val iconComponent: RComponent<MIconProps, RState> = iconModule.default
 
 @Suppress("EnumEntryName")
 enum class MIconColor {
-    inherit, secondary, action, disabled, error, primary
+    inherit, primary, secondary, action, error, disabled
+}
+
+@Suppress("EnumEntryName")
+enum class MIconFontSize {
+    inherit, default, small, large
 }
 
 interface MIconProps : StyledProps {
     var color: String
+    var fontSize: String
     var style: JsObject
 }
 
@@ -28,6 +34,7 @@ fun RBuilder.mIcon(
         iconName: String,
         primary: Boolean = false, // If true, then this overrides the color... just an easier setter...
         color: MIconColor? = null,
+        fontSize: MIconFontSize = MIconFontSize.default,
 
         addAsChild: Boolean = true,
         className: String? = null,
@@ -37,6 +44,7 @@ fun RBuilder.mIcon(
     } else {
         color?.let { attrs.color = color.toString() }
     }
+    attrs.fontSize = fontSize.toString()
 
     childList.add(iconName)
     setStyledPropsAndRunHandler(className, handler)

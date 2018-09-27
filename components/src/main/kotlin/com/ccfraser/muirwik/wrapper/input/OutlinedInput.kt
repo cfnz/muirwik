@@ -8,22 +8,18 @@ import react.*
 import styled.StyledHandler
 
 
-@JsModule("@material-ui/core/Input")
-private external val inputModule: dynamic
+@JsModule("@material-ui/core/OutlinedInput")
+private external val outlinedInputModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")
-private val inputComponent: RComponent<MInputProps, RState> = inputModule.default
+private val outlinedInputComponent: RComponent<MOutlinedInputProps, RState> = outlinedInputModule.default
 
-@Suppress("EnumEntryName")
-enum class MInputMargin {
-    dense, none
+interface MOutlinedInputProps : MInputBaseProps {
+    var labelWidth: Number
+    var notched: Boolean
 }
 
-interface MInputProps : MInputBaseProps {
-    var disableUnderline: Boolean
-}
-
-fun RBuilder.mInput(
+fun RBuilder.mOutlinedInput(
         value: String? = null,
         required: Boolean? = null,
         disabled: Boolean? = null,
@@ -34,7 +30,8 @@ fun RBuilder.mInput(
         placeholder: String? = null,
         startAdornment: ReactElement? = null,
         endAdornment: ReactElement? = null,
-        disableUnderline: Boolean = false,
+        labelWidth: Number? = null,
+        notched: Boolean? = null,
         autoFocus: Boolean? = null,
         type: InputType = InputType.text,
         id: String? = null,
@@ -52,12 +49,11 @@ fun RBuilder.mInput(
         addAsChild: Boolean = true,
         className: String? = null,
 
-        handler: StyledHandler<MInputProps>? = null) = createStyled(com.ccfraser.muirwik.wrapper.input.inputComponent, addAsChild) {
+        handler: StyledHandler<MOutlinedInputProps>? = null) = createStyled(outlinedInputComponent, addAsChild) {
     autoComplete?.let { attrs.autoComplete = it }
     autoFocus?.let{ attrs.autoFocus = it }
     defaultValue?.let { attrs.defaultValue = it }
     disabled?.let { attrs.disabled = it }
-    attrs.disableUnderline = disableUnderline
     endAdornment?.let { attrs.endAdornment = it }
     error?.let { attrs.error = it }
     attrs.fullWidth = fullWidth
@@ -65,9 +61,11 @@ fun RBuilder.mInput(
     inputComponent?.let { attrs.inputComponent = it }
     inputProps?.let { attrs.inputProps = it }
     inputRef?.let { attrs.inputRef = it }
+    labelWidth?.let { attrs.labelWidth = it }
     margin?.let { attrs.margin = it.toString().toLowerCase() }
     attrs.multiline = multiline
     name?.let { attrs.name = it }
+    notched?.let { attrs.notched = it }
     onChange?.let { attrs.onChange = it }
     placeholder?.let { attrs.placeholder = it }
     readOnly?.let { attrs.readOnly = it }

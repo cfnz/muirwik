@@ -17,6 +17,12 @@ private external val formControlModule: dynamic
 @Suppress("UnsafeCastFromDynamic")
 private val formControlComponent: RComponent<MFormControlProps, RState> = formControlModule.default
 
+@Suppress("EnumEntryName")
+enum class MFormControlVariant {
+    standard, outlined, filled
+}
+
+
 /**
  * Div and FieldSet seem to be the most used values for this prop, so we shall enum these... if you need something
  * else, you will have to use the attrs directly.
@@ -37,6 +43,7 @@ interface MFormControlProps : StyledProps {
     var fullWidth: Boolean
     var margin: String?
     var required: Boolean
+    var variant: String
 }
 
 fun RBuilder.mFormControl(
@@ -46,7 +53,7 @@ fun RBuilder.mFormControl(
         fullWidth: Boolean = false,
         margin: MMargin? = null,
         required: Boolean = false,
-
+        variant: MFormControlVariant = MFormControlVariant.standard,
         className: String? = null,
         handler: StyledHandler<MFormControlProps>? = null) = createStyled(formControlComponent) {
     attrs.component = component.toString()
@@ -55,6 +62,7 @@ fun RBuilder.mFormControl(
     attrs.fullWidth = fullWidth
     margin?.let { attrs.margin = margin.toString() }
     attrs.required = required
+    attrs.variant = variant.toString()
 
     setStyledPropsAndRunHandler(className, handler)
 }

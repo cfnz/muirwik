@@ -1,5 +1,7 @@
 package com.ccfraser.muirwik.wrapper
 
+import com.ccfraser.muirwik.wrapper.form.MFormControlProps
+import com.ccfraser.muirwik.wrapper.form.MFormControlVariant
 import kotlinx.html.InputType
 import org.w3c.dom.events.Event
 import react.RBuilder
@@ -7,7 +9,6 @@ import react.RComponent
 import react.RProps
 import react.RState
 import styled.StyledHandler
-import styled.StyledProps
 
 
 @JsModule("@material-ui/core/TextField")
@@ -21,17 +22,14 @@ enum class MTextFieldMargin {
     none, dense, normal
 }
 
-interface MTextFieldProps : StyledProps {
+interface MTextFieldProps : MFormControlProps {
     var autoComplete: String
     var autoFocus: Boolean
     var defaultValue: String
-    var disabled: Boolean
-    var error: Boolean
 
     @JsName("FormHelperTextProps")
     var formHelperTextProps: RProps
 
-    var fullWidth: Boolean
     var helperText: String
     var id: String
 
@@ -46,12 +44,10 @@ interface MTextFieldProps : StyledProps {
 
     //    var inputRef	func		Use that property to pass a ref callback to the native input component.
     var label: String
-    var margin: String
     var multiline: Boolean
     var name: String
     var onChange: (event: Event) -> Unit
     var placeholder: String
-    var required: Boolean
     var rows: Int
     var rowsMax: Int
     var select: Boolean
@@ -69,6 +65,7 @@ fun RBuilder.mTextField(
         helperText: String? = null,
         defaultValue: String? = null,
         placeholder: String? = null,
+        variant: MFormControlVariant = MFormControlVariant.standard,
         onChange: ((event: Event) -> Unit)? = null,
         type: InputType = InputType.text,
         required: Boolean = false,
@@ -112,6 +109,7 @@ fun RBuilder.mTextField(
     attrs.select = false
     attrs.type = type.toString()
     value?.let { attrs.value = value }
+    attrs.variant = variant.toString()
 
     setStyledPropsAndRunHandler(className, handler)
 }
@@ -122,6 +120,7 @@ fun RBuilder.mTextFieldMultiLine(
         helperText: String? = null,
         defaultValue: String? = null,
         placeholder: String? = null,
+        variant: MFormControlVariant = MFormControlVariant.standard,
         onChange: ((event: Event) -> Unit)? = null,
         required: Boolean = false,
         disabled: Boolean = false,
@@ -134,7 +133,7 @@ fun RBuilder.mTextFieldMultiLine(
         nativeInputProps: RProps? = null,
         formHelperTextProps: RProps? = null,
 
-        margin: MTextFieldMargin = MTextFieldMargin.none,
+        margin: MTextFieldMargin = MTextFieldMargin.normal,
         rows: Int? = null,
         rowsMax: Int? = null,
 
@@ -166,6 +165,7 @@ fun RBuilder.mTextFieldMultiLine(
     attrs.select = false
     attrs.type = InputType.text.toString()
     value?.let { attrs.value = value }
+    attrs.variant = variant.toString()
 
     setStyledPropsAndRunHandler(className, handler)
 }
@@ -179,6 +179,7 @@ fun RBuilder.mTextFieldSelect(
         helperText: String? = null,
         defaultValue: String? = null,
         placeholder: String? = null,
+        variant: MFormControlVariant = MFormControlVariant.standard,
         onChange: ((event: Event) -> Unit)? = null,
         required: Boolean = false,
         disabled: Boolean = false,
@@ -192,7 +193,7 @@ fun RBuilder.mTextFieldSelect(
         formHelperTextProps: RProps? = null,
         selectProps: RProps? = null,
 
-        margin: MTextFieldMargin = MTextFieldMargin.none,
+        margin: MTextFieldMargin = MTextFieldMargin.normal,
 
         autoComplete: String? = null,
         id: String? = null,
@@ -223,6 +224,7 @@ fun RBuilder.mTextFieldSelect(
     selectProps?.let { attrs.selectProps = selectProps }
     attrs.type = InputType.text.toString()
     value?.let { attrs.value = value }
+    attrs.variant = variant.toString()
 
     setStyledPropsAndRunHandler(className, handler)
 }
@@ -236,6 +238,7 @@ fun RBuilder.mTextFieldFull(
         helperText: String? = null,
         defaultValue: String? = null,
         placeholder: String? = null,
+        variant: MFormControlVariant = MFormControlVariant.standard,
         onChange: ((event: Event) -> Unit)? = null,
         type: InputType = InputType.text,
         required: Boolean = false,
@@ -251,7 +254,7 @@ fun RBuilder.mTextFieldFull(
         formHelperTextProps: RProps? = null,
         selectProps: RProps? = null,
 
-        margin: MTextFieldMargin = MTextFieldMargin.none,
+        margin: MTextFieldMargin = MTextFieldMargin.normal,
         multiline: Boolean = false,
         rows: Int? = null,
         rowsMax: Int? = null,
@@ -287,5 +290,6 @@ fun RBuilder.mTextFieldFull(
     selectProps?.let { attrs.selectProps = selectProps }
     attrs.type = type.toString()
     value?.let { attrs.value = value }
+    attrs.variant = variant.toString()
     setStyledPropsAndRunHandler(className, handler)
 }

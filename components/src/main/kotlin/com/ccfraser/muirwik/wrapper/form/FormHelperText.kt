@@ -23,6 +23,7 @@ interface MFormHelperTextProps : StyledProps {
     var focused: Boolean
     var margin: String
     var required: Boolean
+    var variant: String
 }
 
 fun RBuilder.mFormHelperText (
@@ -32,6 +33,7 @@ fun RBuilder.mFormHelperText (
         filled: Boolean = false,
         focused: Boolean = false,
         required: Boolean = false,
+        variant: MFormControlVariant = MFormControlVariant.standard,
         margin: MLabelMargin? = null,
         component: String? = null,
 
@@ -44,6 +46,7 @@ fun RBuilder.mFormHelperText (
     attrs.focused = focused
     margin?.let { attrs.margin = it.toString() }
     attrs.required = required
+    attrs.variant = variant.toString()
 
     childList.add(caption)
     setStyledPropsAndRunHandler(className,  handler)

@@ -1,8 +1,11 @@
 package com.ccfraser.muirwik.app
 
 import com.ccfraser.muirwik.app.TestStyles.ComponentStyles.aStyle
+import com.ccfraser.muirwik.app.TestStyles.ComponentStyles.divPadding
 import com.ccfraser.muirwik.wrapper.mButton
+import com.ccfraser.muirwik.wrapper.mTypography
 import com.ccfraser.muirwik.wrapper.spacingUnits
+import com.ccfraser.muirwik.wrapper.toJsStyle
 import kotlinext.js.js
 import kotlinx.css.*
 import kotlinx.css.properties.BoxShadow
@@ -15,9 +18,11 @@ import styled.css
 import styled.styledDiv
 
 class TestStyles : RComponent<RProps, RState>() {
-    var checked1: Boolean = false
-
     private object ComponentStyles : StyleSheet("ComponentStyles", isStatic = true) {
+        val divPadding by css {
+            padding(2.spacingUnits)
+        }
+
         val aStyle by css {
             background = "linear-gradient(45deg, #9d6bfe 30%, #FF8E53 90%)"
             borderRadius = 8.px
@@ -28,9 +33,13 @@ class TestStyles : RComponent<RProps, RState>() {
             margin(1.spacingUnits)
             boxShadow += BoxShadow(false, 0.px, 3.px, 5.px, 2.px, rgba(255, 105, 135, 0.3))
         }
+        val style2 by css {
+            color = Color.aqua
+            fontSize = 2.em
+        }
     }
 
-    private val anotherStyle = js {
+    private val styleByJs = js {
         background = "linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)"
         borderRadius = 8
         border = 0
@@ -43,13 +52,40 @@ class TestStyles : RComponent<RProps, RState>() {
 
     override fun RBuilder.render() {
         styledDiv {
-            css { padding(2.spacingUnits)}
+            css(divPadding)
 
             mButton(caption = "Normal Button")
-            mButton("Styled With Object") {
+
+            mButton(caption = "Styled with inline CSS Builder") {
+                css {
+                    color = Color.white
+                    background = Color.silver.toString()
+                }
+            }
+        }
+
+        styledDiv {
+            css(divPadding)
+
+            mButton("Styled With CSS Builder") {
                 css(aStyle)
             }
-            mButton("Styled asDynamic") {
+
+            mButton("Styled with CSS Builder + mods... should be black text") {
+                css {
+                    +aStyle
+                    color = Color.black
+                }
+            }
+        }
+
+        styledDiv {
+            css(divPadding)
+
+            mTypography("The following uses js Style methods. You would not style mButton this way since it is" +
+                    "a styled component (i.e. uses CSSBulder), but sometimes you have to style a component that is not " +
+                    "using CSSBuilder... for example, when you have to pass the css as a prop. The following is some ways to do it.")
+            mButton("Styled asDynamic js Style") {
                 attrs.asDynamic().style = js {
                     background = "linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)"
                     borderRadius = 3
@@ -60,14 +96,21 @@ class TestStyles : RComponent<RProps, RState>() {
                     boxShadow = "0 3px 5px 2px rgba(255, 105, 135, .30)"
                 }
             }
+
             mButton("Styled with asDynamic var") {
-                attrs.asDynamic().style = anotherStyle
+                attrs.asDynamic().style = styleByJs
             }
-            mButton("Styled with mods... should be black text") {
-                css {
-                    +aStyle
-                    color = Color.black
-                }
+
+            // If you need to pass a style to some object (usually as a prop), you can also use a typesafe CSSBuilder
+            // and then convert it to a js style object.
+            val myStyle = CSSBuilder().apply { borderRadius = 6.px; background = Color.silver.toString() }.toJsStyle()
+            mButton("Styled with CSSBuilder converted to js") {
+                attrs.asDynamic().style = myStyle
+            }
+
+            // Sometimes you need the class name of the CSS Builder...
+            mButton("Sometimes you need to use class name") {
+                attrs.className = "${ComponentStyles.name}-${::aStyle.name}"
             }
         }
     }
