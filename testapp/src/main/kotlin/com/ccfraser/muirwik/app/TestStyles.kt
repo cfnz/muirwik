@@ -72,6 +72,7 @@ class TestStyles : RComponent<RProps, RState>() {
             }
 
             mButton("Styled with CSS Builder + mods... should be black text") {
+                // Sometimes this does not get applied as Black... a refresh of the page fixes, but not sure exactly what is going on.
                 css {
                     +aStyle
                     color = Color.black

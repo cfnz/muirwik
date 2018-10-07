@@ -14,29 +14,29 @@
   dependencies:
     regenerator-runtime "^0.12.0"
 
-"@jetbrains/kotlin-css-js@^1.0.0-pre.54":
-  version "1.0.0-pre.54"
-  resolved "https://registry.yarnpkg.com/@jetbrains/kotlin-css-js/-/kotlin-css-js-1.0.0-pre.54.tgz#225a80a82b23ccb823d36ecbd6ed567c14744877"
+"@jetbrains/kotlin-css-js@^1.0.0-pre.55":
+  version "1.0.0-pre.55"
+  resolved "https://registry.yarnpkg.com/@jetbrains/kotlin-css-js/-/kotlin-css-js-1.0.0-pre.55.tgz#8cb669661715d79b705e3f631f2b053f894faa53"
 
-"@jetbrains/kotlin-css@^1.0.0-pre.54":
-  version "1.0.0-pre.54"
-  resolved "https://registry.yarnpkg.com/@jetbrains/kotlin-css/-/kotlin-css-1.0.0-pre.54.tgz#0eaa55840d6c83b762d49878ee9c0dc2bee0df75"
+"@jetbrains/kotlin-css@^1.0.0-pre.55":
+  version "1.0.0-pre.55"
+  resolved "https://registry.yarnpkg.com/@jetbrains/kotlin-css/-/kotlin-css-1.0.0-pre.55.tgz#12caf94e18530c5eae5270921f84e070fc277d6e"
 
-"@jetbrains/kotlin-extensions@^1.0.1-pre.54":
-  version "1.0.1-pre.54"
-  resolved "https://registry.yarnpkg.com/@jetbrains/kotlin-extensions/-/kotlin-extensions-1.0.1-pre.54.tgz#f8dcafef7700396b0aa3bcc519d76d57bcb894c3"
+"@jetbrains/kotlin-extensions@^1.0.1-pre.55":
+  version "1.0.1-pre.55"
+  resolved "https://registry.yarnpkg.com/@jetbrains/kotlin-extensions/-/kotlin-extensions-1.0.1-pre.55.tgz#3cb68bb181cf60294c7cf2670a331b1c5ca18043"
 
-"@jetbrains/kotlin-react-dom@^16.5.0-pre.54":
-  version "16.5.0-pre.54"
-  resolved "https://registry.yarnpkg.com/@jetbrains/kotlin-react-dom/-/kotlin-react-dom-16.5.0-pre.54.tgz#d4abfe27b5652c843e542e0cb50c31d9adafb743"
+"@jetbrains/kotlin-react-dom@^16.5.2-pre.55":
+  version "16.5.2-pre.55"
+  resolved "https://registry.yarnpkg.com/@jetbrains/kotlin-react-dom/-/kotlin-react-dom-16.5.2-pre.55.tgz#dfd26e3500491875d8aad44774b3105644d74f73"
 
-"@jetbrains/kotlin-react@^16.5.0-pre.54":
-  version "16.5.0-pre.54"
-  resolved "https://registry.yarnpkg.com/@jetbrains/kotlin-react/-/kotlin-react-16.5.0-pre.54.tgz#7b4f5f8ae0172faf8faa12919e8526ac590553ec"
+"@jetbrains/kotlin-react@^16.5.2-pre.55":
+  version "16.5.2-pre.55"
+  resolved "https://registry.yarnpkg.com/@jetbrains/kotlin-react/-/kotlin-react-16.5.2-pre.55.tgz#da9a9a0d2affbf967674bbf736c15244ab98d7a9"
 
-"@jetbrains/kotlin-styled@^1.0.0-pre.54":
-  version "1.0.0-pre.54"
-  resolved "https://registry.yarnpkg.com/@jetbrains/kotlin-styled/-/kotlin-styled-1.0.0-pre.54.tgz#a80eb463670fae9004991052a47058d2827fa28c"
+"@jetbrains/kotlin-styled@^1.0.0-pre.55":
+  version "1.0.0-pre.55"
+  resolved "https://registry.yarnpkg.com/@jetbrains/kotlin-styled/-/kotlin-styled-1.0.0-pre.55.tgz#3aa2351ed16b343ce7a4270e1ef6f193954a3e4c"
 
 "@jetbrains/kotlin-webpack-plugin@^1.2.10":
   version "1.2.10"
@@ -55,12 +55,12 @@
     cross-spawn "^6.0.5"
     kotlin-compiler "^1.2.61"
 
-"@material-ui/core@^3.1.1":
-  version "3.1.1"
-  resolved "https://registry.yarnpkg.com/@material-ui/core/-/core-3.1.1.tgz#377b406fd26b88df6626c1697eef3f488fddb553"
+"@material-ui/core@^3.1.2":
+  version "3.1.2"
+  resolved "https://registry.yarnpkg.com/@material-ui/core/-/core-3.1.2.tgz#0ba7c510320c41be672792e3f3ab73ab79ff100f"
   dependencies:
     "@babel/runtime" "7.0.0"
-    "@types/jss" "^9.5.3"
+    "@types/jss" "^9.5.6"
     "@types/react-transition-group" "^2.0.8"
     brcast "^3.0.1"
     classnames "^2.2.5"
@@ -105,9 +105,9 @@
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/@nodelib/fs.stat/-/fs.stat-1.1.0.tgz#50c1e2260ac0ed9439a181de3725a0168d59c48a"
 
-"@types/jss@^9.5.3":
-  version "9.5.3"
-  resolved "https://registry.yarnpkg.com/@types/jss/-/jss-9.5.3.tgz#0c106de3fe0b324cd4173fac7dab26c12cda624e"
+"@types/jss@^9.5.6":
+  version "9.5.6"
+  resolved "https://registry.yarnpkg.com/@types/jss/-/jss-9.5.6.tgz#96e1d246ddfbccc4867494077c714773cf29acde"
   dependencies:
     csstype "^2.0.0"
     indefinite-observable "^1.0.1"
