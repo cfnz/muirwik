@@ -13,11 +13,11 @@ class TestThemeComponent : RComponent<RProps, RState>() {
     override fun RBuilder.render() {
 
         div {
-            mTypography("I am the TestThemeComponent.")
-            mTypography("The attrs.theme here is ${attrs.asDynamic().theme}, "
-                    +"The props.theme here is ${props.asDynamic().theme}, "
-                    +"The currentTheme here is ${currentTheme}.")
-            mTypography("The ThemeType is ${currentTheme.palette.type}, and the spacing using is ${currentTheme.spacing.unit}")
+            mTypography("This is the TestThemeComponent.")
+            mTypography("The attrs.theme here is ${if (attrs.asDynamic().theme == undefined) "undefined" else attrs.asDynamic().theme}, " +
+                    "the props.theme here is ${if (props.asDynamic().theme == undefined) "undefined" else props.asDynamic().theme}, " +
+                    "the currentTheme here is ${currentTheme}.")
+            mTypography("The ThemeType is ${currentTheme.palette.type}, and the spacing unit is ${currentTheme.spacing.unit}")
         }
     }
 }
