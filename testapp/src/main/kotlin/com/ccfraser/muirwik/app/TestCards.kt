@@ -71,7 +71,7 @@ class TestCards : RComponent<RProps, RState>() {
                                 css { height = 140.px }
                             }
                             mCardContent {
-                                mTypography("Lizard", gutterBottom = true, variant = MTypographyVariant.headline, component = "h2")
+                                mTypography("Lizard", gutterBottom = true, variant = MTypographyVariant.h5, component = "h2")
                                 mTypography("Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging\n" +
                                         "            across all continents except Antarctica", component = "p")
                             }
@@ -117,8 +117,8 @@ class TestCards : RComponent<RProps, RState>() {
                             }
                             mCardContent {
                                 css { flex(1.0, 0.0, FlexBasis.auto) }
-                                mTypography("Live From Space", variant = MTypographyVariant.headline)
-                                mTypography("Mac Miller", variant = MTypographyVariant.subheading, color = MTypographyColor.textSecondary)
+                                mTypography("Live From Space", variant = MTypographyVariant.h5)
+                                mTypography("Mac Miller", variant = MTypographyVariant.subtitle1, color = MTypographyColor.textSecondary)
                             }
                             styledDiv {
                                 css {

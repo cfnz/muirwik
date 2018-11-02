@@ -5,6 +5,7 @@ import com.ccfraser.muirwik.wrapper.mButton
 import com.ccfraser.muirwik.wrapper.mMuiThemeProvider
 import com.ccfraser.muirwik.wrapper.mTypography
 import com.ccfraser.muirwik.wrapper.styles.Theme
+import com.ccfraser.muirwik.wrapper.styles.ThemeOptions
 import kotlinx.css.Color
 import react.*
 import react.dom.br
@@ -28,8 +29,12 @@ class TestThemes : RComponent<RProps, RState>() {
     var themeColor = "light"
 
     override fun RBuilder.render() {
-        val themeProps = js("({palette: { type: 'placeholder', }})")
-        themeProps.palette.type = themeColor
+        val themeProps: ThemeOptions = js("({palette: { type: 'placeholder', }, typography: {useNextVariants: 'placeholder'}})")
+        themeProps.palette?.type = themeColor
+
+        // Material UI 3.3.2 (or a bit earlier) has depreciated some typography enums. We do the following
+        // so we don't get any warning messages.
+        themeProps.typography?.useNextVariants = true
 
         val theme: Theme = createMuiThemeFunction(themeProps)
         currentTheme = theme

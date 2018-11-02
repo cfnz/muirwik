@@ -25,7 +25,27 @@ enum class MTypographyColor {
 
 @Suppress("EnumEntryName")
 enum class MTypographyVariant {
-    display4, display3, display2, display1, headline, title, subheading, body2, body1, caption, button, srOnly, inherit
+    h1, h2, h3, h4, h5, h6, subtitle1, subtitle2, body1, body2, caption, button, overline, srOnly, inherit,
+    @Deprecated("Use h1")
+    display4,
+
+    @Deprecated("Use h2")
+    display3,
+
+    @Deprecated("Use h3")
+    display2,
+
+    @Deprecated("Use h4")
+    display1,
+
+    @Deprecated("Use h5")
+    headline,
+
+    @Deprecated("Use h6")
+    title,
+
+    @Deprecated("Use subtitle1")
+    subheading
 }
 
 interface MTypographyProps : StyledProps {

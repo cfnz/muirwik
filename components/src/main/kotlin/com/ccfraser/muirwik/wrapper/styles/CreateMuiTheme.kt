@@ -16,7 +16,8 @@ external interface ThemeOptions {
     var shadows: dynamic
     var spacing: dynamic
     var transitions: TransitionsOptions? get() = definedExternally; set(value) = definedExternally
-    var typography: dynamic /* TypographyOptions | (palette: Palette) -> TypographyOptions */ get() = definedExternally; set(value) = definedExternally
+//    var typography: dynamic /* TypographyOptions | (palette: Palette) -> TypographyOptions */ get() = definedExternally; set(value) = definedExternally
+    var typography: TypographyOptions? get() = definedExternally; set(value) = definedExternally
     var zIndex: dynamic
 }
 

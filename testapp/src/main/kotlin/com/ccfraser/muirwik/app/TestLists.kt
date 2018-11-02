@@ -18,7 +18,7 @@ import styled.styledDiv
 
 class TestLists : RComponent<RProps, TestOptionControls.MyTestState>() {
     private var expanded: Boolean = false
-    private var checked = Array(3, { false })
+    private var checked = Array(3) { false }
     private var selected = 0
 
     private fun getNameForImageNr(i: Int): String {
@@ -35,7 +35,7 @@ class TestLists : RComponent<RProps, TestOptionControls.MyTestState>() {
         styledDiv {
             css { display = Display.flex }
             styledDiv {
-                css { display = Display.inlineFlex; padding(2.spacingUnits) }
+                css { display = Display.inlineFlex; padding(1.spacingUnits) }
                 //            val h = mListSubheader(addAsChild = false) { +"Test Sub Header" }
                 val h = builder2.div {
                     mListSubheader { +"Sub Header" }
@@ -66,11 +66,16 @@ class TestLists : RComponent<RProps, TestOptionControls.MyTestState>() {
                         mListItemText(primary = builder2.span { +"Spam" })
                     }
                     mDivider()
-                    mListSubheader("Simpler Code Versions")
+
+                    // The sticky headers work better (for visual reasons) if the control itself or its container is scrollable
+                    // without padding. Since our parent (not in this component) has padding, this makes a gap at the top
+                    // which shows content behind the sticky header (with css you fix it, but I am not sure how to target
+                    // the right class... so for now, we disable the sticky headers.
+                    mListSubheader("Simpler Code Versions", disableSticky = true)
                     mListItem("Drafts", null, "drafts")
                     mListItem("Inbox", null, "inbox")
                     mDivider()
-                    mListSubheader("Compact Items", compact = true)
+                    mListSubheader("Compact Items", compact = true, disableSticky = true)
                     mListItem("Item 1", null, "alarm", compact = true)
                     mListItem("Item 2", null, "alarm", compact = true)
                     mListItem("Item 3", null, "alarm", compact = true)
@@ -102,14 +107,14 @@ class TestLists : RComponent<RProps, TestOptionControls.MyTestState>() {
                 }
             }
             styledDiv {
-                css { display = Display.inlineFlex; padding(2.spacingUnits) }
+                css { display = Display.inlineFlex; padding(1.spacingUnits) }
                 mList { //(style = js { width = 320; backgroundColor = "white" }) {
                     css {
                         width = 320.px
                         backgroundColor = Color(currentTheme.palette.background.paper)
                     }
 
-                    mListSubheader("Avatar Icons")
+                    mListSubheader("Avatar Icons", disableSticky = true)
                     // "Full" version
                     mListItem(button = true) {
                         mAvatar { mIcon("image") }
@@ -120,7 +125,7 @@ class TestLists : RComponent<RProps, TestOptionControls.MyTestState>() {
                     mListItem("Vacation", "Data, Line 2", iconName = "beach_access", compact = true, useAvatar = true)
 
                     mDivider()
-                    mListSubheader("Avatar Images")
+                    mListSubheader("Avatar Images", disableSticky = true)
                     (0..2).forEach {i ->
                         mListItem(button = true) {
                             mAvatar(src = "/static/images/cards/${getNameForImageNr(i)}")
@@ -131,7 +136,7 @@ class TestLists : RComponent<RProps, TestOptionControls.MyTestState>() {
                         }
                     }
                     mDivider()
-                    mListSubheader("Avatars using ListItemAvatar")
+                    mListSubheader("Avatars using ListItemAvatar", disableSticky = true)
                     (0..2).forEach {i ->
                         mListItem(button = true) {
                             mListItemAvatar {
@@ -144,7 +149,7 @@ class TestLists : RComponent<RProps, TestOptionControls.MyTestState>() {
                         }
                     }
                     mDivider()
-                    mListSubheader("\"Simple\" ListItemAvatars")
+                    mListSubheader("\"Simple\" ListItemAvatars", disableSticky = true)
                     (0..2).forEach {i ->
                         mListItem(button = true) {
                             mListItemAvatar(src = "/static/images/cards/${getNameForImageNr(i)}")

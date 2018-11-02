@@ -5,7 +5,6 @@ import com.ccfraser.muirwik.app.TestStyles.ComponentStyles.divPadding
 import com.ccfraser.muirwik.wrapper.mButton
 import com.ccfraser.muirwik.wrapper.mTypography
 import com.ccfraser.muirwik.wrapper.spacingUnits
-import com.ccfraser.muirwik.wrapper.toJsStyle
 import kotlinext.js.js
 import kotlinx.css.*
 import kotlinx.css.properties.BoxShadow
@@ -16,6 +15,7 @@ import react.RState
 import styled.StyleSheet
 import styled.css
 import styled.styledDiv
+import styled.toStyle
 
 class TestStyles : RComponent<RProps, RState>() {
     private object ComponentStyles : StyleSheet("ComponentStyles", isStatic = true) {
@@ -104,7 +104,7 @@ class TestStyles : RComponent<RProps, RState>() {
 
             // If you need to pass a style to some object (usually as a prop), you can also use a typesafe CSSBuilder
             // and then convert it to a js style object.
-            val myStyle = CSSBuilder().apply { borderRadius = 6.px; background = Color.silver.toString() }.toJsStyle()
+            val myStyle = CSSBuilder().apply { borderRadius = 6.px; background = Color.silver.toString() }.toStyle()
             mButton("Styled with CSSBuilder converted to js") {
                 attrs.asDynamic().style = myStyle
             }

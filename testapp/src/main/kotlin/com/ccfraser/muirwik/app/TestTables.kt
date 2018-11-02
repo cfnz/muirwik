@@ -241,9 +241,9 @@ class TestTables : RComponent<RProps, RState>() {
             styledDiv {
                 css { flex(0.0, 0.0, FlexBasis.auto) }
                 if (numSelected > 0) {
-                    mTypography("$numSelected selected", variant = MTypographyVariant.subheading)
+                    mTypography("$numSelected selected", variant = MTypographyVariant.subtitle1)
                 } else {
-                    mTypography("Nutrition", variant = MTypographyVariant.title)
+                    mTypography("Nutrition", variant = MTypographyVariant.h6)
                 }
             }
             styledDiv { css(ComponentStyles.spacer) }

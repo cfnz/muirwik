@@ -41,5 +41,5 @@ fun RBuilder.mToolbar(
  * Just a simple title with padding to push any items to the right, and no wrapping
  */
 fun RBuilder.mToolbarTitle(text: String): ReactElement {
-    return mTypography(text, variant = MTypographyVariant.title, color = MTypographyColor.inherit, noWrap = true) { css { flexGrow = 1.0 }}
+    return mTypography(text, variant = MTypographyVariant.h6, color = MTypographyColor.inherit, noWrap = true) { css { flexGrow = 1.0 }}
 }

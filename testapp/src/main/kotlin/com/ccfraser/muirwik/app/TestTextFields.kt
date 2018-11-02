@@ -39,13 +39,13 @@ class TestTextFields : RComponent<RProps, TestTextFields.MyTestState>() {
             attrs.autoComplete = false
             attrs.novalidate = true
 
-            mTypography("Standard Text Fields", variant = MTypographyVariant.display1)
+            mTypography("Standard Text Fields", variant = MTypographyVariant.h4)
             renderTextFields(MFormControlVariant.standard)
 
-            mTypography("Outlined Text Fields", variant = MTypographyVariant.display1)
+            mTypography("Outlined Text Fields", variant = MTypographyVariant.h4)
             renderTextFields(MFormControlVariant.outlined)
 
-            mTypography("Filled Text Fields", variant = MTypographyVariant.display1)
+            mTypography("Filled Text Fields", variant = MTypographyVariant.h4)
             renderTextFields(MFormControlVariant.filled)
         }
     }

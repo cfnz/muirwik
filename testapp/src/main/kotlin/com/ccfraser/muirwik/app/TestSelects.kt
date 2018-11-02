@@ -78,7 +78,7 @@ class TestSelects : RComponent<RProps, RState>() {
     }
 
     private fun RBuilder.simpleSelects() {
-        mTypography("Simple Selects", MTypographyVariant.display1)
+        mTypography("Simple Selects", MTypographyVariant.h4)
         styledForm {
             css { display = Display.flex; flexWrap = FlexWrap.wrap; paddingBottom = 4.spacingUnits }
             mFormControl {
@@ -198,7 +198,7 @@ class TestSelects : RComponent<RProps, RState>() {
     }
 
     private fun RBuilder.nativeSelects() {
-        mTypography("Native Selects", MTypographyVariant.display1)
+        mTypography("Native Selects", MTypographyVariant.h4)
         styledForm {
             css { display = Display.flex; flexWrap = FlexWrap.wrap; paddingBottom = 4.spacingUnits }
             mFormControl {
@@ -272,7 +272,7 @@ class TestSelects : RComponent<RProps, RState>() {
             }
         }
 
-        mTypography("Multi Selects", MTypographyVariant.display1)
+        mTypography("Multi Selects", MTypographyVariant.h4)
         styledForm {
             css { display = Display.flex; flexWrap = FlexWrap.wrap; paddingBottom = 4.spacingUnits }
             mFormControl {

@@ -232,7 +232,7 @@ class TestButtons : RComponent<RProps, RState>() {
                     styledSpan { css(imageBackdrop) }
                     styledSpan {
                         css(imageButton)
-                        mTypography(color = MTypographyColor.inherit, variant = MTypographyVariant.subheading) {
+                        mTypography(color = MTypographyColor.inherit, variant = MTypographyVariant.subtitle1) {
                             css(imageTitle)
                             +it.title
                             //                        attrs.component = "span"

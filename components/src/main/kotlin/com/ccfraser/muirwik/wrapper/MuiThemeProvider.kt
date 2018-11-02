@@ -3,8 +3,6 @@ package com.ccfraser.muirwik.wrapper
 import com.ccfraser.muirwik.wrapper.styles.Theme
 import com.ccfraser.muirwik.wrapper.styles.ThemeOptions
 import react.*
-import styled.StyledHandler
-import styled.StyledProps
 
 
 @JsModule("@material-ui/core/styles/MuiThemeProvider")
@@ -21,7 +19,10 @@ val createMuiThemeFunction: dynamic = createMuiThemeModule.default
 //@Suppress("UnsafeCastFromDynamic")
 //fun createMuiThemeFunction(options: dynamic): Theme = createMuiThemeModule.default
 
-var currentTheme: Theme = createMuiThemeFunction()
+// Material UI 3.3.2 (or a bit earlier) has depreciated some typography enums. We do the following
+// so we don't get any warning messages for the default theme.
+private val themeProps: ThemeOptions = js("({typography: {useNextVariants: true}})")
+var currentTheme: Theme = createMuiThemeFunction(themeProps)
 
 interface MuiThemeProviderProps : RProps {
     var disableStylesGeneration: Boolean

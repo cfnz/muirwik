@@ -56,7 +56,7 @@ class TestDrawers : RComponent<RProps, TestOptionControls.MyTestState>() {
 
     override fun RBuilder.render() {
         fun temporaryDrawer() {
-            mTypography("Temporary Drawer", MTypographyVariant.display1)
+            mTypography("Temporary Drawer", MTypographyVariant.h4)
             div {
                 mButton("Open Left", onClick = { setState { temporaryLeftOpen = true }})
                 mButton("Open Right Slow", onClick = { setState { temporaryRightOpen = true }})
@@ -79,7 +79,7 @@ class TestDrawers : RComponent<RProps, TestOptionControls.MyTestState>() {
         }
 
         fun swipeableTemporaryDrawer() {
-            mTypography("Swipeable Temporary Drawer", MTypographyVariant.display1)
+            mTypography("Swipeable Temporary Drawer", MTypographyVariant.h4)
             div {
                 mButton("Open Left", onClick = { setState { swipeableLeftOpen = true }})
                 mButton("Open Right", onClick = { setState { swipeableRightOpen = true }})

@@ -49,7 +49,7 @@ class TestAvatars : RComponent<RProps, RState>() {
             css {
                 padding(16.px)
             }
-            mTypography("Image Avatars", MTypographyVariant.headline)
+            mTypography("Image Avatars", MTypographyVariant.h5)
             styledDiv {
                 css { display = Display.flex; marginBottom = 3.spacingUnits }
                 mAvatar(src = "/static/images/cards/contemplative-reptile.jpg", alt = "Reptile") {
@@ -64,7 +64,7 @@ class TestAvatars : RComponent<RProps, RState>() {
                 }
             }
 
-            mTypography("Icon Avatars", MTypographyVariant.headline)
+            mTypography("Icon Avatars", MTypographyVariant.h5)
             styledDiv {
                 css { display = Display.flex; marginBottom = 3.spacingUnits }
                 mAvatar {
@@ -81,7 +81,7 @@ class TestAvatars : RComponent<RProps, RState>() {
                 }
             }
 
-            mTypography("Letter Avatars", MTypographyVariant.headline)
+            mTypography("Letter Avatars", MTypographyVariant.h5)
             styledDiv {
                 css { display = Display.flex; marginBottom = 3.spacingUnits }
                 mAvatar {

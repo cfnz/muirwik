@@ -6,7 +6,7 @@ val production: Boolean = (parent!!.properties["production"] as String ).toBoole
 
 buildscript {
     var kotlinVersion: String by extra
-    kotlinVersion = "1.2.61"
+    kotlinVersion = "1.3.0"
 
     repositories {
         jcenter()
@@ -40,9 +40,9 @@ repositories {
 
 dependencies {
     compile(kotlin("stdlib-js", kotlinVersion))
-    compile("org.jetbrains", "kotlin-react", "16.4.2-pre.49-kotlin-1.2.60")
-    compile("org.jetbrains", "kotlin-react-dom", "16.4.2-pre.49-kotlin-1.2.60")
-    compile("org.jetbrains", "kotlin-styled", "1.0.0-pre.49-kotlin-1.2.60")
+    compile("org.jetbrains", "kotlin-react", "16.5.2-pre.58-kotlin-1.3.0")
+    compile("org.jetbrains", "kotlin-react-dom", "16.5.2-pre.58-kotlin-1.3.0")
+    compile("org.jetbrains", "kotlin-styled", "1.0.0-pre.58-kotlin-1.3.0")
     compile(project(":components"))
 }
 

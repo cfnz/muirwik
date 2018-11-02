@@ -301,7 +301,7 @@ class TestAutoSuggest : RComponent<RProps, RState>() {
 
                 mAppBar(MColor.default, MAppBarPosition.static) {
                     mToolbar {
-                        mTypography("Title", variant = MTypographyVariant.title, color = MTypographyColor.inherit)
+                        mTypography("Title", variant = MTypographyVariant.h6, color = MTypographyColor.inherit)
                     }
                 }
             }
@@ -312,7 +312,7 @@ class TestAutoSuggest : RComponent<RProps, RState>() {
                 mAppBar(position = MAppBarPosition.static) {
                     mToolbar {
                         mIconButton("menu", color = MColor.inherit)
-                        mTypography("Title", variant = MTypographyVariant.title, color = MTypographyColor.inherit) {
+                        mTypography("Title", variant = MTypographyVariant.h6, color = MTypographyColor.inherit) {
                             css { flexGrow = 1.0 }
                         }
                     }

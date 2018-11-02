@@ -85,7 +85,7 @@ class TestDialogs : RComponent<RProps, TestOptionControls.MyTestState>() {
 
     override fun RBuilder.render() {
         div {
-            mTypography(variant = MTypographyVariant.subheading) {
+            mTypography(variant = MTypographyVariant.subtitle1) {
                 +"Selected Value: $selectedValue"
                 br {  }
                 mCheckboxInLabel("Slow the transition down a bit", checked = slow, onChange = { _, value -> setState { slow = value } })

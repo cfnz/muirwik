@@ -77,7 +77,7 @@ class TestAppBar : RComponent<RProps, RState>() {
 
                 mAppBar(MColor.default, MAppBarPosition.static) {
                     mToolbar {
-                        mTypography("Title", variant = MTypographyVariant.title, color = MTypographyColor.inherit)
+                        mTypography("Title", variant = MTypographyVariant.h6, color = MTypographyColor.inherit)
                     }
                 }
             }
@@ -88,7 +88,7 @@ class TestAppBar : RComponent<RProps, RState>() {
                 mAppBar(position = MAppBarPosition.static) {
                     mToolbar {
                         mIconButton("menu", color = MColor.inherit) { css { marginLeft = -12.px; marginRight = 20.px }}
-                        mTypography("Title", variant = MTypographyVariant.title, color = MTypographyColor.inherit) {
+                        mTypography("Title", variant = MTypographyVariant.h6, color = MTypographyColor.inherit) {
                             css { flexGrow = 1.0 }
                         }
                         if (loggedIn) {
