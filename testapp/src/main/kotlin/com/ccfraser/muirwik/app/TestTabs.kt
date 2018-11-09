@@ -67,7 +67,7 @@ class TestTabs : RComponent<RProps, RState>() {
             css { flexGrow = 1.0; backgroundColor = Color(currentTheme.palette.background.paper) }
             mAppBar(position = MAppBarPosition.static) {
                 mTabs(tab1Value, onChange = { _, value -> setState { tab1Value = value } }) {
-                    mTab("New Arrivals in the Longest Text of Notification", "one")
+                    mTab("Item One with a really long name for a tab", "one")
                     mTab("Item Two", "two")
                     mTab("Item Three", "three")
                 }
