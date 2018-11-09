@@ -1,6 +1,7 @@
 package com.ccfraser.muirwik.wrapper
 
 import com.ccfraser.muirwik.wrapper.form.MFormControlLabelProps
+import com.ccfraser.muirwik.wrapper.form.MLabelPlacement
 import com.ccfraser.muirwik.wrapper.form.mFormControlLabel
 import kotlinx.html.InputType
 import org.w3c.dom.events.Event
@@ -78,6 +79,7 @@ fun RBuilder.mCheckboxInLabel(
         icon: ReactElement? = null,
         checkedIcon: ReactElement? = null,
         indeterminateIcon: ReactElement? = null,
+        labelPlacement: MLabelPlacement = MLabelPlacement.end,
         onChange: ((event: Event, checked: Boolean) -> Unit)? = null,
         disableRipple: Boolean = false,
         id: String? = null,
@@ -89,5 +91,5 @@ fun RBuilder.mCheckboxInLabel(
     val checkBox = mCheckbox(checked, primary, disabled, indeterminate, icon, checkedIcon, indeterminateIcon, onChange,
             disableRipple, id, inputProps, value, false)
 
-    return mFormControlLabel(label, checkBox, checked, disabled, value = value, className = className, handler = handler)
+    return mFormControlLabel(label, checkBox, checked, disabled, value = value, labelPlacement = labelPlacement, className = className, handler = handler)
 }

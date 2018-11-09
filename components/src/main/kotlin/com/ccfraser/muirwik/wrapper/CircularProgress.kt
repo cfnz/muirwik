@@ -27,6 +27,7 @@ enum class MCircularProgressVariant {
 
 interface MCircularProgressProps : StyledProps {
     var color: String
+    var disableShrink: Boolean
     var size: String
     var thickness: Double
     var value: Double
@@ -39,10 +40,12 @@ fun RBuilder.mCircularProgress(
         size: LinearDimension = 40.px,
         color: MCircularProgressColor = MCircularProgressColor.primary,
         thickness: Double = 3.6,
+        disableShrink: Boolean = false,
 
         className: String? = null,
         handler: StyledHandler<MCircularProgressProps>? = null) = createStyled(circularProgressComponent) {
     attrs.color = color.toString()
+    attrs.disableShrink = disableShrink
     attrs.size = size.toString()
     attrs.thickness = thickness
     value?.let { attrs.value = it }
