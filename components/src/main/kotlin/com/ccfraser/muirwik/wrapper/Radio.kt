@@ -1,6 +1,7 @@
 package com.ccfraser.muirwik.wrapper
 
 import com.ccfraser.muirwik.wrapper.form.MFormControlLabelProps
+import com.ccfraser.muirwik.wrapper.form.MLabelPlacement
 import com.ccfraser.muirwik.wrapper.form.mFormControlLabel
 import org.w3c.dom.events.Event
 import react.*
@@ -68,6 +69,7 @@ fun RBuilder.mRadioInLabel(
         disabled: Boolean = false,
         icon: ReactElement? = null,
         checkedIcon: ReactElement? = null,
+        labelPlacement: MLabelPlacement = MLabelPlacement.end,
         onChange: ((event: Event, checked: Boolean) -> Unit)? = null,
         disableRipple: Boolean = false,
         id: String? = null,
@@ -77,7 +79,7 @@ fun RBuilder.mRadioInLabel(
         className: String? = null,
         handler: StyledHandler<MFormControlLabelProps>? = null): ReactElement {
     val radio = mRadio(checked, primary, disabled, icon, checkedIcon, onChange, disableRipple, id, inputProps, value, false)
-    return mFormControlLabel(label, radio, checked, disabled, value = value, className = className, handler = handler)
+    return mFormControlLabel(label, radio, checked, disabled, value = value, labelPlacement = labelPlacement, className = className, handler = handler)
 }
 
 

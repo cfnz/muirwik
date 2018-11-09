@@ -39,11 +39,13 @@ interface MTextFieldProps : MFormControlProps {
     @JsName("InputProps")
     var inputProps: RProps
 
+    //    var inputRef	func		Use that property to pass a ref callback to the native input component.
+
+    var label: String
+
     @JsName("inputProps")
     var nativeInputProps: RProps
 
-    //    var inputRef	func		Use that property to pass a ref callback to the native input component.
-    var label: String
     var multiline: Boolean
     var name: String
     var onChange: (event: Event) -> Unit

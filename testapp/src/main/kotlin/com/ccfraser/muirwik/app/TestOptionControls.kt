@@ -123,11 +123,12 @@ class TestOptionControls : RComponent<RProps, TestOptionControls.MyTestState>() 
                 mFormLabel("Gender3", required = true, component = "legend")
                 mRadioGroup(value = gender1Value, name = "gender1", onChange = { _, value -> setState { gender1Value = value; println("Value: $value") } }) {
                     // Slightly shorthand, practically does the same as the mFormControlLabel above.
-                    mRadioInLabel("Male", value = "male")
-                    mRadioInLabel("Female", value = "female")
-                    mRadioInLabel("Other", value = "other")
-                    mRadioInLabel("Disabled Option", value = "disabled", disabled = true)
+                    mRadioInLabel("Male", value = "male", labelPlacement = MLabelPlacement.start)
+                    mRadioInLabel("Female", value = "female", labelPlacement = MLabelPlacement.start)
+                    mRadioInLabel("Other", value = "other", labelPlacement = MLabelPlacement.start)
+                    mRadioInLabel("Disabled Option", value = "disabled", disabled = true, labelPlacement = MLabelPlacement.start)
                 }
+                mTypography("Label Placement = start")
             }
         }
         mTypography {

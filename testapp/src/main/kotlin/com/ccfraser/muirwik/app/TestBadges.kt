@@ -26,6 +26,7 @@ class TestBadges : RComponent<RProps, RState>() {
     }
 
     override fun RBuilder.render() {
+        val altBuilder = RBuilder()
         div {
             div {
                 mBadge("4", color = MBadgeColor.primary) {
@@ -36,11 +37,13 @@ class TestBadges : RComponent<RProps, RState>() {
                     css(ComponentStyles.margin)
                     mIcon("mail")
                 }
+
                 mIconButton("mail") {
-                    css(ComponentStyles.margin)
                     mBadge("4", color = MBadgeColor.primary) {
-                        css(ComponentStyles.margin)
-                        mIcon("mail")
+                        css {
+                            marginTop = -(3.spacingUnits)
+                        }
+                        mIcon("mail", addAsChild = false)
                     }
                 }
             }
