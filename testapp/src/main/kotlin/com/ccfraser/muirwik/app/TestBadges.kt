@@ -15,7 +15,6 @@ import styled.css
 
 
 class TestBadges : RComponent<RProps, RState>() {
-
     private object ComponentStyles : StyleSheet("ComponentStyles", isStatic = true) {
         val margin by css {
             margin(2.spacingUnits)
@@ -26,7 +25,6 @@ class TestBadges : RComponent<RProps, RState>() {
     }
 
     override fun RBuilder.render() {
-        val altBuilder = RBuilder()
         div {
             div {
                 mBadge("4", color = MBadgeColor.primary) {
