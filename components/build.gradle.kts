@@ -4,7 +4,7 @@ val production: Boolean = (parent!!.properties["production"] as String ).toBoole
 
 buildscript {
     var kotlinVersion: String by extra
-    kotlinVersion = "1.2.61"
+    kotlinVersion = "1.3.10"
 
     repositories {
         jcenter()
@@ -24,6 +24,7 @@ apply {
 plugins {
     java
     id("com.moowork.node") version "1.2.0"
+    `maven-publish`
 }
 
 val kotlinVersion: String by extra
@@ -51,4 +52,18 @@ compileKotlin2Js.kotlinOptions {
     outputFile = "${project.buildDir.path}/js/muirwik-components.js"
     main = "call"
     moduleKind = "commonjs"
+}
+
+publishing {
+    repositories {
+        mavenLocal()
+    }
+
+    publications {
+        create("${project.name} Publication", MavenPublication::class.java) {
+            from(components["java"])
+//            artifact()
+        }
+
+    }
 }
