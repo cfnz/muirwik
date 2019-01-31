@@ -11,22 +11,22 @@ to be present, take a look at [the starter app](https://github.com/cfnz/muirwik/
 which uses a repository housed on bintray/jcenter to pickup its Muirwik dependencies.
 
 ## To Get Started
-Make sure you have the yarn package manager installed (and not the yarn that comes with cmdtest in Ubuntu :-)), 
+Make sure you have java, git and the yarn package manager installed (and not the yarn that comes with cmdtest in Ubuntu :-)), 
 then the following should work:
 
     git clone https://github.com/cfnz/muirwik.git
-    cd muirwik/muirwik-testapp
-    ./gradlew yarn
-    ./gradlew build
-    ./gradlew webpackDevServerOpenBrowser
+    cd muirwik
+    ./gradlew :muirwik-testapp yarn
+    ./gradlew :muirwik-testapp build
+    ./gradlew :muirwik-testapp webpackDevServerOpenBrowser
 
 In Windows it is probably (but have not tried it) more like:
 
     git clone https://github.com/cfnz/muirwik.git
     cd muirwik/muirwik-testapp
-    gradlew.bat yarn
-    gradlew.bat build
-    gradlew.bat webpackDevServerOpenBrowser
+    gradlew.bat :muirwik-testapp yarn
+    gradlew.bat :muirwik-testapp build
+    gradlew.bat :muirwik-testapp webpackDevServerOpenBrowser
 
 ## Contributing
 Feedback and contributions are welcome :-). 
