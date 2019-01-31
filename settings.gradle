@@ -1,4 +1,4 @@
 rootProject.name = 'muirwik'
-include 'components'
-include 'testapp'
+include 'muirwik-components'
+include 'muirwik-testapp'
 

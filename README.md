@@ -11,23 +11,8 @@ will be important in terms of figuring out how this works.
 Also see the [Kotlin Wrappers](https://github.com/JetBrains/kotlin-wrappers) page, as this project uses most of the
 wrappers there too.
 
-The [first issue](https://github.com/cfnz/muirwik/issues/1) holds a couple of screenshots (not because of any issue, 
-just didn't know where else to put them :-)).
-
-## About
-I started this off as a process to learn Kotlin. I wanted to do some web development and
-in the past used things like Vaadin and before that a small amount of facelets and jsf. 
-
-Watching [David Ford's KotlinConf Videos](https://www.youtube.com/watch?v=FDOECr-sT6U) got me started down the Kotlin 
-javascript and React trail... I have learnt lots of things along the way (and still have much more to learn!).
-
-By reading the above, you will note that I am no Kotlin, javascript (and by extension, node or webpack) expert... there
-has been lots of leanings along the way, and I no doubt have done things in not the most perfect way.
-
-However, what this is is a working multi-module Kotlin DSL gradle build that wraps quite a large javascript material 
-design library. It provides a working demo app (see [screen shots](https://github.com/cfnz/muirwik/issues/1)) and is 
-quite a good starting point for real applications... (at least I think so). Quite a few hours were spent just trying to 
-make the basic development workflow work.
+A couple of [screenshots](https://github.com/cfnz/muirwik/wiki) have been added
+to the wiki page.
 
 ## To Get Started
 Make sure you have gradle and the yarn package manager installed (and not the yarn that comes with cmdtest in Ubuntu :-)), 
@@ -41,6 +26,22 @@ then the following should work:
 
 Note that I have not taken the time to make the demo app perfect. Some of the components could be
 laid out better. To see what is possible, see the [Material UI](https://material-ui.com/) demo.
+
+## Background
+I started this off as a process to learn Kotlin. I wanted to do some web development and
+in the past used things like Vaadin and before that a small amount of facelets and jsf. 
+
+Watching [David Ford's KotlinConf Videos](https://www.youtube.com/watch?v=FDOECr-sT6U) got me started down the Kotlin 
+javascript and React trail... I have learnt lots of things along the way (and still have much more to learn!).
+
+By reading the above, you will note that I am no Kotlin, javascript (and by extension, node or webpack) expert... there
+has been lots of leanings along the way, and I no doubt have done things in not the most perfect way.
+
+However, what this is is a working multi-module Kotlin DSL gradle build that wraps quite a large javascript material 
+design library. It provides a working demo app (see [screenshots](https://github.com/cfnz/muirwik/issues/1)) and starer
+app which is quite a good starting point for real applications... (at least I think so). Quite a few hours were spent 
+just trying to make the basic development workflow work.
+
 ## Todo
 Well, lots really, but as mentioned, it is in a working state as it is...
 
