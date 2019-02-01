@@ -104,12 +104,12 @@ publishing {
     }
 }
 
-// Bintray keys are kept in a local, non version controlled, properties file
-val properties = Properties()
-properties.load(FileInputStream(project.file("local.properties")))
-fun findProperty(propertyName: String) = properties[propertyName] as String?
-
 bintray {
+    // Bintray keys are kept in a local, non version controlled, properties file
+    val properties = Properties()
+    properties.load(FileInputStream(project.file("local.properties")))
+    fun findProperty(propertyName: String) = properties[propertyName] as String?
+
     user = findProperty("bintray.user")
     key = findProperty("bintray.apikey")
     publish = true
