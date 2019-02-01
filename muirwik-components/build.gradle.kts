@@ -106,31 +106,33 @@ publishing {
 
 bintray {
     // Bintray keys are kept in a local, non version controlled, properties file
-    val properties = Properties()
-    properties.load(FileInputStream(project.file("local.properties")))
-    fun findProperty(propertyName: String) = properties[propertyName] as String?
-
-    user = findProperty("bintray.user")
-    key = findProperty("bintray.apikey")
-    publish = true
-    override = true
-
-    pkg(delegateClosureOf<BintrayExtension.PackageConfig> {
-        // Mandatory fields
-        repo = project.parent?.name
-        name = "${project.group}:${project.name}"
-        setLicenses("MPL-2.0")
-        vcsUrl = "https://github.com/cfnz/muirwik"
-
-        // Some optional fields
-        description = project.description
-        desc = description
-        websiteUrl = "https://github.com/cfnz/muirwik"
-        issueTrackerUrl = "https://github.com/cfnz/muirwik/issues"
-        githubRepo = "https://github.com/cfnz/muirwik"
-        setLabels("kotlin", "material-ui", "react")
-    })
-//    setConfigurations("archives")
-    setPublications(publicationName)
+    if (project.file("local.properties").exists()) {
+        val properties = Properties()
+        properties.load(FileInputStream(project.file("local.properties")))
+        fun findProperty(propertyName: String) = properties[propertyName] as String?
+    
+        user = findProperty("bintray.user")
+        key = findProperty("bintray.apikey")
+        publish = true
+        override = true
+    
+        pkg(delegateClosureOf<BintrayExtension.PackageConfig> {
+            // Mandatory fields
+            repo = project.parent?.name
+            name = "${project.group}:${project.name}"
+            setLicenses("MPL-2.0")
+            vcsUrl = "https://github.com/cfnz/muirwik"
+    
+            // Some optional fields
+            description = project.description
+            desc = description
+            websiteUrl = "https://github.com/cfnz/muirwik"
+            issueTrackerUrl = "https://github.com/cfnz/muirwik/issues"
+            githubRepo = "https://github.com/cfnz/muirwik"
+            setLabels("kotlin", "material-ui", "react")
+        })
+    //    setConfigurations("archives")
+        setPublications(publicationName)
+    }
 }
 
