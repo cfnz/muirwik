@@ -165,7 +165,7 @@ class TestSnackbar : RComponent<RProps, RState>() {
                     }
                     mButton("Show Snackbar", onClick = { setState { fabMoveSnackbarOpen = true }})
                     mButton("Hide Fab Move Div", onClick = { setState { fabMoveOptionOpen = false }})
-                    mButtonFab("add") {
+                    mFab("add") {
                         css(if (fabMoveSnackbarOpen) fabMoveUp else fabMoveDown)
                     }
                     mSnackbar("Just Testing", open = fabMoveSnackbarOpen, contentProps = contentProps,

@@ -40,7 +40,7 @@ interface MInputBaseProps : StyledProps {
     var rowsMax: Int
     var startAdornment: ReactElement
     var type: String
-    var value: String
+    var value: Any
 }
 
 

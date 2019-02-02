@@ -15,7 +15,7 @@ import styled.StyledHandler
 private external val listItemAvatarModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")
-val listItemAvatarComponent: RComponent<MButtonBaseProps, RState> = listItemAvatarModule.default
+private val listItemAvatarComponent: RComponent<MButtonBaseProps, RState> = listItemAvatarModule.default
 
 fun RBuilder.mListItemAvatar(
         className: String? = null,

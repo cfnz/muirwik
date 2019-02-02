@@ -8,6 +8,7 @@ import react.RComponent
 import react.RProps
 import react.RState
 import styled.StyledHandler
+import styled.StyledProps
 
 
 @JsModule("@material-ui/core/SwipeableDrawer")
@@ -23,8 +24,11 @@ interface MSwipeableDrawerProps : MDrawerProps {
     var hysteresis: Number
     var minFlingVelocity: Number
     var onOpen: (Event) -> Unit
+    var swipeAreaProps: MSwipeAreaProps
     var swipeAreaWidth: Number
 }
+
+interface MSwipeAreaProps : StyledProps
 
 fun RBuilder.mSwipeableDrawer(
         open: Boolean = false,
@@ -43,6 +47,7 @@ fun RBuilder.mSwipeableDrawer(
         modalProps: RProps? = null,
         paperProps: MPaperProps? = null,
         slideProps: MSlideProps? = null,
+        swipeAreaProps: MSwipeAreaProps? = null,
         transitionDuration: TransitionDuration? = null,
 
         className: String? = null,
@@ -61,6 +66,7 @@ fun RBuilder.mSwipeableDrawer(
     onOpen?.let { attrs.onOpen = it }
     paperProps?.let { attrs.paperProps = it }
     slideProps?.let { attrs.slideProps = it }
+    swipeAreaProps?.let {attrs.swipeAreaProps = it }
     transitionDuration?.let { attrs.transitionDuration = it.value() }
     attrs.variant = variant.toString()
 

@@ -120,7 +120,7 @@ class TestProgress : RComponent<RProps, RState>() {
             }
             styledDiv {
                 css(wrapper)
-                mButtonFab(if (success) "done" else "save", primary = true, onClick = { onClick() }) {
+                mFab(if (success) "done" else "save", primary = true, onClick = { onClick() }) {
                     if (success) {
                         css(buttonSuccess)
                     }

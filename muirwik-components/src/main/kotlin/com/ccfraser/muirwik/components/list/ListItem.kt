@@ -14,7 +14,22 @@ private external val listItemModule: dynamic
 @Suppress("UnsafeCastFromDynamic")
 val listItemComponent: RComponent<MListItemProps, RState> = listItemModule.default
 
+/**
+ * This is for the vertical alignment of list items, for example, if you have an avatar and a long list item
+ * (three lines or more for example), then you might want the avatar aligned to the the top of the list item
+ * rather than being vertically centered - in this case, use flexStart.
+ */
+@Suppress("EnumEntryName")
+enum class MListItemAlignItems {
+    flexStart, center;
+
+    override fun toString(): String {
+        return super.toString().toHyphenCase()
+    }
+}
+
 interface MListItemProps : MButtonBaseProps {
+    var alignItems: String
     var button: Boolean
 
     @JsName("ContainerComponent")
@@ -51,7 +66,9 @@ fun RBuilder.mListItem(
         iconName: String? = null,
         selected: Boolean = false,
         key: String? = null,
+        alignItems: MListItemAlignItems = MListItemAlignItems.center,
         href: String? = null,
+        target: String? = null,
         divider: Boolean = true,
         compact: Boolean = false,
         useAvatar: Boolean = false,
@@ -59,7 +76,10 @@ fun RBuilder.mListItem(
         className: String? = null,
         handler: StyledHandler<MListItemProps>? = null): ReactElement {
     val e = mListItem(button = true, divider = divider, key = key, selected = selected, href = href,
-            onClick = onClick, className = className) {
+            alignItems = alignItems, onClick = onClick, className = className) {
+
+        // If there is a target set, we set it so a parent element can handle it.
+        target?.let { attrs.asDynamic().target = it }
 
         if (!useAvatar && compact) {
             css { padding(vertical = 1.spacingUnits) }
@@ -97,6 +117,7 @@ fun RBuilder.mListItem(
         containerComponent: String = "li",
         selected: Boolean = false,
         key: String? = null,
+        alignItems: MListItemAlignItems = MListItemAlignItems.center,
         containerProps: RProps? = null,
         dense: Boolean = false,
         disableGutters: Boolean = false,
@@ -106,6 +127,7 @@ fun RBuilder.mListItem(
 
         className: String? = null,
         handler: StyledHandler<MListItemProps>? = null) = createStyled(listItemComponent) {
+    attrs.alignItems = alignItems.toString()
     attrs.button = button
     component?.let { attrs.component = component }
     attrs.containerComponent = containerComponent

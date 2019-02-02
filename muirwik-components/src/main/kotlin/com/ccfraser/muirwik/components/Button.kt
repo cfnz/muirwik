@@ -32,7 +32,14 @@ interface MButtonProps : MButtonBaseProps {
     var disableFocusRipple: Boolean
     var fullWidth: Boolean
     var href: String
-    var mini: Boolean
+    var size: String
+    var variant: String
+}
+
+interface MFabProps : MButtonBaseProps {
+    var color: String
+    var disableFocusRipple: Boolean
+    var href: String
     var size: String
     var variant: String
 }
@@ -48,10 +55,17 @@ enum class MButtonSize {
 }
 
 // Have removed Flat and Raised as these terms are depreciated for Text and Contained respectively and look like they
-// will be removed in the future
+// will be removed in the future. Have also removed fab and extendedFab as they are going to be removed.
 @Suppress("EnumEntryName")
 enum class MButtonVariant {
-    text, outlined, contained, fab, extendedFab
+    text, outlined, contained
+}
+
+// Have removed Flat and Raised as these terms are depreciated for Text and Contained respectively and look like they
+// will be removed in the future. Have also removed fab and extendedFab as they are going to be removed.
+@Suppress("EnumEntryName")
+enum class MFabVariant {
+    round, extended
 }
 
 fun RBuilder.mButton(
@@ -65,6 +79,7 @@ fun RBuilder.mButton(
 
         size: MButtonSize = MButtonSize.medium,
         href: String? = null,
+        target: String? = null,
         fullWidth: Boolean = false,
 
         centerRipple: Boolean = false,
@@ -87,10 +102,13 @@ fun RBuilder.mButton(
     attrs.focusRipple = focusRipple
     attrs.fullWidth = fullWidth
     href?.let { attrs.href = href }
-    attrs.mini = false
     onClick?.let { attrs.onClick = onClick }
     onKeyboardFocus?.let { attrs.onKeyboardFocus = onKeyboardFocus }
     attrs.size = size.toString()
+    target?.let {
+        // We have not got a prop for target, so we will let a parent element sort it.
+        attrs.asDynamic().target = it
+    }
     touchRippleProps?.let { attrs.touchRippleProps = touchRippleProps }
     attrs.variant = variant.toString()
 
@@ -99,10 +117,17 @@ fun RBuilder.mButton(
     setStyledPropsAndRunHandler(className, handler)
 }
 
+
+@JsModule("@material-ui/core/Fab")
+private external val fabModule: dynamic
+
+@Suppress("UnsafeCastFromDynamic")
+private val fabComponent: RComponent<MFabProps, RState> = fabModule.default
+
 /**
- * mButtonFab automatically changes the variant to be fab and has a convenience iconName.
+ * FAB button that is round and has a convenience iconName.
  */
-fun RBuilder.mButtonFab(
+fun RBuilder.mFab(
         iconName: String,
         primary: Boolean = false, // If true, then this overrides the color... just an easier setter...
         onClick: ((Event) -> Unit)? = null,
@@ -110,7 +135,7 @@ fun RBuilder.mButtonFab(
         color: MColor = MColor.default,
         onKeyboardFocus: ((Event) -> Unit)? = null,
 
-        mini: Boolean = false,
+        size: MButtonSize = MButtonSize.medium,
         href: String? = null,
 
         centerRipple: Boolean = false,
@@ -121,7 +146,7 @@ fun RBuilder.mButtonFab(
 
         addAsChild: Boolean = true,
         className: String? = null,
-        handler: StyledHandler<MButtonProps>? = null) = createStyled(buttonComponent, addAsChild) {
+        handler: StyledHandler<MFabProps>? = null) = createStyled(fabComponent, addAsChild) {
     attrs.centerRipple = centerRipple
     attrs.color = if (primary) MColor.primary.toString() else color.toString()
     attrs.disabled = disabled
@@ -129,12 +154,11 @@ fun RBuilder.mButtonFab(
     attrs.disableRipple = disableRipple
     attrs.focusRipple = focusRipple
     href?.let { attrs.href = href }
-    attrs.mini = mini
     onClick?.let { attrs.onClick = onClick }
     onKeyboardFocus?.let {attrs.onKeyboardFocus = onKeyboardFocus}
-    attrs.size = MButtonSize.medium.toString()
+    attrs.size = size.toString()
     touchRippleProps?.let { attrs.touchRippleProps = touchRippleProps }
-    attrs.variant = MButtonVariant.fab.toString()
+    attrs.variant = MFabVariant.round.toString()
 
     mIcon(iconName)
 
@@ -142,9 +166,9 @@ fun RBuilder.mButtonFab(
 }
 
 /**
- * mButtonFab but with a caption which turns into an extendedFab type.
+ * FAB button with a caption which turns into an extended FAB type.
  */
-fun RBuilder.mButtonFab(
+fun RBuilder.mFab(
         iconName: String,
         caption: String,
         primary: Boolean = false, // If true, then this overrides the color... just an easier setter...
@@ -153,7 +177,7 @@ fun RBuilder.mButtonFab(
         color: MColor = MColor.default,
         onKeyboardFocus: ((Event) -> Unit)? = null,
 
-        mini: Boolean = false,
+        size: MButtonSize = MButtonSize.medium,
         href: String? = null,
 
         centerRipple: Boolean = false,
@@ -164,7 +188,7 @@ fun RBuilder.mButtonFab(
 
         addAsChild: Boolean = true,
         className: String? = null,
-        handler: StyledHandler<MButtonProps>? = null) = createStyled(buttonComponent, addAsChild) {
+        handler: StyledHandler<MFabProps>? = null) = createStyled(fabComponent, addAsChild) {
     attrs.centerRipple = centerRipple
     attrs.color = if (primary) MColor.primary.toString() else color.toString()
     attrs.disabled = disabled
@@ -172,12 +196,11 @@ fun RBuilder.mButtonFab(
     attrs.disableRipple = disableRipple
     attrs.focusRipple = focusRipple
     href?.let { attrs.href = href }
-    attrs.mini = mini
     onClick?.let { attrs.onClick = onClick }
     onKeyboardFocus?.let {attrs.onKeyboardFocus = onKeyboardFocus}
-    attrs.size = MButtonSize.medium.toString()
+    attrs.size = size.toString()
     touchRippleProps?.let { attrs.touchRippleProps = touchRippleProps }
-    attrs.variant = MButtonVariant.extendedFab.toString()
+    attrs.variant = MFabVariant.extended.toString()
 
     mIcon(iconName)
     childList.add(caption)
@@ -203,6 +226,8 @@ fun RBuilder.mIconButton(
         onClick: ((Event) -> Unit)? = null,
         disabled: Boolean = false,
         color: MColor = MColor.default,
+
+        size: MButtonSize = MButtonSize.medium,
         href: String? = null,
 
         disableRipple: Boolean = false,
@@ -238,7 +263,13 @@ fun RBuilder.mIconButton(
     }
 
     if (iconName != null) {
-        mIcon(iconName, primary = primary, color = iconColorToUse)
+        val fontSize = when (size) {
+            MButtonSize.small -> MIconFontSize.small
+            MButtonSize.medium -> MIconFontSize.inherit
+            MButtonSize.large -> MIconFontSize.large
+        }
+
+        mIcon(iconName, primary = primary, color = iconColorToUse, fontSize = fontSize)
     }
 
     setStyledPropsAndRunHandler(className, handler)

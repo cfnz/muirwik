@@ -24,7 +24,7 @@ interface MInputProps : MInputBaseProps {
 }
 
 fun RBuilder.mInput(
-        value: String? = null,
+        value: Any? = null,
         required: Boolean? = null,
         disabled: Boolean? = null,
         readOnly: Boolean? = null,

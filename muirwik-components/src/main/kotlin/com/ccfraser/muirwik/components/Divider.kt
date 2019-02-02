@@ -13,26 +13,31 @@ private external val dividerModule: dynamic
 @Suppress("UnsafeCastFromDynamic")
 private val dividerComponent: RComponent<MDividerProps, RState> = dividerModule.default
 
+@Suppress("EnumEntryName")
+enum class MDividerVariant {
+    fullWidth, inset, middle
+}
+
 interface MDividerProps : StyledProps {
     var absolute: Boolean
     var component: String
-    var inset: Boolean
     var light: Boolean
+    var variant: String
 }
 
 fun RBuilder.mDivider(
+        variant: MDividerVariant = MDividerVariant.fullWidth,
+        light: Boolean = false,
         absolute: Boolean = false,
         component: String = "hr",
-        inset: Boolean = false,
-        light: Boolean = false,
 
         addAsChild: Boolean = true,
         className: String? = null,
         handler: StyledHandler<MDividerProps>? = null) = createStyled(dividerComponent, addAsChild) {
     attrs.absolute = absolute
     attrs.component = component
-    attrs.inset = inset
     attrs.light = light
+    attrs.variant = variant.toString()
 
     setStyledPropsAndRunHandler(className, handler)
 }

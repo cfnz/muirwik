@@ -19,6 +19,7 @@ import kotlinx.html.js.onMouseMoveFunction
 import react.*
 import react.dom.br
 import react.dom.button
+import react.dom.div
 import react.dom.label
 import styled.*
 import kotlin.browser.window
@@ -90,11 +91,45 @@ class TestButtons : RComponent<RProps, RState>() {
         br { }
         styledDiv {
             mTypography("FABs")
-            mButtonFab("add", true) { css(buttonMargin) }
-            mButtonFab("edit-icon", color = MColor.secondary) { css(buttonMargin) }
-            mButtonFab("navigation-icon", disabled = true) { css(buttonMargin) }
-            mButtonFab("navigation-icon", "Extended", color = MColor.secondary) { css(buttonMargin) }
-            mButtonFab("add", mini = true, color = MColor.secondary) { css(buttonMargin) }
+            mFab("add", true) { css(buttonMargin) }
+            mFab("edit-icon", color = MColor.secondary) { css(buttonMargin) }
+            mFab("navigation-icon", disabled = true) { css(buttonMargin) }
+            mFab("navigation-icon", "Extended", color = MColor.secondary) { css(buttonMargin) }
+            mFab("add", color = MColor.secondary) { css(buttonMargin) }
+        }
+        br { }
+        styledDiv {
+            mTypography("Sizes")
+            div {
+                mButton("Small", size = MButtonSize.small) { css(buttonMargin) }
+                mButton("Medium", size = MButtonSize.medium) { css(buttonMargin) }
+                mButton("Large", size = MButtonSize.large) { css(buttonMargin) }
+            }
+            div {
+                mButton("Small", true, size = MButtonSize.small, variant = MButtonVariant.outlined) { css(buttonMargin) }
+                mButton("Medium", true, size = MButtonSize.medium, variant = MButtonVariant.outlined) { css(buttonMargin) }
+                mButton("Large", true, size = MButtonSize.large, variant = MButtonVariant.outlined) { css(buttonMargin) }
+            }
+            div {
+                mButton("Small", true, size = MButtonSize.small, variant = MButtonVariant.contained) { css(buttonMargin) }
+                mButton("Medium", true, size = MButtonSize.medium, variant = MButtonVariant.contained) { css(buttonMargin) }
+                mButton("Large", true, size = MButtonSize.large, variant = MButtonVariant.contained) { css(buttonMargin) }
+            }
+            div {
+                mFab("add", color = MColor.secondary, size = MButtonSize.small) { css(buttonMargin) }
+                mFab("add", color = MColor.secondary, size = MButtonSize.medium) { css(buttonMargin) }
+                mFab("add", color = MColor.secondary, size = MButtonSize.large) { css(buttonMargin) }
+            }
+            div {
+                mFab("navigation", "Extended", true, size = MButtonSize.small) { css(buttonMargin) }
+                mFab("navigation", "Extended", true, size = MButtonSize.medium) { css(buttonMargin) }
+                mFab("navigation", "Extended", true, size = MButtonSize.large) { css(buttonMargin) }
+            }
+            div {
+                mIconButton("delete", size = MButtonSize.small) { css(buttonMargin) }
+                mIconButton("delete", size = MButtonSize.medium) { css(buttonMargin) }
+                mIconButton("delete", size = MButtonSize.large) { css(buttonMargin) }
+            }
         }
         br { }
         styledDiv {
@@ -114,7 +149,8 @@ class TestButtons : RComponent<RProps, RState>() {
             }
             mButton("Contained", variant = MButtonVariant.contained) { css(buttonMargin) }
             mButton("Primary", primary = true, variant = MButtonVariant.contained) { css(buttonMargin) }
-            mButton("Secondary with HRef", color = MColor.secondary, href = "http://www.ptsonline.com", variant = MButtonVariant.contained) { css(buttonMargin) }
+            mButton("Secondary with HRef", color = MColor.secondary, href = "https://github.com/cfnz/muirwik",
+                    target = "_Blank", variant = MButtonVariant.contained) { css(buttonMargin) }
             mButton("Styled Button") {
                 css {
                     background = "linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)"

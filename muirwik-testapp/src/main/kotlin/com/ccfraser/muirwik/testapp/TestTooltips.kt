@@ -21,7 +21,7 @@ class TestTooltips : RComponent<RProps, RState>() {
                 mIconButton("delete") { css { marginRight = 2.spacingUnits }}
             }
             mTooltip("Add", id = "tooltip-fab") {
-                mButtonFab("add", primary = true) { css { marginRight = 2.spacingUnits }}
+                mFab("add", primary = true) { css { marginRight = 2.spacingUnits }}
             }
             mTooltip("No Delay", id = "tooltip-icon", enterDelay = 0) {
                 mButton("No Delay") { css { marginRight = 2.spacingUnits }}
@@ -32,7 +32,7 @@ class TestTooltips : RComponent<RProps, RState>() {
             br {  }
             br {  }
             mTooltip("FAB") {
-                mButtonFab("add", color = MColor.secondary) {
+                mFab("add", color = MColor.secondary) {
                     css {
                         position = Position.absolute
                         bottom = 2.spacingUnits
