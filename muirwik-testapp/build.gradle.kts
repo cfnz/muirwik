@@ -4,7 +4,7 @@ import java.io.ByteArrayOutputStream
 val production: Boolean = (properties["production"] as String).toBoolean()
 //val production: Boolean by project
 
-version = "0.2.0"
+version = "0.2.1"
 description = "Test Application for Muirwik (a Material UI React wrapper written in Kotlin)"
 
 buildscript {

@@ -1,6 +1,6 @@
 {
     "name": "muirwik-comonents",
-    "version": "0.1.0-SNAPSHOT",
+    "version": "0.2.1",
     "description": "A Material-UI React wrapper in Kotlin",
     "main": "",
     "private": true,

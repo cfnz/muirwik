@@ -5,7 +5,7 @@ import java.util.*
 
 //import org.jetbrains.dokka.gradle.DokkaTask
 
-version = "0.2.0"
+version = "0.2.1"
 description = "Muirwik Components - a Material UI React wrapper written in Kotlin"
 
 buildscript {
