@@ -25,13 +25,16 @@ enum class MTabIndicatorColor {
     secondary, primary
 }
 
+@Suppress("EnumEntryName")
+enum class MTabVariant {
+    standard, scrollable, fullWidth
+}
+
 interface MTabsProps: StyledProps {
     var action: (actions: Any) -> Unit
     var centered: Boolean
-    var fullWidth: Boolean
     var indicatorColor: String
     var onChange: (event: Event, indexValue: Int) -> Unit
-    var scrollable: Boolean
 
     @JsName("ScrollButtonComponent")
     var scrollButtonComponent: ReactElement
@@ -43,13 +46,13 @@ interface MTabsProps: StyledProps {
 
     var textColor: String
     var value: Any
+    var variant: String
 }
 
 fun RBuilder.mTabs(
         value: Any = false, // false means none selected
         centered: Boolean = false,
-        fullWidth: Boolean = false,
-        scrollable: Boolean = false,
+        variant: MTabVariant = MTabVariant.standard,
         indicatorColor: MTabIndicatorColor = MTabIndicatorColor.secondary,
         textColor: MTabTextColor = MTabTextColor.inherit,
         tabIndicatorProps: RProps? = null,
@@ -63,15 +66,15 @@ fun RBuilder.mTabs(
         handler: StyledHandler<MTabsProps>? = null) = createStyled(tabsComponent) {
     action?.let { attrs.action = it }
     attrs.centered = centered
-    attrs.fullWidth = fullWidth
     attrs.indicatorColor = indicatorColor.toString()
     onChange?.let { attrs.onChange = it }
-    attrs.scrollable = scrollable
     scrollButtonComponent?.let { attrs.scrollButtonComponent = it }
     attrs.scrollButtons = scrollButtons.toString()
     tabIndicatorProps?.let { attrs.tabIndicatorProps = it }
     attrs.textColor = textColor.toString()
     attrs.value = value
+    attrs.value = value
+    attrs.variant = variant.toString()
 
     setStyledPropsAndRunHandler(className, handler)
 }

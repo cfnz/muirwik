@@ -183,6 +183,29 @@ fun Event.persist() {
     asDynamic().persist()
 }
 
+/**
+ * This is a convenience function (which might end up somewhere else) that handles setting of the href, target and rel
+ * properties of various components. These components often done have the target and rel properties as it is expected in
+ * Material-UI to just pass them to the root element.
+ *
+ * When the targetBlank parameter is true it overrides anything in target with "_blank" setting the rel prop to "nopener"
+ * as recommended in https://material-ui.com/style/links/. When targetBlank is true target will not be used.
+ *
+ * This function only takes effect if href is not null.
+ */
+fun setHrefTargetNoOpener(attrs: RProps, href: String?, targetBlank: Boolean, target: String?) {
+    href?.let {
+        attrs.asDynamic().href = it
+
+        target?.let { attrs.asDynamic().target = it }
+        // We have not got a prop for target, so we will let a parent element sort it.
+
+        if (targetBlank) {
+            attrs.asDynamic().target = "_blank"
+            attrs.asDynamic().rel = "noopener"
+        }
+    }
+}
 
 /**
  * A simple event... not sure if there is another one in Kotlin, but couldn't find it...

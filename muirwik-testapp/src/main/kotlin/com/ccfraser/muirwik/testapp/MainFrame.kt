@@ -40,6 +40,7 @@ class MainFrame() : RComponent<MainFrameProps, MyState>() {
         "Drawers" to RBuilder::testDrawers,
         //                            "Gridsto RBuilder::> testGrids,
         "Grid Lists" to RBuilder::testGridLists,
+        "Links" to RBuilder::testLinks,
         "Lists" to RBuilder::testLists,
         "Menus" to RBuilder::testMenus,
         "Options" to RBuilder::testOptionControls,

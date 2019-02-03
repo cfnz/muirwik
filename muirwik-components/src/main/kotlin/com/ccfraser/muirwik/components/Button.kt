@@ -79,6 +79,7 @@ fun RBuilder.mButton(
 
         size: MButtonSize = MButtonSize.medium,
         href: String? = null,
+        targetBlank: Boolean = false,
         target: String? = null,
         fullWidth: Boolean = false,
 
@@ -101,14 +102,10 @@ fun RBuilder.mButton(
     attrs.disableRipple = disableRipple
     attrs.focusRipple = focusRipple
     attrs.fullWidth = fullWidth
-    href?.let { attrs.href = href }
+    setHrefTargetNoOpener(attrs, href, targetBlank, target)
     onClick?.let { attrs.onClick = onClick }
     onKeyboardFocus?.let { attrs.onKeyboardFocus = onKeyboardFocus }
     attrs.size = size.toString()
-    target?.let {
-        // We have not got a prop for target, so we will let a parent element sort it.
-        attrs.asDynamic().target = it
-    }
     touchRippleProps?.let { attrs.touchRippleProps = touchRippleProps }
     attrs.variant = variant.toString()
 
@@ -137,6 +134,8 @@ fun RBuilder.mFab(
 
         size: MButtonSize = MButtonSize.medium,
         href: String? = null,
+        targetBlank: Boolean = false,
+        target: String? = null,
 
         centerRipple: Boolean = false,
         focusRipple: Boolean = true,
@@ -153,7 +152,7 @@ fun RBuilder.mFab(
     attrs.disableFocusRipple = disableFocusRipple
     attrs.disableRipple = disableRipple
     attrs.focusRipple = focusRipple
-    href?.let { attrs.href = href }
+    setHrefTargetNoOpener(attrs, href, targetBlank, target)
     onClick?.let { attrs.onClick = onClick }
     onKeyboardFocus?.let {attrs.onKeyboardFocus = onKeyboardFocus}
     attrs.size = size.toString()
@@ -179,6 +178,8 @@ fun RBuilder.mFab(
 
         size: MButtonSize = MButtonSize.medium,
         href: String? = null,
+        targetBlank: Boolean = false,
+        target: String? = null,
 
         centerRipple: Boolean = false,
         focusRipple: Boolean = true,
@@ -195,7 +196,7 @@ fun RBuilder.mFab(
     attrs.disableFocusRipple = disableFocusRipple
     attrs.disableRipple = disableRipple
     attrs.focusRipple = focusRipple
-    href?.let { attrs.href = href }
+    setHrefTargetNoOpener(attrs, href, targetBlank, target)
     onClick?.let { attrs.onClick = onClick }
     onKeyboardFocus?.let {attrs.onKeyboardFocus = onKeyboardFocus}
     attrs.size = size.toString()
@@ -229,6 +230,8 @@ fun RBuilder.mIconButton(
 
         size: MButtonSize = MButtonSize.medium,
         href: String? = null,
+        targetBlank: Boolean = false,
+        target: String? = null,
 
         disableRipple: Boolean = false,
         centerRipple: Boolean = false,
@@ -246,7 +249,7 @@ fun RBuilder.mIconButton(
     attrs.disabled = disabled
     attrs.disableRipple = disableRipple
     attrs.focusRipple = focusRipple
-    href?.let { attrs.href = href }
+    setHrefTargetNoOpener(attrs, href, targetBlank, target)
     onClick?.let { attrs.onClick = onClick }
     onKeyboardFocus?.let {attrs.onKeyboardFocus = onKeyboardFocus}
     touchRippleProps?.let { attrs.touchRippleProps = touchRippleProps }

@@ -68,6 +68,7 @@ fun RBuilder.mListItem(
         key: String? = null,
         alignItems: MListItemAlignItems = MListItemAlignItems.center,
         href: String? = null,
+        targetBlank: Boolean = false,
         target: String? = null,
         divider: Boolean = true,
         compact: Boolean = false,
@@ -75,11 +76,8 @@ fun RBuilder.mListItem(
         onClick: ((Event) -> Unit)? = null,
         className: String? = null,
         handler: StyledHandler<MListItemProps>? = null): ReactElement {
-    val e = mListItem(button = true, divider = divider, key = key, selected = selected, href = href,
-            alignItems = alignItems, onClick = onClick, className = className) {
-
-        // If there is a target set, we set it so a parent element can handle it.
-        target?.let { attrs.asDynamic().target = it }
+    return mListItem(button = true, divider = divider, key = key, selected = selected, href = href,
+            targetBlank = targetBlank, target = target, alignItems = alignItems, onClick = onClick, className = className) {
 
         if (!useAvatar && compact) {
             css { padding(vertical = 1.spacingUnits) }
@@ -105,7 +103,6 @@ fun RBuilder.mListItem(
         // We don't call setStyledPropsAndRunHandler as this is called in the original mListItem above (but the handler below is not)
         if (handler != null) handler()
     }
-    return e
 }
 
 /**
@@ -123,6 +120,8 @@ fun RBuilder.mListItem(
         disableGutters: Boolean = false,
         divider: Boolean = false,
         href: String? = null,
+        targetBlank: Boolean = false,
+        target: String? = null,
         onClick: ((Event) -> Unit)? = null,
 
         className: String? = null,
@@ -135,7 +134,7 @@ fun RBuilder.mListItem(
     attrs.dense = dense
     attrs.disableGutters = disableGutters
     attrs.divider = divider
-    href?.let { attrs.href = href }
+    setHrefTargetNoOpener(attrs, href, targetBlank, target)
     onClick?.let { attrs.onClick = onClick }
     attrs.selected = selected
     key?.let { attrs.key = key }

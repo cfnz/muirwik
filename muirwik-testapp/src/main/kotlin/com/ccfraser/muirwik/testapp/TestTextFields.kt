@@ -84,7 +84,7 @@ class TestTextFields : RComponent<RProps, TestTextFields.MyTestState>() {
                     marginTop = 16.px
                 }
             }
-            mTextFieldMultiLine(label = "Multiline", rowsMax = 4, value = state.multiLineValue, helperText = "hello", variant = variant,
+            mTextFieldMultiLine(label = "Multiline", rowsMax = 4, value = state.multiLineValue, helperText = "Some helper text", variant = variant,
                     onChange = { val v = it.targetInputValue; setState { multiLineValue = v } }) {
                 css(textField)
             }
@@ -92,7 +92,7 @@ class TestTextFields : RComponent<RProps, TestTextFields.MyTestState>() {
                     onChange = { event -> event.persist(); setState { multiLineValue = event.targetInputValue } }) {
                 css(textField)
             }
-            mTextField(label = "Helper Text", defaultValue = "Default Value", helperText = "Some important helper text", variant = variant) {
+            mTextField(label = "Helper Text", defaultValue = "Default Value", helperText = "Some helper text", variant = variant) {
                 css(textField)
             }
             mTextField(label = "With Placeholder", placeholder = "Placeholder Value", autoComplete = "current-password", variant = variant) {

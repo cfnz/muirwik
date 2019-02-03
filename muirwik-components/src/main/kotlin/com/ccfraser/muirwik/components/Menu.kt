@@ -21,12 +21,17 @@ private external val menuModule: dynamic
 @Suppress("UnsafeCastFromDynamic")
 private val menuComponent: RComponent<MMenuProps, RState>  = menuModule.default
 
+@Suppress("EnumEntryName")
+enum class MenuOnCloseReason {
+    escapeKeyDown, backdropClick, tabKeyDown
+}
+
 external interface MMenuProps : StyledProps {
     var anchorEl: Node
 
     @JsName("MenuListProps")
     var menuListProps: MMenuListProps
-    var onClose: (Event) -> Unit
+    var onClose: (Event, String) -> Unit
     var onEnter: () -> Unit
     var onEntered: () -> Unit
     var onEntering: () -> Unit
@@ -47,7 +52,7 @@ external interface MMenuProps : StyledProps {
 fun RBuilder.mMenu(
         open: Boolean,
         anchorElement: Node? = null,
-        onClose: ((Event) -> Unit)? = null,
+        onClose: ((Event, MenuOnCloseReason) -> Unit)? = null,
         onEnter: (() -> Unit)? = null,
         onEntered: (() -> Unit)? = null,
         onEntering: (() -> Unit)? = null,
@@ -64,7 +69,7 @@ fun RBuilder.mMenu(
         handler: StyledHandler<MMenuProps>) = createStyled(menuComponent) {
     anchorElement?.let { attrs.anchorEl = anchorElement }
     menuListProps?.let { attrs.menuListProps = menuListProps }
-    onClose?.let { attrs.onClose = onClose }
+    onClose?.let { attrs.onClose = { event, string -> it(event, MenuOnCloseReason.valueOf(string)) }}
     onEnter?.let { attrs.onEnter = onEnter }
     onEntered?.let { attrs.onEntered = onEntered }
     onEntering?.let { attrs.onEntering = onEntering }
@@ -105,14 +110,16 @@ fun RBuilder.mMenuItem(
         disabled: Boolean = false,
         key: String? = null,
         href: String? = null,
+        targetBlank: Boolean = false,
+        target: String? = null,
         onClick: ((Event) -> Unit)? = null,
         divider: Boolean = false,
         useAvatar: Boolean = false,
         compactAvatar: Boolean = true,
         className: String? = null,
         handler: StyledHandler<MMenuItemProps>? = null): ReactElement {
-    val e = mMenuItem(selected, button = true, divider = divider, key = key, href = href, value = value,
-            disabled = disabled, onClick = onClick, className = className) {
+    val e = mMenuItem(selected, button = true, divider = divider, key = key, href = href, targetBlank = targetBlank,
+            target = target, value = value, disabled = disabled, onClick = onClick, className = className) {
 
         // NOTE: This code is similar to mListItem... if you make changes here, look there too...
         // TODO: Refactor similar code
@@ -160,6 +167,8 @@ fun RBuilder.mMenuItem(
         disableGutters: Boolean = false,
         divider: Boolean = false,
         href: String? = null,
+        targetBlank: Boolean = false,
+        target: String? = null,
 
         onClick: ((Event) -> Unit)? = null,
 
@@ -173,7 +182,7 @@ fun RBuilder.mMenuItem(
     attrs.disabled = disabled
     attrs.disableGutters = disableGutters
     attrs.divider = divider
-    href?.let { attrs.href = it }
+    setHrefTargetNoOpener(attrs, href, targetBlank, target)
     onClick?.let { attrs.onClick = it }
     key?.let { attrs.key = it }
     attrs.selected = selected

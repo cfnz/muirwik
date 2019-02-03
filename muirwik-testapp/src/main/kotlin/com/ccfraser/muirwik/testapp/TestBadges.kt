@@ -26,29 +26,19 @@ class TestBadges : RComponent<RProps, RState>() {
 
     override fun RBuilder.render() {
         div {
-            div {
-                mBadge("4", color = MBadgeColor.primary) {
-                    css(ComponentStyles.margin)
-                    mIcon("mail")
-                }
-                mBadge("10", color = MBadgeColor.secondary) {
-                    css(ComponentStyles.margin)
-                    mIcon("mail")
-                }
-
-                mIconButton("mail") {
-                    mBadge("4", color = MBadgeColor.primary) {
-                        css {
-                            marginTop = -(3.spacingUnits)
-                        }
-                        mIcon("mail", addAsChild = false)
-                    }
-                }
+            mBadge(4, color = MBadgeColor.primary) {
+                css(ComponentStyles.margin)
+                mIcon("mail", color = MIconColor.action)
             }
+            mBadge(10, color = MBadgeColor.secondary) {
+                css(ComponentStyles.margin)
+                mIcon("mail")
+            }
+
             mAppBar(position = MAppBarPosition.static) {
                 css(ComponentStyles.margin)
                 mTabs(0) {
-                    mTab(label = mBadge("4", color = MBadgeColor.secondary, addAsChild = false) {
+                    mTab(label = mBadge(4, color = MBadgeColor.secondary, addAsChild = false) {
                         css(ComponentStyles.padding)
                         +"Item 1"
                     })
@@ -56,13 +46,17 @@ class TestBadges : RComponent<RProps, RState>() {
                     mTab(label = RBuilder().span { +"Item 3" })
                 }
             }
-            mBadge("4", color = MBadgeColor.primary) {
+            mBadge(100, color = MBadgeColor.primary) {
                 css(ComponentStyles.margin)
                 mTypography("Typography") { css(ComponentStyles.padding)}
             }
-            mBadge("4", color = MBadgeColor.primary) {
+            mBadge("Hello", color = MBadgeColor.primary) {
                 css(ComponentStyles.margin)
                 mButton("Button", variant = MButtonVariant.contained)
+            }
+            mBadge(100, color = MBadgeColor.secondary, variant = MBadgeVariant.dot) {
+                css(ComponentStyles.margin)
+                mTypography("Typography")
             }
         }
     }

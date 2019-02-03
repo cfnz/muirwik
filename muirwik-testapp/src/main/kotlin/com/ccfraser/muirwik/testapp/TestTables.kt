@@ -70,20 +70,20 @@ class TestTables : RComponent<RProps, RState>() {
                 mTableHead {
                     mTableRow {
                         mTableCell { +"Dessert (100g serving)" }
-                        mTableCell(alignRight = true) { +"Calories" }
-                        mTableCell(alignRight = true) { +"Fat (g)" }
-                        mTableCell(alignRight = true) { +"Carbs (g)" }
-                        mTableCell(alignRight = true) { +"Protein (g)" }
+                        mTableCell(align = MTableCellAlign.right) { +"Calories" }
+                        mTableCell(align = MTableCellAlign.right) { +"Fat (g)" }
+                        mTableCell(align = MTableCellAlign.right) { +"Carbs (g)" }
+                        mTableCell(align = MTableCellAlign.right) { +"Protein (g)" }
                     }
                 }
                 mTableBody {
                     androidDeserts.subList(0, 4).forEach {
                         mTableRow(key = it.id) {
                             mTableCell { +it.dessertName }
-                            mTableCell(alignRight = true) { +it.calories.toString() }
-                            mTableCell(alignRight = true) { +it.fat.toString() }
-                            mTableCell(alignRight = true) { +it.carbs.toString() }
-                            mTableCell(alignRight = true) { +it.protein.toString() }
+                            mTableCell(align = MTableCellAlign.right) { +it.calories.toString() }
+                            mTableCell(align = MTableCellAlign.right) { +it.fat.toString() }
+                            mTableCell(align = MTableCellAlign.right) { +it.carbs.toString() }
+                            mTableCell(align = MTableCellAlign.right) { +it.protein.toString() }
                         }
                     }
                 }
@@ -178,11 +178,11 @@ class TestTables : RComponent<RProps, RState>() {
                                 mTableCell(padding = MTableCellPadding.checkbox) {
                                     mCheckbox(isSelected, primary = false)
                                 }
-                                mTableCell(alignRight = false, padding = MTableCellPadding.none) { +it.dessertName }
-                                mTableCell(alignRight = true) { +it.calories.toString() }
-                                mTableCell(alignRight = true) { +it.fat.toString() }
-                                mTableCell(alignRight = true) { +it.carbs.toString() }
-                                mTableCell(alignRight = true) { +it.protein.toString() }
+                                mTableCell(align = MTableCellAlign.left, padding = MTableCellPadding.none) { +it.dessertName }
+                                mTableCell(align = MTableCellAlign.right) { +it.calories.toString() }
+                                mTableCell(align = MTableCellAlign.right) { +it.fat.toString() }
+                                mTableCell(align = MTableCellAlign.right) { +it.carbs.toString() }
+                                mTableCell(align = MTableCellAlign.right) { +it.protein.toString() }
                             }
                         }
                         val emptyRows = rowsPerPage - min(rowsPerPage, androidDeserts.size - page * rowsPerPage)
@@ -220,7 +220,7 @@ class TestTables : RComponent<RProps, RState>() {
                 }
                 columnData.forEach { data ->
                     mTableCell(data.name, 
-                            alignRight = data.rightAligned,
+                            align = if (data.rightAligned) MTableCellAlign.right else MTableCellAlign.left,
                             padding = if (data.disablePadding) MTableCellPadding.none else MTableCellPadding.default,
                             sortDirection = if (orderByColumn == data.name) order else MTableCellSortDirection.False) {
                         mTooltip("Sort", if (data.rightAligned) TooltipPlacement.bottomEnd else TooltipPlacement.bottomStart, enterDelay = 300) {

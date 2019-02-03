@@ -46,7 +46,7 @@ class TestSnackbar : RComponent<RProps, RState>() {
         }
     }
 
-    fun handleClose(reason: OnCloseReason) {
+    fun handleClose(reason: SnackbarOnCloseReason) {
         println("Close Reason: $reason")
         closeAll()
     }
@@ -107,7 +107,7 @@ class TestSnackbar : RComponent<RProps, RState>() {
 
             mSnackbar(altBuilder.span { +"Note archived" }, open = simpleSnackbarOpen, horizAnchor = SnackbarHorizAnchor.left,
                     autoHideDuration = 4000,
-                    onClose = { _, reason: OnCloseReason -> handleClose(reason) },
+                    onClose = { _, reason: SnackbarOnCloseReason -> handleClose(reason) },
                     action = altBuilder.div {
                         mButton("UNDO", color = MColor.secondary, variant = MButtonVariant.text, size = MButtonSize.small, onClick = { closeAll() })
                         mIconButton("close", onClick = { closeAll() } , color = MColor.inherit)
@@ -116,7 +116,7 @@ class TestSnackbar : RComponent<RProps, RState>() {
 
             mSnackbar("Note archived as text", open = simpleSnackbarWithTextOpen, horizAnchor = SnackbarHorizAnchor.left,
                     autoHideDuration = 4000,
-                    onClose = { _, reason: OnCloseReason -> handleClose(reason) },
+                    onClose = { _, reason: SnackbarOnCloseReason -> handleClose(reason) },
                     action = altBuilder.div {
                         mButton("UNDO", color = MColor.secondary, variant = MButtonVariant.text, size = MButtonSize.small, onClick = { closeAll() })
                         mIconButton("close", onClick = { closeAll() } , color = MColor.inherit)
@@ -125,32 +125,28 @@ class TestSnackbar : RComponent<RProps, RState>() {
 
             mSnackbar(message = "Positioned", open = positionedOpen, horizAnchor = hAnchor, vertAnchor = vAnchor,
                     autoHideDuration = 4000,
-                    onClose = { _, reason: OnCloseReason -> handleClose(reason) },
+                    onClose = { _, reason: SnackbarOnCloseReason -> handleClose(reason) },
                     action = altBuilder.div {
                         mButton("UNDO", color = MColor.secondary, variant = MButtonVariant.text, size = MButtonSize.small, onClick = { closeAll() })
                         mIconButton("close", onClick = { closeAll() } , color = MColor.inherit)
                     }
             )
 
-            mSnackbar("Transitioned by Sliding...", altBuilder.div {
-                mButton("UNDO", color = MColor.secondary, variant = MButtonVariant.text, size = MButtonSize.small, onClick = { closeAll() })
-                mIconButton("close", onClick = { closeAll() } , color = MColor.inherit)
-            },
-                    open = transition1SnackbarOpen,
-                    transitionComponent = SlideTransitionComponent::class
+            mSnackbar("Transitioned by Sliding...", open = transition1SnackbarOpen, transitionComponent = SlideTransitionComponent::class,
+                    action = altBuilder.div {
+                        mButton("UNDO", color = MColor.secondary, variant = MButtonVariant.text, size = MButtonSize.small, onClick = { closeAll() })
+                        mIconButton("close", onClick = { closeAll() } , color = MColor.inherit)
+                    }
             )
 
-            mSnackbar("Transitioned by Fade...", altBuilder.div {
-                mButton("UNDO", color = MColor.secondary, variant = MButtonVariant.text, size = MButtonSize.small, onClick = { closeAll() })
-                mIconButton("close", onClick = { closeAll() } , color = MColor.inherit)
-            },
-                    open = transition2SnackbarOpen,
-                    transitionComponent = FadeTransition::class
-            ) {
-//                attrs.transitionComponent = ::transitionLeft
-            }
+            mSnackbar("Transitioned by Fade...", open = transition2SnackbarOpen,
+                    transitionComponent = FadeTransition::class, action = altBuilder.div {
+                        mButton("UNDO", color = MColor.secondary, variant = MButtonVariant.text, size = MButtonSize.small, onClick = { closeAll() })
+                        mIconButton("close", onClick = { closeAll() } , color = MColor.inherit)
+                    }
+            )
 
-            mSnackbar("Custom Transition Delays...", open = delaySnackbarOpen, onClose = { _, reason: OnCloseReason -> handleClose(reason)},
+            mSnackbar("Custom Transition Delays...", open = delaySnackbarOpen, onClose = { _, reason: SnackbarOnCloseReason -> handleClose(reason)},
                     transitionDuration = EnterExitTransitionTimeout(500, 2000))
 
             if (fabMoveOptionOpen) {

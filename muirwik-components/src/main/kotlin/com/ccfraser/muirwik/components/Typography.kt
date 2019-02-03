@@ -20,7 +20,7 @@ enum class MTypographyAlign {
 
 @Suppress("EnumEntryName")
 enum class MTypographyColor {
-    inherit, primary, textSecondary, secondary, error, default
+    default, error, inherit, primary, secondary, textPrimary, textSecondary
 }
 
 @Suppress("EnumEntryName")

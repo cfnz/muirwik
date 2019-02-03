@@ -25,32 +25,39 @@ import styled.styledDiv
 
 
 class TestMenus : RComponent<RProps, RState>() {
-    private var loggedIn = false
     private var anchorElement: Node? = null
     private var selectedOption = "Selection Example..."
-    private var selectedItemIndex: Int? = null
+    private var selectedMenuIndex: Int? = null
     private var refAnchorElement: Node? = null
 
-    fun handleClick(event: Event, itemIndex: Int) {
-        selectedItemIndex = itemIndex
+    private fun handleShowMenuClick(event: Event, menuIndex: Int) {
+        selectedMenuIndex = menuIndex
         val currentTarget = event.currentTarget
         setState { anchorElement = currentTarget.asDynamic() }
     }
 
-    fun handleMenuItemClick(selectedText: String) {
+    private fun handleSimpleClick() {
         setState {
-            selectedOption = selectedText
-            selectedItemIndex = null
+            selectedMenuIndex = null
             anchorElement = null
         }
     }
 
-    fun handleClose() {
-        setState { anchorElement = null; selectedItemIndex = null }
+    private fun handleMenuItemClick(selectedText: String) {
+        setState {
+            selectedOption = selectedText
+            selectedMenuIndex = null
+            anchorElement = null
+        }
     }
 
-    val options = arrayOf("Show some love to Material-UI", "Show all notification content", "Hide sensitive notification content", "Hide all notification content")
-    val options2 = arrayOf("None", "Atria", "Callisto", "Dione", "Ganymede", "Hangouts Call", "Luna", "Oberon", "Phobos", "Pyxis", "Sedna", "Titania", "Triton", "Umbriel")
+    private fun handleOnClose(reason: MenuOnCloseReason) {
+        setState { anchorElement = null; selectedMenuIndex = null }
+        println("Close reason: $reason")
+    }
+
+    private val options = arrayOf("Show some love to Material-UI", "Show all notification content", "Hide sensitive notification content", "Hide all notification content")
+    private val options2 = arrayOf("None", "Atria", "Callisto", "Dione", "Ganymede", "Hangouts Call", "Luna", "Oberon", "Phobos", "Pyxis", "Sedna", "Titania", "Triton", "Umbriel")
 
     private object ComponentStyles : StyleSheet("ComponentStyles", isStatic = true) {
         val menuItem by css {
@@ -68,16 +75,16 @@ class TestMenus : RComponent<RProps, RState>() {
         styledDiv {
             css { display = Display.inlineFlex }
 
-            mButton("Show Menu", onClick = { handleClick(it, 1) })
+            mButton("Show Menu", onClick = { handleShowMenuClick(it, 1) })
             div {
-                mMenu(selectedItemIndex == 1, anchorElement = anchorElement, onClose = { handleClose() }) {
-                    mMenuItem("Profile", onClick = { handleClose() })
-                    mMenuItem("My account", onClick = { handleClose() })
-                    mMenuItem("Logout", onClick = { handleClose() })
+                mMenu(selectedMenuIndex == 1, anchorElement = anchorElement, onClose = { _, reason -> handleOnClose(reason) }) {
+                    mMenuItem("Profile", onClick = { handleSimpleClick() })
+                    mMenuItem("My account", onClick = { handleSimpleClick() })
+                    mMenuItem("Logout", onClick = { handleSimpleClick() })
                 }
             }
 
-            mButton("Anchor with Ref", onClick = { setState { selectedItemIndex = 2 } }) {
+            mButton("Anchor with Ref", onClick = { setState { selectedMenuIndex = 2 } }) {
                 ref {
                     // Docs say don't get into the habit of finding the rendered DOM node, but also says it is
                     // ok for things like positioning... and that is what we are doing. "it" is a reference
@@ -87,14 +94,14 @@ class TestMenus : RComponent<RProps, RState>() {
                 }
             }
             div {
-                mMenu(selectedItemIndex == 2, anchorElement = refAnchorElement, onClose = { handleClose() }) {
-                    mMenuItem("Profile", onClick = { handleClose() })
-                    mMenuItem("My account", onClick = { handleClose() })
-                    mMenuItem("Logout", onClick = { handleClose() })
+                mMenu(selectedMenuIndex == 2, anchorElement = refAnchorElement, onClose = { _, reason -> handleOnClose(reason) }) {
+                    mMenuItem("Profile", onClick = { handleSimpleClick() })
+                    mMenuItem("My account", onClick = { handleSimpleClick() })
+                    mMenuItem("Logout", onClick = { handleSimpleClick() })
                 }
             }
 
-            mButton("Max Height Menu", onClick = { handleClick(it, 3) })
+            mButton("Max Height Menu", onClick = { handleShowMenuClick(it, 3) })
             styledDiv {
                 css { flexGrow = 1.0; padding(2.spacingUnits) }
 
@@ -103,9 +110,9 @@ class TestMenus : RComponent<RProps, RState>() {
                     maxHeight = 216
                 }
 
-                mMenu(selectedItemIndex == 3, anchorElement = anchorElement, onClose = { handleClose() }, menuListProps = menuListProps) {
+                mMenu(selectedMenuIndex == 3, anchorElement = anchorElement, onClose = { _, reason -> handleOnClose(reason) }, menuListProps = menuListProps) {
                     options2.forEach {
-                        mMenuItem(primaryText = it, selected = it == "Pyxis", onClick = { handleClose() })
+                        mMenuItem(primaryText = it, selected = it == "Pyxis", onClick = { handleSimpleClick() })
                     }
                 }
             }
@@ -113,9 +120,9 @@ class TestMenus : RComponent<RProps, RState>() {
         styledDiv {
             css { display = Display.inlineFlex }
             mList {
-                mListItem(primaryText = "When device is locked", secondaryText = selectedOption, onClick = { handleClick(it, 4) })
+                mListItem(primaryText = "When device is locked", secondaryText = selectedOption, onClick = { handleShowMenuClick(it, 4) })
             }
-            mMenu(selectedItemIndex == 4, anchorElement = anchorElement, onClose = { handleClose() }) {
+            mMenu(selectedMenuIndex == 4, anchorElement = anchorElement, onClose = { _, reason -> handleOnClose(reason) }) {
                 options.forEach { item ->
                     mMenuItem(item, selected = item == selectedOption, onClick = { handleMenuItemClick(item) })
                 }
@@ -128,33 +135,33 @@ class TestMenus : RComponent<RProps, RState>() {
                 }
             }
 
-            mButton("With Slow Transition", onClick = { handleClick(it, 5) })
+            mButton("With Slow Transition", onClick = { handleShowMenuClick(it, 5) })
             div {
-                mMenu(selectedItemIndex == 5, anchorElement = anchorElement, onClose = { handleClose() },
+                mMenu(selectedMenuIndex == 5, anchorElement = anchorElement, onClose = { _, reason -> handleOnClose(reason) },
                         transitionDuration = SimpleTransitionTimeout(1000)) {
-                    mMenuItem("Profile", onClick = { handleClose() })
-                    mMenuItem("My account", onClick = { handleClose() })
-                    mMenuItem("Logout", onClick = { handleClose() })
+                    mMenuItem("Profile", onClick = { handleSimpleClick() })
+                    mMenuItem("My account", onClick = { handleSimpleClick() })
+                    mMenuItem("Logout", onClick = { handleSimpleClick() })
                 }
             }
 
-            mButton("With Fade Transition", onClick = { handleClick(it, 6) })
+            mButton("With Fade Transition", onClick = { handleShowMenuClick(it, 6) })
             div {
-                mMenu(selectedItemIndex == 6, anchorElement = anchorElement, onClose = { handleClose() },
+                mMenu(selectedMenuIndex == 6, anchorElement = anchorElement, onClose = { _, reason -> handleOnClose(reason) },
                         transitionComponent = FadeTransition::class,
                         transitionDuration = SimpleTransitionTimeout(1000)) {
-                    mMenuItem("Profile", onClick = { handleClose() })
-                    mMenuItem("My account", onClick = { handleClose() })
-                    mMenuItem("Logout", onClick = { handleClose() })
+                    mMenuItem("Profile", onClick = { handleSimpleClick() })
+                    mMenuItem("My account", onClick = { handleSimpleClick() })
+                    mMenuItem("Logout", onClick = { handleSimpleClick() })
                 }
             }
 
-            mButton("Secondary Text?", onClick = { handleClick(it, 7) })
+            mButton("Secondary Text?", onClick = { handleShowMenuClick(it, 7) })
             div {
-                mMenu(selectedItemIndex == 7, anchorElement = anchorElement, onClose = { handleClose() }) {
-                    mMenuItem("Profile", secondaryText = "Perhaps some explanation", onClick = { handleClose() })
-                    mMenuItem("My account", secondaryText = "Don't know if this is needed", onClick = { handleClose() })
-                    mMenuItem("Logout", onClick = { handleClose() })
+                mMenu(selectedMenuIndex == 7, anchorElement = anchorElement, onClose = { _, reason -> handleOnClose(reason) }) {
+                    mMenuItem("Profile", secondaryText = "Perhaps some explanation", onClick = { handleSimpleClick() })
+                    mMenuItem("My account", secondaryText = "Don't know if this is needed", onClick = { handleSimpleClick() })
+                    mMenuItem("Logout", onClick = { handleSimpleClick() })
                 }
             }
         }

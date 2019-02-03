@@ -22,6 +22,7 @@ enum class MInputAdornmentPosition {
 }
 
 interface MInputAdornmentProps : StyledProps {
+    var disablePointerEvents: Boolean
     var disableTypography: Boolean
     var position: String
     var variant: String
@@ -29,15 +30,17 @@ interface MInputAdornmentProps : StyledProps {
 
 fun RBuilder.mInputAdornment(
         position: MInputAdornmentPosition = MInputAdornmentPosition.start,
+        disablePointerEvents: Boolean = false,
         disableTypography: Boolean = false,
-        variant: MFormControlVariant = MFormControlVariant.standard,
+        variant: MFormControlVariant? = null,
 
         className: String? = null,
 
         handler: StyledHandler<MInputAdornmentProps>? = null) = createStyled(inputAdornmentComponent, false) {
+    attrs.disablePointerEvents = disablePointerEvents
     attrs.disableTypography = disableTypography
     attrs.position = position.toString().toLowerCase()
-    attrs.variant = variant.toString()
+    variant?.let { attrs.variant = it.toString() }
 
     setStyledPropsAndRunHandler(className, handler)
 }

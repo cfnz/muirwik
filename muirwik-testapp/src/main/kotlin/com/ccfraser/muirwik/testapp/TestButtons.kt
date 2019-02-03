@@ -53,7 +53,7 @@ class TestButtons : RComponent<RProps, RState>() {
             mButton("Disabled", disabled = true, variant = variant) {
                 if (margin) css(buttonMargin)
             }
-            mButton("Link", href = "#", variant = variant) {
+            mButton("Link", href = "https://github.com/cfnz/muirwik", targetBlank = true, variant = variant) {
                 if (margin) css(buttonMargin)
             }
             styledInput {

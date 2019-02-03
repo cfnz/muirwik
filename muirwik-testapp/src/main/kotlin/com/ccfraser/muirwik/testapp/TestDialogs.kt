@@ -29,6 +29,7 @@ class TestDialogs : RComponent<RProps, TestOptionControls.MyTestState>() {
     private var confirmationDialogScrollOpen: Boolean = false
     private var fullScreenDialogOpen: Boolean = false
     private var formDialogOpen: Boolean = false
+    private var draggableDialogOpen: Boolean = false
 
     private var confirmationDialogValue: String = ""
     private var confirmationDialogSelectedValue: String = ""
@@ -107,6 +108,7 @@ class TestDialogs : RComponent<RProps, TestOptionControls.MyTestState>() {
             }})
             mButton("Full Screen", onClick = { setState {fullScreenDialogOpen = true}})
             mButton("Form", onClick = { setState {formDialogOpen = true}})
+            mButton("Draggable", onClick = { setState {draggableDialogOpen = true}})
 
             // Need to render whether simpleSnackbarOpen or closed so the close transition will occur!
             simpleDialog(simpleDialogOpen)
@@ -115,6 +117,7 @@ class TestDialogs : RComponent<RProps, TestOptionControls.MyTestState>() {
             confirmationDialog(confirmationDialogScrollOpen, DialogScroll.body)
             fullScreenDialog(fullScreenDialogOpen)
             formDialog(formDialogOpen)
+            draggableDialog(draggableDialogOpen)
         }
     }
 
@@ -228,6 +231,28 @@ class TestDialogs : RComponent<RProps, TestOptionControls.MyTestState>() {
                 mButton("Subscribe", color = MColor.primary, onClick = { handleClose() }, variant = MButtonVariant.text)
             }
         }
+    }
+
+    private fun RBuilder.draggableDialog(open: Boolean) {
+        mSnackbar("Sorry, not implemented yet...", open, autoHideDuration = 3000,
+                onClose = { _, _ -> setState {draggableDialogOpen = false}})
+//        fun handleClose() {
+//            setState { draggableDialogOpen = false}
+//        }
+//
+//        createElement("Draggable", props, null)
+//
+//        mDialog(open, onClose =  { _, _ -> handleClose() }, transitionProps = if (slow) slowTransitionProps else null) {
+//            mDialogTitle("Subscribe")
+//            mDialogContent {
+//                mDialogContentText("To subscribe to this website, please enter your email address here. We will send updates occationally.")
+//                mTextField("Email Address", autoFocus = true, margin = MTextFieldMargin.dense, type = InputType.email, fullWidth = true)
+//            }
+//            mDialogActions {
+//                mButton("Cancel", color = MColor.primary, onClick = { handleClose() }, variant = MButtonVariant.text)
+//                mButton("Subscribe", color = MColor.primary, onClick = { handleClose() }, variant = MButtonVariant.text)
+//            }
+//        }
     }
 }
 

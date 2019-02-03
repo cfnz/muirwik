@@ -28,6 +28,12 @@ enum class DialogScroll {
     paper, body
 }
 
+@Suppress("EnumEntryName")
+enum class ModalOnCloseReason {
+    escapeKeyDown, backdropClick
+}
+
+
 interface MModalProps : StyledProps {
     @JsName("BackdropComponent")
     var backdropComponent: ReactElement
@@ -35,6 +41,7 @@ interface MModalProps : StyledProps {
     @Suppress("BackdropProps")
     var backdropProps: RProps
 
+    var closeAfterTransition: Boolean
     var container: ReactElement
     var disableAutoFocus: Boolean
     var disableBackdropClick: Boolean
@@ -43,9 +50,6 @@ interface MModalProps : StyledProps {
     var disableRestoreFocus: Boolean
     var hideBackdrop: Boolean
     var keepMounted: Boolean
-
-//    var manager: Any?
-
     var onBackdropClick: SimpleEvent
     var onClose: (Event, reason: String) -> Unit
     var onEscapeKeyDown: SimpleEvent
@@ -65,6 +69,9 @@ interface MDialogProps : MModalProps {
     var onExit: SimpleEvent
     var onExited: SimpleEvent
     var onExiting: SimpleEvent
+
+    @JsName("PaperComponent")
+    var paperComponent: RComponent<RProps, RState>
 
     @JsName("PaperProps")
     var paperProps: MPaperProps
@@ -100,7 +107,7 @@ fun RBuilder.mDialog(
         backdropProps: RProps? = null,
 
         onBackdropClick: SimpleEvent? = null,
-        onClose: ((Event, reason: String) -> Unit)? = null,
+        onClose: ((Event, reason: ModalOnCloseReason) -> Unit)? = null,
         onEscapeKeyDown: SimpleEvent? = null,
         onRendered: SimpleEvent? = null,
         onEnter: SimpleEvent? = null,
@@ -110,6 +117,7 @@ fun RBuilder.mDialog(
         onExited: SimpleEvent? = null,
         onExiting: SimpleEvent? = null,
 
+        paperComponent: RComponent<RProps, RState>? = null,
         paperProps: MPaperProps? = null,
 
         scroll: DialogScroll = DialogScroll.paper,
@@ -135,7 +143,7 @@ fun RBuilder.mDialog(
     attrs.keepMounted = keepMounted
 //    manager?.let { attrs.manager = manager }
     onBackdropClick?.let { attrs.onBackdropClick = it }
-    onClose?.let { attrs.onClose = it }
+    onClose?.let { attrs.onClose = { event, string -> it(event, ModalOnCloseReason.valueOf(string)) }}
     onEscapeKeyDown?.let { attrs.onEscapeKeyDown = it }
     onRendered?.let { attrs.onRendered = it }
     attrs.open = open
@@ -148,6 +156,7 @@ fun RBuilder.mDialog(
     onExit?.let { attrs.onExit = it }
     onExited?.let { attrs.onExited = it }
     onExiting?.let { attrs.onExiting = it }
+    paperComponent?.let { attrs.paperComponent = it }
     paperProps?.let { attrs.paperProps = it }
     attrs.scroll = scroll.toString()
     transitionComponent?.let { attrs.transitionComponent = it.js }
