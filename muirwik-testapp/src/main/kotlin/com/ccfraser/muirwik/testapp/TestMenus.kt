@@ -59,16 +59,6 @@ class TestMenus : RComponent<RProps, RState>() {
     private val options = arrayOf("Show some love to Material-UI", "Show all notification content", "Hide sensitive notification content", "Hide all notification content")
     private val options2 = arrayOf("None", "Atria", "Callisto", "Dione", "Ganymede", "Hangouts Call", "Luna", "Oberon", "Phobos", "Pyxis", "Sedna", "Titania", "Triton", "Umbriel")
 
-    private object ComponentStyles : StyleSheet("ComponentStyles", isStatic = true) {
-        val menuItem by css {
-            focus { backgroundColor = Color(currentTheme.palette.primary.main) // ("#2196f3");
-                descendants() {
-                    color = Color(currentTheme.palette.common.white)
-                }
-            }
-        }
-    }
-
     override fun RBuilder.render() {
         br {}
         br {}
@@ -170,29 +160,40 @@ class TestMenus : RComponent<RProps, RState>() {
         styledDiv {
             css { display = Display.inlineFlex }
 
-            styledDiv {
-                css {
-                    +ComponentStyles.menuItem
+            themeContext.Consumer { theme ->
+                val themeStyles = object : StyleSheet("ComponentStyles", isStatic = true) {
+                    val menuItem by css {
+                        focus { backgroundColor = Color(theme.palette.primary.main) // ("#2196f3");
+                            descendants() {
+                                color = Color(theme.palette.common.white)
+                            }
+                        }
+                    }
                 }
-                mTypography("Composition Example")
-                mPaper {
-//                    mMenuList {
+
+                styledDiv {
+                    css {
+                        +themeStyles.menuItem
+                    }
+                    mTypography("Composition Example")
+                    mPaper {
+                        //                    mMenuList {
                         mMenuItem() {
-                            css(ComponentStyles.menuItem)
+                            css(themeStyles.menuItem)
                             mListItemIcon("send")
                             mListItemText("Sent mail", inset = true)
                         }
                         mMenuItem() {
-                            css(ComponentStyles.menuItem)
+                            css(themeStyles.menuItem)
                             mListItemIcon("drafts")
                             mListItemText("Drafts", inset = true)
                         }
                         mMenuItem() {
-                            css(ComponentStyles.menuItem)
+                            css(themeStyles.menuItem)
                             mListItemIcon("inbox")
                             mListItemText("Inbox", inset = true)
                         }
-//                    }
+                    }
                 }
             }
         }

@@ -30,12 +30,12 @@ const config = {
     // },
 
     output: {
-        path: path.resolve(__dirname, 'dist'),
+        path: path.resolve(__dirname, './build/dist'),
         filename: 'bundle.js',
     },
     devtool: 'source-map',
     devServer: {
-        contentBase: './dist',
+        contentBase: './build/dist',
         compress: true,
         watchContentBase: true,
     },

@@ -191,6 +191,7 @@ class TestButtons : RComponent<RProps, RState>() {
                 children {
                     opacity = 0.75
                     border(4.px, BorderStyle.solid, Color.white)
+                    transition += Transition("opacity", 195.ms, Timing.materialStandard, 0.ms)
                 }
                 child(".${ComplexComponentStyles.name}-${ComplexComponentStyles::imageTitle.name}") {
                     border(4.px, BorderStyle.solid, Color.white)
@@ -206,7 +207,8 @@ class TestButtons : RComponent<RProps, RState>() {
             display = Display.flex
             alignItems = Align.center
             justifyContent = JustifyContent.center
-            color = Color(currentTheme.palette.common.white)
+            // The below uses a theme property, so we need the theme context, so do it in the render
+            // color = Color(theme.palette.common.white)
         }
         val imageSrc by css {
             position = Position.absolute
@@ -223,7 +225,8 @@ class TestButtons : RComponent<RProps, RState>() {
             right = 0.px
             top = 0.px
             bottom = 0.px
-            backgroundColor = Color(currentTheme.palette.common.black)
+            // The below uses a theme property, so we need the theme context, so do it in the render
+            // backgroundColor = Color(theme.palette.common.black)
             opacity = 0.4
             transition += Transition("opacity", 195.ms, Timing.materialStandard, 0.ms)
         }
@@ -234,11 +237,9 @@ class TestButtons : RComponent<RProps, RState>() {
         val imageMarked by css {
             height = 3.px
             width = 18.px
-            backgroundColor = Color(currentTheme.palette.common.white)
             position = Position.absolute
             bottom = -2.px
             left = 50.pct - 9.px
-//            put("transition", js("theme.transitions.create('opacity')"))
         }
     }
 
@@ -250,29 +251,46 @@ class TestButtons : RComponent<RProps, RState>() {
                 ImageInfo("camera.jpg", "Camera", "30%")
         )
 
-        styledDiv {
-            css(root)
-            imageInfos.forEach {
-                mButton(it.title) {
-                    css(image)
-                    attrs.focusRipple = true
-                    attrs.key = it.title
+        themeContext.Consumer { theme ->
+            styledDiv {
+                css(root)
+                imageInfos.forEach {
+                    mButton(it.title) {
+                        css(image)
+                        attrs.focusRipple = true
+                        attrs.key = it.title
 //                    attrs.asDynamic().focusVisibleClassname = "${ComplexComponentStyles.name}-${ComplexComponentStyles::focusVisible.name}"
-                    attrs.asDynamic().style = js { width = it.width }
-                    styledSpan {
-                        css {
-                            +imageSrc
-                            backgroundImage = Image("url(/images/grid-list/${it.imageName})")
+                        attrs.asDynamic().style = js { width = it.width }
+                        styledSpan {
+                            css {
+                                +imageSrc
+                                backgroundImage = Image("url(/images/grid-list/${it.imageName})")
+                            }
                         }
-                    }
-                    styledSpan { css(imageBackdrop) }
-                    styledSpan {
-                        css(imageButton)
-                        mTypography(color = MTypographyColor.inherit, variant = MTypographyVariant.subtitle1) {
-                            css(imageTitle)
-                            +it.title
-                            //                        attrs.component = "span"
-                            styledSpan { css(imageMarked) }
+                        styledSpan {
+                            css {
+                                +imageBackdrop
+                                backgroundColor = Color(theme.palette.common.black)
+                            }
+                        }
+                        styledSpan {
+                            css {
+                                +imageButton
+                                color = Color(theme.palette.common.white)
+                            }
+                            mTypography(color = MTypographyColor.inherit, variant = MTypographyVariant.subtitle1) {
+                                css(imageTitle)
+                                +it.title
+                                //                        attrs.component = "span"
+                                styledSpan {
+                                    css {
+                                        +imageMarked
+                                        backgroundColor = Color(theme.palette.common.white)
+//                                        val themejs = theme
+//                                        put("transition", js("themejs.transitions.create('opacity')"))
+                                    }
+                                }
+                            }
                         }
                     }
                 }

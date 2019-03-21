@@ -9,14 +9,25 @@ module.exports = {
 
 const config = {
     mode: 'development',
-    entry: './build/js/app.js',
+    entry: [
+        require.resolve('react-dev-utils/webpackHotDevClient'),
+        './build/js/app.js',
+    ],
     output: {
-        path: path.resolve(__dirname, 'dist'),
+        path: path.resolve(__dirname, './build/dist'),
         filename: 'bundle.js',
+
+        // Webpack uses `publicPath` to determine where the app is being served from.
+        // In development, we always serve from the root. This makes config easier.
+        // publicPath: '/',
+        // devtoolModuleFilenameTemplate: info =>
+        //    path.resolve(info.absoluteResourcePath),
+        //     path.relative(path.resolve(__dirname, 'src'), info.absoluteResourcePath),
     },
-    devtool: 'inline-source-map',
+    devtool: 'cheap-module-source-map',
+    // devtool: 'cheap-module-inline-source-map',
     devServer: {
-        contentBase: './dist',
+        contentBase: './build/dist',
         compress: true,
         // port: 9000,
         // contentBase: paths.appPublic,
@@ -31,9 +42,9 @@ const config = {
     },
     resolve: {
         modules: [
-            "js",
+            //"js",
             "build/js",
-            "resources",
+            //"resources",
             "node_modules",
             "../muirwik-components/build/js"
         ],
@@ -59,6 +70,7 @@ const config = {
         new webpack.HotModuleReplacementPlugin()
     ],
     module: {
+        strictExportPresence: true,
         rules: [
             // { test: /\.vue$/, loader: 'vue-loader' },
             {
@@ -68,7 +80,7 @@ const config = {
 
             {
                 test: /\.js$/,
-                include: path.resolve(__dirname, './build/js'),
+              /*  include: path.resolve(__dirname, './build/js'), */
                 loader: require.resolve('source-map-loader'),
                 enforce: 'pre',
             },

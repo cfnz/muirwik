@@ -151,22 +151,25 @@ class TestSnackbar : RComponent<RProps, RState>() {
 
             if (fabMoveOptionOpen) {
                 val contentProps = PropsWithJsStyle(CSSBuilder().apply { width = 360.px }.toJsStyle())
-                styledDiv {
-                    css {
-                        width = 360.px
-                        height = 360.px
-                        position = Position.relative
-                        backgroundColor = Color(currentTheme.palette.background.paper)
-                        overflow = Overflow.hidden
-                    }
-                    mButton("Show Snackbar", onClick = { setState { fabMoveSnackbarOpen = true }})
-                    mButton("Hide Fab Move Div", onClick = { setState { fabMoveOptionOpen = false }})
-                    mFab("add") {
-                        css(if (fabMoveSnackbarOpen) fabMoveUp else fabMoveDown)
-                    }
-                    mSnackbar("Just Testing", open = fabMoveSnackbarOpen, contentProps = contentProps,
-                            onClose = { _, _ -> setState { fabMoveSnackbarOpen = false }}) {
-                        css { position = Position.absolute }
+
+                themeContext.Consumer { theme ->
+                    styledDiv {
+                        css {
+                            width = 360.px
+                            height = 360.px
+                            position = Position.relative
+                            backgroundColor = Color(theme.palette.background.paper)
+                            overflow = Overflow.hidden
+                        }
+                        mButton("Show Snackbar", onClick = { setState { fabMoveSnackbarOpen = true }})
+                        mButton("Hide Fab Move Div", onClick = { setState { fabMoveOptionOpen = false }})
+                        mFab("add") {
+                            css(if (fabMoveSnackbarOpen) fabMoveUp else fabMoveDown)
+                        }
+                        mSnackbar("Just Testing", open = fabMoveSnackbarOpen, contentProps = contentProps,
+                                onClose = { _, _ -> setState { fabMoveSnackbarOpen = false }}) {
+                            css { position = Position.absolute }
+                        }
                     }
                 }
             }

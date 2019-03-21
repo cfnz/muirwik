@@ -91,25 +91,6 @@ class TestTables : RComponent<RProps, RState>() {
         }
     }
 
-    // That was pretty easy, the below is pretty overwhelming... will look at providing a simpler wrapper below
-    private object ComponentStyles : StyleSheet("ComponentStyles", isStatic = true) {
-        val spacer by css {
-            flex(1.0, 1.0, 100.pct)
-        }
-        val highlight by css {
-            if (currentTheme.palette.type == "light") {
-                color = Color(currentTheme.palette.secondary.main)
-                backgroundColor = Color(lighten(currentTheme.palette.secondary.light, 0.85))
-            } else {
-                color = Color(currentTheme.palette.text.primary)
-                backgroundColor = Color(lighten(currentTheme.palette.secondary.dark, 0.85))
-            }
-        }
-        val actions by css {
-            color = Color(currentTheme.palette.text.secondary)
-        }
-    }
-
     private fun handleSelectAllClick(checked: Boolean): Unit {
         setState {
             if (checked) {
@@ -236,25 +217,46 @@ class TestTables : RComponent<RProps, RState>() {
     }
 
     fun RBuilder.enhancedTableToolbar(numSelected: Int) {
-        mToolbar {
-            if (numSelected > 0) css(ComponentStyles.highlight)
-            styledDiv {
-                css { flex(0.0, 0.0, FlexBasis.auto) }
-                if (numSelected > 0) {
-                    mTypography("$numSelected selected", variant = MTypographyVariant.subtitle1)
-                } else {
-                    mTypography("Nutrition", variant = MTypographyVariant.h6)
+        themeContext.Consumer { theme ->
+            val styles = object : StyleSheet("ComponentStyles", isStatic = true) {
+                val spacer by css {
+                    flex(1.0, 1.0, 100.pct)
+                }
+                val highlight by css {
+                    if (theme.palette.type == "light") {
+                        color = Color(theme.palette.secondary.main)
+                        backgroundColor = Color(lighten(theme.palette.secondary.light, 0.85))
+                    } else {
+                        color = Color(theme.palette.text.primary)
+                        backgroundColor = Color(lighten(theme.palette.secondary.dark, 0.85))
+                    }
+                }
+                val actions by css {
+                    color = Color(theme.palette.text.secondary)
                 }
             }
-            styledDiv { css(ComponentStyles.spacer) }
-            styledDiv { css(ComponentStyles.actions)
-                if (numSelected > 0) {
-                    mTooltip("Delete") {
-                        mIconButton("delete")
+
+            mToolbar {
+                if (numSelected > 0) css(styles.highlight)
+                styledDiv {
+                    css { flex(0.0, 0.0, FlexBasis.auto) }
+                    if (numSelected > 0) {
+                        mTypography("$numSelected selected", variant = MTypographyVariant.subtitle1)
+                    } else {
+                        mTypography("Nutrition", variant = MTypographyVariant.h6)
                     }
-                } else {
-                    mTooltip("Filter list") {
-                        mIconButton("filter_list")
+                }
+                styledDiv { css(styles.spacer) }
+                styledDiv {
+                    css(styles.actions)
+                    if (numSelected > 0) {
+                        mTooltip("Delete") {
+                            mIconButton("delete")
+                        }
+                    } else {
+                        mTooltip("Filter list") {
+                            mIconButton("filter_list")
+                        }
                     }
                 }
             }

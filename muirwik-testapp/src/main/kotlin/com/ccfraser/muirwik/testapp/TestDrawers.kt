@@ -50,7 +50,7 @@ class TestDrawers : RComponent<RProps, TestOptionControls.MyTestState>() {
             display = Display.flex
         }
         val spacer by css {
-            toolbarJsCssToPartialCss(currentTheme.mixins.toolbar)
+//            toolbarJsCssToPartialCss(currentTheme.mixins.toolbar)
         }
     }
 
@@ -141,30 +141,32 @@ class TestDrawers : RComponent<RProps, TestOptionControls.MyTestState>() {
         }
 
         fun permanentDrawer2() {
-            styledDiv {
-                css(drawer)
-
-                mAppBar(position = MAppBarPosition.absolute) {
-                    css {
-                        zIndex = currentTheme.zIndex.drawer + 1
-                    }
-                    mToolbar {
-                        mToolbarTitle("Permanent drawer - Under Appbar nav")
-                    }
-                }
-
-                val pp: MPaperProps = jsObject { }
-                pp.asDynamic().style = js { position = "relative" }
-                mDrawer(true, MDrawerAnchor.left, MDrawerVariant.permanent, paperProps = pp) {
-                    spacer()
-                    mailPlaceholder(false)
-                }
+            themeContext.Consumer { theme ->
                 styledDiv {
-                    css {
-                        flexGrow = 1.0
+                    css(drawer)
+
+                    mAppBar(position = MAppBarPosition.absolute) {
+                        css {
+                            zIndex = theme.zIndex.drawer + 1
+                        }
+                        mToolbar {
+                            mToolbarTitle("Permanent drawer - Under Appbar nav")
+                        }
                     }
-                    spacer()
-                    mTypography("This is the main content area")
+
+                    val pp: MPaperProps = jsObject { }
+                    pp.asDynamic().style = js { position = "relative" }
+                    mDrawer(true, MDrawerAnchor.left, MDrawerVariant.permanent, paperProps = pp) {
+                        spacer()
+                        mailPlaceholder(false)
+                    }
+                    styledDiv {
+                        css {
+                            flexGrow = 1.0
+                        }
+                        spacer()
+                        mTypography("This is the main content area")
+                    }
                 }
             }
         }
@@ -276,69 +278,71 @@ class TestDrawers : RComponent<RProps, TestOptionControls.MyTestState>() {
         }
 
         fun responsiveDrawer() {
-            styledDiv {
-                css {
-                    flexGrow = 1.0
-                    width = 100.pct
-                    height = 430.px
-                    zIndex = 1
-                    overflow = Overflow.hidden
-                    position = Position.relative
-                    display = Display.flex
-                }
-
-                mAppBar(position = MAppBarPosition.absolute) {
-                    css {
-                        position = Position.absolute
-                        marginLeft = drawerWidth.px
-                        media(currentTheme.breakpoints.up(Breakpoint.md)) {
-                            width = 100.pct - drawerWidth.px
-                        }
-                    }
-                    mToolbar {
-                        mHidden(mdUp = true, implementation = MHiddenImplementation.css) {
-                            mIconButton("menu", color = MColor.inherit, onClick = { setState { responsiveDrawerOpen = true }})
-                        }
-                        mToolbarTitle("Responsive Drawer")
-                    }
-                }
-
-                val pp: MPaperProps = jsObject { }
-                pp.asDynamic().style = js {
-                    width = drawerWidth
-                    position = "relative"
-                }
-                mHidden(mdUp = true) {
-                    mDrawer(responsiveDrawerOpen, variant = MDrawerVariant.temporary, onClose = { setState {responsiveDrawerOpen = !responsiveDrawerOpen}}, paperProps = pp) {
-                        css { width = drawerWidth.px }
-                        mailPlaceholder(false)
-                    }
-                }
-                mHidden(smDown = true, implementation = MHiddenImplementation.css) {
-                    mDrawer(true, variant = MDrawerVariant.permanent, paperProps = pp) {
-                        spacer()
-                        mailPlaceholder(false)
-                    }
-                }
-
+            themeContext.Consumer { theme ->
                 styledDiv {
                     css {
                         flexGrow = 1.0
-                        backgroundColor = Color(currentTheme.palette.background.default)
+                        width = 100.pct
+                        height = 430.px
+                        zIndex = 1
+                        overflow = Overflow.hidden
+                        position = Position.relative
+                        display = Display.flex
                     }
-                    spacer()
+
+                    mAppBar(position = MAppBarPosition.absolute) {
+                        css {
+                            position = Position.absolute
+                            marginLeft = drawerWidth.px
+                            media(theme.breakpoints.up(Breakpoint.md)) {
+                                width = 100.pct - drawerWidth.px
+                            }
+                        }
+                        mToolbar {
+                            mHidden(mdUp = true, implementation = MHiddenImplementation.css) {
+                                mIconButton("menu", color = MColor.inherit, onClick = { setState { responsiveDrawerOpen = true }})
+                            }
+                            mToolbarTitle("Responsive Drawer")
+                        }
+                    }
+
+                    val pp: MPaperProps = jsObject { }
+                    pp.asDynamic().style = js {
+                        width = drawerWidth
+                        position = "relative"
+                    }
+                    mHidden(mdUp = true) {
+                        mDrawer(responsiveDrawerOpen, variant = MDrawerVariant.temporary, onClose = { setState {responsiveDrawerOpen = !responsiveDrawerOpen}}, paperProps = pp) {
+                            css { width = drawerWidth.px }
+                            mailPlaceholder(false)
+                        }
+                    }
+                    mHidden(smDown = true, implementation = MHiddenImplementation.css) {
+                        mDrawer(true, variant = MDrawerVariant.permanent, paperProps = pp) {
+                            spacer()
+                            mailPlaceholder(false)
+                        }
+                    }
+
                     styledDiv {
-                        css { padding(2.spacingUnits) }
-                        mTypography("This is the main content area")
-                        mTypography("Breakpoint info up(lg) ${currentTheme.breakpoints.up(Breakpoint.lg)}")
-                        mTypography("Breakpoint info up(md) ${currentTheme.breakpoints.up(Breakpoint.md)}")
-                        mTypography("Breakpoint info up(sm) ${currentTheme.breakpoints.up(Breakpoint.sm)}")
-                        mTypography("Breakpoint info dn(lg) ${currentTheme.breakpoints.down(Breakpoint.lg)}")
-                        mTypography("Breakpoint info dn(md) ${currentTheme.breakpoints.down(Breakpoint.md)}")
-                        mTypography("Breakpoint info dn(sm) ${currentTheme.breakpoints.down(Breakpoint.sm)}")
-                        mTypography("Breakpoint info bt(sm and md) ${currentTheme.breakpoints.between(Breakpoint.sm, Breakpoint.md)}")
-                        mTypography("Breakpoint info only sm ${currentTheme.breakpoints.only(Breakpoint.sm)}")
-                        mTypography("Breakpoint info width sm ${currentTheme.breakpoints.width(Breakpoint.sm)}")
+                        css {
+                            flexGrow = 1.0
+                            backgroundColor = Color(theme.palette.background.default)
+                        }
+                        spacer()
+                        styledDiv {
+                            css { padding(2.spacingUnits) }
+                            mTypography("This is the main content area")
+                            mTypography("Breakpoint info up(lg) ${theme.breakpoints.up(Breakpoint.lg)}")
+                            mTypography("Breakpoint info up(md) ${theme.breakpoints.up(Breakpoint.md)}")
+                            mTypography("Breakpoint info up(sm) ${theme.breakpoints.up(Breakpoint.sm)}")
+                            mTypography("Breakpoint info dn(lg) ${theme.breakpoints.down(Breakpoint.lg)}")
+                            mTypography("Breakpoint info dn(md) ${theme.breakpoints.down(Breakpoint.md)}")
+                            mTypography("Breakpoint info dn(sm) ${theme.breakpoints.down(Breakpoint.sm)}")
+                            mTypography("Breakpoint info bt(sm and md) ${theme.breakpoints.between(Breakpoint.sm, Breakpoint.md)}")
+                            mTypography("Breakpoint info only sm ${theme.breakpoints.only(Breakpoint.sm)}")
+                            mTypography("Breakpoint info width sm ${theme.breakpoints.width(Breakpoint.sm)}")
+                        }
                     }
                 }
             }
@@ -369,23 +373,25 @@ class TestDrawers : RComponent<RProps, TestOptionControls.MyTestState>() {
     // Note about these functions... they need to be either in the RBuilder.render function above or
     // be extension functions to RBuilder as below.
     fun RBuilder.mailPlaceholder(fullWidth: Boolean) {
-        div {
-            attrs.role = "button"
-            attrs.onClickFunction = { setState { temporaryLeftOpen = false }}
-            attrs.onKeyDownFunction = { setState { temporaryLeftOpen = false }}
-        }
-        mList {
-            css {
-                backgroundColor = Color(currentTheme.palette.background.paper)
-                width = if (fullWidth) LinearDimension.auto else drawerWidth.px
-//                style = js { width = if (fullWidth) "auto" else drawerWidth; backgroundColor = "white" }
+        themeContext.Consumer { theme ->
+            div {
+                attrs.role = "button"
+                attrs.onClickFunction = { setState { temporaryLeftOpen = false }}
+                attrs.onKeyDownFunction = { setState { temporaryLeftOpen = false }}
             }
-            mListItem("Inbox", iconName = "move_to_inbox", divider = false)
-            mListItem("Stared", iconName = "star", divider = false)
-            mListItem("Send mail", iconName = "send", divider = true)
-            mListItem("All mail", iconName = "mail", divider = false)
-            mListItem("Trash", iconName = "delete", divider = false)
-            mListItem("Spam", iconName = "error", divider = false)
+            mList {
+                css {
+                    backgroundColor = Color(theme.palette.background.paper)
+                    width = if (fullWidth) LinearDimension.auto else drawerWidth.px
+//                style = js { width = if (fullWidth) "auto" else drawerWidth; backgroundColor = "white" }
+                }
+                mListItem("Inbox", iconName = "move_to_inbox", divider = false)
+                mListItem("Stared", iconName = "star", divider = false)
+                mListItem("Send mail", iconName = "send", divider = true)
+                mListItem("All mail", iconName = "mail", divider = false)
+                mListItem("Trash", iconName = "delete", divider = false)
+                mListItem("Spam", iconName = "error", divider = false)
+            }
         }
     }
 

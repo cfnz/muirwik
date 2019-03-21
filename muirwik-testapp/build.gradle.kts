@@ -1,3 +1,4 @@
+//import org.jetbrains.kotlin.gradle.frontend.KotlinFrontendExtension
 import org.jetbrains.kotlin.gradle.tasks.Kotlin2JsCompile
 import java.io.ByteArrayOutputStream
 
@@ -9,7 +10,7 @@ description = "Test Application for Muirwik (a Material UI React wrapper written
 
 buildscript {
     var kotlinVersion: String by extra
-    kotlinVersion = "1.3.20"
+    kotlinVersion = "1.3.21"
 
     repositories {
         jcenter()
@@ -18,12 +19,14 @@ buildscript {
 
     dependencies {
         classpath(kotlin("gradle-plugin", kotlinVersion))
+        classpath(kotlin("frontend-plugin", "0.0.45"))
     }
 }
 
 apply {
     plugin("kotlin2js")
     if (production) plugin("kotlin-dce-js")
+//    plugin("org.jetbrains.kotlin.frontend")
 }
 
 plugins {
@@ -44,9 +47,9 @@ repositories {
 dependencies {
     compile(kotlin("stdlib-js", kotlinVersion))
 
-    compile("org.jetbrains", "kotlin-react", "16.6.0-pre.67-kotlin-${kotlinVersion}")
-    compile("org.jetbrains", "kotlin-react-dom", "16.6.0-pre.67-kotlin-${kotlinVersion}")
-    compile("org.jetbrains", "kotlin-styled", "1.0.0-pre.67-kotlin-${kotlinVersion}")
+    compile("org.jetbrains", "kotlin-react", "16.6.0-pre.69-kotlin-$kotlinVersion")
+    compile("org.jetbrains", "kotlin-react-dom", "16.6.0-pre.69-kotlin-$kotlinVersion")
+    compile("org.jetbrains", "kotlin-styled", "1.0.0-pre.69-kotlin-$kotlinVersion")
 
     compile(project(":muirwik-components"))
 }
@@ -55,8 +58,8 @@ val compileKotlin2Js: Kotlin2JsCompile by tasks
 
 compileKotlin2Js.kotlinOptions {
     sourceMap = true
+    sourceMapEmbedSources = "always"
     metaInfo = true
-    freeCompilerArgs = listOf("-Xcoroutines=enable")
     outputFile = "${project.buildDir.path}/js/app.js"
     main = "call"
     moduleKind = "commonjs"
@@ -138,7 +141,7 @@ val webpackStats by tasks.creating(Exec::class) {
 
     standardOutput = ByteArrayOutputStream()
     doLast {
-        File("$projectDir/build/stats.prod.json").writeText(standardOutput.toString())
+        File("$buildDir/stats.prod.json").writeText(standardOutput.toString())
     }
 }
 
@@ -147,37 +150,27 @@ val webpackStatsAnalyser by tasks.creating(Exec::class) {
     description = "Assumes that webpack-bundle-analyzer has been installed in npm globally and that the webpackStats task has been run. " +
             "This simply calls the command line with the output of the previous webpackStats task output."
 
-    commandLine("webpack-bundle-analyzer", "$projectDir/build/stats.prod.json", "$projectDir/dist",
-            "--mode", "static", "--report", "$projectDir/build/report.html")
+    commandLine("$projectDir/node_modules/.bin/webpack-bundle-analyzer", "$buildDir/stats.prod.json", "$buildDir/dist",
+            "--mode", "static", "--report", "$buildDir/report.html")
 }
 
 val copyResources by tasks.creating {
     group = "build"
     description = "Assemble resources part of the web application"
 
-    outputs.dir("$projectDir/dist")
+    outputs.dir("$buildDir/dist")
 
     doLast {
         println("copyResources")
         copy {
             from("$projectDir/src/main/resources/public")
-            into("$projectDir/dist")
+            into("$buildDir/dist")
         }
-    }
-}
-
-val cleanDist by tasks.creating {
-    group = "build"
-    description = "Cleans files placed in the dist folder by part of the build process"
-
-    doLast {
-        delete("$projectDir/dist")
     }
 }
 
 tasks["assemble"].dependsOn(copyResources)
 //tasks["assemble"].dependsOn(copyLibJsFiles)
-tasks["clean"].dependsOn(cleanDist)
 
 if (production) {
     val build by tasks

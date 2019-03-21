@@ -4,7 +4,6 @@ import kotlinext.js.JsObject
 import kotlinext.js.Object
 import kotlinext.js.jsObject
 import kotlinx.css.CSSBuilder
-import kotlinx.css.px
 import org.w3c.dom.HTMLInputElement
 import org.w3c.dom.HTMLTextAreaElement
 import org.w3c.dom.events.Event
@@ -66,11 +65,6 @@ fun <P : StyledProps> RBuilder.createStyled(componentClass: KClass<out RComponen
 
     return el
 }
-
-/**
- * Allows you to easily specify the theme's spacing unit. Usually used in css e.g. css { padding(2.spacingUnits) }
- */
-val Int.spacingUnits get() = (currentTheme.spacing.unit * this).px
 
 /**
  * This is only a simple jsObjectToCss converter. So far it can only handle

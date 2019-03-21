@@ -41,26 +41,19 @@ class TestGridLists : RComponent<RProps, RState>() {
             flexWrap = FlexWrap.wrap
             justifyContent = JustifyContent.spaceAround
             overflow = Overflow.hidden
-            backgroundColor = Color(currentTheme.palette.background.paper)
         }
 
         val gridList by css {
             width = 500.px
             height = 450.px
-//                    transform.translateZ(0.px)
         }
 
         val icon by css {
-//            color = Color.white
             color = rgba(255, 255, 255, 0.54)
         }
 
         val titleBar by css {
             put("background", "linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 70%, rgba(0,0,0,0) 100%)")
-        }
-
-        val subheader by css {
-            width = 100.pct
         }
     }
 

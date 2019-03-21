@@ -13,8 +13,8 @@ import styled.StyleSheet
 import styled.css
 import styled.styledDiv
 import kotlin.browser.window
-import kotlin.js.Math
 import kotlin.math.min
+import kotlin.random.Random
 
 
 class TestProgress : RComponent<RProps, RState>() {
@@ -70,8 +70,8 @@ class TestProgress : RComponent<RProps, RState>() {
                 if (linearValue >= 100) {
                     setState { linearValue = 0 }
                 } else {
-                    val diff = Math.random() * 10
-                    val diff2 = Math.random() * 10
+                    val diff = Random.nextDouble() * 10
+                    val diff2 = Random.nextDouble() * 10
 
                     setState {
                         linearValue = min(100, linearValue + diff.toInt())

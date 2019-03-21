@@ -252,130 +252,70 @@ class TestSelects : RComponent<RProps, RState>() {
     }
 
     private fun RBuilder.multiSelects() {
-        fun addMenuItems(builder: StyledElementBuilder<MSelectProps>, useCheckBoxes: Boolean) {
-            names.forEach {
-                builder.mMenuItem(key = it, value = it) {
-                    css {
-                        fontWeight = when ((selectedNames as? Array<String>)?.contains(it) ?: false) {
-                            true -> FontWeight(currentTheme.typography.fontWeightMedium.toString())
-                            else -> FontWeight(currentTheme.typography.fontWeightRegular.toString())
+        themeContext.Consumer {theme ->
+            fun addMenuItems(builder: StyledElementBuilder<MSelectProps>, useCheckBoxes: Boolean) {
+                names.forEach {
+                    builder.mMenuItem(key = it, value = it) {
+                        css {
+                            fontWeight = when ((selectedNames as? Array<String>)?.contains(it) ?: false) {
+                                true -> FontWeight(theme.typography.fontWeightMedium.toString())
+                                else -> FontWeight(theme.typography.fontWeightRegular.toString())
+                            }
                         }
-                    }
-                    when (useCheckBoxes) {
-                        false -> +it
-                        else -> {
-                            mCheckbox((selectedNames as? Array<String>)?.contains(it) ?: false)
-                            mListItemText(it)
+                        when (useCheckBoxes) {
+                            false -> +it
+                            else -> {
+                                mCheckbox((selectedNames as? Array<String>)?.contains(it) ?: false)
+                                mListItemText(it)
+                            }
                         }
                     }
                 }
             }
-        }
 
-        mTypography("Multi Selects", MTypographyVariant.h4)
-        styledForm {
-            css { display = Display.flex; flexWrap = FlexWrap.wrap; paddingBottom = 4.spacingUnits }
-            mFormControl {
-                css(formControl)
-                mInputLabel("Name", htmlFor = "select-multiple")
-                mSelect(selectedNames, multiple = true, input = mInput(id = "select-multiple", addAsChild = false),
-                        onChange = { event, _ -> handleMultipleChange(event) }) {
-                    addMenuItems(this, false)
+            mTypography("Multi Selects", MTypographyVariant.h4)
+            styledForm {
+                css { display = Display.flex; flexWrap = FlexWrap.wrap; paddingBottom = 4.spacingUnits }
+                mFormControl {
+                    css(formControl)
+                    mInputLabel("Name", htmlFor = "select-multiple")
+                    mSelect(selectedNames, multiple = true, input = mInput(id = "select-multiple", addAsChild = false),
+                            onChange = { event, _ -> handleMultipleChange(event) }) {
+                        addMenuItems(this, false)
+                    }
                 }
-            }
-            mFormControl {
-                css(formControl)
-                mInputLabel("Checkbox", htmlFor = "select-multiple-checkbox")
-                mSelect(selectedNames, multiple = true, input = mInput(id = "select-multiple-checkbox", addAsChild = false),
-                        renderValue = { value: Any ->
-                            span {+(value as Array<String>).joinToString(", ")}
-                        },
-                        onChange = { event, _ -> handleMultipleChange(event) }) {
-                    addMenuItems(this, true)
+                mFormControl {
+                    css(formControl)
+                    mInputLabel("Checkbox", htmlFor = "select-multiple-checkbox")
+                    mSelect(selectedNames, multiple = true, input = mInput(id = "select-multiple-checkbox", addAsChild = false),
+                            renderValue = { value: Any ->
+                                span {+(value as Array<String>).joinToString(", ")}
+                            },
+                            onChange = { event, _ -> handleMultipleChange(event) }) {
+                        addMenuItems(this, true)
+                    }
                 }
-            }
-            mFormControl {
-                css(formControl)
-                mInputLabel("Chip", htmlFor = "select-multiple-chip")
-                mSelect(selectedNames, multiple = true, input = mInput(id = "select-multiple-chip", addAsChild = false),
-                        renderValue = { value: Any ->
-                            styledDiv {
-                                css(chips)
-                                (value as Array<String>).forEach {
-                                    mChip(it, key = it) {
-                                        css(chip)
+                mFormControl {
+                    css(formControl)
+                    mInputLabel("Chip", htmlFor = "select-multiple-chip")
+                    mSelect(selectedNames, multiple = true, input = mInput(id = "select-multiple-chip", addAsChild = false),
+                            renderValue = { value: Any ->
+                                styledDiv {
+                                    css(chips)
+                                    (value as Array<String>).forEach {
+                                        mChip(it, key = it) {
+                                            css(chip)
+                                        }
                                     }
                                 }
-                            }
-                        },
-                        onChange = { event, _ -> handleMultipleChange(event) }) {
-                    addMenuItems(this, false)
+                            },
+                            onChange = { event, _ -> handleMultipleChange(event) }) {
+                        addMenuItems(this, false)
+                    }
                 }
             }
         }
     }
-
-
-/*
-
-const ITEM_HEIGHT = 48;
-const ITEM_PADDING_TOP = 8;
-const MenuProps = {
-  PaperProps: {
-    style: {
-      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-      width: 250,
-    },
-  },
-};
-            renderValue={selected => selected.join(', ')}
-            MenuProps={MenuProps}
-          >
-            {names.map(name => (
-              <MenuItem key={name} value={name}>
-                <Checkbox checked={this.state.name.indexOf(name) > -1} />
-                <ListItemText primary={name} />
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
-        <FormControl className={classes.formControl}>
-          <InputLabel htmlFor="select-multiple-chip">Chip</InputLabel>
-          <Select
-            multiple
-            value={this.state.name}
-            onChange={this.handleChange}
-            input={<Input id="select-multiple-chip" />}
-            renderValue={selected => (
-              <div className={classes.chips}>
-                {selected.map(value => (
-                  <Chip key={value} label={value} className={classes.chip} />
-                ))}
-              </div>
-            )}
-            MenuProps={MenuProps}
-          >
-            {names.map(name => (
-              <MenuItem
-                key={name}
-                value={name}
-                style={{
-                  fontWeight:
-                    this.state.name.indexOf(name) === -1
-                      ? theme.typography.fontWeightRegular
-                      : theme.typography.fontWeightMedium,
-                }}
-              >
-                {name}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
-      </div>
-    );
-  }
-}
- */
 }
 
 fun RBuilder.testSelects() = child(TestSelects::class) {}

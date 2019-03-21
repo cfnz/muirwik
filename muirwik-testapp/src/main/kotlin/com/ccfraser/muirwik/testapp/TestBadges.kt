@@ -20,7 +20,7 @@ class TestBadges : RComponent<RProps, RState>() {
             margin(2.spacingUnits)
         }
         val padding by css {
-            padding(0.px, (currentTheme.spacing.unit * 2).px)
+            padding(0.px, 2.spacingUnits)
         }
     }
 

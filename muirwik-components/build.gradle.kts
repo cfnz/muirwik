@@ -3,14 +3,12 @@ import org.jetbrains.kotlin.gradle.tasks.Kotlin2JsCompile
 import java.io.FileInputStream
 import java.util.*
 
-//import org.jetbrains.dokka.gradle.DokkaTask
-
 version = "0.2.1"
 description = "Muirwik Components - a Material UI React wrapper written in Kotlin"
 
 buildscript {
     var kotlinVersion: String by extra
-    kotlinVersion = "1.3.20"
+    kotlinVersion = "1.3.21"
 
     repositories {
         jcenter()
@@ -19,7 +17,6 @@ buildscript {
 
     dependencies {
         classpath(kotlin("gradle-plugin", kotlinVersion))
-//        classpath("org.jetbrains.dokka:dokka-gradle-plugin:0.9.17")
     }
 }
 
@@ -32,7 +29,6 @@ plugins {
     id("com.moowork.node") version "1.2.0"
     `maven-publish`
     id("com.jfrog.bintray") version "1.8.4"
-//    id("org.jetbrains.dokka")
 }
 
 val kotlinVersion: String by extra
@@ -46,9 +42,9 @@ repositories {
 
 dependencies {
     compile(kotlin("stdlib-js", kotlinVersion))
-    compile("org.jetbrains", "kotlin-react", "16.6.0-pre.67-kotlin-1.3.20")
-    compile("org.jetbrains", "kotlin-react-dom", "16.6.0-pre.67-kotlin-1.3.20")
-    compile("org.jetbrains", "kotlin-styled", "1.0.0-pre.67-kotlin-1.3.20")
+    compile("org.jetbrains", "kotlin-react", "16.6.0-pre.69-kotlin-$kotlinVersion")
+    compile("org.jetbrains", "kotlin-react-dom", "16.6.0-pre.69-kotlin-$kotlinVersion")
+    compile("org.jetbrains", "kotlin-styled", "1.0.0-pre.69-kotlin-$kotlinVersion")
 }
 
 
@@ -131,7 +127,6 @@ bintray {
             githubRepo = "https://github.com/cfnz/muirwik"
             setLabels("kotlin", "material-ui", "react")
         })
-    //    setConfigurations("archives")
         setPublications(publicationName)
     }
 }
