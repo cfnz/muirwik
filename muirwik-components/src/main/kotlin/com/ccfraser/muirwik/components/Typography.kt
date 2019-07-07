@@ -20,7 +20,7 @@ enum class MTypographyAlign {
 
 @Suppress("EnumEntryName")
 enum class MTypographyColor {
-    default, error, inherit, primary, secondary, textPrimary, textSecondary
+    initial, error, inherit, primary, secondary, textPrimary, textSecondary
 }
 
 @Suppress("EnumEntryName")
@@ -61,7 +61,7 @@ interface MTypographyProps : StyledProps {
 fun RBuilder.mTypography(
         text: String? = null,
         variant: MTypographyVariant = MTypographyVariant.body1,
-        color: MTypographyColor = MTypographyColor.default,
+        color: MTypographyColor = MTypographyColor.initial,
         align: MTypographyAlign = MTypographyAlign.left,
         gutterBottom: Boolean = false,
         noWrap: Boolean = false,
