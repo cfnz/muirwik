@@ -40,8 +40,8 @@ class TestProgress : RComponent<RProps, RState>() {
         val fabProgress by css {
             color = Colors.Green.shade500
             position = Position.absolute
-            top = -6.px
-            left = -6.px
+            top = -(10.px)
+            left = -(10.px)
             zIndex = 1
         }
         val buttonProgress by css {

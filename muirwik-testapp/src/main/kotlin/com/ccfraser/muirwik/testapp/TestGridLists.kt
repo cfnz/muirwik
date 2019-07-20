@@ -39,7 +39,7 @@ class TestGridLists : RComponent<RProps, RState>() {
         val rootDiv by css {
             display = Display.flex
             flexWrap = FlexWrap.wrap
-            justifyContent = JustifyContent.spaceAround
+            justifyContent = JustifyContent.flexStart
             overflow = Overflow.hidden
         }
 
@@ -58,7 +58,7 @@ class TestGridLists : RComponent<RProps, RState>() {
     }
 
     override fun RBuilder.render() {
-        mTypography("Image-only Grid list", MTypographyVariant.h5)
+        mTypography("Image Only Grid List", MTypographyVariant.h5)
         styledDiv {
             css(rootDiv)
             mGridList(3, cellHeight = 160) {
@@ -71,7 +71,7 @@ class TestGridLists : RComponent<RProps, RState>() {
             }
         }
 
-        mTypography("Grid list with titlebars", MTypographyVariant.h5) { css { paddingTop = 3.spacingUnits }}
+        mTypography("Grid List with Title Bars", MTypographyVariant.h5) { css { paddingTop = 3.spacingUnits }}
         styledDiv {
             css(rootDiv)
             mGridList(cellHeight = 180) {

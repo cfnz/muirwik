@@ -42,7 +42,7 @@ class TestThemes : RComponent<RProps, RState>() {
                     testThemeComponent()
                 }
 
-                app(AppProps("light"))
+                app()
             }
         }
     }

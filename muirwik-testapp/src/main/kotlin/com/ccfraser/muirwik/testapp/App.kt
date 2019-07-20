@@ -7,9 +7,7 @@ import com.ccfraser.muirwik.components.styles.createMuiTheme
 import com.ccfraser.muirwik.components.themeProvider
 import react.*
 
-data class AppProps(var themeColor: String, var initialView: String = "An Intro") : RProps
-
-class App(props: AppProps) : RComponent<AppProps, RState>(props) {
+class App(props: RProps) : RComponent<RProps, RState>(props) {
 //    private var themeColor = props.themeColor
     private var themeColor = "light"
 
@@ -24,17 +22,12 @@ class App(props: AppProps) : RComponent<AppProps, RState>(props) {
         themeOptions.palette?.primary.main = Colors.Blue.shade500.toString()
 
         themeProvider(createMuiTheme(themeOptions)) {
-            mainFrame(props.initialView, { themeType -> setState { themeColor = themeType } })
+            mainFrame("An Intro", { themeType -> setState { themeColor = themeType } })
         }
     }
 }
 
-fun RBuilder.app(initialProps: AppProps) = child(App::class) {
-    attrs {
-        initialView = initialProps.initialView
-        themeColor = initialProps.themeColor
-    }
-}
+fun RBuilder.app() = child(App::class) {}
 
 
 

@@ -1,7 +1,5 @@
-package com.ccfraser.index
+package com.ccfraser.muirwik.testapp
 
-import com.ccfraser.muirwik.testapp.AppProps
-import com.ccfraser.muirwik.testapp.app
 import react.dom.render
 import kotlin.browser.document
 
@@ -16,13 +14,11 @@ fun main(args: Array<String>) {
 //    requireAll(require.context("", true, js("/\\.css$/")))
     println("Running main in muirwik testapp...")
 
-    val hotWrapper = hot(module)
+// Seems to work better without hot reloading for now
+//    val hotWrapper = hot(module)
     render(document.getElementById("root")) {
-//        app()
-//        val app = app(AppProps("light", "An Intro"))
-//        app.props
-        hotWrapper(app(AppProps("light", "An Intro")))
-//        hot(app(AppProps2("light", "Cards")))
+        app()
+//        hotWrapper(app())
     }
 }
 

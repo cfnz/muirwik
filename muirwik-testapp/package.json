@@ -11,20 +11,21 @@
         "build": "webpack"
     },
     "dependencies": {
-        "@material-ui/core": "^3.9.1",
+        "@material-ui/core": "^3.9.3",
         "@material-ui/icons": "^3.0.2",
         "react": "^16.6.3",
         "react-dom": "^16.6.3",
+        "react-jss": "8.6.1",
         "styled-components": "^3.4.10",
-        "kotlinx-coroutines-core": "^1.1.1"
+        "kotlinx-coroutines-core": "^1.2.2"
     },
     "devDependencies": {
         "@jetbrains/kotlin-css": "^1.0.0-pre.67",
         "@jetbrains/kotlin-css-js": "^1.0.0-pre.67",
-        "@jetbrains/kotlin-extensions": "^1.0.1-pre.69",
-        "@jetbrains/kotlin-react": "^16.6.0-pre.69",
-        "@jetbrains/kotlin-react-dom": "^16.6.0-pre.69",
-        "@jetbrains/kotlin-styled": "^1.0.0-pre.69",
+        "@jetbrains/kotlin-extensions": "^1.0.1-pre.67",
+        "@jetbrains/kotlin-react": "^16.6.0-pre.67",
+        "@jetbrains/kotlin-react-dom": "^16.6.0-pre.67",
+        "@jetbrains/kotlin-styled": "^1.0.0-pre.67",
         "@jetbrains/kotlin-webpack-plugin": "^1.2.11",
         "core-js": "^2.6.3",
         "css-in-js-utils": "^2.0.1",
@@ -40,8 +41,10 @@
         "webpack-cli": "^3.2.1",
         "webpack-dev-server": "^3.1.14",
         "webpack-manifest-plugin": "2.0.4",
-        "react-dev-utils": "^8.0.0"
+        "react-dev-utils": "^9.0.1",
+        "lodash": "^4.17.15"
     },
     "peerDependencies": {
     }
 }
+

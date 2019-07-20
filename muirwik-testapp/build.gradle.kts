@@ -1,11 +1,11 @@
-//import org.jetbrains.kotlin.gradle.frontend.KotlinFrontendExtension
+import com.ccfraser.gradle.GradleWebpackPluginSettings
 import org.jetbrains.kotlin.gradle.tasks.Kotlin2JsCompile
-import java.io.ByteArrayOutputStream
+import org.jetbrains.kotlin.gradle.tasks.KotlinJsDce
 
-val production: Boolean = (properties["production"] as String).toBoolean()
+val productionConfig: Boolean = (properties["production"] as String).toBoolean()
 //val production: Boolean by project
 
-version = "0.2.1"
+version = "0.2.2"
 description = "Test Application for Muirwik (a Material UI React wrapper written in Kotlin)"
 
 buildscript {
@@ -15,18 +15,21 @@ buildscript {
     repositories {
         jcenter()
         maven { setUrl("https://dl.bintray.com/kotlin/kotlin-eap") }
+        maven { setUrl("https://dl.bintray.com/cfraser/gradle-webpack-plugin") }
     }
 
     dependencies {
         classpath(kotlin("gradle-plugin", kotlinVersion))
-        classpath(kotlin("frontend-plugin", "0.0.45"))
+//        classpath(kotlin("frontend-plugin", "0.0.45"))
+        classpath("com.ccfraser.gradle:gradle-webpack-plugin:0.1")
     }
 }
 
 apply {
     plugin("kotlin2js")
-    if (production) plugin("kotlin-dce-js")
+    plugin("kotlin-dce-js")
 //    plugin("org.jetbrains.kotlin.frontend")
+    plugin("com.ccfraser.gradle.gradle-webpack-plugin")
 }
 
 plugins {
@@ -55,133 +58,26 @@ dependencies {
 }
 
 val compileKotlin2Js: Kotlin2JsCompile by tasks
-
 compileKotlin2Js.kotlinOptions {
     sourceMap = true
-    sourceMapEmbedSources = "always"
+    if (!productionConfig) {
+        sourceMapEmbedSources = "always"
+    }
     metaInfo = true
     outputFile = "${project.buildDir.path}/js/app.js"
     main = "call"
     moduleKind = "commonjs"
 }
 
-fun addInputsAndOutputs(exec: Exec) {
-    // We uncomment this when we want to recreate even if Gradle thinks we don't need to
-//    outputs.upToDateWhen { false }
-    exec.inputs.file("yarn.lock")
-    exec.inputs.file("webpack.config.js")
-    exec.inputs.file("webpack.config.prod.js")
-    exec.inputs.dir("$buildDir/js")
-    exec.inputs.dir("$projectDir/src/main/resources/public")
-//    exec.inputs.dir("node_modules")
-
-    exec.outputs.dir("$buildDir/dist")
+val runDceKotlinJs: KotlinJsDce by tasks
+runDceKotlinJs.apply {
+    // Turns out that when devMode is true, it still copies all the required js modules but does not strip any
+    // code from them... just what we were doing with our copyJsForBundle task!
+    dceOptions.devMode = !productionConfig
+    dceOptions.outputDirectory = "${buildDir}/js-for-bundle"
+    keep.add("kotlin.defineModule")
 }
 
-val webpackDev by tasks.creating(Exec::class) {
-    group = "webpack"
-    description = "Development build"
-
-    addInputsAndOutputs(this)
-    commandLine("$projectDir/node_modules/.bin/webpack-cli", "--config", "$projectDir/webpack.config.js")
-}
-
-val webpackProd by tasks.creating(Exec::class) {
-    group = "webpack"
-    description = "Production build"
-    doFirst {
-        if (!production) {
-            error("Variable production == false and we are doing a production build")
-        }
-    }
-
-    addInputsAndOutputs(this)
-    commandLine("$projectDir/node_modules/.bin/webpack-cli", "-p", "--config", "$projectDir/webpack.config.prod.js")
-}
-
-val webpackDevServer by tasks.creating(Exec::class) {
-    group = "webpack"
-    description = "Development server (doesn't open a new browser window)"
-
-    addInputsAndOutputs(this)
-    commandLine("$projectDir/node_modules/.bin/webpack-dev-server", "--hot")
-}
-
-val webpackDevServerOpenBrowser by tasks.creating(Exec::class) {
-    group = "webpack"
-    description = "Development server which opens a new browser window"
-
-    addInputsAndOutputs(this)
-    commandLine("$projectDir/node_modules/.bin/webpack-dev-server", "--hot", "--open")
-}
-
-val webpackDevServerPublic by tasks.creating(Exec::class) {
-    group = "webpack"
-    description = "Development server which allows other PCs to navigate to this PC and view the webapp (i.e. browser does not have " +
-            "to be localhost, just use this PCs ip address and probably port 8080 (e.g. something like 192.168.0.123:8080))"
-
-    addInputsAndOutputs(this)
-    commandLine("$projectDir/node_modules/.bin/webpack-dev-server", "--hot", "--open", "--host", "0.0.0.0")
-}
-
-val webpackDevServerProdConfig by tasks.creating(Exec::class) {
-    group = "webpack"
-    description = "Though not the usual case, this starts the development server but with a production build"
-
-    addInputsAndOutputs(this)
-    commandLine("$projectDir/node_modules/.bin/webpack-dev-server", "-p", "--config", "$projectDir/webpack.config.prod.js")
-}
-
-val webpackStats by tasks.creating(Exec::class) {
-    group = "webpack"
-    description = "Does a webpack build with statics output ready for something like webpack-bundle-analyzer to analyse"
-
-    addInputsAndOutputs(this)
-    commandLine("$projectDir/node_modules/.bin/webpack-cli", "-p", "--config", "$projectDir/webpack.config.prod.js", "--profile", "--json")
-
-    standardOutput = ByteArrayOutputStream()
-    doLast {
-        File("$buildDir/stats.prod.json").writeText(standardOutput.toString())
-    }
-}
-
-val webpackStatsAnalyser by tasks.creating(Exec::class) {
-    group = "webpack"
-    description = "Assumes that webpack-bundle-analyzer has been installed in npm globally and that the webpackStats task has been run. " +
-            "This simply calls the command line with the output of the previous webpackStats task output."
-
-    commandLine("$projectDir/node_modules/.bin/webpack-bundle-analyzer", "$buildDir/stats.prod.json", "$buildDir/dist",
-            "--mode", "static", "--report", "$buildDir/report.html")
-}
-
-val copyResources by tasks.creating {
-    group = "build"
-    description = "Assemble resources part of the web application"
-
-    outputs.dir("$buildDir/dist")
-
-    doLast {
-        println("copyResources")
-        copy {
-            from("$projectDir/src/main/resources/public")
-            into("$buildDir/dist")
-        }
-    }
-}
-
-tasks["assemble"].dependsOn(copyResources)
-//tasks["assemble"].dependsOn(copyLibJsFiles)
-
-if (production) {
-    val build by tasks
-//    val bundle by tasks
-    val webpackDev by tasks
-    val webpackProd by tasks
-    val webpackDevServerProdConfig by tasks
-
-    build.dependsOn("runDceKotlinJs")
-//    bundle.dependsOn("runDceKotlinJs")
-    webpackDev.dependsOn("runDceKotlinJs")
-    webpackProd.dependsOn("runDceKotlinJs")
-    webpackDevServerProdConfig.dependsOn("runDceKotlinJs")
+configure<GradleWebpackPluginSettings> {
+    production = productionConfig
 }

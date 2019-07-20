@@ -42,7 +42,7 @@ class ThemeProvider(props: MuiThemeProviderProps) : RComponent<MuiThemeProviderP
     }
 }
 
-fun RBuilder.themeProvider(theme: Theme, handler: RHandler<RProps>? = null) = child(ThemeProvider::class) {
+fun RBuilder.themeProvider(theme: Theme = createMuiTheme(), handler: RHandler<RProps>? = null) = child(ThemeProvider::class) {
     attrs.theme = theme
     if (handler != null) handler()
 }

@@ -18,8 +18,6 @@ import styled.css
 import styled.styledDiv
 
 class TestAvatars : RComponent<RProps, RState>() {
-    private var count = 0
-    private var expanded = false
 
     private object ComponentStyles : StyleSheet("ComponentStyles", isStatic = true) {
         val standard by css {

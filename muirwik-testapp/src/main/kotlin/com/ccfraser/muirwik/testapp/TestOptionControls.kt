@@ -2,7 +2,7 @@ package com.ccfraser.muirwik.testapp
 
 import com.ccfraser.muirwik.components.*
 import com.ccfraser.muirwik.components.form.*
-import com.ccfraser.muirwik.testapp.TestOptionControls.ComponentStyles.paddingLeft
+import com.ccfraser.muirwik.testapp.TestOptionControls.ComponentStyles.paddingLeft12
 import kotlinx.css.Display
 import kotlinx.css.px
 import react.*
@@ -27,7 +27,7 @@ class TestOptionControls : RComponent<RProps, TestOptionControls.MyTestState>() 
     }
 
     object ComponentStyles : StyleSheet("ComponentStyles", isStatic = true) {
-        val paddingLeft by css {
+        val paddingLeft12 by css {
             paddingLeft = 12.px
         }
     }
@@ -95,8 +95,8 @@ class TestOptionControls : RComponent<RProps, TestOptionControls.MyTestState>() 
                 mRadio(value = "a")
                 // The icons are more for a checkbox type control, but for fun, we shall put the star here too
                 mRadio(value = "b", icon = altBuilder.mIcon("star"))
-                mFormControlLabel("My Label C", value = "c", control = altBuilder.mRadio()) { css(paddingLeft) } // With a label it seems to need a bit of left padding
-                mFormControlLabel("My Label D", value = "d", control = altBuilder.mRadio()) { css(paddingLeft) } // With a label it seems to need a bit of left padding
+                mFormControlLabel("My Label C", value = "c", control = altBuilder.mRadio()) { css(paddingLeft12) } // With a label it seems to need a bit of left padding
+                mFormControlLabel("My Label D", value = "d", control = altBuilder.mRadio()) { css(paddingLeft12) } // With a label it seems to need a bit of left padding
             }
             mFormControl(component = MFormControlComponent.fieldSet) {
                 css { display = Display.inlineFlex }
