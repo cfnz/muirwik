@@ -3,12 +3,12 @@ import org.jetbrains.kotlin.gradle.tasks.Kotlin2JsCompile
 import java.io.FileInputStream
 import java.util.*
 
-version = "0.2.2"
+version = "0.4.0-SNAPSHOT"
 description = "Muirwik Components - a Material UI React wrapper written in Kotlin"
 
 buildscript {
     var kotlinVersion: String by extra
-    kotlinVersion = "1.3.21"
+    kotlinVersion = "1.3.41"
 
     repositories {
         jcenter()
@@ -42,9 +42,9 @@ repositories {
 
 dependencies {
     compile(kotlin("stdlib-js", kotlinVersion))
-    compile("org.jetbrains", "kotlin-react", "16.6.0-pre.69-kotlin-$kotlinVersion")
-    compile("org.jetbrains", "kotlin-react-dom", "16.6.0-pre.69-kotlin-$kotlinVersion")
-    compile("org.jetbrains", "kotlin-styled", "1.0.0-pre.69-kotlin-$kotlinVersion")
+    compile("org.jetbrains", "kotlin-react", "16.6.0-pre.78-kotlin-$kotlinVersion")
+    compile("org.jetbrains", "kotlin-react-dom", "16.6.0-pre.78-kotlin-$kotlinVersion")
+    compile("org.jetbrains", "kotlin-styled", "1.0.0-pre.78-kotlin-$kotlinVersion")
 }
 
 

@@ -1,14 +1,12 @@
 package com.ccfraser.muirwik.testapp
 
 import com.ccfraser.muirwik.components.*
+import com.ccfraser.muirwik.components.button.mIconButton
 import com.ccfraser.muirwik.components.list.*
 import com.ccfraser.muirwik.components.transitions.mCollapse
 import com.ccfraser.muirwik.testapp.TestLists.ComponentStyles.inline
 import com.ccfraser.muirwik.testapp.TestLists.ComponentStyles.listDiv
-import kotlinx.css.Color
-import kotlinx.css.Display
-import kotlinx.css.padding
-import kotlinx.css.px
+import kotlinx.css.*
 import react.RBuilder
 import react.RComponent
 import react.RProps
@@ -58,9 +56,9 @@ class TestLists : RComponent<RProps, TestOptionControls.MyTestState>() {
                 css(listDiv)
                 mList("Easy Sub Header") {
                     css(themeStyles.list)
-                    mListItem("Drafts", null, "drafts", divider = false)
-                    mListItem("Inbox", null, "inbox")
-                    mListItem("Trash (<a> with an href)", href = "https://github.com/cfnz/muirwik", target = "_Blank", divider = false)
+                    mListItemWithIcon("drafts", "Drafts", divider = false)
+                    mListItemWithIcon("inbox", "Inbox")
+                    mListItem("Trash (<a> with an href)", hRefOptions = HRefOptions("https://github.com/cfnz/muirwik"), divider = false)
                     mListItem("Spam", divider = false)
                 }
             }
@@ -69,7 +67,7 @@ class TestLists : RComponent<RProps, TestOptionControls.MyTestState>() {
                 css(listDiv)
                 // This is the same list as above but using the more Material-UI code layout... it is longer, and for the rest of the lists we will se the shorter version.
                 val h = builder2.div {
-                    mListSubheader { +"Sub Header" }
+                    mListSubheader { +"Sub Header (more code)" }
                 }
                 mList(subheader = h, component = "nav") {
                     //}, style = js { width = 320; backgroundColor = "white" }) {
@@ -79,14 +77,14 @@ class TestLists : RComponent<RProps, TestOptionControls.MyTestState>() {
                         mListItemIcon {
                             mIcon("drafts")
                         }
-                        mListItemText(primary = builder2.span { +"Drafts (with long mListItem)" })
+                        mListItemText(primary = builder2.span { +"Drafts" })
                     }
                     mListItem(button = true) {
                         mListItemIcon("inbox")
                         mListItemText(primary = builder2.span { +"Inbox" })
                     }
                     mDivider()
-                    mListItem(button = true, href = "https://github.com/cfnz/muirwik", component = "a") {
+                    mListItem(button = true, hRefOptions = HRefOptions("https://github.com/cfnz/muirwik"), component = "a") {
                         attrs.asDynamic().target = "_Blank"
                         mListItemText(primary = builder2.span { +"Trash (<a> with an href)" })
                     }
@@ -104,9 +102,9 @@ class TestLists : RComponent<RProps, TestOptionControls.MyTestState>() {
                     // without padding. Since our parent (not in this component) has padding, this makes a gap at the top
                     // which shows content behind the sticky header (with css you fix it, but I am not sure how to target
                     // the right class... so for now, we disable the sticky headers.
-                    mListSubheader("Compact Items", compact = true, disableSticky = true)
-                    mListItem("Item 1", null, "alarm", compact = true)
-                    mListItem("Item 2", null, "alarm", compact = true)
+                    mListSubheader("Compact Headers", compact = true, disableSticky = true)
+                    mListItemWithIcon("alarm", "Item 1", useAvatar = true)
+                    mListItemWithIcon("alarm", "Item 2", useAvatar = true)
 
                     // We need to use the full version of mListItem as dense is not in the shorter version
                     mListSubheader("Dense Items", compact = true, disableSticky = true)
@@ -117,14 +115,13 @@ class TestLists : RComponent<RProps, TestOptionControls.MyTestState>() {
                     }
                 }
             }
-
             styledDiv {
                 css(listDiv)
                 mList {
                     css(themeStyles.list)
                     mListSubheader { +"Nested List Items" }
-                    mListItem("Sent mail", iconName = "send", compact = false)
-                    mListItem("Inbox", iconName = "inbox", compact = false, onClick = { setState { expanded = !expanded } }) {
+                    mListItemWithIcon("send", "Sent mail")
+                    mListItemWithIcon("inbox", "Inbox", onClick = { setState { expanded = !expanded } }) {
                         if (expanded) mIcon("expand_less") else mIcon("expand_more")
                     }
                     mCollapse(show = expanded) {
@@ -134,11 +131,11 @@ class TestLists : RComponent<RProps, TestOptionControls.MyTestState>() {
                                 mIcon("star")
                                 mListItemText(builder2.span { +"Starred (v1)" }, inset = true)
                             }
-                            mListItem("Starred (v2)", iconName = "star") { css { paddingLeft = 8.spacingUnits } }
+                            mListItemWithIcon("star", "Starred (v2)") { css { paddingLeft = 8.spacingUnits } }
                         }
                     }
                     mListSubheader { +"Other Type of Items" }
-                    mListItem("With Primary Text", "And secondary text", "add_shopping_cart")
+                    mListItemWithIcon("add_shopping_cart", "With Primary Text", "And secondary text")
                     mListItem(button = true) {
                         mListItemText(primary = "With a secondary action")
                         mListItemSecondaryAction {
@@ -161,31 +158,16 @@ class TestLists : RComponent<RProps, TestOptionControls.MyTestState>() {
                     mListSubheader("Avatar Icons", disableSticky = true)
                     // "Full" version
                     mListItem(button = true) {
-                        mAvatar { mIcon("image") }
+                        mListItemAvatar {
+                            mAvatar { mIcon("image") }
+                        }
                         mListItemText("Photos")
                     }
                     mDivider()
                     // Simpler version
-                    mListItem("Business", "Using simple version", iconName = "work", compact = false, useAvatar = true)
-                    mListItem("Vacation", "Data, Line 2", iconName = "beach_access", compact = true, useAvatar = true)
+                    mListItemWithIcon("work", "Business", "Using simple version", useAvatar = true)
+                    mListItemWithIcon("beach_access", "Vacation", "Data, Line 2", useAvatar = true)
                     mDivider()
-                }
-            }
-
-            styledDiv {
-                css(listDiv)
-                mList {
-                    css(themeStyles.list)
-                    mListSubheader("Avatar Images", disableSticky = true)
-                    (0..2).forEach { i ->
-                        mListItem(button = true) {
-                            mAvatar(src = "/images/cards/${getNameForImageNr(i)}")
-                            mListItemText(primary = "Avatar Item ${i + 1}")
-                            mListItemSecondaryAction {
-                                mCheckbox(checked[i], onChange = { _, _ -> setState { checked[i] = !checked[i] } })
-                            }
-                        }
-                    }
                 }
             }
 
@@ -197,7 +179,7 @@ class TestLists : RComponent<RProps, TestOptionControls.MyTestState>() {
                     (0..2).forEach {i ->
                         mListItem(button = true) {
                             mListItemAvatar(src = "/images/cards/${getNameForImageNr(i)}")
-                            mListItemText(primary = "Simple avatar list item ${i + 1}")
+                            mListItemText("Simple avatar list item ${i + 1}")
                             mListItemSecondaryAction {
                                 mCheckbox(checked[i], onChange = {_, _ -> setState {checked[i] = !checked[i]} })
                             }
@@ -217,7 +199,7 @@ class TestLists : RComponent<RProps, TestOptionControls.MyTestState>() {
                             mListItemAvatar {
                                 mAvatar(src = "/images/cards/${getNameForImageNr(i)}")
                             }
-                            mListItemText(primary = "List item avatar item ${i + 1}")
+                            mListItemText("List item avatar item ${i + 1}")
                             mListItemSecondaryAction {
                                 mCheckbox(checked[i], onChange = { _, _ -> setState { checked[i] = !checked[i] } })
                             }
@@ -241,7 +223,11 @@ class TestLists : RComponent<RProps, TestOptionControls.MyTestState>() {
                 css(listDiv)
                 mList {
                     css(themeStyles.list)
-                    mListItem(alignItems = MListItemAlignItems.flexStart, button = true) {
+                    mListItemWithAvatar("/images/cards/contemplative-reptile.jpg", "Brunch this weekend?",
+                            "Ali Connors  — I'll be in your neighborhood doing errands this…",
+                            alignItems = MListItemAlignItems.flexStart)
+
+                    mListItem( alignItems = MListItemAlignItems.flexStart, button = true) {
                         mListItemAvatar(src = "/images/cards/contemplative-reptile.jpg")
                         mListItemText( builder2.span {+"Brunch this weekend?"}, builder2.span {
                             mTypography("Ali Connors", component = "span", variant = MTypographyVariant.body2) { css (inline) }

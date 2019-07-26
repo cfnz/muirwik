@@ -1,10 +1,7 @@
 package com.ccfraser.muirwik.testapp
 
 import com.ccfraser.muirwik.components.*
-import kotlinx.css.Color
-import kotlinx.css.FontWeight
-import kotlinx.css.TextTransform
-import kotlinx.css.padding
+import kotlinx.css.*
 import react.*
 import styled.StyleSheet
 import styled.css

@@ -4,11 +4,11 @@ import com.ccfraser.muirwik.components.MPaperProps
 import com.ccfraser.muirwik.components.SimpleEvent
 import com.ccfraser.muirwik.components.createStyled
 import com.ccfraser.muirwik.components.setStyledPropsAndRunHandler
+import com.ccfraser.muirwik.components.styles.Breakpoint
 import com.ccfraser.muirwik.components.transitions.MTransitionProps
 import org.w3c.dom.events.Event
 import react.*
 import styled.StyledHandler
-import styled.StyledProps
 import kotlin.reflect.KClass
 
 
@@ -19,49 +19,15 @@ private external val dialogModule: dynamic
 private val dialogComponent: RComponent<MDialogProps, RState> = dialogModule.default
 
 @Suppress("EnumEntryName")
-enum class DialogMaxWidth {
-    xs, sm, md, lg, disable
-}
-
-@Suppress("EnumEntryName")
 enum class DialogScroll {
     paper, body
 }
 
-@Suppress("EnumEntryName")
-enum class ModalOnCloseReason {
-    escapeKeyDown, backdropClick
-}
-
-
-interface MModalProps : StyledProps {
-    @JsName("BackdropComponent")
-    var backdropComponent: ReactElement
-
-    @Suppress("BackdropProps")
-    var backdropProps: RProps
-
-    var closeAfterTransition: Boolean
-    var container: ReactElement
-    var disableAutoFocus: Boolean
-    var disableBackdropClick: Boolean
-    var disableEnforceFocus: Boolean
-    var disableEscapeKeyDown: Boolean
-    var disableRestoreFocus: Boolean
-    var hideBackdrop: Boolean
-    var keepMounted: Boolean
-    var onBackdropClick: SimpleEvent
-    var onClose: (Event, reason: String) -> Unit
-    var onEscapeKeyDown: SimpleEvent
-    var onRendered: SimpleEvent
-
-    var open: Boolean
-}
 
 interface MDialogProps : MModalProps {
     var fullScreen: Boolean
     var fullWidth: Boolean
-    var maxWidth: String
+    var maxWidth: Any
 
     var onEnter: SimpleEvent
     var onEntered: SimpleEvent
@@ -71,23 +37,24 @@ interface MDialogProps : MModalProps {
     var onExiting: SimpleEvent
 
     @JsName("PaperComponent")
-    var paperComponent: RComponent<RProps, RState>
+    var paperComponent: RComponent<RProps, RState>?
 
     @JsName("PaperProps")
-    var paperProps: MPaperProps
+    var paperProps: MPaperProps?
 
     @JsName("TransitionComponent")
-    var transitionComponent: dynamic
+    var transitionComponent: dynamic?
 
 //    var transitionDuration: dynamic
 
     @JsName("TransitionProps")
-    var transitionProps: RProps
+    var transitionProps: RProps?
 
-    var scroll: String
+    var scroll: String?
 }
 
 /**
+ * Note setting maxWidth to null will disable maxWidth (i.e. pass false to the underlying Material UI component)
  * We will leave some of the props to be set by javascript
  */
 fun RBuilder.mDialog(
@@ -95,7 +62,7 @@ fun RBuilder.mDialog(
         container: ReactElement? = null,
         fullScreen: Boolean = false,
         fullWidth: Boolean = false,
-        maxWidth: DialogMaxWidth = DialogMaxWidth.sm,
+        maxWidth: Breakpoint? = Breakpoint.sm,
         disableAutoFocus: Boolean = false,
         disableBackdropClick: Boolean = false,
         disableEnforceFocus: Boolean = false,
@@ -105,6 +72,7 @@ fun RBuilder.mDialog(
         keepMounted: Boolean = false,
         backdropComponent: ReactElement? = null,
         backdropProps: RProps? = null,
+        closeAfterTransition: Boolean = false,
 
         onBackdropClick: SimpleEvent? = null,
         onClose: ((Event, reason: ModalOnCloseReason) -> Unit)? = null,
@@ -133,6 +101,7 @@ fun RBuilder.mDialog(
         handler: StyledHandler<MDialogProps>) = createStyled(dialogComponent) {
     backdropComponent?.let { attrs.backdropComponent = it }
     backdropProps?.let { attrs.backdropProps = it }
+    attrs.closeAfterTransition = closeAfterTransition
     container?.let { attrs.container = it }
     attrs.disableAutoFocus = disableAutoFocus
     attrs.disableBackdropClick = disableBackdropClick
@@ -149,7 +118,7 @@ fun RBuilder.mDialog(
     attrs.open = open
     attrs.fullScreen = fullScreen
     attrs.fullWidth = fullWidth
-    attrs.maxWidth = maxWidth.toString()
+    attrs.maxWidth = maxWidth?.toString() ?: false
     onEnter?.let { attrs.onEnter = it }
     onEntered?.let { attrs.onEntered = it }
     onEntering?.let { attrs.onEntering = it }

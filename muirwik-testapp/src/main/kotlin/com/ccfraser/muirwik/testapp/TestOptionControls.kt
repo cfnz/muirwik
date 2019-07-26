@@ -3,8 +3,7 @@ package com.ccfraser.muirwik.testapp
 import com.ccfraser.muirwik.components.*
 import com.ccfraser.muirwik.components.form.*
 import com.ccfraser.muirwik.testapp.TestOptionControls.ComponentStyles.paddingLeft12
-import kotlinx.css.Display
-import kotlinx.css.px
+import kotlinx.css.*
 import react.*
 import react.dom.br
 import react.dom.div
@@ -68,20 +67,20 @@ class TestOptionControls : RComponent<RProps, TestOptionControls.MyTestState>() 
             }
             div {
                 mTypography("Using 'WithLabel'")
-                mSwitchInLabel("Option 1", checked = checked1, onChange = { _, _ -> setState { checked1 = !checked1 } })
+                mSwitchWithLabel("Option 1", checked = checked1, onChange = { _, _ -> setState { checked1 = !checked1 } })
                 br { }
-                mSwitchInLabel("Option 2", checked = checked2, onChange = { _, _ -> setState { checked2 = !checked2 } })
+                mSwitchWithLabel("Option 2", checked = checked2, onChange = { _, _ -> setState { checked2 = !checked2 } })
                 br { }
-                mSwitchInLabel("Option 3", disabled = true, onChange = { _, _ -> setState { checked3 = !checked3 } })
+                mSwitchWithLabel("Option 3", disabled = true, onChange = { _, _ -> setState { checked3 = !checked3 } })
             }
             styledDiv {
                 css { paddingLeft = 3.spacingUnits }
                 mFormControl(component = MFormControlComponent.fieldSet) {
                     mFormLabel("In a FormGroup", component = "legend")
                     mFormGroup {
-                        mCheckboxInLabel("Option 1", checked1, onChange = { _, _ -> setState { checked1 = !checked1 } })
-                        mCheckboxInLabel("Option 2", checked2, onChange = { _, _ -> setState { checked2 = !checked2 } })
-                        mCheckboxInLabel("Option 3", checked3, onChange = { _, _ -> setState { checked3 = !checked3 } })
+                        mCheckboxWithLabel("Option 1", checked1, onChange = { _, _ -> setState { checked1 = !checked1 } })
+                        mCheckboxWithLabel("Option 2", checked2, onChange = { _, _ -> setState { checked2 = !checked2 } })
+                        mCheckboxWithLabel("Option 3", checked3, onChange = { _, _ -> setState { checked3 = !checked3 } })
                     }
                 }
             }
@@ -89,15 +88,22 @@ class TestOptionControls : RComponent<RProps, TestOptionControls.MyTestState>() 
         br { }
         mTypography("Radio options and groups")
         styledDiv {
-            css { display = Display.flex; marginTop = 16.px }
+            css { display = Display.inlineFlex; marginTop = 16.px }
             mRadioGroup(value = radioValue, onChange = { _, value -> setState { radioValue = value } }) {
                 css { display = Display.inlineFlex }
                 mRadio(value = "a")
                 // The icons are more for a checkbox type control, but for fun, we shall put the star here too
                 mRadio(value = "b", icon = altBuilder.mIcon("star"))
-                mFormControlLabel("My Label C", value = "c", control = altBuilder.mRadio()) { css(paddingLeft12) } // With a label it seems to need a bit of left padding
-                mFormControlLabel("My Label D", value = "d", control = altBuilder.mRadio()) { css(paddingLeft12) } // With a label it seems to need a bit of left padding
             }
+            mRadioGroup(value = radioValue, onChange = { _, value -> setState { radioValue = value } }) {
+                css { display = Display.inlineFlex }
+                mFormControlLabel("With Label C", value = "c", control = altBuilder.mRadio()) { css(paddingLeft12) } // With a label it seems to need a bit of left padding
+                mFormControlLabel("With Label D", value = "d", control = altBuilder.mRadio()) { css(paddingLeft12) } // With a label it seems to need a bit of left padding
+            }
+        }
+        br {}
+        styledDiv {
+            css { display = Display.inlineFlex; marginTop = 16.px }
             mFormControl(component = MFormControlComponent.fieldSet) {
                 css { display = Display.inlineFlex }
                 mFormLabel("Gender", required = true, component = "legend")
@@ -123,10 +129,10 @@ class TestOptionControls : RComponent<RProps, TestOptionControls.MyTestState>() 
                 mFormLabel("Gender3", required = true, component = "legend")
                 mRadioGroup(value = gender1Value, name = "gender1", onChange = { _, value -> setState { gender1Value = value; println("Value: $value") } }) {
                     // Slightly shorthand, practically does the same as the mFormControlLabel above.
-                    mRadioInLabel("Male", value = "male", labelPlacement = MLabelPlacement.start)
-                    mRadioInLabel("Female", value = "female", labelPlacement = MLabelPlacement.start)
-                    mRadioInLabel("Other", value = "other", labelPlacement = MLabelPlacement.start)
-                    mRadioInLabel("Disabled Option", value = "disabled", disabled = true, labelPlacement = MLabelPlacement.start)
+                    mRadioWithLabel("Male", value = "male", labelPlacement = MLabelPlacement.start)
+                    mRadioWithLabel("Female", value = "female", labelPlacement = MLabelPlacement.start)
+                    mRadioWithLabel("Other", value = "other", labelPlacement = MLabelPlacement.start)
+                    mRadioWithLabel("Disabled Option", value = "disabled", disabled = true, labelPlacement = MLabelPlacement.start)
                 }
                 mTypography("Label Placement = start")
             }

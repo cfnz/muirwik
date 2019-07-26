@@ -20,9 +20,6 @@ private val inputLabelComponent: RComponent<MInputLabelProps, RState> = inputLab
 interface MInputLabelProps : MFormLabelProps {
     var disableAnimation: Boolean
 
-    @JsName("FormLabelClasses")
-    var formLabelClasses: Any
-
     var margin: String
     var shrink: Boolean
     var variant: String
@@ -40,14 +37,12 @@ fun RBuilder.mInputLabel (
         disableAnimation: Boolean = false,
         margin: MLabelMargin? = null,
         component: String? = null,
-        formLabelClasses: Any? = null,
 
         className: String? = null,
         handler: StyledHandler<MInputLabelProps>? = null) = createStyled(inputLabelComponent) {
     component?.let { attrs.component = it }
     disabled?.let { attrs.disabled = it }
     attrs.disableAnimation = disableAnimation
-    formLabelClasses?.let { attrs.formLabelClasses = it }
     htmlFor?.let { attrs.htmlFor = it }
     error?.let { attrs.error = it }
     focused?.let { attrs.focused = it }

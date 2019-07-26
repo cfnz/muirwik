@@ -20,7 +20,7 @@ class TestThemeComponent : RComponent<RProps, RState>() {
                     "${if (attrs.asDynamic().theme == undefined) "undefined" else attrs.asDynamic().theme}, " +
                     "the props.theme here is ${if (props.asDynamic().theme == undefined) "undefined" else props.asDynamic().theme}.")
             themeContext.Consumer { theme ->
-                mTypography("The themeContext type is ${theme.palette.type}, and the spacing unit is ${theme.spacing.unit}")
+                mTypography("The themeContext type is ${theme.palette.type}, and the spacing unit is ${1.spacingUnits}")
             }
         }
     }

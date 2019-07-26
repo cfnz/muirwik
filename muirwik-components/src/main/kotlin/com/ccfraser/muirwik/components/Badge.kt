@@ -10,6 +10,8 @@ import styled.StyledProps
 
 @JsModule("@material-ui/core/Badge")
 private external val badgeModule: dynamic
+
+@Suppress("UnsafeCastFromDynamic")
 private val badgeComponent: RComponent<MBadgeProps, RState> = badgeModule.default
 
 @Suppress("EnumEntryName")
@@ -30,31 +32,6 @@ interface MBadgeProps: StyledProps {
     var max: Number
     var showZero: Boolean
     var variant: String
-}
-
-fun RBuilder.mBadge(
-        badgeContent: ReactElement,
-        color: MBadgeColor = MBadgeColor.default,
-        showZero: Boolean = false,
-        max: Number = 99,
-        variant: MBadgeVariant = MBadgeVariant.standard,
-        component: String? = "span",
-
-        invisible: Boolean? = null,
-
-        addAsChild: Boolean = true,
-        className: String? = null,
-        handler: StyledHandler<MBadgeProps>? = null) = createStyled(badgeComponent, addAsChild) {
-    attrs.badgeContent = badgeContent
-    attrs.color = color.toString()
-    invisible?.let { attrs.invisible = it }
-    attrs.showZero = showZero
-    attrs.max = max
-    attrs.variant = variant.toString()
-
-    component?.let { attrs.component = component }
-
-    setStyledPropsAndRunHandler(className, handler)
 }
 
 fun RBuilder.mBadge(
@@ -93,5 +70,30 @@ fun RBuilder.mBadge(
     val badgeContentAsElement = badgeContent.asDynamic() as ReactElement
 
     return mBadge(badgeContentAsElement, color, showZero, max, variant, component, invisible, addAsChild, className, handler)
+}
+
+fun RBuilder.mBadge(
+        badgeContent: ReactElement,
+        color: MBadgeColor = MBadgeColor.default,
+        showZero: Boolean = false,
+        max: Number = 99,
+        variant: MBadgeVariant = MBadgeVariant.standard,
+        component: String? = "span",
+
+        invisible: Boolean? = null,
+
+        addAsChild: Boolean = true,
+        className: String? = null,
+        handler: StyledHandler<MBadgeProps>? = null) = createStyled(badgeComponent, addAsChild) {
+    attrs.badgeContent = badgeContent
+    attrs.color = color.toString()
+    invisible?.let { attrs.invisible = it }
+    attrs.showZero = showZero
+    attrs.max = max
+    attrs.variant = variant.toString()
+
+    component?.let { attrs.component = component }
+
+    setStyledPropsAndRunHandler(className, handler)
 }
 

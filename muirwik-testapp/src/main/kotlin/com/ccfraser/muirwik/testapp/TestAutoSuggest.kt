@@ -1,6 +1,9 @@
 package com.ccfraser.muirwik.testapp
 
 import com.ccfraser.muirwik.components.*
+import com.ccfraser.muirwik.components.button.mIconButton
+import kotlinx.css.flexGrow
+import kotlinx.css.maxWidth
 import kotlinx.css.padding
 import kotlinx.css.px
 import react.RBuilder

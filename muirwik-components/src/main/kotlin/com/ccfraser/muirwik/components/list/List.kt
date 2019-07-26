@@ -1,6 +1,6 @@
 package com.ccfraser.muirwik.components.list
 
-import com.ccfraser.muirwik.components.MButtonBaseProps
+import com.ccfraser.muirwik.components.button.MButtonBaseProps
 import com.ccfraser.muirwik.components.createStyled
 import com.ccfraser.muirwik.components.mDivider
 import com.ccfraser.muirwik.components.setStyledPropsAndRunHandler
@@ -35,6 +35,7 @@ fun RBuilder.mList(
     attrs.dense = dense
     attrs.disablePadding = disablePadding
     subheader?.let { attrs.subheader = subheader }
+
     setStyledPropsAndRunHandler(className, handler)
 }
 

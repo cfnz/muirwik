@@ -21,12 +21,17 @@ interface MSwitchProps : StyledProps {
     var color: String
     var disabled: Boolean
     var disableRipple: Boolean
+    var edge: String
     var icon: ReactElement
     var id: String?
     var inputProps: RProps
     var onChange: ((Event, Boolean) -> Unit)
     var type: String
     var value: String?
+}
+
+enum class MSwitchEdge {
+    start, end // We assume if the prop is null, then the default false will be used, so we don't have this as a value
 }
 
 fun RBuilder.mSwitch(
@@ -40,6 +45,7 @@ fun RBuilder.mSwitch(
         id: String? = null,
         inputProps: RProps? = null,
         value: String? = null,
+        edge: MSwitchEdge? = null,
 
         addAsChild: Boolean = true,
         className: String? = null,
@@ -49,6 +55,7 @@ fun RBuilder.mSwitch(
     attrs.color = if (primary) MColor.primary.toString() else MColor.secondary.toString()
     attrs.disabled = disabled
     attrs.disableRipple = disableRipple
+    edge?.let { attrs.edge = it.toString() }
     icon?.let { attrs.icon = icon }
     id?.let { attrs.id = id }
     inputProps?.let { attrs.inputProps = inputProps }
@@ -63,7 +70,7 @@ fun RBuilder.mSwitch(
  * A label with switch built in. Note, if you want to style the switch or label separately you will have to use
  * mFormControlLabel and pass in a mSwitch.
  */
-fun RBuilder.mSwitchInLabel(
+fun RBuilder.mSwitchWithLabel(
         label: String,
         checked: Boolean = false,
         primary: Boolean = true,
@@ -75,11 +82,12 @@ fun RBuilder.mSwitchInLabel(
         id: String? = null,
         inputProps: RProps? = null,
         value: String? = null,
+        edge: MSwitchEdge? = null,
 
         className: String? = null,
         handler: StyledHandler<MFormControlLabelProps>? = null): ReactElement {
     val switch = mSwitch(checked, primary, disabled, icon, checkedIcon, onChange, disableRipple, id,
-            inputProps, value, false)
+            inputProps, value, edge, false)
 
     return mFormControlLabel(label, switch, checked, disabled, value = value, className = className, handler = handler)
 }

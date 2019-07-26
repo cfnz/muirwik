@@ -17,7 +17,7 @@ private val TableCellComponent: RComponent<MTableCellProps, RState> = tableCellM
 
 @Suppress("EnumEntryName")
 enum class MTableCellPadding {
-    default, checkbox, dense, none
+    default, checkbox, none
 }
 
 @Suppress("EnumEntryName")
@@ -39,6 +39,11 @@ enum class MTableCellVariant {
     head, body, footer
 }
 
+@Suppress("EnumEntryName")
+enum class MTableCellSize {
+    small, medium
+}
+
 interface MTableCellProps : StyledProps {
     var colSpan: Int
     var component: String
@@ -46,6 +51,7 @@ interface MTableCellProps : StyledProps {
     var align: String
     var padding: String
     var scope: String
+    var size: String
     var sortDirection: Any
     var variant: String
 }
@@ -56,6 +62,7 @@ fun RBuilder.mTableCell(
         sortDirection: MTableCellSortDirection = MTableCellSortDirection.False,
         align: MTableCellAlign = MTableCellAlign.inherit,
         padding: MTableCellPadding = MTableCellPadding.default,
+        size: MTableCellSize = MTableCellSize.medium,
         colSpan: Int? = null,
         component: String? = null,
         scope: String? = null,
@@ -68,6 +75,7 @@ fun RBuilder.mTableCell(
     key?.let { attrs.key = it }
     attrs.padding = padding.toString()
     scope?.let { attrs.scope = it }
+    attrs.size = size.toString()
     attrs.sortDirection = if (sortDirection == MTableCellSortDirection.False) false else sortDirection.toString()
     attrs.variant = variant.toString()
     setStyledPropsAndRunHandler(className, handler)

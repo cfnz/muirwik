@@ -7,6 +7,7 @@ external interface FontStyle {
     var fontWeightLight: Int
     var fontWeightRegular: Int
     var fontWeightMedium: Int
+    var fontWeightBold: Int
     var htmlFontSize: Int?
 }
 
@@ -38,27 +39,6 @@ external interface Typography : FontStyle, TypographyStyle {
     var caption: TypographyStyle
     var button: TypographyStyle
     var overline: TypographyStyle
-
-    @Deprecated("Use h1")
-    var display4: TypographyStyle
-
-    @Deprecated("Use h2")
-    var display3: TypographyStyle
-
-    @Deprecated("Use h3")
-    var display2: TypographyStyle
-
-    @Deprecated("Use h4")
-    var display1: TypographyStyle
-
-    @Deprecated("Use h5")
-    var headline: TypographyStyle
-
-    @Deprecated("Use h6")
-    var title: TypographyStyle
-
-    @Deprecated("Use subtitle1")
-    var subheading: TypographyStyle
 }
 
 // Needs work... not exactly sure how to convert the js to kotlin types here... but this works for what we need for now

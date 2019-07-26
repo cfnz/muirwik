@@ -32,11 +32,8 @@ enum class MLinkUnderline {
  */
 fun RBuilder.mLink(
         text: String? = null,
-        href: String? = null,
-        targetBlank: Boolean = false,
-        target: String? = null,
+        hRefOptions: HRefOptions? = null,
         underline: MLinkUnderline = MLinkUnderline.hover,
-        block: Boolean = false,
         variant: MTypographyVariant = MTypographyVariant.body1,
         color: MTypographyColor = MTypographyColor.primary,
         align: MTypographyAlign = MTypographyAlign.left,
@@ -49,11 +46,10 @@ fun RBuilder.mLink(
         className: String? = null,
         handler: StyledHandler<MLinkProps>? = null) = createStyled(linkComponent) {
     attrs.align = align.toString()
-    attrs.block = block
     attrs.color = color.toString()
     component?.let { attrs.component = it }
     attrs.gutterBottom = gutterBottom
-    setHrefTargetNoOpener(attrs, href, targetBlank, target)
+    hRefOptions?.let { setHRefTargetNoOpener(attrs, it) }
     attrs.noWrap = noWrap
     attrs.paragraph = paragraph
     attrs.underline = underline.toString()

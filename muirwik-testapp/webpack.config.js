@@ -54,7 +54,7 @@ const config = {
     plugins: [
         // Creates the html page for us...
         // new HtmlWebpackPlugin(),
-        new webpack.HotModuleReplacementPlugin()
+        // new webpack.HotModuleReplacementPlugin()
     ],
     module: {
         strictExportPresence: true,

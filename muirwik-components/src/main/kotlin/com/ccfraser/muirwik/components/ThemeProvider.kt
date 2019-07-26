@@ -28,7 +28,7 @@ val themeContext = createContext(defaultTheme)
  * if another theme with different spacing units are used... things might not turn out so well.
  * We do this because currently we have used the Int.spacingUnit outside of the render function in our test apps
  */
-val Int.spacingUnits get() = (defaultTheme.spacing.unit * this).px
+val Int.spacingUnits get() = (defaultTheme.spacing(this)).px
 
 
 class ThemeProvider(props: MuiThemeProviderProps) : RComponent<MuiThemeProviderProps, RState>(props) {

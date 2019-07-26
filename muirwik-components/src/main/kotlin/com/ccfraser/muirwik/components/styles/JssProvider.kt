@@ -11,10 +11,10 @@ private external val jssProviderModule: dynamic
 @JsModule("jss")
 private external val jssModule: dynamic
 
-@JsModule("@material-ui/core/styles/createGenerateClassName")
+@JsModule("@material-ui/styles/createGenerateClassName")
 private external val createGenerateClassName: dynamic
 
-@JsModule("@material-ui/core/styles/jssPreset")
+@JsModule("@material-ui/styles/jssPreset")
 private external val jssPresetModule: dynamic
 
 private val generateClassName = createGenerateClassName.default()

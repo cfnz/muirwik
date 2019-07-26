@@ -17,28 +17,57 @@ private val gridComponent: RComponent<MGridProps, RState> = gridDefault.default
 
 @Suppress("EnumEntryName")
 enum class MGridAlignContent {
-    stretch, center, flexStart, flexEnd, spaceBetween, spaceAround
+    stretch,
+    center,
+    flexStart,
+    flexEnd,
+    spaceBetween,
+    spaceAround
 }
 
 @Suppress("EnumEntryName")
 enum class MGridAlignItems {
-    stretch, center, flexStart, flexEnd, baseline
+    stretch,
+    center,
+    flexStart,
+    flexEnd,
+    baseline
 }
 
 @Suppress("EnumEntryName")
 enum class MGridDirection {
-    row, rowReverse, column, columnReverse
+    row,
+    rowReverse,
+    column,
+    columnReverse
 }
 
 @Suppress("EnumEntryName")
 enum class MGridJustify {
-    flexStart, center, flexEnd, spaceBetween, spaceAround
+    flexStart,
+    center,
+    flexEnd,
+    spaceBetween,
+    spaceAround
 }
 
+@Suppress("EnumEntryName")
 enum class MGridSize(internal val sizeVal: Any) {
-    False(false), Auto("auto"), True(true), Cells1(1), Cells2(2),
-    Cells3(3), Cells4(4), Cells5(5), Cells6(6), Cells7(7),
-    Cells8(8), Cells9(9), Cells10(10), Cells11(11), Cells12(12);
+    cellsFalse(false),
+    cellsAuto("auto"),
+    cellsTrue(true),
+    cells1(1),
+    cells2(2),
+    cells3(3),
+    cells4(4),
+    cells5(5),
+    cells6(6),
+    cells7(7),
+    cells8(8),
+    cells9(9),
+    cells10(10),
+    cells11(11),
+    cells12(12);
 }
 
 @Suppress("EnumEntryName")
@@ -47,18 +76,28 @@ enum class MGridWrap {
 }
 
 enum class MGridSpacing(val size: Int) {
-    spacing0(0), spacing8(8), spacing16(16), spacing24(24), spacing40(40);
+    spacing0(0),
+    spacing1(1),
+    spacing2(2),
+    spacing3(3),
+    spacing4(4),
+    spacing5(5),
+    spacing6(6),
+    spacing7(7),
+    spacing8(8),
+    spacing9(9),
+    spacing10(10)
 }
 
 /**
  * This class as no companion in MaterialUI. We just use it to make setting grid breakpoints a bit easier
  */
 data class MGridBreakpoints(
-        val xs: MGridSize = MGridSize.Auto,
-        val sm: MGridSize = MGridSize.Auto,
-        val md: MGridSize = MGridSize.Auto,
-        val lg: MGridSize = MGridSize.Auto,
-        val xl: MGridSize = MGridSize.Auto) {
+        val xs: MGridSize = MGridSize.cellsAuto,
+        val sm: MGridSize = MGridSize.cellsAuto,
+        val md: MGridSize = MGridSize.cellsAuto,
+        val lg: MGridSize = MGridSize.cellsAuto,
+        val xl: MGridSize = MGridSize.cellsAuto) {
     constructor(defaultGridSize: MGridSize) : this(defaultGridSize, defaultGridSize, defaultGridSize, defaultGridSize, defaultGridSize)
 
     fun down(breakpoint: Breakpoint, gridSize: MGridSize): MGridBreakpoints {
@@ -104,7 +143,7 @@ interface MGridProps : StyledProps {
  * to add an extra child item.
  */
 fun RBuilder.mGridContainer(
-        spacing: MGridSpacing = MGridSpacing.spacing16,
+        spacing: MGridSpacing = MGridSpacing.spacing0,
         alignContent: MGridAlignContent = MGridAlignContent.stretch,
         alignItems: MGridAlignItems = MGridAlignItems.stretch,
         wrap: MGridWrap = MGridWrap.wrap,
@@ -121,11 +160,11 @@ fun RBuilder.mGridContainer(
 }
 
 fun RBuilder.mGridItem(
-        xs: MGridSize = MGridSize.Auto,
-        sm: MGridSize = MGridSize.Auto,
-        md: MGridSize = MGridSize.Auto,
-        lg: MGridSize = MGridSize.Auto,
-        xl: MGridSize = MGridSize.Auto,
+        xs: MGridSize = MGridSize.cellsFalse,
+        sm: MGridSize = MGridSize.cellsFalse,
+        md: MGridSize = MGridSize.cellsFalse,
+        lg: MGridSize = MGridSize.cellsFalse,
+        xl: MGridSize = MGridSize.cellsFalse,
         zeroMinWidth: Boolean? = null,
 
         className: String? = null,

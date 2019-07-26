@@ -3,10 +3,9 @@ package com.ccfraser.muirwik.testapp
 import com.ccfraser.muirwik.components.*
 import com.ccfraser.muirwik.components.form.MFormControlVariant
 import com.ccfraser.muirwik.components.input.mInputAdornment
+import com.ccfraser.muirwik.components.menu.mMenuItem
 import com.ccfraser.muirwik.testapp.TestTextFields.ComponentStyles.textField
-import kotlinx.css.Display
-import kotlinx.css.FlexWrap
-import kotlinx.css.px
+import kotlinx.css.*
 import kotlinx.html.InputType
 import org.w3c.dom.events.Event
 import react.*

@@ -62,7 +62,7 @@ fun RBuilder.mRadio(
  * A label with a radio built in. Note, if you want to style the radio or label separately you will have to use
  * mFormControlLabel and pass in an mRadio.
  */
-fun RBuilder.mRadioInLabel(
+fun RBuilder.mRadioWithLabel(
         label: String,
         checked: Boolean? = null,
         primary: Boolean = true,

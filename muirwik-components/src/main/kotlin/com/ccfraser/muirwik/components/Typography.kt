@@ -20,32 +20,12 @@ enum class MTypographyAlign {
 
 @Suppress("EnumEntryName")
 enum class MTypographyColor {
-    default, error, inherit, primary, secondary, textPrimary, textSecondary
+    initial, inherit, primary, secondary, textPrimary, textSecondary, error
 }
 
 @Suppress("EnumEntryName")
 enum class MTypographyVariant {
-    h1, h2, h3, h4, h5, h6, subtitle1, subtitle2, body1, body2, caption, button, overline, srOnly, inherit,
-    @Deprecated("Use h1")
-    display4,
-
-    @Deprecated("Use h2")
-    display3,
-
-    @Deprecated("Use h3")
-    display2,
-
-    @Deprecated("Use h4")
-    display1,
-
-    @Deprecated("Use h5")
-    headline,
-
-    @Deprecated("Use h6")
-    title,
-
-    @Deprecated("Use subtitle1")
-    subheading
+    h1, h2, h3, h4, h5, h6, subtitle1, subtitle2, body1, body2, caption, button, overline, srOnly, inherit
 }
 
 interface MTypographyProps : StyledProps {
@@ -61,7 +41,7 @@ interface MTypographyProps : StyledProps {
 fun RBuilder.mTypography(
         text: String? = null,
         variant: MTypographyVariant = MTypographyVariant.body1,
-        color: MTypographyColor = MTypographyColor.default,
+        color: MTypographyColor = MTypographyColor.initial,
         align: MTypographyAlign = MTypographyAlign.left,
         gutterBottom: Boolean = false,
         noWrap: Boolean = false,

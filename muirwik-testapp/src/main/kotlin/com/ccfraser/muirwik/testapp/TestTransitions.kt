@@ -8,10 +8,7 @@ import com.ccfraser.muirwik.components.spacingUnits
 import com.ccfraser.muirwik.components.transitions.*
 import com.ccfraser.muirwik.testapp.TestTransitions.ComponentStyles.paper
 import kotlinext.js.js
-import kotlinx.css.Display
-import kotlinx.css.margin
-import kotlinx.css.padding
-import kotlinx.css.px
+import kotlinx.css.*
 import react.RBuilder
 import react.RComponent
 import react.RProps

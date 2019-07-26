@@ -1,6 +1,7 @@
 package com.ccfraser.muirwik.testapp
 
 import com.ccfraser.muirwik.components.*
+import com.ccfraser.muirwik.components.button.mIconButton
 import com.ccfraser.muirwik.components.styles.lighten
 import com.ccfraser.muirwik.components.table.*
 import kotlinx.css.*

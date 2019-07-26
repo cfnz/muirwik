@@ -5,10 +5,7 @@ import com.ccfraser.muirwik.testapp.TestAvatars.ComponentStyles.green
 import com.ccfraser.muirwik.testapp.TestAvatars.ComponentStyles.orange
 import com.ccfraser.muirwik.testapp.TestAvatars.ComponentStyles.pink
 import com.ccfraser.muirwik.testapp.TestAvatars.ComponentStyles.standard
-import kotlinx.css.Display
-import kotlinx.css.margin
-import kotlinx.css.padding
-import kotlinx.css.px
+import kotlinx.css.*
 import react.RBuilder
 import react.RComponent
 import react.RProps

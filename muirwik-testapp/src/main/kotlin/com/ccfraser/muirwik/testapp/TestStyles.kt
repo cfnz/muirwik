@@ -1,6 +1,6 @@
 package com.ccfraser.muirwik.testapp
 
-import com.ccfraser.muirwik.components.mButton
+import com.ccfraser.muirwik.components.button.mButton
 import com.ccfraser.muirwik.components.mTypography
 import com.ccfraser.muirwik.components.spacingUnits
 import com.ccfraser.muirwik.testapp.TestStyles.ComponentStyles.aStyle

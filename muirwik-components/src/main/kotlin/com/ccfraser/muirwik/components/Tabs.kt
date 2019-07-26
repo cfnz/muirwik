@@ -17,7 +17,7 @@ enum class MTabTextColor {
 
 @Suppress("EnumEntryName")
 enum class MTabScrollButtons {
-    auto, on, off
+    auto, desktop, on, off
 }
 
 @Suppress("EnumEntryName")
@@ -34,7 +34,7 @@ interface MTabsProps: StyledProps {
     var action: (actions: Any) -> Unit
     var centered: Boolean
     var indicatorColor: String
-    var onChange: (event: Event, indexValue: Int) -> Unit
+    var onChange: (event: Event, indexValue: Any) -> Unit
 
     @JsName("ScrollButtonComponent")
     var scrollButtonComponent: ReactElement
@@ -73,7 +73,6 @@ fun RBuilder.mTabs(
     tabIndicatorProps?.let { attrs.tabIndicatorProps = it }
     attrs.textColor = textColor.toString()
     attrs.value = value
-    attrs.value = value
     attrs.variant = variant.toString()
 
     setStyledPropsAndRunHandler(className, handler)
@@ -82,6 +81,8 @@ fun RBuilder.mTabs(
 
 @JsModule("@material-ui/core/Tab")
 private external val tabModule: dynamic
+
+@Suppress("UnsafeCastFromDynamic")
 private val tabComponent: RComponent<MTabProps, RState> = tabModule.default
 
 interface MTabProps: StyledProps {

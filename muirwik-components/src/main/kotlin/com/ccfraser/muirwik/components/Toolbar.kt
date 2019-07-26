@@ -1,5 +1,6 @@
 package com.ccfraser.muirwik.components
 
+import kotlinx.css.flexGrow
 import react.RBuilder
 import react.RComponent
 import react.RState

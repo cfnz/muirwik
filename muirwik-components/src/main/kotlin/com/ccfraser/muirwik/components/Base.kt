@@ -178,6 +178,20 @@ fun Event.persist() {
 }
 
 /**
+ * Just wrapping some options related to href's to make them a bit easier to use and less parameters to ignore
+ * when not using them. Note that, same as the [setHRefTargetNoOpener] params, if targetBlank is true, the
+ * value of target will be ignored.
+ */
+data class HRefOptions(val href: String, val targetBlank: Boolean = true, val target: String? = "")
+
+/**
+ * See the other [setHRefTargetNoOpener] for more information.
+ */
+fun setHRefTargetNoOpener(attrs: RProps, hRefOptions: HRefOptions) {
+    setHRefTargetNoOpener(attrs, hRefOptions.href, hRefOptions.targetBlank, hRefOptions.target)
+}
+
+/**
  * This is a convenience function (which might end up somewhere else) that handles setting of the href, target and rel
  * properties of various components. These components often done have the target and rel properties as it is expected in
  * Material-UI to just pass them to the root element.
@@ -187,7 +201,7 @@ fun Event.persist() {
  *
  * This function only takes effect if href is not null.
  */
-fun setHrefTargetNoOpener(attrs: RProps, href: String?, targetBlank: Boolean, target: String?) {
+fun setHRefTargetNoOpener(attrs: RProps, href: String?, targetBlank: Boolean, target: String?) {
     href?.let {
         attrs.asDynamic().href = it
 

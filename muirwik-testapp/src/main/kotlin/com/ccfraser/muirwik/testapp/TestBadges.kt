@@ -1,6 +1,8 @@
 package com.ccfraser.muirwik.testapp
 
 import com.ccfraser.muirwik.components.*
+import com.ccfraser.muirwik.components.button.MButtonVariant
+import com.ccfraser.muirwik.components.button.mButton
 import kotlinx.css.margin
 import kotlinx.css.padding
 import kotlinx.css.px

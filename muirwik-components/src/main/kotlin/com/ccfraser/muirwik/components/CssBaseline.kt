@@ -9,6 +9,7 @@ import react.RState
 @JsModule("@material-ui/core/CssBaseline")
 private external val cssBaselineModule: dynamic
 
+@Suppress("UnsafeCastFromDynamic")
 private val cssBaselineComponent: RComponent<RProps, RState> = cssBaselineModule.default
 
 fun RBuilder.mCssBaseline() = child(cssBaselineComponent) {}

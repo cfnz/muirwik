@@ -61,6 +61,11 @@ interface MTextFieldProps : MFormControlProps {
     var value: String
 }
 
+/**
+ * From Material-UI: The TextField wrapper component is a complete form control including a label, input and help text.
+ * TextField is composed of smaller components ( FormControl, Input, FilledInput, InputLabel, OutlinedInput,
+ * and FormHelperText ) that you can leverage directly to significantly customize your form inputs.
+ */
 fun RBuilder.mTextField(
         label: String,
         value: String? = null,

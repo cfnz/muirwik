@@ -10,7 +10,7 @@ description = "Test Application for Muirwik (a Material UI React wrapper written
 
 buildscript {
     var kotlinVersion: String by extra
-    kotlinVersion = "1.3.21"
+    kotlinVersion = "1.3.41"
 
     repositories {
         jcenter()
@@ -50,9 +50,9 @@ repositories {
 dependencies {
     compile(kotlin("stdlib-js", kotlinVersion))
 
-    compile("org.jetbrains", "kotlin-react", "16.6.0-pre.69-kotlin-$kotlinVersion")
-    compile("org.jetbrains", "kotlin-react-dom", "16.6.0-pre.69-kotlin-$kotlinVersion")
-    compile("org.jetbrains", "kotlin-styled", "1.0.0-pre.69-kotlin-$kotlinVersion")
+    compile("org.jetbrains", "kotlin-react", "16.6.0-pre.78-kotlin-$kotlinVersion")
+    compile("org.jetbrains", "kotlin-react-dom", "16.6.0-pre.78-kotlin-$kotlinVersion")
+    compile("org.jetbrains", "kotlin-styled", "1.0.0-pre.78-kotlin-$kotlinVersion")
 
     compile(project(":muirwik-components"))
 }

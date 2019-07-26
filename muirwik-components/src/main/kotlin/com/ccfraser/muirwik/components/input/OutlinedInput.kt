@@ -19,6 +19,10 @@ interface MOutlinedInputProps : MInputBaseProps {
     var notched: Boolean
 }
 
+/**
+ * An outlined input control that can be used by itself, but [com.ccfraser.muirwik.components.mTextField] wraps this and
+ * has more functionality.
+ */
 fun RBuilder.mOutlinedInput(
         value: String? = null,
         required: Boolean? = null,

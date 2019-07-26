@@ -1,8 +1,10 @@
 package com.ccfraser.muirwik.testapp
 
 import com.ccfraser.muirwik.components.*
+import com.ccfraser.muirwik.components.button.mButton
+import com.ccfraser.muirwik.components.button.mIconButton
 import com.ccfraser.muirwik.components.list.mList
-import com.ccfraser.muirwik.components.list.mListItem
+import com.ccfraser.muirwik.components.list.mListItemWithIcon
 import com.ccfraser.muirwik.components.styles.*
 import com.ccfraser.muirwik.components.transitions.SimpleTransitionDuration
 import com.ccfraser.muirwik.testapp.TestDrawers.ComponentStyles.drawer
@@ -48,9 +50,6 @@ class TestDrawers : RComponent<RProps, TestOptionControls.MyTestState>() {
             overflow = Overflow.hidden
             position = Position.relative
             display = Display.flex
-        }
-        val spacer by css {
-//            toolbarJsCssToPartialCss(currentTheme.mixins.toolbar)
         }
     }
 
@@ -230,49 +229,51 @@ class TestDrawers : RComponent<RProps, TestOptionControls.MyTestState>() {
         }
 
         fun miniDrawer() {
-            styledDiv {
-                css(drawer)
+            themeContext.Consumer { theme ->
+                styledDiv {
+                    css(drawer)
 
-                mAppBar(position = MAppBarPosition.absolute) {
-                    css {
-                        transition += Transition("width", 195.ms, Timing.materialStandard, 0.ms)
-                        zIndex = 1201
-                        if (miniDrawerOpen) width = 100.pct - drawerWidth.px
-                    }
-                    mToolbar(disableGutters = !miniDrawerOpen) {
-                        if (!miniDrawerOpen) {
-                            mIconButton("menu", color = MColor.inherit, onClick = { setState { miniDrawerOpen = true }})
+                    mAppBar(position = MAppBarPosition.absolute) {
+                        css {
+                            transition += Transition("width", 195.ms, Timing.materialStandard, 0.ms)
+                            zIndex = theme.zIndex.drawer + 1
+                            if (miniDrawerOpen) width = 100.pct - drawerWidth.px
                         }
-                        mToolbarTitle("Mini drawer")
+                        mToolbar(disableGutters = !miniDrawerOpen) {
+                            if (!miniDrawerOpen) {
+                                mIconButton("menu", color = MColor.inherit, onClick = { setState { miniDrawerOpen = true } })
+                            }
+                            mToolbarTitle("Mini drawer")
+                        }
                     }
-                }
 
-                val pp: MPaperProps = jsObject { }
-                pp.asDynamic().style = js {
-                    position = "relative"
-                    transition = "width 195ms cubic-bezier(0.4, 0, 0.6, 1) 0ms"
-                    if (!miniDrawerOpen) {
-                        overflowX = "hidden"
-                        width = 9.spacingUnits.value
-                    } else {
-                        width = drawerWidth
+                    val pp: MPaperProps = jsObject { }
+                    pp.asDynamic().style = js {
+                        position = "relative"
+                        transition = "width 195ms cubic-bezier(0.4, 0, 0.6, 1) 0ms"
+                        if (!miniDrawerOpen) {
+                            overflowX = "hidden"
+                            width = 7.spacingUnits.value
+                        } else {
+                            width = drawerWidth + 1
+                        }
                     }
-                }
-                mDrawer(miniDrawerOpen, MDrawerAnchor.left, MDrawerVariant.permanent, paperProps = pp) {
+                    mDrawer(miniDrawerOpen, MDrawerAnchor.left, MDrawerVariant.permanent, paperProps = pp) {
+                        div {
+                            attrs.jsStyle = js { display = "flex"; alignItems = "center"; justifyContent = "flex-end"; height = 64 }
+                            mIconButton("chevron_left", onClick = { setState { miniDrawerOpen = false } })
+                        }
+                        mDivider()
+                        mailPlaceholder(false)
+                    }
+
                     div {
-                        attrs.jsStyle = js { display = "flex"; alignItems = "center"; justifyContent = "flex-end"; height = 64 }
-                        mIconButton("chevron_left", onClick = { setState { miniDrawerOpen = false }})
+                        attrs.jsStyle = js {
+                            flexGrow = 1
+                        }
+                        spacer()
+                        mTypography("This is the main content area")
                     }
-                    mDivider()
-                    mailPlaceholder(false)
-                }
-
-                div {
-                    attrs.jsStyle = js {
-                        flexGrow = 1
-                    }
-                    spacer()
-                    mTypography("This is the main content area")
                 }
             }
         }
@@ -308,7 +309,7 @@ class TestDrawers : RComponent<RProps, TestOptionControls.MyTestState>() {
 
                     val pp: MPaperProps = jsObject { }
                     pp.asDynamic().style = js {
-                        width = drawerWidth
+                        width = drawerWidth + 1
                         position = "relative"
                     }
                     mHidden(mdUp = true) {
@@ -385,22 +386,27 @@ class TestDrawers : RComponent<RProps, TestOptionControls.MyTestState>() {
                     width = if (fullWidth) LinearDimension.auto else drawerWidth.px
 //                style = js { width = if (fullWidth) "auto" else drawerWidth; backgroundColor = "white" }
                 }
-                mListItem("Inbox", iconName = "move_to_inbox", divider = false)
-                mListItem("Stared", iconName = "star", divider = false)
-                mListItem("Send mail", iconName = "send", divider = true)
-                mListItem("All mail", iconName = "mail", divider = false)
-                mListItem("Trash", iconName = "delete", divider = false)
-                mListItem("Spam", iconName = "error", divider = false)
+                mListItemWithIcon("move_to_inbox", "Inbox", divider = false)
+                mListItemWithIcon("star", "Stared", divider = false)
+                mListItemWithIcon("send", "Send mail", divider = true)
+                mListItemWithIcon("mail", "All mail", divider = false)
+                mListItemWithIcon("delete", "Trash", divider = false)
+                mListItemWithIcon("error", "Spam", divider = false)
             }
         }
     }
 
-    fun RBuilder.spacer() {
-        // This puts in a spacer to get below the AppBar.
-        styledDiv {
-            css(ComponentStyles.spacer)
+    private fun RBuilder.spacer() {
+        themeContext.Consumer { theme ->
+
+            // This puts in a spacer to get below the AppBar.
+            styledDiv {
+                css {
+                    toolbarJsCssToPartialCss(theme.mixins.toolbar)
+                }
+            }
+            mDivider { }
         }
-        mDivider {  }
     }
 
 }

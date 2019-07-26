@@ -1,22 +1,22 @@
 package com.ccfraser.muirwik.testapp
 
-import com.ccfraser.muirwik.components.*
+import com.ccfraser.muirwik.components.button.mButton
 import com.ccfraser.muirwik.components.list.mList
 import com.ccfraser.muirwik.components.list.mListItem
-import com.ccfraser.muirwik.components.list.mListItemIcon
-import com.ccfraser.muirwik.components.list.mListItemText
+import com.ccfraser.muirwik.components.mPaper
+import com.ccfraser.muirwik.components.mTypography
+import com.ccfraser.muirwik.components.menu.*
+import com.ccfraser.muirwik.components.spacingUnits
+import com.ccfraser.muirwik.components.themeContext
 import com.ccfraser.muirwik.components.transitions.MTransitionProps
 import com.ccfraser.muirwik.components.transitions.SimpleTransitionTimeout
 import com.ccfraser.muirwik.components.transitions.mFade
 import kotlinext.js.js
 import kotlinext.js.jsObject
-import kotlinx.css.Color
-import kotlinx.css.Display
-import kotlinx.css.padding
+import kotlinx.css.*
 import org.w3c.dom.Node
 import org.w3c.dom.events.Event
 import react.*
-import react.dom.br
 import react.dom.div
 import react.dom.findDOMNode
 import styled.StyleSheet
@@ -60,103 +60,107 @@ class TestMenus : RComponent<RProps, RState>() {
     private val options2 = arrayOf("None", "Atria", "Callisto", "Dione", "Ganymede", "Hangouts Call", "Luna", "Oberon", "Phobos", "Pyxis", "Sedna", "Titania", "Triton", "Umbriel")
 
     override fun RBuilder.render() {
-        br {}
-        br {}
         styledDiv {
-            css { display = Display.inlineFlex }
+            css { padding(2.spacingUnits)}
 
-            mButton("Show Menu", onClick = { handleShowMenuClick(it, 1) })
-            div {
-                mMenu(selectedMenuIndex == 1, anchorElement = anchorElement, onClose = { _, reason -> handleOnClose(reason) }) {
-                    mMenuItem("Profile", onClick = { handleSimpleClick() })
-                    mMenuItem("My account", onClick = { handleSimpleClick() })
-                    mMenuItem("Logout", onClick = { handleSimpleClick() })
-                }
-            }
-
-            mButton("Anchor with Ref", onClick = { setState { selectedMenuIndex = 2 } }) {
-                ref {
-                    // Docs say don't get into the habit of finding the rendered DOM node, but also says it is
-                    // ok for things like positioning... and that is what we are doing. "it" is a reference
-                    // to a react node instance, so we need to use findDOMNode to get the real DOM item so
-                    // we can position our menu on top of it. (Note that "it" is also null sometimes.)
-                    refAnchorElement = findDOMNode(it)
-                }
-            }
-            div {
-                mMenu(selectedMenuIndex == 2, anchorElement = refAnchorElement, onClose = { _, reason -> handleOnClose(reason) }) {
-                    mMenuItem("Profile", onClick = { handleSimpleClick() })
-                    mMenuItem("My account", onClick = { handleSimpleClick() })
-                    mMenuItem("Logout", onClick = { handleSimpleClick() })
-                }
-            }
-
-            mButton("Max Height Menu", onClick = { handleShowMenuClick(it, 3) })
             styledDiv {
-                css { flexGrow = 1.0; padding(2.spacingUnits) }
+                css { display = Display.inlineFlex }
 
-                val menuListProps: MMenuListProps = jsObject { }
-                menuListProps.asDynamic().style = js {
-                    maxHeight = 216
+                mButton("Show Menu", onClick = { handleShowMenuClick(it, 1) })
+                div {
+                    mMenu(selectedMenuIndex == 1, anchorElement = anchorElement, onClose = { _, reason -> handleOnClose(reason) }) {
+                        mMenuItem("Profile", onClick = { handleSimpleClick() })
+                        mMenuItem("My account", onClick = { handleSimpleClick() })
+                        mMenuItem("Logout", onClick = { handleSimpleClick() })
+                    }
                 }
 
-                mMenu(selectedMenuIndex == 3, anchorElement = anchorElement, onClose = { _, reason -> handleOnClose(reason) }, menuListProps = menuListProps) {
-                    options2.forEach {
-                        mMenuItem(primaryText = it, selected = it == "Pyxis", onClick = { handleSimpleClick() })
+                mButton("Anchor with Ref", onClick = { setState { selectedMenuIndex = 2 } }) {
+                    ref {
+                        // Docs say don't get into the habit of finding the rendered DOM node, but also says it is
+                        // ok for things like positioning... and that is what we are doing. "it" is a reference
+                        // to a react node instance, so we need to use findDOMNode to get the real DOM item so
+                        // we can position our menu on top of it. (Note that "it" is also null sometimes.)
+                        refAnchorElement = findDOMNode(it)
+                    }
+                }
+                div {
+                    mMenu(selectedMenuIndex == 2, anchorElement = refAnchorElement, onClose = { _, reason -> handleOnClose(reason) }) {
+                        mMenuItem("Profile", onClick = { handleSimpleClick() })
+                        mMenuItem("My account", onClick = { handleSimpleClick() })
+                        mMenuItem("Logout", onClick = { handleSimpleClick() })
+                    }
+                }
+
+                mButton("Max Height Menu", onClick = { handleShowMenuClick(it, 3) })
+                styledDiv {
+                    css { flexGrow = 1.0; padding(2.spacingUnits) }
+
+                    val menuListProps: MMenuListProps = jsObject { }
+                    menuListProps.asDynamic().style = js {
+                        maxHeight = 216
+                    }
+
+                    mMenu(selectedMenuIndex == 3, anchorElement = anchorElement, onClose = { _, reason -> handleOnClose(reason) }, menuListProps = menuListProps) {
+                        options2.forEach {
+                            mMenuItem(primaryText = it, selected = it == "Pyxis", onClick = { handleSimpleClick() })
+                        }
+                    }
+                }
+            }
+            styledDiv {
+                css { display = Display.inlineFlex }
+                mList {
+                    mListItem(primaryText = "When device is locked", secondaryText = selectedOption, onClick = { handleShowMenuClick(it, 4) })
+                }
+                mMenu(selectedMenuIndex == 4, anchorElement = anchorElement, onClose = { _, reason -> handleOnClose(reason) }) {
+                    options.forEach { item ->
+                        mMenuItem(item, selected = item == selectedOption, onClick = { handleMenuItemClick(item) })
+                    }
+                }
+            }
+            styledDiv {
+                css { display = Display.inlineFlex }
+
+            // For some reason this is a bit different to providing the snackbar a transition... this works for menu, not for snackbar
+                class FadeTransition(props: MTransitionProps) : RComponent<MTransitionProps, RState>(props) {
+                    override fun RBuilder.render() {
+                        childList.add(cloneElement(mFade(addAsChild = false), props))
+                    }
+                }
+
+                mButton("With Slow Transition", onClick = { handleShowMenuClick(it, 5) })
+                div {
+                    mMenu(selectedMenuIndex == 5, anchorElement = anchorElement, onClose = { _, reason -> handleOnClose(reason) },
+                            transitionDuration = SimpleTransitionTimeout(1000)) {
+                        mMenuItem("Profile", onClick = { handleSimpleClick() })
+                        mMenuItem("My account", onClick = { handleSimpleClick() })
+                        mMenuItem("Logout", onClick = { handleSimpleClick() })
+                    }
+                }
+
+                mButton("With Fade Transition", onClick = { handleShowMenuClick(it, 6) })
+                div {
+                    mMenu(selectedMenuIndex == 6, anchorElement = anchorElement, onClose = { _, reason -> handleOnClose(reason) },
+                            transitionComponent = FadeTransition::class,
+                            transitionDuration = SimpleTransitionTimeout(1000)) {
+                        mMenuItem("Profile", onClick = { handleSimpleClick() })
+                        mMenuItem("My account", onClick = { handleSimpleClick() })
+                        mMenuItem("Logout", onClick = { handleSimpleClick() })
+                    }
+                }
+
+                mButton("Secondary Text?", onClick = { handleShowMenuClick(it, 7) })
+                div {
+                    mMenu(selectedMenuIndex == 7, anchorElement = anchorElement, onClose = { _, reason -> handleOnClose(reason) }) {
+                        mMenuItem("Profile", secondaryText = "Perhaps some explanation", onClick = { handleSimpleClick() })
+                        mMenuItem("My account", secondaryText = "Don't know if this is needed", onClick = { handleSimpleClick() })
+                        mMenuItem("Logout", onClick = { handleSimpleClick() })
                     }
                 }
             }
         }
-        styledDiv {
-            css { display = Display.inlineFlex }
-            mList {
-                mListItem(primaryText = "When device is locked", secondaryText = selectedOption, onClick = { handleShowMenuClick(it, 4) })
-            }
-            mMenu(selectedMenuIndex == 4, anchorElement = anchorElement, onClose = { _, reason -> handleOnClose(reason) }) {
-                options.forEach { item ->
-                    mMenuItem(item, selected = item == selectedOption, onClick = { handleMenuItemClick(item) })
-                }
-            }
 
-            // For some reason this is a bit different to providing the snackbar a transition... this works for menu, not for snackbar
-            class FadeTransition(props: MTransitionProps) : RComponent<MTransitionProps, RState>(props) {
-                override fun RBuilder.render() {
-                    childList.add(cloneElement(mFade(addAsChild = false), props))
-                }
-            }
-
-            mButton("With Slow Transition", onClick = { handleShowMenuClick(it, 5) })
-            div {
-                mMenu(selectedMenuIndex == 5, anchorElement = anchorElement, onClose = { _, reason -> handleOnClose(reason) },
-                        transitionDuration = SimpleTransitionTimeout(1000)) {
-                    mMenuItem("Profile", onClick = { handleSimpleClick() })
-                    mMenuItem("My account", onClick = { handleSimpleClick() })
-                    mMenuItem("Logout", onClick = { handleSimpleClick() })
-                }
-            }
-
-            mButton("With Fade Transition", onClick = { handleShowMenuClick(it, 6) })
-            div {
-                mMenu(selectedMenuIndex == 6, anchorElement = anchorElement, onClose = { _, reason -> handleOnClose(reason) },
-                        transitionComponent = FadeTransition::class,
-                        transitionDuration = SimpleTransitionTimeout(1000)) {
-                    mMenuItem("Profile", onClick = { handleSimpleClick() })
-                    mMenuItem("My account", onClick = { handleSimpleClick() })
-                    mMenuItem("Logout", onClick = { handleSimpleClick() })
-                }
-            }
-
-            mButton("Secondary Text?", onClick = { handleShowMenuClick(it, 7) })
-            div {
-                mMenu(selectedMenuIndex == 7, anchorElement = anchorElement, onClose = { _, reason -> handleOnClose(reason) }) {
-                    mMenuItem("Profile", secondaryText = "Perhaps some explanation", onClick = { handleSimpleClick() })
-                    mMenuItem("My account", secondaryText = "Don't know if this is needed", onClick = { handleSimpleClick() })
-                    mMenuItem("Logout", onClick = { handleSimpleClick() })
-                }
-            }
-        }
-        br {}
-        br {}
         styledDiv {
             css { display = Display.inlineFlex }
 
@@ -164,7 +168,7 @@ class TestMenus : RComponent<RProps, RState>() {
                 val themeStyles = object : StyleSheet("ComponentStyles", isStatic = true) {
                     val menuItem by css {
                         focus { backgroundColor = Color(theme.palette.primary.main) // ("#2196f3");
-                            descendants() {
+                            descendants {
                                 color = Color(theme.palette.common.white)
                             }
                         }
@@ -178,20 +182,14 @@ class TestMenus : RComponent<RProps, RState>() {
                     mTypography("Composition Example")
                     mPaper {
                         //                    mMenuList {
-                        mMenuItem() {
+                        mMenuItemWithIcon("send", "Sent mail") {
                             css(themeStyles.menuItem)
-                            mListItemIcon("send")
-                            mListItemText("Sent mail", inset = true)
                         }
-                        mMenuItem() {
+                        mMenuItemWithIcon("drafts", "Drafts") {
                             css(themeStyles.menuItem)
-                            mListItemIcon("drafts")
-                            mListItemText("Drafts", inset = true)
                         }
-                        mMenuItem() {
+                        mMenuItemWithIcon("inbox", "Inbox") {
                             css(themeStyles.menuItem)
-                            mListItemIcon("inbox")
-                            mListItemText("Inbox", inset = true)
                         }
                     }
                 }

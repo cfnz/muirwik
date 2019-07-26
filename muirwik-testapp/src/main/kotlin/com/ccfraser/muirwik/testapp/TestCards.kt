@@ -1,6 +1,9 @@
 package com.ccfraser.muirwik.testapp
 
 import com.ccfraser.muirwik.components.*
+import com.ccfraser.muirwik.components.button.MButtonSize
+import com.ccfraser.muirwik.components.button.mButton
+import com.ccfraser.muirwik.components.button.mIconButton
 import com.ccfraser.muirwik.components.card.*
 import com.ccfraser.muirwik.components.styles.Breakpoint
 import com.ccfraser.muirwik.components.transitions.mCollapse
@@ -21,10 +24,10 @@ class TestCards : RComponent<RProps, RState>() {
             css {
                 padding(16.px)
             }
-            mGridContainer {
-                val breakpoints = MGridBreakpoints(MGridSize.Cells6)
-                        .up(Breakpoint.lg, MGridSize.Cells4)
-                        .down(Breakpoint.sm, MGridSize.Cells12)
+            mGridContainer(MGridSpacing.spacing2) {
+                val breakpoints = MGridBreakpoints(MGridSize.cells6)
+                        .up(Breakpoint.lg, MGridSize.cells4)
+                        .down(Breakpoint.sm, MGridSize.cells12)
 
                 mGridItem(breakpoints) {
                     mCard {
@@ -32,7 +35,7 @@ class TestCards : RComponent<RProps, RState>() {
                                 avatar = mAvatar(addAsChild = false) {+"R"},
                                 action = mIconButton("more_vert", addAsChild = false)
                         )
-                        mCardMedia(image = "/images/cards/paella.jpg") {
+                        mCardMedia("/images/cards/paella.jpg") {
                             css { height = 150.px }
                         }
                         mCardContent {
@@ -49,7 +52,7 @@ class TestCards : RComponent<RProps, RState>() {
                                     if (rightExpanded) transform.rotate(180.deg)
                                     else transform.rotate(0.deg)
 
-                                    transition(::transform, 500.ms, Timing.easeInOut)
+                                    transition("transform", 500.ms, Timing.easeInOut)
                                     marginLeft = LinearDimension.auto
                                 }
                             }
@@ -66,8 +69,7 @@ class TestCards : RComponent<RProps, RState>() {
                 mGridItem(breakpoints) {
                     mCard {
                         mCardActionArea(onClick = { window.alert("You clicked the action area.") }) {
-                            mCardMedia(image = "/images/cards/contemplative-reptile.jpg",
-                                    title = "Contemplative Reptile") {
+                            mCardMedia("/images/cards/contemplative-reptile.jpg", "Contemplative Reptile") {
                                 css { height = 140.px }
                             }
                             mCardContent {
@@ -83,7 +85,7 @@ class TestCards : RComponent<RProps, RState>() {
                     }
                 }
                 mGridItem(breakpoints) {
-                    mCard {
+                    mCard(raised = true) {
                         mCardHeader(title = "Expand for more info",
                                 action = mIconButton("expand_more",
                                         onClick = { setState { leftExpanded = !leftExpanded; count++ }},
@@ -92,16 +94,15 @@ class TestCards : RComponent<RProps, RState>() {
                                         if (leftExpanded) transform.rotate(180.deg)
                                         else transform.rotate(0.deg)
 
-                                        transition(::transform, 500.ms, Timing.easeInOut)
+                                        transition("transform", 500.ms, Timing.easeInOut)
                                     }
                                 }
                         )
                         mCollapse(show = leftExpanded) {
                             mCardContent {
-                                mTypography(paragraph = true) {
-                                    +("As well as being a card demo, this is shows use of the Grid component. Resize" +
-                                            "the window to see the responsive positioning of the items")
-                                }
+                                mTypography("This is a raised card. As well as being a card demo, this shows use " +
+                                        "of the Grid component. Resize the window to see the responsive positioning of " +
+                                        "the items", paragraph = true)
                             }
                         }
                     }

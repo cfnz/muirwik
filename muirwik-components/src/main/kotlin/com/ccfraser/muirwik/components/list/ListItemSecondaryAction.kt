@@ -1,6 +1,6 @@
 package com.ccfraser.muirwik.components.list
 
-import com.ccfraser.muirwik.components.MButtonBaseProps
+import com.ccfraser.muirwik.components.button.MButtonBaseProps
 import com.ccfraser.muirwik.components.createStyled
 import com.ccfraser.muirwik.components.setStyledPropsAndRunHandler
 import react.RBuilder

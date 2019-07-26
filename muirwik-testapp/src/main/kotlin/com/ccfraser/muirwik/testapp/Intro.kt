@@ -4,9 +4,7 @@ import com.ccfraser.muirwik.components.MTypographyVariant
 import com.ccfraser.muirwik.components.mTypography
 import com.ccfraser.muirwik.components.spacingUnits
 import com.ccfraser.muirwik.testapp.Intro.ComponentStyles.typographyStyle
-import kotlinx.css.TextAlign
-import kotlinx.css.em
-import kotlinx.css.padding
+import kotlinx.css.*
 import react.RBuilder
 import react.RComponent
 import react.RProps
@@ -48,7 +46,8 @@ class Intro : RComponent<RProps, RState>() {
             }
 
             mTypography ("This project is a test/playground area for the Muirwik components. It is modeled loosely " +
-                    "off the Material UI demo pages and uses their source as a reference.") {
+                    "off the Material UI demo pages and uses their source as a reference, however some pages have a bit " +
+                    "more experimentation going on at the expense of a highly tuned visual experience.") {
                 css(typographyStyle)
             }
 

@@ -15,14 +15,18 @@ private external val cardMediaModule: dynamic
 private val cardMediaComponent: RComponent<MCardMediaProps, RState> = cardMediaModule.default
 
 interface MCardMediaProps : StyledProps {
+    var component: String
     var image: String
     var title: String
 }
 
 fun RBuilder.mCardMedia(image: String,
                         title: String = "",
+                        component: String = "div",
+
                         className: String? = null,
                         handler: StyledHandler<MCardMediaProps>? = null) = createStyled(cardMediaComponent) {
+    attrs.component = component
     attrs.image = image
     attrs.title = title
 

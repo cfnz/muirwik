@@ -1,6 +1,7 @@
 package com.ccfraser.muirwik.testapp
 
 import com.ccfraser.muirwik.components.*
+import com.ccfraser.muirwik.components.button.*
 import com.ccfraser.muirwik.testapp.TestButtons.ComplexComponentStyles.image
 import com.ccfraser.muirwik.testapp.TestButtons.ComplexComponentStyles.imageBackdrop
 import com.ccfraser.muirwik.testapp.TestButtons.ComplexComponentStyles.imageButton
@@ -53,7 +54,7 @@ class TestButtons : RComponent<RProps, RState>() {
             mButton("Disabled", disabled = true, variant = variant) {
                 if (margin) css(buttonMargin)
             }
-            mButton("Link", href = "https://github.com/cfnz/muirwik", targetBlank = true, variant = variant) {
+            mButton("Link", hRefOptions = HRefOptions("https://github.com/cfnz/muirwik"), variant = variant) {
                 if (margin) css(buttonMargin)
             }
             styledInput {
@@ -80,6 +81,32 @@ class TestButtons : RComponent<RProps, RState>() {
         buttonSet("Outlined buttons", MButtonVariant.outlined, true)
         br { }
         buttonSet("Contained buttons", MButtonVariant.contained, true)
+        br { }
+        styledDiv {
+            mTypography("Grouped buttons")
+            mButtonGroup {
+                mButton("One")
+                mButton("Two")
+                mButton("Three")
+            }
+            br { }
+            br { }
+            mButtonGroup(MColor.primary, MButtonGroupVariant.contained) {
+                mButton("One")
+                mButton("Two")
+                mButton("Three")
+            }
+        }
+        br { }
+        styledDiv {
+            mTypography("Split buttons")
+            mButtonGroup(MColor.primary, MButtonGroupVariant.contained) {
+                mButton("One")
+                mButton("", variant = MButtonVariant.contained, size = MButtonSize.small) {
+                    mIcon("arrow_drop_down")
+                }
+            }
+        }
         br { }
         styledDiv {
             mTypography("Icon buttons")
@@ -126,9 +153,12 @@ class TestButtons : RComponent<RProps, RState>() {
                 mFab("navigation", "Extended", true, size = MButtonSize.large) { css(buttonMargin) }
             }
             div {
-                mIconButton("delete", size = MButtonSize.small) { css(buttonMargin) }
-                mIconButton("delete", size = MButtonSize.medium) { css(buttonMargin) }
-                mIconButton("delete", size = MButtonSize.large) { css(buttonMargin) }
+                mIconButton("delete", size = MIconButtonSize.small) { css(buttonMargin) }
+                mIconButton("delete", size = MIconButtonSize.medium) { css(buttonMargin) }
+                mIconButton {
+                    css(buttonMargin)
+                    mIcon("delete", fontSize = MIconFontSize.large)
+                }
             }
         }
         br { }
@@ -149,8 +179,8 @@ class TestButtons : RComponent<RProps, RState>() {
             }
             mButton("Contained", variant = MButtonVariant.contained) { css(buttonMargin) }
             mButton("Primary", primary = true, variant = MButtonVariant.contained) { css(buttonMargin) }
-            mButton("Secondary with HRef", color = MColor.secondary, href = "https://github.com/cfnz/muirwik",
-                    target = "_Blank", variant = MButtonVariant.contained) { css(buttonMargin) }
+            mButton("Secondary with HRef", color = MColor.secondary, hRefOptions = HRefOptions("https://github.com/cfnz/muirwik"),
+                    variant = MButtonVariant.contained) { css(buttonMargin) }
             mButton("Styled Button") {
                 css {
                     background = "linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)"

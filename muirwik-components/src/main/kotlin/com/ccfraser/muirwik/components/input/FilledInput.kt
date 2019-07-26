@@ -15,9 +15,13 @@ private external val filledInputModule: dynamic
 private val filledInputComponent: RComponent<MFilledInputProps, RState> = filledInputModule.default
 
 interface MFilledInputProps : MInputBaseProps {
-    // No extra props
+    var disableUnderline: Boolean
 }
 
+/**
+ * A filled input control that can be used by itself, but [com.ccfraser.muirwik.components.mTextField] wraps this and
+ * has more functionality.
+ */
 fun RBuilder.mFilledInput(
         value: String? = null,
         required: Boolean? = null,
@@ -29,6 +33,7 @@ fun RBuilder.mFilledInput(
         placeholder: String? = null,
         startAdornment: ReactElement? = null,
         endAdornment: ReactElement? = null,
+        disableUnderline: Boolean? = null,
         autoFocus: Boolean? = null,
         type: InputType = InputType.text,
         id: String? = null,
@@ -51,6 +56,7 @@ fun RBuilder.mFilledInput(
     autoFocus?.let{ attrs.autoFocus = it }
     defaultValue?.let { attrs.defaultValue = it }
     disabled?.let { attrs.disabled = it }
+    disableUnderline?.let { attrs.disableUnderline = it }
     endAdornment?.let { attrs.endAdornment = it }
     error?.let { attrs.error = it }
     attrs.fullWidth = fullWidth

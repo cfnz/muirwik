@@ -32,6 +32,9 @@ interface MCheckboxProps : StyledProps {
     var value: String
 }
 
+/**
+ * Checkbox without a label. If you want a simple checkbox that is wrapped in a label, use [mCheckboxWithLabel]
+ */
 fun RBuilder.mCheckbox(
         checked: Boolean = false,
         primary: Boolean = true,
@@ -70,7 +73,7 @@ fun RBuilder.mCheckbox(
  * A label with checkbox built in. Note, if you want to style the checkbox or label separately you will have to use
  * mFormControlLabel and pass in a mCheckbox.
  */
-fun RBuilder.mCheckboxInLabel(
+fun RBuilder.mCheckboxWithLabel(
         label: String,
         checked: Boolean = false,
         primary: Boolean = true,

@@ -66,6 +66,19 @@ class TestChips : RComponent<RProps, RState>() {
             }
         }
 
+        mTypography("Small Chips") {
+            css { marginTop = 3.spacingUnits }
+        }
+        mChip("Primary Color Chip", color = MChipColor.primary, size = MChipSize.small, onClick = { handleClick() }, onDelete = { handleDelete() }) {
+            css(margin)
+        }
+        mChip("Secondary Color Chip", color = MChipColor.secondary, size = MChipSize.small, onClick = { handleClick() }, onDelete = { handleDelete() }) {
+            css(margin)
+        }
+        mChip("Primary Outline Chip", color = MChipColor.primary, size = MChipSize.small, variant = MChipVariant.outlined, onClick = { handleClick() }, onDelete = { handleDelete() }) {
+            css(margin)
+        }
+
         mTypography("Chip Array Example") {
             css { marginTop = 3.spacingUnits }
         }

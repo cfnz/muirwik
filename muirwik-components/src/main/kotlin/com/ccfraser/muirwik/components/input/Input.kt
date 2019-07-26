@@ -34,7 +34,7 @@ fun RBuilder.mInput(
         placeholder: String? = null,
         startAdornment: ReactElement? = null,
         endAdornment: ReactElement? = null,
-        disableUnderline: Boolean = false,
+        disableUnderline: Boolean? = null,
         autoFocus: Boolean? = null,
         type: InputType = InputType.text,
         id: String? = null,
@@ -57,7 +57,7 @@ fun RBuilder.mInput(
     autoFocus?.let{ attrs.autoFocus = it }
     defaultValue?.let { attrs.defaultValue = it }
     disabled?.let { attrs.disabled = it }
-    attrs.disableUnderline = disableUnderline
+    disableUnderline?.let { attrs.disableUnderline = it }
     endAdornment?.let { attrs.endAdornment = it }
     error?.let { attrs.error = it }
     attrs.fullWidth = fullWidth

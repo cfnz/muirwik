@@ -1,6 +1,7 @@
 package com.ccfraser.muirwik.testapp
 
 import com.ccfraser.muirwik.components.*
+import com.ccfraser.muirwik.components.button.mIconButton
 import com.ccfraser.muirwik.components.list.mList
 import com.ccfraser.muirwik.components.list.mListItem
 import com.ccfraser.muirwik.components.list.mListItemText
@@ -32,31 +33,35 @@ class MainFrame(props: MainFrameProps) : RComponent<MainFrameProps, RState>(prop
     }
 
     private val nameToTestMap = hashMapOf(
-        "An Intro" to RBuilder::intro,
-        "App Bar" to RBuilder::testAppBar,
-        "Avatars" to RBuilder::testAvatars,
-        "Badges" to RBuilder::testBadges,
-        "Buttons" to RBuilder::testButtons,
-        "Cards" to RBuilder::testCards,
-        "Chips" to RBuilder::testChips,
-        "Dialogs" to RBuilder::testDialogs,
-        "Drawers" to RBuilder::testDrawers,
-        //                            "Gridsto RBuilder::> testGrids,
-        "Grid Lists" to RBuilder::testGridLists,
-        "Links" to RBuilder::testLinks,
-        "Lists" to RBuilder::testLists,
-        "Menus" to RBuilder::testMenus,
-        "Options" to RBuilder::testOptionControls,
-        "Progress" to RBuilder::testProgress,
-        "Selects" to RBuilder::testSelects,
-        "Snackbars" to RBuilder::testSnackbar,
-        "Styles" to RBuilder::testStyles,
-        "Tables" to RBuilder::testTables,
-        "Tabs" to RBuilder::testTabs,
-        "Text Fields" to RBuilder::testTextFields,
-        "Themes" to RBuilder::testThemes,
-        "Tooltips" to RBuilder::testTooltips,
-        "Transitions" to RBuilder::testTransitions
+            "An Intro" to RBuilder::intro,
+            "App Bar" to RBuilder::testAppBar,
+            "Avatars" to RBuilder::testAvatars,
+            "Badges" to RBuilder::testBadges,
+            "Bottom Nav" to RBuilder::testBottomNavigation,
+            "Breadcrumbs" to RBuilder::testBreadcrumbs,
+            "Buttons" to RBuilder::testButtons,
+            "Cards" to RBuilder::testCards,
+            "Chips" to RBuilder::testChips,
+            "ClickAwayListener" to RBuilder::testClickAwayListener,
+            "Dialogs" to RBuilder::testDialogs,
+            "Drawers" to RBuilder::testDrawers,
+            //                            "Gridsto RBuilder::> testGrids,
+            "Grid Lists" to RBuilder::testGridLists,
+            "Links" to RBuilder::testLinks,
+            "Lists" to RBuilder::testLists,
+            "Menus" to RBuilder::testMenus,
+            "Options" to RBuilder::testOptionControls,
+            "Progress" to RBuilder::testProgress,
+            "Selects" to RBuilder::testSelects,
+            "Sliders" to RBuilder::testSliders,
+            "Snackbars" to RBuilder::testSnackbar,
+            "Styles" to RBuilder::testStyles,
+            "Tables" to RBuilder::testTables,
+            "Tabs" to RBuilder::testTabs,
+            "Text Fields" to RBuilder::testTextFields,
+            "Themes" to RBuilder::testThemes,
+            "Tooltips" to RBuilder::testTooltips,
+            "Transitions" to RBuilder::testTransitions
     )
 
     override fun RBuilder.render() {
