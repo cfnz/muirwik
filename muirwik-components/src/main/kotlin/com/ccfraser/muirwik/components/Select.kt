@@ -1,5 +1,6 @@
 package com.ccfraser.muirwik.components
 
+import com.ccfraser.muirwik.components.form.MFormControlVariant
 import com.ccfraser.muirwik.components.input.MInputMargin
 import org.w3c.dom.events.Event
 import react.*
@@ -17,7 +18,6 @@ interface MSelectProps : StyledProps {
     var autoFocus: Boolean
     var autoWidth: Boolean
     var disabled: Boolean
-    var disableUnderline: Boolean
     var displayEmpty: Boolean
     var endAdornment: ReactElement
     var error: Boolean
@@ -48,6 +48,7 @@ interface MSelectProps : StyledProps {
 
     var startAdornment: ReactElement
     var value: Any
+    var variant: String
 }
 
 fun RBuilder.mSelect(
@@ -57,6 +58,7 @@ fun RBuilder.mSelect(
         disabled: Boolean? = null,
         disableUnderline: Boolean = false,
         multiple: Boolean = false,
+        variant: MFormControlVariant? = null,
         autoWidth: Boolean = false,
         fullWidth: Boolean = false,
         displayEmpty: Boolean = false,
@@ -85,7 +87,6 @@ fun RBuilder.mSelect(
     autoFocus?.let { attrs.autoFocus = it }
     attrs.autoWidth = autoWidth
     disabled?.let { attrs.disabled = it }
-    attrs.disableUnderline = disableUnderline
     attrs.displayEmpty = displayEmpty
     endAdornment?.let { attrs.endAdornment = it }
     error?.let { attrs.error = it }
@@ -107,6 +108,7 @@ fun RBuilder.mSelect(
     selectDisplayProps?.let { attrs.selectDisplayProps = it }
     startAdornment?.let { attrs.startAdornment = it }
     value?.let { attrs.value = it }
+    variant?.let {attrs.variant = it.toString() }
 
     setStyledPropsAndRunHandler(className, handler)
 }

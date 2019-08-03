@@ -2,9 +2,9 @@ package com.ccfraser.muirwik.testapp
 
 import com.ccfraser.muirwik.components.Colors
 import com.ccfraser.muirwik.components.mCssBaseline
+import com.ccfraser.muirwik.components.mThemeProvider
 import com.ccfraser.muirwik.components.styles.ThemeOptions
 import com.ccfraser.muirwik.components.styles.createMuiTheme
-import com.ccfraser.muirwik.components.themeProvider
 import react.*
 
 class App(props: RProps) : RComponent<RProps, RState>(props) {
@@ -21,7 +21,7 @@ class App(props: RProps) : RComponent<RProps, RState>(props) {
         themeOptions.palette?.type = themeColor
         themeOptions.palette?.primary.main = Colors.Blue.shade500.toString()
 
-        themeProvider(createMuiTheme(themeOptions)) {
+        mThemeProvider(createMuiTheme(themeOptions)) {
             mainFrame("An Intro", { themeType -> setState { themeColor = themeType } })
         }
     }

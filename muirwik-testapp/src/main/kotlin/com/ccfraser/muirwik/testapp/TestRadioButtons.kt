@@ -2,22 +2,17 @@ package com.ccfraser.muirwik.testapp
 
 import com.ccfraser.muirwik.components.*
 import com.ccfraser.muirwik.components.form.*
-import com.ccfraser.muirwik.testapp.TestOptionControls.ComponentStyles.paddingLeft12
+import com.ccfraser.muirwik.testapp.TestRadioButtons.ComponentStyles.paddingLeft12
 import kotlinx.css.*
 import react.*
 import react.dom.br
-import react.dom.div
 import styled.StyleSheet
 import styled.css
 import styled.styledDiv
 
-class TestOptionControls : RComponent<RProps, TestOptionControls.MyTestState>() {
-    var checked1: Boolean = false
-    var checked2: Boolean = false
-    var checked3: Boolean = false
-    var checked4: Boolean = false
-    var radioValue: String = "a"
-    var gender1Value: String = "female"
+class TestRadioButtons : RComponent<RProps, TestRadioButtons.MyTestState>() {
+    private var radioValue: String = "a"
+    private var gender1Value: String = "female"
 
     class MyTestState(var gender2Value: String) : RState
 
@@ -36,56 +31,6 @@ class TestOptionControls : RComponent<RProps, TestOptionControls.MyTestState>() 
         // Update: Now you can actually pass in addAsChild as false instead.
         val altBuilder = RBuilder()
 
-        styledDiv {
-            css { display = Display.flex }
-            styledDiv {
-                mTypography("Checkboxes")
-                mCheckbox(checked = checked1, onChange = { _, _ -> setState { checked1 = !checked1 } })
-                br { }
-                mCheckbox(checked = checked2, onChange = { _, _ -> setState { checked2 = !checked2 } })
-                br { }
-                val uncheckedIcon = altBuilder.mIcon("clear")
-                val checkedIcon = altBuilder.mIcon("done")
-                mCheckbox(checked = checked3, onChange = { _, _ -> setState { checked3 = !checked3 } }, icon = uncheckedIcon, checkedIcon = checkedIcon)
-                br {  }
-                val s = altBuilder.mCheckbox(checked4,false, true, onChange = { _, _ -> setState { checked4 = !checked4 } })
-                mFormControlLabel("As Form Control", control = s)
-            }
-            div {
-                mTypography("Switches")
-                mSwitch(checked = checked1, onChange = { _, _ -> setState { checked1 = !checked1 } })
-                br { }
-                mSwitch(checked = checked2, onChange = { _, _ -> setState { checked2 = !checked2 } })
-                br { }
-                // The icons are more for a checkbox type control, but for fun, we shall put the star on the switch
-                mSwitch(checked = checked3, onChange = { _, _ -> setState { checked3 = !checked3 } },
-                        icon = mIcon("star", addAsChild = false),
-                        checkedIcon = mIcon("star", addAsChild = false))
-                br {  }
-                val s = altBuilder.mSwitch(checked4,false, true, onChange = { _, _ -> setState { checked4 = !checked4 } })
-                mFormControlLabel("As Form Control", control = s)
-            }
-            div {
-                mTypography("Using 'WithLabel'")
-                mSwitchWithLabel("Option 1", checked = checked1, onChange = { _, _ -> setState { checked1 = !checked1 } })
-                br { }
-                mSwitchWithLabel("Option 2", checked = checked2, onChange = { _, _ -> setState { checked2 = !checked2 } })
-                br { }
-                mSwitchWithLabel("Option 3", disabled = true, onChange = { _, _ -> setState { checked3 = !checked3 } })
-            }
-            styledDiv {
-                css { paddingLeft = 3.spacingUnits }
-                mFormControl(component = MFormControlComponent.fieldSet) {
-                    mFormLabel("In a FormGroup", component = "legend")
-                    mFormGroup {
-                        mCheckboxWithLabel("Option 1", checked1, onChange = { _, _ -> setState { checked1 = !checked1 } })
-                        mCheckboxWithLabel("Option 2", checked2, onChange = { _, _ -> setState { checked2 = !checked2 } })
-                        mCheckboxWithLabel("Option 3", checked3, onChange = { _, _ -> setState { checked3 = !checked3 } })
-                    }
-                }
-            }
-        }
-        br { }
         mTypography("Radio options and groups")
         styledDiv {
             css { display = Display.inlineFlex; marginTop = 16.px }
@@ -143,4 +88,4 @@ class TestOptionControls : RComponent<RProps, TestOptionControls.MyTestState>() 
     }
 }
 
-fun RBuilder.testOptionControls() = child(TestOptionControls::class) {}
+fun RBuilder.testRadioButtons() = child(TestRadioButtons::class) {}

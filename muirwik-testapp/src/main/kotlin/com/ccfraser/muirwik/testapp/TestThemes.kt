@@ -2,11 +2,11 @@ package com.ccfraser.muirwik.testapp
 
 import com.ccfraser.muirwik.components.Colors
 import com.ccfraser.muirwik.components.button.mButton
+import com.ccfraser.muirwik.components.mThemeProvider
 import com.ccfraser.muirwik.components.mTypography
 import com.ccfraser.muirwik.components.styles.Theme
 import com.ccfraser.muirwik.components.styles.ThemeOptions
 import com.ccfraser.muirwik.components.styles.createMuiTheme
-import com.ccfraser.muirwik.components.themeProvider
 import kotlinx.css.Color
 import kotlinx.css.backgroundColor
 import react.*
@@ -25,7 +25,7 @@ class TestThemes : RComponent<RProps, RState>() {
         // Create a new theme with the default colours (darker primary colours than the demo)
         val theme: Theme = createMuiTheme(themeOptions)
 
-        themeProvider(theme) {
+        mThemeProvider(theme) {
             styledDiv {
                 css { backgroundColor = Color(theme.palette.background.default) }
                 mTypography("First is the Default theme (darker than the demo theme), then a lighter theme, then a repeat of the demo app")
@@ -39,7 +39,7 @@ class TestThemes : RComponent<RProps, RState>() {
                 theme2Options.palette?.type = themeColor
                 theme2Options.palette?.primary.main = Colors.Blue.shade200.toString()
 
-                themeProvider(createMuiTheme(theme2Options)) {
+                mThemeProvider(createMuiTheme(theme2Options)) {
                     testThemeComponent()
                 }
 

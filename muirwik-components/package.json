@@ -16,7 +16,7 @@
         "core-js": "^3.1.4",
         "inline-style-prefixer": "^5.1.0",
         "styled-components": "^4.3.2",
-        "@material-ui/core": "^4.2.1",
+        "@material-ui/core": "^4.3.0",
         "@material-ui/icons": "^4.2.1"
     }
 }

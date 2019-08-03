@@ -31,7 +31,7 @@ val themeContext = createContext(defaultTheme)
 val Int.spacingUnits get() = (defaultTheme.spacing(this)).px
 
 
-class ThemeProvider(props: MuiThemeProviderProps) : RComponent<MuiThemeProviderProps, RState>(props) {
+class MThemeProvider(props: MuiThemeProviderProps) : RComponent<MuiThemeProviderProps, RState>(props) {
     override fun RBuilder.render() {
         @Suppress("DEPRECATION")
         mMuiThemeProvider(props.theme) {
@@ -42,7 +42,7 @@ class ThemeProvider(props: MuiThemeProviderProps) : RComponent<MuiThemeProviderP
     }
 }
 
-fun RBuilder.themeProvider(theme: Theme = createMuiTheme(), handler: RHandler<RProps>? = null) = child(ThemeProvider::class) {
+fun RBuilder.mThemeProvider(theme: Theme = createMuiTheme(), handler: RHandler<RProps>? = null) = child(MThemeProvider::class) {
     attrs.theme = theme
     if (handler != null) handler()
 }

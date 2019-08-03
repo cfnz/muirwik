@@ -9,9 +9,10 @@ import styled.styledDiv
 
 
 class TestTabs : RComponent<RProps, RState>() {
-    var tab1Value: Any = "one"
-    var tab2Value: Any = 0
-    var tab3Value: Any = 1
+    private var tab1Value: Any = "one"
+    private var tab2Value: Any = 0
+    private var tab3Value: Any = 1
+    private var tab4Value: Any = 1
 
     private object CustomTabStyles : StyleSheet("ComponentStyles", isStatic = true) {
         val tabsRoot by css {
@@ -63,6 +64,7 @@ class TestTabs : RComponent<RProps, RState>() {
                     attrs.asDynamic().disableRipple = true
                 }
             }
+
             styledDiv {
                 css { flexGrow = 1.0; backgroundColor = Color(theme.palette.background.paper) }
                 mAppBar(position = MAppBarPosition.static) {
@@ -114,6 +116,32 @@ class TestTabs : RComponent<RProps, RState>() {
                 }
                 mTypography("Ant Design") {
                     css(CustomTabStyles.typography)
+                }
+            }
+            styledDiv {
+                css {
+                    marginTop = 3.spacingUnits
+                    height = 224.px
+                    display = Display.flex
+                    flexGrow = 1.0
+                    backgroundColor = Color(theme.palette.background.paper)
+                }
+                mTabs(tab4Value, orientation = MTabOrientation.vertical, variant = MTabVariant.scrollable, onChange = { _, value -> setState { tab4Value = value } }) {
+                    css { borderRight = "1px solid ${theme.palette.divider}" }
+                    mTab("Item One", 1)
+                    mTab("Item Two", 2)
+                    mTab("Item Three", 3)
+                    mTab("Item Four", 4)
+                    mTab("Item Five", 5)
+                    mTab("Item Size", 6)
+                }
+                when (tab4Value) {
+                    1 -> tabContainer("Item One - Vertical Tab")
+                    2 -> tabContainer("Item Two")
+                    3 -> tabContainer("Item Three")
+                    4 -> tabContainer("Item Four")
+                    5 -> tabContainer("Item Five")
+                    6 -> tabContainer("Item Six")
                 }
             }
         }

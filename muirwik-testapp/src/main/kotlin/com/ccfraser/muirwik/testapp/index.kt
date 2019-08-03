@@ -1,5 +1,6 @@
 package com.ccfraser.muirwik.testapp
 
+import com.ccfraser.muirwik.components.styles.mStylesProvider
 import react.dom.render
 import kotlin.browser.document
 
@@ -10,15 +11,13 @@ private val hot = hotModule.hot
 private val module = js("module")
 
 fun main(args: Array<String>) {
-    // Allows the css to be down with the component
-//    requireAll(require.context("", true, js("/\\.css$/")))
-    println("Running main in muirwik testapp...")
-
 // Seems to work better without hot reloading for now
 //    val hotWrapper = hot(module)
     render(document.getElementById("root")) {
-        app()
-//        hotWrapper(app())
+        mStylesProvider("jss-insertion-point") {
+            app()
+    //        hotWrapper(app())
+        }
     }
 }
 

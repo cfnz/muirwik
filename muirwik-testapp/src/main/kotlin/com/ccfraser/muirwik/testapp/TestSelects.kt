@@ -1,10 +1,13 @@
 package com.ccfraser.muirwik.testapp
 
 import com.ccfraser.muirwik.components.*
+import com.ccfraser.muirwik.components.form.MFormControlVariant
 import com.ccfraser.muirwik.components.form.mFormControl
 import com.ccfraser.muirwik.components.form.mFormHelperText
+import com.ccfraser.muirwik.components.input.mFilledInput
 import com.ccfraser.muirwik.components.input.mInput
 import com.ccfraser.muirwik.components.input.mInputLabel
+import com.ccfraser.muirwik.components.input.mOutlinedInput
 import com.ccfraser.muirwik.components.list.mListItemText
 import com.ccfraser.muirwik.components.menu.mMenuItem
 import com.ccfraser.muirwik.testapp.TestSelects.ComponentStyles.chip
@@ -76,6 +79,7 @@ class TestSelects : RComponent<RProps, RState>() {
         simpleSelects()
         nativeSelects()
         multiSelects()
+        selectVariants()
     }
 
     private fun RBuilder.simpleSelects() {
@@ -314,6 +318,53 @@ class TestSelects : RComponent<RProps, RState>() {
                         addMenuItems(this, false)
                     }
                 }
+            }
+        }
+    }
+
+    private fun RBuilder.selectVariants() {
+        mTypography("Select Variants", MTypographyVariant.h4)
+        styledForm {
+//            css { display = Display.flex; flexWrap = FlexWrap.wrap; paddingBottom = 4.spacingUnits }
+            mFormControl {
+                css(formControl)
+                mInputLabel("Standard")
+                mSelect(age, variant = MFormControlVariant.standard, onChange = { event, _ -> handleAgeChange(event) }) {
+                    mMenuItem("None", value = "")
+                    mMenuItem("Ten", value = "10")
+                    mMenuItem("Twenty", value = "20")
+                    mMenuItem("Thirty", value = "30")
+                }
+                mFormHelperText("Some important helper text")
+            }
+            mFormControl(variant = MFormControlVariant.filled) {
+                css(formControl)
+                mInputLabel("Filled", variant = MFormControlVariant.filled)
+                mSelect(age, input = mFilledInput(name = "test", id = "test", addAsChild = false), onChange = { event, _ -> handleAgeChange(event) }) {
+                    mMenuItem("None", value = "")
+                    mMenuItem("Ten", value = "10")
+                    mMenuItem("Twenty", value = "20")
+                    mMenuItem("Thirty", value = "30")
+                }
+            }
+            mFormControl(variant = MFormControlVariant.outlined) {
+                css(formControl)
+                mInputLabel("Outlined", htmlFor = "outlined", variant = MFormControlVariant.outlined) {
+//                    Need to get into storing ref element of label so we can get its width...
+//                    ... seems pretty low level stuff just to put an outlined control on a form...
+//                    See material-ui demo for more info.
+//                    ref { refElement = it } // findDOMNode(it) }
+                }
+                mSelect(age, native = true, input = mOutlinedInput(name = "outline", id = "outlined", addAsChild = false,
+//                            labelWidth = refElement?.asDynamic().offsetWidth),
+                            labelWidth = 60),
+                        onChange = { event, _ -> handleAgeChange(event) }) {
+                    option { attrs.value = "None"; +"" }
+                    option { attrs.value = "10"; +"Ten" }
+                    option { attrs.value = "20"; +"Twenty" }
+                    option { attrs.value = "30"; +"Thirty" }
+                }
+                mFormHelperText("WIP... hard coded width :-o")
             }
         }
     }

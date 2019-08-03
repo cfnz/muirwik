@@ -41,10 +41,13 @@ repositories {
 }
 
 dependencies {
-    compile(kotlin("stdlib-js", kotlinVersion))
-    compile("org.jetbrains", "kotlin-react", "16.6.0-pre.78-kotlin-$kotlinVersion")
-    compile("org.jetbrains", "kotlin-react-dom", "16.6.0-pre.78-kotlin-$kotlinVersion")
-    compile("org.jetbrains", "kotlin-styled", "1.0.0-pre.78-kotlin-$kotlinVersion")
+    val kotlinJsVersion = "pre.80-kotlin-$kotlinVersion"
+    val kotlinReactVersion = "16.8.6-$kotlinJsVersion"
+
+    implementation(kotlin("stdlib-js", kotlinVersion))
+    implementation("org.jetbrains", "kotlin-react", kotlinReactVersion)
+    implementation("org.jetbrains", "kotlin-react-dom", kotlinReactVersion)
+    implementation("org.jetbrains", "kotlin-styled", "1.0.0-$kotlinJsVersion")
 }
 
 

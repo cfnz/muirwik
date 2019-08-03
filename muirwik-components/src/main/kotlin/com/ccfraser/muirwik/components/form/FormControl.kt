@@ -41,6 +41,7 @@ interface MFormControlProps : StyledProps {
     var disabled: Boolean
     var error: Boolean
     var fullWidth: Boolean
+    var hiddenLabel: Boolean
     var margin: String?
     var required: Boolean
     var variant: String
@@ -54,12 +55,14 @@ fun RBuilder.mFormControl(
         margin: MMargin? = null,
         required: Boolean = false,
         variant: MFormControlVariant = MFormControlVariant.standard,
+        hiddenLabel: Boolean = false,
         className: String? = null,
         handler: StyledHandler<MFormControlProps>? = null) = createStyled(formControlComponent) {
     attrs.component = component.toString()
     attrs.disabled = disabled
     attrs.error = error
     attrs.fullWidth = fullWidth
+    attrs.hiddenLabel = hiddenLabel
     margin?.let { attrs.margin = margin.toString() }
     attrs.required = required
     attrs.variant = variant.toString()

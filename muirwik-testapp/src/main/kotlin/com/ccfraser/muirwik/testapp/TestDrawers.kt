@@ -18,18 +18,15 @@ import kotlinx.css.properties.ms
 import kotlinx.html.js.onClickFunction
 import kotlinx.html.js.onKeyDownFunction
 import kotlinx.html.role
-import react.RBuilder
-import react.RComponent
-import react.RProps
+import react.*
 import react.dom.br
 import react.dom.div
 import react.dom.jsStyle
-import react.setState
 import styled.StyleSheet
 import styled.css
 import styled.styledDiv
 
-class TestDrawers : RComponent<RProps, TestOptionControls.MyTestState>() {
+class TestDrawers : RComponent<RProps, RState>() {
     private var temporaryLeftOpen: Boolean = false
     private var temporaryRightOpen: Boolean = false
     private var temporaryTopOpen: Boolean = false

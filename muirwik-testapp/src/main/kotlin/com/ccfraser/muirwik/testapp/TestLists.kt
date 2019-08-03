@@ -7,17 +7,14 @@ import com.ccfraser.muirwik.components.transitions.mCollapse
 import com.ccfraser.muirwik.testapp.TestLists.ComponentStyles.inline
 import com.ccfraser.muirwik.testapp.TestLists.ComponentStyles.listDiv
 import kotlinx.css.*
-import react.RBuilder
-import react.RComponent
-import react.RProps
+import react.*
 import react.dom.div
 import react.dom.span
-import react.setState
 import styled.StyleSheet
 import styled.css
 import styled.styledDiv
 
-class TestLists : RComponent<RProps, TestOptionControls.MyTestState>() {
+class TestLists : RComponent<RProps, RState>() {
     private var expanded: Boolean = false
     private var checked = Array(3) { false }
     private var selected = 0

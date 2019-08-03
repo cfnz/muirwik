@@ -1,5 +1,6 @@
 package com.ccfraser.muirwik.components.input
 
+import com.ccfraser.muirwik.components.MTextFieldMargin
 import com.ccfraser.muirwik.components.createStyled
 import com.ccfraser.muirwik.components.setStyledPropsAndRunHandler
 import kotlinx.html.InputType
@@ -38,7 +39,7 @@ fun RBuilder.mInput(
         autoFocus: Boolean? = null,
         type: InputType = InputType.text,
         id: String? = null,
-        margin: MInputMargin? = null,
+        margin: MTextFieldMargin? = null,
         autoComplete: String? = null,
         inputComponent: String? = null,
         inputProps: RProps? = null,

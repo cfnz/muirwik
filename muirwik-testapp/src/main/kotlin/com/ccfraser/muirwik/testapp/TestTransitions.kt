@@ -9,17 +9,14 @@ import com.ccfraser.muirwik.components.transitions.*
 import com.ccfraser.muirwik.testapp.TestTransitions.ComponentStyles.paper
 import kotlinext.js.js
 import kotlinx.css.*
-import react.RBuilder
-import react.RComponent
-import react.RProps
+import react.*
 import react.dom.div
 import react.dom.jsStyle
-import react.setState
 import styled.StyleSheet
 import styled.css
 import styled.styledDiv
 
-class TestTransitions : RComponent<RProps, TestOptionControls.MyTestState>() {
+class TestTransitions : RComponent<RProps, RState>() {
     var collapseShown: Boolean = false
     var fadeShown: Boolean = false
     var growShown: Boolean = false

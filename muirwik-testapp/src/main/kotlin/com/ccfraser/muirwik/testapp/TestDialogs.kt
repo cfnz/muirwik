@@ -24,7 +24,7 @@ import styled.css
 import kotlin.reflect.KClass
 
 
-class TestDialogs : RComponent<RProps, TestOptionControls.MyTestState>() {
+class TestDialogs : RComponent<RProps, RState>() {
     private var selectedValue: String = ""
     private var simpleDialogOpen: Boolean = false
     private var alertDialogOpen: Boolean = false
