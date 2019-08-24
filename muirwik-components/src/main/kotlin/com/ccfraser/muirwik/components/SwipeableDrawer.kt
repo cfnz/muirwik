@@ -52,7 +52,7 @@ fun RBuilder.mSwipeableDrawer(
 
         className: String? = null,
         handler: StyledHandler<MSwipeableDrawerProps>) = createStyled(swipeableDrawerComponent) {
-    attrs.anchor = anchor.toString()
+    attrs.anchor = anchor
     attrs.disableBackdropTransition = disableBackdropTransition
     attrs.disableDiscovery = disableDiscovery
     disableSwipeToOpen?.let{ attrs.disableSwipeToOpen = it }
@@ -67,10 +67,11 @@ fun RBuilder.mSwipeableDrawer(
     paperProps?.let { attrs.paperProps = it }
     slideProps?.let { attrs.slideProps = it }
     swipeAreaProps?.let {attrs.swipeAreaProps = it }
-    transitionDuration?.let { attrs.transitionDuration = it.value() }
-    attrs.variant = variant.toString()
+    transitionDuration?.let { attrs.transitionDuration = it }
+    attrs.variant = variant
 
     setStyledPropsAndRunHandler(className, handler)
+    attrs.redefineTypedProps()
 }
 
 

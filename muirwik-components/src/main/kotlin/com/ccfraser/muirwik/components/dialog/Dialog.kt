@@ -7,7 +7,10 @@ import com.ccfraser.muirwik.components.setStyledPropsAndRunHandler
 import com.ccfraser.muirwik.components.styles.Breakpoint
 import com.ccfraser.muirwik.components.transitions.MTransitionProps
 import org.w3c.dom.events.Event
-import react.*
+import react.RBuilder
+import react.RComponent
+import react.RProps
+import react.RState
 import styled.StyledHandler
 import kotlin.reflect.KClass
 
@@ -22,7 +25,6 @@ private val dialogComponent: RComponent<MDialogProps, RState> = dialogModule.def
 enum class DialogScroll {
     paper, body
 }
-
 
 interface MDialogProps : MModalProps {
     var fullScreen: Boolean
@@ -43,14 +45,18 @@ interface MDialogProps : MModalProps {
     var paperProps: MPaperProps?
 
     @JsName("TransitionComponent")
-    var transitionComponent: dynamic?
+    var transitionComponent: dynamic
 
 //    var transitionDuration: dynamic
 
     @JsName("TransitionProps")
     var transitionProps: RProps?
 
-    var scroll: String?
+    var scroll: DialogScroll?
+}
+
+private fun MDialogProps.redefineTypedProps() {
+    this.asDynamic().scroll = scroll.toString()
 }
 
 /**
@@ -59,34 +65,16 @@ interface MDialogProps : MModalProps {
  */
 fun RBuilder.mDialog(
         open: Boolean = false,
-        container: ReactElement? = null,
         fullScreen: Boolean = false,
         fullWidth: Boolean = false,
         maxWidth: Breakpoint? = Breakpoint.sm,
-        disableAutoFocus: Boolean = false,
-        disableBackdropClick: Boolean = false,
-        disableEnforceFocus: Boolean = false,
-        disableEscapeKeyDown: Boolean = false,
-        disableRestoreFocus: Boolean = false,
         hideBackdrop: Boolean = false,
         keepMounted: Boolean = false,
-        backdropComponent: ReactElement? = null,
-        backdropProps: RProps? = null,
         closeAfterTransition: Boolean = false,
 
         onBackdropClick: SimpleEvent? = null,
         onClose: ((Event, reason: ModalOnCloseReason) -> Unit)? = null,
         onEscapeKeyDown: SimpleEvent? = null,
-        onRendered: SimpleEvent? = null,
-        onEnter: SimpleEvent? = null,
-        onEntered: SimpleEvent? = null,
-        onEntering: SimpleEvent? = null,
-        onExit: SimpleEvent? = null,
-        onExited: SimpleEvent? = null,
-        onExiting: SimpleEvent? = null,
-
-        paperComponent: RComponent<RProps, RState>? = null,
-        paperProps: MPaperProps? = null,
 
         scroll: DialogScroll = DialogScroll.paper,
 
@@ -99,40 +87,24 @@ fun RBuilder.mDialog(
 
         className: String? = null,
         handler: StyledHandler<MDialogProps>) = createStyled(dialogComponent) {
-    backdropComponent?.let { attrs.backdropComponent = it }
-    backdropProps?.let { attrs.backdropProps = it }
     attrs.closeAfterTransition = closeAfterTransition
-    container?.let { attrs.container = it }
-    attrs.disableAutoFocus = disableAutoFocus
-    attrs.disableBackdropClick = disableBackdropClick
-    attrs.disableEnforceFocus = disableEnforceFocus
-    attrs.disableEscapeKeyDown = disableEscapeKeyDown
-    attrs.disableRestoreFocus = disableRestoreFocus
     attrs.hideBackdrop = hideBackdrop
     attrs.keepMounted = keepMounted
 //    manager?.let { attrs.manager = manager }
     onBackdropClick?.let { attrs.onBackdropClick = it }
     onClose?.let { attrs.onClose = { event, string -> it(event, ModalOnCloseReason.valueOf(string)) }}
     onEscapeKeyDown?.let { attrs.onEscapeKeyDown = it }
-    onRendered?.let { attrs.onRendered = it }
     attrs.open = open
     attrs.fullScreen = fullScreen
     attrs.fullWidth = fullWidth
     attrs.maxWidth = maxWidth?.toString() ?: false
-    onEnter?.let { attrs.onEnter = it }
-    onEntered?.let { attrs.onEntered = it }
-    onEntering?.let { attrs.onEntering = it }
-    onExit?.let { attrs.onExit = it }
-    onExited?.let { attrs.onExited = it }
-    onExiting?.let { attrs.onExiting = it }
-    paperComponent?.let { attrs.paperComponent = it }
-    paperProps?.let { attrs.paperProps = it }
-    attrs.scroll = scroll.toString()
+    attrs.scroll = scroll
     transitionComponent?.let { attrs.transitionComponent = it.js }
 //    transitionDuration?.let { attrs.transitionDuration = it }
     transitionProps?.let { attrs.transitionProps = it }
 
     setStyledPropsAndRunHandler(className, handler)
+    attrs.redefineTypedProps()
 }
 
 

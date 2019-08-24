@@ -26,7 +26,7 @@ enum class MListSubheaderColor {
 }
 
 interface MListSubheaderProps : MButtonBaseProps {
-    var color: String
+    var color: MListSubheaderColor
     var disableGutters: Boolean
     var disableSticky: Boolean
     var inset: Boolean
@@ -47,7 +47,7 @@ fun RBuilder.mListSubheader(
         addAsChild: Boolean = true,
         className: String? = null,
         handler: StyledHandler<MListSubheaderProps>? = null) = createStyled(listSubheaderComponent, addAsChild) {
-    attrs.color = color.toString()
+    attrs.color = color
     component?.let { attrs.component = component }
     attrs.disableGutters = disableGutters
     attrs.disableSticky = disableSticky
@@ -63,6 +63,7 @@ fun RBuilder.mListSubheader(
     }
 
     setStyledPropsAndRunHandler(className, handler)
+    attrs.asDynamic().color = attrs.color.toString()
 }
 
 /**
@@ -78,11 +79,12 @@ fun RBuilder.mListSubheader(
         addAsChild: Boolean = true,
         className: String? = null,
         handler: StyledHandler<MListSubheaderProps>? = null) = createStyled(listSubheaderComponent, addAsChild) {
-    attrs.color = color.toString()
+    attrs.color = color
     component?.let { attrs.component = component }
     attrs.disableGutters = disableGutters
     attrs.disableSticky = disableSticky
     attrs.inset = inset
 
     setStyledPropsAndRunHandler(className, handler)
+    attrs.asDynamic().color = attrs.color.toString()
 }

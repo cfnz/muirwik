@@ -36,7 +36,6 @@ fun RBuilder.mCardHeader(title: String,
                          action: ReactElement? = null,
                          className: String? = null,
                          handler: StyledHandler<MCardHeaderProps>? = null): ReactElement {
-
     val titleNode: Node? = title.asDynamic()
     val subHeaderNode: Node? = subHeader?.asDynamic()
     return mCardHeader(titleNode, subHeaderNode, avatar, action, className = className, handler = handler)
@@ -49,20 +48,12 @@ fun RBuilder.mCardHeader(title: Node? = null,
                          subHeader: Node? = null,
                          avatar: ReactElement? = null,
                          action: ReactElement? = null,
-                         component: String? = "div",
-                         disableTypography: Boolean? = false,
-                         titleTypographyProps: RProps? = null,
-                         subHeaderTypographyProps: RProps? = null,
                          className: String? = null,
                          handler: StyledHandler<MCardHeaderProps>? = null) = createStyled(cardHeaderComponent) {
     action?.let { attrs.action = it }
     avatar?.let { attrs.avatar = it }
-    component?.let { attrs.component = it }
-    disableTypography?.let { attrs.disableTypography = it }
     subHeader?.let { attrs.subheader = it }
-    subHeaderTypographyProps?.let { attrs.subheaderTypographyProps = it }
     title?.let { attrs.title = it }
-    titleTypographyProps?.let { attrs.titleTypographyProps = it }
 
     setStyledPropsAndRunHandler(className, handler)
 }

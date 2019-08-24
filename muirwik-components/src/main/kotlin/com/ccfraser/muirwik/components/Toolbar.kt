@@ -23,7 +23,7 @@ enum class ToolbarVariant {
 
 interface MToolbarProps : StyledProps {
     var disableGutters: Boolean
-    var variant: String
+    var variant: ToolbarVariant
 }
 
 fun RBuilder.mToolbar(
@@ -33,9 +33,10 @@ fun RBuilder.mToolbar(
         className: String? = null,
         handler: StyledHandler<MToolbarProps>? = null) = createStyled(toolbarComponent) {
     attrs.disableGutters = disableGutters
-    attrs.variant = variant.toString()
+    attrs.variant = variant
 
     setStyledPropsAndRunHandler(className, handler)
+    attrs.asDynamic().variant = attrs.variant.toString()
 }
 
 /**

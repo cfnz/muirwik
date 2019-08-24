@@ -1,10 +1,10 @@
 package com.ccfraser.muirwik.components.input
 
+import com.ccfraser.muirwik.components.StyledPropsWithCommonAttributes
 import org.w3c.dom.events.Event
 import react.RProps
 import react.RRef
 import react.ReactElement
-import styled.StyledProps
 
 
 /*
@@ -17,7 +17,12 @@ import styled.StyledProps
 //@Suppress("UnsafeCastFromDynamic")
 //private val inputBaseComponent: RComponent<MInputBaseProps, RState> = inputBaseModule.default
 
-interface MInputBaseProps : StyledProps {
+@Suppress("EnumEntryName")
+enum class MInputMargin {
+    dense, none
+}
+
+interface MInputBaseProps : StyledPropsWithCommonAttributes {
     var autoComplete: String
     var autoFocus: Boolean
     var defaultValue: String
@@ -25,11 +30,10 @@ interface MInputBaseProps : StyledProps {
     var endAdornment: ReactElement
     var error: Boolean
     var fullWidth: Boolean
-    var id: String
     var inputComponent: String
     var inputProps: RProps
     var inputRef: RRef
-    var margin: String
+    var margin: MInputMargin
     var multiline: Boolean
     var name: String
     var onChange: (Event) -> Unit
@@ -43,7 +47,9 @@ interface MInputBaseProps : StyledProps {
     var value: Any
 }
 
-
+fun MInputBaseProps.redefineInputBaseDefinedProps() {
+    if (margin != undefined) this.asDynamic().margin = margin.toString()
+}
 
 
 

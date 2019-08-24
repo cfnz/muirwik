@@ -4,7 +4,6 @@ import react.RBuilder
 import react.RComponent
 import react.RState
 import styled.StyledHandler
-import styled.StyledProps
 
 
 @JsModule("@material-ui/core/AppBar")
@@ -18,9 +17,14 @@ enum class MAppBarPosition {
     fixed, absolute, sticky, static, relative
 }
 
-interface MAppBarProps : StyledProps {
-    var color: String
-    var position: String
+interface MAppBarProps : StyledPropsWithCommonAttributes {
+    var color: MColor
+    var position: MAppBarPosition
+}
+
+private fun MAppBarProps.redefineTypedProps() {
+    this.asDynamic().color = color.toString()
+    this.asDynamic().position = position.toString()
 }
 
 fun RBuilder.mAppBar(
@@ -30,9 +34,10 @@ fun RBuilder.mAppBar(
         className: String? = null,
         handler: StyledHandler<MAppBarProps>? = null) = createStyled(iconComponent) {
 
-    attrs.color = color.toString()
-    attrs.position = position.toString()
+    attrs.color = color
+    attrs.position = position
 
     setStyledPropsAndRunHandler(className, handler)
+    attrs.redefineTypedProps()
 }
 

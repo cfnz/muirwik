@@ -39,21 +39,29 @@ enum class MTabOrientation {
 interface MTabsProps: StyledProps {
     var action: (actions: Any) -> Unit
     var centered: Boolean
-    var indicatorColor: String
+    var indicatorColor: MTabIndicatorColor
     var onChange: (event: Event, indexValue: Any) -> Unit
-    var orientation: String
+    var orientation: MTabOrientation
 
     @JsName("ScrollButtonComponent")
     var scrollButtonComponent: ReactElement
 
-    var scrollButtons: String
+    var scrollButtons: MTabScrollButtons
 
     @JsName("TabIndicatorProps")
     var tabIndicatorProps: RProps
 
-    var textColor: String
+    var textColor: MTabTextColor
     var value: Any
-    var variant: String
+    var variant: MTabVariant
+}
+
+private fun MTabsProps.redefineTypedProps() {
+    this.asDynamic().indicatorColor = indicatorColor.toString()
+    this.asDynamic().orientation = orientation.toString()
+    this.asDynamic().scrollButtons = scrollButtons.toString()
+    this.asDynamic().textColor = textColor.toString()
+    this.asDynamic().variant = variant.toString()
 }
 
 fun RBuilder.mTabs(
@@ -74,17 +82,18 @@ fun RBuilder.mTabs(
         handler: StyledHandler<MTabsProps>? = null) = createStyled(tabsComponent) {
     action?.let { attrs.action = it }
     attrs.centered = centered
-    attrs.indicatorColor = indicatorColor.toString()
+    attrs.indicatorColor = indicatorColor
     onChange?.let { attrs.onChange = it }
-    attrs.orientation = orientation.toString()
+    attrs.orientation = orientation
     scrollButtonComponent?.let { attrs.scrollButtonComponent = it }
-    attrs.scrollButtons = scrollButtons.toString()
+    attrs.scrollButtons = scrollButtons
     tabIndicatorProps?.let { attrs.tabIndicatorProps = it }
-    attrs.textColor = textColor.toString()
+    attrs.textColor = textColor
     attrs.value = value
-    attrs.variant = variant.toString()
+    attrs.variant = variant
 
     setStyledPropsAndRunHandler(className, handler)
+    attrs.redefineTypedProps()
 }
 
 

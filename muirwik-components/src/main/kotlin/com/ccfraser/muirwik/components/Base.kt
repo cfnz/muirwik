@@ -121,8 +121,8 @@ enum class MColor {
 }
 
 @Suppress("EnumEntryName")
-enum class MMargin {
-    none, dense, normal
+enum class MOptionColor {
+    primary, secondary, default
 }
 
 // This is moving to Breakpoint

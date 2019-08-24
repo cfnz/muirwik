@@ -20,9 +20,14 @@ private val inputLabelComponent: RComponent<MInputLabelProps, RState> = inputLab
 interface MInputLabelProps : MFormLabelProps {
     var disableAnimation: Boolean
 
-    var margin: String
+    var margin: MLabelMargin
     var shrink: Boolean
-    var variant: String
+    var variant: MFormControlVariant
+}
+
+private fun MInputLabelProps.redefineTypedProps() {
+    if (margin != undefined) this.asDynamic().margin = margin.toString()
+    this.asDynamic().variant = variant.toString()
 }
 
 fun RBuilder.mInputLabel (
@@ -46,7 +51,7 @@ fun RBuilder.mInputLabel (
     htmlFor?.let { attrs.htmlFor = it }
     error?.let { attrs.error = it }
     focused?.let { attrs.focused = it }
-    margin?.let { attrs.margin = it.toString() }
+    margin?.let { attrs.margin = it }
     required?.let { attrs.required = it }
     shrink?.let {
         // The input label acts strange if it is set to false, best not to set it
@@ -55,8 +60,9 @@ fun RBuilder.mInputLabel (
             attrs.shrink = it
         }
     }
-    attrs.variant = variant.toString()
+    attrs.variant = variant
 
     childList.add(caption)
     setStyledPropsAndRunHandler(className,  handler)
+    attrs.redefineTypedProps()
 }

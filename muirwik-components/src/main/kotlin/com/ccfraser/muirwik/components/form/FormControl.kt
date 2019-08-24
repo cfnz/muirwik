@@ -1,6 +1,6 @@
 package com.ccfraser.muirwik.components.form
 
-import com.ccfraser.muirwik.components.MMargin
+import com.ccfraser.muirwik.components.StyledPropsWithCommonAttributes
 import com.ccfraser.muirwik.components.createStyled
 import com.ccfraser.muirwik.components.setStyledPropsAndRunHandler
 import com.ccfraser.muirwik.components.toHyphenCase
@@ -8,7 +8,6 @@ import react.RBuilder
 import react.RComponent
 import react.RState
 import styled.StyledHandler
-import styled.StyledProps
 
 
 @JsModule("@material-ui/core/FormControl")
@@ -36,15 +35,26 @@ enum class MFormControlComponent {
     }
 }
 
-interface MFormControlProps : StyledProps {
-    var component: String
+@Suppress("EnumEntryName")
+enum class MFormControlMargin {
+    none, dense, normal
+}
+
+interface MFormControlProps : StyledPropsWithCommonAttributes {
+    var component: MFormControlComponent
     var disabled: Boolean
     var error: Boolean
     var fullWidth: Boolean
     var hiddenLabel: Boolean
-    var margin: String?
+    var margin: MFormControlMargin?
     var required: Boolean
-    var variant: String
+    var variant: MFormControlVariant
+}
+
+fun MFormControlProps.redefineFormControlTypedProps() {
+    if (margin != undefined) this.asDynamic().margin = margin.toString()
+    if (component != undefined) this.asDynamic().component = component.toString()
+    if (variant != undefined) this.asDynamic().variant = variant.toString()
 }
 
 fun RBuilder.mFormControl(
@@ -52,20 +62,21 @@ fun RBuilder.mFormControl(
         disabled: Boolean = false,
         error: Boolean = false,
         fullWidth: Boolean = false,
-        margin: MMargin? = null,
+        margin: MFormControlMargin? = null,
         required: Boolean = false,
         variant: MFormControlVariant = MFormControlVariant.standard,
         hiddenLabel: Boolean = false,
         className: String? = null,
         handler: StyledHandler<MFormControlProps>? = null) = createStyled(formControlComponent) {
-    attrs.component = component.toString()
+    attrs.component = component
     attrs.disabled = disabled
     attrs.error = error
     attrs.fullWidth = fullWidth
     attrs.hiddenLabel = hiddenLabel
-    margin?.let { attrs.margin = margin.toString() }
+    margin?.let { attrs.margin = it }
     attrs.required = required
-    attrs.variant = variant.toString()
+    attrs.variant = variant
 
     setStyledPropsAndRunHandler(className, handler)
+    attrs.redefineFormControlTypedProps()
 }

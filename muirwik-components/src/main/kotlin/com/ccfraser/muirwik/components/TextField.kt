@@ -1,7 +1,9 @@
 package com.ccfraser.muirwik.components
 
+import com.ccfraser.muirwik.components.form.MFormControlMargin
 import com.ccfraser.muirwik.components.form.MFormControlProps
 import com.ccfraser.muirwik.components.form.MFormControlVariant
+import com.ccfraser.muirwik.components.form.redefineFormControlTypedProps
 import kotlinx.html.InputType
 import org.w3c.dom.events.Event
 import react.RBuilder
@@ -17,11 +19,6 @@ private external val textFieldDefault: dynamic
 @Suppress("UnsafeCastFromDynamic")
 private val textFieldComponent: RComponent<MTextFieldProps, RState> = textFieldDefault.default
 
-@Suppress("EnumEntryName")
-enum class MTextFieldMargin {
-    none, dense, normal
-}
-
 interface MTextFieldProps : MFormControlProps {
     var autoComplete: String
     var autoFocus: Boolean
@@ -31,7 +28,7 @@ interface MTextFieldProps : MFormControlProps {
     var formHelperTextProps: RProps
 
     var helperText: String
-    var id: String
+//    var id: String
 
     @JsName("InputLabelProps")
     var inputLabelProps: RProps
@@ -86,7 +83,7 @@ fun RBuilder.mTextField(
         nativeInputProps: RProps? = null,
         formHelperTextProps: RProps? = null,
 
-        margin: MTextFieldMargin = MTextFieldMargin.normal,
+        margin: MFormControlMargin = MFormControlMargin.normal,
 
         autoComplete: String? = null,
         id: String? = null,
@@ -107,7 +104,7 @@ fun RBuilder.mTextField(
     inputProps?.let { attrs.inputProps = inputProps }
     nativeInputProps?.let { attrs.nativeInputProps = nativeInputProps }
     attrs.label = label
-    attrs.margin = margin.toString()
+    attrs.margin = margin
     attrs.multiline = false
     name?.let { attrs.name = it }
     onChange?.let { attrs.onChange = onChange }
@@ -116,9 +113,10 @@ fun RBuilder.mTextField(
     attrs.select = false
     attrs.type = type.toString()
     value?.let { attrs.value = value }
-    attrs.variant = variant.toString()
+    attrs.variant = variant
 
     setStyledPropsAndRunHandler(className, handler)
+    attrs.redefineFormControlTypedProps()
 }
 
 fun RBuilder.mTextFieldMultiLine(
@@ -140,7 +138,7 @@ fun RBuilder.mTextFieldMultiLine(
         nativeInputProps: RProps? = null,
         formHelperTextProps: RProps? = null,
 
-        margin: MTextFieldMargin = MTextFieldMargin.normal,
+        margin: MFormControlMargin = MFormControlMargin.normal,
         rows: Int? = null,
         rowsMax: Int? = null,
 
@@ -161,7 +159,7 @@ fun RBuilder.mTextFieldMultiLine(
     inputProps?.let { attrs.inputProps = inputProps }
     nativeInputProps?.let { attrs.nativeInputProps = nativeInputProps }
     attrs.label = label
-    attrs.margin = margin.toString()
+    attrs.margin = margin
     attrs.multiline = true
     name?.let { attrs.name = it }
     onChange?.let { attrs.onChange = onChange }
@@ -172,9 +170,10 @@ fun RBuilder.mTextFieldMultiLine(
     attrs.select = false
     attrs.type = InputType.text.toString()
     value?.let { attrs.value = value }
-    attrs.variant = variant.toString()
+    attrs.variant = variant
 
     setStyledPropsAndRunHandler(className, handler)
+    attrs.redefineFormControlTypedProps()
 }
 
 /**
@@ -200,7 +199,7 @@ fun RBuilder.mTextFieldSelect(
         formHelperTextProps: RProps? = null,
         selectProps: RProps? = null,
 
-        margin: MTextFieldMargin = MTextFieldMargin.normal,
+        margin: MFormControlMargin = MFormControlMargin.normal,
 
         autoComplete: String? = null,
         id: String? = null,
@@ -221,7 +220,7 @@ fun RBuilder.mTextFieldSelect(
     inputProps?.let { attrs.inputProps = inputProps }
     nativeInputProps?.let { attrs.nativeInputProps = nativeInputProps }
     attrs.label = label
-    attrs.margin = margin.toString()
+    attrs.margin = margin
     attrs.multiline = true
     name?.let { attrs.name = it }
     onChange?.let { attrs.onChange = onChange }
@@ -231,9 +230,10 @@ fun RBuilder.mTextFieldSelect(
     selectProps?.let { attrs.selectProps = selectProps }
     attrs.type = InputType.text.toString()
     value?.let { attrs.value = value }
-    attrs.variant = variant.toString()
+    attrs.variant = variant
 
     setStyledPropsAndRunHandler(className, handler)
+    attrs.redefineFormControlTypedProps()
 }
 
 /**
@@ -261,7 +261,7 @@ fun RBuilder.mTextFieldFull(
         formHelperTextProps: RProps? = null,
         selectProps: RProps? = null,
 
-        margin: MTextFieldMargin = MTextFieldMargin.normal,
+        margin: MFormControlMargin = MFormControlMargin.normal,
         multiline: Boolean = false,
         rows: Int? = null,
         rowsMax: Int? = null,
@@ -285,7 +285,7 @@ fun RBuilder.mTextFieldFull(
     inputProps?.let { attrs.inputProps = inputProps }
     nativeInputProps?.let { attrs.nativeInputProps = nativeInputProps }
     attrs.label = label
-    attrs.margin = margin.toString()
+    attrs.margin = margin
     attrs.multiline = multiline
     name?.let { attrs.name = it }
     onChange?.let { attrs.onChange = onChange }
@@ -297,6 +297,8 @@ fun RBuilder.mTextFieldFull(
     selectProps?.let { attrs.selectProps = selectProps }
     attrs.type = type.toString()
     value?.let { attrs.value = value }
-    attrs.variant = variant.toString()
+    attrs.variant = variant
+
     setStyledPropsAndRunHandler(className, handler)
+    attrs.redefineFormControlTypedProps()
 }

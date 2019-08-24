@@ -5,7 +5,6 @@ import com.ccfraser.muirwik.components.input.MInputMargin
 import org.w3c.dom.events.Event
 import react.*
 import styled.StyledHandler
-import styled.StyledProps
 
 
 @JsModule("@material-ui/core/NativeSelect")
@@ -14,24 +13,28 @@ private external val nativeSelectModule: dynamic
 @Suppress("UnsafeCastFromDynamic")
 private val nativeSelectComponent: RComponent<MNativeSelectProps, RState> = nativeSelectModule.default
 
-interface MNativeSelectProps : StyledProps {
+interface MNativeSelectProps : StyledPropsWithCommonAttributes {
     var autoFocus: Boolean
     var disabled: Boolean
     var error: Boolean
     var fullWidth: Boolean
-    var id: String
 
     @JsName("IconComponent")
     var iconComponent: RComponent<MIconProps, RState>?
 
     var input: ReactElement?
     var inputProps: RProps
-    var margin: String
+    var margin: MInputMargin
     var multiple: Boolean
     var name: String
     var onChange: ((event: Event, child: ReactElement?) -> Unit)?
     var value: Any
-    var variant: String
+    var variant: MFormControlVariant
+}
+
+private fun MNativeSelectProps.redefineTypedProps() {
+    if (margin != undefined) this.asDynamic().margin = margin.toString()
+    this.asDynamic().variant = variant.toString()
 }
 
 /**
@@ -67,14 +70,15 @@ fun RBuilder.mNativeSelect(
     id?.let { attrs.id = it }
     input?.let { attrs.input = it }
     inputProps?.let { attrs.inputProps = it }
-    margin?.let { attrs.margin = it.toString().toLowerCase() }
+    margin?.let { attrs.margin = it }
     attrs.multiple = multiple
     name?.let { attrs.name = it }
     onChange?.let { attrs.onChange = it }
     value?.let { attrs.value = it }
-    attrs.variant = variant.toString()
+    attrs.variant = variant
 
     setStyledPropsAndRunHandler(className, handler)
+    attrs.redefineTypedProps()
 }
 
 

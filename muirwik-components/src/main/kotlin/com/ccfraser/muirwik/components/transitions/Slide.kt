@@ -20,7 +20,7 @@ enum class SlideTransitionDirection {
 }
 
 external interface MSlideProps : MTransitionProps {
-    var direction: String
+    var direction: SlideTransitionDirection
 }
 
 fun RBuilder.mSlide(
@@ -31,7 +31,7 @@ fun RBuilder.mSlide(
         addAsChild: Boolean = true,
         className: String? = null,
         handler: StyledHandler<MSlideProps>? = null) = createStyled(slideComponent, addAsChild) {
-    attrs.direction = direction.toString()
+    attrs.direction = direction
     attrs.show = show
     timeout?.let { attrs.timeout = timeout.value() }
 
@@ -40,5 +40,6 @@ fun RBuilder.mSlide(
     attrs.asDynamic().unmountOnExit = true
 
     setStyledPropsAndRunHandler(className, handler)
+    attrs.asDynamic().direction = attrs.direction.toString()
 }
 

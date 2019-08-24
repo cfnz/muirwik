@@ -4,7 +4,6 @@ import com.ccfraser.muirwik.components.*
 import org.w3c.dom.events.Event
 import react.RBuilder
 import react.RComponent
-import react.RProps
 import react.RState
 import styled.StyledHandler
 
@@ -16,11 +15,17 @@ private external val iconButtonModule: dynamic
 private val iconButtonComponent: RComponent<MIconButtonProps, RState> = iconButtonModule.default
 
 interface MIconButtonProps : MButtonBaseProps {
-    var color: String
+    var color: MColor
     var disableFocusRipple: Boolean
-    var edge: String
+    var edge: MIconEdge
     var href: String
-    var size: String
+    var size: MIconButtonSize
+}
+
+private fun MIconButtonProps.redefineTypedProps() {
+    this.asDynamic().color = color.toString()
+    if (edge != undefined) this.asDynamic().edge = edge.toString()
+    this.asDynamic().size = size.toString()
 }
 
 @Suppress("EnumEntryName")
@@ -40,37 +45,22 @@ enum class MIconEdge {
  */
 fun RBuilder.mIconButton(
         iconName: String? = null,
-        primary: Boolean = false, // If true, then this overrides the color... just an easier setter...
-        onClick: ((Event) -> Unit)? = null,
-        disabled: Boolean = false,
         color: MColor = MColor.default,
+        disabled: Boolean = false,
+        onClick: ((Event) -> Unit)? = null,
         size: MIconButtonSize = MIconButtonSize.medium,
         hRefOptions: HRefOptions? = null,
         iconColor: MIconColor? = null,
         edge: MIconEdge? = null,
 
-        centerRipple: Boolean = false,
-        focusRipple: Boolean = false,
-        disableFocusRipple: Boolean = false,
-        disableRipple: Boolean = false,
-        touchRippleProps: RProps? = null,
-
-        onKeyboardFocus: ((Event) -> Unit)? = null,
-
         addAsChild: Boolean = true,
         className: String? = null,
         handler: StyledHandler<MIconButtonProps>? = null) = createStyled(iconButtonComponent, addAsChild) {
-    attrs.centerRipple = centerRipple
-    attrs.color = if (primary) MColor.primary.toString() else color.toString()
+    attrs.color = color
     attrs.disabled = disabled
-    attrs.disableFocusRipple = disableFocusRipple
-    attrs.disableRipple = disableRipple
-    edge?.let { attrs.edge = it.toString() }
-    attrs.focusRipple = focusRipple
+    edge?.let { attrs.edge = it }
     hRefOptions?.let { setHRefTargetNoOpener(attrs, it) }
     onClick?.let { attrs.onClick = onClick }
-    onKeyboardFocus?.let {attrs.onKeyboardFocus = onKeyboardFocus}
-    touchRippleProps?.let { attrs.touchRippleProps = touchRippleProps }
 
     var iconColorToUse = iconColor
     // If the iconColor is null, we shall map to the button color if we can
@@ -82,15 +72,16 @@ fun RBuilder.mIconButton(
             MColor.primary -> MIconColor.primary
         }
     }
-    attrs.size = size.toString()
+    attrs.size = size
     if (iconName != null) {
         val fontSize = when (size) {
             MIconButtonSize.small -> MIconFontSize.small
             MIconButtonSize.medium -> MIconFontSize.default
         }
 
-        mIcon(iconName, primary = primary, color = iconColorToUse, fontSize = fontSize)
+        mIcon(iconName, color = iconColorToUse, fontSize = fontSize)
     }
 
     setStyledPropsAndRunHandler(className, handler)
+    attrs.redefineTypedProps()
 }

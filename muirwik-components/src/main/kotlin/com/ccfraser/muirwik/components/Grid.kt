@@ -3,7 +3,6 @@ package com.ccfraser.muirwik.components
 import com.ccfraser.muirwik.components.styles.Breakpoint
 import react.RBuilder
 import react.RComponent
-import react.RHandler
 import react.RState
 import styled.StyledHandler
 import styled.StyledProps
@@ -22,7 +21,11 @@ enum class MGridAlignContent {
     flexStart,
     flexEnd,
     spaceBetween,
-    spaceAround
+    spaceAround;
+
+    override fun toString(): String {
+        return super.toString().toHyphenCase()
+    }
 }
 
 @Suppress("EnumEntryName")
@@ -31,7 +34,11 @@ enum class MGridAlignItems {
     center,
     flexStart,
     flexEnd,
-    baseline
+    baseline;
+
+    override fun toString(): String {
+        return super.toString().toHyphenCase()
+    }
 }
 
 @Suppress("EnumEntryName")
@@ -39,7 +46,11 @@ enum class MGridDirection {
     row,
     rowReverse,
     column,
-    columnReverse
+    columnReverse;
+
+    override fun toString(): String {
+        return super.toString().toHyphenCase()
+    }
 }
 
 @Suppress("EnumEntryName")
@@ -48,7 +59,11 @@ enum class MGridJustify {
     center,
     flexEnd,
     spaceBetween,
-    spaceAround
+    spaceAround;
+
+    override fun toString(): String {
+        return super.toString().toHyphenCase()
+    }
 }
 
 @Suppress("EnumEntryName")
@@ -72,7 +87,15 @@ enum class MGridSize(internal val sizeVal: Any) {
 
 @Suppress("EnumEntryName")
 enum class MGridWrap {
-    noWrap, wrap, wrapReverse
+    noWrap, wrap, wrapReverse;
+
+    override fun toString(): String {
+        return when(this) {
+            noWrap -> "nowrap"
+            wrap -> "wrap"
+            wrapReverse -> "wrap-reverse"
+        }
+    }
 }
 
 enum class MGridSpacing(val size: Int) {
@@ -123,18 +146,35 @@ data class MGridBreakpoints(
 
 
 interface MGridProps : StyledProps {
-    var alignContent: String
-    var alignItems: String
+    var alignContent: MGridAlignContent
+    var alignItems: MGridAlignItems
+    var component: String
     var container: Boolean
+    var direction: MGridDirection
     var item: Boolean
-    var lg: Any
-    var md: Any
-    var sm: Any
-    var spacing: Int
-    var xl: Any
-    var xs: Any
-    var wrap: String
+    var justify: MGridJustify
+    var lg: MGridSize
+    var md: MGridSize
+    var sm: MGridSize
+    var spacing: MGridSpacing
+    var wrap: MGridWrap
+    var xl: MGridSize
+    var xs: MGridSize
     var zeroMinWidth: Boolean
+}
+
+private fun MGridProps.redefineTypedProps() {
+    if (alignContent != undefined) this.asDynamic().alignContent = alignContent.toString()
+    if (alignItems != undefined) this.asDynamic().alignItems = alignItems.toString()
+    if (direction != undefined) this.asDynamic().direction = direction.toString()
+    if (justify != undefined) this.asDynamic().justify = justify.toString()
+    if (lg != undefined) this.asDynamic().lg = lg.sizeVal
+    if (md != undefined) this.asDynamic().md = md.sizeVal
+    if (sm != undefined) this.asDynamic().sm = sm.sizeVal
+    if (spacing != undefined) this.asDynamic().spacing = spacing.size
+    if (wrap != undefined) this.asDynamic().wrap = wrap.toString()
+    if (xl != undefined) this.asDynamic().xl = xl.sizeVal
+    if (xs != undefined) this.asDynamic().xs = xs.sizeVal
 }
 
 /**
@@ -146,17 +186,20 @@ fun RBuilder.mGridContainer(
         spacing: MGridSpacing = MGridSpacing.spacing0,
         alignContent: MGridAlignContent = MGridAlignContent.stretch,
         alignItems: MGridAlignItems = MGridAlignItems.stretch,
+        justify: MGridJustify = MGridJustify.flexStart,
         wrap: MGridWrap = MGridWrap.wrap,
 
         className: String? = null,
         handler: StyledHandler<MGridProps>? = null) = createStyled(gridComponent) {
-    attrs.alignContent = alignContent.toString()
-    attrs.alignItems = alignItems.toString()
+    attrs.alignContent = alignContent
+    attrs.alignItems = alignItems
     attrs.container = true
-    attrs.spacing = spacing.size
-    attrs.wrap = wrap.toString()
+    attrs.justify = justify
+    attrs.spacing = spacing
+    attrs.wrap = wrap
 
     setStyledPropsAndRunHandler(className, handler)
+    attrs.redefineTypedProps()
 }
 
 fun RBuilder.mGridItem(
@@ -168,29 +211,30 @@ fun RBuilder.mGridItem(
         zeroMinWidth: Boolean? = null,
 
         className: String? = null,
-        handler: RHandler<MGridProps>? = null) = createStyled(gridComponent) {
+        handler: StyledHandler<MGridProps>? = null) = createStyled(gridComponent) {
     attrs.item = true
-    attrs.sm = sm.sizeVal
-    attrs.md = md.sizeVal
-    attrs.lg = lg.sizeVal
-    attrs.xs = xs.sizeVal
-    attrs.xl = xl.sizeVal
+    attrs.sm = sm
+    attrs.md = md
+    attrs.lg = lg
+    attrs.xs = xs
+    attrs.xl = xl
     zeroMinWidth?.let { attrs.zeroMinWidth = it }
 
     setStyledPropsAndRunHandler(className, handler)
+    attrs.redefineTypedProps()
 }
 
 fun RBuilder.mGridItem(
         breakpoints: MGridBreakpoints,
         className: String? = null,
-        handler: RHandler<MGridProps>? = null) =
-        mGridItem(
-                breakpoints.xs,
-                breakpoints.sm,
-                breakpoints.md,
-                breakpoints.lg,
-                breakpoints.xl,
-                null,
-                className,
-                handler
-        )
+        handler: StyledHandler<MGridProps>? = null) =
+    mGridItem(
+            breakpoints.xs,
+            breakpoints.sm,
+            breakpoints.md,
+            breakpoints.lg,
+            breakpoints.xl,
+            null,
+            className,
+            handler
+    )

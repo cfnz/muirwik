@@ -5,7 +5,6 @@ import com.ccfraser.muirwik.components.input.MInputMargin
 import org.w3c.dom.events.Event
 import react.*
 import styled.StyledHandler
-import styled.StyledProps
 
 
 @JsModule("@material-ui/core/Select")
@@ -14,7 +13,7 @@ private external val selectModule: dynamic
 @Suppress("UnsafeCastFromDynamic")
 private val selectComponent: RComponent<MSelectProps, RState> = selectModule.default
 
-interface MSelectProps : StyledProps {
+interface MSelectProps : StyledPropsWithCommonAttributes {
     var autoFocus: Boolean
     var autoWidth: Boolean
     var disabled: Boolean
@@ -22,7 +21,6 @@ interface MSelectProps : StyledProps {
     var endAdornment: ReactElement
     var error: Boolean
     var fullWidth: Boolean
-    var id: String
 
     @JsName("IconComponent")
     var iconComponent: RComponent<MIconProps, RState>?

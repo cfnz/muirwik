@@ -26,10 +26,15 @@ enum class TitlePosition {
 
 interface MGridListTileBarProps: StyledProps {
     var actionIcon: ReactElement
-    var actionPosition: String
+    var actionPosition: ActionPosition
     var subtitle: ReactElement
     var title: ReactElement
-    var titlePosition: String
+    var titlePosition: TitlePosition
+}
+
+private fun MGridListTileBarProps.redefineTypedProps() {
+    this.asDynamic().actionPosition = actionPosition.toString()
+    this.asDynamic().titlePosition = titlePosition.toString()
 }
 
 /**
@@ -45,7 +50,7 @@ fun RBuilder.mGridListTileBar(
         className: String? = null,
         handler: StyledHandler<MGridListTileBarProps>? = null) = createStyled(gridListTileBarComponent) {
     actionIcon?.let { attrs.actionIcon = it }
-    attrs.actionPosition = actionPosition.toString()
+    attrs.actionPosition = actionPosition
 
     @Suppress("UnsafeCastFromDynamic")
     subtitle?.let { attrs.subtitle = it.asDynamic() }
@@ -53,9 +58,10 @@ fun RBuilder.mGridListTileBar(
     @Suppress("UnsafeCastFromDynamic")
     attrs.title = title.asDynamic()
 
-    attrs.titlePosition = titlePosition.toString()
+    attrs.titlePosition = titlePosition
 
     setStyledPropsAndRunHandler(className, handler)
+    attrs.redefineTypedProps()
 }
 
 fun RBuilder.mGridListTileBar(
@@ -68,10 +74,11 @@ fun RBuilder.mGridListTileBar(
         className: String? = null,
         handler: StyledHandler<MGridListTileBarProps>? = null) = createStyled(gridListTileBarComponent) {
     actionIcon?.let { attrs.actionIcon = it }
-    attrs.actionPosition = actionPosition.toString()
+    attrs.actionPosition = actionPosition
     subtitle?.let { attrs.subtitle = it }
     attrs.title = title
-    attrs.titlePosition = titlePosition.toString()
+    attrs.titlePosition = titlePosition
 
     setStyledPropsAndRunHandler(className, handler)
+    attrs.redefineTypedProps()
 }

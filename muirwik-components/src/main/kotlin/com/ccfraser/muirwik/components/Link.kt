@@ -17,7 +17,12 @@ interface MLinkProps: MTypographyProps {
     @JsName("TypographyClasses")
     var typographyClasses: String
 
-    var underline: String
+    var underline: MLinkUnderline
+}
+
+fun MLinkProps.redefineTypedProps() {
+    redefineTypographyTypedProps()
+    this.asDynamic().underline = underline.toString()
 }
 
 @Suppress("EnumEntryName")
@@ -45,18 +50,19 @@ fun RBuilder.mLink(
 
         className: String? = null,
         handler: StyledHandler<MLinkProps>? = null) = createStyled(linkComponent) {
-    attrs.align = align.toString()
-    attrs.color = color.toString()
+    attrs.align = align
+    attrs.color = color
     component?.let { attrs.component = it }
     attrs.gutterBottom = gutterBottom
     hRefOptions?.let { setHRefTargetNoOpener(attrs, it) }
     attrs.noWrap = noWrap
     attrs.paragraph = paragraph
-    attrs.underline = underline.toString()
-    attrs.variant = variant.toString()
+    attrs.underline = underline
+    attrs.variant = variant
     typographyClasses?.let { attrs.typographyClasses = it }
     text?.let {childList.add(it)}
 
     setStyledPropsAndRunHandler(className, handler)
+    attrs.redefineTypedProps()
 }
 

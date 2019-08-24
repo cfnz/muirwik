@@ -7,7 +7,6 @@ import react.RComponent
 import react.RState
 import react.ReactElement
 import styled.StyledHandler
-import styled.StyledProps
 
 
 @JsModule("@material-ui/core/BottomNavigation")
@@ -17,7 +16,7 @@ private external val bottomNavigationModule: dynamic
 private val bottomNavigationComponent: RComponent<MBottomNavigationProps, RState> = bottomNavigationModule.default
 
 
-interface MBottomNavigationProps: StyledProps {
+interface MBottomNavigationProps: StyledPropsWithCommonAttributes {
     var component: String
     var onChange: (event: Event, value: Any) -> Unit
     var showLabels: Boolean

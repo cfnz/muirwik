@@ -22,7 +22,7 @@ interface MDividerProps : StyledProps {
     var absolute: Boolean
     var component: String
     var light: Boolean
-    var variant: String
+    var variant: MDividerVariant
 }
 
 fun RBuilder.mDivider(
@@ -37,8 +37,10 @@ fun RBuilder.mDivider(
     attrs.absolute = absolute
     attrs.component = component
     attrs.light = light
-    attrs.variant = variant.toString()
+    attrs.variant = variant
 
     setStyledPropsAndRunHandler(className, handler)
+
+    attrs.asDynamic().variant = attrs.variant.toString()
 }
 

@@ -6,7 +6,6 @@ import react.RComponent
 import react.RProps
 import react.RState
 import styled.StyledHandler
-import styled.StyledProps
 
 
 @JsModule("@material-ui/core/Tooltip")
@@ -24,23 +23,23 @@ enum class TooltipPlacement {
     }
 }
 
-interface MTooltipProps : StyledProps {
+interface MTooltipProps : StyledPropsWithCommonAttributes {
     var disableFocusListener: Boolean
     var disableHoverListener: Boolean
     var disableTouchListener: Boolean
     var enterDelay: Int
     var enterTouchDelay: Int
-    var id: String
+//    var id: String
     var leaveDelay: Int
     var leaveTouchDelay: Int
     var onClose: Event
     var onOpen: Event
     var open: Boolean
-    var placement: String
+    var placement: TooltipPlacement
 
     @JsName("PopperProps")
     var popperProps: RProps
-    var title: String
+//    var title: String
 }
 
 fun RBuilder.mTooltip(
@@ -61,10 +60,11 @@ fun RBuilder.mTooltip(
     id?.let { attrs.id = id }
     leaveDelay?.let { attrs.leaveDelay = leaveDelay }
     leaveTouchDelay?.let { attrs.leaveTouchDelay = leaveTouchDelay }
-    attrs.placement = placement.toString()
+    attrs.placement = placement
     attrs.title = title
 
     setStyledPropsAndRunHandler(className, handler)
+    attrs.asDynamic().placement = attrs.placement.toString()
 }
 
 fun RBuilder.mTooltip(
@@ -101,10 +101,11 @@ fun RBuilder.mTooltip(
     onClose?.let { attrs.onClose = onClose }
     onOpen?.let { attrs.onOpen = onOpen }
     open?.let { attrs.open = open }
-    attrs.placement = placement.toString()
+    attrs.placement = placement
     popperProps?.let { attrs.popperProps = popperProps }
     attrs.title = title
 
     setStyledPropsAndRunHandler(className, handler)
+    attrs.asDynamic().placement = attrs.placement.toString()
 }
 

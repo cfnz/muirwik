@@ -4,7 +4,10 @@ import com.ccfraser.muirwik.components.dialog.MModalProps
 import com.ccfraser.muirwik.components.dialog.ModalOnCloseReason
 import com.ccfraser.muirwik.components.styles.Breakpoint
 import com.ccfraser.muirwik.components.transitions.MTransitionProps
+import com.ccfraser.muirwik.components.transitions.TransitionTimeout
 import kotlinext.js.Object
+import kotlinext.js.asJsObject
+import kotlinext.js.jsObject
 import org.w3c.dom.Node
 import org.w3c.dom.events.Event
 import react.*
@@ -23,11 +26,32 @@ enum class MPopoverAnchorRef {
     anchorE1, anchorPosition, none
 }
 
+enum class MPopoverHorizontalPosition {
+    left, center, right
+}
+
+enum class MPopoverVerticalPosition {
+    top, center, bottom
+}
+
+
 interface MPopoverProps : MModalProps {
     var action: (actions: Object) -> Unit
-    var anchorEl: Node
-    var anchorOrigin: dynamic
-    var anchorPosition: dynamic
+    var anchorEl: Node?
+    var anchorOriginHorizontal: MPopoverHorizontalPosition
+    var anchorOriginVertical: MPopoverVerticalPosition
+
+    /**
+     * If anchorOriginHorizontalNumeric is defined, then anchorOriginHorizontal will not be used.
+     */
+    var anchorOriginHorizontalNumeric: Int
+
+    /**
+     * If anchorOriginVerticalNumeric is defined, then anchorOriginVertical will not be used.
+     */
+    var anchorOriginVerticalNumeric: Int
+    var anchorPositionLeft: Int
+    var anchorPositionRight: Int
     var anchorReference: MPopoverAnchorRef
     var elevation: Int
     var getContentAnchorEl: () -> Node
@@ -46,21 +70,87 @@ interface MPopoverProps : MModalProps {
     @JsName("PaperProps")
     var paperProps: MPaperProps?
 
-    var transformOrigin: dynamic
+    var transformOriginHorizontal: MPopoverHorizontalPosition
+    var transformOriginVertical: MPopoverVerticalPosition
+    var transformOriginHorizontalNumeric: Int
+    var transformOriginVerticalNumeric: Int
 
     @JsName("TransitionComponent")
-    var transitionComponent: dynamic
+    var transitionComponent: KClass<out RComponent<MTransitionProps, RState>>?
 
-    var transitionDuration: dynamic
+    var transitionDuration: TransitionTimeout
 
     @JsName("TransitionProps")
     var transitionProps: RProps?
 }
 
-// TODO: Finish this
+private fun MPopoverProps.redefineTypedProps() {
+    // Need to do a bit more in this one as the real props have some java objects and we have
+    // defined some props that don't exist in the real component to try and match it.
+
+    if (anchorOriginHorizontal != undefined || anchorOriginHorizontalNumeric != undefined) {
+        this.asDynamic().anchorOrigin = jsObject { }
+        if (anchorOriginHorizontalNumeric != undefined) {
+            this.asDynamic().anchorOrigin.horizontal = anchorOriginHorizontalNumeric
+        } else {
+            this.asDynamic().anchorOrigin.horizontal = anchorOriginHorizontal.toString()
+        }
+    }
+
+    if (anchorOriginVertical != undefined || anchorOriginVerticalNumeric != undefined) {
+        if (this.asDynamic().anchorOrigin == undefined) this.asDynamic().anchorOrigin = jsObject { }
+        if (anchorOriginVerticalNumeric != undefined) {
+            this.asDynamic().anchorOrigin.vertical = anchorOriginVerticalNumeric
+        } else {
+            this.asDynamic().anchorOrigin.vertical = anchorOriginVertical.toString()
+        }
+    }
+
+    if (anchorPositionLeft != undefined || anchorPositionRight != undefined) {
+        this.asDynamic().anchorPosition = jsObject {}
+        this.asDynamic().anchorPosition.left = anchorPositionLeft
+        this.asDynamic().anchorPosition.right = anchorPositionRight
+    }
+
+    if (anchorReference != undefined) this.asDynamic().anchorReference = anchorReference.toString()
+
+    if (transformOriginHorizontal != undefined || transformOriginHorizontalNumeric != undefined) {
+        this.asDynamic().transformOrigin = jsObject { }
+        if (transformOriginHorizontalNumeric != undefined) {
+            this.asDynamic().transformOrigin.horizontal = transformOriginHorizontalNumeric
+        } else {
+            this.asDynamic().transformOrigin.horizontal = transformOriginHorizontal.toString()
+        }
+    }
+
+    if (transformOriginVertical != undefined || transformOriginVerticalNumeric != undefined) {
+        if (this.asDynamic().transformOrigin == undefined) this.asDynamic().transformOrigin = jsObject { }
+        if (transformOriginVerticalNumeric != undefined) {
+            this.asDynamic().transformOrigin.vertical = transformOriginVerticalNumeric
+        } else {
+            this.asDynamic().transformOrigin.vertical = transformOriginVertical.toString()
+        }
+    }
+
+    if (transitionDuration != undefined) {
+        this.asDynamic().transitionDuration = transitionDuration.value()
+    }
+
+    // Make sure the dummy params are not defined... assigning them to undefined was not enough... we have to delete them
+    val propsAsJsObject = this.asJsObject()
+    js("""
+        delete propsAsJsObject.anchorOriginHorizontal;
+        delete propsAsJsObject.anchorOriginHorizontalNumeric;
+        delete propsAsJsObject.anchorOriginVertical;
+        delete propsAsJsObject.anchorOriginVerticalNumeric;
+        delete propsAsJsObject.anchorReference;
+        delete propsAsJsObject.transformOriginHorizontal;
+        delete propsAsJsObject.transformOriginVertical;
+    """)
+}
+
 /**
  * Note setting maxWidth to null will disable maxWidth (i.e. pass false to the underlying Material UI component)
- * We will leave some of the props to be set by javascript
  */
 fun RBuilder.mPopover(
         open: Boolean = false,
@@ -68,69 +158,32 @@ fun RBuilder.mPopover(
         fullScreen: Boolean = false,
         fullWidth: Boolean = false,
         maxWidth: Breakpoint? = Breakpoint.sm,
-        disableAutoFocus: Boolean = false,
-        disableBackdropClick: Boolean = false,
-        disableEnforceFocus: Boolean = false,
-        disableEscapeKeyDown: Boolean = false,
-        disableRestoreFocus: Boolean = false,
+        anchorOriginHorizontal: MPopoverHorizontalPosition = MPopoverHorizontalPosition.left,
+        anchorOriginVertical: MPopoverVerticalPosition = MPopoverVerticalPosition.top,
         hideBackdrop: Boolean = false,
         keepMounted: Boolean = false,
-        backdropComponent: ReactElement? = null,
-        backdropProps: RProps? = null,
         closeAfterTransition: Boolean = false,
 
         onBackdropClick: SimpleEvent? = null,
         onClose: ((Event, reason: ModalOnCloseReason) -> Unit)? = null,
         onEscapeKeyDown: SimpleEvent? = null,
-        onRendered: SimpleEvent? = null,
-        onEnter: SimpleEvent? = null,
-        onEntered: SimpleEvent? = null,
-        onEntering: SimpleEvent? = null,
-        onExit: SimpleEvent? = null,
-        onExited: SimpleEvent? = null,
-        onExiting: SimpleEvent? = null,
-
-        paperComponent: RComponent<RProps, RState>? = null,
-        paperProps: MPaperProps? = null,
-
-        transitionComponent: KClass<out RComponent<MTransitionProps, RState>>? = null,
-        // Can't seem to get the transitionDuration working, but you can use the transitionProps, e.g.
-        //     val transitionProps = EmptyProps()
-        //     transitionProps.asDynamic().timeout = 5000
-//        transitionDuration: TransitionTimeout? = null,
-        transitionProps: RProps? = null,
 
         className: String? = null,
         handler: StyledHandler<MPopoverProps>) = createStyled(popoverComponent) {
-    backdropComponent?.let { attrs.backdropComponent = it }
-    backdropProps?.let { attrs.backdropProps = it }
+    attrs.anchorOriginHorizontal = anchorOriginHorizontal
+    attrs.anchorOriginVertical = anchorOriginVertical
     attrs.closeAfterTransition = closeAfterTransition
     container?.let { attrs.container = it }
-    attrs.disableAutoFocus = disableAutoFocus
-    attrs.disableBackdropClick = disableBackdropClick
-    attrs.disableEnforceFocus = disableEnforceFocus
-    attrs.disableEscapeKeyDown = disableEscapeKeyDown
-    attrs.disableRestoreFocus = disableRestoreFocus
     attrs.hideBackdrop = hideBackdrop
     attrs.keepMounted = keepMounted
 //    manager?.let { attrs.manager = manager }
     onBackdropClick?.let { attrs.onBackdropClick = it }
     onClose?.let { attrs.onClose = { event, string -> it(event, ModalOnCloseReason.valueOf(string)) }}
     onEscapeKeyDown?.let { attrs.onEscapeKeyDown = it }
-    onRendered?.let { attrs.onRendered = it }
     attrs.open = open
-    onEnter?.let { attrs.onEnter = it }
-    onEntered?.let { attrs.onEntered = it }
-    onEntering?.let { attrs.onEntering = it }
-    onExit?.let { attrs.onExit = it }
-    onExited?.let { attrs.onExited = it }
-    onExiting?.let { attrs.onExiting = it }
-    paperProps?.let { attrs.paperProps = it }
-    transitionComponent?.let { attrs.transitionComponent = it.js }
-//    transitionDuration?.let { attrs.transitionDuration = it }
-    transitionProps?.let { attrs.transitionProps = it }
 
     setStyledPropsAndRunHandler(className, handler)
+    attrs.redefineTypedProps()
 }
 
 

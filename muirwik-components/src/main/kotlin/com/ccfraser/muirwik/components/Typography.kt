@@ -4,7 +4,6 @@ import react.RBuilder
 import react.RComponent
 import react.RState
 import styled.StyledHandler
-import styled.StyledProps
 
 
 @JsModule("@material-ui/core/Typography")
@@ -28,14 +27,20 @@ enum class MTypographyVariant {
     h1, h2, h3, h4, h5, h6, subtitle1, subtitle2, body1, body2, caption, button, overline, srOnly, inherit
 }
 
-interface MTypographyProps : StyledProps {
-    var align: String
-    var color: String
+interface MTypographyProps : StyledPropsWithCommonAttributes {
+    var align: MTypographyAlign
+    var color: MTypographyColor
     var component: String
     var gutterBottom: Boolean
     var noWrap: Boolean
     var paragraph: Boolean
-    var variant: String
+    var variant: MTypographyVariant
+}
+
+fun MTypographyProps.redefineTypographyTypedProps() {
+    this.asDynamic().align = align.toString()
+    this.asDynamic().color = color.toString()
+    this.asDynamic().variant = variant.toString()
 }
 
 fun RBuilder.mTypography(
@@ -50,16 +55,17 @@ fun RBuilder.mTypography(
 
         className: String? = null,
         handler: StyledHandler<MTypographyProps>? = null) = createStyled(typographyComponent) {
-    attrs.align = align.toString()
-    attrs.color = color.toString()
+    attrs.align = align
+    attrs.color = color
     component?.let { attrs.component = it }
     attrs.gutterBottom = gutterBottom
     attrs.noWrap = noWrap
     attrs.paragraph = paragraph
-    attrs.variant = variant.toString()
+    attrs.variant = variant
 
     text?.let {childList.add(it)}
 
     setStyledPropsAndRunHandler(className, handler)
+    attrs.redefineTypographyTypedProps()
 }
 

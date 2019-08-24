@@ -6,7 +6,6 @@ import react.RComponent
 import react.RState
 import react.ReactElement
 import styled.StyledHandler
-import styled.StyledProps
 
 
 @JsModule("@material-ui/core/Slider")
@@ -28,7 +27,7 @@ enum class MSliderValueLabelDisplay {
 
 data class MSliderMark(val value: Number, val label: String? = null)
 
-interface MSliderProps : StyledProps {
+interface MSliderProps : StyledPropsWithCommonAttributes {
     var component: String
     var defaultValue: Any
     var disabled: Boolean
@@ -39,7 +38,7 @@ interface MSliderProps : StyledProps {
     var name: String
     var onChange: (event: Object, value: dynamic) -> Unit
     var onChangeCommitted: (event: Object, value: dynamic) -> Unit
-    var orientation: String
+    var orientation: MSliderOrientation
     var step: Number?
 
     @JsName("ThumbComponent")
@@ -50,8 +49,13 @@ interface MSliderProps : StyledProps {
     @JsName("ValueLabelComponent")
     var valueLabelComponent: ReactElement
 
-    var valueLabelDisplay: String
+    var valueLabelDisplay: MSliderValueLabelDisplay
     var valueLabelFormat: (value: Number, index: Number) -> String
+}
+
+private fun MSliderProps.redefineTypedProps() {
+    this.asDynamic().orientation = orientation.toString()
+    this.asDynamic().valueLabelDisplay = valueLabelDisplay.toString()
 }
 
 fun RBuilder.mSlider(
@@ -93,6 +97,7 @@ fun RBuilder.mSlider(
     value?.let { attrs.value = it }
 
     setStyledPropsAndRunHandler(className, handler)
+    attrs.redefineTypedProps()
 }
 
 fun RBuilder.mSliderWithRange(
@@ -134,6 +139,7 @@ fun RBuilder.mSliderWithRange(
     value?.let { attrs.value = it.toList().toTypedArray() }
 
     setStyledPropsAndRunHandler(className, handler)
+    attrs.redefineTypedProps()
 }
 
 private fun setCommonAttrs(
@@ -173,10 +179,10 @@ private fun setCommonAttrs(
     name?.let { attrs.name = it }
     onChange?.let { attrs.onChange = it }
     onChangeCommitted?.let { attrs.onChangeCommitted = it }
-    attrs.orientation = orientation.toString()
+    attrs.orientation = orientation
     attrs.step = step
     attrs.thumbComponent = thumbComponent
     valueLabelComponent?.let { attrs.valueLabelComponent = it }
-    attrs.valueLabelDisplay = valueLabelDisplay.toString()
+    attrs.valueLabelDisplay = valueLabelDisplay
     valueLabelFormat?.let { attrs.valueLabelFormat = it }
 }

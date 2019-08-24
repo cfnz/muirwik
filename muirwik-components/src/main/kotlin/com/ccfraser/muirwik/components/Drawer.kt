@@ -8,7 +8,6 @@ import react.RComponent
 import react.RProps
 import react.RState
 import styled.StyledHandler
-import styled.StyledProps
 
 
 @JsModule("@material-ui/core/Drawer")
@@ -27,8 +26,8 @@ enum class MDrawerVariant {
     permanent, persistent, temporary
 }
 
-interface MDrawerProps : StyledProps {
-    var anchor: String
+interface MDrawerProps : StyledPropsWithCommonAttributes {
+    var anchor: MDrawerAnchor
     var elevation: Int
 
     @JsName("ModalProps")
@@ -43,8 +42,14 @@ interface MDrawerProps : StyledProps {
     @JsName("SlideProps")
     var slideProps: MSlideProps
 
-    var transitionDuration: dynamic
-    var variant: String
+    var transitionDuration: TransitionDuration
+    var variant: MDrawerVariant
+}
+
+fun MDrawerProps.redefineTypedProps() {
+    this.asDynamic().anchor = anchor.toString()
+    this.asDynamic().variant = variant.toString()
+    if (this.transitionDuration != undefined) {this.asDynamic().transitionDuration = transitionDuration.value()}
 }
 
 fun RBuilder.mDrawer(
@@ -60,17 +65,18 @@ fun RBuilder.mDrawer(
 
         className: String? = null,
         handler: StyledHandler<MDrawerProps>) = createStyled(drawerComponent) {
-    attrs.anchor = anchor.toString()
+    attrs.anchor = anchor
     attrs.elevation = elevation
     modalProps?.let { attrs.modalProps = it }
     onClose?.let { attrs.onClose = it }
     attrs.open = open
     paperProps?.let { attrs.paperProps = it }
     slideProps?.let { attrs.slideProps = it }
-    attrs.variant = variant.toString()
-    transitionDuration?.let { attrs.transitionDuration = it.value() }
+    attrs.variant = variant
+    transitionDuration?.let { attrs.transitionDuration = it }
 
     setStyledPropsAndRunHandler(className, handler)
+    attrs.redefineTypedProps()
 }
 
 

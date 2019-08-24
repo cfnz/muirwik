@@ -15,7 +15,6 @@ private external val dialogContentModule: dynamic
 @Suppress("UnsafeCastFromDynamic")
 private val dialogContentComponent: RComponent<MDialogContentProps, RState> = dialogContentModule.default
 
-
 interface MDialogContentProps : StyledProps {
     var dividers: Boolean
 }

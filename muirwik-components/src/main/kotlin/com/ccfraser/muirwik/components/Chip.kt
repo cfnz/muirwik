@@ -7,7 +7,6 @@ import react.RComponent
 import react.RState
 import react.ReactElement
 import styled.StyledHandler
-import styled.StyledProps
 
 
 @JsModule("@material-ui/core/Chip")
@@ -30,20 +29,24 @@ enum class MChipSize {
     small, medium
 }
 
-interface MChipProps : StyledProps {
+interface MChipProps : StyledPropsWithCommonAttributes {
     var avatar: ReactElement
     var clickable: Boolean
-    var color: String
+    var color: MChipColor
     var component: String
     var deleteIcon: ReactElement
     var icon: ReactElement
     var label: Node
-    var size: String
+    var size: MChipSize
     var key: Any
-    var onClick: (Event) -> Unit
     var onDelete: (Event) -> Unit
-    var variant: String
+    var variant: MChipVariant
+}
 
+private fun MChipProps.redefineTypedProps() {
+    this.asDynamic().color = color.toString()
+    this.asDynamic().size = size.toString()
+    this.asDynamic().variant = variant.toString()
 }
 
 /**
@@ -63,7 +66,7 @@ fun RBuilder.mChip(
         className: String? = null,
         handler: StyledHandler<MChipProps>? = null) = createStyled(chipComponent, addAsChild) {
     avatar?.let { attrs.avatar = it }
-    attrs.color = color.toString()
+    attrs.color = color
     attrs.component = "div"
 
     @Suppress("UnsafeCastFromDynamic")
@@ -72,44 +75,10 @@ fun RBuilder.mChip(
     key?.let { attrs.key = it }
     onClick?.let { attrs.onClick = it }
     onDelete?.let { attrs.onDelete = it }
-    attrs.size = size.toString()
-    attrs.variant = variant.toString()
+    attrs.size = size
+    attrs.variant = variant
 
     setStyledPropsAndRunHandler(className, handler)
-}
-
-/**
- * This is the full version of the chip component.
- */
-fun RBuilder.mChip(
-        label: Node,
-        avatar: ReactElement? = null,
-        onClick: ((Event) -> Unit)? = null,
-        onDelete: ((Event) -> Unit)? = null,
-        icon: ReactElement? = null,
-        deleteIcon: ReactElement? = null,
-        key: Any? = null,
-        color: MChipColor = MChipColor.default,
-        size: MChipSize = MChipSize.medium,
-        variant: MChipVariant = MChipVariant.default,
-        component: String = "div",
-        clickable: Boolean = false, /* Note if onClick is set, the component will be clickable regardless of this. See material UI docs for more info */
-        addAsChild: Boolean = true,
-        className: String? = null,
-        handler: StyledHandler<MChipProps>? = null) = createStyled(chipComponent, addAsChild) {
-    avatar?.let { attrs.avatar = it }
-    attrs.clickable = clickable
-    attrs.color = color.toString()
-    attrs.component = component
-    deleteIcon?.let { attrs.deleteIcon = it }
-    icon?.let { attrs.icon = it }
-    attrs.label = label
-    key?.let { attrs.key = it }
-    onClick?.let { attrs.onClick = it }
-    onDelete?.let { attrs.onDelete = it }
-    attrs.size = size.toString()
-    attrs.variant = variant.toString()
-
-    setStyledPropsAndRunHandler(className, handler)
+    attrs.redefineTypedProps()
 }
 

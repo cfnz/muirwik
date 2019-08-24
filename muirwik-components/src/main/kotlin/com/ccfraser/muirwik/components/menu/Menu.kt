@@ -1,5 +1,6 @@
 package com.ccfraser.muirwik.components.menu
 
+import com.ccfraser.muirwik.components.StyledPropsWithCommonAttributes
 import com.ccfraser.muirwik.components.createStyled
 import com.ccfraser.muirwik.components.setStyledPropsAndRunHandler
 import com.ccfraser.muirwik.components.transitions.MTransitionProps
@@ -10,7 +11,6 @@ import react.RBuilder
 import react.RComponent
 import react.RState
 import styled.StyledHandler
-import styled.StyledProps
 import kotlin.reflect.KClass
 
 
@@ -28,7 +28,8 @@ enum class MenuOnCloseReason {
 enum class MMenuVariant {
     menu, selectedMenu
 }
-external interface MMenuProps : StyledProps {
+
+interface MMenuProps : StyledPropsWithCommonAttributes {
     var anchorEl: Node
     var autoFocus: Boolean
 
@@ -50,7 +51,7 @@ external interface MMenuProps : StyledProps {
     var transitionComponent: dynamic
     var transitionDuration: dynamic
     var value: Any
-    var variant: String
+    var variant: MMenuVariant
 }
 
 fun RBuilder.mMenu(
@@ -87,7 +88,9 @@ fun RBuilder.mMenu(
     popoverClasses?.let { attrs.popoverClasses = popoverClasses }
     transitionComponent?.let { attrs.transitionComponent = transitionComponent.js }
     transitionDuration?.let { attrs.transitionDuration = it.value() }
-    attrs.variant = variant.toString()
+    attrs.variant = variant
+
     setStyledPropsAndRunHandler(className, handler)
+    attrs.asDynamic().variant = variant.toString()
 }
 

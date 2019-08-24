@@ -19,13 +19,8 @@ enum class MHiddenImplementation {
     js, css
 }
 
-@Suppress("EnumEntryName")
-enum class MHiddenVariant {
-    permanent, persistent, temporary
-}
-
 interface MHiddenProps : StyledProps {
-    var implementation: String
+    var implementation: MHiddenImplementation
     var initialWidth: String
     var lgDown: Boolean
     var lgUp: Boolean
@@ -57,7 +52,7 @@ fun RBuilder.mHidden(
         initialWidth: Breakpoint? = null,
 
         handler: StyledHandler<MHiddenProps>) = createStyled(hiddenComponent) {
-    attrs.implementation = implementation.toString()
+    attrs.implementation = implementation
     initialWidth?.let {  attrs.initialWidth = it.toString() }
     attrs.lgDown = lgDown
     attrs.lgUp = lgUp
@@ -72,6 +67,7 @@ fun RBuilder.mHidden(
     attrs.xsUp = xsUp
 
     setStyledPropsAndRunHandler(className, handler)
+    attrs.asDynamic().implementation = attrs.implementation.toString()
 }
 
 

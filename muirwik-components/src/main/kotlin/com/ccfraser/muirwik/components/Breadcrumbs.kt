@@ -5,7 +5,6 @@ import react.RComponent
 import react.RState
 import react.ReactElement
 import styled.StyledHandler
-import styled.StyledProps
 
 
 @JsModule("@material-ui/core/Breadcrumbs")
@@ -14,7 +13,7 @@ private external val breadcrumbsModule: dynamic
 @Suppress("UnsafeCastFromDynamic")
 private val breadcrumbsComponent: RComponent<MBreadcrumbsProps, RState> = breadcrumbsModule.default
 
-interface MBreadcrumbsProps: StyledProps {
+interface MBreadcrumbsProps: StyledPropsWithCommonAttributes {
     var component: String
     var itemsAfterCollapse: Int
     var itemsBeforeCollapse: Int

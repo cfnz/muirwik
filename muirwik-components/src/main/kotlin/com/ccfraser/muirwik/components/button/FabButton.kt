@@ -16,11 +16,17 @@ private external val fabModule: dynamic
 private val fabComponent: RComponent<MFabProps, RState> = fabModule.default
 
 interface MFabProps : MButtonBaseProps {
-    var color: String
+    var color: MColor
     var disableFocusRipple: Boolean
     var href: String
-    var size: String
-    var variant: String
+    var size: MButtonSize
+    var variant: MFabVariant
+}
+
+private fun MFabProps.redefineTypedProps() {
+    this.asDynamic().color = color.toString()
+    this.asDynamic().size = size.toString()
+    this.asDynamic().variant = variant.toString()
 }
 
 @Suppress("EnumEntryName")
@@ -33,40 +39,26 @@ enum class MFabVariant {
  */
 fun RBuilder.mFab(
         iconName: String,
-        primary: Boolean = false, // If true, then this overrides the color... just an easier setter...
-        onClick: ((Event) -> Unit)? = null,
-        disabled: Boolean = false,
         color: MColor = MColor.default,
+        disabled: Boolean = false,
+        onClick: ((Event) -> Unit)? = null,
         size: MButtonSize = MButtonSize.medium,
         hRefOptions: HRefOptions? = null,
-
-        centerRipple: Boolean = false,
-        focusRipple: Boolean = true,
-        disableFocusRipple: Boolean = false,
-        disableRipple: Boolean = false,
-        touchRippleProps: RProps? = null,
-
-        onKeyboardFocus: ((Event) -> Unit)? = null,
 
         addAsChild: Boolean = true,
         className: String? = null,
         handler: StyledHandler<MFabProps>? = null) = createStyled(fabComponent, addAsChild) {
-    attrs.centerRipple = centerRipple
-    attrs.color = if (primary) MColor.primary.toString() else color.toString()
+    attrs.color = color
     attrs.disabled = disabled
-    attrs.disableFocusRipple = disableFocusRipple
-    attrs.disableRipple = disableRipple
-    attrs.focusRipple = focusRipple
     hRefOptions?.let { setHRefTargetNoOpener(attrs, it) }
     onClick?.let { attrs.onClick = onClick }
-    onKeyboardFocus?.let {attrs.onKeyboardFocus = onKeyboardFocus}
-    attrs.size = size.toString()
-    touchRippleProps?.let { attrs.touchRippleProps = touchRippleProps }
-    attrs.variant = MFabVariant.round.toString()
+    attrs.size = size
+    attrs.variant = MFabVariant.round
 
     mIcon(iconName)
 
     setStyledPropsAndRunHandler(className, handler)
+    attrs.redefineTypedProps()
 }
 
 /**
@@ -75,10 +67,9 @@ fun RBuilder.mFab(
 fun RBuilder.mFab(
         iconName: String,
         caption: String,
-        primary: Boolean = false, // If true, then this overrides the color... just an easier setter...
-        onClick: ((Event) -> Unit)? = null,
-        disabled: Boolean = false,
         color: MColor = MColor.default,
+        disabled: Boolean = false,
+        onClick: ((Event) -> Unit)? = null,
         size: MButtonSize = MButtonSize.medium,
         hRefOptions: HRefOptions? = null,
 
@@ -94,7 +85,7 @@ fun RBuilder.mFab(
         className: String? = null,
         handler: StyledHandler<MFabProps>? = null) = createStyled(fabComponent, addAsChild) {
     attrs.centerRipple = centerRipple
-    attrs.color = if (primary) MColor.primary.toString() else color.toString()
+    attrs.color = color
     attrs.disabled = disabled
     attrs.disableFocusRipple = disableFocusRipple
     attrs.disableRipple = disableRipple
@@ -102,12 +93,13 @@ fun RBuilder.mFab(
     hRefOptions?.let { setHRefTargetNoOpener(attrs, it) }
     onClick?.let { attrs.onClick = onClick }
     onKeyboardFocus?.let {attrs.onKeyboardFocus = onKeyboardFocus}
-    attrs.size = size.toString()
+    attrs.size = size
     touchRippleProps?.let { attrs.touchRippleProps = touchRippleProps }
-    attrs.variant = MFabVariant.extended.toString()
+    attrs.variant = MFabVariant.extended
 
     mIcon(iconName)
     childList.add(caption)
 
     setStyledPropsAndRunHandler(className, handler)
+    attrs.redefineTypedProps()
 }

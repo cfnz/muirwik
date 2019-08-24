@@ -21,9 +21,9 @@ interface MFormHelperTextProps : StyledProps {
     var error: Boolean
     var filled: Boolean
     var focused: Boolean
-    var margin: String
+    var margin: MLabelMargin
     var required: Boolean
-    var variant: String
+    var variant: MFormControlVariant
 }
 
 fun RBuilder.mFormHelperText (
@@ -44,10 +44,12 @@ fun RBuilder.mFormHelperText (
     attrs.error = error
     attrs.filled = filled
     attrs.focused = focused
-    margin?.let { attrs.margin = it.toString() }
+    margin?.let { attrs.margin = it }
     attrs.required = required
-    attrs.variant = variant.toString()
+    attrs.variant = variant
 
     childList.add(caption)
     setStyledPropsAndRunHandler(className,  handler)
+    if (attrs.margin != undefined) attrs.asDynamic().margin = margin.toString()
+    attrs.asDynamic().variant = attrs.variant.toString()
 }

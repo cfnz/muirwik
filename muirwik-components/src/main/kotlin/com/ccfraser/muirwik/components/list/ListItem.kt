@@ -28,7 +28,7 @@ enum class MListItemAlignItems {
 }
 
 interface MListItemProps : MButtonBaseProps {
-    var alignItems: String
+    var alignItems: MListItemAlignItems
     var button: Boolean
 
     @JsName("ContainerComponent")
@@ -44,6 +44,10 @@ interface MListItemProps : MButtonBaseProps {
     var selected: Boolean
 
     // TODO: should this have a value?
+}
+
+private fun MListItemProps.redefineTypedProps() {
+    this.asDynamic().alignItems = alignItems.toString()
 }
 
 /**
@@ -152,7 +156,7 @@ fun RBuilder.mListItem(
 
         className: String? = null,
         handler: StyledHandler<MListItemProps>? = null) = createStyled(listItemComponent) {
-    attrs.alignItems = alignItems.toString()
+    attrs.alignItems = alignItems
     attrs.button = button
     component?.let { attrs.component = component }
     attrs.containerComponent = containerComponent
@@ -167,4 +171,5 @@ fun RBuilder.mListItem(
     attrs.selected = selected
 
     setStyledPropsAndRunHandler(className, handler)
+    attrs.redefineTypedProps()
 }

@@ -6,7 +6,6 @@ import kotlinx.html.InputType
 import org.w3c.dom.events.Event
 import react.*
 import styled.StyledHandler
-import styled.StyledProps
 
 
 @JsModule("@material-ui/core/Switch")
@@ -15,18 +14,19 @@ private external val switchDefault: dynamic
 @Suppress("UnsafeCastFromDynamic")
 private val switchComponent: RComponent<MSwitchProps, RState> = switchDefault.default
 
-interface MSwitchProps : StyledProps {
-    var checked: Boolean
-    var checkedIcon: ReactElement
-    var color: String
-    var disabled: Boolean
-    var disableRipple: Boolean
-    var edge: String
-    var icon: ReactElement
-    var id: String?
-    var inputProps: RProps
-    var onChange: ((Event, Boolean) -> Unit)
-    var size: String
+interface MSwitchProps : StyledPropsWithCommonAttributes {
+    var checked: Boolean?
+    var checkedIcon: ReactElement?
+    var color: MOptionColor?
+    var disabled: Boolean?
+    var disableRipple: Boolean?
+    var edge: String?
+    var icon: ReactElement?
+//    var id: String?
+    var inputProps: RProps?
+    var onChange: ((Event, Boolean) -> Unit)?
+    var required: Boolean?
+    var size: String?
     var type: String
     var value: String?
 }
@@ -43,13 +43,11 @@ enum class MSwitchSize {
 
 fun RBuilder.mSwitch(
         checked: Boolean = false,
-        primary: Boolean = true,
+        color: MOptionColor = MOptionColor.secondary,
         disabled: Boolean = false,
-        icon: ReactElement? = null,
-        checkedIcon: ReactElement? = null,
+        required: Boolean? = null,
         size: MSwitchSize = MSwitchSize.medium,
         onChange: ((Event, Boolean) -> Unit)? = null,
-        disableRipple: Boolean = false,
         id: String? = null,
         inputProps: RProps? = null,
         value: String? = null,
@@ -59,12 +57,10 @@ fun RBuilder.mSwitch(
         className: String? = null,
         handler: StyledHandler<MSwitchProps>? = null) = createStyled(switchComponent, addAsChild) {
     attrs.checked = checked
-    checkedIcon?.let { attrs.checkedIcon = checkedIcon }
-    attrs.color = if (primary) MColor.primary.toString() else MColor.secondary.toString()
+    attrs.color = color
     attrs.disabled = disabled
-    attrs.disableRipple = disableRipple
     edge?.let { attrs.edge = it.toString() }
-    icon?.let { attrs.icon = icon }
+    attrs.disabled = disabled
     id?.let { attrs.id = id }
     inputProps?.let { attrs.inputProps = inputProps }
     onChange?.let { attrs.onChange = onChange }
@@ -73,6 +69,7 @@ fun RBuilder.mSwitch(
     value?.let {attrs.value = value}
 
     setStyledPropsAndRunHandler(className, handler)
+    attrs.asDynamic().color = attrs.color.toString()
 }
 
 /**
@@ -82,13 +79,11 @@ fun RBuilder.mSwitch(
 fun RBuilder.mSwitchWithLabel(
         label: String,
         checked: Boolean = false,
-        primary: Boolean = true,
+        color: MOptionColor = MOptionColor.secondary,
         disabled: Boolean = false,
-        icon: ReactElement? = null,
-        checkedIcon: ReactElement? = null,
+        required: Boolean? = null,
         size: MSwitchSize = MSwitchSize.medium,
         onChange: ((event: Event, checked: Boolean) -> Unit)? = null,
-        disableRipple: Boolean = false,
         id: String? = null,
         inputProps: RProps? = null,
         value: String? = null,
@@ -96,8 +91,7 @@ fun RBuilder.mSwitchWithLabel(
 
         className: String? = null,
         handler: StyledHandler<MFormControlLabelProps>? = null): ReactElement {
-    val switch = mSwitch(checked, primary, disabled, icon, checkedIcon, size, onChange, disableRipple, id,
-            inputProps, value, edge, false)
+    val switch = mSwitch(checked, color, disabled, required, size, onChange, id, inputProps, value, edge, false)
 
     return mFormControlLabel(label, switch, checked, disabled, value = value, className = className, handler = handler)
 }

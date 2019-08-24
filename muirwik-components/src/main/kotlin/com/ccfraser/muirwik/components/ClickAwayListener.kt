@@ -28,9 +28,9 @@ enum class MClickAwayListenerTouchEvent {
 }
 
 interface MClickAwayListenerProps : StyledProps {
-    var mouseEvent: dynamic
+    var mouseEvent: MClickAwayListenerMouseEvent
     var onClickAway: () -> Unit
-    var touchEvent: dynamic
+    var touchEvent: MClickAwayListenerTouchEvent
 }
 
 fun RBuilder.mClickAwayListener(
@@ -38,10 +38,13 @@ fun RBuilder.mClickAwayListener(
         mouseEvent: MClickAwayListenerMouseEvent = MClickAwayListenerMouseEvent.onClick,
         touchEvent: MClickAwayListenerTouchEvent = MClickAwayListenerTouchEvent.onTouchStart,
         handler: RHandler<MClickAwayListenerProps>? = null) = child(clickAwayListenerComponent) {
-    attrs.mouseEvent = mouseEvent.value()
-    attrs.touchEvent = touchEvent.value()
+    attrs.mouseEvent = mouseEvent
+    attrs.touchEvent = touchEvent
     attrs.onClickAway = onClickAway
 
     if (handler != null) handler()
+
+    attrs.asDynamic().mouseEvent = attrs.mouseEvent.value()
+    attrs.asDynamic().touchEvent = attrs.touchEvent.value()
 }
 

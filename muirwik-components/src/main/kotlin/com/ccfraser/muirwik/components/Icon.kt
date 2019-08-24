@@ -25,29 +25,26 @@ enum class MIconFontSize {
 }
 
 interface MIconProps : StyledProps {
-    var color: String
-    var fontSize: String
+    var color: MIconColor
+    var fontSize: MIconFontSize
     var style: JsObject
 }
 
 fun RBuilder.mIcon(
         iconName: String,
-        primary: Boolean = false, // If true, then this overrides the color... just an easier setter...
-        color: MIconColor? = null,
+        color: MIconColor = MIconColor.inherit,
         fontSize: MIconFontSize = MIconFontSize.default,
 
         addAsChild: Boolean = true,
         className: String? = null,
         handler: StyledHandler<MIconProps>? = null) = createStyled(iconComponent, addAsChild) {
-    if (primary) {
-        attrs.color = MColor.primary.toString()
-    } else {
-        color?.let { attrs.color = color.toString() }
-    }
-    attrs.fontSize = fontSize.toString()
+    attrs.color = color
+    attrs.fontSize = fontSize
 
     childList.add(iconName)
     setStyledPropsAndRunHandler(className, handler)
+    attrs.asDynamic().fontSize = attrs.fontSize.toString()
+    attrs.asDynamic().color = attrs.color.toString()
 }
 
 

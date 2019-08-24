@@ -1,12 +1,12 @@
 package com.ccfraser.muirwik.components.table
 
+import com.ccfraser.muirwik.components.StyledPropsWithCommonAttributes
 import com.ccfraser.muirwik.components.createStyled
 import com.ccfraser.muirwik.components.setStyledPropsAndRunHandler
 import react.RBuilder
 import react.RComponent
 import react.RState
 import styled.StyledHandler
-import styled.StyledProps
 
 
 @JsModule("@material-ui/core/TableCell")
@@ -44,16 +44,24 @@ enum class MTableCellSize {
     small, medium
 }
 
-interface MTableCellProps : StyledProps {
+interface MTableCellProps : StyledPropsWithCommonAttributes {
     var colSpan: Int
     var component: String
     var key: Any
-    var align: String
-    var padding: String
+    var align: MTableCellAlign
+    var padding: MTableCellPadding
     var scope: String
-    var size: String
-    var sortDirection: Any
-    var variant: String
+    var size: MTableCellSize
+    var sortDirection: MTableCellSortDirection
+    var variant: MTableCellVariant
+}
+
+private fun MTableCellProps.redefineTypedProps() {
+    this.asDynamic().align = align.toString()
+    this.asDynamic().padding = padding.toString()
+    this.asDynamic().size = size.toString()
+    this.asDynamic().sortDirection = if (sortDirection == MTableCellSortDirection.False) false else sortDirection.toString()
+    this.asDynamic().variant = variant.toString()
 }
 
 fun RBuilder.mTableCell(
@@ -69,14 +77,16 @@ fun RBuilder.mTableCell(
 
         className: String? = null,
         handler: StyledHandler<MTableCellProps>? = null) = createStyled(TableCellComponent) {
-    attrs.align = align.toString()
+    attrs.align = align
     colSpan?.let { attrs.colSpan = it }
     component?.let { attrs.component = component }
     key?.let { attrs.key = it }
-    attrs.padding = padding.toString()
+    attrs.padding = padding
     scope?.let { attrs.scope = it }
-    attrs.size = size.toString()
-    attrs.sortDirection = if (sortDirection == MTableCellSortDirection.False) false else sortDirection.toString()
-    attrs.variant = variant.toString()
+    attrs.size = size
+    attrs.sortDirection = sortDirection
+    attrs.variant = variant
+
     setStyledPropsAndRunHandler(className, handler)
+    attrs.redefineTypedProps()
 }

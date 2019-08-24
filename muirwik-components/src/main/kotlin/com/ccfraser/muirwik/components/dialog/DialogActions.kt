@@ -21,11 +21,9 @@ interface MDialogActionsProps : StyledProps {
 
 fun RBuilder.mDialogActions(
         disableSpacing: Boolean = false,
-
         className: String? = null,
         handler: StyledHandler<MDialogActionsProps>) = createStyled(dialogActionsComponent) {
     attrs.disableSpacing = disableSpacing
-
     setStyledPropsAndRunHandler(className, handler)
 }
 

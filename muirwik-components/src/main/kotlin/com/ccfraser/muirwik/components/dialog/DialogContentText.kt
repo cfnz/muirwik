@@ -21,7 +21,6 @@ fun RBuilder.mDialogContentText(
         className: String? = null,
         handler: RHandler<StyledProps>? = null) = createStyled(dialogContentTextComponent) {
     childList.add(text)
-
     setStyledPropsAndRunHandler(className, handler)
 }
 
