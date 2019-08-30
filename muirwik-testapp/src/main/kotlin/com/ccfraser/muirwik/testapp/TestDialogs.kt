@@ -5,12 +5,12 @@ import com.ccfraser.muirwik.components.button.MButtonVariant
 import com.ccfraser.muirwik.components.button.mButton
 import com.ccfraser.muirwik.components.button.mIconButton
 import com.ccfraser.muirwik.components.dialog.*
+import com.ccfraser.muirwik.components.form.MFormControlMargin
 import com.ccfraser.muirwik.components.list.*
 import com.ccfraser.muirwik.components.transitions.MTransitionProps
 import com.ccfraser.muirwik.components.transitions.SlideTransitionDirection
 import com.ccfraser.muirwik.components.transitions.mSlide
 import com.ccfraser.muirwik.testapp.TestDialogs.ComponentStyles.avatarStyle
-import kotlinext.js.jsObject
 import kotlinx.css.Position
 import kotlinx.css.backgroundColor
 import kotlinx.css.color
@@ -38,7 +38,7 @@ class TestDialogs : RComponent<RProps, RState>() {
     private var confirmationDialogSelectedValue: String = ""
 
     private var alertTransition: KClass<out RComponent<MTransitionProps, RState>>? = null
-    private val slowTransitionProps: MTransitionProps = jsObject { timeout = 1000 }
+    private val slowTransitionProps: MTransitionProps = js("({timeout: 1000})")
     private var slow = false
 
     private object ComponentStyles : StyleSheet("ComponentStyles", isStatic = true) {
@@ -164,8 +164,8 @@ class TestDialogs : RComponent<RProps, RState>() {
                 mDialogContentText("Let Google help apps determine location. This means sending anonymous location data to Google, even when no apps are running.")
             }
             mDialogActions {
-                mButton("Disagree", true, onClick = { closeAlertDialog() })
-                mButton("Agree", true, onClick = { closeAlertDialog() })
+                mButton("Disagree", MColor.primary, onClick = { closeAlertDialog() })
+                mButton("Agree", MColor.primary, onClick = { closeAlertDialog() })
             }
         }
     }
@@ -176,7 +176,8 @@ class TestDialogs : RComponent<RProps, RState>() {
 //        mDialog(disableBackdropClick = true, disableEscapeKeyDown = true, maxWidth = DialogMaxWidth.xs) {
 //        mDialog(disableEscapeKeyDown = true, maxWidth = DialogMaxWidth.xs) {
 
-        mDialog(open, scroll = scroll, disableEscapeKeyDown = true, transitionProps = if (slow) slowTransitionProps else null) {
+        mDialog(open, scroll = scroll, transitionProps = if (slow) slowTransitionProps else null) {
+            attrs.disableEscapeKeyDown = true
             mDialogTitle("Phone Ringtone")
             // We will show the dividers on one of the dialogs (i.e. the one with paper scroll
             mDialogContent(scroll == DialogScroll.paper) {
@@ -228,7 +229,7 @@ class TestDialogs : RComponent<RProps, RState>() {
             mDialogTitle("Subscribe")
             mDialogContent {
                 mDialogContentText("To subscribe to this website, please enter your email address here. We will send updates occationally.")
-                mTextField("Email Address", autoFocus = true, margin = MTextFieldMargin.dense, type = InputType.email, fullWidth = true)
+                mTextField("Email Address", autoFocus = true, margin = MFormControlMargin.dense, type = InputType.email, fullWidth = true)
             }
             mDialogActions {
                 mButton("Cancel", color = MColor.primary, onClick = { handleClose() }, variant = MButtonVariant.text)

@@ -148,8 +148,8 @@ class TestAppBar : RComponent<RProps, RState>() {
                                 val inputProps = object: RProps {
                                     val className = "${ComponentStyles.name}-inputInput"
                                 }
-
-                                mInput(placeholder = "Search...", disableUnderline = true, inputProps = inputProps) {
+                                mInput(placeholder = "Search...", disableUnderline = true) {
+                                    attrs.inputProps = inputProps
                                     css {
                                         color = Color.inherit
                                     }

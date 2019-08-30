@@ -17,10 +17,6 @@ class TestCheckboxes : RComponent<RProps, RState>() {
     private var checked4: Boolean = false
 
     override fun RBuilder.render() {
-        // For building things that we don't want to render now (e.g. the component will render it later), we need another builder
-        // Update: Now you can actually pass in addAsChild as false instead.
-        val altBuilder = RBuilder()
-
         styledDiv {
             css { display = Display.flex }
             styledDiv {
@@ -29,12 +25,13 @@ class TestCheckboxes : RComponent<RProps, RState>() {
                 br { }
                 mCheckbox(checked = checked2, onChange = { _, _ -> setState { checked2 = !checked2 } })
                 br { }
-                val uncheckedIcon = altBuilder.mIcon("clear")
-                val checkedIcon = altBuilder.mIcon("done")
-                mCheckbox(checked = checked3, onChange = { _, _ -> setState { checked3 = !checked3 } }, icon = uncheckedIcon, checkedIcon = checkedIcon)
+                mCheckbox(checked = checked3, onChange = { _, _ -> setState { checked3 = !checked3 } }) {
+                    attrs.icon = mIcon("clear", addAsChild = false)
+                    attrs.checkedIcon = mIcon("done", addAsChild = false)
+                }
                 br {  }
-                val s = altBuilder.mCheckbox(checked4,false, true, onChange = { _, _ -> setState { checked4 = !checked4 } })
-                mFormControlLabel("As Form Control", control = s)
+                mFormControlLabel("As Form Control", control = mCheckbox(checked4, MOptionColor.primary,
+                        true, addAsChild = false, onChange = { _, _ -> setState { checked4 = !checked4 } }))
             }
             styledDiv {
                 css { paddingLeft = 3.spacingUnits }

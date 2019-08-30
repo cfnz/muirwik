@@ -94,7 +94,8 @@ class TestSelects : RComponent<RProps, RState>() {
                 val inputProps: RProps = jsObject { }
                 inputProps.asDynamic().name = "age"
                 inputProps.asDynamic().id = "age-simple"
-                mSelect(age, name = "age", inputProps = inputProps, onChange = { event, _ -> handleAgeChange(event) }) {
+                mSelect(age, name = "age", onChange = { event, _ -> handleAgeChange(event) }) {
+                    attrs.inputProps = inputProps
                     mMenuItem("None", value = "")
                     mMenuItem("Ten", value = "10")
                     mMenuItem("Twenty", value = "20")
@@ -155,8 +156,8 @@ class TestSelects : RComponent<RProps, RState>() {
                 css(formControl)
                 mInputLabel("Name", htmlFor = "name-error")
                 mSelect(name, name = "name", input = mInput(id = "name-error", addAsChild = false),
-                        onChange = { event, _ -> handleNameChange(event) },
-                        renderValue = { value: Any -> span { +"⚠  - ${value}" } }) {
+                        onChange = { event, _ -> handleNameChange(event) }) {
+                    attrs.renderValue = { value: Any -> span { +"⚠  - ${value}" } }
                     mMenuItem("None", value = "")
                     mMenuItem("Hai", value = "hai")
                     mMenuItem("Oliver", value = "oliver")
@@ -293,10 +294,8 @@ class TestSelects : RComponent<RProps, RState>() {
                     css(formControl)
                     mInputLabel("Checkbox", htmlFor = "select-multiple-checkbox")
                     mSelect(selectedNames, multiple = true, input = mInput(id = "select-multiple-checkbox", addAsChild = false),
-                            renderValue = { value: Any ->
-                                span {+(value as Array<String>).joinToString(", ")}
-                            },
                             onChange = { event, _ -> handleMultipleChange(event) }) {
+                        attrs.renderValue = { value -> span { +(value as Array<String>).joinToString(", ") }}
                         addMenuItems(this, true)
                     }
                 }
@@ -304,17 +303,17 @@ class TestSelects : RComponent<RProps, RState>() {
                     css(formControl)
                     mInputLabel("Chip", htmlFor = "select-multiple-chip")
                     mSelect(selectedNames, multiple = true, input = mInput(id = "select-multiple-chip", addAsChild = false),
-                            renderValue = { value: Any ->
-                                styledDiv {
-                                    css(chips)
-                                    (value as Array<String>).forEach {
-                                        mChip(it, key = it) {
-                                            css(chip)
-                                        }
+                            onChange = { event, _ -> handleMultipleChange(event) }) {
+                        attrs.renderValue = { value: Any ->
+                            styledDiv {
+                                css(chips)
+                                (value as Array<String>).forEach {
+                                    mChip(it, key = it) {
+                                        css(chip)
                                     }
                                 }
-                            },
-                            onChange = { event, _ -> handleMultipleChange(event) }) {
+                            }
+                        }
                         addMenuItems(this, false)
                     }
                 }
@@ -340,7 +339,7 @@ class TestSelects : RComponent<RProps, RState>() {
             mFormControl(variant = MFormControlVariant.filled) {
                 css(formControl)
                 mInputLabel("Filled", variant = MFormControlVariant.filled)
-                mSelect(age, input = mFilledInput(name = "test", id = "test", addAsChild = false), onChange = { event, _ -> handleAgeChange(event) }) {
+                mSelect(age, input = mFilledInput(id = "test", addAsChild = false), onChange = { event, _ -> handleAgeChange(event) }) {
                     mMenuItem("None", value = "")
                     mMenuItem("Ten", value = "10")
                     mMenuItem("Twenty", value = "20")

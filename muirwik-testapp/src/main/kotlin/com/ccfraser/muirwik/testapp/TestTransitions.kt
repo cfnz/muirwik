@@ -46,6 +46,7 @@ class TestTransitions : RComponent<RProps, RState>() {
                 div {
                     attrs.jsStyle { display = "flex"}
                     mCollapse(show = collapseShown) {
+                        attrs.timeout = AutoTransitionDuration()
                         mPaper(elevation = 4) { css(paper) }
                     }
                     mCollapse(show = collapseShown, collapsedHeight = 40.px) {
@@ -60,9 +61,10 @@ class TestTransitions : RComponent<RProps, RState>() {
                 styledDiv {
                     css { display = Display.flex }
                     mFade(show = fadeShown) {
+                        attrs.timeout = SimpleTransitionDuration(2000)
                         mPaper(elevation = 4) { css(paper) }
                     }
-                    mFade(show = fadeShown, timeout = SimpleTransitionTimeout(2000)) {
+                    mFade(show = fadeShown, timeout = SimpleTransitionDuration(2000)) {
                         mPaper(elevation = 4) { css(paper) }
                     }
                 }
@@ -75,8 +77,9 @@ class TestTransitions : RComponent<RProps, RState>() {
                     mGrow(show = growShown) {
                         mPaper(elevation = 4) { css(paper) }
                     }
-                    mGrow(show = growShown, timeout = EnterExitTransitionTimeout(500, 1500)) {
+                    mGrow(show = growShown, timeout = EnterExitTransitionDuration(500, 1500)) {
                         attrs.asDynamic().style = js {transformOrigin = "0 0 0"}
+                        attrs.timeout = AutoTransitionDuration()
                         mPaper(elevation = 4) { css(paper) }
                     }
                 }

@@ -51,9 +51,9 @@ class TestChips : RComponent<RProps, RState>() {
                     onClick = { handleClick() }, onDelete = { handleDelete() }) {
                 css(margin)
             }
-            mChip("Custom delete icon Chip".asDynamic(), onClick = { handleClick() }, onDelete = { handleDelete() },
-                    deleteIcon = mIcon("done", addAsChild = false)) {
+            mChip("Custom delete icon Chip".asDynamic(), onClick = { handleClick() }, onDelete = { handleDelete() }) {
                 css(margin)
+                attrs.deleteIcon = mIcon("done", addAsChild = false)
             }
             mChip("Primary Color Chip", color = MChipColor.primary, onClick = { handleClick() }, onDelete = { handleDelete() }) {
                 css(margin)

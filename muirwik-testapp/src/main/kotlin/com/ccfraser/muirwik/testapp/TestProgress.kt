@@ -123,7 +123,7 @@ class TestProgress : RComponent<RProps, RState>() {
             }
             styledDiv {
                 css(wrapper)
-                mFab(if (success) "done" else "save", primary = true, onClick = { onClick() }) {
+                mFab(if (success) "done" else "save", MColor.primary, onClick = { onClick() }) {
                     if (success) {
                         css(buttonSuccess)
                     }
@@ -134,7 +134,7 @@ class TestProgress : RComponent<RProps, RState>() {
             }
             styledDiv {
                 css(wrapper)
-                mButton("Accept terms", true, disabled = loading, variant = MButtonVariant.contained, onClick = { onClick() }) {
+                mButton("Accept terms", MColor.primary, disabled = loading, variant = MButtonVariant.contained, onClick = { onClick() }) {
                     if (success) {
                         css(buttonSuccess)
                     }

@@ -79,8 +79,8 @@ class TestCards : RComponent<RProps, RState>() {
                             }
                         }
                         mCardActions {
-                            mButton("Share", true, size = MButtonSize.small)
-                            mButton("Learn More", true, size = MButtonSize.small)
+                            mButton("Share", MColor.primary, size = MButtonSize.small)
+                            mButton("Learn More", MColor.primary, size = MButtonSize.small)
                         }
                     }
                 }

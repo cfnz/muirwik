@@ -9,7 +9,7 @@ import com.ccfraser.muirwik.components.menu.*
 import com.ccfraser.muirwik.components.spacingUnits
 import com.ccfraser.muirwik.components.themeContext
 import com.ccfraser.muirwik.components.transitions.MTransitionProps
-import com.ccfraser.muirwik.components.transitions.SimpleTransitionTimeout
+import com.ccfraser.muirwik.components.transitions.SimpleTransitionDuration
 import com.ccfraser.muirwik.components.transitions.mFade
 import kotlinext.js.js
 import kotlinext.js.jsObject
@@ -132,7 +132,7 @@ class TestMenus : RComponent<RProps, RState>() {
                 mButton("With Slow Transition", onClick = { handleShowMenuClick(it, 5) })
                 div {
                     mMenu(selectedMenuIndex == 5, anchorElement = anchorElement, onClose = { _, reason -> handleOnClose(reason) },
-                            transitionDuration = SimpleTransitionTimeout(1000)) {
+                            transitionDuration = SimpleTransitionDuration(1000)) {
                         mMenuItem("Profile", onClick = { handleSimpleClick() })
                         mMenuItem("My account", onClick = { handleSimpleClick() })
                         mMenuItem("Logout", onClick = { handleSimpleClick() })
@@ -143,7 +143,7 @@ class TestMenus : RComponent<RProps, RState>() {
                 div {
                     mMenu(selectedMenuIndex == 6, anchorElement = anchorElement, onClose = { _, reason -> handleOnClose(reason) },
                             transitionComponent = FadeTransition::class,
-                            transitionDuration = SimpleTransitionTimeout(1000)) {
+                            transitionDuration = SimpleTransitionDuration(1000)) {
                         mMenuItem("Profile", onClick = { handleSimpleClick() })
                         mMenuItem("My account", onClick = { handleSimpleClick() })
                         mMenuItem("Logout", onClick = { handleSimpleClick() })

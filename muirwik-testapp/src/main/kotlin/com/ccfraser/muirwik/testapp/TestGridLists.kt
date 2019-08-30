@@ -20,6 +20,7 @@ import react.dom.img
 import styled.StyleSheet
 import styled.css
 import styled.styledDiv
+import styled.styledImg
 
 
 class TestGridLists : RComponent<RProps, RState>() {
@@ -107,7 +108,7 @@ class TestGridLists : RComponent<RProps, RState>() {
                 tileData.forEach {
                     mGridListTile(key = it.img, cols = if (it.featured) 2 else 1, rows = if (it.featured) 2 else 1) {
                         img(src = "/images/grid-list/${it.img}", alt = it.title) {}
-                        mGridListTileBar(it.title, titlePosition = TitlePosition.top, actionPosition = ActionPosition.left,
+                        mGridListTileBar(it.title, titlePosition = MTitlePosition.top, actionPosition = MActionPosition.left,
                                 actionIcon = mIconButton("star-border", iconColor = MIconColor.inherit) {
                                     css(icon)
                                 }
@@ -128,7 +129,9 @@ class TestGridLists : RComponent<RProps, RState>() {
                 }
                 tileData.forEach {
                     mGridListTile(key = it.img) {
-                        img(src = "/images/grid-list/${it.img}", alt = it.title) {}
+                        styledImg(src = "/images/grid-list/${it.img}", alt = it.title) {
+//                            css { width = 100.pct }
+                        }
                     }
                 }
             }

@@ -158,7 +158,7 @@ class TestTables : RComponent<RProps, RState>() {
 //                                attrs.asDynamic().role = "checkbox"
 
                                 mTableCell(padding = MTableCellPadding.checkbox) {
-                                    mCheckbox(isSelected, primary = false)
+                                    mCheckbox(isSelected)
                                 }
                                 mTableCell(align = MTableCellAlign.left, padding = MTableCellPadding.none) { +it.dessertName }
                                 mTableCell(align = MTableCellAlign.right) { +it.calories.toString() }
@@ -196,7 +196,6 @@ class TestTables : RComponent<RProps, RState>() {
             mTableRow {
                 mTableCell(padding = MTableCellPadding.checkbox) {
                     mCheckbox(indeterminate = numSelected > 0 && numSelected < rowCount,
-                            primary = false,
                             checked = numSelected == rowCount,
                             onChange = {_, checked -> onSelectAllClick(checked) })
                 }

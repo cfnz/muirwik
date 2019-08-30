@@ -38,7 +38,9 @@ class TestRadioButtons : RComponent<RProps, TestRadioButtons.MyTestState>() {
                 css { display = Display.inlineFlex }
                 mRadio(value = "a")
                 // The icons are more for a checkbox type control, but for fun, we shall put the star here too
-                mRadio(value = "b", icon = altBuilder.mIcon("star"))
+                mRadio(value = "b") {
+                    attrs.icon = altBuilder.mIcon("star")
+                }
             }
             mRadioGroup(value = radioValue, onChange = { _, value -> setState { radioValue = value } }) {
                 css { display = Display.inlineFlex }
@@ -63,9 +65,9 @@ class TestRadioButtons : RComponent<RProps, TestRadioButtons.MyTestState>() {
                 css { display = Display.inlineFlex }
                 mFormLabel("Gender2", required = true, component = "legend")
                 mRadioGroup(value = gender1Value, name = "gender1", onChange = { _, value -> setState { gender1Value = value; println("Value: $value") } }) {
-                    mFormControlLabel("Male", value = "male", control = altBuilder.mRadio(primary = false))
-                    mFormControlLabel("Female", value = "female", control = altBuilder.mRadio(primary = false))
-                    mFormControlLabel("Other", value = "other", control = altBuilder.mRadio(primary = false))
+                    mFormControlLabel("Male", value = "male", control = altBuilder.mRadio())
+                    mFormControlLabel("Female", value = "female", control = altBuilder.mRadio())
+                    mFormControlLabel("Other", value = "other", control = altBuilder.mRadio())
                     mFormControlLabel("Disabled Option", value = "disabled", disabled = true, control = altBuilder.mRadio())
                 }
             }
@@ -74,9 +76,9 @@ class TestRadioButtons : RComponent<RProps, TestRadioButtons.MyTestState>() {
                 mFormLabel("Gender3", required = true, component = "legend")
                 mRadioGroup(value = gender1Value, name = "gender1", onChange = { _, value -> setState { gender1Value = value; println("Value: $value") } }) {
                     // Slightly shorthand, practically does the same as the mFormControlLabel above.
-                    mRadioWithLabel("Male", value = "male", labelPlacement = MLabelPlacement.start)
-                    mRadioWithLabel("Female", value = "female", labelPlacement = MLabelPlacement.start)
-                    mRadioWithLabel("Other", value = "other", labelPlacement = MLabelPlacement.start)
+                    mRadioWithLabel("Male", color = MOptionColor.primary, value = "male", labelPlacement = MLabelPlacement.start)
+                    mRadioWithLabel("Female", color = MOptionColor.primary, value = "female", labelPlacement = MLabelPlacement.start)
+                    mRadioWithLabel("Other", color = MOptionColor.primary, value = "other", labelPlacement = MLabelPlacement.start)
                     mRadioWithLabel("Disabled Option", value = "disabled", disabled = true, labelPlacement = MLabelPlacement.start)
                 }
                 mTypography("Label Placement = start")

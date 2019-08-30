@@ -45,10 +45,10 @@ class TestButtons : RComponent<RProps, RState>() {
             mButton("Default", variant = variant) {
                 if (margin) css(buttonMargin)
             }
-            mButton("Primary", true, variant = variant) {
+            mButton("Primary", MColor.primary, variant = variant) {
                 if (margin) css(buttonMargin)
             }
-            mButton("Secondary", color = MColor.secondary, variant = variant) {
+            mButton("Secondary", MColor.secondary, variant = variant) {
                 if (margin) css(buttonMargin)
             }
             mButton("Disabled", disabled = true, variant = variant) {
@@ -68,8 +68,9 @@ class TestButtons : RComponent<RProps, RState>() {
             }
             label {
                 attrs["htmlFor"] = "button-file" // This worked whereas (for some reason) attrs.hmlFor did not
-                mButton("Upload", component = "span", variant = variant) {
-                    if (margin)  css(buttonMargin)
+                mButton("Upload", variant = variant) {
+                    if (margin) css(buttonMargin)
+                    attrs.component = "span"
                 }
             }
         }
@@ -112,17 +113,17 @@ class TestButtons : RComponent<RProps, RState>() {
             mTypography("Icon buttons")
             mIconButton("send", onClick = { window.alert("I was clicked")})
             mIconButton("star")
-            mIconButton("delete", true)
+            mIconButton("delete", MColor.primary)
             mIconButton("delete", color = MColor.secondary)
         }
         br { }
         styledDiv {
             mTypography("FABs")
-            mFab("add", true) { css(buttonMargin) }
-            mFab("edit-icon", color = MColor.secondary) { css(buttonMargin) }
+            mFab("add", MColor.primary) { css(buttonMargin) }
+            mFab("edit-icon", MColor.secondary) { css(buttonMargin) }
             mFab("navigation-icon", disabled = true) { css(buttonMargin) }
             mFab("navigation-icon", "Extended", color = MColor.secondary) { css(buttonMargin) }
-            mFab("add", color = MColor.secondary) { css(buttonMargin) }
+            mFab("add", MColor.secondary) { css(buttonMargin) }
         }
         br { }
         styledDiv {
@@ -133,24 +134,24 @@ class TestButtons : RComponent<RProps, RState>() {
                 mButton("Large", size = MButtonSize.large) { css(buttonMargin) }
             }
             div {
-                mButton("Small", true, size = MButtonSize.small, variant = MButtonVariant.outlined) { css(buttonMargin) }
-                mButton("Medium", true, size = MButtonSize.medium, variant = MButtonVariant.outlined) { css(buttonMargin) }
-                mButton("Large", true, size = MButtonSize.large, variant = MButtonVariant.outlined) { css(buttonMargin) }
+                mButton("Small", MColor.primary, size = MButtonSize.small, variant = MButtonVariant.outlined) { css(buttonMargin) }
+                mButton("Medium", MColor.primary, size = MButtonSize.medium, variant = MButtonVariant.outlined) { css(buttonMargin) }
+                mButton("Large", MColor.primary, size = MButtonSize.large, variant = MButtonVariant.outlined) { css(buttonMargin) }
             }
             div {
-                mButton("Small", true, size = MButtonSize.small, variant = MButtonVariant.contained) { css(buttonMargin) }
-                mButton("Medium", true, size = MButtonSize.medium, variant = MButtonVariant.contained) { css(buttonMargin) }
-                mButton("Large", true, size = MButtonSize.large, variant = MButtonVariant.contained) { css(buttonMargin) }
+                mButton("Small", MColor.primary, size = MButtonSize.small, variant = MButtonVariant.contained) { css(buttonMargin) }
+                mButton("Medium", MColor.primary, size = MButtonSize.medium, variant = MButtonVariant.contained) { css(buttonMargin) }
+                mButton("Large", MColor.primary, size = MButtonSize.large, variant = MButtonVariant.contained) { css(buttonMargin) }
             }
             div {
-                mFab("add", color = MColor.secondary, size = MButtonSize.small) { css(buttonMargin) }
-                mFab("add", color = MColor.secondary, size = MButtonSize.medium) { css(buttonMargin) }
-                mFab("add", color = MColor.secondary, size = MButtonSize.large) { css(buttonMargin) }
+                mFab("add", MColor.secondary, size = MButtonSize.small) { css(buttonMargin) }
+                mFab("add", MColor.secondary, size = MButtonSize.medium) { css(buttonMargin) }
+                mFab("add", MColor.secondary, size = MButtonSize.large) { css(buttonMargin) }
             }
             div {
-                mFab("navigation", "Extended", true, size = MButtonSize.small) { css(buttonMargin) }
-                mFab("navigation", "Extended", true, size = MButtonSize.medium) { css(buttonMargin) }
-                mFab("navigation", "Extended", true, size = MButtonSize.large) { css(buttonMargin) }
+                mFab("navigation", "Extended", MColor.primary, size = MButtonSize.small) { css(buttonMargin) }
+                mFab("navigation", "Extended", MColor.primary, size = MButtonSize.medium) { css(buttonMargin) }
+                mFab("navigation", "Extended", MColor.primary, size = MButtonSize.large) { css(buttonMargin) }
             }
             div {
                 mIconButton("delete", size = MIconButtonSize.small) { css(buttonMargin) }
@@ -173,12 +174,11 @@ class TestButtons : RComponent<RProps, RState>() {
             br { }
             mButton("Clk, Dbl Clk and Move", onClick = { console.log("Yay, I clicked") }) {
                 css(buttonMargin)
-                // Just playing... probably better to do it the above more typesafe way
-                attrs.asDynamic().onDoubleClick = { console.log("A Double Click?") }
-                attrs.asDynamic().onMouseMove = { handleMouseMove() }
+                attrs.onDoubleClick = { console.log("A Double Click?") }
+                attrs.onMouseMove = { handleMouseMove() }
             }
             mButton("Contained", variant = MButtonVariant.contained) { css(buttonMargin) }
-            mButton("Primary", primary = true, variant = MButtonVariant.contained) { css(buttonMargin) }
+            mButton("Primary", MColor.primary, variant = MButtonVariant.contained) { css(buttonMargin) }
             mButton("Secondary with HRef", color = MColor.secondary, hRefOptions = HRefOptions("https://github.com/cfnz/muirwik"),
                     variant = MButtonVariant.contained) { css(buttonMargin) }
             mButton("Styled Button") {
@@ -193,9 +193,9 @@ class TestButtons : RComponent<RProps, RState>() {
                     margin(1.spacingUnits)
                 }
             }
-            mButton("Icon", primary = true, variant = MButtonVariant.contained) {
+            mButton("Icon", MColor.primary, variant = MButtonVariant.contained) {
                 css(buttonMargin)
-                mIcon("send", color = MIconColor.inherit) {
+                mIcon("send", MIconColor.inherit) {
                     css { marginLeft = 1.em }
                 }
             }

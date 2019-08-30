@@ -164,7 +164,6 @@ class TestLists : RComponent<RProps, RState>() {
                     // Simpler version
                     mListItemWithIcon("work", "Business", "Using simple version", useAvatar = true)
                     mListItemWithIcon("beach_access", "Vacation", "Data, Line 2", useAvatar = true)
-                    mDivider()
                 }
             }
 

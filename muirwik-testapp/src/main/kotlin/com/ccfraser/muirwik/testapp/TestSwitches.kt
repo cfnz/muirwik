@@ -1,10 +1,7 @@
 package com.ccfraser.muirwik.testapp
 
+import com.ccfraser.muirwik.components.*
 import com.ccfraser.muirwik.components.form.mFormControlLabel
-import com.ccfraser.muirwik.components.mIcon
-import com.ccfraser.muirwik.components.mSwitch
-import com.ccfraser.muirwik.components.mSwitchWithLabel
-import com.ccfraser.muirwik.components.mTypography
 import kotlinx.css.Display
 import kotlinx.css.display
 import react.*
@@ -20,10 +17,6 @@ class TestSwitches : RComponent<RProps, RState>() {
     var checked4: Boolean = false
 
     override fun RBuilder.render() {
-        // For building things that we don't want to render now (e.g. the component will render it later), we need another builder
-        // Update: Now you can actually pass in addAsChild as false instead.
-        val altBuilder = RBuilder()
-
         styledDiv {
             css { display = Display.flex }
             div {
@@ -33,12 +26,13 @@ class TestSwitches : RComponent<RProps, RState>() {
                 mSwitch(checked = checked2, onChange = { _, _ -> setState { checked2 = !checked2 } })
                 br { }
                 // The icons are more for a checkbox type control, but for fun, we shall put the star on the switch
-                mSwitch(checked = checked3, onChange = { _, _ -> setState { checked3 = !checked3 } },
-                        icon = mIcon("star", addAsChild = false),
-                        checkedIcon = mIcon("star", addAsChild = false))
+                mSwitch(checked = checked3, onChange = { _, _ -> setState { checked3 = !checked3 } }) {
+                        attrs.icon = mIcon("star", addAsChild = false)
+                        attrs.checkedIcon = mIcon("star", addAsChild = false)
+                }
                 br {  }
-                val s = altBuilder.mSwitch(checked4,false, true, onChange = { _, _ -> setState { checked4 = !checked4 } })
-                mFormControlLabel("As Form Control", control = s)
+                mFormControlLabel("As Form Control", control = mSwitch(checked4, MOptionColor.primary,
+                        addAsChild = false, onChange = { _, _ -> setState { checked4 = !checked4 } }))
             }
             div {
                 mTypography("Using 'WithLabel'")
@@ -46,7 +40,7 @@ class TestSwitches : RComponent<RProps, RState>() {
                 br { }
                 mSwitchWithLabel("Option 2", checked = checked2, onChange = { _, _ -> setState { checked2 = !checked2 } })
                 br { }
-                mSwitchWithLabel("Option 3", disabled = true, onChange = { _, _ -> setState { checked3 = !checked3 } })
+                mSwitchWithLabel("Option 3 - A star?", disabled = true, onChange = { _, _ -> setState { checked3 = !checked3 } })
             }
         }
     }

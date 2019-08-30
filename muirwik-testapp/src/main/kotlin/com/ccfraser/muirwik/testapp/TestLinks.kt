@@ -20,8 +20,14 @@ class TestLinks : RComponent<RProps, RState>() {
     override fun RBuilder.render() {
         mTypography {
             mLink("Link Target Blank", hRefOptions = HRefOptions("#")) { css(linkMargin)}
-            mLink("color = \"inherit\"", hRefOptions = HRefOptions("#", false), color = MTypographyColor.inherit) { css(linkMargin)}
-            mLink("variant = \"body2\"", hRefOptions = HRefOptions("#", false), variant = MTypographyVariant.body2) { css(linkMargin)}
+            mLink("color = \"inherit\"", hRefOptions = HRefOptions("#", false)) {
+                css(linkMargin)
+                attrs.color = MTypographyColor.inherit
+            }
+            mLink("variant = \"body2\"", hRefOptions = HRefOptions("#", false)) {
+                css(linkMargin)
+                attrs.variant = MTypographyVariant.body2
+            }
         }
     }
 }
