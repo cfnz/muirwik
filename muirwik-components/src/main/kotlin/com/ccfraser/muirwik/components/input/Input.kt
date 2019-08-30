@@ -20,6 +20,10 @@ interface MInputProps : MInputBaseProps {
     var disableUnderline: Boolean
 }
 
+/**
+ * An input control that can be used by itself, note that [com.ccfraser.muirwik.components.mTextField] wraps this
+ * and has more functionality.
+ */
 fun RBuilder.mInput(
         value: Any? = null,
         required: Boolean? = null,
@@ -58,11 +62,10 @@ fun RBuilder.mInput(
     required?.let { attrs.required = it }
     rows?.let { attrs.rows = it }
     rowsMax?.let { attrs.rowsMax = it }
-    attrs.type = type.toString()
+    attrs.type = type
     value?.let { attrs.value = it }
 
     setStyledPropsAndRunHandler(className, handler)
-    attrs.redefineInputBaseDefinedProps()
 }
 
 

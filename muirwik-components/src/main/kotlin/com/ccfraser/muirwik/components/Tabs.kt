@@ -39,30 +39,22 @@ enum class MTabOrientation {
 interface MTabsProps: StyledProps {
     var action: (actions: Any) -> Unit
     var centered: Boolean
-    var indicatorColor: MTabIndicatorColor
     var onChange: (event: Event, indexValue: Any) -> Unit
-    var orientation: MTabOrientation
 
     @JsName("ScrollButtonComponent")
     var scrollButtonComponent: ReactElement
 
-    var scrollButtons: MTabScrollButtons
-
     @JsName("TabIndicatorProps")
     var tabIndicatorProps: RProps
 
-    var textColor: MTabTextColor
     var value: Any
-    var variant: MTabVariant
 }
+var MTabsProps.indicatorColor by EnumPropToString(MTabIndicatorColor.values())
+var MTabsProps.orientation by EnumPropToString(MTabOrientation.values())
+var MTabsProps.scrollButtons by EnumPropToString(MTabScrollButtons.values())
+var MTabsProps.textColor by EnumPropToString(MTabTextColor.values())
+var MTabsProps.variant by EnumPropToString(MTabVariant.values())
 
-private fun MTabsProps.redefineTypedProps() {
-    this.asDynamic().indicatorColor = indicatorColor.toString()
-    this.asDynamic().orientation = orientation.toString()
-    this.asDynamic().scrollButtons = scrollButtons.toString()
-    this.asDynamic().textColor = textColor.toString()
-    this.asDynamic().variant = variant.toString()
-}
 
 fun RBuilder.mTabs(
         value: Any = false, // false means none selected
@@ -93,7 +85,6 @@ fun RBuilder.mTabs(
     attrs.variant = variant
 
     setStyledPropsAndRunHandler(className, handler)
-    attrs.redefineTypedProps()
 }
 
 

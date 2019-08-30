@@ -22,8 +22,8 @@ interface MOutlinedInputProps : MInputBaseProps {
 }
 
 /**
- * An outlined input control that can be used by itself, but [com.ccfraser.muirwik.components.mTextField] wraps this and
- * has more functionality.
+ * An outlined input control that can be used by itself, note that [com.ccfraser.muirwik.components.mTextField] wraps this
+ * and has more functionality.
  */
 fun RBuilder.mOutlinedInput(
         value: String? = null,
@@ -65,11 +65,10 @@ fun RBuilder.mOutlinedInput(
     required?.let { attrs.required = it }
     rows?.let { attrs.rows = it }
     rowsMax?.let { attrs.rowsMax = it }
-    attrs.type = type.toString()
+    attrs.type = type
     value?.let { attrs.value = it }
 
     setStyledPropsAndRunHandler(className, handler)
-    attrs.redefineInputBaseDefinedProps()
 }
 
 

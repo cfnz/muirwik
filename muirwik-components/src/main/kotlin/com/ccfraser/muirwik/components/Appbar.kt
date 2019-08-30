@@ -17,15 +17,9 @@ enum class MAppBarPosition {
     fixed, absolute, sticky, static, relative
 }
 
-interface MAppBarProps : StyledPropsWithCommonAttributes {
-    var color: MColor
-    var position: MAppBarPosition
-}
-
-private fun MAppBarProps.redefineTypedProps() {
-    this.asDynamic().color = color.toString()
-    this.asDynamic().position = position.toString()
-}
+interface MAppBarProps : StyledPropsWithCommonAttributes
+var MAppBarProps.color by EnumPropToString(MColor.values())
+var MAppBarProps.position by EnumPropToString(MAppBarPosition.values())
 
 fun RBuilder.mAppBar(
         color: MColor = MColor.primary,
@@ -38,6 +32,5 @@ fun RBuilder.mAppBar(
     attrs.position = position
 
     setStyledPropsAndRunHandler(className, handler)
-    attrs.redefineTypedProps()
 }
 

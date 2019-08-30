@@ -26,18 +26,13 @@ enum class MCircularProgressVariant {
 }
 
 interface MCircularProgressProps : StyledProps {
-    var color: MCircularProgressColor
     var disableShrink: Boolean
     var size: String
     var thickness: Double
     var value: Double
-    var variant: MCircularProgressVariant
 }
-
-private fun MCircularProgressProps.redefineTypedProps() {
-    this.asDynamic().color = color.toString()
-    this.asDynamic().variant = variant.toString()
-}
+var MCircularProgressProps.color by EnumPropToString(MCircularProgressColor.values())
+var MCircularProgressProps.variant by EnumPropToString(MCircularProgressVariant.values())
 
 fun RBuilder.mCircularProgress(
         value: Double? = null,
@@ -57,6 +52,5 @@ fun RBuilder.mCircularProgress(
     attrs.variant = variant
 
     setStyledPropsAndRunHandler(className, handler)
-    attrs.redefineTypedProps()
 }
 

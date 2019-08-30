@@ -1,6 +1,9 @@
 package com.ccfraser.muirwik.components.transitions
 
+import react.RComponent
+import react.RState
 import styled.StyledProps
+import kotlin.reflect.KClass
 
 /**
  * We reference the show (or 'in' in the Material UI docs) prop in some generic transition situations, for example
@@ -9,6 +12,6 @@ import styled.StyledProps
 external interface MTransitionProps : StyledProps {
     @JsName("in")
     var show: Boolean
-
-    var timeout: dynamic
 }
+
+typealias TransitionComponent = KClass<out RComponent<MTransitionProps, RState>>

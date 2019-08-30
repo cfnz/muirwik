@@ -38,7 +38,6 @@ interface MSliderProps : StyledPropsWithCommonAttributes {
     var name: String
     var onChange: (event: Object, value: dynamic) -> Unit
     var onChangeCommitted: (event: Object, value: dynamic) -> Unit
-    var orientation: MSliderOrientation
     var step: Number?
 
     @JsName("ThumbComponent")
@@ -49,14 +48,11 @@ interface MSliderProps : StyledPropsWithCommonAttributes {
     @JsName("ValueLabelComponent")
     var valueLabelComponent: ReactElement
 
-    var valueLabelDisplay: MSliderValueLabelDisplay
     var valueLabelFormat: (value: Number, index: Number) -> String
 }
+var MSliderProps.orientation by EnumPropToString(MSliderOrientation.values())
+var MSliderProps.valueLabelDisplay by EnumPropToString(MSliderValueLabelDisplay.values())
 
-private fun MSliderProps.redefineTypedProps() {
-    this.asDynamic().orientation = orientation.toString()
-    this.asDynamic().valueLabelDisplay = valueLabelDisplay.toString()
-}
 
 fun RBuilder.mSlider(
         value: Number? = null,
@@ -97,7 +93,6 @@ fun RBuilder.mSlider(
     value?.let { attrs.value = it }
 
     setStyledPropsAndRunHandler(className, handler)
-    attrs.redefineTypedProps()
 }
 
 fun RBuilder.mSliderWithRange(
@@ -139,7 +134,6 @@ fun RBuilder.mSliderWithRange(
     value?.let { attrs.value = it.toList().toTypedArray() }
 
     setStyledPropsAndRunHandler(className, handler)
-    attrs.redefineTypedProps()
 }
 
 private fun setCommonAttrs(

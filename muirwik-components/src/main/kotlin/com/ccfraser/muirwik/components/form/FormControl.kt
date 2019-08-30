@@ -1,9 +1,6 @@
 package com.ccfraser.muirwik.components.form
 
-import com.ccfraser.muirwik.components.StyledPropsWithCommonAttributes
-import com.ccfraser.muirwik.components.createStyled
-import com.ccfraser.muirwik.components.setStyledPropsAndRunHandler
-import com.ccfraser.muirwik.components.toHyphenCase
+import com.ccfraser.muirwik.components.*
 import react.RBuilder
 import react.RComponent
 import react.RState
@@ -41,28 +38,23 @@ enum class MFormControlMargin {
 }
 
 interface MFormControlProps : StyledPropsWithCommonAttributes {
-    var component: MFormControlComponent
     var disabled: Boolean
     var error: Boolean
     var fullWidth: Boolean
     var hiddenLabel: Boolean
-    var margin: MFormControlMargin?
     var required: Boolean
-    var variant: MFormControlVariant
 }
+var MFormControlProps.margin by EnumPropToString(MFormControlMargin.values())
+var MFormControlProps.component by EnumPropToString(MFormControlComponent.values())
+var MFormControlProps.variant by EnumPropToString(MFormControlVariant.values())
 
-fun MFormControlProps.redefineFormControlTypedProps() {
-    if (margin != undefined) this.asDynamic().margin = margin.toString()
-    if (component != undefined) this.asDynamic().component = component.toString()
-    if (variant != undefined) this.asDynamic().variant = variant.toString()
-}
 
 fun RBuilder.mFormControl(
         component: MFormControlComponent = MFormControlComponent.div,
         disabled: Boolean = false,
         error: Boolean = false,
         fullWidth: Boolean = false,
-        margin: MFormControlMargin? = null,
+        margin: MFormControlMargin = MFormControlMargin.none,
         required: Boolean = false,
         variant: MFormControlVariant = MFormControlVariant.standard,
         hiddenLabel: Boolean = false,
@@ -73,10 +65,9 @@ fun RBuilder.mFormControl(
     attrs.error = error
     attrs.fullWidth = fullWidth
     attrs.hiddenLabel = hiddenLabel
-    margin?.let { attrs.margin = it }
+    attrs.margin = margin
     attrs.required = required
     attrs.variant = variant
 
     setStyledPropsAndRunHandler(className, handler)
-    attrs.redefineFormControlTypedProps()
 }

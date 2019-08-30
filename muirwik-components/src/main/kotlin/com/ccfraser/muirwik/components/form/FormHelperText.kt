@@ -1,5 +1,7 @@
 package com.ccfraser.muirwik.components.form
 
+import com.ccfraser.muirwik.components.EnumPropToString
+import com.ccfraser.muirwik.components.EnumPropToStringNullable
 import com.ccfraser.muirwik.components.createStyled
 import com.ccfraser.muirwik.components.setStyledPropsAndRunHandler
 import react.RBuilder
@@ -21,10 +23,10 @@ interface MFormHelperTextProps : StyledProps {
     var error: Boolean
     var filled: Boolean
     var focused: Boolean
-    var margin: MLabelMargin
     var required: Boolean
-    var variant: MFormControlVariant
 }
+var MFormHelperTextProps.margin by EnumPropToStringNullable(MLabelMargin.values())
+var MFormHelperTextProps.variant by EnumPropToString(MFormControlVariant.values())
 
 fun RBuilder.mFormHelperText (
         caption: String,
@@ -44,12 +46,10 @@ fun RBuilder.mFormHelperText (
     attrs.error = error
     attrs.filled = filled
     attrs.focused = focused
-    margin?.let { attrs.margin = it }
+    attrs.margin = margin
     attrs.required = required
     attrs.variant = variant
 
     childList.add(caption)
     setStyledPropsAndRunHandler(className,  handler)
-    if (attrs.margin != undefined) attrs.asDynamic().margin = margin.toString()
-    attrs.asDynamic().variant = attrs.variant.toString()
 }

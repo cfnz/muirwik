@@ -18,7 +18,6 @@ private val radioComponent: RComponent<MRadioProps, RState> = radioModule.defaul
 interface MRadioProps : StyledPropsWithCommonAttributes {
     var checked: Boolean
     var checkedIcon: ReactElement?
-    var color: MOptionColor
     var disabled: Boolean
     var disableRipple: Boolean
     var icon: ReactElement?
@@ -28,6 +27,7 @@ interface MRadioProps : StyledPropsWithCommonAttributes {
     var type: String
     var value: String?
 }
+var MRadioProps.color by EnumPropToString(MOptionColor.values())
 
 fun RBuilder.mRadio(
         checked: Boolean? = null,
@@ -52,7 +52,6 @@ fun RBuilder.mRadio(
     value?.let { attrs.value = it }
 
     setStyledPropsAndRunHandler(className, handler)
-    attrs.asDynamic().color = attrs.color.toString()
 }
 
 /**

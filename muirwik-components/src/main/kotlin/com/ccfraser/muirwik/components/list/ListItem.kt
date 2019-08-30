@@ -28,7 +28,6 @@ enum class MListItemAlignItems {
 }
 
 interface MListItemProps : MButtonBaseProps {
-    var alignItems: MListItemAlignItems
     var button: Boolean
 
     @JsName("ContainerComponent")
@@ -45,10 +44,8 @@ interface MListItemProps : MButtonBaseProps {
 
     // TODO: should this have a value?
 }
+var MListItemProps.alignItems by EnumPropToString(MListItemAlignItems.values())
 
-private fun MListItemProps.redefineTypedProps() {
-    this.asDynamic().alignItems = alignItems.toString()
-}
 
 /**
  * More user friendly version (don't usually need to add children as the params here do pretty much all that is required)
@@ -171,5 +168,4 @@ fun RBuilder.mListItem(
     attrs.selected = selected
 
     setStyledPropsAndRunHandler(className, handler)
-    attrs.redefineTypedProps()
 }

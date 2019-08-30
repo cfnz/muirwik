@@ -15,16 +15,17 @@ private external val fadeModule: dynamic
 private val fadeComponent: RComponent<MFadeProps, RState> = fadeModule.default
 
 external interface MFadeProps : MTransitionProps
+var MFadeProps.timeout by TransitionDurationDelegate()
 
 fun RBuilder.mFade(
         show: Boolean = false,
-        timeout: TransitionTimeout? = null,
+        timeout: TransitionDuration? = null,
 
         addAsChild: Boolean = true,
         className: String? = null,
         handler: StyledHandler<MFadeProps>? = null) = createStyled(fadeComponent, addAsChild) {
     attrs.show = show
-    timeout?.let { attrs.timeout = timeout.value() }
+    timeout?.let { attrs.timeout = it }
 
     setStyledPropsAndRunHandler(className, handler)
 }

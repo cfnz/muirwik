@@ -1,5 +1,7 @@
 package com.ccfraser.muirwik.components.input
 
+import com.ccfraser.muirwik.components.EnumPropToString
+import com.ccfraser.muirwik.components.EnumPropToStringNullable
 import com.ccfraser.muirwik.components.createStyled
 import com.ccfraser.muirwik.components.form.MFormControlVariant
 import com.ccfraser.muirwik.components.form.MFormLabelProps
@@ -19,16 +21,11 @@ private val inputLabelComponent: RComponent<MInputLabelProps, RState> = inputLab
 
 interface MInputLabelProps : MFormLabelProps {
     var disableAnimation: Boolean
-
-    var margin: MLabelMargin
     var shrink: Boolean
-    var variant: MFormControlVariant
 }
+var MInputLabelProps.margin by EnumPropToStringNullable(MLabelMargin.values())
+var MInputLabelProps.variant by EnumPropToString(MFormControlVariant.values())
 
-private fun MInputLabelProps.redefineTypedProps() {
-    if (margin != undefined) this.asDynamic().margin = margin.toString()
-    this.asDynamic().variant = variant.toString()
-}
 
 fun RBuilder.mInputLabel (
         caption: String,
@@ -64,5 +61,4 @@ fun RBuilder.mInputLabel (
 
     childList.add(caption)
     setStyledPropsAndRunHandler(className,  handler)
-    attrs.redefineTypedProps()
 }

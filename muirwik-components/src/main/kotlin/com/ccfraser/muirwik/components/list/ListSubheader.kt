@@ -1,5 +1,6 @@
 package com.ccfraser.muirwik.components.list
 
+import com.ccfraser.muirwik.components.EnumPropToString
 import com.ccfraser.muirwik.components.button.MButtonBaseProps
 import com.ccfraser.muirwik.components.createStyled
 import com.ccfraser.muirwik.components.setStyledPropsAndRunHandler
@@ -26,11 +27,11 @@ enum class MListSubheaderColor {
 }
 
 interface MListSubheaderProps : MButtonBaseProps {
-    var color: MListSubheaderColor
     var disableGutters: Boolean
     var disableSticky: Boolean
     var inset: Boolean
 }
+var MListSubheaderProps.color by EnumPropToString(MListSubheaderColor.values())
 
 /**
  * A list sub-header which allows you to pass a string to use for the heading.
@@ -63,7 +64,6 @@ fun RBuilder.mListSubheader(
     }
 
     setStyledPropsAndRunHandler(className, handler)
-    attrs.asDynamic().color = attrs.color.toString()
 }
 
 /**
@@ -86,5 +86,4 @@ fun RBuilder.mListSubheader(
     attrs.inset = inset
 
     setStyledPropsAndRunHandler(className, handler)
-    attrs.asDynamic().color = attrs.color.toString()
 }

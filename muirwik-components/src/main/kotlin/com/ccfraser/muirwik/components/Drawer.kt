@@ -2,6 +2,7 @@ package com.ccfraser.muirwik.components
 
 import com.ccfraser.muirwik.components.transitions.MSlideProps
 import com.ccfraser.muirwik.components.transitions.TransitionDuration
+import com.ccfraser.muirwik.components.transitions.TransitionDurationDelegateNullable
 import org.w3c.dom.events.Event
 import react.RBuilder
 import react.RComponent
@@ -27,7 +28,6 @@ enum class MDrawerVariant {
 }
 
 interface MDrawerProps : StyledPropsWithCommonAttributes {
-    var anchor: MDrawerAnchor
     var elevation: Int
 
     @JsName("ModalProps")
@@ -42,15 +42,10 @@ interface MDrawerProps : StyledPropsWithCommonAttributes {
     @JsName("SlideProps")
     var slideProps: MSlideProps
 
-    var transitionDuration: TransitionDuration
-    var variant: MDrawerVariant
 }
-
-fun MDrawerProps.redefineTypedProps() {
-    this.asDynamic().anchor = anchor.toString()
-    this.asDynamic().variant = variant.toString()
-    if (this.transitionDuration != undefined) {this.asDynamic().transitionDuration = transitionDuration.value()}
-}
+var MDrawerProps.anchor by EnumPropToString(MDrawerAnchor.values())
+var MDrawerProps.transitionDuration by TransitionDurationDelegateNullable()
+var MDrawerProps.variant by EnumPropToString(MDrawerVariant.values())
 
 fun RBuilder.mDrawer(
         open: Boolean = false,
@@ -76,7 +71,6 @@ fun RBuilder.mDrawer(
     transitionDuration?.let { attrs.transitionDuration = it }
 
     setStyledPropsAndRunHandler(className, handler)
-    attrs.redefineTypedProps()
 }
 
 

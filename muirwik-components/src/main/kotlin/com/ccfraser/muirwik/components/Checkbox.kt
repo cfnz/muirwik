@@ -19,7 +19,6 @@ private val checkboxComponent : RComponent<MCheckboxProps, RState> = checkboxMod
 interface MCheckboxProps : StyledPropsWithCommonAttributes {
     var checked: Boolean
     var checkedIcon: ReactElement
-    var color: MOptionColor
     var disabled: Boolean
     var disableRipple: Boolean
     var icon: ReactElement?
@@ -31,6 +30,7 @@ interface MCheckboxProps : StyledPropsWithCommonAttributes {
     var type: String
     var value: String
 }
+var MCheckboxProps.color by EnumPropToString(MOptionColor.values())
 
 /**
  * Checkbox without a label. If you want a simple checkbox that is wrapped in a label, use [mCheckboxWithLabel]
@@ -61,7 +61,6 @@ fun RBuilder.mCheckbox(
     value?.let {attrs.value = value}
 
     setStyledPropsAndRunHandler(className, handler)
-    attrs.asDynamic().color = attrs.color.toString()
 }
 
 /**
@@ -75,12 +74,8 @@ fun RBuilder.mCheckboxWithLabel(
         disabled: Boolean = false,
         required: Boolean? = null,
         indeterminate: Boolean = false,
-        icon: ReactElement? = null,
-        checkedIcon: ReactElement? = null,
-        indeterminateIcon: ReactElement? = null,
         labelPlacement: MLabelPlacement = MLabelPlacement.end,
         onChange: ((event: Event, checked: Boolean) -> Unit)? = null,
-        disableRipple: Boolean = false,
         id: String? = null,
         inputProps: RProps? = null,
         value: String? = null,

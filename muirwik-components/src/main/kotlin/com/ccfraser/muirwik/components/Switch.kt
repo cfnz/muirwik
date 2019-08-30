@@ -14,23 +14,6 @@ private external val switchDefault: dynamic
 @Suppress("UnsafeCastFromDynamic")
 private val switchComponent: RComponent<MSwitchProps, RState> = switchDefault.default
 
-interface MSwitchProps : StyledPropsWithCommonAttributes {
-    var checked: Boolean?
-    var checkedIcon: ReactElement?
-    var color: MOptionColor?
-    var disabled: Boolean?
-    var disableRipple: Boolean?
-    var edge: String?
-    var icon: ReactElement?
-//    var id: String?
-    var inputProps: RProps?
-    var onChange: ((Event, Boolean) -> Unit)?
-    var required: Boolean?
-    var size: String?
-    var type: String
-    var value: String?
-}
-
 @Suppress("EnumEntryName")
 enum class MSwitchEdge {
     start, end // We assume if the prop is null, then the default false will be used, so we don't have this as a value
@@ -40,6 +23,22 @@ enum class MSwitchEdge {
 enum class MSwitchSize {
     small, medium
 }
+
+interface MSwitchProps : StyledPropsWithCommonAttributes {
+    var checked: Boolean
+    var checkedIcon: ReactElement
+    var disabled: Boolean
+    var disableRipple: Boolean
+    var icon: ReactElement
+    var inputProps: RProps
+    var onChange: (Event, Boolean) -> Unit
+    var required: Boolean
+    var type: String
+    var value: String
+}
+var MSwitchProps.color by EnumPropToString(MOptionColor.values())
+var MSwitchProps.edge by EnumPropToString(MSwitchEdge.values())
+var MSwitchProps.size by EnumPropToString(MSwitchSize.values())
 
 fun RBuilder.mSwitch(
         checked: Boolean = false,
@@ -59,17 +58,17 @@ fun RBuilder.mSwitch(
     attrs.checked = checked
     attrs.color = color
     attrs.disabled = disabled
-    edge?.let { attrs.edge = it.toString() }
+    required?.let { attrs.required = it }
+    edge?.let { attrs.edge = it }
     attrs.disabled = disabled
     id?.let { attrs.id = id }
     inputProps?.let { attrs.inputProps = inputProps }
     onChange?.let { attrs.onChange = onChange }
-    attrs.size = size.toString()
+    attrs.size = size
     attrs.type = InputType.checkBox.realValue
     value?.let {attrs.value = value}
 
     setStyledPropsAndRunHandler(className, handler)
-    attrs.asDynamic().color = attrs.color.toString()
 }
 
 /**

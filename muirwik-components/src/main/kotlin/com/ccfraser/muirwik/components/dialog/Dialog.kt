@@ -1,18 +1,16 @@
 package com.ccfraser.muirwik.components.dialog
 
-import com.ccfraser.muirwik.components.MPaperProps
-import com.ccfraser.muirwik.components.SimpleEvent
-import com.ccfraser.muirwik.components.createStyled
-import com.ccfraser.muirwik.components.setStyledPropsAndRunHandler
+import com.ccfraser.muirwik.components.*
 import com.ccfraser.muirwik.components.styles.Breakpoint
-import com.ccfraser.muirwik.components.transitions.MTransitionProps
+import com.ccfraser.muirwik.components.transitions.TransitionComponent
+import com.ccfraser.muirwik.components.transitions.TransitionComponentDelegate
+import com.ccfraser.muirwik.components.transitions.TransitionDurationDelegateNullable
 import org.w3c.dom.events.Event
 import react.RBuilder
 import react.RComponent
 import react.RProps
 import react.RState
 import styled.StyledHandler
-import kotlin.reflect.KClass
 
 
 @JsModule("@material-ui/core/Dialog")
@@ -44,20 +42,12 @@ interface MDialogProps : MModalProps {
     @JsName("PaperProps")
     var paperProps: MPaperProps?
 
-    @JsName("TransitionComponent")
-    var transitionComponent: dynamic
-
-//    var transitionDuration: dynamic
-
     @JsName("TransitionProps")
     var transitionProps: RProps?
-
-    var scroll: DialogScroll?
 }
-
-private fun MDialogProps.redefineTypedProps() {
-    this.asDynamic().scroll = scroll.toString()
-}
+var MDialogProps.scroll by EnumPropToString(DialogScroll.values())
+var MDialogProps.transitionComponent by TransitionComponentDelegate()
+var MDialogProps.transitionDuration by TransitionDurationDelegateNullable()
 
 /**
  * Note setting maxWidth to null will disable maxWidth (i.e. pass false to the underlying Material UI component)
@@ -78,7 +68,7 @@ fun RBuilder.mDialog(
 
         scroll: DialogScroll = DialogScroll.paper,
 
-        transitionComponent: KClass<out RComponent<MTransitionProps, RState>>? = null,
+        transitionComponent: TransitionComponent? = null,
         // Can't seem to get the transitionDuration working, but you can use the transitionProps, e.g.
         //     val transitionProps = EmptyProps()
         //     transitionProps.asDynamic().timeout = 5000
@@ -92,19 +82,18 @@ fun RBuilder.mDialog(
     attrs.keepMounted = keepMounted
 //    manager?.let { attrs.manager = manager }
     onBackdropClick?.let { attrs.onBackdropClick = it }
-    onClose?.let { attrs.onClose = { event, string -> it(event, ModalOnCloseReason.valueOf(string)) }}
+    attrs.onClose = onClose
     onEscapeKeyDown?.let { attrs.onEscapeKeyDown = it }
     attrs.open = open
     attrs.fullScreen = fullScreen
     attrs.fullWidth = fullWidth
     attrs.maxWidth = maxWidth?.toString() ?: false
     attrs.scroll = scroll
-    transitionComponent?.let { attrs.transitionComponent = it.js }
+    attrs.transitionComponent = transitionComponent
 //    transitionDuration?.let { attrs.transitionDuration = it }
     transitionProps?.let { attrs.transitionProps = it }
 
     setStyledPropsAndRunHandler(className, handler)
-    attrs.redefineTypedProps()
 }
 
 

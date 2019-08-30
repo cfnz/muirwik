@@ -10,25 +10,19 @@ import styled.StyledHandler
 private external val linkModule: dynamic
 private val linkComponent: RComponent<MLinkProps, RState> = linkModule.default
 
+@Suppress("EnumEntryName")
+enum class MLinkUnderline {
+    none, hover, always
+}
 
 interface MLinkProps: MTypographyProps {
     var block: Boolean
 
     @JsName("TypographyClasses")
     var typographyClasses: String
-
-    var underline: MLinkUnderline
 }
+var MLinkProps.underline by EnumPropToString(MLinkUnderline.values())
 
-fun MLinkProps.redefineTypedProps() {
-    redefineTypographyTypedProps()
-    this.asDynamic().underline = underline.toString()
-}
-
-@Suppress("EnumEntryName")
-enum class MLinkUnderline {
-    none, hover, always
-}
 
 /**
  * Allows more styling of link behaviour over the button with an href.
@@ -39,30 +33,17 @@ fun RBuilder.mLink(
         text: String? = null,
         hRefOptions: HRefOptions? = null,
         underline: MLinkUnderline = MLinkUnderline.hover,
-        variant: MTypographyVariant = MTypographyVariant.body1,
-        color: MTypographyColor = MTypographyColor.primary,
-        align: MTypographyAlign = MTypographyAlign.left,
         gutterBottom: Boolean = false,
         noWrap: Boolean = false,
-        paragraph: Boolean = false,
-        component: String? = null,
-        typographyClasses: String? = null,
 
         className: String? = null,
         handler: StyledHandler<MLinkProps>? = null) = createStyled(linkComponent) {
-    attrs.align = align
-    attrs.color = color
-    component?.let { attrs.component = it }
     attrs.gutterBottom = gutterBottom
     hRefOptions?.let { setHRefTargetNoOpener(attrs, it) }
     attrs.noWrap = noWrap
-    attrs.paragraph = paragraph
     attrs.underline = underline
-    attrs.variant = variant
-    typographyClasses?.let { attrs.typographyClasses = it }
     text?.let {childList.add(it)}
 
     setStyledPropsAndRunHandler(className, handler)
-    attrs.redefineTypedProps()
 }
 

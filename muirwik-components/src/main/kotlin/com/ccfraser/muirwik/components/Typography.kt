@@ -28,20 +28,15 @@ enum class MTypographyVariant {
 }
 
 interface MTypographyProps : StyledPropsWithCommonAttributes {
-    var align: MTypographyAlign
-    var color: MTypographyColor
     var component: String
     var gutterBottom: Boolean
     var noWrap: Boolean
     var paragraph: Boolean
-    var variant: MTypographyVariant
 }
+var MTypographyProps.align by EnumPropToString(MTypographyAlign.values())
+var MTypographyProps.color by EnumPropToString(MTypographyColor.values())
+var MTypographyProps.variant by EnumPropToString(MTypographyVariant.values())
 
-fun MTypographyProps.redefineTypographyTypedProps() {
-    this.asDynamic().align = align.toString()
-    this.asDynamic().color = color.toString()
-    this.asDynamic().variant = variant.toString()
-}
 
 fun RBuilder.mTypography(
         text: String? = null,
@@ -53,8 +48,9 @@ fun RBuilder.mTypography(
         paragraph: Boolean = false,
         component: String? = null,
 
+        addAsChild: Boolean = true,
         className: String? = null,
-        handler: StyledHandler<MTypographyProps>? = null) = createStyled(typographyComponent) {
+        handler: StyledHandler<MTypographyProps>? = null) = createStyled(typographyComponent, addAsChild) {
     attrs.align = align
     attrs.color = color
     component?.let { attrs.component = it }
@@ -66,6 +62,5 @@ fun RBuilder.mTypography(
     text?.let {childList.add(it)}
 
     setStyledPropsAndRunHandler(className, handler)
-    attrs.redefineTypographyTypedProps()
 }
 

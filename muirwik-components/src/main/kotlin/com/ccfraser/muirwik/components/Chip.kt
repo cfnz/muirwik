@@ -32,22 +32,16 @@ enum class MChipSize {
 interface MChipProps : StyledPropsWithCommonAttributes {
     var avatar: ReactElement
     var clickable: Boolean
-    var color: MChipColor
     var component: String
     var deleteIcon: ReactElement
     var icon: ReactElement
     var label: Node
-    var size: MChipSize
     var key: Any
     var onDelete: (Event) -> Unit
-    var variant: MChipVariant
 }
-
-private fun MChipProps.redefineTypedProps() {
-    this.asDynamic().color = color.toString()
-    this.asDynamic().size = size.toString()
-    this.asDynamic().variant = variant.toString()
-}
+var MChipProps.color by EnumPropToString(MChipColor.values())
+var MChipProps.size by EnumPropToString(MChipSize.values())
+var MChipProps.variant by EnumPropToString(MChipVariant.values())
 
 /**
  * This is the simpler version of the chip component allowing you to pass in a string label for the chip
@@ -79,6 +73,5 @@ fun RBuilder.mChip(
     attrs.variant = variant
 
     setStyledPropsAndRunHandler(className, handler)
-    attrs.redefineTypedProps()
 }
 

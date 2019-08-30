@@ -1,9 +1,6 @@
 package com.ccfraser.muirwik.components.button
 
-import com.ccfraser.muirwik.components.MColor
-import com.ccfraser.muirwik.components.StyledPropsWithCommonAttributes
-import com.ccfraser.muirwik.components.createStyled
-import com.ccfraser.muirwik.components.setStyledPropsAndRunHandler
+import com.ccfraser.muirwik.components.*
 import react.RBuilder
 import react.RComponent
 import react.RState
@@ -21,21 +18,16 @@ enum class MButtonGroupVariant {
 }
 
 interface MButtonGroupProps : StyledPropsWithCommonAttributes {
-    var color: MColor
     var component: String
     var disabled: Boolean
     var disableFocusRipple: Boolean
     var disableRipple: Boolean
     var fullWidth: Boolean
-    var size: MButtonSize
-    var variant: MButtonGroupVariant
 }
+var MButtonGroupProps.color by EnumPropToString(MColor.values())
+var MButtonGroupProps.size by EnumPropToString(MButtonSize.values())
+var MButtonGroupProps.variant by EnumPropToString(MButtonGroupVariant.values())
 
-private fun MButtonGroupProps.redefineTypedProps() {
-    this.asDynamic().color = color.toString()
-    this.asDynamic().size = size.toString()
-    this.asDynamic().variant = variant.toString()
-}
 
 fun RBuilder.mButtonGroup(
         color: MColor = MColor.default,
@@ -60,6 +52,5 @@ fun RBuilder.mButtonGroup(
     attrs.variant = variant
 
     setStyledPropsAndRunHandler(className, handler)
-    attrs.redefineTypedProps()
 }
 

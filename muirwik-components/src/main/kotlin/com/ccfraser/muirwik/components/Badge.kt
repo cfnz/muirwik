@@ -25,18 +25,13 @@ enum class MBadgeVariant {
 
 interface MBadgeProps: StyledPropsWithCommonAttributes {
     var badgeContent: ReactElement
-    var color: MBadgeColor
     var component: String
     var invisible: Boolean
     var max: Number
     var showZero: Boolean
-    var variant: MBadgeVariant
 }
-
-private fun MBadgeProps.redefineTypedProps() {
-    this.asDynamic().color = color.toString()
-    this.asDynamic().variant = variant.toString()
-}
+var MBadgeProps.color by EnumPropToString(MBadgeColor.values())
+var MBadgeProps.variant by EnumPropToString(MBadgeVariant.values())
 
 fun RBuilder.mBadge(
         badgeContent: String,
@@ -98,6 +93,5 @@ fun RBuilder.mBadge(
     component?.let { attrs.component = component }
 
     setStyledPropsAndRunHandler(className, handler)
-    attrs.redefineTypedProps()
 }
 

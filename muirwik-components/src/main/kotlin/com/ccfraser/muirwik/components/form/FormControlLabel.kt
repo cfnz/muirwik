@@ -1,5 +1,6 @@
 package com.ccfraser.muirwik.components.form
 
+import com.ccfraser.muirwik.components.EnumPropToString
 import com.ccfraser.muirwik.components.StyledPropsWithCommonAttributes
 import com.ccfraser.muirwik.components.createStyled
 import com.ccfraser.muirwik.components.setStyledPropsAndRunHandler
@@ -27,11 +28,11 @@ interface MFormControlLabelProps : StyledPropsWithCommonAttributes {
     var disabled: Boolean
     //    var inputRef	func		Use that property to pass a ref callback to the native input component.
     var label: String
-    var labelPlacement: MLabelPlacement
     var name: String?
     var onChange: ((Event, Boolean) -> Unit)
     var value: String
 }
+var MFormControlLabelProps.labelPlacement by EnumPropToString(MLabelPlacement.values())
 
 fun RBuilder.mFormControlLabel (
         label: String,
@@ -55,5 +56,4 @@ fun RBuilder.mFormControlLabel (
     value?.let { attrs.value = value }
 
     setStyledPropsAndRunHandler(className, handler)
-    attrs.asDynamic().labelPlacement = attrs.labelPlacement.toString()
 }

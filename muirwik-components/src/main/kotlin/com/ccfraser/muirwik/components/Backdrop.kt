@@ -1,6 +1,7 @@
 package com.ccfraser.muirwik.components
 
 import com.ccfraser.muirwik.components.transitions.TransitionDuration
+import com.ccfraser.muirwik.components.transitions.TransitionDurationDelegate
 import react.RBuilder
 import react.RComponent
 import react.RState
@@ -13,9 +14,9 @@ private external val backdropModule: dynamic
 @Suppress("UnsafeCastFromDynamic")
 private val backdropComponent: RComponent<MBackdropProps, RState> = backdropModule.default
 
-interface MBackdropProps : StyledProps {
-    var transitionDuration: TransitionDuration
-}
+interface MBackdropProps : StyledProps
+var MBackdropProps.transitionDuration by TransitionDurationDelegate()
+
 
 fun RBuilder.mBackdrop(
         transitionDuration: TransitionDuration,
@@ -24,6 +25,4 @@ fun RBuilder.mBackdrop(
         handler: StyledHandler<MBackdropProps>? = null) = createStyled(backdropComponent) {
     attrs.transitionDuration = transitionDuration
     setStyledPropsAndRunHandler(className, handler)
-    attrs.transitionDuration = transitionDuration.value()
-
 }

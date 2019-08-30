@@ -15,16 +15,17 @@ private external val zoomModule: dynamic
 private val zoomComponent: RComponent<MZoomProps, RState> = zoomModule.default
 
 external interface MZoomProps : MTransitionProps
+var MZoomProps.timeout by TransitionDurationDelegate()
 
 fun RBuilder.mZoom(
         show: Boolean = false,
-        timeout: TransitionTimeout? = null,
+        timeout: TransitionDuration? = null,
 
         addAsChild: Boolean = true,
         className: String? = null,
         handler: StyledHandler<MZoomProps>? = null) = createStyled(zoomComponent, addAsChild) {
     attrs.show = show
-    timeout?.let { attrs.timeout = timeout.value() }
+    timeout?.let { attrs.timeout = it }
 
     setStyledPropsAndRunHandler(className, handler)
 }

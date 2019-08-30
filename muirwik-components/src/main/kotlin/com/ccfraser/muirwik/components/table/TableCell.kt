@@ -1,5 +1,6 @@
 package com.ccfraser.muirwik.components.table
 
+import com.ccfraser.muirwik.components.EnumPropToString
 import com.ccfraser.muirwik.components.StyledPropsWithCommonAttributes
 import com.ccfraser.muirwik.components.createStyled
 import com.ccfraser.muirwik.components.setStyledPropsAndRunHandler
@@ -48,21 +49,21 @@ interface MTableCellProps : StyledPropsWithCommonAttributes {
     var colSpan: Int
     var component: String
     var key: Any
-    var align: MTableCellAlign
-    var padding: MTableCellPadding
     var scope: String
-    var size: MTableCellSize
-    var sortDirection: MTableCellSortDirection
-    var variant: MTableCellVariant
-}
 
-private fun MTableCellProps.redefineTypedProps() {
-    this.asDynamic().align = align.toString()
-    this.asDynamic().padding = padding.toString()
-    this.asDynamic().size = size.toString()
-    this.asDynamic().sortDirection = if (sortDirection == MTableCellSortDirection.False) false else sortDirection.toString()
-    this.asDynamic().variant = variant.toString()
+    @JsName("sortDirection")
+    var rawSortDirection: dynamic
 }
+var MTableCellProps.align by EnumPropToString(MTableCellAlign.values())
+var MTableCellProps.padding by EnumPropToString(MTableCellPadding.values())
+var MTableCellProps.size by EnumPropToString(MTableCellSize.values())
+var MTableCellProps.sortDirection: MTableCellSortDirection
+    get() = if (rawSortDirection == false) MTableCellSortDirection.False else MTableCellSortDirection.valueOf(rawSortDirection)
+    set(value) {
+        rawSortDirection = if (value == MTableCellSortDirection.False) false else value.toString()
+    }
+var MTableCellProps.variant by EnumPropToString(MTableCellVariant.values())
+
 
 fun RBuilder.mTableCell(
         key: Any? = null,
@@ -88,5 +89,4 @@ fun RBuilder.mTableCell(
     attrs.variant = variant
 
     setStyledPropsAndRunHandler(className, handler)
-    attrs.redefineTypedProps()
 }

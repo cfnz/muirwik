@@ -1,12 +1,12 @@
 package com.ccfraser.muirwik.components.dialog
 
+import com.ccfraser.muirwik.components.OnClosePropWithReasonDelegate
 import com.ccfraser.muirwik.components.SimpleEvent
-import org.w3c.dom.events.Event
+import com.ccfraser.muirwik.components.StyledPropsWithCommonAttributes
 import react.RComponent
 import react.RProps
 import react.RState
 import react.ReactElement
-import styled.StyledProps
 
 
 @JsModule("@material-ui/core/Dialog")
@@ -21,7 +21,7 @@ enum class ModalOnCloseReason {
 }
 
 
-interface MModalProps : StyledProps {
+interface MModalProps : StyledPropsWithCommonAttributes {
     @JsName("BackdropComponent")
     var backdropComponent: ReactElement
 
@@ -38,10 +38,11 @@ interface MModalProps : StyledProps {
     var hideBackdrop: Boolean
     var keepMounted: Boolean
     var onBackdropClick: SimpleEvent
-    var onClose: (Event, reason: String) -> Unit
+
     var onEscapeKeyDown: SimpleEvent
     var onRendered: SimpleEvent
 
     var open: Boolean
 }
+var MModalProps.onClose by OnClosePropWithReasonDelegate(ModalOnCloseReason.values())
 

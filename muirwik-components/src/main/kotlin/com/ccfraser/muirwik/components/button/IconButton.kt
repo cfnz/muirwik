@@ -14,20 +14,6 @@ private external val iconButtonModule: dynamic
 @Suppress("UnsafeCastFromDynamic")
 private val iconButtonComponent: RComponent<MIconButtonProps, RState> = iconButtonModule.default
 
-interface MIconButtonProps : MButtonBaseProps {
-    var color: MColor
-    var disableFocusRipple: Boolean
-    var edge: MIconEdge
-    var href: String
-    var size: MIconButtonSize
-}
-
-private fun MIconButtonProps.redefineTypedProps() {
-    this.asDynamic().color = color.toString()
-    if (edge != undefined) this.asDynamic().edge = edge.toString()
-    this.asDynamic().size = size.toString()
-}
-
 @Suppress("EnumEntryName")
 enum class MIconButtonSize {
     small, medium
@@ -36,6 +22,14 @@ enum class MIconButtonSize {
 enum class MIconEdge {
     start, end // We assume if the prop is null, then the default false will be used, so we don't have this as a value
 }
+
+interface MIconButtonProps : MButtonBaseProps {
+    var disableFocusRipple: Boolean
+    var href: String
+}
+var MIconButtonProps.color by EnumPropToString(MColor.values())
+var MIconButtonProps.edge by EnumPropToStringNullable(MIconEdge.values())
+var MIconButtonProps.size by EnumPropToString(MIconButtonSize.values())
 
 
 /**
@@ -83,5 +77,4 @@ fun RBuilder.mIconButton(
     }
 
     setStyledPropsAndRunHandler(className, handler)
-    attrs.redefineTypedProps()
 }

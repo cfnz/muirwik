@@ -24,18 +24,14 @@ interface MNativeSelectProps : StyledPropsWithCommonAttributes {
 
     var input: ReactElement?
     var inputProps: RProps
-    var margin: MInputMargin
     var multiple: Boolean
     var name: String
     var onChange: ((event: Event, child: ReactElement?) -> Unit)?
     var value: Any
-    var variant: MFormControlVariant
 }
+var MNativeSelectProps.margin by EnumPropToStringNullable(MInputMargin.values())
+var MNativeSelectProps.variant by EnumPropToString(MFormControlVariant.values())
 
-private fun MNativeSelectProps.redefineTypedProps() {
-    if (margin != undefined) this.asDynamic().margin = margin.toString()
-    this.asDynamic().variant = variant.toString()
-}
 
 /**
  * From the Material-UI documentation: An alternative to <Select native /> with a much smaller bundle size footprint.
@@ -46,13 +42,9 @@ fun RBuilder.mNativeSelect(
         error: Boolean? = null,
         disabled: Boolean? = null,
         multiple: Boolean = false,
-        fullWidth: Boolean = false,
         iconComponent: RComponent<MIconProps, RState>? = null,
         autoFocus: Boolean? = null,
         id: String? = null,
-        margin: MInputMargin? = null,
-        input: ReactElement? = null,
-        inputProps: RProps? = null,
         name: String? = null,
         variant: MFormControlVariant = MFormControlVariant.standard,
 
@@ -65,12 +57,8 @@ fun RBuilder.mNativeSelect(
     autoFocus?.let { attrs.autoFocus = it }
     disabled?.let { attrs.disabled = it }
     error?.let { attrs.error = it }
-    attrs.fullWidth = fullWidth
     iconComponent?.let { attrs.iconComponent = it }
     id?.let { attrs.id = it }
-    input?.let { attrs.input = it }
-    inputProps?.let { attrs.inputProps = it }
-    margin?.let { attrs.margin = it }
     attrs.multiple = multiple
     name?.let { attrs.name = it }
     onChange?.let { attrs.onChange = it }
@@ -78,7 +66,6 @@ fun RBuilder.mNativeSelect(
     attrs.variant = variant
 
     setStyledPropsAndRunHandler(className, handler)
-    attrs.redefineTypedProps()
 }
 
 

@@ -16,19 +16,14 @@ private val buttonComponent: RComponent<MButtonProps, RState> = buttonModule.def
 
 
 interface MButtonProps : MButtonBaseProps {
-    var color: MColor
     var disableFocusRipple: Boolean
     var fullWidth: Boolean
     var href: String
-    var size: MButtonSize
-    var variant: MButtonVariant
 }
+var MButtonProps.color by EnumPropToString(MColor.values())
+var MButtonProps.size by EnumPropToString(MButtonSize.values())
+var MButtonProps.variant by EnumPropToString(MButtonVariant.values())
 
-private fun MButtonProps.redefineTypedProps() {
-    this.asDynamic().color = color.toString()
-    this.asDynamic().size = size.toString()
-    this.asDynamic().variant = variant.toString()
-}
 
 fun RBuilder.mButton(
         caption: String,
@@ -52,6 +47,5 @@ fun RBuilder.mButton(
     childList.add(caption)
 
     setStyledPropsAndRunHandler(className, handler)
-    attrs.redefineTypedProps()
 }
 

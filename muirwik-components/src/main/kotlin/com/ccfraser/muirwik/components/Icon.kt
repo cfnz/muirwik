@@ -25,10 +25,10 @@ enum class MIconFontSize {
 }
 
 interface MIconProps : StyledProps {
-    var color: MIconColor
-    var fontSize: MIconFontSize
     var style: JsObject
 }
+var MIconProps.color by EnumPropToString(MIconColor.values())
+var MIconProps.fontSize by EnumPropToString(MIconFontSize.values())
 
 fun RBuilder.mIcon(
         iconName: String,
@@ -43,8 +43,6 @@ fun RBuilder.mIcon(
 
     childList.add(iconName)
     setStyledPropsAndRunHandler(className, handler)
-    attrs.asDynamic().fontSize = attrs.fontSize.toString()
-    attrs.asDynamic().color = attrs.color.toString()
 }
 
 

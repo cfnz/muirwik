@@ -24,16 +24,12 @@ enum class MLinearProgressVariant {
 }
 
 interface MLinearProgressProps : StyledProps {
-    var color: MLinearProgressColor
     var value: Double
     var valueBuffer: Double
-    var variant: MLinearProgressVariant
 }
+var MLinearProgressProps.color by EnumPropToString(MLinearProgressColor.values())
+var MLinearProgressProps.variant by EnumPropToString(MLinearProgressVariant.values())
 
-private fun MLinearProgressProps.redefineTypedProps() {
-    this.asDynamic().color = color.toString()
-    this.asDynamic().variant = variant.toString()
-}
 
 fun RBuilder.mLinearProgress(
         value: Double? = null,
@@ -49,6 +45,5 @@ fun RBuilder.mLinearProgress(
     attrs.variant = variant
 
     setStyledPropsAndRunHandler(className, handler)
-    attrs.redefineTypedProps()
 }
 

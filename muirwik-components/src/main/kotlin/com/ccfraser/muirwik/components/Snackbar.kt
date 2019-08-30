@@ -1,14 +1,11 @@
 package com.ccfraser.muirwik.components
 
-import com.ccfraser.muirwik.components.transitions.MTransitionProps
-import com.ccfraser.muirwik.components.transitions.TransitionTimeout
-import kotlinext.js.asJsObject
-import kotlinext.js.jsObject
+import com.ccfraser.muirwik.components.transitions.TransitionComponentDelegate
+import com.ccfraser.muirwik.components.transitions.TransitionDurationDelegate
 import org.w3c.dom.events.Event
 import react.*
 import styled.StyledHandler
 import styled.StyledProps
-import kotlin.reflect.KClass
 
 
 @JsModule("@material-ui/core/Snackbar")
@@ -35,9 +32,6 @@ enum class MSnackbarOnCloseReason {
 interface MSnackbarProps : StyledProps {
     var action: ReactElement
 
-    var anchorOriginHorizontal: MSnackbarHorizAnchor
-    var anchorOriginVertical: MSnackbarVertAnchor
-
     var autoHideDuration: Int
 
     @JsName("ClickAwayListenerProps")
@@ -49,9 +43,6 @@ interface MSnackbarProps : StyledProps {
     var disableWindowBlurListener: Boolean
     var key: String
     var message: ReactElement
-
-    var onClose: (Event, String) -> Unit
-
     var onEnter: Event
     var onEntered: Event
     var onEntering: Event
@@ -61,30 +52,16 @@ interface MSnackbarProps : StyledProps {
     var open: Boolean
     var resumeHideDuration: Int
 
-    @JsName("TransitionComponent")
-    var transitionComponent: KClass<out RComponent<MTransitionProps, RState>>
-
-    var transitionDuration: TransitionTimeout
-
     @JsName("TransitionProps")
     var transitionProps: RProps
 }
 
-private fun MSnackbarProps.redefineTypedProps() {
-    this.asDynamic().anchorOrigin = jsObject {}
-    this.asDynamic().anchorOrigin.horizontal = anchorOriginHorizontal.toString()
-    this.asDynamic().anchorOrigin.vertical = anchorOriginVertical.toString()
+var MSnackbarProps.anchorOriginHorizontal by EnumPropToStringNullable(MSnackbarHorizAnchor.values(), "anchorOrigin", "horizontal")
+var MSnackbarProps.anchorOriginVertical by EnumPropToStringNullable(MSnackbarVertAnchor.values(), "anchorOrigin", "vertical")
+var MSnackbarProps.onClose by OnClosePropWithReasonDelegate(MSnackbarOnCloseReason.values())
+var MSnackbarProps.transitionComponent by TransitionComponentDelegate()
+var MSnackbarProps.transitionDuration by TransitionDurationDelegate()
 
-    if (transitionComponent != undefined) this.asDynamic().TransitionComponent = transitionComponent.js
-    if (transitionDuration != undefined) this.asDynamic().transitionDuration = transitionDuration.value()
-
-    // Make sure the dummy params are not defined... assigning them to undefined was not enough... we have to delete them
-    val propsAsJsObject = this.asJsObject()
-    js("""
-        delete propsAsJsObject.anchorOriginHorizontal;
-        delete propsAsJsObject.anchorOriginVertical;
-    """)
-}
 
 fun RBuilder.mSnackbar(
         message: ReactElement,
@@ -103,12 +80,11 @@ fun RBuilder.mSnackbar(
     autoHideDuration?.let { attrs.autoHideDuration = it }
     key?.let { attrs.key = it }
     attrs.message = message
-    onClose?.let { attrs.onClose = { event, string -> it(event, MSnackbarOnCloseReason.valueOf(string)) }}
+    attrs.onClose = onClose
     open?.let { attrs.open = it }
     resumeHideDuration?.let { attrs.resumeHideDuration = it }
 
     setStyledPropsAndRunHandler(className, handler)
-    attrs.redefineTypedProps()
 }
 
 /**
