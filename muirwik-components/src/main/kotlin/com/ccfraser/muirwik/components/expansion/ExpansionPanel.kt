@@ -1,5 +1,6 @@
 package com.ccfraser.muirwik.components.expansion
 
+import com.ccfraser.muirwik.components.StyledPropsWithCommonAttributes
 import com.ccfraser.muirwik.components.createStyled
 import com.ccfraser.muirwik.components.setStyledPropsAndRunHandler
 import org.w3c.dom.events.Event
@@ -7,7 +8,6 @@ import react.RBuilder
 import react.RComponent
 import react.RState
 import styled.StyledHandler
-import styled.StyledProps
 
 @JsModule("@material-ui/core/ExpansionPanel")
 private external val expansionPanelModule: dynamic
@@ -15,12 +15,12 @@ private external val expansionPanelModule: dynamic
 @Suppress("UnsafeCastFromDynamic")
 private val expansionPanelComponent: RComponent<MExpansionPanelProps, RState> = expansionPanelModule.default
 
-interface MExpansionPanelProps : StyledProps
+interface MExpansionPanelProps : StyledPropsWithCommonAttributes
 {
-	var defaultExpanded: Boolean?
-	var disabled: Boolean?
-	var expanded: Boolean?
-	var onChange: ((Event, Boolean) -> Unit)?
+	var defaultExpanded: Boolean
+	var disabled: Boolean
+	var expanded: Boolean
+	var onChange: (Event, Boolean) -> Unit
 }
 
 fun RBuilder.mExpansionPanel(defaultExpanded: Boolean? = null,
