@@ -1,5 +1,6 @@
 package com.ccfraser.muirwik.components
 
+import kotlinx.css.flexGrow
 import react.RBuilder
 import react.RComponent
 import react.RState
@@ -22,8 +23,8 @@ enum class ToolbarVariant {
 
 interface MToolbarProps : StyledProps {
     var disableGutters: Boolean
-    var variant: String
 }
+var MToolbarProps.variant by EnumPropToString(ToolbarVariant.values())
 
 fun RBuilder.mToolbar(
         disableGutters: Boolean = false,
@@ -32,7 +33,7 @@ fun RBuilder.mToolbar(
         className: String? = null,
         handler: StyledHandler<MToolbarProps>? = null) = createStyled(toolbarComponent) {
     attrs.disableGutters = disableGutters
-    attrs.variant = variant.toString()
+    attrs.variant = variant
 
     setStyledPropsAndRunHandler(className, handler)
 }

@@ -1,5 +1,6 @@
 package com.ccfraser.muirwik.components.gridlist
 
+import com.ccfraser.muirwik.components.EnumPropToString
 import com.ccfraser.muirwik.components.createStyled
 import com.ccfraser.muirwik.components.setStyledPropsAndRunHandler
 import react.RBuilder
@@ -15,22 +16,23 @@ private external val gridListTileBarModule: dynamic
 private val gridListTileBarComponent: RComponent<MGridListTileBarProps, RState> =gridListTileBarModule.default
 
 @Suppress("EnumEntryName")
-enum class ActionPosition {
+enum class MActionPosition {
     left, right
 }
 
 @Suppress("EnumEntryName")
-enum class TitlePosition {
+enum class MTitlePosition {
     top, bottom
 }
 
 interface MGridListTileBarProps: StyledProps {
     var actionIcon: ReactElement
-    var actionPosition: String
     var subtitle: ReactElement
     var title: ReactElement
-    var titlePosition: String
 }
+var MGridListTileBarProps.actionPosition by EnumPropToString(MActionPosition.values())
+var MGridListTileBarProps.titlePosition by EnumPropToString(MTitlePosition.values())
+
 
 /**
  * This mGridListTileBar allows easier to use title and subtitle strings.
@@ -39,13 +41,13 @@ fun RBuilder.mGridListTileBar(
         title: String,
         subtitle: String? = null,
         actionIcon: ReactElement? = null,
-        titlePosition: TitlePosition = TitlePosition.bottom,
-        actionPosition: ActionPosition = ActionPosition.right,
+        titlePosition: MTitlePosition = MTitlePosition.bottom,
+        actionPosition: MActionPosition = MActionPosition.right,
 
         className: String? = null,
         handler: StyledHandler<MGridListTileBarProps>? = null) = createStyled(gridListTileBarComponent) {
     actionIcon?.let { attrs.actionIcon = it }
-    attrs.actionPosition = actionPosition.toString()
+    attrs.actionPosition = actionPosition
 
     @Suppress("UnsafeCastFromDynamic")
     subtitle?.let { attrs.subtitle = it.asDynamic() }
@@ -53,7 +55,7 @@ fun RBuilder.mGridListTileBar(
     @Suppress("UnsafeCastFromDynamic")
     attrs.title = title.asDynamic()
 
-    attrs.titlePosition = titlePosition.toString()
+    attrs.titlePosition = titlePosition
 
     setStyledPropsAndRunHandler(className, handler)
 }
@@ -62,16 +64,16 @@ fun RBuilder.mGridListTileBar(
         title: ReactElement,
         subtitle: ReactElement? = null,
         actionIcon: ReactElement? = null,
-        titlePosition: TitlePosition = TitlePosition.bottom,
-        actionPosition: ActionPosition = ActionPosition.right,
+        titlePosition: MTitlePosition = MTitlePosition.bottom,
+        actionPosition: MActionPosition = MActionPosition.right,
 
         className: String? = null,
         handler: StyledHandler<MGridListTileBarProps>? = null) = createStyled(gridListTileBarComponent) {
     actionIcon?.let { attrs.actionIcon = it }
-    attrs.actionPosition = actionPosition.toString()
+    attrs.actionPosition = actionPosition
     subtitle?.let { attrs.subtitle = it }
     attrs.title = title
-    attrs.titlePosition = titlePosition.toString()
+    attrs.titlePosition = titlePosition
 
     setStyledPropsAndRunHandler(className, handler)
 }

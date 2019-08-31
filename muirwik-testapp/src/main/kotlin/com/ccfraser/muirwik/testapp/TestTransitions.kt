@@ -8,21 +8,15 @@ import com.ccfraser.muirwik.components.spacingUnits
 import com.ccfraser.muirwik.components.transitions.*
 import com.ccfraser.muirwik.testapp.TestTransitions.ComponentStyles.paper
 import kotlinext.js.js
-import kotlinx.css.Display
-import kotlinx.css.margin
-import kotlinx.css.padding
-import kotlinx.css.px
-import react.RBuilder
-import react.RComponent
-import react.RProps
+import kotlinx.css.*
+import react.*
 import react.dom.div
 import react.dom.jsStyle
-import react.setState
 import styled.StyleSheet
 import styled.css
 import styled.styledDiv
 
-class TestTransitions : RComponent<RProps, TestOptionControls.MyTestState>() {
+class TestTransitions : RComponent<RProps, RState>() {
     var collapseShown: Boolean = false
     var fadeShown: Boolean = false
     var growShown: Boolean = false
@@ -52,6 +46,7 @@ class TestTransitions : RComponent<RProps, TestOptionControls.MyTestState>() {
                 div {
                     attrs.jsStyle { display = "flex"}
                     mCollapse(show = collapseShown) {
+                        attrs.timeout = AutoTransitionDuration()
                         mPaper(elevation = 4) { css(paper) }
                     }
                     mCollapse(show = collapseShown, collapsedHeight = 40.px) {
@@ -66,9 +61,10 @@ class TestTransitions : RComponent<RProps, TestOptionControls.MyTestState>() {
                 styledDiv {
                     css { display = Display.flex }
                     mFade(show = fadeShown) {
+                        attrs.timeout = SimpleTransitionDuration(2000)
                         mPaper(elevation = 4) { css(paper) }
                     }
-                    mFade(show = fadeShown, timeout = SimpleTransitionTimeout(2000)) {
+                    mFade(show = fadeShown, timeout = SimpleTransitionDuration(2000)) {
                         mPaper(elevation = 4) { css(paper) }
                     }
                 }
@@ -81,8 +77,9 @@ class TestTransitions : RComponent<RProps, TestOptionControls.MyTestState>() {
                     mGrow(show = growShown) {
                         mPaper(elevation = 4) { css(paper) }
                     }
-                    mGrow(show = growShown, timeout = EnterExitTransitionTimeout(500, 1500)) {
+                    mGrow(show = growShown, timeout = EnterExitTransitionDuration(500, 1500)) {
                         attrs.asDynamic().style = js {transformOrigin = "0 0 0"}
+                        attrs.timeout = AutoTransitionDuration()
                         mPaper(elevation = 4) { css(paper) }
                     }
                 }

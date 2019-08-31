@@ -1,8 +1,10 @@
 package com.ccfraser.muirwik.testapp
 
 import com.ccfraser.muirwik.components.*
-import kotlinx.css.Position
-import kotlinx.css.px
+import com.ccfraser.muirwik.components.button.mButton
+import com.ccfraser.muirwik.components.button.mFab
+import com.ccfraser.muirwik.components.button.mIconButton
+import kotlinx.css.*
 import react.RBuilder
 import react.RComponent
 import react.RProps
@@ -17,22 +19,25 @@ class TestTooltips : RComponent<RProps, RState>() {
         styledDiv {
             css { height = 100.px }
             mTypography {+"Simple Tooltips"}
-            mTooltip("Delete", id = "tooltip-icon") {
+            mTooltip("Delete") {
                 mIconButton("delete") { css { marginRight = 2.spacingUnits }}
             }
-            mTooltip("Add", id = "tooltip-fab") {
-                mFab("add", primary = true) { css { marginRight = 2.spacingUnits }}
+            mTooltip("Add") {
+                mFab("add", MColor.primary) { css { marginRight = 2.spacingUnits }}
             }
-            mTooltip("No Delay", id = "tooltip-icon", enterDelay = 0) {
+            mTooltip("No Delay", enterDelay = 0) {
                 mButton("No Delay") { css { marginRight = 2.spacingUnits }}
             }
-            mTooltip("Long Delay", id = "tooltip-icon", enterDelay = 750) {
+            mTooltip("Long Delay", enterDelay = 750) {
                 mButton("Long Delay")
+            }
+            mTooltip("On the right", TooltipPlacement.right) {
+                mButton("On Right")
             }
             br {  }
             br {  }
             mTooltip("FAB") {
-                mFab("add", color = MColor.secondary) {
+                mFab("add", MColor.secondary) {
                     css {
                         position = Position.absolute
                         bottom = 2.spacingUnits

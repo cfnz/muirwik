@@ -5,7 +5,6 @@ import react.RComponent
 import react.RProps
 import react.RState
 import styled.StyledHandler
-import styled.StyledProps
 
 @JsModule("@material-ui/core/Avatar")
 private external val avatarModule: dynamic
@@ -13,7 +12,7 @@ private external val avatarModule: dynamic
 @Suppress("UnsafeCastFromDynamic")
 private val avatarComponent: RComponent<MAvatarProps, RState> = avatarModule.default
 
-interface MAvatarProps : StyledProps {
+interface MAvatarProps : StyledPropsWithCommonAttributes {
     var alt: String
     var component: String
     var imgProps: RProps

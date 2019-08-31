@@ -14,6 +14,11 @@ private external val dividerModule: dynamic
 private val dividerComponent: RComponent<MDividerProps, RState> = dividerModule.default
 
 @Suppress("EnumEntryName")
+enum class MDividerOrientation {
+    horizontal, vertical
+}
+
+@Suppress("EnumEntryName")
 enum class MDividerVariant {
     fullWidth, inset, middle
 }
@@ -22,13 +27,15 @@ interface MDividerProps : StyledProps {
     var absolute: Boolean
     var component: String
     var light: Boolean
-    var variant: String
 }
+var MDividerProps.orientation by EnumPropToString(MDividerOrientation.values())
+var MDividerProps.variant by EnumPropToString(MDividerVariant.values())
 
 fun RBuilder.mDivider(
         variant: MDividerVariant = MDividerVariant.fullWidth,
         light: Boolean = false,
         absolute: Boolean = false,
+        orientation: MDividerOrientation = MDividerOrientation.horizontal,
         component: String = "hr",
 
         addAsChild: Boolean = true,
@@ -37,7 +44,8 @@ fun RBuilder.mDivider(
     attrs.absolute = absolute
     attrs.component = component
     attrs.light = light
-    attrs.variant = variant.toString()
+    attrs.orientation = orientation
+    attrs.variant = variant
 
     setStyledPropsAndRunHandler(className, handler)
 }

@@ -2,9 +2,6 @@
 # Compiled class file
 *.class
 
-# Log file
-*.log
-
 # BlueJ files
 *.ctxt
 
@@ -103,3 +100,8 @@ typings/
 .serverless
 
 # Our own ignore files
+/muirwik-components/build/
+/muirwik-testapp/build/
+/muirwik-testapp/.gradle/
+/muirwik-components/.gradle/
+/.gradle/

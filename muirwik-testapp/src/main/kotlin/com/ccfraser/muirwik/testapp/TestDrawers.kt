@@ -1,8 +1,10 @@
 package com.ccfraser.muirwik.testapp
 
 import com.ccfraser.muirwik.components.*
+import com.ccfraser.muirwik.components.button.mButton
+import com.ccfraser.muirwik.components.button.mIconButton
 import com.ccfraser.muirwik.components.list.mList
-import com.ccfraser.muirwik.components.list.mListItem
+import com.ccfraser.muirwik.components.list.mListItemWithIcon
 import com.ccfraser.muirwik.components.styles.*
 import com.ccfraser.muirwik.components.transitions.SimpleTransitionDuration
 import com.ccfraser.muirwik.testapp.TestDrawers.ComponentStyles.drawer
@@ -16,18 +18,15 @@ import kotlinx.css.properties.ms
 import kotlinx.html.js.onClickFunction
 import kotlinx.html.js.onKeyDownFunction
 import kotlinx.html.role
-import react.RBuilder
-import react.RComponent
-import react.RProps
+import react.*
 import react.dom.br
 import react.dom.div
 import react.dom.jsStyle
-import react.setState
 import styled.StyleSheet
 import styled.css
 import styled.styledDiv
 
-class TestDrawers : RComponent<RProps, TestOptionControls.MyTestState>() {
+class TestDrawers : RComponent<RProps, RState>() {
     private var temporaryLeftOpen: Boolean = false
     private var temporaryRightOpen: Boolean = false
     private var temporaryTopOpen: Boolean = false
@@ -48,9 +47,6 @@ class TestDrawers : RComponent<RProps, TestOptionControls.MyTestState>() {
             overflow = Overflow.hidden
             position = Position.relative
             display = Display.flex
-        }
-        val spacer by css {
-            toolbarJsCssToPartialCss(currentTheme.mixins.toolbar)
         }
     }
 
@@ -141,30 +137,32 @@ class TestDrawers : RComponent<RProps, TestOptionControls.MyTestState>() {
         }
 
         fun permanentDrawer2() {
-            styledDiv {
-                css(drawer)
-
-                mAppBar(position = MAppBarPosition.absolute) {
-                    css {
-                        zIndex = currentTheme.zIndex.drawer + 1
-                    }
-                    mToolbar {
-                        mToolbarTitle("Permanent drawer - Under Appbar nav")
-                    }
-                }
-
-                val pp: MPaperProps = jsObject { }
-                pp.asDynamic().style = js { position = "relative" }
-                mDrawer(true, MDrawerAnchor.left, MDrawerVariant.permanent, paperProps = pp) {
-                    spacer()
-                    mailPlaceholder(false)
-                }
+            themeContext.Consumer { theme ->
                 styledDiv {
-                    css {
-                        flexGrow = 1.0
+                    css(drawer)
+
+                    mAppBar(position = MAppBarPosition.absolute) {
+                        css {
+                            zIndex = theme.zIndex.drawer + 1
+                        }
+                        mToolbar {
+                            mToolbarTitle("Permanent drawer - Under Appbar nav")
+                        }
                     }
-                    spacer()
-                    mTypography("This is the main content area")
+
+                    val pp: MPaperProps = jsObject { }
+                    pp.asDynamic().style = js { position = "relative" }
+                    mDrawer(true, MDrawerAnchor.left, MDrawerVariant.permanent, paperProps = pp) {
+                        spacer()
+                        mailPlaceholder(false)
+                    }
+                    styledDiv {
+                        css {
+                            flexGrow = 1.0
+                        }
+                        spacer()
+                        mTypography("This is the main content area")
+                    }
                 }
             }
         }
@@ -228,117 +226,121 @@ class TestDrawers : RComponent<RProps, TestOptionControls.MyTestState>() {
         }
 
         fun miniDrawer() {
-            styledDiv {
-                css(drawer)
+            themeContext.Consumer { theme ->
+                styledDiv {
+                    css(drawer)
 
-                mAppBar(position = MAppBarPosition.absolute) {
-                    css {
-                        transition += Transition("width", 195.ms, Timing.materialStandard, 0.ms)
-                        zIndex = 1201
-                        if (miniDrawerOpen) width = 100.pct - drawerWidth.px
-                    }
-                    mToolbar(disableGutters = !miniDrawerOpen) {
-                        if (!miniDrawerOpen) {
-                            mIconButton("menu", color = MColor.inherit, onClick = { setState { miniDrawerOpen = true }})
+                    mAppBar(position = MAppBarPosition.absolute) {
+                        css {
+                            transition += Transition("width", 195.ms, Timing.materialStandard, 0.ms)
+                            zIndex = theme.zIndex.drawer + 1
+                            if (miniDrawerOpen) width = 100.pct - drawerWidth.px
                         }
-                        mToolbarTitle("Mini drawer")
+                        mToolbar(disableGutters = !miniDrawerOpen) {
+                            if (!miniDrawerOpen) {
+                                mIconButton("menu", color = MColor.inherit, onClick = { setState { miniDrawerOpen = true } })
+                            }
+                            mToolbarTitle("Mini drawer")
+                        }
                     }
-                }
 
-                val pp: MPaperProps = jsObject { }
-                pp.asDynamic().style = js {
-                    position = "relative"
-                    transition = "width 195ms cubic-bezier(0.4, 0, 0.6, 1) 0ms"
-                    if (!miniDrawerOpen) {
-                        overflowX = "hidden"
-                        width = 9.spacingUnits.value
-                    } else {
-                        width = drawerWidth
+                    val pp: MPaperProps = jsObject { }
+                    pp.asDynamic().style = js {
+                        position = "relative"
+                        transition = "width 195ms cubic-bezier(0.4, 0, 0.6, 1) 0ms"
+                        if (!miniDrawerOpen) {
+                            overflowX = "hidden"
+                            width = 7.spacingUnits.value
+                        } else {
+                            width = drawerWidth + 1
+                        }
                     }
-                }
-                mDrawer(miniDrawerOpen, MDrawerAnchor.left, MDrawerVariant.permanent, paperProps = pp) {
+                    mDrawer(miniDrawerOpen, MDrawerAnchor.left, MDrawerVariant.permanent, paperProps = pp) {
+                        div {
+                            attrs.jsStyle = js { display = "flex"; alignItems = "center"; justifyContent = "flex-end"; height = 64 }
+                            mIconButton("chevron_left", onClick = { setState { miniDrawerOpen = false } })
+                        }
+                        mDivider()
+                        mailPlaceholder(false)
+                    }
+
                     div {
-                        attrs.jsStyle = js { display = "flex"; alignItems = "center"; justifyContent = "flex-end"; height = 64 }
-                        mIconButton("chevron_left", onClick = { setState { miniDrawerOpen = false }})
+                        attrs.jsStyle = js {
+                            flexGrow = 1
+                        }
+                        spacer()
+                        mTypography("This is the main content area")
                     }
-                    mDivider()
-                    mailPlaceholder(false)
-                }
-
-                div {
-                    attrs.jsStyle = js {
-                        flexGrow = 1
-                    }
-                    spacer()
-                    mTypography("This is the main content area")
                 }
             }
         }
 
         fun responsiveDrawer() {
-            styledDiv {
-                css {
-                    flexGrow = 1.0
-                    width = 100.pct
-                    height = 430.px
-                    zIndex = 1
-                    overflow = Overflow.hidden
-                    position = Position.relative
-                    display = Display.flex
-                }
-
-                mAppBar(position = MAppBarPosition.absolute) {
-                    css {
-                        position = Position.absolute
-                        marginLeft = drawerWidth.px
-                        media(currentTheme.breakpoints.up(Breakpoint.md)) {
-                            width = 100.pct - drawerWidth.px
-                        }
-                    }
-                    mToolbar {
-                        mHidden(mdUp = true, implementation = MHiddenImplementation.css) {
-                            mIconButton("menu", color = MColor.inherit, onClick = { setState { responsiveDrawerOpen = true }})
-                        }
-                        mToolbarTitle("Responsive Drawer")
-                    }
-                }
-
-                val pp: MPaperProps = jsObject { }
-                pp.asDynamic().style = js {
-                    width = drawerWidth
-                    position = "relative"
-                }
-                mHidden(mdUp = true) {
-                    mDrawer(responsiveDrawerOpen, variant = MDrawerVariant.temporary, onClose = { setState {responsiveDrawerOpen = !responsiveDrawerOpen}}, paperProps = pp) {
-                        css { width = drawerWidth.px }
-                        mailPlaceholder(false)
-                    }
-                }
-                mHidden(smDown = true, implementation = MHiddenImplementation.css) {
-                    mDrawer(true, variant = MDrawerVariant.permanent, paperProps = pp) {
-                        spacer()
-                        mailPlaceholder(false)
-                    }
-                }
-
+            themeContext.Consumer { theme ->
                 styledDiv {
                     css {
                         flexGrow = 1.0
-                        backgroundColor = Color(currentTheme.palette.background.default)
+                        width = 100.pct
+                        height = 430.px
+                        zIndex = 1
+                        overflow = Overflow.hidden
+                        position = Position.relative
+                        display = Display.flex
                     }
-                    spacer()
+
+                    mAppBar(position = MAppBarPosition.absolute) {
+                        css {
+                            position = Position.absolute
+                            marginLeft = drawerWidth.px
+                            media(theme.breakpoints.up(Breakpoint.md)) {
+                                width = 100.pct - drawerWidth.px
+                            }
+                        }
+                        mToolbar {
+                            mHidden(mdUp = true, implementation = MHiddenImplementation.css) {
+                                mIconButton("menu", color = MColor.inherit, onClick = { setState { responsiveDrawerOpen = true }})
+                            }
+                            mToolbarTitle("Responsive Drawer")
+                        }
+                    }
+
+                    val pp: MPaperProps = jsObject { }
+                    pp.asDynamic().style = js {
+                        width = drawerWidth + 1
+                        position = "relative"
+                    }
+                    mHidden(mdUp = true) {
+                        mDrawer(responsiveDrawerOpen, variant = MDrawerVariant.temporary, onClose = { setState {responsiveDrawerOpen = !responsiveDrawerOpen}}, paperProps = pp) {
+                            css { width = drawerWidth.px }
+                            mailPlaceholder(false)
+                        }
+                    }
+                    mHidden(smDown = true, implementation = MHiddenImplementation.css) {
+                        mDrawer(true, variant = MDrawerVariant.permanent, paperProps = pp) {
+                            spacer()
+                            mailPlaceholder(false)
+                        }
+                    }
+
                     styledDiv {
-                        css { padding(2.spacingUnits) }
-                        mTypography("This is the main content area")
-                        mTypography("Breakpoint info up(lg) ${currentTheme.breakpoints.up(Breakpoint.lg)}")
-                        mTypography("Breakpoint info up(md) ${currentTheme.breakpoints.up(Breakpoint.md)}")
-                        mTypography("Breakpoint info up(sm) ${currentTheme.breakpoints.up(Breakpoint.sm)}")
-                        mTypography("Breakpoint info dn(lg) ${currentTheme.breakpoints.down(Breakpoint.lg)}")
-                        mTypography("Breakpoint info dn(md) ${currentTheme.breakpoints.down(Breakpoint.md)}")
-                        mTypography("Breakpoint info dn(sm) ${currentTheme.breakpoints.down(Breakpoint.sm)}")
-                        mTypography("Breakpoint info bt(sm and md) ${currentTheme.breakpoints.between(Breakpoint.sm, Breakpoint.md)}")
-                        mTypography("Breakpoint info only sm ${currentTheme.breakpoints.only(Breakpoint.sm)}")
-                        mTypography("Breakpoint info width sm ${currentTheme.breakpoints.width(Breakpoint.sm)}")
+                        css {
+                            flexGrow = 1.0
+                            backgroundColor = Color(theme.palette.background.default)
+                        }
+                        spacer()
+                        styledDiv {
+                            css { padding(2.spacingUnits) }
+                            mTypography("This is the main content area")
+                            mTypography("Breakpoint info up(lg) ${theme.breakpoints.up(Breakpoint.lg)}")
+                            mTypography("Breakpoint info up(md) ${theme.breakpoints.up(Breakpoint.md)}")
+                            mTypography("Breakpoint info up(sm) ${theme.breakpoints.up(Breakpoint.sm)}")
+                            mTypography("Breakpoint info dn(lg) ${theme.breakpoints.down(Breakpoint.lg)}")
+                            mTypography("Breakpoint info dn(md) ${theme.breakpoints.down(Breakpoint.md)}")
+                            mTypography("Breakpoint info dn(sm) ${theme.breakpoints.down(Breakpoint.sm)}")
+                            mTypography("Breakpoint info bt(sm and md) ${theme.breakpoints.between(Breakpoint.sm, Breakpoint.md)}")
+                            mTypography("Breakpoint info only sm ${theme.breakpoints.only(Breakpoint.sm)}")
+                            mTypography("Breakpoint info width sm ${theme.breakpoints.width(Breakpoint.sm)}")
+                        }
                     }
                 }
             }
@@ -369,32 +371,39 @@ class TestDrawers : RComponent<RProps, TestOptionControls.MyTestState>() {
     // Note about these functions... they need to be either in the RBuilder.render function above or
     // be extension functions to RBuilder as below.
     fun RBuilder.mailPlaceholder(fullWidth: Boolean) {
-        div {
-            attrs.role = "button"
-            attrs.onClickFunction = { setState { temporaryLeftOpen = false }}
-            attrs.onKeyDownFunction = { setState { temporaryLeftOpen = false }}
-        }
-        mList {
-            css {
-                backgroundColor = Color(currentTheme.palette.background.paper)
-                width = if (fullWidth) LinearDimension.auto else drawerWidth.px
-//                style = js { width = if (fullWidth) "auto" else drawerWidth; backgroundColor = "white" }
+        themeContext.Consumer { theme ->
+            div {
+                attrs.role = "button"
+                attrs.onClickFunction = { setState { temporaryLeftOpen = false }}
+                attrs.onKeyDownFunction = { setState { temporaryLeftOpen = false }}
             }
-            mListItem("Inbox", iconName = "move_to_inbox", divider = false)
-            mListItem("Stared", iconName = "star", divider = false)
-            mListItem("Send mail", iconName = "send", divider = true)
-            mListItem("All mail", iconName = "mail", divider = false)
-            mListItem("Trash", iconName = "delete", divider = false)
-            mListItem("Spam", iconName = "error", divider = false)
+            mList {
+                css {
+                    backgroundColor = Color(theme.palette.background.paper)
+                    width = if (fullWidth) LinearDimension.auto else drawerWidth.px
+//                style = js { width = if (fullWidth) "auto" else drawerWidth; backgroundColor = "white" }
+                }
+                mListItemWithIcon("move_to_inbox", "Inbox", divider = false)
+                mListItemWithIcon("star", "Stared", divider = false)
+                mListItemWithIcon("send", "Send mail", divider = true)
+                mListItemWithIcon("mail", "All mail", divider = false)
+                mListItemWithIcon("delete", "Trash", divider = false)
+                mListItemWithIcon("error", "Spam", divider = false)
+            }
         }
     }
 
-    fun RBuilder.spacer() {
-        // This puts in a spacer to get below the AppBar.
-        styledDiv {
-            css(ComponentStyles.spacer)
+    private fun RBuilder.spacer() {
+        themeContext.Consumer { theme ->
+
+            // This puts in a spacer to get below the AppBar.
+            styledDiv {
+                css {
+                    toolbarJsCssToPartialCss(theme.mixins.toolbar)
+                }
+            }
+            mDivider { }
         }
-        mDivider {  }
     }
 
 }

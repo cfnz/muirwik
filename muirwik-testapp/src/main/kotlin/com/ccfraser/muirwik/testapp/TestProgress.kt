@@ -1,6 +1,9 @@
 package com.ccfraser.muirwik.testapp
 
 import com.ccfraser.muirwik.components.*
+import com.ccfraser.muirwik.components.button.MButtonVariant
+import com.ccfraser.muirwik.components.button.mButton
+import com.ccfraser.muirwik.components.button.mFab
 import com.ccfraser.muirwik.testapp.TestProgress.ComponentStyles.buttonProgress
 import com.ccfraser.muirwik.testapp.TestProgress.ComponentStyles.buttonSuccess
 import com.ccfraser.muirwik.testapp.TestProgress.ComponentStyles.fabProgress
@@ -13,8 +16,8 @@ import styled.StyleSheet
 import styled.css
 import styled.styledDiv
 import kotlin.browser.window
-import kotlin.js.Math
 import kotlin.math.min
+import kotlin.random.Random
 
 
 class TestProgress : RComponent<RProps, RState>() {
@@ -40,8 +43,8 @@ class TestProgress : RComponent<RProps, RState>() {
         val fabProgress by css {
             color = Colors.Green.shade500
             position = Position.absolute
-            top = -6.px
-            left = -6.px
+            top = -(10.px)
+            left = -(10.px)
             zIndex = 1
         }
         val buttonProgress by css {
@@ -70,8 +73,8 @@ class TestProgress : RComponent<RProps, RState>() {
                 if (linearValue >= 100) {
                     setState { linearValue = 0 }
                 } else {
-                    val diff = Math.random() * 10
-                    val diff2 = Math.random() * 10
+                    val diff = Random.nextDouble() * 10
+                    val diff2 = Random.nextDouble() * 10
 
                     setState {
                         linearValue = min(100, linearValue + diff.toInt())
@@ -120,7 +123,7 @@ class TestProgress : RComponent<RProps, RState>() {
             }
             styledDiv {
                 css(wrapper)
-                mFab(if (success) "done" else "save", primary = true, onClick = { onClick() }) {
+                mFab(if (success) "done" else "save", MColor.primary, onClick = { onClick() }) {
                     if (success) {
                         css(buttonSuccess)
                     }
@@ -131,7 +134,7 @@ class TestProgress : RComponent<RProps, RState>() {
             }
             styledDiv {
                 css(wrapper)
-                mButton("Accept terms", true, disabled = loading, variant = MButtonVariant.contained, onClick = { onClick() }) {
+                mButton("Accept terms", MColor.primary, disabled = loading, variant = MButtonVariant.contained, onClick = { onClick() }) {
                     if (success) {
                         css(buttonSuccess)
                     }

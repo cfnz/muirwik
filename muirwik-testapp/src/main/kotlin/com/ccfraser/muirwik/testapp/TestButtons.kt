@@ -1,6 +1,7 @@
 package com.ccfraser.muirwik.testapp
 
 import com.ccfraser.muirwik.components.*
+import com.ccfraser.muirwik.components.button.*
 import com.ccfraser.muirwik.testapp.TestButtons.ComplexComponentStyles.image
 import com.ccfraser.muirwik.testapp.TestButtons.ComplexComponentStyles.imageBackdrop
 import com.ccfraser.muirwik.testapp.TestButtons.ComplexComponentStyles.imageButton
@@ -44,16 +45,16 @@ class TestButtons : RComponent<RProps, RState>() {
             mButton("Default", variant = variant) {
                 if (margin) css(buttonMargin)
             }
-            mButton("Primary", true, variant = variant) {
+            mButton("Primary", MColor.primary, variant = variant) {
                 if (margin) css(buttonMargin)
             }
-            mButton("Secondary", color = MColor.secondary, variant = variant) {
+            mButton("Secondary", MColor.secondary, variant = variant) {
                 if (margin) css(buttonMargin)
             }
             mButton("Disabled", disabled = true, variant = variant) {
                 if (margin) css(buttonMargin)
             }
-            mButton("Link", href = "https://github.com/cfnz/muirwik", targetBlank = true, variant = variant) {
+            mButton("Link", hRefOptions = HRefOptions("https://github.com/cfnz/muirwik"), variant = variant) {
                 if (margin) css(buttonMargin)
             }
             styledInput {
@@ -67,8 +68,9 @@ class TestButtons : RComponent<RProps, RState>() {
             }
             label {
                 attrs["htmlFor"] = "button-file" // This worked whereas (for some reason) attrs.hmlFor did not
-                mButton("Upload", component = "span", variant = variant) {
-                    if (margin)  css(buttonMargin)
+                mButton("Upload", variant = variant) {
+                    if (margin) css(buttonMargin)
+                    attrs.component = "span"
                 }
             }
         }
@@ -82,20 +84,46 @@ class TestButtons : RComponent<RProps, RState>() {
         buttonSet("Contained buttons", MButtonVariant.contained, true)
         br { }
         styledDiv {
+            mTypography("Grouped buttons")
+            mButtonGroup {
+                mButton("One")
+                mButton("Two")
+                mButton("Three")
+            }
+            br { }
+            br { }
+            mButtonGroup(MColor.primary, MButtonGroupVariant.contained) {
+                mButton("One")
+                mButton("Two")
+                mButton("Three")
+            }
+        }
+        br { }
+        styledDiv {
+            mTypography("Split buttons")
+            mButtonGroup(MColor.primary, MButtonGroupVariant.contained) {
+                mButton("One")
+                mButton("", variant = MButtonVariant.contained, size = MButtonSize.small) {
+                    mIcon("arrow_drop_down")
+                }
+            }
+        }
+        br { }
+        styledDiv {
             mTypography("Icon buttons")
             mIconButton("send", onClick = { window.alert("I was clicked")})
             mIconButton("star")
-            mIconButton("delete", true)
+            mIconButton("delete", MColor.primary)
             mIconButton("delete", color = MColor.secondary)
         }
         br { }
         styledDiv {
             mTypography("FABs")
-            mFab("add", true) { css(buttonMargin) }
-            mFab("edit-icon", color = MColor.secondary) { css(buttonMargin) }
+            mFab("add", MColor.primary) { css(buttonMargin) }
+            mFab("edit-icon", MColor.secondary) { css(buttonMargin) }
             mFab("navigation-icon", disabled = true) { css(buttonMargin) }
             mFab("navigation-icon", "Extended", color = MColor.secondary) { css(buttonMargin) }
-            mFab("add", color = MColor.secondary) { css(buttonMargin) }
+            mFab("add", MColor.secondary) { css(buttonMargin) }
         }
         br { }
         styledDiv {
@@ -106,29 +134,32 @@ class TestButtons : RComponent<RProps, RState>() {
                 mButton("Large", size = MButtonSize.large) { css(buttonMargin) }
             }
             div {
-                mButton("Small", true, size = MButtonSize.small, variant = MButtonVariant.outlined) { css(buttonMargin) }
-                mButton("Medium", true, size = MButtonSize.medium, variant = MButtonVariant.outlined) { css(buttonMargin) }
-                mButton("Large", true, size = MButtonSize.large, variant = MButtonVariant.outlined) { css(buttonMargin) }
+                mButton("Small", MColor.primary, size = MButtonSize.small, variant = MButtonVariant.outlined) { css(buttonMargin) }
+                mButton("Medium", MColor.primary, size = MButtonSize.medium, variant = MButtonVariant.outlined) { css(buttonMargin) }
+                mButton("Large", MColor.primary, size = MButtonSize.large, variant = MButtonVariant.outlined) { css(buttonMargin) }
             }
             div {
-                mButton("Small", true, size = MButtonSize.small, variant = MButtonVariant.contained) { css(buttonMargin) }
-                mButton("Medium", true, size = MButtonSize.medium, variant = MButtonVariant.contained) { css(buttonMargin) }
-                mButton("Large", true, size = MButtonSize.large, variant = MButtonVariant.contained) { css(buttonMargin) }
+                mButton("Small", MColor.primary, size = MButtonSize.small, variant = MButtonVariant.contained) { css(buttonMargin) }
+                mButton("Medium", MColor.primary, size = MButtonSize.medium, variant = MButtonVariant.contained) { css(buttonMargin) }
+                mButton("Large", MColor.primary, size = MButtonSize.large, variant = MButtonVariant.contained) { css(buttonMargin) }
             }
             div {
-                mFab("add", color = MColor.secondary, size = MButtonSize.small) { css(buttonMargin) }
-                mFab("add", color = MColor.secondary, size = MButtonSize.medium) { css(buttonMargin) }
-                mFab("add", color = MColor.secondary, size = MButtonSize.large) { css(buttonMargin) }
+                mFab("add", MColor.secondary, size = MButtonSize.small) { css(buttonMargin) }
+                mFab("add", MColor.secondary, size = MButtonSize.medium) { css(buttonMargin) }
+                mFab("add", MColor.secondary, size = MButtonSize.large) { css(buttonMargin) }
             }
             div {
-                mFab("navigation", "Extended", true, size = MButtonSize.small) { css(buttonMargin) }
-                mFab("navigation", "Extended", true, size = MButtonSize.medium) { css(buttonMargin) }
-                mFab("navigation", "Extended", true, size = MButtonSize.large) { css(buttonMargin) }
+                mFab("navigation", "Extended", MColor.primary, size = MButtonSize.small) { css(buttonMargin) }
+                mFab("navigation", "Extended", MColor.primary, size = MButtonSize.medium) { css(buttonMargin) }
+                mFab("navigation", "Extended", MColor.primary, size = MButtonSize.large) { css(buttonMargin) }
             }
             div {
-                mIconButton("delete", size = MButtonSize.small) { css(buttonMargin) }
-                mIconButton("delete", size = MButtonSize.medium) { css(buttonMargin) }
-                mIconButton("delete", size = MButtonSize.large) { css(buttonMargin) }
+                mIconButton("delete", size = MIconButtonSize.small) { css(buttonMargin) }
+                mIconButton("delete", size = MIconButtonSize.medium) { css(buttonMargin) }
+                mIconButton {
+                    css(buttonMargin)
+                    mIcon("delete", fontSize = MIconFontSize.large)
+                }
             }
         }
         br { }
@@ -143,14 +174,13 @@ class TestButtons : RComponent<RProps, RState>() {
             br { }
             mButton("Clk, Dbl Clk and Move", onClick = { console.log("Yay, I clicked") }) {
                 css(buttonMargin)
-                // Just playing... probably better to do it the above more typesafe way
-                attrs.asDynamic().onDoubleClick = { console.log("A Double Click?") }
-                attrs.asDynamic().onMouseMove = { handleMouseMove() }
+                attrs.onDoubleClick = { console.log("A Double Click?") }
+                attrs.onMouseMove = { handleMouseMove() }
             }
             mButton("Contained", variant = MButtonVariant.contained) { css(buttonMargin) }
-            mButton("Primary", primary = true, variant = MButtonVariant.contained) { css(buttonMargin) }
-            mButton("Secondary with HRef", color = MColor.secondary, href = "https://github.com/cfnz/muirwik",
-                    target = "_Blank", variant = MButtonVariant.contained) { css(buttonMargin) }
+            mButton("Primary", MColor.primary, variant = MButtonVariant.contained) { css(buttonMargin) }
+            mButton("Secondary with HRef", color = MColor.secondary, hRefOptions = HRefOptions("https://github.com/cfnz/muirwik"),
+                    variant = MButtonVariant.contained) { css(buttonMargin) }
             mButton("Styled Button") {
                 css {
                     background = "linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)"
@@ -163,9 +193,9 @@ class TestButtons : RComponent<RProps, RState>() {
                     margin(1.spacingUnits)
                 }
             }
-            mButton("Icon", primary = true, variant = MButtonVariant.contained) {
+            mButton("Icon", MColor.primary, variant = MButtonVariant.contained) {
                 css(buttonMargin)
-                mIcon("send", color = MIconColor.inherit) {
+                mIcon("send", MIconColor.inherit) {
                     css { marginLeft = 1.em }
                 }
             }
@@ -191,6 +221,7 @@ class TestButtons : RComponent<RProps, RState>() {
                 children {
                     opacity = 0.75
                     border(4.px, BorderStyle.solid, Color.white)
+                    transition += Transition("opacity", 195.ms, Timing.materialStandard, 0.ms)
                 }
                 child(".${ComplexComponentStyles.name}-${ComplexComponentStyles::imageTitle.name}") {
                     border(4.px, BorderStyle.solid, Color.white)
@@ -206,7 +237,8 @@ class TestButtons : RComponent<RProps, RState>() {
             display = Display.flex
             alignItems = Align.center
             justifyContent = JustifyContent.center
-            color = Color(currentTheme.palette.common.white)
+            // The below uses a theme property, so we need the theme context, so do it in the render
+            // color = Color(theme.palette.common.white)
         }
         val imageSrc by css {
             position = Position.absolute
@@ -223,7 +255,8 @@ class TestButtons : RComponent<RProps, RState>() {
             right = 0.px
             top = 0.px
             bottom = 0.px
-            backgroundColor = Color(currentTheme.palette.common.black)
+            // The below uses a theme property, so we need the theme context, so do it in the render
+            // backgroundColor = Color(theme.palette.common.black)
             opacity = 0.4
             transition += Transition("opacity", 195.ms, Timing.materialStandard, 0.ms)
         }
@@ -234,11 +267,9 @@ class TestButtons : RComponent<RProps, RState>() {
         val imageMarked by css {
             height = 3.px
             width = 18.px
-            backgroundColor = Color(currentTheme.palette.common.white)
             position = Position.absolute
             bottom = -2.px
             left = 50.pct - 9.px
-//            put("transition", js("theme.transitions.create('opacity')"))
         }
     }
 
@@ -250,29 +281,46 @@ class TestButtons : RComponent<RProps, RState>() {
                 ImageInfo("camera.jpg", "Camera", "30%")
         )
 
-        styledDiv {
-            css(root)
-            imageInfos.forEach {
-                mButton(it.title) {
-                    css(image)
-                    attrs.focusRipple = true
-                    attrs.key = it.title
+        themeContext.Consumer { theme ->
+            styledDiv {
+                css(root)
+                imageInfos.forEach {
+                    mButton(it.title) {
+                        css(image)
+                        attrs.focusRipple = true
+                        attrs.key = it.title
 //                    attrs.asDynamic().focusVisibleClassname = "${ComplexComponentStyles.name}-${ComplexComponentStyles::focusVisible.name}"
-                    attrs.asDynamic().style = js { width = it.width }
-                    styledSpan {
-                        css {
-                            +imageSrc
-                            backgroundImage = Image("url(/images/grid-list/${it.imageName})")
+                        attrs.asDynamic().style = js { width = it.width }
+                        styledSpan {
+                            css {
+                                +imageSrc
+                                backgroundImage = Image("url(/images/grid-list/${it.imageName})")
+                            }
                         }
-                    }
-                    styledSpan { css(imageBackdrop) }
-                    styledSpan {
-                        css(imageButton)
-                        mTypography(color = MTypographyColor.inherit, variant = MTypographyVariant.subtitle1) {
-                            css(imageTitle)
-                            +it.title
-                            //                        attrs.component = "span"
-                            styledSpan { css(imageMarked) }
+                        styledSpan {
+                            css {
+                                +imageBackdrop
+                                backgroundColor = Color(theme.palette.common.black)
+                            }
+                        }
+                        styledSpan {
+                            css {
+                                +imageButton
+                                color = Color(theme.palette.common.white)
+                            }
+                            mTypography(color = MTypographyColor.inherit, variant = MTypographyVariant.subtitle1) {
+                                css(imageTitle)
+                                +it.title
+                                //                        attrs.component = "span"
+                                styledSpan {
+                                    css {
+                                        +imageMarked
+                                        backgroundColor = Color(theme.palette.common.white)
+//                                        val themejs = theme
+//                                        put("transition", js("themejs.transitions.create('opacity')"))
+                                    }
+                                }
+                            }
                         }
                     }
                 }

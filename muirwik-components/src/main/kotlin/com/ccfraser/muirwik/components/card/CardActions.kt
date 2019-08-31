@@ -16,11 +16,11 @@ private external val cardActionsModule: dynamic
 private val cardActionsComponent: RComponent<MCardActionsProps, RState> = cardActionsModule.default
 
 interface MCardActionsProps : StyledProps {
-    var disableActionSpacing: Boolean
+    var disableSpacing: Boolean
 }
 
-fun RBuilder.mCardActions(disableActionSpacing: Boolean = false,
+fun RBuilder.mCardActions(disableSpacing: Boolean = false,
                           handler: StyledHandler<MCardActionsProps>?) = createStyled(cardActionsComponent) {
-    attrs.disableActionSpacing = disableActionSpacing
+    attrs.disableSpacing = disableSpacing
     setStyledPropsAndRunHandler(null, handler)
 }

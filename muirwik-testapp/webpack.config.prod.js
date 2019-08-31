@@ -10,7 +10,7 @@ module.exports = {
 
 const config = {
     mode: 'production',
-    entry: './build/js/app.js',
+    entry: './build/js-for-bundle/app.js',
 
     // TODO: Probably want pollyfills for production...???
     // In production, we only want to load the polyfills and the app code.
@@ -30,35 +30,22 @@ const config = {
     // },
 
     output: {
-        path: path.resolve(__dirname, 'dist'),
+        path: path.resolve(__dirname, './build/dist'),
         filename: 'bundle.js',
     },
     devtool: 'source-map',
     devServer: {
-        contentBase: './dist',
+        contentBase: './build/dist',
         compress: true,
         watchContentBase: true,
     },
     resolve: {
         modules: [
-            // "js",
-            // "build/js",
-            // "resources",
+            "build/js-for-bundle",
+            "build/resources",
             "node_modules",
-            "../components/build/js"
         ],
         alias: {
-            // Here we use aliases to map to the minimised versions of the files.
-            'app': path.resolve(path.join(__dirname, 'build/kotlin-js-min/main', 'app')),
-            'kotlin': path.resolve(path.join(__dirname, 'build/kotlin-js-min/main', 'kotlin')),
-            'kotlin-css-js': path.resolve(path.join(__dirname, 'build/kotlin-js-min/main', 'kotlin-css-js')),
-            'kotlin-extensions': path.resolve(path.join(__dirname, 'build/kotlin-js-min/main', 'kotlin-extensions')),
-            'kotlin-react': path.resolve(path.join(__dirname, 'build/kotlin-js-min/main', 'kotlin-react')),
-            'kotlin-react-dom': path.resolve(path.join(__dirname, 'build/kotlin-js-min/main', 'kotlin-react-dom')),
-            'kotlin-styled': path.resolve(path.join(__dirname, 'build/kotlin-js-min/main', 'kotlin-styled')),
-            'kotlinx-coroutines-core': path.resolve(path.join(__dirname, 'build/kotlin-js-min/main', 'kotlinx-coroutines-core')),
-            'kotlinx-html-js': path.resolve(path.join(__dirname, 'build/kotlin-js-min/main', 'kotlinx-html-js')),
-            'muirwik-components': path.resolve(path.join(__dirname, 'build/kotlin-js-min/main', 'muirwik-components')),
             '@material-ui': path.resolve(path.join(__dirname, 'node_modules', '@material-ui')),
         }
     },

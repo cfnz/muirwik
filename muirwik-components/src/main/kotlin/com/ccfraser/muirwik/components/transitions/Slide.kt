@@ -20,25 +20,27 @@ enum class SlideTransitionDirection {
 }
 
 external interface MSlideProps : MTransitionProps {
-    var direction: String
+    var direction: SlideTransitionDirection
 }
+var MSlideProps.timeout by TransitionDurationDelegate()
 
 fun RBuilder.mSlide(
         show: Boolean = false,
         direction: SlideTransitionDirection = SlideTransitionDirection.down,
-        timeout: TransitionTimeout? = null,
+        timeout: TransitionDuration? = null,
 
         addAsChild: Boolean = true,
         className: String? = null,
         handler: StyledHandler<MSlideProps>? = null) = createStyled(slideComponent, addAsChild) {
-    attrs.direction = direction.toString()
+    attrs.direction = direction
     attrs.show = show
-    timeout?.let { attrs.timeout = timeout.value() }
+    timeout?.let { attrs.timeout = it }
 
     // Seem to need these two for the thing that is sliding to disappear rather than scroll of the page.
     attrs.asDynamic().mountOnEnter = true
     attrs.asDynamic().unmountOnExit = true
 
     setStyledPropsAndRunHandler(className, handler)
+    attrs.asDynamic().direction = attrs.direction.toString()
 }
 

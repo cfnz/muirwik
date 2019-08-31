@@ -5,6 +5,8 @@ Welcome to Muirwik.
 Muirwik gets it name from being a [Material UI](https://material-ui.com/) [React](https://reactjs.org/) wrapper written 
 in [Kotlin](https://kotlinlang.org/).
 
+Note: Lots of breaking changes in [latest release](https://github.com/cfnz/muirwik/wiki/Release-Notes).
+
 For more information, see the above links (particularly [Material UI](https://material-ui.com/) as its documentation 
 will be important in terms of figuring out how this works.
 

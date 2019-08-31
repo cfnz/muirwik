@@ -1,7 +1,7 @@
 package com.ccfraser.muirwik.components.table
 
-import com.ccfraser.muirwik.components.MButtonBaseProps
-import com.ccfraser.muirwik.components.MIconButtonProps
+import com.ccfraser.muirwik.components.button.MButtonBaseProps
+import com.ccfraser.muirwik.components.button.MIconButtonProps
 import com.ccfraser.muirwik.components.createStyled
 import com.ccfraser.muirwik.components.setStyledPropsAndRunHandler
 import org.w3c.dom.Node

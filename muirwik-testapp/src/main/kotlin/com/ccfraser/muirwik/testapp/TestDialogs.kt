@@ -1,17 +1,20 @@
 package com.ccfraser.muirwik.testapp
 
 import com.ccfraser.muirwik.components.*
+import com.ccfraser.muirwik.components.button.MButtonVariant
+import com.ccfraser.muirwik.components.button.mButton
+import com.ccfraser.muirwik.components.button.mIconButton
 import com.ccfraser.muirwik.components.dialog.*
-import com.ccfraser.muirwik.components.list.mList
-import com.ccfraser.muirwik.components.list.mListItem
-import com.ccfraser.muirwik.components.list.mListItemAvatar
-import com.ccfraser.muirwik.components.list.mListItemText
+import com.ccfraser.muirwik.components.form.MFormControlMargin
+import com.ccfraser.muirwik.components.list.*
 import com.ccfraser.muirwik.components.transitions.MTransitionProps
 import com.ccfraser.muirwik.components.transitions.SlideTransitionDirection
 import com.ccfraser.muirwik.components.transitions.mSlide
 import com.ccfraser.muirwik.testapp.TestDialogs.ComponentStyles.avatarStyle
-import kotlinext.js.jsObject
 import kotlinx.css.Position
+import kotlinx.css.backgroundColor
+import kotlinx.css.color
+import kotlinx.css.position
 import kotlinx.html.InputType
 import react.*
 import react.dom.br
@@ -21,7 +24,7 @@ import styled.css
 import kotlin.reflect.KClass
 
 
-class TestDialogs : RComponent<RProps, TestOptionControls.MyTestState>() {
+class TestDialogs : RComponent<RProps, RState>() {
     private var selectedValue: String = ""
     private var simpleDialogOpen: Boolean = false
     private var alertDialogOpen: Boolean = false
@@ -35,7 +38,7 @@ class TestDialogs : RComponent<RProps, TestOptionControls.MyTestState>() {
     private var confirmationDialogSelectedValue: String = ""
 
     private var alertTransition: KClass<out RComponent<MTransitionProps, RState>>? = null
-    private val slowTransitionProps: MTransitionProps = jsObject { timeout = 1000 }
+    private val slowTransitionProps: MTransitionProps = js("({timeout: 1000})")
     private var slow = false
 
     private object ComponentStyles : StyleSheet("ComponentStyles", isStatic = true) {
@@ -89,7 +92,7 @@ class TestDialogs : RComponent<RProps, TestOptionControls.MyTestState>() {
             mTypography(variant = MTypographyVariant.subtitle1) {
                 +"Selected Value: $selectedValue"
                 br {  }
-                mCheckboxInLabel("Slow the transition down a bit", checked = slow, onChange = { _, value -> setState { slow = value } })
+                mCheckboxWithLabel("Slow the transition down a bit", checked = slow, onChange = { _, value -> setState { slow = value } })
                 br {  }
                 br {  }
                 +"Dialog Types:"
@@ -98,11 +101,11 @@ class TestDialogs : RComponent<RProps, TestOptionControls.MyTestState>() {
             mButton("Open Simple", onClick = { setState { simpleDialogOpen = true }})
             mButton("Open Alert", onClick = { setState {alertDialogOpen = true; alertTransition = null }})
             mButton("Slide Alert", onClick = { setState {alertDialogOpen = true; alertTransition = SlideUpTransitionComponent::class}})
-            mButton("Confirmation", onClick = { setState {
+            mButton("Confirmation (with dividers on)", onClick = { setState {
                 confirmationDialogValue = confirmationDialogSelectedValue
                 confirmationDialogOpen = true
             }})
-            mButton("Confirmation Diff Scroll", onClick = { setState {
+            mButton("Confirmation (Body Scroll)", onClick = { setState {
                 confirmationDialogValue = confirmationDialogSelectedValue
                 confirmationDialogScrollOpen = true
             }})
@@ -133,15 +136,15 @@ class TestDialogs : RComponent<RProps, TestOptionControls.MyTestState>() {
                             this@TestDialogs.simpleDialogOpen = false
                         }}) {
                             mListItemAvatar {
-                                css(avatarStyle)
                                 mAvatar {
+                                    css(avatarStyle)
                                     mIcon("person")
                                 }
                             }
                             mListItemText(primary = email)
                         }
                     }
-                    mListItem("add account", iconName = "add", divider = false, useAvatar = true, onClick = { setState {
+                    mListItemWithIcon("add", "add account", divider = false, useAvatar = true, onClick = { setState {
                         this@TestDialogs.selectedValue = "add account"
                         this@TestDialogs.simpleDialogOpen = false
                     }})
@@ -161,8 +164,8 @@ class TestDialogs : RComponent<RProps, TestOptionControls.MyTestState>() {
                 mDialogContentText("Let Google help apps determine location. This means sending anonymous location data to Google, even when no apps are running.")
             }
             mDialogActions {
-                mButton("Disagree", true, onClick = { closeAlertDialog() })
-                mButton("Agree", true, onClick = { closeAlertDialog() })
+                mButton("Disagree", MColor.primary, onClick = { closeAlertDialog() })
+                mButton("Agree", MColor.primary, onClick = { closeAlertDialog() })
             }
         }
     }
@@ -173,12 +176,14 @@ class TestDialogs : RComponent<RProps, TestOptionControls.MyTestState>() {
 //        mDialog(disableBackdropClick = true, disableEscapeKeyDown = true, maxWidth = DialogMaxWidth.xs) {
 //        mDialog(disableEscapeKeyDown = true, maxWidth = DialogMaxWidth.xs) {
 
-        mDialog(open, scroll = scroll, disableEscapeKeyDown = true, transitionProps = if (slow) slowTransitionProps else null) {
+        mDialog(open, scroll = scroll, transitionProps = if (slow) slowTransitionProps else null) {
+            attrs.disableEscapeKeyDown = true
             mDialogTitle("Phone Ringtone")
-            mDialogContent {
+            // We will show the dividers on one of the dialogs (i.e. the one with paper scroll
+            mDialogContent(scroll == DialogScroll.paper) {
                 mRadioGroup(value = confirmationDialogValue, onChange = {_, value -> setState { confirmationDialogValue = value }} ) {
                     options.forEach {
-                        mRadioInLabel(it, value = it)
+                        mRadioWithLabel(it, value = it)
                     }
                 }
             }
@@ -224,7 +229,7 @@ class TestDialogs : RComponent<RProps, TestOptionControls.MyTestState>() {
             mDialogTitle("Subscribe")
             mDialogContent {
                 mDialogContentText("To subscribe to this website, please enter your email address here. We will send updates occationally.")
-                mTextField("Email Address", autoFocus = true, margin = MTextFieldMargin.dense, type = InputType.email, fullWidth = true)
+                mTextField("Email Address", autoFocus = true, margin = MFormControlMargin.dense, type = InputType.email, fullWidth = true)
             }
             mDialogActions {
                 mButton("Cancel", color = MColor.primary, onClick = { handleClose() }, variant = MButtonVariant.text)

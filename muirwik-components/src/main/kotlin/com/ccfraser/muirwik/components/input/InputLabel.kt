@@ -1,5 +1,7 @@
 package com.ccfraser.muirwik.components.input
 
+import com.ccfraser.muirwik.components.EnumPropToString
+import com.ccfraser.muirwik.components.EnumPropToStringNullable
 import com.ccfraser.muirwik.components.createStyled
 import com.ccfraser.muirwik.components.form.MFormControlVariant
 import com.ccfraser.muirwik.components.form.MFormLabelProps
@@ -19,14 +21,11 @@ private val inputLabelComponent: RComponent<MInputLabelProps, RState> = inputLab
 
 interface MInputLabelProps : MFormLabelProps {
     var disableAnimation: Boolean
-
-    @JsName("FormLabelClasses")
-    var formLabelClasses: Any
-
-    var margin: String
     var shrink: Boolean
-    var variant: String
 }
+var MInputLabelProps.margin by EnumPropToStringNullable(MLabelMargin.values())
+var MInputLabelProps.variant by EnumPropToString(MFormControlVariant.values())
+
 
 fun RBuilder.mInputLabel (
         caption: String,
@@ -40,18 +39,16 @@ fun RBuilder.mInputLabel (
         disableAnimation: Boolean = false,
         margin: MLabelMargin? = null,
         component: String? = null,
-        formLabelClasses: Any? = null,
 
         className: String? = null,
         handler: StyledHandler<MInputLabelProps>? = null) = createStyled(inputLabelComponent) {
     component?.let { attrs.component = it }
     disabled?.let { attrs.disabled = it }
     attrs.disableAnimation = disableAnimation
-    formLabelClasses?.let { attrs.formLabelClasses = it }
     htmlFor?.let { attrs.htmlFor = it }
     error?.let { attrs.error = it }
     focused?.let { attrs.focused = it }
-    margin?.let { attrs.margin = it.toString() }
+    margin?.let { attrs.margin = it }
     required?.let { attrs.required = it }
     shrink?.let {
         // The input label acts strange if it is set to false, best not to set it
@@ -60,7 +57,7 @@ fun RBuilder.mInputLabel (
             attrs.shrink = it
         }
     }
-    attrs.variant = variant.toString()
+    attrs.variant = variant
 
     childList.add(caption)
     setStyledPropsAndRunHandler(className,  handler)

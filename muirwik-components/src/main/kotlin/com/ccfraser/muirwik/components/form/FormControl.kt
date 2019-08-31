@@ -1,14 +1,10 @@
 package com.ccfraser.muirwik.components.form
 
-import com.ccfraser.muirwik.components.MMargin
-import com.ccfraser.muirwik.components.createStyled
-import com.ccfraser.muirwik.components.setStyledPropsAndRunHandler
-import com.ccfraser.muirwik.components.toHyphenCase
+import com.ccfraser.muirwik.components.*
 import react.RBuilder
 import react.RComponent
 import react.RState
 import styled.StyledHandler
-import styled.StyledProps
 
 
 @JsModule("@material-ui/core/FormControl")
@@ -36,33 +32,42 @@ enum class MFormControlComponent {
     }
 }
 
-interface MFormControlProps : StyledProps {
-    var component: String
+@Suppress("EnumEntryName")
+enum class MFormControlMargin {
+    none, dense, normal
+}
+
+interface MFormControlProps : StyledPropsWithCommonAttributes {
     var disabled: Boolean
     var error: Boolean
     var fullWidth: Boolean
-    var margin: String?
+    var hiddenLabel: Boolean
     var required: Boolean
-    var variant: String
 }
+var MFormControlProps.margin by EnumPropToString(MFormControlMargin.values())
+var MFormControlProps.component by EnumPropToString(MFormControlComponent.values())
+var MFormControlProps.variant by EnumPropToString(MFormControlVariant.values())
+
 
 fun RBuilder.mFormControl(
         component: MFormControlComponent = MFormControlComponent.div,
         disabled: Boolean = false,
         error: Boolean = false,
         fullWidth: Boolean = false,
-        margin: MMargin? = null,
+        margin: MFormControlMargin = MFormControlMargin.none,
         required: Boolean = false,
         variant: MFormControlVariant = MFormControlVariant.standard,
+        hiddenLabel: Boolean = false,
         className: String? = null,
         handler: StyledHandler<MFormControlProps>? = null) = createStyled(formControlComponent) {
-    attrs.component = component.toString()
+    attrs.component = component
     attrs.disabled = disabled
     attrs.error = error
     attrs.fullWidth = fullWidth
-    margin?.let { attrs.margin = margin.toString() }
+    attrs.hiddenLabel = hiddenLabel
+    attrs.margin = margin
     attrs.required = required
-    attrs.variant = variant.toString()
+    attrs.variant = variant
 
     setStyledPropsAndRunHandler(className, handler)
 }

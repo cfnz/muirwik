@@ -1,11 +1,10 @@
 package com.ccfraser.muirwik.components.list
 
 import com.ccfraser.muirwik.components.*
-import kotlinx.css.padding
+import com.ccfraser.muirwik.components.button.MButtonBaseProps
 import org.w3c.dom.events.Event
 import react.*
 import styled.StyledHandler
-import styled.css
 
 
 @JsModule("@material-ui/core/ListItem")
@@ -29,7 +28,6 @@ enum class MListItemAlignItems {
 }
 
 interface MListItemProps : MButtonBaseProps {
-    var alignItems: String
     var button: Boolean
 
     @JsName("ContainerComponent")
@@ -46,58 +44,89 @@ interface MListItemProps : MButtonBaseProps {
 
     // TODO: should this have a value?
 }
+var MListItemProps.alignItems by EnumPropToString(MListItemAlignItems.values())
+
 
 /**
  * More user friendly version (don't usually need to add children as the params here do pretty much all that is required)
- *
- * Note: The compact param works slightly differently depending on whether an avatar is used. If an avatar is used,
- * the list item wraps the icon in a mAvatar and then a mListItemAvatar which gives it a slightly vertically compact
- * form.
- *
- * However, we found that if you don't use an avatar, your list item would actually turn out bigger than using an
- * mListItemAvatar... so, if you set compact to be true and do not use an avatar, we override the usual padding (which
- * seems to be 1.5 spacing units) and make it just 1 spacing unit as defined by the theme.
- *
- * Note that compact is is not the same as dense which also makes the font smaller.
+ * For item with icon or avatar, use [mListItemWithIcon] or [mListItemWithAvatar]
  */
 fun RBuilder.mListItem(
         primaryText: String,
         secondaryText: String? = null,
-        iconName: String? = null,
         selected: Boolean = false,
         key: String? = null,
         alignItems: MListItemAlignItems = MListItemAlignItems.center,
-        href: String? = null,
-        targetBlank: Boolean = false,
-        target: String? = null,
         divider: Boolean = true,
-        compact: Boolean = false,
-        useAvatar: Boolean = false,
+        hRefOptions: HRefOptions? = null,
         onClick: ((Event) -> Unit)? = null,
         className: String? = null,
         handler: StyledHandler<MListItemProps>? = null): ReactElement {
-    return mListItem(button = true, divider = divider, key = key, selected = selected, href = href,
-            targetBlank = targetBlank, target = target, alignItems = alignItems, onClick = onClick, className = className) {
+    return mListItem(button = true, selected = selected, key = key, alignItems = alignItems, divider = divider,
+            hRefOptions = hRefOptions, onClick = onClick, className = className) {
 
-        if (!useAvatar && compact) {
-            css { padding(vertical = 1.spacingUnits) }
+        hRefOptions?.let { attrs.component = "a" }
+        mListItemText(primaryText, secondaryText)
+
+        // We don't call setStyledPropsAndRunHandler as this is called in the original mListItem above (but the handler below is not)
+        if (handler != null) handler()
+    }
+}
+
+/**
+ * More user friendly version with icon (don't usually need to add children as the params here do pretty much all that is required)
+ */
+fun RBuilder.mListItemWithIcon(
+        iconName: String,
+        primaryText: String,
+        secondaryText: String? = null,
+        selected: Boolean = false,
+        key: String? = null,
+        alignItems: MListItemAlignItems = MListItemAlignItems.center,
+        divider: Boolean = true,
+        useAvatar: Boolean = false,
+        hRefOptions: HRefOptions? = null,
+        onClick: ((Event) -> Unit)? = null,
+        className: String? = null,
+        handler: StyledHandler<MListItemProps>? = null): ReactElement {
+    return mListItem(button = true, selected = selected, key = key, alignItems = alignItems, divider = divider,
+            hRefOptions = hRefOptions, onClick = onClick, className = className) {
+
+        hRefOptions?.let { attrs.component = "a" }
+
+        if (useAvatar) {
+            mListItemAvatar { mAvatar { mIcon(iconName) } }
+        } else {
+            mListItemIcon(iconName)
         }
+        mListItemText(primaryText, secondaryText)
 
-        // NOTE: This code is similar to mMenuItem... if you make changes here, look there too...
-        // TODO: Refactor similar code
-        href?.let { attrs.component = "a" }
+        // We don't call setStyledPropsAndRunHandler as this is called in the original mListItem above (but the handler below is not)
+        if (handler != null) handler()
+    }
+}
 
-        if (iconName != null) {
-            if (useAvatar) {
-                if (compact) {
-                    mListItemAvatar { mAvatar { mIcon(iconName) } }
-                } else {
-                    mAvatar { mIcon(iconName) }
-                }
-            } else {
-                mListItemIcon(iconName)
-            }
-        }
+/**
+ * More user friendly version with avatar (don't usually need to add children as the params here do pretty much all that is required)
+ * Note, for icon with avatar use [mListItemWithIcon]
+ */
+fun RBuilder.mListItemWithAvatar(
+        avatarSrc: String,
+        primaryText: String,
+        secondaryText: String? = null,
+        selected: Boolean = false,
+        key: String? = null,
+        alignItems: MListItemAlignItems = MListItemAlignItems.center,
+        divider: Boolean = true,
+        hRefOptions: HRefOptions? = null,
+        onClick: ((Event) -> Unit)? = null,
+        className: String? = null,
+        handler: StyledHandler<MListItemProps>? = null): ReactElement {
+    return mListItem(button = true, selected = selected, key = key, alignItems = alignItems, divider = divider,
+            hRefOptions = hRefOptions, onClick =  onClick, className = className) {
+
+        hRefOptions?.let { attrs.component = "a" }
+        mListItemAvatar { mAvatar(avatarSrc) }
         mListItemText(primaryText, secondaryText)
 
         // We don't call setStyledPropsAndRunHandler as this is called in the original mListItem above (but the handler below is not)
@@ -119,14 +148,12 @@ fun RBuilder.mListItem(
         dense: Boolean = false,
         disableGutters: Boolean = false,
         divider: Boolean = false,
-        href: String? = null,
-        targetBlank: Boolean = false,
-        target: String? = null,
+        hRefOptions: HRefOptions? = null,
         onClick: ((Event) -> Unit)? = null,
 
         className: String? = null,
         handler: StyledHandler<MListItemProps>? = null) = createStyled(listItemComponent) {
-    attrs.alignItems = alignItems.toString()
+    attrs.alignItems = alignItems
     attrs.button = button
     component?.let { attrs.component = component }
     attrs.containerComponent = containerComponent
@@ -134,7 +161,7 @@ fun RBuilder.mListItem(
     attrs.dense = dense
     attrs.disableGutters = disableGutters
     attrs.divider = divider
-    setHrefTargetNoOpener(attrs, href, targetBlank, target)
+    hRefOptions?.let { setHRefTargetNoOpener(attrs, it) }
     onClick?.let { attrs.onClick = onClick }
     attrs.selected = selected
     key?.let { attrs.key = key }

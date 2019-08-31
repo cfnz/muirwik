@@ -1,6 +1,6 @@
 package com.ccfraser.muirwik.testapp
 
-import com.ccfraser.muirwik.components.mButton
+import com.ccfraser.muirwik.components.button.mButton
 import com.ccfraser.muirwik.components.mTypography
 import com.ccfraser.muirwik.components.spacingUnits
 import com.ccfraser.muirwik.testapp.TestStyles.ComponentStyles.aStyle
@@ -83,7 +83,7 @@ class TestStyles : RComponent<RProps, RState>() {
         styledDiv {
             css(divPadding)
 
-            mTypography("The following uses js Style methods. You would not style mButton this way since it is" +
+            mTypography("The following uses js Style methods. You would not style mButton this way since it is " +
                     "a styled component (i.e. uses CSSBulder), but sometimes you have to style a component that is not " +
                     "using CSSBuilder... for example, when you have to pass the css as a prop. The following is some ways to do it.")
             mButton("Styled asDynamic js Style") {

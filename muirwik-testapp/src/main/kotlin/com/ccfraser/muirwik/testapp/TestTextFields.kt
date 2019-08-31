@@ -1,12 +1,12 @@
 package com.ccfraser.muirwik.testapp
 
 import com.ccfraser.muirwik.components.*
+import com.ccfraser.muirwik.components.form.MFormControlMargin
 import com.ccfraser.muirwik.components.form.MFormControlVariant
 import com.ccfraser.muirwik.components.input.mInputAdornment
+import com.ccfraser.muirwik.components.menu.mMenuItem
 import com.ccfraser.muirwik.testapp.TestTextFields.ComponentStyles.textField
-import kotlinx.css.Display
-import kotlinx.css.FlexWrap
-import kotlinx.css.px
+import kotlinx.css.*
 import kotlinx.html.InputType
 import org.w3c.dom.events.Event
 import react.*
@@ -75,10 +75,11 @@ class TestTextFields : RComponent<RProps, TestTextFields.MyTestState>() {
             mTextField(label = "Password", type = InputType.password, autoComplete = "current-password", variant = variant) {
                 css(textField)
             }
-            mTextField(label = "Read Only", defaultValue = "Hello World", inputProps = object : RProps { val readOnly = true }, variant = variant) {
+            mTextField(label = "Read Only", defaultValue = "Hello World", variant = variant) {
                 css(textField)
+                attrs.inputProps = object : RProps { val readOnly = true }
             }
-            mTextField(label = "Dense", margin = MTextFieldMargin.dense, variant = variant) {
+            mTextField(label = "Dense", margin = MFormControlMargin.dense, variant = variant) {
                 css {
                     +textField
                     marginTop = 16.px
@@ -101,10 +102,11 @@ class TestTextFields : RComponent<RProps, TestTextFields.MyTestState>() {
             mTextFieldMultiLine(label = "Multiline Placeholder", placeholder = "Placeholder Value", variant = variant) {
                 css(textField)
             }
-            mTextField(label = "Number", type = InputType.number, inputLabelProps = object : RProps { val shrink = true },
-                    value = state.age.toString(), onChange = { val value = it.targetInputValue; setState { age = value.toIntOrNull() ?: 0 } },
+            mTextField(label = "Number", type = InputType.number, value = state.age.toString(),
+                    onChange = { val value = it.targetInputValue; setState { age = value.toIntOrNull() ?: 0 } },
                     helperText = "Number with pre shrunk label", variant = variant) {
                 css(textField)
+                attrs.inputLabelProps = object : RProps { val shrink = true }
             }
             mTextField(label = "Search", type = InputType.search, variant = variant) {
                 css(textField)
@@ -132,11 +134,12 @@ class TestTextFields : RComponent<RProps, TestTextFields.MyTestState>() {
                 }
             }
 
-            val adornment = mInputAdornment { +"Kg" }
-            mTextField(label = "Adornment", variant = variant, inputProps = object : RProps {
-                var startAdornment = adornment
-            }) {
+            mTextField(label = "Adornment", variant = variant) {
                 css(textField)
+                val adornment = mInputAdornment { +"Kg" }
+                attrs.inputProps = object : RProps {
+                    var startAdornment = adornment
+                }
             }
         }
     }

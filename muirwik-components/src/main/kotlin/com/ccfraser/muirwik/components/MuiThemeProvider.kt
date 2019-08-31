@@ -1,7 +1,6 @@
 package com.ccfraser.muirwik.components
 
 import com.ccfraser.muirwik.components.styles.Theme
-import com.ccfraser.muirwik.components.styles.ThemeOptions
 import react.*
 
 
@@ -11,30 +10,15 @@ private external val muiThemeProviderModule: dynamic
 @Suppress("UnsafeCastFromDynamic")
 private val muiThemeProviderComponent: RComponent<MuiThemeProviderProps, RState> = muiThemeProviderModule.default
 
-@JsModule("@material-ui/core/styles/createMuiTheme")
-private external val createMuiThemeModule: dynamic
-
-@Suppress("UnsafeCastFromDynamic")
-val createMuiThemeFunction: dynamic = createMuiThemeModule.default
-//@Suppress("UnsafeCastFromDynamic")
-//fun createMuiThemeFunction(options: dynamic): Theme = createMuiThemeModule.default
-
-// Material UI 3.3.2 (or a bit earlier) has depreciated some typography enums. We do the following
-// so we don't get any warning messages for the default theme.
-private val themeProps: ThemeOptions = js("({typography: {useNextVariants: true}})")
-var currentTheme: Theme = createMuiThemeFunction(themeProps)
-
 interface MuiThemeProviderProps : RProps {
     var disableStylesGeneration: Boolean
     var sheetsManager: Any
-    var theme: Any
+    var theme: Theme
 }
 
-fun RBuilder.mMuiThemeProvider(
-        theme: Any,
-        disableStylesGeneration: Boolean? = null,
-        sheetsManager: Any? = null,
-
+@Deprecated("Using mMuiThemeProvider directly does not provide usable contexts to access the theme property. " +
+        "Consider using themeProvider which wraps mMuiThemeProvider instead.", ReplaceWith("themeProvider"))
+fun RBuilder.mMuiThemeProvider(theme: Theme, disableStylesGeneration: Boolean? = null, sheetsManager: Any? = null,
         handler: RHandler<MuiThemeProviderProps>? = null) = child(muiThemeProviderComponent) {
     disableStylesGeneration?.let { attrs.disableStylesGeneration = disableStylesGeneration }
     sheetsManager?.let { attrs.sheetsManager = sheetsManager }

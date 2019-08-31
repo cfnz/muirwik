@@ -16,16 +16,14 @@ private external val dialogActionsModule: dynamic
 private val dialogActionsComponent: RComponent<MDialogActionsProps, RState> = dialogActionsModule.default
 
 interface MDialogActionsProps : StyledProps {
-    var disableActionSpacing: Boolean
+    var disableSpacing: Boolean
 }
 
 fun RBuilder.mDialogActions(
-        disableActionSpacing: Boolean = false,
-
+        disableSpacing: Boolean = false,
         className: String? = null,
         handler: StyledHandler<MDialogActionsProps>) = createStyled(dialogActionsComponent) {
-    attrs.disableActionSpacing = disableActionSpacing
-
+    attrs.disableSpacing = disableSpacing
     setStyledPropsAndRunHandler(className, handler)
 }
 

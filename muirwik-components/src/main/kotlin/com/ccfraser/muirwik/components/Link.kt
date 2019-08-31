@@ -10,20 +10,19 @@ import styled.StyledHandler
 private external val linkModule: dynamic
 private val linkComponent: RComponent<MLinkProps, RState> = linkModule.default
 
+@Suppress("EnumEntryName")
+enum class MLinkUnderline {
+    none, hover, always
+}
 
 interface MLinkProps: MTypographyProps {
     var block: Boolean
 
     @JsName("TypographyClasses")
     var typographyClasses: String
-
-    var underline: String
 }
+var MLinkProps.underline by EnumPropToString(MLinkUnderline.values())
 
-@Suppress("EnumEntryName")
-enum class MLinkUnderline {
-    none, hover, always
-}
 
 /**
  * Allows more styling of link behaviour over the button with an href.
@@ -32,33 +31,17 @@ enum class MLinkUnderline {
  */
 fun RBuilder.mLink(
         text: String? = null,
-        href: String? = null,
-        targetBlank: Boolean = false,
-        target: String? = null,
+        hRefOptions: HRefOptions? = null,
         underline: MLinkUnderline = MLinkUnderline.hover,
-        block: Boolean = false,
-        variant: MTypographyVariant = MTypographyVariant.body1,
-        color: MTypographyColor = MTypographyColor.primary,
-        align: MTypographyAlign = MTypographyAlign.left,
         gutterBottom: Boolean = false,
         noWrap: Boolean = false,
-        paragraph: Boolean = false,
-        component: String? = null,
-        typographyClasses: String? = null,
 
         className: String? = null,
         handler: StyledHandler<MLinkProps>? = null) = createStyled(linkComponent) {
-    attrs.align = align.toString()
-    attrs.block = block
-    attrs.color = color.toString()
-    component?.let { attrs.component = it }
     attrs.gutterBottom = gutterBottom
-    setHrefTargetNoOpener(attrs, href, targetBlank, target)
+    hRefOptions?.let { setHRefTargetNoOpener(attrs, it) }
     attrs.noWrap = noWrap
-    attrs.paragraph = paragraph
-    attrs.underline = underline.toString()
-    attrs.variant = variant.toString()
-    typographyClasses?.let { attrs.typographyClasses = it }
+    attrs.underline = underline
     text?.let {childList.add(it)}
 
     setStyledPropsAndRunHandler(className, handler)

@@ -1,53 +1,48 @@
 package com.ccfraser.muirwik.testapp
 
-import com.ccfraser.muirwik.components.currentTheme
-import com.ccfraser.muirwik.components.mButton
-import com.ccfraser.muirwik.components.mMuiThemeProvider
+import com.ccfraser.muirwik.components.Colors
+import com.ccfraser.muirwik.components.button.mButton
+import com.ccfraser.muirwik.components.mThemeProvider
 import com.ccfraser.muirwik.components.mTypography
 import com.ccfraser.muirwik.components.styles.Theme
 import com.ccfraser.muirwik.components.styles.ThemeOptions
+import com.ccfraser.muirwik.components.styles.createMuiTheme
 import kotlinx.css.Color
+import kotlinx.css.backgroundColor
 import react.*
 import react.dom.br
 import styled.css
 import styled.styledDiv
 
-@JsModule("@material-ui/core/styles/withTheme")
-private external val withThemeModule: dynamic
-private val withTheme = withThemeModule.default
-
-@JsModule("@material-ui/core/styles/themeListener")
-private external val themeListener: dynamic
-
-@JsModule("@material-ui/core/styles/createMuiTheme")
-private external val createMuiThemeModule: dynamic
-
-@Suppress("UnsafeCastFromDynamic")
-private val createMuiThemeFunction: dynamic = createMuiThemeModule.default
 
 class TestThemes : RComponent<RProps, RState>() {
     var themeColor = "light"
 
     override fun RBuilder.render() {
-        val themeProps: ThemeOptions = js("({palette: { type: 'placeholder', }, typography: {useNextVariants: 'placeholder'}})")
-        themeProps.palette?.type = themeColor
+        val themeOptions: ThemeOptions = js("({palette: { type: 'placeholder', }})")
+        themeOptions.palette?.type = themeColor
 
-        // Material UI 3.3.2 (or a bit earlier) has depreciated some typography enums. We do the following
-        // so we don't get any warning messages.
-        themeProps.typography?.useNextVariants = true
+        // Create a new theme with the default colours (darker primary colours than the demo)
+        val theme: Theme = createMuiTheme(themeOptions)
 
-        val theme: Theme = createMuiThemeFunction(themeProps)
-        currentTheme = theme
-
-        mMuiThemeProvider(theme) {
-            mTypography("The spacing unit from attrs.theme is ${attrs.theme.asDynamic().spacing.unit}.")
+        mThemeProvider(theme) {
             styledDiv {
                 css { backgroundColor = Color(theme.palette.background.default) }
-                mTypography("The spacing unit from currentTheme is ${currentTheme.spacing.unit}")
-                mButton("Dark/Light Switch", onClick = { setState {
-                    themeColor = if (themeColor == "light") "dark" else "light" }})
+                mTypography("First is the Default theme (darker than the demo theme), then a lighter theme, then a repeat of the demo app")
+                mButton("Dark/Light Switch", onClick = {
+                    setState { themeColor = if (themeColor == "light") "dark" else "light" }
+                })
                 br {  }
                 testThemeComponent()
+
+                val theme2Options: ThemeOptions = js("({palette: { type: 'placeholder', primary: {main: 'placeholder'}}})")
+                theme2Options.palette?.type = themeColor
+                theme2Options.palette?.primary.main = Colors.Blue.shade200.toString()
+
+                mThemeProvider(createMuiTheme(theme2Options)) {
+                    testThemeComponent()
+                }
+
                 app()
             }
         }

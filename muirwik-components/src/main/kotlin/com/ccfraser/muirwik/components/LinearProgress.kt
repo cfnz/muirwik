@@ -24,11 +24,12 @@ enum class MLinearProgressVariant {
 }
 
 interface MLinearProgressProps : StyledProps {
-    var color: String
     var value: Double
     var valueBuffer: Double
-    var variant: String
 }
+var MLinearProgressProps.color by EnumPropToString(MLinearProgressColor.values())
+var MLinearProgressProps.variant by EnumPropToString(MLinearProgressVariant.values())
+
 
 fun RBuilder.mLinearProgress(
         value: Double? = null,
@@ -38,10 +39,10 @@ fun RBuilder.mLinearProgress(
 
         className: String? = null,
         handler: StyledHandler<MLinearProgressProps>? = null) = createStyled(linearProgressComponent) {
-    attrs.color = color.toString()
+    attrs.color = color
     value?.let { attrs.value = it }
     valueBuffer?.let { attrs.valueBuffer = it }
-    attrs.variant = variant.toString()
+    attrs.variant = variant
 
     setStyledPropsAndRunHandler(className, handler)
 }

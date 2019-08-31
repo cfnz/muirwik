@@ -1,5 +1,6 @@
 package com.ccfraser.muirwik.components.input
 
+import com.ccfraser.muirwik.components.EnumPropToStringNullable
 import com.ccfraser.muirwik.components.createStyled
 import com.ccfraser.muirwik.components.form.MFormControlVariant
 import com.ccfraser.muirwik.components.setStyledPropsAndRunHandler
@@ -24,9 +25,9 @@ enum class MInputAdornmentPosition {
 interface MInputAdornmentProps : StyledProps {
     var disablePointerEvents: Boolean
     var disableTypography: Boolean
-    var position: String
-    var variant: String
 }
+var MInputAdornmentProps.position by EnumPropToStringNullable(MInputAdornmentPosition.values())
+var MInputAdornmentProps.variant by EnumPropToStringNullable(MFormControlVariant.values())
 
 fun RBuilder.mInputAdornment(
         position: MInputAdornmentPosition = MInputAdornmentPosition.start,
@@ -39,8 +40,8 @@ fun RBuilder.mInputAdornment(
         handler: StyledHandler<MInputAdornmentProps>? = null) = createStyled(inputAdornmentComponent, false) {
     attrs.disablePointerEvents = disablePointerEvents
     attrs.disableTypography = disableTypography
-    attrs.position = position.toString().toLowerCase()
-    variant?.let { attrs.variant = it.toString() }
+    attrs.position = position
+    attrs.variant = variant
 
     setStyledPropsAndRunHandler(className, handler)
 }

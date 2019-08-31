@@ -1,5 +1,6 @@
 package com.ccfraser.muirwik.components
 
+import com.ccfraser.muirwik.components.button.MButtonBaseProps
 import org.w3c.dom.events.Event
 import react.*
 import styled.StyledHandler
@@ -17,7 +18,7 @@ enum class MTabTextColor {
 
 @Suppress("EnumEntryName")
 enum class MTabScrollButtons {
-    auto, on, off
+    auto, desktop, on, off
 }
 
 @Suppress("EnumEntryName")
@@ -30,29 +31,36 @@ enum class MTabVariant {
     standard, scrollable, fullWidth
 }
 
+@Suppress("EnumEntryName")
+enum class MTabOrientation {
+    horizontal, vertical
+}
+
 interface MTabsProps: StyledProps {
     var action: (actions: Any) -> Unit
     var centered: Boolean
-    var indicatorColor: String
-    var onChange: (event: Event, indexValue: Int) -> Unit
+    var onChange: (event: Event, indexValue: Any) -> Unit
 
     @JsName("ScrollButtonComponent")
     var scrollButtonComponent: ReactElement
 
-    var scrollButtons: String
-
     @JsName("TabIndicatorProps")
     var tabIndicatorProps: RProps
 
-    var textColor: String
     var value: Any
-    var variant: String
 }
+var MTabsProps.indicatorColor by EnumPropToString(MTabIndicatorColor.values())
+var MTabsProps.orientation by EnumPropToString(MTabOrientation.values())
+var MTabsProps.scrollButtons by EnumPropToString(MTabScrollButtons.values())
+var MTabsProps.textColor by EnumPropToString(MTabTextColor.values())
+var MTabsProps.variant by EnumPropToString(MTabVariant.values())
+
 
 fun RBuilder.mTabs(
         value: Any = false, // false means none selected
         centered: Boolean = false,
         variant: MTabVariant = MTabVariant.standard,
+        orientation: MTabOrientation = MTabOrientation.horizontal,
         indicatorColor: MTabIndicatorColor = MTabIndicatorColor.secondary,
         textColor: MTabTextColor = MTabTextColor.inherit,
         tabIndicatorProps: RProps? = null,
@@ -66,15 +74,15 @@ fun RBuilder.mTabs(
         handler: StyledHandler<MTabsProps>? = null) = createStyled(tabsComponent) {
     action?.let { attrs.action = it }
     attrs.centered = centered
-    attrs.indicatorColor = indicatorColor.toString()
+    attrs.indicatorColor = indicatorColor
     onChange?.let { attrs.onChange = it }
+    attrs.orientation = orientation
     scrollButtonComponent?.let { attrs.scrollButtonComponent = it }
-    attrs.scrollButtons = scrollButtons.toString()
+    attrs.scrollButtons = scrollButtons
     tabIndicatorProps?.let { attrs.tabIndicatorProps = it }
-    attrs.textColor = textColor.toString()
+    attrs.textColor = textColor
     attrs.value = value
-    attrs.value = value
-    attrs.variant = variant.toString()
+    attrs.variant = variant
 
     setStyledPropsAndRunHandler(className, handler)
 }
@@ -82,13 +90,16 @@ fun RBuilder.mTabs(
 
 @JsModule("@material-ui/core/Tab")
 private external val tabModule: dynamic
+
+@Suppress("UnsafeCastFromDynamic")
 private val tabComponent: RComponent<MTabProps, RState> = tabModule.default
 
-interface MTabProps: StyledProps {
-    var disabled: Boolean
+interface MTabProps: MButtonBaseProps {
+    var disableFocusRipple: Boolean
     var icon: ReactElement
     var label: ReactElement
     var value: Any
+    var wrapped: Boolean
 }
 
 fun RBuilder.mTab(
@@ -96,13 +107,19 @@ fun RBuilder.mTab(
         value: Any? = null,
         icon: ReactElement? = null,
         disabled: Boolean = false,
+        disableRipple: Boolean? = null,
+        disableFocusRipple: Boolean? = null,
+        wrapped: Boolean = false,
 
         className: String? = null,
         handler: StyledHandler<MTabProps>? = null) = createStyled(tabComponent) {
     attrs.disabled = disabled
+    disableFocusRipple?.let { attrs.disableFocusRipple = it }
+    disableRipple?.let { attrs.disableRipple = it }
     icon?.let { attrs.icon = icon }
     label?.let {attrs.label = label }
     value?.let { attrs.value = value }
+    attrs.wrapped = wrapped
 
     setStyledPropsAndRunHandler(className, handler)
 }

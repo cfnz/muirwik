@@ -11,14 +11,22 @@ import styled.StyledProps
 
 @JsModule("@material-ui/core/GridList")
 private external val gridListModule: dynamic
+@Suppress("UnsafeCastFromDynamic")
 private val gridListComponent: RComponent<MGridListProps, RState> =gridListModule.default
 
 interface MGridListProps: StyledProps {
-    var cellHeight: Any
+
+    @JsName("cellHeight")
+    var rawCellHeight: Any
     var cols: Number
     var component: String
     var spacing: Int
 }
+var MGridListProps.cellHeight: Int
+    get() = rawCellHeight.let { if (it is Int) it else 0 }
+    set(value) {
+        rawCellHeight = if (value == 0) "auto" else value
+    }
 
 /**
  * Creates a GridList. For auto cell height, set cellHeight to 0.
@@ -31,7 +39,7 @@ fun RBuilder.mGridList(
 
         className: String? = null,
         handler: StyledHandler<MGridListProps>? = null) = createStyled(gridListComponent) {
-    attrs.cellHeight = if (cellHeight == 0) "auto" else cellHeight
+    attrs.cellHeight = cellHeight
     attrs.cols = cols
     attrs.component = component
     attrs.spacing = spacing

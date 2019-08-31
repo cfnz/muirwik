@@ -19,7 +19,7 @@ interface MCardProps : StyledProps {
     var raised: Boolean
 }
 
-fun RBuilder.mCard(raised: Boolean = true,
+fun RBuilder.mCard(raised: Boolean = false,
                    className: String? = null,
                    handler: StyledHandler<MCardProps>? = null) = createStyled(cardComponent) {
     attrs.raised = raised

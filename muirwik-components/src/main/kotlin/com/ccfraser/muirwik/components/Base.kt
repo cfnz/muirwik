@@ -4,7 +4,6 @@ import kotlinext.js.JsObject
 import kotlinext.js.Object
 import kotlinext.js.jsObject
 import kotlinx.css.CSSBuilder
-import kotlinx.css.px
 import org.w3c.dom.HTMLInputElement
 import org.w3c.dom.HTMLTextAreaElement
 import org.w3c.dom.events.Event
@@ -68,11 +67,6 @@ fun <P : StyledProps> RBuilder.createStyled(componentClass: KClass<out RComponen
 }
 
 /**
- * Allows you to easily specify the theme's spacing unit. Usually used in css e.g. css { padding(2.spacingUnits) }
- */
-val Int.spacingUnits get() = (currentTheme.spacing.unit * this).px
-
-/**
  * This is only a simple jsObjectToCss converter. So far it can only handle
  * a jsObject that is one layer deep, or two layers if the second layer is a
  * media query (used initially just to convert the currentTheme.mixins.toolbar)
@@ -127,8 +121,8 @@ enum class MColor {
 }
 
 @Suppress("EnumEntryName")
-enum class MMargin {
-    none, dense, normal
+enum class MOptionColor {
+    primary, secondary, default
 }
 
 // This is moving to Breakpoint
@@ -184,6 +178,20 @@ fun Event.persist() {
 }
 
 /**
+ * Just wrapping some options related to href's to make them a bit easier to use and less parameters to ignore
+ * when not using them. Note that, same as the [setHRefTargetNoOpener] params, if targetBlank is true, the
+ * value of target will be ignored.
+ */
+data class HRefOptions(val href: String, val targetBlank: Boolean = true, val target: String? = "")
+
+/**
+ * See the other [setHRefTargetNoOpener] for more information.
+ */
+fun setHRefTargetNoOpener(attrs: RProps, hRefOptions: HRefOptions) {
+    setHRefTargetNoOpener(attrs, hRefOptions.href, hRefOptions.targetBlank, hRefOptions.target)
+}
+
+/**
  * This is a convenience function (which might end up somewhere else) that handles setting of the href, target and rel
  * properties of various components. These components often done have the target and rel properties as it is expected in
  * Material-UI to just pass them to the root element.
@@ -193,7 +201,7 @@ fun Event.persist() {
  *
  * This function only takes effect if href is not null.
  */
-fun setHrefTargetNoOpener(attrs: RProps, href: String?, targetBlank: Boolean, target: String?) {
+fun setHRefTargetNoOpener(attrs: RProps, href: String?, targetBlank: Boolean, target: String?) {
     href?.let {
         attrs.asDynamic().href = it
 

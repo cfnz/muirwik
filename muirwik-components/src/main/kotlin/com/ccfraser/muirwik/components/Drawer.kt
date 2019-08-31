@@ -2,13 +2,13 @@ package com.ccfraser.muirwik.components
 
 import com.ccfraser.muirwik.components.transitions.MSlideProps
 import com.ccfraser.muirwik.components.transitions.TransitionDuration
+import com.ccfraser.muirwik.components.transitions.TransitionDurationDelegateNullable
 import org.w3c.dom.events.Event
 import react.RBuilder
 import react.RComponent
 import react.RProps
 import react.RState
 import styled.StyledHandler
-import styled.StyledProps
 
 
 @JsModule("@material-ui/core/Drawer")
@@ -27,8 +27,7 @@ enum class MDrawerVariant {
     permanent, persistent, temporary
 }
 
-interface MDrawerProps : StyledProps {
-    var anchor: String
+interface MDrawerProps : StyledPropsWithCommonAttributes {
     var elevation: Int
 
     @JsName("ModalProps")
@@ -43,9 +42,10 @@ interface MDrawerProps : StyledProps {
     @JsName("SlideProps")
     var slideProps: MSlideProps
 
-    var transitionDuration: dynamic
-    var variant: String
 }
+var MDrawerProps.anchor by EnumPropToString(MDrawerAnchor.values())
+var MDrawerProps.transitionDuration by TransitionDurationDelegateNullable()
+var MDrawerProps.variant by EnumPropToString(MDrawerVariant.values())
 
 fun RBuilder.mDrawer(
         open: Boolean = false,
@@ -60,15 +60,15 @@ fun RBuilder.mDrawer(
 
         className: String? = null,
         handler: StyledHandler<MDrawerProps>) = createStyled(drawerComponent) {
-    attrs.anchor = anchor.toString()
+    attrs.anchor = anchor
     attrs.elevation = elevation
     modalProps?.let { attrs.modalProps = it }
     onClose?.let { attrs.onClose = it }
     attrs.open = open
     paperProps?.let { attrs.paperProps = it }
     slideProps?.let { attrs.slideProps = it }
-    attrs.variant = variant.toString()
-    transitionDuration?.let { attrs.transitionDuration = it.value() }
+    attrs.variant = variant
+    transitionDuration?.let { attrs.transitionDuration = it }
 
     setStyledPropsAndRunHandler(className, handler)
 }

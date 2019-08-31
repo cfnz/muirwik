@@ -1,11 +1,15 @@
 package com.ccfraser.muirwik.testapp
 
 import com.ccfraser.muirwik.components.*
+import com.ccfraser.muirwik.components.form.MFormControlVariant
 import com.ccfraser.muirwik.components.form.mFormControl
 import com.ccfraser.muirwik.components.form.mFormHelperText
+import com.ccfraser.muirwik.components.input.mFilledInput
 import com.ccfraser.muirwik.components.input.mInput
 import com.ccfraser.muirwik.components.input.mInputLabel
+import com.ccfraser.muirwik.components.input.mOutlinedInput
 import com.ccfraser.muirwik.components.list.mListItemText
+import com.ccfraser.muirwik.components.menu.mMenuItem
 import com.ccfraser.muirwik.testapp.TestSelects.ComponentStyles.chip
 import com.ccfraser.muirwik.testapp.TestSelects.ComponentStyles.chips
 import com.ccfraser.muirwik.testapp.TestSelects.ComponentStyles.formControl
@@ -75,6 +79,7 @@ class TestSelects : RComponent<RProps, RState>() {
         simpleSelects()
         nativeSelects()
         multiSelects()
+        selectVariants()
     }
 
     private fun RBuilder.simpleSelects() {
@@ -89,7 +94,8 @@ class TestSelects : RComponent<RProps, RState>() {
                 val inputProps: RProps = jsObject { }
                 inputProps.asDynamic().name = "age"
                 inputProps.asDynamic().id = "age-simple"
-                mSelect(age, name = "age", inputProps = inputProps, onChange = { event, _ -> handleAgeChange(event) }) {
+                mSelect(age, name = "age", onChange = { event, _ -> handleAgeChange(event) }) {
+                    attrs.inputProps = inputProps
                     mMenuItem("None", value = "")
                     mMenuItem("Ten", value = "10")
                     mMenuItem("Twenty", value = "20")
@@ -150,8 +156,8 @@ class TestSelects : RComponent<RProps, RState>() {
                 css(formControl)
                 mInputLabel("Name", htmlFor = "name-error")
                 mSelect(name, name = "name", input = mInput(id = "name-error", addAsChild = false),
-                        onChange = { event, _ -> handleNameChange(event) },
-                        renderValue = { value: Any -> span { +"⚠  - ${value}" } }) {
+                        onChange = { event, _ -> handleNameChange(event) }) {
+                    attrs.renderValue = { value: Any -> span { +"⚠  - ${value}" } }
                     mMenuItem("None", value = "")
                     mMenuItem("Hai", value = "hai")
                     mMenuItem("Oliver", value = "oliver")
@@ -252,53 +258,53 @@ class TestSelects : RComponent<RProps, RState>() {
     }
 
     private fun RBuilder.multiSelects() {
-        fun addMenuItems(builder: StyledElementBuilder<MSelectProps>, useCheckBoxes: Boolean) {
-            names.forEach {
-                builder.mMenuItem(key = it, value = it) {
-                    css {
-                        fontWeight = when ((selectedNames as? Array<String>)?.contains(it) ?: false) {
-                            true -> FontWeight(currentTheme.typography.fontWeightMedium.toString())
-                            else -> FontWeight(currentTheme.typography.fontWeightRegular.toString())
+        themeContext.Consumer {theme ->
+            fun addMenuItems(builder: StyledElementBuilder<MSelectProps>, useCheckBoxes: Boolean) {
+                names.forEach {
+                    builder.mMenuItem(key = it, value = it) {
+                        css {
+                            fontWeight = when ((selectedNames as? Array<String>)?.contains(it) ?: false) {
+                                true -> FontWeight(theme.typography.fontWeightMedium.toString())
+                                else -> FontWeight(theme.typography.fontWeightRegular.toString())
+                            }
                         }
-                    }
-                    when (useCheckBoxes) {
-                        false -> +it
-                        else -> {
-                            mCheckbox((selectedNames as? Array<String>)?.contains(it) ?: false)
-                            mListItemText(it)
+                        when (useCheckBoxes) {
+                            false -> +it
+                            else -> {
+                                mCheckbox((selectedNames as? Array<String>)?.contains(it) ?: false)
+                                mListItemText(it)
+                            }
                         }
                     }
                 }
             }
-        }
 
-        mTypography("Multi Selects", MTypographyVariant.h4)
-        styledForm {
-            css { display = Display.flex; flexWrap = FlexWrap.wrap; paddingBottom = 4.spacingUnits }
-            mFormControl {
-                css(formControl)
-                mInputLabel("Name", htmlFor = "select-multiple")
-                mSelect(selectedNames, multiple = true, input = mInput(id = "select-multiple", addAsChild = false),
-                        onChange = { event, _ -> handleMultipleChange(event) }) {
-                    addMenuItems(this, false)
+            mTypography("Multi Selects", MTypographyVariant.h4)
+            styledForm {
+                css { display = Display.flex; flexWrap = FlexWrap.wrap; paddingBottom = 4.spacingUnits }
+                mFormControl {
+                    css(formControl)
+                    mInputLabel("Name", htmlFor = "select-multiple")
+                    mSelect(selectedNames, multiple = true, input = mInput(id = "select-multiple", addAsChild = false),
+                            onChange = { event, _ -> handleMultipleChange(event) }) {
+                        addMenuItems(this, false)
+                    }
                 }
-            }
-            mFormControl {
-                css(formControl)
-                mInputLabel("Checkbox", htmlFor = "select-multiple-checkbox")
-                mSelect(selectedNames, multiple = true, input = mInput(id = "select-multiple-checkbox", addAsChild = false),
-                        renderValue = { value: Any ->
-                            span {+(value as Array<String>).joinToString(", ")}
-                        },
-                        onChange = { event, _ -> handleMultipleChange(event) }) {
-                    addMenuItems(this, true)
+                mFormControl {
+                    css(formControl)
+                    mInputLabel("Checkbox", htmlFor = "select-multiple-checkbox")
+                    mSelect(selectedNames, multiple = true, input = mInput(id = "select-multiple-checkbox", addAsChild = false),
+                            onChange = { event, _ -> handleMultipleChange(event) }) {
+                        attrs.renderValue = { value -> span { +(value as Array<String>).joinToString(", ") }}
+                        addMenuItems(this, true)
+                    }
                 }
-            }
-            mFormControl {
-                css(formControl)
-                mInputLabel("Chip", htmlFor = "select-multiple-chip")
-                mSelect(selectedNames, multiple = true, input = mInput(id = "select-multiple-chip", addAsChild = false),
-                        renderValue = { value: Any ->
+                mFormControl {
+                    css(formControl)
+                    mInputLabel("Chip", htmlFor = "select-multiple-chip")
+                    mSelect(selectedNames, multiple = true, input = mInput(id = "select-multiple-chip", addAsChild = false),
+                            onChange = { event, _ -> handleMultipleChange(event) }) {
+                        attrs.renderValue = { value: Any ->
                             styledDiv {
                                 css(chips)
                                 (value as Array<String>).forEach {
@@ -307,75 +313,60 @@ class TestSelects : RComponent<RProps, RState>() {
                                     }
                                 }
                             }
-                        },
-                        onChange = { event, _ -> handleMultipleChange(event) }) {
-                    addMenuItems(this, false)
+                        }
+                        addMenuItems(this, false)
+                    }
                 }
             }
         }
     }
 
-
-/*
-
-const ITEM_HEIGHT = 48;
-const ITEM_PADDING_TOP = 8;
-const MenuProps = {
-  PaperProps: {
-    style: {
-      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-      width: 250,
-    },
-  },
-};
-            renderValue={selected => selected.join(', ')}
-            MenuProps={MenuProps}
-          >
-            {names.map(name => (
-              <MenuItem key={name} value={name}>
-                <Checkbox checked={this.state.name.indexOf(name) > -1} />
-                <ListItemText primary={name} />
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
-        <FormControl className={classes.formControl}>
-          <InputLabel htmlFor="select-multiple-chip">Chip</InputLabel>
-          <Select
-            multiple
-            value={this.state.name}
-            onChange={this.handleChange}
-            input={<Input id="select-multiple-chip" />}
-            renderValue={selected => (
-              <div className={classes.chips}>
-                {selected.map(value => (
-                  <Chip key={value} label={value} className={classes.chip} />
-                ))}
-              </div>
-            )}
-            MenuProps={MenuProps}
-          >
-            {names.map(name => (
-              <MenuItem
-                key={name}
-                value={name}
-                style={{
-                  fontWeight:
-                    this.state.name.indexOf(name) === -1
-                      ? theme.typography.fontWeightRegular
-                      : theme.typography.fontWeightMedium,
-                }}
-              >
-                {name}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
-      </div>
-    );
-  }
-}
- */
+    private fun RBuilder.selectVariants() {
+        mTypography("Select Variants", MTypographyVariant.h4)
+        styledForm {
+//            css { display = Display.flex; flexWrap = FlexWrap.wrap; paddingBottom = 4.spacingUnits }
+            mFormControl {
+                css(formControl)
+                mInputLabel("Standard")
+                mSelect(age, variant = MFormControlVariant.standard, onChange = { event, _ -> handleAgeChange(event) }) {
+                    mMenuItem("None", value = "")
+                    mMenuItem("Ten", value = "10")
+                    mMenuItem("Twenty", value = "20")
+                    mMenuItem("Thirty", value = "30")
+                }
+                mFormHelperText("Some important helper text")
+            }
+            mFormControl(variant = MFormControlVariant.filled) {
+                css(formControl)
+                mInputLabel("Filled", variant = MFormControlVariant.filled)
+                mSelect(age, input = mFilledInput(id = "test", addAsChild = false), onChange = { event, _ -> handleAgeChange(event) }) {
+                    mMenuItem("None", value = "")
+                    mMenuItem("Ten", value = "10")
+                    mMenuItem("Twenty", value = "20")
+                    mMenuItem("Thirty", value = "30")
+                }
+            }
+            mFormControl(variant = MFormControlVariant.outlined) {
+                css(formControl)
+                mInputLabel("Outlined", htmlFor = "outlined", variant = MFormControlVariant.outlined) {
+//                    Need to get into storing ref element of label so we can get its width...
+//                    ... seems pretty low level stuff just to put an outlined control on a form...
+//                    See material-ui demo for more info.
+//                    ref { refElement = it } // findDOMNode(it) }
+                }
+                mSelect(age, native = true, input = mOutlinedInput(name = "outline", id = "outlined", addAsChild = false,
+//                            labelWidth = refElement?.asDynamic().offsetWidth),
+                            labelWidth = 60),
+                        onChange = { event, _ -> handleAgeChange(event) }) {
+                    option { attrs.value = "None"; +"" }
+                    option { attrs.value = "10"; +"Ten" }
+                    option { attrs.value = "20"; +"Twenty" }
+                    option { attrs.value = "30"; +"Thirty" }
+                }
+                mFormHelperText("WIP... hard coded width :-o")
+            }
+        }
+    }
 }
 
 fun RBuilder.testSelects() = child(TestSelects::class) {}

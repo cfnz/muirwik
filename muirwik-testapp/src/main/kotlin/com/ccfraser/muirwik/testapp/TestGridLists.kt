@@ -1,8 +1,12 @@
 package com.ccfraser.muirwik.testapp
 
-import com.ccfraser.muirwik.components.*
+import com.ccfraser.muirwik.components.MIconColor
+import com.ccfraser.muirwik.components.MTypographyVariant
+import com.ccfraser.muirwik.components.button.mIconButton
 import com.ccfraser.muirwik.components.gridlist.*
 import com.ccfraser.muirwik.components.list.mListSubheader
+import com.ccfraser.muirwik.components.mTypography
+import com.ccfraser.muirwik.components.spacingUnits
 import com.ccfraser.muirwik.testapp.TestGridLists.ComponentStyles.gridList
 import com.ccfraser.muirwik.testapp.TestGridLists.ComponentStyles.icon
 import com.ccfraser.muirwik.testapp.TestGridLists.ComponentStyles.rootDiv
@@ -16,6 +20,7 @@ import react.dom.img
 import styled.StyleSheet
 import styled.css
 import styled.styledDiv
+import styled.styledImg
 
 
 class TestGridLists : RComponent<RProps, RState>() {
@@ -39,33 +44,26 @@ class TestGridLists : RComponent<RProps, RState>() {
         val rootDiv by css {
             display = Display.flex
             flexWrap = FlexWrap.wrap
-            justifyContent = JustifyContent.spaceAround
+            justifyContent = JustifyContent.flexStart
             overflow = Overflow.hidden
-            backgroundColor = Color(currentTheme.palette.background.paper)
         }
 
         val gridList by css {
             width = 500.px
             height = 450.px
-//                    transform.translateZ(0.px)
         }
 
         val icon by css {
-//            color = Color.white
             color = rgba(255, 255, 255, 0.54)
         }
 
         val titleBar by css {
             put("background", "linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 70%, rgba(0,0,0,0) 100%)")
         }
-
-        val subheader by css {
-            width = 100.pct
-        }
     }
 
     override fun RBuilder.render() {
-        mTypography("Image-only Grid list", MTypographyVariant.h5)
+        mTypography("Image Only Grid List", MTypographyVariant.h5)
         styledDiv {
             css(rootDiv)
             mGridList(3, cellHeight = 160) {
@@ -78,7 +76,7 @@ class TestGridLists : RComponent<RProps, RState>() {
             }
         }
 
-        mTypography("Grid list with titlebars", MTypographyVariant.h5) { css { paddingTop = 3.spacingUnits }}
+        mTypography("Grid List with Title Bars", MTypographyVariant.h5) { css { paddingTop = 3.spacingUnits }}
         styledDiv {
             css(rootDiv)
             mGridList(cellHeight = 180) {
@@ -110,7 +108,7 @@ class TestGridLists : RComponent<RProps, RState>() {
                 tileData.forEach {
                     mGridListTile(key = it.img, cols = if (it.featured) 2 else 1, rows = if (it.featured) 2 else 1) {
                         img(src = "/images/grid-list/${it.img}", alt = it.title) {}
-                        mGridListTileBar(it.title, titlePosition = TitlePosition.top, actionPosition = ActionPosition.left,
+                        mGridListTileBar(it.title, titlePosition = MTitlePosition.top, actionPosition = MActionPosition.left,
                                 actionIcon = mIconButton("star-border", iconColor = MIconColor.inherit) {
                                     css(icon)
                                 }
@@ -131,7 +129,9 @@ class TestGridLists : RComponent<RProps, RState>() {
                 }
                 tileData.forEach {
                     mGridListTile(key = it.img) {
-                        img(src = "/images/grid-list/${it.img}", alt = it.title) {}
+                        styledImg(src = "/images/grid-list/${it.img}", alt = it.title) {
+//                            css { width = 100.pct }
+                        }
                     }
                 }
             }

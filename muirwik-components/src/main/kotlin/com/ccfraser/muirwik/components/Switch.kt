@@ -6,7 +6,6 @@ import kotlinx.html.InputType
 import org.w3c.dom.events.Event
 import react.*
 import styled.StyledHandler
-import styled.StyledProps
 
 
 @JsModule("@material-ui/core/Switch")
@@ -15,44 +14,57 @@ private external val switchDefault: dynamic
 @Suppress("UnsafeCastFromDynamic")
 private val switchComponent: RComponent<MSwitchProps, RState> = switchDefault.default
 
-interface MSwitchProps : StyledProps {
+@Suppress("EnumEntryName")
+enum class MSwitchEdge {
+    start, end // We assume if the prop is null, then the default false will be used, so we don't have this as a value
+}
+
+@Suppress("EnumEntryName")
+enum class MSwitchSize {
+    small, medium
+}
+
+interface MSwitchProps : StyledPropsWithCommonAttributes {
     var checked: Boolean
     var checkedIcon: ReactElement
-    var color: String
     var disabled: Boolean
     var disableRipple: Boolean
     var icon: ReactElement
-    var id: String?
     var inputProps: RProps
-    var onChange: ((Event, Boolean) -> Unit)
+    var onChange: (Event, Boolean) -> Unit
+    var required: Boolean
     var type: String
-    var value: String?
+    var value: String
 }
+var MSwitchProps.color by EnumPropToString(MOptionColor.values())
+var MSwitchProps.edge by EnumPropToString(MSwitchEdge.values())
+var MSwitchProps.size by EnumPropToString(MSwitchSize.values())
 
 fun RBuilder.mSwitch(
         checked: Boolean = false,
-        primary: Boolean = true,
+        color: MOptionColor = MOptionColor.secondary,
         disabled: Boolean = false,
-        icon: ReactElement? = null,
-        checkedIcon: ReactElement? = null,
+        required: Boolean? = null,
+        size: MSwitchSize = MSwitchSize.medium,
         onChange: ((Event, Boolean) -> Unit)? = null,
-        disableRipple: Boolean = false,
         id: String? = null,
         inputProps: RProps? = null,
         value: String? = null,
+        edge: MSwitchEdge? = null,
 
         addAsChild: Boolean = true,
         className: String? = null,
         handler: StyledHandler<MSwitchProps>? = null) = createStyled(switchComponent, addAsChild) {
     attrs.checked = checked
-    checkedIcon?.let { attrs.checkedIcon = checkedIcon }
-    attrs.color = if (primary) MColor.primary.toString() else MColor.secondary.toString()
+    attrs.color = color
     attrs.disabled = disabled
-    attrs.disableRipple = disableRipple
-    icon?.let { attrs.icon = icon }
+    required?.let { attrs.required = it }
+    edge?.let { attrs.edge = it }
+    attrs.disabled = disabled
     id?.let { attrs.id = id }
     inputProps?.let { attrs.inputProps = inputProps }
     onChange?.let { attrs.onChange = onChange }
+    attrs.size = size
     attrs.type = InputType.checkBox.realValue
     value?.let {attrs.value = value}
 
@@ -63,23 +75,22 @@ fun RBuilder.mSwitch(
  * A label with switch built in. Note, if you want to style the switch or label separately you will have to use
  * mFormControlLabel and pass in a mSwitch.
  */
-fun RBuilder.mSwitchInLabel(
+fun RBuilder.mSwitchWithLabel(
         label: String,
         checked: Boolean = false,
-        primary: Boolean = true,
+        color: MOptionColor = MOptionColor.secondary,
         disabled: Boolean = false,
-        icon: ReactElement? = null,
-        checkedIcon: ReactElement? = null,
+        required: Boolean? = null,
+        size: MSwitchSize = MSwitchSize.medium,
         onChange: ((event: Event, checked: Boolean) -> Unit)? = null,
-        disableRipple: Boolean = false,
         id: String? = null,
         inputProps: RProps? = null,
         value: String? = null,
+        edge: MSwitchEdge? = null,
 
         className: String? = null,
         handler: StyledHandler<MFormControlLabelProps>? = null): ReactElement {
-    val switch = mSwitch(checked, primary, disabled, icon, checkedIcon, onChange, disableRipple, id,
-            inputProps, value, false)
+    val switch = mSwitch(checked, color, disabled, required, size, onChange, id, inputProps, value, edge, false)
 
     return mFormControlLabel(label, switch, checked, disabled, value = value, className = className, handler = handler)
 }

@@ -1,6 +1,8 @@
 package com.ccfraser.muirwik.testapp
 
 import com.ccfraser.muirwik.components.*
+import com.ccfraser.muirwik.components.button.MButtonVariant
+import com.ccfraser.muirwik.components.button.mButton
 import kotlinx.css.margin
 import kotlinx.css.padding
 import kotlinx.css.px
@@ -20,7 +22,7 @@ class TestBadges : RComponent<RProps, RState>() {
             margin(2.spacingUnits)
         }
         val padding by css {
-            padding(0.px, (currentTheme.spacing.unit * 2).px)
+            padding(0.px, 2.spacingUnits)
         }
     }
 

@@ -9,7 +9,11 @@ interface TransitionDuration {
     fun value(): dynamic
 }
 
-class EnterExitTransitionDuration(private val enterTimeMs: Int, private val exitTimeMs: Int) : TransitionDuration {
+interface TransitionDurationWithAuto {
+    fun value(): dynamic
+}
+
+class EnterExitTransitionDuration(private val enterTimeMs: Int, private val exitTimeMs: Int) : TransitionDuration, TransitionDurationWithAuto {
     override fun value(): dynamic {
         val value = js("({})")
         value.enter = enterTimeMs
@@ -18,8 +22,14 @@ class EnterExitTransitionDuration(private val enterTimeMs: Int, private val exit
     }
 }
 
-class SimpleTransitionDuration(val timeMs: Int) : TransitionDuration {
+class SimpleTransitionDuration(val timeMs: Int) : TransitionDuration, TransitionDurationWithAuto {
     override fun value(): dynamic {
         return timeMs
+    }
+}
+
+class AutoTransitionDuration : TransitionDurationWithAuto {
+    override fun value(): dynamic {
+        return "auto"
     }
 }

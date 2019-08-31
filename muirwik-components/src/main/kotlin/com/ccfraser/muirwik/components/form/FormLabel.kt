@@ -1,12 +1,12 @@
 package com.ccfraser.muirwik.components.form
 
+import com.ccfraser.muirwik.components.StyledPropsWithCommonAttributes
 import com.ccfraser.muirwik.components.createStyled
 import com.ccfraser.muirwik.components.setStyledPropsAndRunHandler
 import react.RBuilder
 import react.RComponent
 import react.RState
 import styled.StyledHandler
-import styled.StyledProps
 
 
 @JsModule("@material-ui/core/FormLabel")
@@ -15,7 +15,7 @@ private external val formLabelModule: dynamic
 @Suppress("UnsafeCastFromDynamic")
 private val formLabelComponent: RComponent<MFormLabelProps, RState> = formLabelModule.default
 
-interface MFormLabelProps : StyledProps {
+interface MFormLabelProps : StyledPropsWithCommonAttributes {
     var component: String
     var disabled: Boolean
     var error: Boolean

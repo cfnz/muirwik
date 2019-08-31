@@ -19,9 +19,7 @@ interface MCardContentProps : StyledProps {
     var component: String
 }
 
-fun RBuilder.mCardContent(component: String = "div",
-                          className: String? = null,
+fun RBuilder.mCardContent(className: String? = null,
                           handler: StyledHandler<MCardContentProps>? = null) = createStyled(cardContentComponent) {
-    attrs.component = component
     setStyledPropsAndRunHandler(className, handler)
 }

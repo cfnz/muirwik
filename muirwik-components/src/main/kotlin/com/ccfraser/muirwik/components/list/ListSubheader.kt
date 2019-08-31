@@ -1,9 +1,11 @@
 package com.ccfraser.muirwik.components.list
 
-import com.ccfraser.muirwik.components.MButtonBaseProps
+import com.ccfraser.muirwik.components.EnumPropToString
+import com.ccfraser.muirwik.components.button.MButtonBaseProps
 import com.ccfraser.muirwik.components.createStyled
 import com.ccfraser.muirwik.components.setStyledPropsAndRunHandler
 import com.ccfraser.muirwik.components.spacingUnits
+import kotlinx.css.lineHeight
 import kotlinx.css.padding
 import kotlinx.css.properties.LineHeight
 import react.RBuilder
@@ -25,11 +27,11 @@ enum class MListSubheaderColor {
 }
 
 interface MListSubheaderProps : MButtonBaseProps {
-    var color: String
     var disableGutters: Boolean
     var disableSticky: Boolean
     var inset: Boolean
 }
+var MListSubheaderProps.color by EnumPropToString(MListSubheaderColor.values())
 
 /**
  * A list sub-header which allows you to pass a string to use for the heading.
@@ -46,7 +48,7 @@ fun RBuilder.mListSubheader(
         addAsChild: Boolean = true,
         className: String? = null,
         handler: StyledHandler<MListSubheaderProps>? = null) = createStyled(listSubheaderComponent, addAsChild) {
-    attrs.color = color.toString()
+    attrs.color = color
     component?.let { attrs.component = component }
     attrs.disableGutters = disableGutters
     attrs.disableSticky = disableSticky
@@ -77,7 +79,7 @@ fun RBuilder.mListSubheader(
         addAsChild: Boolean = true,
         className: String? = null,
         handler: StyledHandler<MListSubheaderProps>? = null) = createStyled(listSubheaderComponent, addAsChild) {
-    attrs.color = color.toString()
+    attrs.color = color
     component?.let { attrs.component = component }
     attrs.disableGutters = disableGutters
     attrs.disableSticky = disableSticky

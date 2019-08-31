@@ -3,10 +3,7 @@ package com.ccfraser.muirwik.components.card
 import com.ccfraser.muirwik.components.createStyled
 import com.ccfraser.muirwik.components.setStyledPropsAndRunHandler
 import org.w3c.dom.Node
-import react.RBuilder
-import react.RComponent
-import react.RState
-import react.ReactElement
+import react.*
 import styled.StyledHandler
 import styled.StyledProps
 
@@ -20,10 +17,18 @@ private val cardHeaderComponent : RComponent<MCardHeaderProps, RState> = cardHea
 interface MCardHeaderProps : StyledProps {
     var action: ReactElement
     var avatar: ReactElement
-    var title: Node
+    var component: String
+    var disableTypography: Boolean
     var subheader: Node
+    var subheaderTypographyProps: RProps
+    var title: Node
+    var titleTypographyProps: RProps
 }
 
+/**
+ * This is a simpler version of a CardHeader allowing the use of strings for titles and subheaders. For more
+ * options and control, you can use the full version of [mCardHeader]
+ */
 @Suppress("UnsafeCastFromDynamic")
 fun RBuilder.mCardHeader(title: String,
                          subHeader: String? = null,
@@ -31,12 +36,14 @@ fun RBuilder.mCardHeader(title: String,
                          action: ReactElement? = null,
                          className: String? = null,
                          handler: StyledHandler<MCardHeaderProps>? = null): ReactElement {
-
     val titleNode: Node? = title.asDynamic()
     val subHeaderNode: Node? = subHeader?.asDynamic()
-    return mCardHeader(titleNode, subHeaderNode, avatar, action, className, handler)
+    return mCardHeader(titleNode, subHeaderNode, avatar, action, className = className, handler = handler)
 }
 
+/**
+ * The full version of mCardHeader.
+ */
 fun RBuilder.mCardHeader(title: Node? = null,
                          subHeader: Node? = null,
                          avatar: ReactElement? = null,
@@ -45,8 +52,8 @@ fun RBuilder.mCardHeader(title: Node? = null,
                          handler: StyledHandler<MCardHeaderProps>? = null) = createStyled(cardHeaderComponent) {
     action?.let { attrs.action = it }
     avatar?.let { attrs.avatar = it }
-    title?.let { attrs.title = it }
     subHeader?.let { attrs.subheader = it }
+    title?.let { attrs.title = it }
 
     setStyledPropsAndRunHandler(className, handler)
 }

@@ -20,12 +20,13 @@ external interface MCollapseProps : MTransitionProps {
     var collapsedHeight: String
     var component: String
 }
+var MCollapseProps.timeout by TransitionDurationWithAutoDelegate()
 
 fun RBuilder.mCollapse(
         show: Boolean = false,
         collapsedHeight: LinearDimension = 0.px,
         component: String = "div",
-        timeout: TransitionTimeout? = null,
+        timeout: TransitionDurationWithAuto? = null,
 
         addAsChild: Boolean = true,
         className: String? = null,
@@ -33,7 +34,7 @@ fun RBuilder.mCollapse(
     attrs.collapsedHeight = collapsedHeight.toString()
     attrs.component = component
     attrs.show = show
-    timeout?.let { attrs.timeout = timeout.value() }
+    timeout?.let { attrs.timeout = it }
 
     setStyledPropsAndRunHandler(className, handler)
 }
