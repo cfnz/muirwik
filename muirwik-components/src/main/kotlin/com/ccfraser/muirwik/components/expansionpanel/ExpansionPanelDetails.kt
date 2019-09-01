@@ -1,4 +1,4 @@
-package com.ccfraser.muirwik.components.expansion
+package com.ccfraser.muirwik.components.expansionpanel
 
 import com.ccfraser.muirwik.components.createStyled
 import com.ccfraser.muirwik.components.setStyledPropsAndRunHandler

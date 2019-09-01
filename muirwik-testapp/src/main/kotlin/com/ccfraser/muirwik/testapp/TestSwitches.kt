@@ -4,6 +4,8 @@ import com.ccfraser.muirwik.components.*
 import com.ccfraser.muirwik.components.form.mFormControlLabel
 import kotlinx.css.Display
 import kotlinx.css.display
+import kotlinx.css.marginTop
+import kotlinx.css.px
 import react.*
 import react.dom.br
 import react.dom.div
@@ -27,8 +29,12 @@ class TestSwitches : RComponent<RProps, RState>() {
                 br { }
                 // The icons are more for a checkbox type control, but for fun, we shall put the star on the switch
                 mSwitch(checked = checked3, onChange = { _, _ -> setState { checked3 = !checked3 } }) {
-                        attrs.icon = mIcon("star", addAsChild = false)
-                        attrs.checkedIcon = mIcon("star", addAsChild = false)
+                        attrs.icon = mIcon("star", color = MIconColor.action, addAsChild = false) {
+                            css { marginTop = -(2.px) }
+                        }
+                        attrs.checkedIcon = mIcon("star", addAsChild = false) {
+                            css { marginTop = -(2.px) }
+                        }
                 }
                 br {  }
                 mFormControlLabel("As Form Control", control = mSwitch(checked4, MOptionColor.primary,

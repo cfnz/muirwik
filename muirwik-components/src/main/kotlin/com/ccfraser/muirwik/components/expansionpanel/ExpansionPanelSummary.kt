@@ -1,4 +1,4 @@
-package com.ccfraser.muirwik.components.expansion
+package com.ccfraser.muirwik.components.expansionpanel
 
 import com.ccfraser.muirwik.components.StyledPropsWithCommonAttributes
 import com.ccfraser.muirwik.components.createStyled
@@ -12,8 +12,7 @@ private external val expansionPanelSummaryModule: dynamic
 @Suppress("UnsafeCastFromDynamic")
 private val expansionPanelSummaryComponent: RComponent<MExpansionPanelSummaryProps, RState> = expansionPanelSummaryModule.default
 
-interface MExpansionPanelSummaryProps : StyledPropsWithCommonAttributes
-{
+interface MExpansionPanelSummaryProps : StyledPropsWithCommonAttributes {
 	var expandIcon: ReactElement
 	var iconButtonProps: RProps
 }

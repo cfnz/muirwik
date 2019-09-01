@@ -1,4 +1,4 @@
-package com.ccfraser.muirwik.components.expansion
+package com.ccfraser.muirwik.components.expansionpanel
 
 import com.ccfraser.muirwik.components.StyledPropsWithCommonAttributes
 import com.ccfraser.muirwik.components.createStyled
@@ -15,22 +15,21 @@ private external val expansionPanelModule: dynamic
 @Suppress("UnsafeCastFromDynamic")
 private val expansionPanelComponent: RComponent<MExpansionPanelProps, RState> = expansionPanelModule.default
 
-interface MExpansionPanelProps : StyledPropsWithCommonAttributes
-{
+interface MExpansionPanelProps : StyledPropsWithCommonAttributes {
 	var defaultExpanded: Boolean
 	var disabled: Boolean
 	var expanded: Boolean
 	var onChange: (Event, Boolean) -> Unit
 }
 
-fun RBuilder.mExpansionPanel(defaultExpanded: Boolean? = null,
-                             disabled: Boolean? = null,
-                             expanded: Boolean? = null,
+fun RBuilder.mExpansionPanel(expanded: Boolean? = null,
+							 defaultExpanded: Boolean = false,
+                             disabled: Boolean = false,
                              onChange: ((Event, Boolean) -> Unit)? = null,
                              className: String? = null,
                              handler: StyledHandler<MExpansionPanelProps>? = null) = createStyled(expansionPanelComponent) {
-	defaultExpanded?.let { attrs.defaultExpanded = it }
-	disabled?.let { attrs.disabled = it }
+	attrs.defaultExpanded = defaultExpanded
+	attrs.disabled = disabled
 	expanded?.let { attrs.expanded = it }
 	onChange?.let { attrs.onChange = it }
 	setStyledPropsAndRunHandler(className, handler)

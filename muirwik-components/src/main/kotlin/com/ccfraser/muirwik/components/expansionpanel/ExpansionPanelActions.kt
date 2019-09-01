@@ -1,4 +1,4 @@
-package com.ccfraser.muirwik.components.expansion
+package com.ccfraser.muirwik.components.expansionpanel
 
 import com.ccfraser.muirwik.components.StyledPropsWithCommonAttributes
 import com.ccfraser.muirwik.components.createStyled
@@ -14,8 +14,7 @@ private external val expansionPanelActionsModule: dynamic
 @Suppress("UnsafeCastFromDynamic")
 private val expansionPanelActionsComponent: RComponent<MExpansionPanelActionsProps, RState> = expansionPanelActionsModule.default
 
-interface MExpansionPanelActionsProps : StyledPropsWithCommonAttributes
-{
+interface MExpansionPanelActionsProps : StyledPropsWithCommonAttributes {
 	var disableSpacing: Boolean
 }
 
