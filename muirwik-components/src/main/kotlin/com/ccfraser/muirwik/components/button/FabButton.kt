@@ -33,7 +33,7 @@ var MFabProps.variant by EnumPropToString(MFabVariant.values())
  * FAB button that is round and has a convenience iconName.
  */
 fun RBuilder.mFab(
-        iconName: String,
+        iconName: String? = null,
         color: MColor = MColor.default,
         disabled: Boolean = false,
         onClick: ((Event) -> Unit)? = null,
@@ -50,7 +50,15 @@ fun RBuilder.mFab(
     attrs.size = size
     attrs.variant = MFabVariant.round
 
-    mIcon(iconName)
+    if (iconName != null) {
+        val fontSize = when (size) {
+            MButtonSize.small -> MIconFontSize.small
+            MButtonSize.medium -> MIconFontSize.default
+            MButtonSize.large -> MIconFontSize.large
+        }
+
+        mIcon(iconName, fontSize = fontSize)
+    }
 
     setStyledPropsAndRunHandler(className, handler)
 }
