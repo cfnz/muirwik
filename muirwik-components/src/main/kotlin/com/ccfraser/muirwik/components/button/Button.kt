@@ -20,15 +20,18 @@ interface MButtonProps : MButtonBaseProps {
     var fullWidth: Boolean
     var href: String
 }
-var MButtonProps.color by EnumPropToString(MColor.values())
+var MButtonProps.color by EnumPropToStringNullable(MColor.values())
 var MButtonProps.size by EnumPropToString(MButtonSize.values())
-var MButtonProps.variant by EnumPropToString(MButtonVariant.values())
+var MButtonProps.variant by EnumPropToStringNullable(MButtonVariant.values())
 
 
+//Setting the color and variant to the default values seems to upset button groups... the buttons don't inherit the
+//groups color or variant, even if color is default... so allowing color and variant to default to null which seems
+//to fix the issue and does not cause any issues
 fun RBuilder.mButton(
         caption: String,
-        color: MColor = MColor.default,
-        variant: MButtonVariant = MButtonVariant.text,
+        color: MColor? = null,
+        variant: MButtonVariant? = null,
         disabled: Boolean = false,
         onClick: ((Event) -> Unit)? = null,
         size: MButtonSize = MButtonSize.medium,
