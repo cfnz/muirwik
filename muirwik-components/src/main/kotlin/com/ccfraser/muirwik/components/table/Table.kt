@@ -1,5 +1,6 @@
 package com.ccfraser.muirwik.components.table
 
+import com.ccfraser.muirwik.components.EnumPropToString
 import com.ccfraser.muirwik.components.createStyled
 import com.ccfraser.muirwik.components.setStyledPropsAndRunHandler
 import react.RBuilder
@@ -17,7 +18,14 @@ private val tableComponent: RComponent<MTableProps, RState> = tableModule.defaul
 
 interface MTableProps : StyledProps {
     var component: String
+
+    /**
+     * Material UI docs say this does not work with IE 11
+     */
+    var stickyHeader: Boolean
 }
+var MTableProps.padding by EnumPropToString(MTableCellPadding.values())
+var MTableProps.size by EnumPropToString(MTableCellSize.values())
 
 fun RBuilder.mTable(
         component: String = "table",

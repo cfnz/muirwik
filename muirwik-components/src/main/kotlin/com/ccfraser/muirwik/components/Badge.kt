@@ -23,6 +23,22 @@ enum class MBadgeVariant {
     standard, dot
 }
 
+@Suppress("EnumEntryName")
+enum class MBadgeOverlap {
+    circle, rectangle
+}
+
+@Suppress("EnumEntryName")
+enum class MBadgeAnchorOriginHorizontal {
+    left, right
+}
+
+@Suppress("EnumEntryName")
+enum class MBadgeAnchorOriginVertical {
+    top, bottom
+}
+
+
 interface MBadgeProps: StyledPropsWithCommonAttributes {
     var badgeContent: ReactElement
     var component: String
@@ -30,7 +46,12 @@ interface MBadgeProps: StyledPropsWithCommonAttributes {
     var max: Number
     var showZero: Boolean
 }
+var MBadgeProps.anchorOriginHorizontal by EnumPropToString(
+        MBadgeAnchorOriginHorizontal.values(), "anchorOrigin", "horizontal")
+var MBadgeProps.anchorOriginVertical by EnumPropToString(
+        MBadgeAnchorOriginVertical.values(), "anchorOrigin", "vertical")
 var MBadgeProps.color by EnumPropToString(MBadgeColor.values())
+var MBadgeProps.overlap by EnumPropToString(MBadgeOverlap.values())
 var MBadgeProps.variant by EnumPropToString(MBadgeVariant.values())
 
 fun RBuilder.mBadge(
@@ -94,4 +115,19 @@ fun RBuilder.mBadge(
 
     setStyledPropsAndRunHandler(className, handler)
 }
+
+fun RBuilder.mBadgeDot(
+        color: MBadgeColor = MBadgeColor.default,
+        invisible: Boolean? = null,
+
+        addAsChild: Boolean = true,
+        className: String? = null,
+        handler: StyledHandler<MBadgeProps>? = null) = createStyled(badgeComponent, addAsChild) {
+    attrs.color = color
+    invisible?.let { attrs.invisible = it }
+    attrs.variant = MBadgeVariant.dot
+
+    setStyledPropsAndRunHandler(className, handler)
+}
+
 
