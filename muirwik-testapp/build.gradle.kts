@@ -21,7 +21,7 @@ buildscript {
     dependencies {
         classpath(kotlin("gradle-plugin", kotlinVersion))
 //        classpath(kotlin("frontend-plugin", "0.0.45"))
-        classpath("com.ccfraser.gradle:gradle-webpack-plugin:0.1")
+        classpath("com.ccfraser.gradle:gradle-webpack-plugin:0.3.1")
     }
 }
 

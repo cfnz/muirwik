@@ -10,7 +10,7 @@ module.exports = {
 
 const config = {
     mode: 'production',
-    entry: './build/js-for-bundle/app.js',
+    entry: path.resolve(__dirname, './build/js-for-bundle/app.js'),
 
     // TODO: Probably want pollyfills for production...???
     // In production, we only want to load the polyfills and the app code.

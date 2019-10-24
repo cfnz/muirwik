@@ -11,7 +11,7 @@ const config = {
     mode: 'development',
     entry: [
         require.resolve('react-dev-utils/webpackHotDevClient'),
-        './build/js-for-bundle/app.js',
+        path.resolve(__dirname, './build/js-for-bundle/app.js'),
     ],
     output: {
         path: path.resolve(__dirname, './build/dist'),
