@@ -18,7 +18,7 @@ then the following should work (possibly may also need npm installed):
     cd muirwik
     ./gradlew :muirwik-testapp:yarn
     ./gradlew :muirwik-testapp:build
-    ./gradlew :muirwik-testapp:webpackDevServerOpenBrowser
+    ./gradlew :muirwik-testapp:runServerOpenBrowser
 
 In Windows it is probably (but have not tried it) more like:
 
@@ -26,7 +26,7 @@ In Windows it is probably (but have not tried it) more like:
     cd muirwik/muirwik-testapp
     gradlew.bat :muirwik-testapp:yarn
     gradlew.bat :muirwik-testapp:build
-    gradlew.bat :muirwik-testapp:webpackDevServerOpenBrowser
+    gradlew.bat :muirwik-testapp:runServerOpenBrowser
 
 ## Contributing
 Feedback and contributions are welcome :-). 
