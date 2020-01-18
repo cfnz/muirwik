@@ -1,5 +1,6 @@
 package com.ccfraser.muirwik.components
 
+import com.ccfraser.muirwik.components.button.MIconButtonSize
 import com.ccfraser.muirwik.components.form.MFormControlLabelProps
 import com.ccfraser.muirwik.components.form.mFormControlLabel
 import kotlinx.html.InputType
@@ -19,11 +20,6 @@ enum class MSwitchEdge {
     start, end // We assume if the prop is null, then the default false will be used, so we don't have this as a value
 }
 
-@Suppress("EnumEntryName")
-enum class MSwitchSize {
-    small, medium
-}
-
 interface MSwitchProps : StyledPropsWithCommonAttributes {
     var checked: Boolean
     var checkedIcon: ReactElement
@@ -38,14 +34,14 @@ interface MSwitchProps : StyledPropsWithCommonAttributes {
 }
 var MSwitchProps.color by EnumPropToString(MOptionColor.values())
 var MSwitchProps.edge by EnumPropToString(MSwitchEdge.values())
-var MSwitchProps.size by EnumPropToString(MSwitchSize.values())
+var MSwitchProps.size by EnumPropToString(MIconButtonSize.values())
 
 fun RBuilder.mSwitch(
         checked: Boolean = false,
         color: MOptionColor = MOptionColor.secondary,
         disabled: Boolean = false,
         required: Boolean? = null,
-        size: MSwitchSize = MSwitchSize.medium,
+        size: MIconButtonSize = MIconButtonSize.medium,
         onChange: ((Event, Boolean) -> Unit)? = null,
         id: String? = null,
         inputProps: RProps? = null,
@@ -81,7 +77,7 @@ fun RBuilder.mSwitchWithLabel(
         color: MOptionColor = MOptionColor.secondary,
         disabled: Boolean = false,
         required: Boolean? = null,
-        size: MSwitchSize = MSwitchSize.medium,
+        size: MIconButtonSize = MIconButtonSize.medium,
         onChange: ((event: Event, checked: Boolean) -> Unit)? = null,
         id: String? = null,
         inputProps: RProps? = null,

@@ -48,6 +48,16 @@ class TestTextFields : RComponent<RProps, TestTextFields.MyTestState>() {
             mTypography("Filled Text Fields", variant = MTypographyVariant.h4)
             renderTextFields(MFormControlVariant.filled)
         }
+
+        mTypography("Coloured (When selected)", variant = MTypographyVariant.h4)
+        styledDiv {
+            css { paddingBottom = 3.spacingUnits }
+
+            mTextField(label = "Secondary Name", value = name, variant = MFormControlVariant.outlined, onChange = { event -> handleInputChange(event) }) {
+                css(textField)
+                attrs.color = MTextFieldColor.secondary
+            }
+        }
     }
 
     private fun RBuilder.renderTextFields(variant: MFormControlVariant) {

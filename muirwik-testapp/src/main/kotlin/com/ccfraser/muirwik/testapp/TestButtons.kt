@@ -93,6 +93,13 @@ class TestButtons : RComponent<RProps, RState>() {
             br { }
             br { }
             mButtonGroup(MColor.primary, MButtonGroupVariant.contained) {
+                mButton("One", MColor.primary)
+                mButton("Two", MColor.primary)
+                mButton("Three", MColor.primary)
+            }
+            br { }
+            br { }
+            mButtonGroup(orientation = MButtonGroupOrientation.vertical) {
                 mButton("One")
                 mButton("Two")
                 mButton("Three")
@@ -115,6 +122,21 @@ class TestButtons : RComponent<RProps, RState>() {
             mIconButton("star")
             mIconButton("delete", MColor.primary)
             mIconButton("delete", color = MColor.secondary)
+        }
+        styledDiv {
+            mTypography("Buttons with icons")
+            mButton("Delete", MColor.secondary, MButtonVariant.contained) {
+                css(buttonMargin)
+                attrs.startIcon = mIcon("delete", fontSize = MIconFontSize.small, addAsChild = false)
+            }
+            mButton("Send", MColor.primary, MButtonVariant.contained) {
+                css(buttonMargin)
+                attrs.endIcon = mIcon("send", fontSize = MIconFontSize.small, addAsChild = false)
+            }
+            mButton("Upload", variant = MButtonVariant.contained) {
+                css(buttonMargin)
+                attrs.startIcon = mIcon("cloud_upload", fontSize = MIconFontSize.small, addAsChild = false)
+            }
         }
         br { }
         styledDiv {

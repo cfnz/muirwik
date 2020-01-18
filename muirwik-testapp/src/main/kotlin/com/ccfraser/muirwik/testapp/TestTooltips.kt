@@ -31,6 +31,9 @@ class TestTooltips : RComponent<RProps, RState>() {
             mTooltip("Long Delay", enterDelay = 750) {
                 mButton("Long Delay")
             }
+            mTooltip("With Arrow", arrow = true) {
+                mButton("With Arrow")
+            }
             mTooltip("On the right", TooltipPlacement.right) {
                 mButton("On Right")
             }

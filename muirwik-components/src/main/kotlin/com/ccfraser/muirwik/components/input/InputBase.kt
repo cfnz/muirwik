@@ -43,6 +43,7 @@ interface MInputBaseProps : StyledPropsWithCommonAttributes {
     var required: Boolean
     var rows: Int
     var rowsMax: Int
+    var rowsMin: Int
     var startAdornment: ReactElement
 
     @JsName("type")

@@ -1,5 +1,6 @@
 package com.ccfraser.muirwik.components
 
+import com.ccfraser.muirwik.components.button.MIconButtonSize
 import com.ccfraser.muirwik.components.form.MFormControlLabelProps
 import com.ccfraser.muirwik.components.form.MFormGroupProps
 import com.ccfraser.muirwik.components.form.MLabelPlacement
@@ -15,6 +16,7 @@ private external val radioModule: dynamic
 @Suppress("UnsafeCastFromDynamic")
 private val radioComponent: RComponent<MRadioProps, RState> = radioModule.default
 
+
 interface MRadioProps : StyledPropsWithCommonAttributes {
     var checked: Boolean
     var checkedIcon: ReactElement?
@@ -28,12 +30,14 @@ interface MRadioProps : StyledPropsWithCommonAttributes {
     var value: String?
 }
 var MRadioProps.color by EnumPropToString(MOptionColor.values())
+var MRadioProps.size by EnumPropToString(MIconButtonSize.values())
 
 fun RBuilder.mRadio(
         checked: Boolean? = null,
         color: MOptionColor = MOptionColor.secondary,
         disabled: Boolean = false,
         required: Boolean? = null,
+        size: MIconButtonSize = MIconButtonSize.medium,
         onChange: ((event: Event, checked: Boolean) -> Unit)? = null,
         id: String? = null,
         inputProps: RProps? = null,
@@ -49,6 +53,7 @@ fun RBuilder.mRadio(
     inputProps?.let { attrs.inputProps = it }
     onChange?.let { attrs.onChange = it }
     required?.let { attrs.required = it }
+    attrs.size = size
     value?.let { attrs.value = it }
 
     setStyledPropsAndRunHandler(className, handler)
@@ -64,6 +69,7 @@ fun RBuilder.mRadioWithLabel(
         color: MOptionColor = MOptionColor.secondary,
         disabled: Boolean = false,
         required: Boolean? = null,
+        size: MIconButtonSize = MIconButtonSize.medium,
         labelPlacement: MLabelPlacement = MLabelPlacement.end,
         onChange: ((event: Event, checked: Boolean) -> Unit)? = null,
         id: String? = null,
@@ -72,7 +78,7 @@ fun RBuilder.mRadioWithLabel(
 
         className: String? = null,
         handler: StyledHandler<MFormControlLabelProps>? = null): ReactElement {
-    val radio = mRadio(checked, color, disabled, required, onChange, id, inputProps, value, false)
+    val radio = mRadio(checked, color, disabled, required, size, onChange, id, inputProps, value, false)
     return mFormControlLabel(label, radio, checked, disabled, value = value, labelPlacement = labelPlacement, className = className, handler = handler)
 }
 

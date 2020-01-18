@@ -16,6 +16,11 @@ private external val textFieldDefault: dynamic
 @Suppress("UnsafeCastFromDynamic")
 private val textFieldComponent: RComponent<MTextFieldProps, RState> = textFieldDefault.default
 
+@Suppress("EnumEntryName")
+enum class MTextFieldColor {
+    primary, secondary
+}
+
 interface MTextFieldProps : MFormControlProps {
     var autoComplete: String
     var autoFocus: Boolean
@@ -53,6 +58,7 @@ interface MTextFieldProps : MFormControlProps {
     var type: String
     var value: String
 }
+var MTextFieldProps.color by EnumPropToString(MTextFieldColor.values())
 
 /**
  * From Material-UI: The TextField wrapper component is a complete form control including a label, input and help text.

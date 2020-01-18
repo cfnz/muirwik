@@ -1,5 +1,6 @@
 package com.ccfraser.muirwik.components.list
 
+import com.ccfraser.muirwik.components.MAvatarVariant
 import com.ccfraser.muirwik.components.button.MButtonBaseProps
 import com.ccfraser.muirwik.components.createStyled
 import com.ccfraser.muirwik.components.mAvatar
@@ -26,8 +27,9 @@ fun RBuilder.mListItemAvatar(
 /** Just combines an mListItemAvatar and mAvatar */
 fun RBuilder.mListItemAvatar(
         src: String? = null,
-        srcSet: String? = null,
         alt: String? = null,
+        srcSet: String? = null,
+        variant: MAvatarVariant = MAvatarVariant.circle,
         component: String = "div",
         imgProps: RProps? = null,
         sizes: String? = null,
@@ -35,7 +37,7 @@ fun RBuilder.mListItemAvatar(
         className: String? = null,
         handler: StyledHandler<MButtonBaseProps>? = null) = createStyled(listItemAvatarComponent) {
 
-    mAvatar(src, srcSet, alt, component, imgProps, sizes)
+    mAvatar(src, srcSet, alt, variant, component, imgProps, sizes)
 
     setStyledPropsAndRunHandler(className, handler)
 }

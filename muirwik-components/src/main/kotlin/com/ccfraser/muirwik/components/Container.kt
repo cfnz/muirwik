@@ -16,6 +16,7 @@ private val containerComponent: RComponent<MContainerProps, RState> = containerM
 
 interface MContainerProps : StyledProps {
     var component: String
+    var disableGutters: Boolean
     var fixed: Boolean
     var maxWidth: Any
 }
@@ -27,11 +28,13 @@ interface MContainerProps : StyledProps {
 fun RBuilder.mContainer(
         maxWidth: Breakpoint? = Breakpoint.lg,
         fixed: Boolean = false,
+        disableGutters: Boolean = false,
         component: String = "div",
 
         className: String? = null,
         handler: StyledHandler<MContainerProps>? = null) = createStyled(containerComponent) {
     attrs.component = component
+    attrs.disableGutters = disableGutters
     attrs.fixed = fixed
     attrs.maxWidth = maxWidth?.toString() ?: false
 

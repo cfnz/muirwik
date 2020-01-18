@@ -4,11 +4,11 @@ import com.ccfraser.muirwik.components.styles.Theme
 import react.*
 
 
-@JsModule("@material-ui/core/styles/MuiThemeProvider")
+@JsModule("@material-ui/core/styles")
 private external val muiThemeProviderModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")
-private val muiThemeProviderComponent: RComponent<MuiThemeProviderProps, RState> = muiThemeProviderModule.default
+private val muiThemeProviderComponent: RComponent<MuiThemeProviderProps, RState> = muiThemeProviderModule.ThemeProvider
 
 interface MuiThemeProviderProps : RProps {
     var disableStylesGeneration: Boolean

@@ -92,6 +92,17 @@ class TestAvatars : RComponent<RProps, RState>() {
                     +"OP"
                 }
             }
+
+            mTypography("Variants", MTypographyVariant.h5)
+            styledDiv {
+                css { display = Display.flex; marginBottom = 3.spacingUnits }
+                mAvatar(src = "/images/cards/contemplative-reptile.jpg", alt = "Reptile", variant = MAvatarVariant.rounded) {
+                    css { margin(2.spacingUnits) }
+                }
+                mAvatar(src = "/images/cards/contemplative-reptile.jpg", alt = "Reptile", variant = MAvatarVariant.square) {
+                    css { margin(2.spacingUnits) }
+                }
+            }
         }
     }
 }

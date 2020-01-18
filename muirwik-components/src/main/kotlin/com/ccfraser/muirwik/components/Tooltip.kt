@@ -24,6 +24,7 @@ enum class TooltipPlacement {
 }
 
 interface MTooltipProps : StyledPropsWithCommonAttributes {
+    var arrow: Boolean
     var disableFocusListener: Boolean
     var disableHoverListener: Boolean
     var disableTouchListener: Boolean
@@ -44,7 +45,7 @@ var MTooltipProps.placement by EnumPropToString(TooltipPlacement.values())
 fun RBuilder.mTooltip(
         title: String,
         placement: TooltipPlacement = TooltipPlacement.bottom,
-
+        arrow: Boolean = false,
         enterDelay: Int? = null,
         enterTouchDelay: Int? = null,
         leaveDelay: Int? = null,
@@ -54,6 +55,7 @@ fun RBuilder.mTooltip(
 
         className: String? = null,
         handler: StyledHandler<MTooltipProps>? = null) = createStyled(tooltipComponent) {
+    attrs.arrow = arrow
     enterDelay?.let { attrs.enterDelay = enterDelay }
     enterTouchDelay?.let { attrs.enterTouchDelay = enterTouchDelay }
     id?.let { attrs.id = id }

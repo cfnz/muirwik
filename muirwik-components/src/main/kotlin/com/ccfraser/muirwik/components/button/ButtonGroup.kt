@@ -14,7 +14,11 @@ private external val buttonGroupModule: dynamic
 private val buttonGroupComponent: RComponent<MButtonGroupProps, RState> = buttonGroupModule.default
 
 enum class MButtonGroupVariant {
-    outlined, contained
+    text, outlined, contained
+}
+
+enum class MButtonGroupOrientation {
+    vertical, horizontal
 }
 
 interface MButtonGroupProps : StyledPropsWithCommonAttributes {
@@ -25,6 +29,7 @@ interface MButtonGroupProps : StyledPropsWithCommonAttributes {
     var fullWidth: Boolean
 }
 var MButtonGroupProps.color by EnumPropToString(MColor.values())
+var MButtonGroupProps.orientation by EnumPropToString(MButtonGroupOrientation.values())
 var MButtonGroupProps.size by EnumPropToString(MButtonSize.values())
 var MButtonGroupProps.variant by EnumPropToString(MButtonGroupVariant.values())
 
@@ -32,6 +37,7 @@ var MButtonGroupProps.variant by EnumPropToString(MButtonGroupVariant.values())
 fun RBuilder.mButtonGroup(
         color: MColor = MColor.default,
         variant: MButtonGroupVariant = MButtonGroupVariant.outlined,
+        orientation: MButtonGroupOrientation = MButtonGroupOrientation.horizontal,
         size: MButtonSize = MButtonSize.medium,
         fullWidth: Boolean = false,
         disabled: Boolean = false,
@@ -48,6 +54,7 @@ fun RBuilder.mButtonGroup(
     attrs.disableFocusRipple = disableFocusRipple
     attrs.disableRipple = disableRipple
     attrs.fullWidth = fullWidth
+    attrs.orientation = orientation
     attrs.size = size
     attrs.variant = variant
 

@@ -5,6 +5,7 @@ import org.w3c.dom.events.Event
 import react.RBuilder
 import react.RComponent
 import react.RState
+import react.ReactElement
 import styled.StyledHandler
 
 
@@ -17,10 +18,14 @@ private val buttonComponent: RComponent<MButtonProps, RState> = buttonModule.def
 
 interface MButtonProps : MButtonBaseProps {
     var disableFocusRipple: Boolean
+    var disableElevation: Boolean
+    var endIcon: ReactElement
     var fullWidth: Boolean
     var href: String
+    var startIcon: ReactElement
 }
-var MButtonProps.color by EnumPropToStringNullable(MColor.values())
+//var MButtonProps.color by EnumPropToStringNullable(MColor.values())
+var MButtonProps.color by EnumPropToString(MColor.values())
 var MButtonProps.size by EnumPropToString(MButtonSize.values())
 var MButtonProps.variant by EnumPropToStringNullable(MButtonVariant.values())
 
@@ -30,7 +35,7 @@ var MButtonProps.variant by EnumPropToStringNullable(MButtonVariant.values())
 //to fix the issue and does not cause any issues
 fun RBuilder.mButton(
         caption: String,
-        color: MColor? = null,
+        color: MColor = MColor.default,
         variant: MButtonVariant? = null,
         disabled: Boolean = false,
         onClick: ((Event) -> Unit)? = null,

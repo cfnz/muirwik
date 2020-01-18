@@ -12,6 +12,11 @@ private external val avatarModule: dynamic
 @Suppress("UnsafeCastFromDynamic")
 private val avatarComponent: RComponent<MAvatarProps, RState> = avatarModule.default
 
+@Suppress("EnumEntryName")
+enum class MAvatarVariant {
+    circle, rounded, square
+}
+
 interface MAvatarProps : StyledPropsWithCommonAttributes {
     var alt: String
     var component: String
@@ -20,11 +25,13 @@ interface MAvatarProps : StyledPropsWithCommonAttributes {
     var src: String
     var srcSet: String
 }
+var MAvatarProps.variant by EnumPropToStringNullable(MAvatarVariant.values())
 
 fun RBuilder.mAvatar(
         src: String? = null,
         alt: String? = null,
         srcSet: String? = null,
+        variant: MAvatarVariant = MAvatarVariant.circle,
         component: String = "div",
         imgProps: RProps? = null,
         sizes: String? = null,
@@ -38,6 +45,7 @@ fun RBuilder.mAvatar(
     sizes?.let { attrs.sizes = sizes }
     src?.let { attrs.src = src }
     srcSet?.let { attrs.srcSet = srcSet }
+    attrs.variant = variant
 
     setStyledPropsAndRunHandler(className, handler)
 }
