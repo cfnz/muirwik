@@ -2,6 +2,7 @@ package com.ccfraser.muirwik.components.styles
 
 import com.ccfraser.muirwik.components.child
 import kotlinext.js.Object
+import org.w3c.dom.Element
 import react.*
 
 @JsModule("@material-ui/styles/StylesProvider")
@@ -82,4 +83,17 @@ fun RBuilder.mStylesProvider(
     return mStylesProvider(false, false, null, jss, handler)
 }
 
+/**
+ * See the comments for the full mStylesProvider version.
+ */
+fun RBuilder.mStylesProvider(
+    insertionPointElement: Element,
+    handler: RHandler<MStylesProviderProps>? = null): ReactElement {
 
+    val jssPresets = jssPresetModule.default()
+    jssPresets.insertionPoint = insertionPointElement
+
+    val jss = jss.create(jssPresets)
+
+    return mStylesProvider(false, false, null, jss, handler)
+}
