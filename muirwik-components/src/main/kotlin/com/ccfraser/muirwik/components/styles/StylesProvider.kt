@@ -46,7 +46,7 @@ interface MStylesProviderProps : RProps {
  *         hotWrapper(
  *             stylesProvider("jss-insertion-point") {
  *                 mCssBaseline()
- *                 themeProvider {
+ *                 mThemeProvider {
  *                     app()
  *                 }
  *             }
