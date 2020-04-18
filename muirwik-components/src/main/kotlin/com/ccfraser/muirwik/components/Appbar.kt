@@ -17,12 +17,16 @@ enum class MAppBarPosition {
     fixed, absolute, sticky, static, relative
 }
 
+enum class MAppBarColor {
+    default, inherit, primary, secondary, transparent
+}
+
 interface MAppBarProps : StyledPropsWithCommonAttributes
-var MAppBarProps.color by EnumPropToString(MColor.values())
+var MAppBarProps.color by EnumPropToString(MAppBarColor.values())
 var MAppBarProps.position by EnumPropToString(MAppBarPosition.values())
 
 fun RBuilder.mAppBar(
-        color: MColor = MColor.primary,
+        color: MAppBarColor = MAppBarColor.primary,
         position: MAppBarPosition = MAppBarPosition.fixed,
 
         className: String? = null,

@@ -77,7 +77,7 @@ class TestAppBar : RComponent<RProps, RState>() {
                 styledDiv {
                     css { flexGrow = 1.0; padding(2.spacingUnits) }
 
-                    mAppBar(MColor.default, MAppBarPosition.static) {
+                    mAppBar(MAppBarColor.default, MAppBarPosition.static) {
                         mToolbar {
                             mTypography("Title", variant = MTypographyVariant.h6, color = MTypographyColor.inherit)
                         }

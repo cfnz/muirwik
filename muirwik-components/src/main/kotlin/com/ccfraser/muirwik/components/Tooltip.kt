@@ -29,6 +29,7 @@ interface MTooltipProps : StyledPropsWithCommonAttributes {
     var disableHoverListener: Boolean
     var disableTouchListener: Boolean
     var enterDelay: Int
+    var enterNextDelay: Int
     var enterTouchDelay: Int
     var leaveDelay: Int
     var leaveTouchDelay: Int

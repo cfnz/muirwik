@@ -11,7 +11,7 @@ class TestThemeComponent : RComponent<RProps, RState>() {
 
     override fun RBuilder.render() {
         div {
-            mAppBar(MColor.primary, MAppBarPosition.static) {
+            mAppBar(MAppBarColor.primary, MAppBarPosition.static) {
                 mToolbar {
                     mTypography("Title", variant = MTypographyVariant.h6, color = MTypographyColor.inherit)
                 }

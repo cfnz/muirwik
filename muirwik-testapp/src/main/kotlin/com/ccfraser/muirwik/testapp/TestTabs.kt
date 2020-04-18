@@ -82,7 +82,7 @@ class TestTabs : RComponent<RProps, RState>() {
             }
             styledDiv {
                 css { marginTop = 3.spacingUnits; flexGrow = 1.0; backgroundColor = Color(theme.palette.background.paper) }
-                mAppBar(position = MAppBarPosition.static, color = MColor.default) {
+                mAppBar(position = MAppBarPosition.static, color = MAppBarColor.default) {
                     mTabs(tab2Value, variant = MTabVariant.scrollable, textColor = MTabTextColor.primary, indicatorColor = MTabIndicatorColor.primary,
                             onChange = { _, value -> setState { tab2Value = value }}) {
                         mTab("Item One", 0, icon = mIcon("phone", addAsChild = false))

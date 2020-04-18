@@ -87,8 +87,8 @@ fun RBuilder.mStylesProvider(
  * See the comments for the full mStylesProvider version.
  */
 fun RBuilder.mStylesProvider(
-    insertionPointElement: Element,
-    handler: RHandler<MStylesProviderProps>? = null): ReactElement {
+        insertionPointElement: Element,
+        handler: RHandler<MStylesProviderProps>? = null): ReactElement {
 
     val jssPresets = jssPresetModule.default()
     jssPresets.insertionPoint = insertionPointElement
