@@ -15,21 +15,21 @@ import react.*
 import styled.StyleSheet
 import styled.css
 import styled.styledDiv
-import kotlin.properties.Delegates.observable
 
 interface MainFrameProps : RProps {
-    var onThemeTypeChange: (themeType: String) -> Unit
+    var onThemeSwitch: () -> Unit
     var initialView: String
 }
 
-class MainFrame(props: MainFrameProps) : RComponent<MainFrameProps, RState>(props) {
-    private var themeColor = "light"
-    private var responsiveDrawerOpen = false
+interface MainFrameState: RState {
+    var view: String
+    var responsiveDrawerOpen: Boolean
+}
 
-    val viewChangeObservers = emptyList<(String) -> Unit>()
-
-    private var currentView: String by observable(props.initialView) { _, _, newValue ->
-        viewChangeObservers.forEach { it(newValue) }
+class MainFrame(props: MainFrameProps) : RComponent<MainFrameProps, MainFrameState>(props) {
+    override fun MainFrameState.init(props: MainFrameProps) {
+        view = props.initialView
+        responsiveDrawerOpen = false
     }
 
     private val nameToTestMap = hashMapOf(
@@ -96,10 +96,9 @@ class MainFrame(props: MainFrameProps) : RComponent<MainFrameProps, RState>(prop
                             mHidden(mdUp = true, implementation = MHiddenImplementation.css) {
                                 mIconButton("menu", color = MColor.inherit, onClick = { setState { responsiveDrawerOpen = true }})
                             }
-                            mToolbarTitle("Muirwik - Material-UI React Wrapper in Kotlin - Demo (or play) Area - $currentView")
+                            mToolbarTitle("Muirwik - Material-UI React Wrapper in Kotlin - Demo (or play) Area - ${ state.view }")
                             mIconButton("lightbulb_outline", onClick = {
-                                themeColor = if (themeColor == "light") "dark" else "light"
-                                props.onThemeTypeChange(themeColor)
+                                props.onThemeSwitch()
                             })
                         }
                     }
@@ -107,7 +106,7 @@ class MainFrame(props: MainFrameProps) : RComponent<MainFrameProps, RState>(prop
                     val p: MPaperProps = jsObject { }
                     p.asDynamic().style = js { position = "relative"; width = drawerWidth.value; display = "block"; height = "100%"; minHeight = "100vh" }
                     mHidden(mdUp = true) {
-                        mDrawer(responsiveDrawerOpen, MDrawerAnchor.left, MDrawerVariant.temporary, paperProps = p,
+                        mDrawer(state.responsiveDrawerOpen, MDrawerAnchor.left, MDrawerVariant.temporary, paperProps = p,
                                 onClose = { setState { responsiveDrawerOpen = !responsiveDrawerOpen }}) {
                             spacer()
                             demoItems()
@@ -141,7 +140,7 @@ class MainFrame(props: MainFrameProps) : RComponent<MainFrameProps, RState>(prop
                                 padding(2.spacingUnits)
                                 backgroundColor = Color(theme.palette.background.default)
                             }
-                            nameToTestMap[currentView]?.invoke(this)
+                            nameToTestMap[state.view]?.invoke(this)
                         }
                     }
                 }
@@ -153,11 +152,11 @@ class MainFrame(props: MainFrameProps) : RComponent<MainFrameProps, RState>(prop
         fun RBuilder.addListItem(caption: String): Unit {
 //            mListItem(caption, onClick = {setState {currentView = caption}})
             // We want to get rid of the extra right padding, so must use the longer version as below
-            mListItem(true, onClick = { setState { currentView = caption; responsiveDrawerOpen = false }}) {
+            mListItem(true, onClick = { setState { view = caption; responsiveDrawerOpen = false }}) {
                 mListItemText(caption) {
                     css {
                         paddingRight = 0.px
-                        if (caption == currentView) {
+                        if (caption == state.view) {
                             descendants {
                                 color = Colors.Blue.shade500
                             }
@@ -203,7 +202,7 @@ fun RBuilder.spacer() {
 }
 
 
-fun RBuilder.mainFrame(initialView: String, onThemeTypeChange: (themeType: String) -> Unit) = child(MainFrame::class) {
-    attrs.onThemeTypeChange = onThemeTypeChange
+fun RBuilder.mainFrame(initialView: String, onThemeSwitch: () -> Unit) = child(MainFrame::class) {
+    attrs.onThemeSwitch = onThemeSwitch
     attrs.initialView = initialView
 }
