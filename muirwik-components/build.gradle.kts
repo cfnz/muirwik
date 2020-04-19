@@ -3,7 +3,7 @@ import org.jetbrains.kotlin.gradle.tasks.Kotlin2JsCompile
 import java.io.FileInputStream
 import java.util.*
 
-version = "0.4.1"
+version = "0.4.2"
 description = "Muirwik Components - a Material UI React wrapper written in Kotlin"
 
 buildscript {

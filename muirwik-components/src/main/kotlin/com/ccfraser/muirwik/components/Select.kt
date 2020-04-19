@@ -1,6 +1,7 @@
 package com.ccfraser.muirwik.components
 
 import com.ccfraser.muirwik.components.form.MFormControlVariant
+import com.ccfraser.muirwik.components.input.MInputBaseNoOnChangeProps
 import org.w3c.dom.events.Event
 import react.*
 import styled.StyledHandler
@@ -12,28 +13,28 @@ private external val selectModule: dynamic
 @Suppress("UnsafeCastFromDynamic")
 private val selectComponent: RComponent<MSelectProps, RState> = selectModule.default
 
-interface MSelectProps : StyledPropsWithCommonAttributes {
-    var autoFocus: Boolean
+/**
+ * MSelectProps inherits from MInputBaseNoOnChangeProps rather than MInputProps as MInputProps has
+ * the wrong function prototype for onChange. We introduce our own onChange here as well as the
+ * displayUnderline prop which was the only thing (at time of writing) added to MInputProps.
+ */
+interface MSelectProps : MInputBaseNoOnChangeProps {
     var autoWidth: Boolean
-    var disabled: Boolean
+    var disableUnderline: Boolean
     var displayEmpty: Boolean
-    var endAdornment: ReactElement
-    var error: Boolean
-    var fullWidth: Boolean
 
     @JsName("IconComponent")
     var iconComponent: RComponent<MIconProps, RState>?
 
     var input: ReactElement?
-    var inputProps: RProps
     var margin: String
 
     @JsName("MenuProps")
     var menuProps: RProps?
 
     var multiple: Boolean
-    var name: String
     var native: Boolean
+
     var onChange: ((event: Event, child: ReactElement?) -> Unit)?
     var onClose: SimpleEvent?
     var onOpen: SimpleEvent?
@@ -43,8 +44,6 @@ interface MSelectProps : StyledPropsWithCommonAttributes {
     @JsName("SelectDisplayProps")
     var selectDisplayProps: RProps?
 
-    var startAdornment: ReactElement
-    var value: Any
     var variant: String
 }
 
