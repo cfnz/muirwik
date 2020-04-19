@@ -7,10 +7,14 @@ import com.ccfraser.muirwik.components.styles.ThemeOptions
 import com.ccfraser.muirwik.components.styles.createMuiTheme
 import react.*
 
-class App(props: RProps) : RComponent<RProps, RState>(props) {
-//    private var themeColor = props.themeColor
-    private var themeColor = "light"
+interface AppState: RState {
+    var themeColor: String
+}
 
+class App(props: RProps) : RComponent<RProps, AppState>(props) {
+    override fun AppState.init() {
+        themeColor = "light"
+    }
     override fun RBuilder.render() {
         mCssBaseline()
 
@@ -18,11 +22,11 @@ class App(props: RProps) : RComponent<RProps, RState>(props) {
         // has a lighter primary color than the default theme
         @Suppress("UnsafeCastFromDynamic")
         val themeOptions: ThemeOptions = js("({palette: { type: 'placeholder', primary: {main: 'placeholder'}}})")
-        themeOptions.palette?.type = themeColor
+        themeOptions.palette?.type = state.themeColor
         themeOptions.palette?.primary.main = Colors.Blue.shade500.toString()
 
         mThemeProvider(createMuiTheme(themeOptions)) {
-            mainFrame("An Intro", { themeType -> setState { themeColor = themeType } })
+            mainFrame("An Intro") { setState { themeColor = if (themeColor == "dark") "light" else "dark" } }
         }
     }
 }
