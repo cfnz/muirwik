@@ -1,6 +1,6 @@
 {
     "name": "muirwik-test-app",
-    "version": "0.3.0",
+    "version": "0.5.0",
     "description": "The Muirwik test application",
     "main": "build/js/index.js",
     "private": true,
