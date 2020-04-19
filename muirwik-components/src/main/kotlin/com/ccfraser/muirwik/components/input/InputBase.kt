@@ -9,22 +9,17 @@ import react.RRef
 import react.ReactElement
 
 
-/*
- * Don't think we will be creating these types of controls, so we shall just define the props and
- * inherit from them in the other inputs...
- */
-//@JsModule("@material-ui/core/InputBase")
-//private external val inputBaseModule: dynamic
-//
-//@Suppress("UnsafeCastFromDynamic")
-//private val inputBaseComponent: RComponent<MInputBaseProps, RState> = inputBaseModule.default
-
 @Suppress("EnumEntryName")
 enum class MInputMargin {
     dense, none
 }
 
-interface MInputBaseProps : StyledPropsWithCommonAttributes {
+/*
+ * We have created an extra layer of input props here as Kotlin doesn't allow changing of function prototypes
+ * in inherited interfaces, and since Material UI sometimes changes the onChange function parameters
+ * we have created a new base prop for those to inherit from and inherit MInputBaseProps from this as well.
+ */
+interface MInputBaseNoOnChangeProps : StyledPropsWithCommonAttributes {
     var autoComplete: String
     var autoFocus: Boolean
     var defaultValue: String
@@ -37,7 +32,6 @@ interface MInputBaseProps : StyledPropsWithCommonAttributes {
     var inputRef: RRef
     var multiline: Boolean
     var name: String
-    var onChange: (Event) -> Unit
     var placeholder: String
     var readOnly: Boolean
     var required: Boolean
@@ -51,6 +45,11 @@ interface MInputBaseProps : StyledPropsWithCommonAttributes {
 
     var value: Any
 }
+
+interface MInputBaseProps : MInputBaseNoOnChangeProps {
+    var onChange: (Event) -> Unit
+}
+
 var MInputBaseProps.margin by EnumPropToStringNullable(MInputMargin.values())
 var MInputBaseProps.type: InputType
     get() = InputType.values().first { it.realValue == rawType }
