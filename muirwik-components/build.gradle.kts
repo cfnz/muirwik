@@ -1,37 +1,15 @@
 import com.jfrog.bintray.gradle.BintrayExtension
-import org.jetbrains.kotlin.gradle.tasks.Kotlin2JsCompile
 import java.io.FileInputStream
 import java.util.*
 
-version = "0.5.0"
+version = "0.5.1"
 description = "Muirwik Components - a Material UI React wrapper written in Kotlin"
 
-buildscript {
-    var kotlinVersion: String by extra
-    kotlinVersion = "1.3.70"
-
-    repositories {
-        jcenter()
-        maven { setUrl("https://dl.bintray.com/kotlin/kotlin-eap") }
-    }
-
-    dependencies {
-        classpath(kotlin("gradle-plugin", kotlinVersion))
-    }
-}
-
-apply {
-    plugin("kotlin2js")
-}
-
 plugins {
-    java // Not sure why this is needed, but it makes the dependencies below work.
-    id("com.moowork.node") version "1.2.0"
+    kotlin("js")
     `maven-publish`
     id("com.jfrog.bintray") version "1.8.4"
 }
-
-val kotlinVersion: String by extra
 
 repositories {
     jcenter()
@@ -41,23 +19,30 @@ repositories {
 }
 
 dependencies {
-    val kotlinJsVersion = "pre.94-kotlin-$kotlinVersion"
-    val kotlinReactVersion = "16.13.0-$kotlinJsVersion"
+    val kotlinVersion = "1.3.72"
+    val kotlinJsVersion = "pre.104-kotlin-$kotlinVersion"
+    val kotlinReactVersion = "16.13.1-$kotlinJsVersion"
 
     implementation(kotlin("stdlib-js", kotlinVersion))
     implementation("org.jetbrains", "kotlin-react", kotlinReactVersion)
     implementation("org.jetbrains", "kotlin-react-dom", kotlinReactVersion)
     implementation("org.jetbrains", "kotlin-styled", "1.0.0-$kotlinJsVersion")
+
+    // We don't have peer dependencies and projects using this project via gradle fail to run
+    // if we have the dependencies listed below...
+    // So, the user of this project needs to include the material-ui dependencies themselves
+    // and be careful to select the correct version!
+//    implementation(npm("@material-ui/core", "^4.9.14"))
+//    implementation(npm("@material-ui/icons", "^4.9.1"))
 }
 
 
-val compileKotlin2Js: Kotlin2JsCompile by tasks
-compileKotlin2Js.kotlinOptions {
-    sourceMap = true
-    metaInfo = true
-    outputFile = "${project.buildDir.path}/js/muirwik-components.js"
-    main = "call"
-    moduleKind = "commonjs"
+kotlin {
+    target {
+        useCommonJs()
+        nodejs {
+        }
+    }
 }
 
 // TODO: Look at javadoc/kdoc/dokka
@@ -68,12 +53,7 @@ compileKotlin2Js.kotlinOptions {
 //    from(tasks.dokka)
 //}
 
-tasks.register<Jar>("sourcesJar") {
-    from(sourceSets.main.get().allSource)
-    archiveClassifier.set("sources")
-}
-
-val publicationName = "mavenJava"
+val publicationName = "kotlin"
 publishing {
     repositories {
         mavenLocal()
@@ -81,9 +61,9 @@ publishing {
 
     publications {
         create<MavenPublication>(publicationName) {
-            from(components["java"])
+            from(components["kotlin"])
 //            artifact(tasks["KDocJar"])
-            artifact(tasks["sourcesJar"])
+            artifact(tasks.getByName<Zip>("JsSourcesJar"))
 
             pom {
                 name.set("Muirwik Components")
@@ -109,19 +89,19 @@ bintray {
         val properties = Properties()
         properties.load(FileInputStream(project.file("local.properties")))
         fun findProperty(propertyName: String) = properties[propertyName] as String?
-    
+
         user = findProperty("bintray.user")
         key = findProperty("bintray.apikey")
         publish = true
         override = true
-    
+
         pkg(delegateClosureOf<BintrayExtension.PackageConfig> {
             // Mandatory fields
             repo = project.parent?.name
             name = "${project.group}:${project.name}"
             setLicenses("MPL-2.0")
             vcsUrl = "https://github.com/cfnz/muirwik"
-    
+
             // Some optional fields
             description = project.description
             desc = description

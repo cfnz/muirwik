@@ -22,17 +22,15 @@ then the following should work (possibly may also need npm installed):
 
     git clone https://github.com/cfnz/muirwik.git
     cd muirwik
-    ./gradlew :muirwik-testapp:yarn
     ./gradlew :muirwik-testapp:build
-    ./gradlew :muirwik-testapp:runServerOpenBrowser
+    ./gradlew :muirwik-testapp:run
 
 In Windows it is probably (but have not tried it) more like:
 
     git clone https://github.com/cfnz/muirwik.git
     cd muirwik/muirwik-testapp
-    gradlew.bat :muirwik-testapp:yarn
     gradlew.bat :muirwik-testapp:build
-    gradlew.bat :muirwik-testapp:runServerOpenBrowser
+    gradlew.bat :muirwik-testapp:run
 
 Note that I have not taken the time to make the demo app perfect. Some of the components could be
 laid out better. To see what is possible, see the [Material UI](https://material-ui.com/) demo.

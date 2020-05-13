@@ -1,6 +1,5 @@
 package com.ccfraser.muirwik.components
 
-import kotlinext.js.JsObject
 import kotlinext.js.Object
 import kotlinext.js.jsObject
 import kotlinx.css.CSSBuilder
@@ -71,7 +70,7 @@ fun <P : StyledProps> RBuilder.createStyled(componentClass: KClass<out RComponen
  * a jsObject that is one layer deep, or two layers if the second layer is a
  * media query (used initially just to convert the currentTheme.mixins.toolbar)
  */
-fun CSSBuilder.toolbarJsCssToPartialCss(jsObject: JsObject) {
+fun CSSBuilder.toolbarJsCssToPartialCss(jsObject: Object) {
     // TODO: Pretty rude and crude for now, if it is a height or width, put px on the end of the value
     fun addSuffix(key: String, value: String): String {
         return if (key.contains("height", true) || key.contains("width", true)) {
@@ -105,10 +104,10 @@ fun CSSBuilder.toolbarJsCssToPartialCss(jsObject: JsObject) {
 
 
 //class EmptyProps : RProps
-class PropsWithJsStyle(var style: JsObject?) : RProps
+class PropsWithJsStyle(var style: Object?) : RProps
 
 @Suppress("UNCHECKED_CAST_TO_EXTERNAL_INTERFACE")
-fun CSSBuilder.toJsStyle() = toStyle() as JsObject
+fun CSSBuilder.toJsStyle() = toStyle() as Object
 
 @Suppress("EnumEntryName")
 enum class MAlignment {

@@ -44,6 +44,8 @@ interface MTabsProps: StyledProps {
     @JsName("ScrollButtonComponent")
     var scrollButtonComponent: ReactElement
 
+    var selectionFollowsFocus: Boolean
+
     @JsName("TabIndicatorProps")
     var tabIndicatorProps: RProps
 

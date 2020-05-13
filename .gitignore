@@ -105,3 +105,4 @@ typings/
 /muirwik-testapp/.gradle/
 /muirwik-components/.gradle/
 /.gradle/
+/build/
