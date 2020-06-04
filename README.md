@@ -35,6 +35,35 @@ In Windows it is probably (but have not tried it) more like:
 Note that I have not taken the time to make the demo app perfect. Some of the components could be
 laid out better. To see what is possible, see the [Material UI](https://material-ui.com/) demo.
 
+### Adding Muirwik as a dependency
+Make sure you have these kotlin wrapper and material-ui dependencies in your project:
+```
+implementation("org.jetbrains:kotlin-react:VERSION")
+implementation("org.jetbrains:kotlin-react-dom:VERSION")
+implementation("org.jetbrains:kotlin-styled:1.0.0-VERSION")
+implementation("org.jetbrains:kotlin-css-js:1.0.0-VERSION")
+implementation(npm("@material-ui/core", "^4.9.14"))
+```
+Please note that the VERSION of the wrappers is important. The current version of Muirwik (0.5.1) is compatible with
+**pre.104-kotlin**. If a different version is used it might cause errors like 
+**TypeError: $receiver.child_2usv9w$ is not a function**.
+
+The Muirwik dependency is added as follows:
+```
+repositories {
+    ...
+    maven("https://dl.bintray.com/cfraser/muirwik")
+}
+
+dependencies {
+    ...
+    implementation("com.ccfraser.muirwik:muirwik-components:0.5.1")
+}
+```
+
+You can also look inside the [starter project](https://github.com/cfnz/muirwik-starterapp) for more help.
+
+
 ## Background
 I started this off as a process to learn Kotlin. I wanted to do some web development and
 in the past used things like Vaadin and before that a small amount of facelets and jsf. 
