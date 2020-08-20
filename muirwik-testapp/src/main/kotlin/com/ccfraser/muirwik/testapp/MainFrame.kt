@@ -37,6 +37,7 @@ class MainFrame(props: MainFrameProps) : RComponent<MainFrameProps, MainFrameSta
             "App Bar" to RBuilder::testAppBar,
             "Avatars" to RBuilder::testAvatars,
             "Badges" to RBuilder::testBadges,
+            "Backdrop" to RBuilder::testBackdrop,
             "Bottom Nav" to RBuilder::testBottomNavigation,
             "Breadcrumbs" to RBuilder::testBreadcrumbs,
             "Buttons" to RBuilder::testButtons,
