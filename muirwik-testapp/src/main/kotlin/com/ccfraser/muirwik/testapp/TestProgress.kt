@@ -8,6 +8,7 @@ import com.ccfraser.muirwik.testapp.TestProgress.ComponentStyles.buttonProgress
 import com.ccfraser.muirwik.testapp.TestProgress.ComponentStyles.buttonSuccess
 import com.ccfraser.muirwik.testapp.TestProgress.ComponentStyles.fabProgress
 import com.ccfraser.muirwik.testapp.TestProgress.ComponentStyles.wrapper
+import kotlinx.browser.window
 import kotlinx.css.*
 import react.*
 import react.dom.br
@@ -15,7 +16,6 @@ import react.dom.div
 import styled.StyleSheet
 import styled.css
 import styled.styledDiv
-import kotlin.browser.window
 import kotlin.math.min
 import kotlin.random.Random
 

@@ -7,12 +7,12 @@ import com.ccfraser.muirwik.components.button.mIconButton
 import com.ccfraser.muirwik.components.card.*
 import com.ccfraser.muirwik.components.styles.Breakpoint
 import com.ccfraser.muirwik.components.transitions.mCollapse
+import kotlinx.browser.window
 import kotlinx.css.*
 import kotlinx.css.properties.*
 import react.*
 import styled.css
 import styled.styledDiv
-import kotlin.browser.window
 
 class TestCards : RComponent<RProps, RState>() {
     private var count = 0
