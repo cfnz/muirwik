@@ -2,7 +2,7 @@ import com.jfrog.bintray.gradle.BintrayExtension
 import java.io.FileInputStream
 import java.util.*
 
-version = "0.5.1"
+version = "0.5.2"
 description = "Muirwik Components - a Material UI React wrapper written in Kotlin"
 
 plugins {
