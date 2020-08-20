@@ -17,8 +17,8 @@ repositories {
 }
 
 dependencies {
-    val kotlinVersion = "1.4.0-rc"
-    val kotlinJsVersion = "pre.110-kotlin-$kotlinVersion"
+    val kotlinVersion = "1.4.0"
+    val kotlinJsVersion = "pre.111-kotlin-$kotlinVersion"
     val kotlinReactVersion = "16.13.1-$kotlinJsVersion"
 
     implementation(kotlin("stdlib-js", kotlinVersion))
@@ -29,6 +29,11 @@ dependencies {
     implementation(npm("@material-ui/core", "^4.11.0"))
     implementation(npm("@material-ui/icons", "^4.9.1"))
     implementation(npm("react-hot-loader", "^4.12.20"))
+
+    // Just adding these to get rid of warnings...
+    implementation(npm("react", "^16.3.1"))
+    implementation(npm("react-dom", "^16.3.1"))
+
 
     implementation(project(":muirwik-components"))
 }
