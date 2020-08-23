@@ -60,16 +60,3 @@ fun RBuilder.mLink(
         className: String? = null,
         handler: StyledHandler<MLinkProps>? = null) = mLink(text, HRefOptions(hRef), underline, gutterBottom,
             noWrap, className, handler)
-/**
- * Sets up a link with text and an href anchor which will have a _blank target and rel="noopener"
- */
-fun RBuilder.mLink(
-        text: String,
-        hRef: String,
-        underline: MLinkUnderline = MLinkUnderline.hover,
-        gutterBottom: Boolean = false,
-        noWrap: Boolean = false,
-
-        className: String? = null,
-        handler: StyledHandler<MLinkProps>? = null) = mLink(text, HRefOptions(hRef), underline, gutterBottom,
-            noWrap, className, handler)
