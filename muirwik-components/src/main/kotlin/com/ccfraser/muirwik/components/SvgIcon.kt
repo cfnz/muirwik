@@ -1,6 +1,5 @@
-package com.ccfraser.muirwik
+package com.ccfraser.muirwik.components
 
-import com.ccfraser.muirwik.components.*
 import kotlinext.js.jsObject
 import react.*
 import styled.StyledHandler
