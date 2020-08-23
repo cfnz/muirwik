@@ -1,6 +1,5 @@
 package com.ccfraser.muirwik.components
 
-import kotlinext.js.Object
 import react.RBuilder
 import react.RComponent
 import react.RState
@@ -25,8 +24,10 @@ enum class MIconFontSize {
 }
 
 interface MIconProps : StyledProps {
-    var style: Object
+//    var style: Object
+    var component: String?
 }
+
 var MIconProps.color by EnumPropToString(MIconColor.values())
 var MIconProps.fontSize by EnumPropToString(MIconFontSize.values())
 

@@ -2,6 +2,7 @@ package com.ccfraser.muirwik.testapp
 
 import com.ccfraser.muirwik.components.*
 import com.ccfraser.muirwik.components.button.*
+import com.ccfraser.muirwik.mSvgIcon
 import com.ccfraser.muirwik.testapp.TestButtons.ComplexComponentStyles.image
 import com.ccfraser.muirwik.testapp.TestButtons.ComplexComponentStyles.imageBackdrop
 import com.ccfraser.muirwik.testapp.TestButtons.ComplexComponentStyles.imageButton
@@ -136,6 +137,10 @@ class TestButtons : RComponent<RProps, RState>() {
             mButton("Upload", variant = MButtonVariant.contained) {
                 css(buttonMargin)
                 attrs.startIcon = mIcon("cloud_upload", fontSize = MIconFontSize.small, addAsChild = false)
+            }
+            mButton("Svg Icon", variant = MButtonVariant.contained) {
+                css(buttonMargin)
+                attrs.startIcon = mSvgIcon("M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z", addAsChild = false)
             }
         }
         br { }

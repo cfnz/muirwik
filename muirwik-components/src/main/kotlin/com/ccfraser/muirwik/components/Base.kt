@@ -192,7 +192,7 @@ fun setHRefTargetNoOpener(attrs: RProps, hRefOptions: HRefOptions) {
 
 /**
  * This is a convenience function (which might end up somewhere else) that handles setting of the href, target and rel
- * properties of various components. These components often done have the target and rel properties as it is expected in
+ * properties of various components. These components often don't have the target and rel properties as it is expected in
  * Material-UI to just pass them to the root element.
  *
  * When the targetBlank parameter is true it overrides anything in target with "_blank" setting the rel prop to "nopener"

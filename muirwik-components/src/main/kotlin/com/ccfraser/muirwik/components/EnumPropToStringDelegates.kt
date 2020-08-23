@@ -27,7 +27,7 @@ class EnumPropToStringR<T> {
  * @param propNameOverride Usually null. If the property name used is not the same as the property name that the
  *                         delegate is attached to, then it can be specified here. Usually this is null which means the
  *                         property name will be used. Examples where this might be used is if the property name
- *                         starts with an uppercase character, but out kotlin convention is to use a lowercase
+ *                         starts with an uppercase character, but our kotlin convention is to use a lowercase
  *                         character, or perhaps the Material UI prop is a reserved word so we use a different name.
  * @param childProp Usually null. If the property has a child property that we are targeting, then this can be specified here.
  *                  For example if the Material UI prop is origin.horizontal and our property value is originHorizontal

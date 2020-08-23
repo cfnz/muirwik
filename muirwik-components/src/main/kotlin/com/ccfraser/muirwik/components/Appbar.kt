@@ -7,10 +7,10 @@ import styled.StyledHandler
 
 
 @JsModule("@material-ui/core/AppBar")
-private external val iconModule: dynamic
+private external val appBarModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")
-private val iconComponent: RComponent<MAppBarProps, RState> = iconModule.default
+private val appBarComponent: RComponent<MAppBarProps, RState> = appBarModule.default
 
 @Suppress("EnumEntryName")
 enum class MAppBarPosition {
@@ -30,7 +30,7 @@ fun RBuilder.mAppBar(
         position: MAppBarPosition = MAppBarPosition.fixed,
 
         className: String? = null,
-        handler: StyledHandler<MAppBarProps>? = null) = createStyled(iconComponent) {
+        handler: StyledHandler<MAppBarProps>? = null) = createStyled(appBarComponent) {
 
     attrs.color = color
     attrs.position = position
