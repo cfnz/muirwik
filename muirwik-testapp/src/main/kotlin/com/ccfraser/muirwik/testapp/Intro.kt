@@ -1,6 +1,7 @@
 package com.ccfraser.muirwik.testapp
 
 import com.ccfraser.muirwik.components.MTypographyVariant
+import com.ccfraser.muirwik.components.mLink
 import com.ccfraser.muirwik.components.mTypography
 import com.ccfraser.muirwik.components.spacingUnits
 import com.ccfraser.muirwik.testapp.Intro.ComponentStyles.typographyStyle
@@ -9,7 +10,6 @@ import react.RBuilder
 import react.RComponent
 import react.RProps
 import react.RState
-import react.dom.a
 import react.dom.img
 import styled.StyleSheet
 import styled.css
@@ -37,11 +37,11 @@ class Intro : RComponent<RProps, RState>() {
             mTypography{
                 css(typographyStyle)
                 +"Muirwik gets it name from being a "
-                a("https://material-ui.com/", "_black") { +"Material UI" }
+                mLink("Material UI", "https://material-ui.com/")
                 +" "
-                a("https://reactjs.org/", "_black") { +"React" }
+                mLink("React", "https://reactjs.org/")
                 +" wrapper (written) in "
-                a("https://kotlinlang.org/", "_black") { +"Kotlin" }
+                mLink("Kotlin", "https://kotlinlang.org/")
                 +"."
             }
 
@@ -55,7 +55,7 @@ class Intro : RComponent<RProps, RState>() {
             mTypography {
                 css(typographyStyle)
                 +"For more information, see the above links (particularly the Material UI one) and this project's "
-                a(href = "#") { +"Github page"}
+                mLink("Github page", "https://github.com/cfnz/muirwik")
                 +"."
             }
         }
