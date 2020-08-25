@@ -18,7 +18,7 @@ repositories {
 
 dependencies {
     val kotlinVersion = "1.4.0"
-    val kotlinJsVersion = "pre.111-kotlin-$kotlinVersion"
+    val kotlinJsVersion = "pre.112-kotlin-$kotlinVersion"
     val kotlinReactVersion = "16.13.1-$kotlinJsVersion"
 
     implementation(kotlin("stdlib-js", kotlinVersion))
@@ -33,8 +33,8 @@ dependencies {
     // if we have the dependencies listed below...
     // So, the user of this project needs to include the material-ui dependencies themselves
     // and be careful to select the correct version!
-//    implementation(peerNpm("@material-ui/core", "^4.11.0"))
-//    implementation(peerNpm("@material-ui/icons", "^4.9.1"))
+    implementation(peerNpm("@material-ui/core", "^4.11.0"))
+    implementation(peerNpm("@material-ui/icons", "^4.9.1"))
 //    implementation(peerNpm("@material-ui/core", "^4.9.14"))
 //    implementation(peerNpm("@material-ui/icons", "^4.9.1"))
 }
@@ -42,8 +42,10 @@ dependencies {
 
 
 kotlin {
-//    defaultJsCompilerType = KotlinJsCompilerType.LEGACY
-    defaultJsCompilerType = KotlinJsCompilerType.IR
+    println("compiler is $defaultJsCompilerType")
+
+    defaultJsCompilerType = KotlinJsCompilerType.LEGACY
+//    defaultJsCompilerType = KotlinJsCompilerType.IR
 //        defaultJsCompilerType = KotlinJsCompilerType.BOTH
 
     js {

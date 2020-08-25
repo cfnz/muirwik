@@ -18,7 +18,7 @@ repositories {
 
 dependencies {
     val kotlinVersion = "1.4.0"
-    val kotlinJsVersion = "pre.111-kotlin-$kotlinVersion"
+    val kotlinJsVersion = "pre.112-kotlin-$kotlinVersion"
     val kotlinReactVersion = "16.13.1-$kotlinJsVersion"
 
     implementation(kotlin("stdlib-js", kotlinVersion))
@@ -40,8 +40,8 @@ dependencies {
 
 kotlin {
     println("defaultJsCompileType is ${defaultJsCompilerType}")
-//    defaultJsCompilerType = KotlinJsCompilerType.LEGACY
-        defaultJsCompilerType = KotlinJsCompilerType.IR
+    defaultJsCompilerType = KotlinJsCompilerType.LEGACY
+//        defaultJsCompilerType = KotlinJsCompilerType.IR
 //        defaultJsCompilerType = KotlinJsCompilerType.BOTH
 
     js {
