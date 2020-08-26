@@ -18,6 +18,8 @@ interface MExpansionPanelActionsProps : StyledPropsWithCommonAttributes {
 	var disableSpacing: Boolean
 }
 
+@Deprecated("Getting removed in Material-UI 5", ReplaceWith("mAccordionActions(disableSpacing, className, handler)",
+		"com.ccfraser.muirwik.components.accordion.mAccordionActions"))
 fun RBuilder.mExpansionPanelActions(disableSpacing: Boolean? = null,
                                     className: String? = null,
                                     handler: StyledHandler<MExpansionPanelActionsProps>? = null) =

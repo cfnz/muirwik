@@ -33,7 +33,8 @@ class MainFrame(props: MainFrameProps) : RComponent<MainFrameProps, MainFrameSta
     }
 
     private val nameToTestMap = hashMapOf(
-            "An Intro" to RBuilder::intro,
+            "Intro" to RBuilder::intro,
+            "Accordion" to RBuilder::testAccordion,
             "App Bar" to RBuilder::testAppBar,
             "Avatars" to RBuilder::testAvatars,
             "Badges" to RBuilder::testBadges,
@@ -47,7 +48,6 @@ class MainFrame(props: MainFrameProps) : RComponent<MainFrameProps, MainFrameSta
             "ClickAwayListener" to RBuilder::testClickAwayListener,
             "Dialogs" to RBuilder::testDialogs,
             "Drawers" to RBuilder::testDrawers,
-            "Expansion Panel" to RBuilder::testExpansionPanel,
             //                            "Gridsto RBuilder::> testGrids,
             "Grid Lists" to RBuilder::testGridLists,
             "Links" to RBuilder::testLinks,
@@ -180,7 +180,9 @@ class MainFrame(props: MainFrameProps) : RComponent<MainFrameProps, MainFrameSta
                     overflowX = Overflow.hidden
                     wordBreak = WordBreak.keepAll
                 }
-                nameToTestMap.keys.sorted().forEach { addListItem(it) }
+
+                nameToTestMap.keys.sortedWith { a, b -> if (a == "Intro") -1 else if (b == "Intro") 1 else a.compareTo(b) }
+                        .forEach { addListItem(it) }
             }
         }
     }

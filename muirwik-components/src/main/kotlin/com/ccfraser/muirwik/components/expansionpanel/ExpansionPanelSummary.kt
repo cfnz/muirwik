@@ -17,6 +17,8 @@ interface MExpansionPanelSummaryProps : StyledPropsWithCommonAttributes {
 	var iconButtonProps: RProps
 }
 
+@Deprecated("Getting removed in Material-UI 5", ReplaceWith("mAccordionSummary(expandIcon, iconButtonProps, className, handler)",
+		"com.ccfraser.muirwik.components.accordion.mAccordionSummary"))
 fun RBuilder.mExpansionPanelSummary(expandIcon: ReactElement? = null,
                                     iconButtonProps: RProps? = null,
                                     className: String? = null,

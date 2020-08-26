@@ -14,6 +14,8 @@ private external val expansionPanelDetailsModule: dynamic
 @Suppress("UnsafeCastFromDynamic")
 private val expansionPanelDetailsComponent: RComponent<StyledProps, RState> = expansionPanelDetailsModule.default
 
+@Deprecated("Getting removed in Material-UI 5", ReplaceWith("mAccordionDetails(className, handler)",
+		"com.ccfraser.muirwik.components.accordion.mAccordionDetails"))
 fun RBuilder.mExpansionPanelDetails(className: String? = null,
                                     handler: StyledHandler<StyledProps>? = null) =
 		createStyled(expansionPanelDetailsComponent) {

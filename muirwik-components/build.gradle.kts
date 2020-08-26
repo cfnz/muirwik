@@ -37,9 +37,7 @@ dependencies {
 
 
 kotlin {
-    println("compiler is $defaultJsCompilerType")
-
-    defaultJsCompilerType = KotlinJsCompilerType.LEGACY
+    defaultJsCompilerType = KotlinJsCompilerType.LEGACY  // The default
 //    defaultJsCompilerType = KotlinJsCompilerType.IR
 //    defaultJsCompilerType = KotlinJsCompilerType.BOTH
 
@@ -61,8 +59,6 @@ kotlin {
             }
         }
         useCommonJs()
-//        nodejs {
-//        }
     }
 }
 
@@ -85,7 +81,6 @@ publishing {
             from(components["kotlin"])
 //            artifact(tasks["KDocJar"])
             artifact(tasks.getByName<Zip>("jsSourcesJar"))
-//            tasks.names.forEach { println("sourcesName: $it")}
 
             pom {
                 name.set("Muirwik Components")

@@ -22,6 +22,8 @@ interface MExpansionPanelProps : StyledPropsWithCommonAttributes {
 	var onChange: (Event, Boolean) -> Unit
 }
 
+@Deprecated("Getting removed in Material-UI 5", ReplaceWith("mAccordion(expanded, defaultExpanded, disabled, square, " +
+		"onChange, className, handler)", "com.ccfraser.muirwik.components.accordion.mAccordion"))
 fun RBuilder.mExpansionPanel(expanded: Boolean? = null,
 							 defaultExpanded: Boolean = false,
                              disabled: Boolean = false,
