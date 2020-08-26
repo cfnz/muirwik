@@ -11,6 +11,7 @@ import com.ccfraser.muirwik.testapp.TestButtons.ComplexComponentStyles.imageTitl
 import com.ccfraser.muirwik.testapp.TestButtons.ComplexComponentStyles.root
 import com.ccfraser.muirwik.testapp.TestButtons.ComponentStyles.buttonMargin
 import kotlinext.js.js
+import kotlinx.browser.window
 import kotlinx.css.*
 import kotlinx.css.properties.*
 import kotlinx.html.InputType
@@ -23,7 +24,6 @@ import react.dom.button
 import react.dom.div
 import react.dom.label
 import styled.*
-import kotlin.browser.window
 
 
 class TestButtons : RComponent<RProps, RState>() {

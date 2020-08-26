@@ -2,12 +2,12 @@ package com.ccfraser.muirwik.testapp
 
 import com.ccfraser.muirwik.components.*
 import com.ccfraser.muirwik.testapp.TestChips.CustomStyles.margin
+import kotlinx.browser.window
 import kotlinx.css.*
 import react.*
 import styled.StyleSheet
 import styled.css
 import styled.styledDiv
-import kotlin.browser.window
 
 
 class TestChips : RComponent<RProps, RState>() {
