@@ -21,7 +21,7 @@ class TestAccordion : RComponent<RProps, RState>() {
     }
 
     override fun RBuilder.render() {
-        mTypography("Simple Accordion (was ExpansionPanel, but that is Deprecated, replaced with Accordion)")
+        mTypography("Simple Accordion (was ExpansionPanel, but ExpansionPanel is Deprecated in Material-UI 4.11.0, replaced with Accordion)")
         styledDiv {
             css {
                 padding(2.spacingUnits)
@@ -29,7 +29,7 @@ class TestAccordion : RComponent<RProps, RState>() {
             }
             mAccordion {
                 mAccordionSummary(expandIcon = mIcon("expand_more", addAsChild = false)) {
-                    mTypography("Expansion Panel 1")
+                    mTypography("Accordion Item 1")
                 }
                 mAccordionDetails {
                     mTypography("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex, " +
@@ -38,7 +38,7 @@ class TestAccordion : RComponent<RProps, RState>() {
             }
             mAccordion {
                 mAccordionSummary(expandIcon = mIcon("expand_more", addAsChild = false)) {
-                    mTypography("Expansion Panel 2")
+                    mTypography("Accordion Item 2")
                 }
                 mAccordionDetails {
                     mTypography("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex, " +
@@ -47,7 +47,7 @@ class TestAccordion : RComponent<RProps, RState>() {
             }
             mAccordion(disabled = true) {
                 mAccordionSummary(expandIcon = mIcon("expand_more", addAsChild = false)) {
-                    mTypography("Expansion Panel 3")
+                    mTypography("Accordion Item 3")
                 }
                 mAccordionDetails {
                     mTypography("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex, " +
@@ -64,7 +64,7 @@ class TestAccordion : RComponent<RProps, RState>() {
             }
             mAccordion(expandedItem == "panel1", onChange = { _, expanded -> handleExpanded(expanded, "panel1")}) {
                 mAccordionSummary(expandIcon = mIcon("expand_more", addAsChild = false)) {
-                    mTypography("Expansion Panel 1")
+                    mTypography("Accordion Item 1")
                 }
                 mAccordionDetails {
                     mTypography("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex, " +
@@ -73,7 +73,7 @@ class TestAccordion : RComponent<RProps, RState>() {
             }
             mAccordion(expandedItem == "panel2", onChange = { _, expanded -> handleExpanded(expanded, "panel2")}) {
                 mAccordionSummary(expandIcon = mIcon("expand_more", addAsChild = false)) {
-                    mTypography("Expansion Panel 2")
+                    mTypography("Accordion Item 2")
                 }
                 mAccordionDetails {
                     mTypography("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex, " +
@@ -82,7 +82,7 @@ class TestAccordion : RComponent<RProps, RState>() {
             }
             mAccordion(expandedItem == "panel3", onChange = { _, expanded -> handleExpanded(expanded, "panel3")}) {
                 mAccordionSummary(expandIcon = mIcon("expand_more", addAsChild = false)) {
-                    mTypography("Expansion Panel 3")
+                    mTypography("Accordion Item 3")
                 }
                 mAccordionDetails {
                     mTypography("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex, " +
