@@ -36,16 +36,15 @@ Note that I have not taken the time to make the demo app perfect. Some of the co
 laid out better. To see what is possible, see the [Material UI](https://material-ui.com/) demo.
 
 ### Adding Muirwik as a dependency
-Make sure you have these kotlin wrapper and material-ui dependencies in your project:
+Make sure you have these kotlin wrapper dependencies in your project:
 ```
 implementation("org.jetbrains:kotlin-react:VERSION")
 implementation("org.jetbrains:kotlin-react-dom:VERSION")
 implementation("org.jetbrains:kotlin-styled:1.0.0-VERSION")
 implementation("org.jetbrains:kotlin-css-js:1.0.0-VERSION")
-implementation(npm("@material-ui/core", "^4.9.14"))
 ```
-Please note that the VERSION of the wrappers is important. The current version of Muirwik (0.5.1) is compatible with
-**pre.104-kotlin**. If a different version is used it might cause errors like 
+Please note that the VERSION of the wrappers is important. The current version of Muirwik (0.6.0) is compatible with
+**pre.112-kotlin**. If a different version is used it might cause errors like 
 **TypeError: $receiver.child_2usv9w$ is not a function**.
 
 The Muirwik dependency is added as follows:
@@ -57,11 +56,13 @@ repositories {
 
 dependencies {
     ...
-    implementation("com.ccfraser.muirwik:muirwik-components:0.5.1")
+    implementation("com.ccfraser.muirwik:muirwik-components:0.6.0")
 }
 ```
 
-You can also look inside the [starter project](https://github.com/cfnz/muirwik-starterapp) for more help.
+### The starter App
+A good place to get started is to look at the separate [starter app project](https://github.com/cfnz/muirwik-starterapp) which is a minimal
+example to get you going. You don't even need to clone/use this repository at all, the starter app is all you need to use the components.
 
 
 ## Background
