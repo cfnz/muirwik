@@ -106,3 +106,6 @@ typings/
 /muirwik-components/.gradle/
 /.gradle/
 /build/
+
+# Intellij
+.idea

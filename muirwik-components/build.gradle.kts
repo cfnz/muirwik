@@ -31,6 +31,7 @@ dependencies {
     implementation("org.jetbrains", "kotlin-styled", "1.0.0-$kotlinJsVersion")
 
     implementation(npm("@material-ui/core", "^4.11.0"))
+    implementation(npm("@material-ui/lab", "4.0.0-alpha.56"))
     implementation(npm("@material-ui/icons", "^4.9.1"))
 }
 

@@ -35,6 +35,7 @@ class MainFrame(props: MainFrameProps) : RComponent<MainFrameProps, MainFrameSta
     private val nameToTestMap = hashMapOf(
             "Intro" to RBuilder::intro,
             "Accordion" to RBuilder::testAccordion,
+            "Alert" to RBuilder::testAlert,
             "App Bar" to RBuilder::testAppBar,
             "Avatars" to RBuilder::testAvatars,
             "Badges" to RBuilder::testBadges,

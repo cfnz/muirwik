@@ -64,7 +64,7 @@ var MSnackbarProps.transitionDuration by TransitionDurationDelegate()
 
 
 fun RBuilder.mSnackbar(
-        message: ReactElement,
+        message: ReactElement?,
         open: Boolean? = null,
         onClose: ((Event, MSnackbarOnCloseReason) -> Unit)? = null,
         horizAnchor: MSnackbarHorizAnchor = MSnackbarHorizAnchor.center,
@@ -79,7 +79,7 @@ fun RBuilder.mSnackbar(
     attrs.anchorOriginVertical = vertAnchor
     autoHideDuration?.let { attrs.autoHideDuration = it }
     key?.let { attrs.key = it }
-    attrs.message = message
+    message?.let { attrs.message = message}
     attrs.onClose = onClose
     open?.let { attrs.open = it }
     resumeHideDuration?.let { attrs.resumeHideDuration = it }
