@@ -38,7 +38,7 @@ class TestAlert : RComponent<RProps, RState>() {
         css(margin)
       }
 
-      mSnackbar(null, open = open) {
+      mSnackbar(open = open) {
         mAlert("Snackbar Alert")
       }
     }

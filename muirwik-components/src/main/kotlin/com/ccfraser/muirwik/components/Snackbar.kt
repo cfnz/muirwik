@@ -62,7 +62,9 @@ var MSnackbarProps.onClose by OnClosePropWithReasonDelegate(MSnackbarOnCloseReas
 var MSnackbarProps.transitionComponent by TransitionComponentDelegate()
 var MSnackbarProps.transitionDuration by TransitionDurationDelegate()
 
-
+/**
+ * Base builder for Snackbar.
+ */
 fun RBuilder.mSnackbar(
         message: ReactElement?,
         open: Boolean? = null,
@@ -88,7 +90,7 @@ fun RBuilder.mSnackbar(
 }
 
 /**
- * Just one with a string for the message
+ * Builder for Snackbar with a message of type string.
  */
 fun RBuilder.mSnackbar(
         message: String,
@@ -106,4 +108,24 @@ fun RBuilder.mSnackbar(
     val dynamicElement: ReactElement = message.asDynamic()
     return mSnackbar(dynamicElement, open, onClose, horizAnchor, vertAnchor, key, autoHideDuration, resumeHideDuration,
             className, handler)
+}
+
+
+/**
+ * Builder for Snackbar without message as the content is based on the child.
+ */
+fun RBuilder.mSnackbar(
+    open: Boolean? = null,
+    onClose: ((Event, MSnackbarOnCloseReason) -> Unit)? = null,
+    horizAnchor: MSnackbarHorizAnchor = MSnackbarHorizAnchor.center,
+    vertAnchor: MSnackbarVertAnchor = MSnackbarVertAnchor.bottom,
+    key: String? = null,
+    autoHideDuration: Int? = null,
+    resumeHideDuration: Int? = null,
+
+    className: String? = null,
+    handler: StyledHandler<MSnackbarProps>? = null): ReactElement {
+    @Suppress("UnsafeCastFromDynamic")
+    return mSnackbar(null, open, onClose, horizAnchor, vertAnchor, key, autoHideDuration, resumeHideDuration,
+        className, handler)
 }
