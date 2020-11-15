@@ -1,11 +1,11 @@
 package com.ccfraser.muirwik.testapp
 
 import com.ccfraser.muirwik.components.*
-import com.ccfraser.muirwik.components.alert.MAlertSeverity
-import com.ccfraser.muirwik.components.alert.MAlertVariant
-import com.ccfraser.muirwik.components.alert.mAlert
 import com.ccfraser.muirwik.components.button.MButtonVariant
 import com.ccfraser.muirwik.components.button.mButton
+import com.ccfraser.muirwik.components.lab.alert.MAlertSeverity
+import com.ccfraser.muirwik.components.lab.alert.MAlertVariant
+import com.ccfraser.muirwik.components.lab.alert.mAlert
 import com.ccfraser.muirwik.components.styles.Breakpoint
 import com.ccfraser.muirwik.testapp.TestLabAlert.CustomStyles.margin
 import kotlinx.css.margin

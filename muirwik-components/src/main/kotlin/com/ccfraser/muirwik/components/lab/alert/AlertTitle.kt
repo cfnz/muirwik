@@ -1,4 +1,4 @@
-package com.ccfraser.muirwik.components.alert
+package com.ccfraser.muirwik.components.lab.alert
 
 import com.ccfraser.muirwik.components.createStyled
 import com.ccfraser.muirwik.components.setStyledPropsAndRunHandler
