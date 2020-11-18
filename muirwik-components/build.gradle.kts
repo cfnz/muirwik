@@ -4,7 +4,7 @@ import java.io.FileInputStream
 import java.util.*
 
 group = "com.ccfraser.muirwik"
-version = "0.6.1"
+version = "0.6.2"
 description = "Muirwik Components - a Material UI React wrapper written in Kotlin"
 
 plugins {
@@ -34,8 +34,6 @@ dependencies {
     implementation(npm("@material-ui/lab", "4.0.0-alpha.56"))
     implementation(npm("@material-ui/icons", "^4.9.1"))
 }
-
-
 
 kotlin {
     defaultJsCompilerType = KotlinJsCompilerType.LEGACY  // The default

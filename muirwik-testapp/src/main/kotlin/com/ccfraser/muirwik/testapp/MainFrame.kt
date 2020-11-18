@@ -53,6 +53,7 @@ class MainFrame(props: MainFrameProps) : RComponent<MainFrameProps, MainFrameSta
             "Lab - Alert" to RBuilder::testLabAlert,
             "Links" to RBuilder::testLinks,
             "Lists" to RBuilder::testLists,
+            "Localization" to RBuilder::testLocalization,
             "Menus" to RBuilder::testMenus,
             "Popover" to RBuilder::testPopover,
             "Progress" to RBuilder::testProgress,

@@ -3,10 +3,6 @@ package com.ccfraser.muirwik.components.styles
 import kotlinext.js.jsObject
 import react.RProps
 
-//@JsModule("@material-ui/core/styles/themeListener")
-//private external val themeListener: dynamic
-
-
 /**
  * ts2kt types with tweaks from material-ui/styles/createMuiTheme
  */
@@ -41,24 +37,19 @@ external interface Theme {
     var zIndex: ZIndex
 }
 
-
 @JsModule("@material-ui/core/styles/createMuiTheme")
 private external val createMuiThemeModule: dynamic
 
+/**
+ * @param themeOptions Options for changing the theme (see Material-UI documentation)
+ * @param args Further options, specifically you can change the locale of the theme. (See location
+ *             guide of Material-UI documentation and the test Localization example.)
+ */
 @Suppress("UnsafeCastFromDynamic")
-fun createMuiTheme(themeOptions: ThemeOptions? = null, typographyWarningsOff: Boolean = true): Theme {
+fun createMuiTheme(themeOptions: ThemeOptions? = null, args: dynamic = null): Theme {
 
     // We shall just use default (i.e. blank) options if none are provided
     val ourThemeOptions = themeOptions ?: jsObject {  }
 
-    if (typographyWarningsOff) {
-        // Material UI 3.3.2 (or a bit earlier) has depreciated some typography enums. We do the following
-        // so we don't get any warning messages even when using the new enums.
-        if (ourThemeOptions.typography == undefined) {
-            ourThemeOptions.typography = jsObject {  }
-        }
-
-        ourThemeOptions.typography?.useNextVariants = true
-    }
-    return createMuiThemeModule.default(ourThemeOptions)
+    return createMuiThemeModule.default(ourThemeOptions, args)
 }
