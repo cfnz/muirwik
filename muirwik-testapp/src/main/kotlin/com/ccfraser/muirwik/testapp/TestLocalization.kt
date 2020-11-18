@@ -38,6 +38,7 @@ class TestLocalization : RComponent<RProps, RState>() {
                     attrs.rowsPerPage = 10
                     attrs.page = 1
                     attrs.component = "span"
+                    attrs.onChangePage = {_, _ ->  }
                 }
             }
         }
