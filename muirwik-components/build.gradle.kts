@@ -36,11 +36,7 @@ dependencies {
 }
 
 kotlin {
-    defaultJsCompilerType = KotlinJsCompilerType.LEGACY  // The default
-//    defaultJsCompilerType = KotlinJsCompilerType.IR
-//    defaultJsCompilerType = KotlinJsCompilerType.BOTH
-
-    js {
+    js(IR) {
         browser {
             webpackTask {
                 cssSupport.enabled = true
@@ -79,7 +75,7 @@ publishing {
         create<MavenPublication>(publicationName) {
             from(components["kotlin"])
 //            artifact(tasks["KDocJar"])
-            artifact(tasks.getByName<Zip>("jsSourcesJar"))
+//            artifact(tasks.getByName<Zip>("jsSourcesJar"))
 
             pom {
                 name.set("Muirwik Components")
