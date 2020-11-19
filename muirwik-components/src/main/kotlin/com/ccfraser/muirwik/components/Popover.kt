@@ -31,7 +31,7 @@ enum class MPopoverVerticalPosition {
     top, center, bottom
 }
 
-interface MPopoverProps : MModalProps {
+external interface MPopoverProps : MModalProps {
     var action: (actions: Object) -> Unit
     var anchorEl: Node?
     var elevation: Int

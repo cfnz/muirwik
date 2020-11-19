@@ -17,7 +17,7 @@ private external val listModule: dynamic
 @Suppress("UnsafeCastFromDynamic")
 private val listComponent: RComponent<MListProps, RState> = listModule.default
 
-interface MListProps : MButtonBaseProps {
+external interface MListProps : MButtonBaseProps {
     var dense: Boolean
     var disablePadding: Boolean
     var subheader: ReactElement

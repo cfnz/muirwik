@@ -19,7 +19,7 @@ enum class MFabVariant {
     round, extended
 }
 
-interface MFabProps : MButtonBaseProps {
+external interface MFabProps : MButtonBaseProps {
     var disableFocusRipple: Boolean
     var href: String
 }

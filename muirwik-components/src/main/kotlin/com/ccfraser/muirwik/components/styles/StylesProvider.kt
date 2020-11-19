@@ -18,7 +18,7 @@ private external val jssPresetModule: dynamic
 private external val jss: dynamic
 
 
-interface MStylesProviderProps : RProps {
+external interface MStylesProviderProps : RProps {
     var disableGeneration: Boolean
     var generateClassName: () -> Unit
     var injectFirst: Boolean

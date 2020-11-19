@@ -13,7 +13,7 @@ private external val textAreaAutosizeDefault: dynamic
 @Suppress("UnsafeCastFromDynamic")
 private val textAreaAutosizeComponent: RComponent<MTextAreaAutosizeProps, RState> = textAreaAutosizeDefault.default
 
-interface MTextAreaAutosizeProps : MFormControlProps {
+external interface MTextAreaAutosizeProps : MFormControlProps {
     var rowsMax: Int
     var rowsMin: Int
 }

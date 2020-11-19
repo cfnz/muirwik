@@ -17,7 +17,7 @@ enum class MAvatarVariant {
     circle, rounded, square
 }
 
-interface MAvatarProps : StyledPropsWithCommonAttributes {
+external interface MAvatarProps : StyledPropsWithCommonAttributes {
     var alt: String
     var component: String
     var imgProps: RProps

@@ -12,7 +12,7 @@ private external val module: dynamic
 @Suppress("UnsafeCastFromDynamic")
 private val component: RComponent<MAccordionSummaryProps, RState> = module.default
 
-interface MAccordionSummaryProps : StyledPropsWithCommonAttributes {
+external interface MAccordionSummaryProps : StyledPropsWithCommonAttributes {
 	var expandIcon: ReactElement
 	var iconButtonProps: RProps
 }

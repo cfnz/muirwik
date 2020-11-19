@@ -14,7 +14,7 @@ import styled.StyledProps
 private external val gridListTileModule: dynamic
 private val gridListTileComponent: RComponent<MGridListTileProps, RState> =gridListTileModule.default
 
-interface MGridListTileProps: StyledProps {
+external interface MGridListTileProps: StyledProps {
     var cols: Int
     var component: String
     var rows: Int

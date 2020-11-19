@@ -17,7 +17,7 @@ private external val module: dynamic
 @Suppress("UnsafeCastFromDynamic")
 private val component: RComponent<MAccordionProps, RState> = module.default
 
-interface MAccordionProps : StyledPropsWithCommonAttributes {
+external interface MAccordionProps : StyledPropsWithCommonAttributes {
 	var defaultExpanded: Boolean
 	var disabled: Boolean
 	var expanded: Boolean

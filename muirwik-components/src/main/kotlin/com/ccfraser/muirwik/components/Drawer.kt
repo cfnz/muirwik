@@ -27,7 +27,7 @@ enum class MDrawerVariant {
     permanent, persistent, temporary
 }
 
-interface MDrawerProps : StyledPropsWithCommonAttributes {
+external interface MDrawerProps : StyledPropsWithCommonAttributes {
     var elevation: Int
 
     @JsName("ModalProps")

@@ -21,7 +21,7 @@ enum class MButtonGroupOrientation {
     vertical, horizontal
 }
 
-interface MButtonGroupProps : StyledPropsWithCommonAttributes {
+external interface MButtonGroupProps : StyledPropsWithCommonAttributes {
     var component: String
     var disabled: Boolean
     var disableElevation: Boolean

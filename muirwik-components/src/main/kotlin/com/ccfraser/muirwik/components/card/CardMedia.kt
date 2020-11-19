@@ -14,7 +14,7 @@ private external val cardMediaModule: dynamic
 @Suppress("UnsafeCastFromDynamic")
 private val cardMediaComponent: RComponent<MCardMediaProps, RState> = cardMediaModule.default
 
-interface MCardMediaProps : StyledProps {
+external interface MCardMediaProps : StyledProps {
     var component: String
     var image: String
     var title: String

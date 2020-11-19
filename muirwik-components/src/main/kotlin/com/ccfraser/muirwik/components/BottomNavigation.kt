@@ -16,7 +16,7 @@ private external val bottomNavigationModule: dynamic
 private val bottomNavigationComponent: RComponent<MBottomNavigationProps, RState> = bottomNavigationModule.default
 
 
-interface MBottomNavigationProps: StyledPropsWithCommonAttributes {
+external interface MBottomNavigationProps: StyledPropsWithCommonAttributes {
     var component: String
     var onChange: (event: Event, value: Any) -> Unit
     var showLabels: Boolean
@@ -46,7 +46,7 @@ private external val bottomNavigationActionModule: dynamic
 @Suppress("UnsafeCastFromDynamic")
 private val bottomNavigationActionComponent: RComponent<MBottomNavigationActionProps, RState> = bottomNavigationActionModule.default
 
-interface MBottomNavigationActionProps: MButtonBaseProps {
+external interface MBottomNavigationActionProps: MButtonBaseProps {
     var icon: ReactElement
     var label: ReactElement
     var showLabel: Boolean

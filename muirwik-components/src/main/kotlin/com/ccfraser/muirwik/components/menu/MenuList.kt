@@ -14,7 +14,7 @@ import styled.StyledHandler
 private external val menuListModule: dynamic
 private val menuList: RComponent<MMenuListProps, RState> = menuListModule.default
 
-interface MMenuListProps : MListProps {
+external interface MMenuListProps : MListProps {
     var disableListWrap: Boolean
 }
 

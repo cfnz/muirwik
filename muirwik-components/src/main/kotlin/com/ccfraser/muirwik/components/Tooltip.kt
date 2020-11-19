@@ -23,7 +23,7 @@ enum class TooltipPlacement {
     }
 }
 
-interface MTooltipProps : StyledPropsWithCommonAttributes {
+external interface MTooltipProps : StyledPropsWithCommonAttributes {
     var arrow: Boolean
     var disableFocusListener: Boolean
     var disableHoverListener: Boolean

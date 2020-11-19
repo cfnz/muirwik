@@ -15,7 +15,7 @@ private external val formLabelModule: dynamic
 @Suppress("UnsafeCastFromDynamic")
 private val formLabelComponent: RComponent<MFormLabelProps, RState> = formLabelModule.default
 
-interface MFormLabelProps : StyledPropsWithCommonAttributes {
+external interface MFormLabelProps : StyledPropsWithCommonAttributes {
     var component: String
     var disabled: Boolean
     var error: Boolean

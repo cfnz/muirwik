@@ -16,7 +16,7 @@ private external val outlinedInputModule: dynamic
 @Suppress("UnsafeCastFromDynamic")
 private val outlinedInputComponent: RComponent<MOutlinedInputProps, RState> = outlinedInputModule.default
 
-interface MOutlinedInputProps : MInputBaseProps {
+external interface MOutlinedInputProps : MInputBaseProps {
     var labelWidth: Number
     var notched: Boolean
 }

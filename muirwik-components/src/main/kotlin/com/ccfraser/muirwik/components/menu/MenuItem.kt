@@ -16,7 +16,7 @@ private external val menuItemModule: dynamic
 @Suppress("UnsafeCastFromDynamic")
 private val menuItemComponent: RComponent<MMenuItemProps, RState> = menuItemModule.default
 
-interface MMenuItemProps : MListItemProps {
+external interface MMenuItemProps : MListItemProps {
     // Selected has been moved to ListItemProps
     // var selected: Boolean
     var value: String

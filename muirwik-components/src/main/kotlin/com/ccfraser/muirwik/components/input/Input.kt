@@ -16,7 +16,7 @@ private external val inputModule: dynamic
 @Suppress("UnsafeCastFromDynamic")
 private val inputComponent: RComponent<MInputProps, RState> = inputModule.default
 
-interface MInputProps : MInputBaseProps {
+external interface MInputProps : MInputBaseProps {
     var disableUnderline: Boolean
 }
 

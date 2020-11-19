@@ -19,7 +19,7 @@ private val formGroupComponent: RComponent<MFormGroupProps, RState> = formGroupM
  * From material-ui: FormGroup wraps controls such as Checkbox and Switch. It provides compact row layout. For the Radio,
  * you should be using the RadioGroup component instead of this one.
  */
-interface MFormGroupProps : StyledProps {
+external interface MFormGroupProps : StyledProps {
     var row: Boolean
 }
 

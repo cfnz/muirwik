@@ -21,7 +21,7 @@ enum class ModalOnCloseReason {
 }
 
 
-interface MModalProps : StyledPropsWithCommonAttributes {
+external interface MModalProps : StyledPropsWithCommonAttributes {
     @JsName("BackdropComponent")
     var backdropComponent: ReactElement
 

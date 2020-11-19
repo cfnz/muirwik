@@ -15,7 +15,7 @@ private external val swipeableDrawerModule: dynamic
 @Suppress("UnsafeCastFromDynamic")
 private val swipeableDrawerComponent: RComponent<MSwipeableDrawerProps, RState> = swipeableDrawerModule.default
 
-interface MSwipeableDrawerProps : MDrawerProps {
+external interface MSwipeableDrawerProps : MDrawerProps {
     var disableBackdropTransition: Boolean
     var disableDiscovery: Boolean
     var disableSwipeToOpen: Boolean

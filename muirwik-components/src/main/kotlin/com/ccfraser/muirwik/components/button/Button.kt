@@ -16,7 +16,7 @@ private external val buttonModule: dynamic
 private val buttonComponent: RComponent<MButtonProps, RState> = buttonModule.default
 
 
-interface MButtonProps : MButtonBaseProps {
+external interface MButtonProps : MButtonBaseProps {
     var disableFocusRipple: Boolean
     var disableElevation: Boolean
     var endIcon: ReactElement

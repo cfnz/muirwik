@@ -21,7 +21,7 @@ enum class MTextFieldColor {
     primary, secondary
 }
 
-interface MTextFieldProps : MFormControlProps {
+external interface MTextFieldProps : MFormControlProps {
     var autoComplete: String
     var autoFocus: Boolean
     var defaultValue: String

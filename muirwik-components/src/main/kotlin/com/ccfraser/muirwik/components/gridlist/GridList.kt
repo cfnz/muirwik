@@ -14,7 +14,7 @@ private external val gridListModule: dynamic
 @Suppress("UnsafeCastFromDynamic")
 private val gridListComponent: RComponent<MGridListProps, RState> =gridListModule.default
 
-interface MGridListProps: StyledProps {
+external interface MGridListProps: StyledProps {
 
     @JsName("cellHeight")
     var rawCellHeight: Any

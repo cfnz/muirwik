@@ -15,7 +15,7 @@ private external val cardModule: dynamic
 @Suppress("UnsafeCastFromDynamic")
 private val cardComponent : RComponent<MCardProps, RState> = cardModule.default
 
-interface MCardProps : StyledProps {
+external interface MCardProps : StyledProps {
     var raised: Boolean
 }
 

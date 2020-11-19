@@ -23,7 +23,7 @@ enum class MDividerVariant {
     fullWidth, inset, middle
 }
 
-interface MDividerProps : StyledProps {
+external interface MDividerProps : StyledProps {
     var absolute: Boolean
     var component: String
     var light: Boolean

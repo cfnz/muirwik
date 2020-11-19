@@ -12,7 +12,7 @@ private external val expansionPanelSummaryModule: dynamic
 @Suppress("UnsafeCastFromDynamic")
 private val expansionPanelSummaryComponent: RComponent<MExpansionPanelSummaryProps, RState> = expansionPanelSummaryModule.default
 
-interface MExpansionPanelSummaryProps : StyledPropsWithCommonAttributes {
+external interface MExpansionPanelSummaryProps : StyledPropsWithCommonAttributes {
 	var expandIcon: ReactElement
 	var iconButtonProps: RProps
 }

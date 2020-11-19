@@ -15,7 +15,7 @@ private external val expansionPanelModule: dynamic
 @Suppress("UnsafeCastFromDynamic")
 private val expansionPanelComponent: RComponent<MExpansionPanelProps, RState> = expansionPanelModule.default
 
-interface MExpansionPanelProps : StyledPropsWithCommonAttributes {
+external interface MExpansionPanelProps : StyledPropsWithCommonAttributes {
 	var defaultExpanded: Boolean
 	var disabled: Boolean
 	var expanded: Boolean

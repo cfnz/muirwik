@@ -14,7 +14,7 @@ private external val containerModule: dynamic
 @Suppress("UnsafeCastFromDynamic")
 private val containerComponent: RComponent<MContainerProps, RState> = containerModule.default
 
-interface MContainerProps : StyledProps {
+external interface MContainerProps : StyledProps {
     var component: String
     var disableGutters: Boolean
     var fixed: Boolean

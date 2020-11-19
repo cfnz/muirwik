@@ -14,7 +14,7 @@ private external val cardHeaderModule: dynamic
 @Suppress("UnsafeCastFromDynamic")
 private val cardHeaderComponent : RComponent<MCardHeaderProps, RState> = cardHeaderModule.default
 
-interface MCardHeaderProps : StyledProps {
+external interface MCardHeaderProps : StyledProps {
     var action: ReactElement
     var avatar: ReactElement
     var component: String

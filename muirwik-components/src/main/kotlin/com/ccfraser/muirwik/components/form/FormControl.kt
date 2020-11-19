@@ -37,7 +37,7 @@ enum class MFormControlMargin {
     none, dense, normal
 }
 
-interface MFormControlProps : StyledPropsWithCommonAttributes {
+external interface MFormControlProps : StyledPropsWithCommonAttributes {
     var disabled: Boolean
     var error: Boolean
     var fullWidth: Boolean

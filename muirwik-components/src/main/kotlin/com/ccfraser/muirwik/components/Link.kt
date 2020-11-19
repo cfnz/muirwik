@@ -15,7 +15,7 @@ enum class MLinkUnderline {
     none, hover, always
 }
 
-interface MLinkProps: MTypographyProps {
+external interface MLinkProps: MTypographyProps {
     var block: Boolean
 
     @JsName("TypographyClasses")

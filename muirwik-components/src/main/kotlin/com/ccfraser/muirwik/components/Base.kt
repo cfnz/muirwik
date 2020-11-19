@@ -104,6 +104,7 @@ fun CSSBuilder.toolbarJsCssToPartialCss(jsObject: Object) {
 
 
 //class EmptyProps : RProps
+@JsExport
 class PropsWithJsStyle(var style: Object?) : RProps
 
 @Suppress("UNCHECKED_CAST_TO_EXTERNAL_INTERFACE")

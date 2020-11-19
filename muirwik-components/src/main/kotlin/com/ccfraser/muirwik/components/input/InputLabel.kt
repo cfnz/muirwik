@@ -19,7 +19,7 @@ private external val inputLabelModule: dynamic
 @Suppress("UnsafeCastFromDynamic")
 private val inputLabelComponent: RComponent<MInputLabelProps, RState> = inputLabelModule.default
 
-interface MInputLabelProps : MFormLabelProps {
+external interface MInputLabelProps : MFormLabelProps {
     var disableAnimation: Boolean
     var shrink: Boolean
 }

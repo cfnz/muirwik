@@ -13,7 +13,7 @@ private external val breadcrumbsModule: dynamic
 @Suppress("UnsafeCastFromDynamic")
 private val breadcrumbsComponent: RComponent<MBreadcrumbsProps, RState> = breadcrumbsModule.default
 
-interface MBreadcrumbsProps: StyledPropsWithCommonAttributes {
+external interface MBreadcrumbsProps: StyledPropsWithCommonAttributes {
     var component: String
     var itemsAfterCollapse: Int
     var itemsBeforeCollapse: Int

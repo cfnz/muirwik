@@ -15,7 +15,7 @@ enum class SvgShapeRendering {
     auto, optimizeSpeed, crispEdges, geometricPrecision
 }
 
-interface MSvgIconProps : MIconProps {
+external interface MSvgIconProps : MIconProps {
     var htmlColor: String?
     var titleAccess: String?
     var viewBox: String?

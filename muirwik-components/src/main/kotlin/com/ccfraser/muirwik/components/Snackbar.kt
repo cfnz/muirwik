@@ -29,7 +29,7 @@ enum class MSnackbarOnCloseReason {
     timeout, clickaway
 }
 
-interface MSnackbarProps : StyledProps {
+external interface MSnackbarProps : StyledProps {
     var action: ReactElement
 
     var autoHideDuration: Int

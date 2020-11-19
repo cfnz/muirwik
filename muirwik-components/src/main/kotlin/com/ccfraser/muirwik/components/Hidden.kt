@@ -19,7 +19,7 @@ enum class MHiddenImplementation {
     js, css
 }
 
-interface MHiddenProps : StyledProps {
+external interface MHiddenProps : StyledProps {
     var lgDown: Boolean
     var lgUp: Boolean
     var mdDown: Boolean

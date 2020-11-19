@@ -14,7 +14,7 @@ private external val expansionPanelActionsModule: dynamic
 @Suppress("UnsafeCastFromDynamic")
 private val expansionPanelActionsComponent: RComponent<MExpansionPanelActionsProps, RState> = expansionPanelActionsModule.default
 
-interface MExpansionPanelActionsProps : StyledPropsWithCommonAttributes {
+external interface MExpansionPanelActionsProps : StyledPropsWithCommonAttributes {
 	var disableSpacing: Boolean
 }
 

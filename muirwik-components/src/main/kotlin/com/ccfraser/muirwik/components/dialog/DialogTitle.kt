@@ -15,7 +15,7 @@ private external val dialogTitleModule: dynamic
 @Suppress("UnsafeCastFromDynamic")
 private val dialogTitleComponent: RComponent<MDialogTitleProps, RState> = dialogTitleModule.default
 
-interface MDialogTitleProps : StyledProps {
+external interface MDialogTitleProps : StyledProps {
     var disableTypography: Boolean
 }
 

@@ -17,7 +17,7 @@ private external val radioModule: dynamic
 private val radioComponent: RComponent<MRadioProps, RState> = radioModule.default
 
 
-interface MRadioProps : StyledPropsWithCommonAttributes {
+external interface MRadioProps : StyledPropsWithCommonAttributes {
     var checked: Boolean
     var checkedIcon: ReactElement?
     var disabled: Boolean

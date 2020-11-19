@@ -10,14 +10,15 @@ import styled.StyleSheet
 import styled.css
 import styled.styledDiv
 
-class TestRadioButtons : RComponent<RProps, TestRadioButtons.MyTestState>() {
+@JsExport
+class TestRadioButtonsState(var gender2Value: String) : RState
+
+class TestRadioButtons : RComponent<RProps, TestRadioButtonsState>() {
     private var radioValue: String = "a"
     private var gender1Value: String = "female"
 
-    class MyTestState(var gender2Value: String) : RState
-
     init {
-        state = MyTestState("male")
+        state = TestRadioButtonsState("male")
     }
 
     object ComponentStyles : StyleSheet("ComponentStyles", isStatic = true) {

@@ -27,7 +27,7 @@ enum class MClickAwayListenerTouchEvent {
     fun value() = if (this == disable) false else super.toString()
 }
 
-interface MClickAwayListenerProps : StyledProps {
+external interface MClickAwayListenerProps : StyledProps {
     var onClickAway: () -> Unit
 }
 var MClickAwayListenerProps.mouseEvent: MClickAwayListenerMouseEvent

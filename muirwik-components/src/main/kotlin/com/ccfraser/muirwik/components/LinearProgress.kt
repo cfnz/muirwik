@@ -23,7 +23,7 @@ enum class MLinearProgressVariant {
     determinate, indeterminate, buffer, query
 }
 
-interface MLinearProgressProps : StyledProps {
+external interface MLinearProgressProps : StyledProps {
     var value: Double
     var valueBuffer: Double
 }

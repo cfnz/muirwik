@@ -13,7 +13,7 @@ private external val nativeSelectModule: dynamic
 @Suppress("UnsafeCastFromDynamic")
 private val nativeSelectComponent: RComponent<MNativeSelectProps, RState> = nativeSelectModule.default
 
-interface MNativeSelectProps : StyledPropsWithCommonAttributes {
+external interface MNativeSelectProps : StyledPropsWithCommonAttributes {
     var autoFocus: Boolean
     var disabled: Boolean
     var error: Boolean

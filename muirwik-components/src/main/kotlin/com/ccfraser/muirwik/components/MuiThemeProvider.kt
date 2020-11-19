@@ -10,7 +10,7 @@ private external val muiThemeProviderModule: dynamic
 @Suppress("UnsafeCastFromDynamic")
 private val muiThemeProviderComponent: RComponent<MuiThemeProviderProps, RState> = muiThemeProviderModule.ThemeProvider
 
-interface MuiThemeProviderProps : RProps {
+external interface MuiThemeProviderProps : RProps {
     var disableStylesGeneration: Boolean
     var sheetsManager: Any
     var theme: Theme

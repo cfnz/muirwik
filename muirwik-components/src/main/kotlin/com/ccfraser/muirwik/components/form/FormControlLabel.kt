@@ -22,7 +22,7 @@ enum class MLabelPlacement {
     end, start, top, bottom
 }
 
-interface MFormControlLabelProps : StyledPropsWithCommonAttributes {
+external interface MFormControlLabelProps : StyledPropsWithCommonAttributes {
     var checked: Boolean
     var control: ReactElement
     var disabled: Boolean

@@ -16,7 +16,7 @@ private external val listItemTextModule: dynamic
 @Suppress("UnsafeCastFromDynamic")
 val listItemTextComponent: RComponent<MListItemTextProps, RState> = listItemTextModule.default
 
-interface MListItemTextProps : MButtonBaseProps {
+external interface MListItemTextProps : MButtonBaseProps {
     var disableTypography: Boolean
     var inset: Boolean
     var primary: ReactElement

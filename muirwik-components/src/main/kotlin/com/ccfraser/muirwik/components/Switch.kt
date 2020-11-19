@@ -20,7 +20,7 @@ enum class MSwitchEdge {
     start, end // We assume if the prop is null, then the default false will be used, so we don't have this as a value
 }
 
-interface MSwitchProps : StyledPropsWithCommonAttributes {
+external interface MSwitchProps : StyledPropsWithCommonAttributes {
     var checked: Boolean
     var checkedIcon: ReactElement
     var disabled: Boolean

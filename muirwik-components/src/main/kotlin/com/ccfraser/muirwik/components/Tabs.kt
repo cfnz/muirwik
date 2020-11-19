@@ -96,7 +96,7 @@ private external val tabModule: dynamic
 @Suppress("UnsafeCastFromDynamic")
 private val tabComponent: RComponent<MTabProps, RState> = tabModule.default
 
-interface MTabProps: MButtonBaseProps {
+external interface MTabProps: MButtonBaseProps {
     var disableFocusRipple: Boolean
     var icon: ReactElement
     var label: ReactElement

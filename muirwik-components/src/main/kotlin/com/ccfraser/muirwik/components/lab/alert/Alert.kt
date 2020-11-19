@@ -27,7 +27,7 @@ enum class MAlertSeverity {
   error, info, success, warning
 }
 
-interface MAlertProps : StyledPropsWithCommonAttributes {
+external interface MAlertProps : StyledPropsWithCommonAttributes {
   var action: ReactElement
   var icon: ReactElement
   var onClose: (Event) -> Unit

@@ -16,12 +16,12 @@ import styled.StyleSheet
 import styled.css
 import styled.styledDiv
 
-interface MainFrameProps : RProps {
+external interface MainFrameProps : RProps {
     var onThemeSwitch: () -> Unit
     var initialView: String
 }
 
-interface MainFrameState: RState {
+external interface MainFrameState: RState {
     var view: String
     var responsiveDrawerOpen: Boolean
 }

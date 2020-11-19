@@ -1,5 +1,7 @@
 package com.ccfraser.muirwik.testapp
 
+import com.ccfraser.muirwik.components.mAppBar
+import com.ccfraser.muirwik.components.mTypography
 import com.ccfraser.muirwik.components.styles.mStylesProvider
 import kotlinx.browser.document
 import react.dom.render

@@ -25,7 +25,7 @@ enum class MCircularProgressVariant {
     determinate, indeterminate, static
 }
 
-interface MCircularProgressProps : StyledProps {
+external interface MCircularProgressProps : StyledProps {
     var disableShrink: Boolean
     var thickness: Double
     var value: Double
