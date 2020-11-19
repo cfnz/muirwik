@@ -75,7 +75,7 @@ publishing {
         create<MavenPublication>(publicationName) {
             from(components["kotlin"])
 //            artifact(tasks["KDocJar"])
-//            artifact(tasks.getByName<Zip>("jsSourcesJar"))
+            artifact(tasks.getByName<Zip>("jsSourcesJar"))
 
             pom {
                 name.set("Muirwik Components")
