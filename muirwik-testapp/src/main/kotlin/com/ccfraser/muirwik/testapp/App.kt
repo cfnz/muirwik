@@ -1,7 +1,6 @@
 package com.ccfraser.muirwik.testapp
 
 import com.ccfraser.muirwik.components.Colors
-import com.ccfraser.muirwik.components.mAppBar
 import com.ccfraser.muirwik.components.mCssBaseline
 import com.ccfraser.muirwik.components.mThemeProvider
 import com.ccfraser.muirwik.components.styles.ThemeOptions

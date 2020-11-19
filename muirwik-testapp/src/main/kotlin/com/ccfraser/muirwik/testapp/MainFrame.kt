@@ -190,6 +190,7 @@ class MainFrame(props: MainFrameProps) : RComponent<MainFrameProps, MainFrameSta
     }
 }
 
+//todo going to IR compiler broke this spacer!
 fun RBuilder.spacer() {
     themeContext.Consumer { theme ->
         val themeStyles = object : StyleSheet("ComponentStyles", isStatic = true) {
