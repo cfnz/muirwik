@@ -89,7 +89,7 @@ private external val radioGroupModule: dynamic
 @Suppress("UnsafeCastFromDynamic")
 private val radioGroupComponent: RComponent<MRadioGroupProps, RState> = radioGroupModule.default
 
-interface MRadioGroupProps : MFormGroupProps {
+external interface MRadioGroupProps : MFormGroupProps {
     var name: String?
     var onChange: ((Event, String) -> Unit)?
     var value: String?

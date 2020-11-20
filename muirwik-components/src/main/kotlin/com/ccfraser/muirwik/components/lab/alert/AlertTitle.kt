@@ -9,16 +9,16 @@ import styled.StyledHandler
 import styled.StyledProps
 
 @JsModule("@material-ui/lab/AlertTitle")
-private external val module: dynamic
+private external val alertTitleModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")
-private val component: RComponent<StyledProps, RState> = module.default
+private val alertTitleComponent: RComponent<StyledProps, RState> = alertTitleModule.default
 
 fun RBuilder.mAlertTitle(
         title: String,
         addAsChild: Boolean = true,
         className: String? = null,
-        handler: StyledHandler<StyledProps>? = null) = createStyled(component, addAsChild) {
+        handler: StyledHandler<StyledProps>? = null) = createStyled(alertTitleComponent, addAsChild) {
 
     +title
     setStyledPropsAndRunHandler(className, handler)

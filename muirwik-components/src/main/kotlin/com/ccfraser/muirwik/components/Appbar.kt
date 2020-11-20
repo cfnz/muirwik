@@ -37,4 +37,3 @@ fun RBuilder.mAppBar(
 
     setStyledPropsAndRunHandler(className, handler)
 }
-

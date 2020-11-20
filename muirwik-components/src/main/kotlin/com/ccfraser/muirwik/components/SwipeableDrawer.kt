@@ -26,7 +26,7 @@ external interface MSwipeableDrawerProps : MDrawerProps {
     var swipeAreaWidth: Number
 }
 
-interface MSwipeAreaProps : StyledProps
+external interface MSwipeAreaProps : StyledProps
 
 fun RBuilder.mSwipeableDrawer(
         open: Boolean = false,

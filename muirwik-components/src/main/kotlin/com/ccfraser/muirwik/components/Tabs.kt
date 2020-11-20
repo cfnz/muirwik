@@ -9,6 +9,8 @@ import styled.StyledProps
 
 @JsModule("@material-ui/core/Tabs")
 private external val tabsModule: dynamic
+
+@Suppress("UnsafeCastFromDynamic")
 private val tabsComponent: RComponent<MTabsProps, RState> = tabsModule.default
 
 @Suppress("EnumEntryName")
@@ -36,7 +38,7 @@ enum class MTabOrientation {
     horizontal, vertical
 }
 
-interface MTabsProps: StyledProps {
+external interface MTabsProps: StyledProps {
     var action: (actions: Any) -> Unit
     var centered: Boolean
     var onChange: (event: Event, indexValue: Any) -> Unit

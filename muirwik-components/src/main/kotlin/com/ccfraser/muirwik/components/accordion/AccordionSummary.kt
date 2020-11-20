@@ -7,10 +7,10 @@ import react.*
 import styled.StyledHandler
 
 @JsModule("@material-ui/core/AccordionSummary")
-private external val module: dynamic
+private external val accordionSummaryModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")
-private val component: RComponent<MAccordionSummaryProps, RState> = module.default
+private val accordionSummaryComponent: RComponent<MAccordionSummaryProps, RState> = accordionSummaryModule.default
 
 external interface MAccordionSummaryProps : StyledPropsWithCommonAttributes {
 	var expandIcon: ReactElement
@@ -21,7 +21,7 @@ fun RBuilder.mAccordionSummary(
 		expandIcon: ReactElement? = null,
 		iconButtonProps: RProps? = null,
 		className: String? = null,
-		handler: StyledHandler<MAccordionSummaryProps>? = null) = createStyled(component) {
+		handler: StyledHandler<MAccordionSummaryProps>? = null) = createStyled(accordionSummaryComponent) {
 			expandIcon?.let { attrs.expandIcon = it }
 			iconButtonProps?.let { attrs.iconButtonProps = it }
 			setStyledPropsAndRunHandler(className, handler)
