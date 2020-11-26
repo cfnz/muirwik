@@ -16,7 +16,50 @@ wrappers there too.
 A couple of [screenshots](https://github.com/cfnz/muirwik/wiki) have been added
 to the wiki page.
 
+## IR-Compiler
+At time of writing using the IR-Compiler with the [Kotlin Wrappers](https://github.com/JetBrains/kotlin-wrappers), 
+particularly the  React Wrappers, has some [issues](https://kotlinlang.slack.com/archives/C0B8L3U69/p1585318146030900) 
+(or at least requires some extra code to make things work properly).
+
+It seems that the Kotlin JS team may be changing how things work related to these issues, so I 
+have created a different branch to target the IR Compiler for now.
+
+The two main branches are:
+* master - targeting the current "legacy" compiler
+* IR-Compiler - targeting the new (currently alpha) compiler (note, still todo)
+
+Any updates to master will be merged to the IR-Compiler, and eventually, once the IR Compiler is
+out of alpha (or maybe beta) the IR-Compiler branch will be merged back to master and deleted.
+
+
 ## To Get Started
+
+### The starter App
+A good place to get started is to look at the separate [starter app project](https://github.com/cfnz/muirwik-starterapp) which is a minimal
+example to get you going. You don't even need to clone/use this repository at all, the starter app is all you need to use the components.
+
+### Adding Muirwik as a dependency
+Add the Muirwik dependency to your own app as follows:
+(Note: in Kotlin 1.4.0 and earlier, the kotlin-styled version was 1.0.0 instead of 5.2.0)
+```
+repositories {
+    ...
+    jcenter()
+    maven { setUrl("https://dl.bintray.com/kotlin/kotlin-js-wrappers") }
+}
+
+dependencies {
+    ...
+    implementation("org.jetbrains", "kotlin-styled", "5.2.0-$kotlinJsVersion")
+    implementation("com.ccfraser.muirwik:muirwik-components:0.6.2")
+}
+```
+
+### Compile Muirwik
+If you want to get the source of Muirwik and compile locally, you can do the following.
+
+Note that the muirwik-testapp is a good source of information on how to use the components.
+
 Make sure you have java, git and the yarn package manager installed (and not the yarn that comes with cmdtest in Ubuntu :-)), 
 then the following should work (possibly may also need npm installed):
 
@@ -25,44 +68,15 @@ then the following should work (possibly may also need npm installed):
     ./gradlew :muirwik-testapp:build
     ./gradlew :muirwik-testapp:run
 
-In Windows it is probably (but have not tried it) more like:
+In Windows, it is probably (but have not tried it) more like:
 
     git clone https://github.com/cfnz/muirwik.git
     cd muirwik/muirwik-testapp
     gradlew.bat :muirwik-testapp:build
     gradlew.bat :muirwik-testapp:run
 
-Note that I have not taken the time to make the demo app perfect. Some of the components could be
+Note that I have not taken the time to make the demo app perfect. Some components could be
 laid out better. To see what is possible, see the [Material UI](https://material-ui.com/) demo.
-
-### Adding Muirwik as a dependency
-Make sure you have these kotlin wrapper dependencies in your project:
-```
-implementation("org.jetbrains:kotlin-react:VERSION")
-implementation("org.jetbrains:kotlin-react-dom:VERSION")
-implementation("org.jetbrains:kotlin-styled:1.0.0-VERSION")
-implementation("org.jetbrains:kotlin-css-js:1.0.0-VERSION")
-```
-Please note that the VERSION of the wrappers is important. The current version of Muirwik (0.6.0) is compatible with
-**pre.112-kotlin**. If a different version is used it might cause errors like 
-**TypeError: $receiver.child_2usv9w$ is not a function**.
-
-The Muirwik dependency is added as follows:
-```
-repositories {
-    ...
-    maven("https://dl.bintray.com/cfraser/muirwik")
-}
-
-dependencies {
-    ...
-    implementation("com.ccfraser.muirwik:muirwik-components:0.6.0")
-}
-```
-
-### The starter App
-A good place to get started is to look at the separate [starter app project](https://github.com/cfnz/muirwik-starterapp) which is a minimal
-example to get you going. You don't even need to clone/use this repository at all, the starter app is all you need to use the components.
 
 
 ## Background
@@ -78,7 +92,7 @@ has been lots of leanings along the way, and I no doubt have done things in not 
 Switching from create-react-kotlin-app to using Gradle, yarn/npm and webpack directly also added to the learning
 curve but helped in the long run. This was inspired after watching [Gaetan Zoritchak's talk](https://www.youtube.com/watch?v=1Pu0TYJJ2Tw). 
 
-However, what this is is a working multi-module Kotlin DSL gradle build that wraps quite a large javascript material 
+However, what this is, is a working multi-module Kotlin DSL gradle build that wraps quite a large javascript material 
 design library. It provides a working demo app (see [screenshots](https://github.com/cfnz/muirwik/issues/1)) and starer
 app which is quite a good starting point for real applications... (at least I think so). Quite a few hours were spent 
 just trying to make the basic development workflow work.
