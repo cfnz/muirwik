@@ -51,93 +51,94 @@ class TestDrawers : RComponent<RProps, RState>() {
     }
 
     override fun RBuilder.render() {
-        fun temporaryDrawer() {
-            mTypography("Temporary Drawer", MTypographyVariant.h4)
-            div {
-                mButton("Open Left", onClick = { setState { temporaryLeftOpen = true }})
-                mButton("Open Right Slow", onClick = { setState { temporaryRightOpen = true }})
-                mButton("Open Top", onClick = { setState { temporaryTopOpen = true }})
-                mButton("Open Bottom", onClick = { setState { temporaryBottomOpen = true }})
+        themeContext.Consumer { theme ->
 
-                mDrawer(temporaryLeftOpen, onClose = { setState { temporaryLeftOpen = false }}) {
-                    mailPlaceholder(false)
-                }
-                mDrawer(temporaryRightOpen, MDrawerAnchor.right, onClose = { setState { temporaryRightOpen = false }}, transitionDuration = SimpleTransitionDuration(1000)) {
-                    mailPlaceholder(false)
-                }
-                mDrawer(temporaryTopOpen, MDrawerAnchor.top, onClose = { setState { temporaryTopOpen = false }}) {
-                    mailPlaceholder(true)
-                }
-                mDrawer(temporaryBottomOpen, MDrawerAnchor.bottom, onClose = { setState { temporaryBottomOpen = false }}) {
-                    mailPlaceholder(true)
-                }
-            }
-        }
+            fun temporaryDrawer() {
+                mTypography("Temporary Drawer", MTypographyVariant.h4)
+                div {
+                    mButton("Open Left", onClick = { setState { temporaryLeftOpen = true } })
+                    mButton("Open Right Slow", onClick = { setState { temporaryRightOpen = true } })
+                    mButton("Open Top", onClick = { setState { temporaryTopOpen = true } })
+                    mButton("Open Bottom", onClick = { setState { temporaryBottomOpen = true } })
 
-        fun swipeableTemporaryDrawer() {
-            mTypography("Swipeable Temporary Drawer", MTypographyVariant.h4)
-            div {
-                mButton("Open Left", onClick = { setState { swipeableLeftOpen = true }})
-                mButton("Open Right", onClick = { setState { swipeableRightOpen = true }})
-                mButton("Open Top", onClick = { setState { swipeableTopOpen = true }})
-                mButton("Open Bottom", onClick = { setState { swipeableBottomOpen = true }})
-
-                mSwipeableDrawer(swipeableLeftOpen,
-                        onOpen = { setState { swipeableLeftOpen = true }},
-                        onClose = { setState { swipeableLeftOpen = false }}) {
-                    mailPlaceholder(false)
-                }
-                mSwipeableDrawer(swipeableRightOpen, MDrawerAnchor.right,
-                        onOpen = { setState { swipeableRightOpen = true }},
-                        onClose = { setState { swipeableRightOpen = false }}) {
-                    mailPlaceholder(false)
-                }
-                mSwipeableDrawer(swipeableTopOpen, MDrawerAnchor.top,
-                        onOpen = { setState { swipeableTopOpen = true }},
-                        onClose = { setState { swipeableTopOpen = false }}) {
-                    mailPlaceholder(true)
-                }
-                mSwipeableDrawer(swipeableBottomOpen, MDrawerAnchor.bottom,
-                        onOpen = { setState { swipeableBottomOpen = true }},
-                        onClose = { setState { swipeableBottomOpen = false }}) {
-                    mailPlaceholder(true)
-                }
-            }
-        }
-
-        fun permanentDrawer1() {
-            styledDiv {
-                css {
-                    +drawer
-                    zIndex = 1
-                }
-
-                mAppBar(position = MAppBarPosition.absolute) {
-                    mToolbar {
-                        css { marginLeft = drawerWidth.px }
-                        mToolbarTitle("Permanent drawer - Full Height Nav")
+                    mDrawer(temporaryLeftOpen, onClose = { setState { temporaryLeftOpen = false } }) {
+                        mailPlaceholder(false)
+                    }
+                    mDrawer(temporaryRightOpen, MDrawerAnchor.right, onClose = { setState { temporaryRightOpen = false } }, transitionDuration = SimpleTransitionDuration(1000)) {
+                        mailPlaceholder(false)
+                    }
+                    mDrawer(temporaryTopOpen, MDrawerAnchor.top, onClose = { setState { temporaryTopOpen = false } }) {
+                        mailPlaceholder(true)
+                    }
+                    mDrawer(temporaryBottomOpen, MDrawerAnchor.bottom, onClose = { setState { temporaryBottomOpen = false } }) {
+                        mailPlaceholder(true)
                     }
                 }
+            }
 
-                //TODO: Not sure about this style... seems to work though...
-                val pp: MPaperProps = jsObject {  }
-                pp.asDynamic().style = js { position = "relative" }
-                mDrawer(true, MDrawerAnchor.left, MDrawerVariant.permanent, paperProps = pp) {
-                    spacer()
-                    mailPlaceholder(false)
+            fun swipeableTemporaryDrawer() {
+                mTypography("Swipeable Temporary Drawer", MTypographyVariant.h4)
+                div {
+                    mButton("Open Left", onClick = { setState { swipeableLeftOpen = true } })
+                    mButton("Open Right", onClick = { setState { swipeableRightOpen = true } })
+                    mButton("Open Top", onClick = { setState { swipeableTopOpen = true } })
+                    mButton("Open Bottom", onClick = { setState { swipeableBottomOpen = true } })
+
+                    mSwipeableDrawer(swipeableLeftOpen,
+                            onOpen = { setState { swipeableLeftOpen = true } },
+                            onClose = { setState { swipeableLeftOpen = false } }) {
+                        mailPlaceholder(false)
+                    }
+                    mSwipeableDrawer(swipeableRightOpen, MDrawerAnchor.right,
+                            onOpen = { setState { swipeableRightOpen = true } },
+                            onClose = { setState { swipeableRightOpen = false } }) {
+                        mailPlaceholder(false)
+                    }
+                    mSwipeableDrawer(swipeableTopOpen, MDrawerAnchor.top,
+                            onOpen = { setState { swipeableTopOpen = true } },
+                            onClose = { setState { swipeableTopOpen = false } }) {
+                        mailPlaceholder(true)
+                    }
+                    mSwipeableDrawer(swipeableBottomOpen, MDrawerAnchor.bottom,
+                            onOpen = { setState { swipeableBottomOpen = true } },
+                            onClose = { setState { swipeableBottomOpen = false } }) {
+                        mailPlaceholder(true)
+                    }
                 }
+            }
+
+            fun permanentDrawer1() {
                 styledDiv {
                     css {
-                        flexGrow = 1.0
+                        +drawer
+                        zIndex = 1
                     }
-                    spacer()
-                    mTypography("This is the main content area")
+
+                    mAppBar(position = MAppBarPosition.absolute) {
+                        mToolbar {
+                            css { marginLeft = drawerWidth.px }
+                            mToolbarTitle("Permanent drawer - Full Height Nav")
+                        }
+                    }
+
+                    //TODO: Not sure about this style... seems to work though...
+                    val pp: MPaperProps = jsObject { }
+                    pp.asDynamic().style = js { position = "relative" }
+                    mDrawer(true, MDrawerAnchor.left, MDrawerVariant.permanent, paperProps = pp) {
+                        spacer()
+                        mailPlaceholder(false)
+                    }
+                    styledDiv {
+                        css {
+                            flexGrow = 1.0
+                        }
+                        spacer()
+                        mTypography("This is the main content area")
+                    }
                 }
             }
-        }
 
-        fun permanentDrawer2() {
-            themeContext.Consumer { theme ->
+            fun permanentDrawer2() {
                 styledDiv {
                     css(drawer)
 
@@ -165,68 +166,56 @@ class TestDrawers : RComponent<RProps, RState>() {
                     }
                 }
             }
-        }
 
-        fun slideOutDrawer() {
-            styledDiv {
-                css(drawer)
+            fun slideOutDrawer() {
+                styledDiv {
+                    css(drawer)
 
-                mAppBar(position = MAppBarPosition.absolute) {
-                    css {
-                        position = Position.absolute
-                        transition += Transition("width", 195.ms, Timing.easeInOut, 0.ms)
+                    mAppBar(position = MAppBarPosition.absolute) {
+                        css {
+                            position = Position.absolute
+                            transition += Transition("width", 195.ms, Timing.easeInOut, 0.ms)
 //                        transition = "width 195ms cubic-bezier(0.4, 0, 0.6, 1) 0ms";
 //                        if (slideOutDrawerOpen) put("width", "calc(100% - ${drawerWidth}px)");
-                        if (slideOutDrawerOpen) width = 100.pct - drawerWidth.px
-                    }
-
-                    mToolbar(disableGutters = !slideOutDrawerOpen) {
-                        if (!slideOutDrawerOpen) {
-                            mIconButton("menu", color = MColor.inherit, onClick = { setState { slideOutDrawerOpen = true }})
+                            if (slideOutDrawerOpen) width = 100.pct - drawerWidth.px
                         }
-                        mToolbarTitle("Persistent drawer - Slideout Nav")
-                    }
-                }
 
-                val pp: MPaperProps = jsObject { }
-                pp.asDynamic().style = js { position = "relative" }
-                mDrawer(slideOutDrawerOpen, MDrawerAnchor.left, MDrawerVariant.persistent, paperProps = pp) {
-                    css {
-                        transition += Transition("left", 5000.ms, Timing.easeInOut, 0.ms)
+                        mToolbar(disableGutters = !slideOutDrawerOpen) {
+                            if (!slideOutDrawerOpen) {
+                                mIconButton("menu", color = MColor.inherit, onClick = { setState { slideOutDrawerOpen = true } })
+                            }
+                            mToolbarTitle("Persistent drawer - Slideout Nav")
+                        }
                     }
-//                    div {
-//                        attrs.jsStyle = js { display = "flex"; alignItems = "center"; justifyContent = "flex-end"; height = 64 }
-//                        mIconButton("chevron_left", onClick = { setState { slideOutDrawerOpen = false }})
-//                    }
+
+                    val pp: MPaperProps = jsObject { }
+                    pp.asDynamic().style = js { position = "relative" }
+                    mDrawer(slideOutDrawerOpen, MDrawerAnchor.left, MDrawerVariant.persistent, paperProps = pp) {
+                        css {
+                            transition += Transition("left", 5000.ms, Timing.easeInOut, 0.ms)
+                        }
+                        styledDiv {
+                            css { display = Display.flex; alignItems = Align.center; justifyContent = JustifyContent.flexEnd; toolbarJsCssToPartialCss(theme.mixins.toolbar) }
+                            mIconButton("chevron_left", onClick = { setState { slideOutDrawerOpen = false } })
+                        }
+                        mDivider()
+                        mailPlaceholder(false)
+                    }
+
                     styledDiv {
-                        css { display = Display.flex; alignItems = Align.center; justifyContent = JustifyContent.flexEnd; height = 64.px }
-                        mIconButton("chevron_left", onClick = { setState { slideOutDrawerOpen = false }})
+                        css {
+                            flexGrow = 1.0
+                            transition += Transition("margin", 195.ms, Timing.easeIn, 0.ms)
+                            marginLeft = -drawerWidth.px
+                            if (slideOutDrawerOpen) marginLeft = 0.px
+                        }
+                        spacer()
+                        mTypography("This is the main content area")
                     }
-                    mDivider()
-                    mailPlaceholder(false)
-                }
-
-                styledDiv {
-//                    attrs.jsStyle = js {
-//                        flexGrow = 1
-//                        transition = "margin 195ms cubic-bezier(0.4, 0, 0.6, 1) 0ms"
-//                        marginLeft = -drawerWidth
-//                        if (slideOutDrawerOpen) marginLeft = 0
-//                    }
-                    css {
-                        flexGrow = 1.0
-                        transition += Transition("margin", 195.ms, Timing.easeIn, 0.ms)
-                        marginLeft = -drawerWidth.px
-                        if (slideOutDrawerOpen) marginLeft = 0.px
-                    }
-                    spacer()
-                    mTypography("This is the main content area")
                 }
             }
-        }
 
-        fun miniDrawer() {
-            themeContext.Consumer { theme ->
+            fun miniDrawer() {
                 styledDiv {
                     css(drawer)
 
@@ -257,24 +246,25 @@ class TestDrawers : RComponent<RProps, RState>() {
                     }
                     mDrawer(miniDrawerOpen, MDrawerAnchor.left, MDrawerVariant.permanent, paperProps = pp) {
                         styledDiv {
-                            css { display = Display.flex; alignItems = Align.center; justifyContent = JustifyContent.flexEnd; height = 64.px }
+                            css { display = Display.flex; alignItems = Align.center; justifyContent = JustifyContent.flexEnd; toolbarJsCssToPartialCss(theme.mixins.toolbar) }
                             mIconButton("chevron_left", onClick = { setState { miniDrawerOpen = false } })
                         }
                         mDivider()
                         mailPlaceholder(false)
                     }
-//
-                    styledDiv {
-                        css { flexGrow = 1.0 }
+
+                    // Using jsStyle...
+                    div {
+                        attrs.jsStyle = js {
+                            flexGrow = 1
+                        }
                         spacer()
                         mTypography("This is the main content area")
                     }
                 }
             }
-        }
 
-        fun responsiveDrawer() {
-            themeContext.Consumer { theme ->
+            fun responsiveDrawer() {
                 styledDiv {
                     css {
                         flexGrow = 1.0
@@ -296,7 +286,7 @@ class TestDrawers : RComponent<RProps, RState>() {
                         }
                         mToolbar {
                             mHidden(mdUp = true, implementation = MHiddenImplementation.css) {
-                                mIconButton("menu", color = MColor.inherit, onClick = { setState { responsiveDrawerOpen = true }})
+                                mIconButton("menu", color = MColor.inherit, onClick = { setState { responsiveDrawerOpen = true } })
                             }
                             mToolbarTitle("Responsive Drawer")
                         }
@@ -308,7 +298,7 @@ class TestDrawers : RComponent<RProps, RState>() {
                         position = "relative"
                     }
                     mHidden(mdUp = true) {
-                        mDrawer(responsiveDrawerOpen, variant = MDrawerVariant.temporary, onClose = { setState {responsiveDrawerOpen = !responsiveDrawerOpen}}, paperProps = pp) {
+                        mDrawer(responsiveDrawerOpen, variant = MDrawerVariant.temporary, onClose = { setState { responsiveDrawerOpen = !responsiveDrawerOpen } }, paperProps = pp) {
                             css { width = drawerWidth.px }
                             mailPlaceholder(false)
                         }
@@ -342,33 +332,33 @@ class TestDrawers : RComponent<RProps, RState>() {
                     }
                 }
             }
-        }
 
-        // Just thought we would break these into functions to more easily separate them visually
-        temporaryDrawer()
-        br {}
-        br {}
-        swipeableTemporaryDrawer()
-        br {}
-        br {}
-        permanentDrawer1()
-        br {}
-        br {}
-        permanentDrawer2()
-        br {}
-        br {}
-        slideOutDrawer()
-        br {}
-        br {}
-        miniDrawer()
-        br {}
-        br {}
-        responsiveDrawer()
+            // Just thought we would break these into functions to more easily separate them visually
+            temporaryDrawer()
+            br {}
+            br {}
+            swipeableTemporaryDrawer()
+            br {}
+            br {}
+            permanentDrawer1()
+            br {}
+            br {}
+            permanentDrawer2()
+            br {}
+            br {}
+            slideOutDrawer()
+            br {}
+            br {}
+            miniDrawer()
+            br {}
+            br {}
+            responsiveDrawer()
+        }
     }
 
     // Note about these functions... they need to be either in the RBuilder.render function above or
     // be extension functions to RBuilder as below.
-    fun RBuilder.mailPlaceholder(fullWidth: Boolean) {
+    private fun RBuilder.mailPlaceholder(fullWidth: Boolean) {
         themeContext.Consumer { theme ->
             div {
                 attrs.role = "button"
