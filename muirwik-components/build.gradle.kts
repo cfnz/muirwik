@@ -46,6 +46,7 @@ kotlin {
                 }
             }
         }
+        useCommonJs()
     }
 }
 
