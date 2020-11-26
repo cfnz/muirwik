@@ -15,7 +15,7 @@ private external val dialogActionsModule: dynamic
 @Suppress("UnsafeCastFromDynamic")
 private val dialogActionsComponent: RComponent<MDialogActionsProps, RState> = dialogActionsModule.default
 
-interface MDialogActionsProps : StyledProps {
+external interface MDialogActionsProps : StyledProps {
     var disableSpacing: Boolean
 }
 

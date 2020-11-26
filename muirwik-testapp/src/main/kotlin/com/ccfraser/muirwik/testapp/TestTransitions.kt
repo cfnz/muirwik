@@ -43,8 +43,8 @@ class TestTransitions : RComponent<RProps, RState>() {
                 css(ComponentStyles.area)
                 mFormControlLabel("Collapse", altBuilder.mSwitch(checked = collapseShown, onChange = {_, _ ->  setState {collapseShown = ! collapseShown}}))
 
-                div {
-                    attrs.jsStyle { display = "flex"}
+                styledDiv {
+                    css { display = Display.flex }
                     mCollapse(show = collapseShown) {
                         attrs.timeout = AutoTransitionDuration()
                         mPaper(elevation = 4) { css(paper) }

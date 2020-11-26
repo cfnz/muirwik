@@ -19,7 +19,7 @@ private external val tablePaginationModule: dynamic
 @Suppress("UnsafeCastFromDynamic")
 private val tablePaginationComponent: RComponent<MTablePaginationProps, RState> = tablePaginationModule.default
 
-interface MTablePaginationProps : MButtonBaseProps {
+external interface MTablePaginationProps : MButtonBaseProps {
     @JsName("actions")
     var actions: String
     var backIconButtonProps: MIconButtonProps

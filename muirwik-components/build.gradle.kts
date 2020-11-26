@@ -36,11 +36,7 @@ dependencies {
 }
 
 kotlin {
-    defaultJsCompilerType = KotlinJsCompilerType.LEGACY  // The default
-//    defaultJsCompilerType = KotlinJsCompilerType.IR
-//    defaultJsCompilerType = KotlinJsCompilerType.BOTH
-
-    js {
+    js(IR) {
         browser {
             webpackTask {
                 cssSupport.enabled = true

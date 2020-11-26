@@ -45,7 +45,7 @@ enum class MTableCellSize {
     small, medium
 }
 
-interface MTableCellProps : StyledPropsWithCommonAttributes {
+external interface MTableCellProps : StyledPropsWithCommonAttributes {
     var colSpan: Int
     var component: String
     var key: Any

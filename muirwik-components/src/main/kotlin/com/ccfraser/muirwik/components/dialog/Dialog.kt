@@ -24,7 +24,7 @@ enum class DialogScroll {
     paper, body
 }
 
-interface MDialogProps : MModalProps {
+external interface MDialogProps : MModalProps {
     var fullScreen: Boolean
     var fullWidth: Boolean
     var maxWidth: Any

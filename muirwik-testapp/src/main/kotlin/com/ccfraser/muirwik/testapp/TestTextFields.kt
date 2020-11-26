@@ -15,12 +15,24 @@ import styled.css
 import styled.styledDiv
 import styled.styledForm
 
-class TestTextFields : RComponent<RProps, TestTextFields.MyTestState>() {
+external interface TestTextFieldsState : RState {
+    var textValue: String
+    var multiLineValue: String
+    var age: Int
+}
+
+private fun testTextFieldsState(textValue: String, multiLineValue: String,age: Int) = object: TestTextFieldsState {
+    override var textValue: String = textValue
+    override var multiLineValue: String = multiLineValue
+    override var age: Int = age
+}
+
+class TestTextFields : RComponent<RProps, TestTextFieldsState>() {
     var name: String = "Name via local var 'state'"
     var selectValue: String = "Item 2"
 
     init {
-        state = MyTestState("", "", 0)
+        state = testTextFieldsState("", "", 0)
     }
 
     private object ComponentStyles : StyleSheet("ComponentStyles", isStatic = true) {
@@ -158,8 +170,6 @@ class TestTextFields : RComponent<RProps, TestTextFields.MyTestState>() {
         val value = event.targetInputValue
         setState { name = value }
     }
-
-    class MyTestState(var textValue: String, var multiLineValue: String, var age: Int) : RState
 }
 
 

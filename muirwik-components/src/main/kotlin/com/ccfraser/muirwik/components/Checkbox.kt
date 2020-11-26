@@ -16,7 +16,7 @@ private external val checkboxModule: dynamic
 private val checkboxComponent : RComponent<MCheckboxProps, RState> = checkboxModule.default
 
 
-interface MCheckboxProps : StyledPropsWithCommonAttributes {
+external interface MCheckboxProps : StyledPropsWithCommonAttributes {
     var checked: Boolean
     var checkedIcon: ReactElement
     var disabled: Boolean

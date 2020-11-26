@@ -23,7 +23,7 @@ enum class MTableSortLabelDirection {
     asc, desc
 }
 
-interface MTableSortLabelProps : StyledProps {
+external interface MTableSortLabelProps : StyledProps {
     var active: Boolean
 
     @JsName("IconComponent")

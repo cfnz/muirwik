@@ -148,7 +148,7 @@ data class MGridBreakpoints(
 }
 
 
-interface MGridProps : StyledProps {
+external interface MGridProps : StyledProps {
     var component: String
     var container: Boolean
     var item: Boolean

@@ -17,7 +17,7 @@ private external val formHelperTextModule: dynamic
 @Suppress("UnsafeCastFromDynamic")
 private val formHelperTextComponent: RComponent<MFormHelperTextProps, RState> = formHelperTextModule.default
 
-interface MFormHelperTextProps : StyledProps {
+external interface MFormHelperTextProps : StyledProps {
     var component: String
     var disabled: Boolean
     var error: Boolean

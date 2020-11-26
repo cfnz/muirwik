@@ -16,7 +16,7 @@ private external val filledInputModule: dynamic
 @Suppress("UnsafeCastFromDynamic")
 private val filledInputComponent: RComponent<MFilledInputProps, RState> = filledInputModule.default
 
-interface MFilledInputProps : MInputBaseProps {
+external interface MFilledInputProps : MInputBaseProps {
     var disableUnderline: Boolean
 }
 

@@ -10,14 +10,20 @@ import styled.StyleSheet
 import styled.css
 import styled.styledDiv
 
-class TestRadioButtons : RComponent<RProps, TestRadioButtons.MyTestState>() {
+external interface TestRadioButtonsState : RState {
+    var gender2Value: String
+}
+
+private fun testRadioButtonsState(gender2Value: String) = object: TestRadioButtonsState {
+    override var gender2Value: String = gender2Value
+}
+
+class TestRadioButtons : RComponent<RProps, TestRadioButtonsState>() {
     private var radioValue: String = "a"
     private var gender1Value: String = "female"
 
-    class MyTestState(var gender2Value: String) : RState
-
     init {
-        state = MyTestState("male")
+        state = testRadioButtonsState("male")
     }
 
     object ComponentStyles : StyleSheet("ComponentStyles", isStatic = true) {

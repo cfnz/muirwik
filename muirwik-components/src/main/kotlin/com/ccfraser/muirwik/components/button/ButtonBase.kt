@@ -5,7 +5,7 @@ import org.w3c.dom.events.Event
 import react.RProps
 
 
-interface MButtonBaseProps: StyledPropsWithCommonAttributes {
+external interface MButtonBaseProps: StyledPropsWithCommonAttributes {
     var centerRipple: Boolean
     var component: String
     var disabled: Boolean

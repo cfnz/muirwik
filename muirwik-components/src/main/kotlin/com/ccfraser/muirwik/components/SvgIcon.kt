@@ -5,17 +5,17 @@ import react.*
 import styled.StyledHandler
 
 @JsModule("@material-ui/core/SvgIcon")
-private external val module: dynamic
+private external val svgIconModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")
-private val component: RComponent<MSvgIconProps, RState> = module.default
+private val svgIconComponent: RComponent<MSvgIconProps, RState> = svgIconModule.default
 
 @Suppress("EnumEntryName")
 enum class SvgShapeRendering {
     auto, optimizeSpeed, crispEdges, geometricPrecision
 }
 
-interface MSvgIconProps : MIconProps {
+external interface MSvgIconProps : MIconProps {
     var htmlColor: String?
     var titleAccess: String?
     var viewBox: String?
@@ -30,7 +30,7 @@ fun RBuilder.mSvgIcon(
 
         addAsChild: Boolean = true,
         className: String? = null,
-        handler: StyledHandler<MSvgIconProps>? = null) = createStyled(component, addAsChild) {
+        handler: StyledHandler<MSvgIconProps>? = null) = createStyled(svgIconComponent, addAsChild) {
     attrs.color = color
     htmlColor?.let { attrs.htmlColor = it }
     attrs.fontSize = fontSize

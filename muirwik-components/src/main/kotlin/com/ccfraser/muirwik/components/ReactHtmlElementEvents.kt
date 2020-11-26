@@ -14,7 +14,7 @@ import react.RProps
  * Since most of the Material UI components pass on any props to the underlying element, this makes it easier
  * to set them if required.
  */
-interface ReactHtmlElementEvents : RProps {
+external interface ReactHtmlElementEvents : RProps {
     var onAbort: ((Event) -> Unit)?
     var onBlur: ((FocusEvent) -> Unit)?
     var onCanPlay: ((Event) -> Unit)?

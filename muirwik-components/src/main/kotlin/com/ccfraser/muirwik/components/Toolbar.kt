@@ -21,7 +21,7 @@ enum class ToolbarVariant {
     regular, dense
 }
 
-interface MToolbarProps : StyledProps {
+external interface MToolbarProps : StyledProps {
     var disableGutters: Boolean
 }
 var MToolbarProps.variant by EnumPropToString(ToolbarVariant.values())

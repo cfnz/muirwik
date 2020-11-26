@@ -23,7 +23,7 @@ enum class MIconFontSize {
     inherit, default, small, large
 }
 
-interface MIconProps : StyledProps {
+external interface MIconProps : StyledProps {
 //    var style: Object
     var component: String?
 }

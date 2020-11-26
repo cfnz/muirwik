@@ -18,7 +18,7 @@ enum class MPaperVariant {
     elevation, outlined
 }
 
-interface MPaperProps : StyledProps {
+external interface MPaperProps : StyledProps {
     var component: String
     var elevation: Int
     var square: Boolean

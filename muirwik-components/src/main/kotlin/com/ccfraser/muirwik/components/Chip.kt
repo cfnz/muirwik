@@ -29,7 +29,7 @@ enum class MChipSize {
     small, medium
 }
 
-interface MChipProps : StyledPropsWithCommonAttributes {
+external interface MChipProps : StyledPropsWithCommonAttributes {
     var avatar: ReactElement
     var clickable: Boolean
     var component: String

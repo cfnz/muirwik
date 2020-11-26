@@ -15,7 +15,7 @@ private external val cardActionsModule: dynamic
 @Suppress("UnsafeCastFromDynamic")
 private val cardActionsComponent: RComponent<MCardActionsProps, RState> = cardActionsModule.default
 
-interface MCardActionsProps : StyledProps {
+external interface MCardActionsProps : StyledProps {
     var disableSpacing: Boolean
 }
 

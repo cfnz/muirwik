@@ -27,7 +27,7 @@ enum class MSliderValueLabelDisplay {
 
 data class MSliderMark(val value: Number, val label: String? = null)
 
-interface MSliderProps : StyledPropsWithCommonAttributes {
+external interface MSliderProps : StyledPropsWithCommonAttributes {
     var component: String
     var defaultValue: Any
     var disabled: Boolean

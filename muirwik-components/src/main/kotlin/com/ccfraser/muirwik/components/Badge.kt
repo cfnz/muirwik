@@ -39,7 +39,7 @@ enum class MBadgeAnchorOriginVertical {
 }
 
 
-interface MBadgeProps: StyledPropsWithCommonAttributes {
+external interface MBadgeProps: StyledPropsWithCommonAttributes {
     var badgeContent: ReactElement
     var component: String
     var invisible: Boolean

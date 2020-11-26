@@ -256,18 +256,16 @@ class TestDrawers : RComponent<RProps, RState>() {
                         }
                     }
                     mDrawer(miniDrawerOpen, MDrawerAnchor.left, MDrawerVariant.permanent, paperProps = pp) {
-                        div {
-                            attrs.jsStyle = js { display = "flex"; alignItems = "center"; justifyContent = "flex-end"; height = 64 }
+                        styledDiv {
+                            css { display = Display.flex; alignItems = Align.center; justifyContent = JustifyContent.flexEnd; height = 64.px }
                             mIconButton("chevron_left", onClick = { setState { miniDrawerOpen = false } })
                         }
                         mDivider()
                         mailPlaceholder(false)
                     }
-
-                    div {
-                        attrs.jsStyle = js {
-                            flexGrow = 1
-                        }
+//
+                    styledDiv {
+                        css { flexGrow = 1.0 }
                         spacer()
                         mTypography("This is the main content area")
                     }

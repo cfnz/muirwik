@@ -15,7 +15,7 @@ private external val tableContainerModule: dynamic
 @Suppress("UnsafeCastFromDynamic")
 private val tableContainerComponent: RComponent<MTableContainerProps, RState> = tableContainerModule.default
 
-interface MTableContainerProps : StyledPropsWithCommonAttributes {
+external interface MTableContainerProps : StyledPropsWithCommonAttributes {
     var component: String
 }
 

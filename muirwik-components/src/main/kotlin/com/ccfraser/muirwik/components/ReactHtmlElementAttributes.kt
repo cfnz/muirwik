@@ -21,7 +21,7 @@ enum class DropZone {
     copy, move, link
 }
 
-interface ReactHtmlElementAttributes : RProps {
+external interface ReactHtmlElementAttributes : RProps {
     var accessKey: String
     var autoCapitalize: AutoCapitalize
 //    var class: String

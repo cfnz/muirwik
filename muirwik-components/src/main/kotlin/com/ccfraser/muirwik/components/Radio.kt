@@ -17,7 +17,7 @@ private external val radioModule: dynamic
 private val radioComponent: RComponent<MRadioProps, RState> = radioModule.default
 
 
-interface MRadioProps : StyledPropsWithCommonAttributes {
+external interface MRadioProps : StyledPropsWithCommonAttributes {
     var checked: Boolean
     var checkedIcon: ReactElement?
     var disabled: Boolean
@@ -89,7 +89,7 @@ private external val radioGroupModule: dynamic
 @Suppress("UnsafeCastFromDynamic")
 private val radioGroupComponent: RComponent<MRadioGroupProps, RState> = radioGroupModule.default
 
-interface MRadioGroupProps : MFormGroupProps {
+external interface MRadioGroupProps : MFormGroupProps {
     var name: String?
     var onChange: ((Event, String) -> Unit)?
     var value: String?

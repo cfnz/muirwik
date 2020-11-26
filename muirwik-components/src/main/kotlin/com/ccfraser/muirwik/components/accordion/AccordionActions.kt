@@ -14,7 +14,7 @@ private external val module: dynamic
 @Suppress("UnsafeCastFromDynamic")
 private val component: RComponent<MAccordionActionsProps, RState> = module.default
 
-interface MAccordionActionsProps : StyledPropsWithCommonAttributes {
+external interface MAccordionActionsProps : StyledPropsWithCommonAttributes {
 	var disableSpacing: Boolean
 }
 

@@ -27,7 +27,7 @@ enum class MMenuVariant {
     menu, selectedMenu
 }
 
-interface MMenuProps : MPopoverProps {
+external interface MMenuProps : MPopoverProps {
     var autoFocus: Boolean
 
     @JsName("MenuListProps")

@@ -3,6 +3,7 @@ package com.ccfraser.muirwik.components
 import com.ccfraser.muirwik.components.styles.Theme
 import com.ccfraser.muirwik.components.styles.ThemeOptions
 import com.ccfraser.muirwik.components.styles.createMuiTheme
+import com.ccfraser.muirwik.components.styles.invoke
 import kotlinx.css.px
 import react.*
 

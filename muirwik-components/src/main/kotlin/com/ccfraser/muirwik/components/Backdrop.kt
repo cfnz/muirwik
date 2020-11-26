@@ -15,7 +15,7 @@ private external val backdropModule: dynamic
 @Suppress("UnsafeCastFromDynamic")
 private val backdropComponent: RComponent<MBackdropProps, RState> = backdropModule.default
 
-interface MBackdropProps : MFadeProps, ReactHtmlElementEvents {
+external interface MBackdropProps : MFadeProps, ReactHtmlElementEvents {
     var invisible: Boolean
     var open: Boolean
 }

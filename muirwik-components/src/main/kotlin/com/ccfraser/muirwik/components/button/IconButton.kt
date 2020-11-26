@@ -23,7 +23,7 @@ enum class MIconEdge {
     start, end // We assume if the prop is null, then the default false will be used, so we don't have this as a value
 }
 
-interface MIconButtonProps : MButtonBaseProps {
+external interface MIconButtonProps : MButtonBaseProps {
     var disableFocusRipple: Boolean
     var href: String
 }

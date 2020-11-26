@@ -25,7 +25,7 @@ enum class MTitlePosition {
     top, bottom
 }
 
-interface MGridListTileBarProps: StyledProps {
+external interface MGridListTileBarProps: StyledProps {
     var actionIcon: ReactElement
     var subtitle: ReactElement
     var title: ReactElement

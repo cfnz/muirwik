@@ -19,7 +19,7 @@ enum class MInputMargin {
  * in inherited interfaces, and since Material UI sometimes changes the onChange function parameters
  * we have created a new base prop for those to inherit from and inherit MInputBaseProps from this as well.
  */
-interface MInputBaseNoOnChangeProps : StyledPropsWithCommonAttributes {
+external interface MInputBaseNoOnChangeProps : StyledPropsWithCommonAttributes {
     var autoComplete: String
     var autoFocus: Boolean
     var defaultValue: String
@@ -46,7 +46,7 @@ interface MInputBaseNoOnChangeProps : StyledPropsWithCommonAttributes {
     var value: Any
 }
 
-interface MInputBaseProps : MInputBaseNoOnChangeProps {
+external interface MInputBaseProps : MInputBaseNoOnChangeProps {
     var onChange: (Event) -> Unit
 }
 

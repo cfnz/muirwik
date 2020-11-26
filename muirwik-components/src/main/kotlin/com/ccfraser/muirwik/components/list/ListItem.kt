@@ -27,7 +27,7 @@ enum class MListItemAlignItems {
     }
 }
 
-interface MListItemProps : MButtonBaseProps {
+external interface MListItemProps : MButtonBaseProps {
     var button: Boolean
 
     @JsName("ContainerComponent")

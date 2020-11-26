@@ -7,7 +7,7 @@ import com.ccfraser.muirwik.components.styles.ThemeOptions
 import com.ccfraser.muirwik.components.styles.createMuiTheme
 import react.*
 
-interface AppState: RState {
+external interface AppState: RState {
     var themeColor: String
 }
 
@@ -26,7 +26,7 @@ class App(props: RProps) : RComponent<RProps, AppState>(props) {
         themeOptions.palette?.primary.main = Colors.Blue.shade500.toString()
 
         mThemeProvider(createMuiTheme(themeOptions)) {
-            mainFrame("Intro") { setState { themeColor = if (themeColor == "dark") "light" else "dark" } }
+            mainFrame(Page.INTRO) { setState { themeColor = if (themeColor == "dark") "light" else "dark" } }
         }
     }
 }

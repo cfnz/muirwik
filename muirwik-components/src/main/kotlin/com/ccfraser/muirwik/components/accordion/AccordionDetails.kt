@@ -9,13 +9,13 @@ import styled.StyledHandler
 import styled.StyledProps
 
 @JsModule("@material-ui/core/AccordionDetails")
-private external val module: dynamic
+private external val accordionDetailsModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")
-private val component: RComponent<StyledProps, RState> = module.default
+private val accordionDetailsComponent: RComponent<StyledProps, RState> = accordionDetailsModule.default
 
 fun RBuilder.mAccordionDetails(
 		className: String? = null,
-		handler: StyledHandler<StyledProps>? = null) = createStyled(component) {
+		handler: StyledHandler<StyledProps>? = null) = createStyled(accordionDetailsComponent) {
 			setStyledPropsAndRunHandler(className, handler)
 		}

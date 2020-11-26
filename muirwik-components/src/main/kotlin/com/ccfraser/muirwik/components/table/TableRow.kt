@@ -16,11 +16,10 @@ private external val tableRowModule: dynamic
 @Suppress("UnsafeCastFromDynamic")
 private val tableRowComponent: RComponent<MTableRowProps, RState> = tableRowModule.default
 
-interface MTableRowProps : MButtonBaseProps {
+external interface MTableRowProps : MButtonBaseProps {
     var hover: Boolean
     var key: Any
     var selected: Boolean
-
 }
 
 fun RBuilder.mTableRow(

@@ -16,13 +16,13 @@ import styled.StyleSheet
 import styled.css
 import styled.styledDiv
 
-interface MainFrameProps : RProps {
+external interface MainFrameProps : RProps {
     var onThemeSwitch: () -> Unit
-    var initialView: String
+    var initialView: Page
 }
 
-interface MainFrameState: RState {
-    var view: String
+external interface MainFrameState: RState {
+    var view: Page
     var responsiveDrawerOpen: Boolean
 }
 
@@ -31,45 +31,6 @@ class MainFrame(props: MainFrameProps) : RComponent<MainFrameProps, MainFrameSta
         view = props.initialView
         responsiveDrawerOpen = false
     }
-
-    private val nameToTestMap = hashMapOf(
-            "Intro" to RBuilder::intro,
-            "Accordion" to RBuilder::testAccordion,
-            "App Bar" to RBuilder::testAppBar,
-            "Avatars" to RBuilder::testAvatars,
-            "Badges" to RBuilder::testBadges,
-            "Backdrop" to RBuilder::testBackdrop,
-            "Bottom Nav" to RBuilder::testBottomNavigation,
-            "Breadcrumbs" to RBuilder::testBreadcrumbs,
-            "Buttons" to RBuilder::testButtons,
-            "Cards" to RBuilder::testCards,
-            "Checkboxes" to RBuilder::testCheckboxes,
-            "Chips" to RBuilder::testChips,
-            "ClickAwayListener" to RBuilder::testClickAwayListener,
-            "Dialogs" to RBuilder::testDialogs,
-            "Drawers" to RBuilder::testDrawers,
-            //                            "Gridsto RBuilder::> testGrids,
-            "Grid Lists" to RBuilder::testGridLists,
-            "Lab - Alert" to RBuilder::testLabAlert,
-            "Links" to RBuilder::testLinks,
-            "Lists" to RBuilder::testLists,
-            "Localization" to RBuilder::testLocalization,
-            "Menus" to RBuilder::testMenus,
-            "Popover" to RBuilder::testPopover,
-            "Progress" to RBuilder::testProgress,
-            "Radio Buttons" to RBuilder::testRadioButtons,
-            "Selects" to RBuilder::testSelects,
-            "Sliders" to RBuilder::testSliders,
-            "Snackbars" to RBuilder::testSnackbar,
-            "Styles" to RBuilder::testStyles,
-            "Switches" to RBuilder::testSwitches,
-            "Tables" to RBuilder::testTables,
-            "Tabs" to RBuilder::testTabs,
-            "Text Fields" to RBuilder::testTextFields,
-            "Themes" to RBuilder::testThemes,
-            "Tooltips" to RBuilder::testTooltips,
-            "Transitions" to RBuilder::testTransitions
-    )
 
     override fun RBuilder.render() {
         mCssBaseline()
@@ -99,7 +60,7 @@ class MainFrame(props: MainFrameProps) : RComponent<MainFrameProps, MainFrameSta
                             mHidden(mdUp = true, implementation = MHiddenImplementation.css) {
                                 mIconButton("menu", color = MColor.inherit, onClick = { setState { responsiveDrawerOpen = true }})
                             }
-                            mToolbarTitle("Muirwik - Material-UI React Wrapper in Kotlin - Demo (or play) Area - ${ state.view }")
+                            mToolbarTitle("Muirwik - Material-UI React Wrapper in Kotlin - Demo (or play) Area - ${ state.view.title }")
                             mIconButton("lightbulb_outline", onClick = {
                                 props.onThemeSwitch()
                             })
@@ -143,7 +104,7 @@ class MainFrame(props: MainFrameProps) : RComponent<MainFrameProps, MainFrameSta
                                 padding(2.spacingUnits)
                                 backgroundColor = Color(theme.palette.background.default)
                             }
-                            nameToTestMap[state.view]?.invoke(this)
+                            state.view.render(this)
                         }
                     }
                 }
@@ -152,14 +113,14 @@ class MainFrame(props: MainFrameProps) : RComponent<MainFrameProps, MainFrameSta
     }
 
     private fun RBuilder.demoItems() {
-        fun RBuilder.addListItem(caption: String): Unit {
+        fun RBuilder.addListItem(page: Page): Unit {
 //            mListItem(caption, onClick = {setState {currentView = caption}})
             // We want to get rid of the extra right padding, so must use the longer version as below
-            mListItem(true, onClick = { setState { view = caption; responsiveDrawerOpen = false }}) {
-                mListItemText(caption) {
+            mListItem(true, onClick = { setState { view = page; responsiveDrawerOpen = false }}) {
+                mListItemText(page.title) {
                     css {
                         paddingRight = 0.px
-                        if (caption == state.view) {
+                        if (page == state.view) {
                             descendants {
                                 color = Colors.Blue.shade500
                             }
@@ -183,13 +144,14 @@ class MainFrame(props: MainFrameProps) : RComponent<MainFrameProps, MainFrameSta
                     wordBreak = WordBreak.keepAll
                 }
 
-                nameToTestMap.keys.sortedWith { a, b -> if (a == "Intro") -1 else if (b == "Intro") 1 else a.compareTo(b) }
-                        .forEach { addListItem(it) }
+
+                Page.values().forEach { addListItem(it) }
             }
         }
     }
 }
 
+//todo going to IR compiler broke this spacer!
 fun RBuilder.spacer() {
     themeContext.Consumer { theme ->
         val themeStyles = object : StyleSheet("ComponentStyles", isStatic = true) {
@@ -206,8 +168,46 @@ fun RBuilder.spacer() {
     }
 }
 
+enum class Page(val title: String, val render: RBuilder.() -> ReactElement){
+    INTRO("Intro", RBuilder::intro),
+    ACCORDION("Accordion", RBuilder::testAccordion),
+    APP_BAR("App Bar", RBuilder::testAppBar),
+    AVATARS("Avatars", RBuilder::testAvatars),
+    BADGES("Badges", RBuilder::testBadges),
+    BACKDROP("Backdrop", RBuilder::testBackdrop),
+    BOTTOM_NAV("Bottom Nav", RBuilder::testBottomNavigation),
+    BREADCRUMBS("Breadcrumbs", RBuilder::testBreadcrumbs),
+    BUTTONS("Buttons", RBuilder::testButtons),
+    CARDS("Cards", RBuilder::testCards),
+    CHECKBOXES("Checkboxes", RBuilder::testCheckboxes),
+    CHIPS("Chips", RBuilder::testChips),
+    CLICKAWAYLISTENER("ClickAwayListener", RBuilder::testClickAwayListener),
+    DIALOGS("Dialogs", RBuilder::testDialogs),
+    DRAWERS("Drawers", RBuilder::testDrawers),
+    GRID_LISTS("Grid Lists", RBuilder::testGridLists),
+    LAB_ALERT("Lab - Alert", RBuilder::testLabAlert),
+    LINKS("Links", RBuilder::testLinks),
+    LISTS("Lists", RBuilder::testLists),
+    LOCALIZATION("Localization", RBuilder::testLocalization),
+    MENUS("Menus", RBuilder::testMenus),
+    POPOVER("Popover", RBuilder::testPopover),
+    PROGRESS("Progress", RBuilder::testProgress),
+    RADIO_BUTTONS("Radio Buttons", RBuilder::testRadioButtons),
+    SELECTS("Selects", RBuilder::testSelects),
+    SLIDERS("Sliders", RBuilder::testSliders),
+    SNACKBARS("Snackbars", RBuilder::testSnackbar),
+    STYLES("Styles", RBuilder::testStyles),
+    SWITCHES("Switches", RBuilder::testSwitches),
+    TABLES("Tables", RBuilder::testTables),
+    TABS("Tabs", RBuilder::testTabs),
+    TEXT_FIELDS("Text Fields", RBuilder::testTextFields),
+    THEMES("Themes", RBuilder::testThemes),
+    TOOLTIPS("Tooltips", RBuilder::testTooltips),
+    TRANSITIONS("Transitions", RBuilder::testTransitions);
+}
 
-fun RBuilder.mainFrame(initialView: String, onThemeSwitch: () -> Unit) = child(MainFrame::class) {
+
+fun RBuilder.mainFrame(initialView: Page, onThemeSwitch: () -> Unit) = child(MainFrame::class) {
     attrs.onThemeSwitch = onThemeSwitch
     attrs.initialView = initialView
 }

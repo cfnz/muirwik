@@ -26,7 +26,7 @@ enum class MListSubheaderColor {
     default, primary, inherit
 }
 
-interface MListSubheaderProps : MButtonBaseProps {
+external interface MListSubheaderProps : MButtonBaseProps {
     var disableGutters: Boolean
     var disableSticky: Boolean
     var inset: Boolean

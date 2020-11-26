@@ -21,7 +21,7 @@ enum class MAppBarColor {
     default, inherit, primary, secondary, transparent
 }
 
-interface MAppBarProps : StyledPropsWithCommonAttributes
+external interface MAppBarProps : StyledPropsWithCommonAttributes
 var MAppBarProps.color by EnumPropToString(MAppBarColor.values())
 var MAppBarProps.position by EnumPropToString(MAppBarPosition.values())
 
@@ -37,4 +37,3 @@ fun RBuilder.mAppBar(
 
     setStyledPropsAndRunHandler(className, handler)
 }
-

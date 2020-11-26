@@ -22,7 +22,7 @@ enum class MInputAdornmentPosition {
     start, end
 }
 
-interface MInputAdornmentProps : StyledProps {
+external interface MInputAdornmentProps : StyledProps {
     var disablePointerEvents: Boolean
     var disableTypography: Boolean
 }

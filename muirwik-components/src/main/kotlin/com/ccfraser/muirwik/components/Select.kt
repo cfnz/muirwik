@@ -18,7 +18,7 @@ private val selectComponent: RComponent<MSelectProps, RState> = selectModule.def
  * the wrong function prototype for onChange. We introduce our own onChange here as well as the
  * displayUnderline prop which was the only thing (at time of writing) added to MInputProps.
  */
-interface MSelectProps : MInputBaseNoOnChangeProps {
+external interface MSelectProps : MInputBaseNoOnChangeProps {
     var autoWidth: Boolean
     var disableUnderline: Boolean
     var displayEmpty: Boolean

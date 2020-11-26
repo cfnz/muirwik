@@ -15,7 +15,7 @@ private external val tableHeadModule: dynamic
 @Suppress("UnsafeCastFromDynamic")
 private val TableHeadComponent: RComponent<MTableHeadProps, RState> = tableHeadModule.default
 
-interface MTableHeadProps : StyledProps {
+external interface MTableHeadProps : StyledProps {
     var component: String
 }
 
