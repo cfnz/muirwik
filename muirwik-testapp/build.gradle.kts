@@ -1,8 +1,7 @@
-import org.jetbrains.kotlin.gradle.plugin.KotlinJsCompilerType
 import org.jetbrains.kotlin.utils.addToStdlib.min
 
 group = "com.ccfraser.muirwik"
-version = "0.6.2"
+version = "0.6.3"
 description = "Test Application for Muirwik (a Material UI React wrapper written in Kotlin)"
 
 plugins {
@@ -12,27 +11,16 @@ plugins {
 repositories {
     jcenter()
     mavenLocal()
-    maven { setUrl("https://dl.bintray.com/kotlin/kotlin-eap") }
-    maven { setUrl("https://dl.bintray.com/kotlin/kotlin-dev") }
     maven { setUrl("http://dl.bintray.com/kotlin/kotlin-js-wrappers") }
 }
 
 dependencies {
-    val kotlinVersion = "1.4.0"
-    val kotlinJsVersion = "pre.112-kotlin-$kotlinVersion"
-    val kotlinReactVersion = "16.13.1-$kotlinJsVersion"
+    val kotlinVersion = "1.4.20"
+    val kotlinJsVersion = "pre.129-kotlin-$kotlinVersion"
 
     implementation(kotlin("stdlib-js", kotlinVersion))
-
-    implementation("org.jetbrains", "kotlin-react", kotlinReactVersion)
-    implementation("org.jetbrains", "kotlin-react-dom", kotlinReactVersion)
-    implementation("org.jetbrains", "kotlin-styled", "1.0.0-$kotlinJsVersion")
+    implementation("org.jetbrains", "kotlin-styled", "5.2.0-$kotlinJsVersion")
     implementation(npm("react-hot-loader", "^4.12.20"))
-
-    // Just adding these to get rid of warnings...
-//    implementation(npm("react", "^16.3.1"))
-//    implementation(npm("react-dom", "^16.3.1"))
-
     implementation(devNpm("webpack-bundle-analyzer", "^3.8.0"))
 
     implementation(project(":muirwik-components"))
@@ -40,25 +28,20 @@ dependencies {
 
 kotlin {
     js(IR) {
+        useCommonJs()
         browser {
-            useCommonJs()
+            binaries.executable()
 
-            webpackTask {
-                cssSupport.enabled = true
-            }
-
-            runTask {
+            commonWebpackConfig {
                 cssSupport.enabled = true
             }
 
             testTask {
                 useKarma {
                     useChromeHeadless()
-                    webpackConfig.cssSupport.enabled = true
                 }
             }
         }
-        binaries.executable()
     }
 }
 
@@ -87,7 +70,7 @@ tasks.register("webpackStatsFile") {
                 commandLine = listOf(appendCmdExtIfRequired("./webpack-cli"), "--config", createdWebPackFile.toString(), "--profile", "--json")
             }
             if (execResult.exitValue == 0) {
-                // The output seems to put a %complete before outputting the json, so we stip that from the file
+                // The output seems to put a %complete before outputting the json, so we strip that from the file
                 val filteredLines = outputFile.readLines().filter { !(it.substring(0, min(it.length, 5)).contains("%")) }
                 outputFile.writeText(filteredLines.joinToString("\n"))
                 exec {
