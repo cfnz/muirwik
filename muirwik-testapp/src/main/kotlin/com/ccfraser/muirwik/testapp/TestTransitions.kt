@@ -57,7 +57,7 @@ class TestTransitions : RComponent<RProps, RState>() {
             }
             styledDiv {
                 css(ComponentStyles.area)
-                mFormControlLabel("Fade", altBuilder.mSwitch(checked = fadeShown, onChange = {_, _ ->  setState {fadeShown = ! fadeShown}}))
+                mFormControlLabel("Fade (with a slow duration set)", altBuilder.mSwitch(checked = fadeShown, onChange = {_, _ ->  setState {fadeShown = ! fadeShown}}))
                 styledDiv {
                     css { display = Display.flex }
                     mFade(show = fadeShown) {
