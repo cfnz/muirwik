@@ -83,7 +83,7 @@ fun CSSBuilder.toolbarJsCssToPartialCss(jsObject: Object) {
     val keys = Object.keys(jsObject)
     keys.forEach {
         val value = jsObject.asDynamic()[it]
-        if (value != null && js("typeof value === 'object'") as Boolean) {
+        if (value != null && jsTypeOf(value) == "object") {
             if (it.startsWith("@media", true)) {
                 val query = it.substring(6).trim()
                 media(query) {
