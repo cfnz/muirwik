@@ -6,6 +6,7 @@ import com.ccfraser.muirwik.components.form.MFormControlVariant
 import com.ccfraser.muirwik.components.input.mInputAdornment
 import com.ccfraser.muirwik.components.menu.mMenuItem
 import com.ccfraser.muirwik.testapp.TestTextFields.ComponentStyles.textField
+import kotlinext.js.jsObject
 import kotlinx.css.*
 import kotlinx.html.InputType
 import org.w3c.dom.events.Event
@@ -159,9 +160,7 @@ class TestTextFields : RComponent<RProps, TestTextFieldsState>() {
             mTextField(label = "Adornment", variant = variant) {
                 css(textField)
                 val adornment = mInputAdornment { +"Kg" }
-                attrs.inputProps = object : RProps {
-                    var startAdornment = adornment
-                }
+                attrs.inputProps = jsObject { this.asDynamic().startAdornment = adornment }
             }
         }
     }
