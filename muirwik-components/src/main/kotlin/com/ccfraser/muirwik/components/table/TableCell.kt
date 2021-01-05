@@ -71,7 +71,7 @@ fun RBuilder.mTableCell(
         sortDirection: MTableCellSortDirection = MTableCellSortDirection.False,
         align: MTableCellAlign = MTableCellAlign.inherit,
         padding: MTableCellPadding = MTableCellPadding.default,
-        size: MTableCellSize = MTableCellSize.medium,
+        size: MTableCellSize? = null,
         colSpan: Int? = null,
         component: String? = null,
         scope: String? = null,
@@ -84,7 +84,7 @@ fun RBuilder.mTableCell(
     key?.let { attrs.key = it }
     attrs.padding = padding
     scope?.let { attrs.scope = it }
-    attrs.size = size
+    size?.let { attrs.size = it }
     attrs.sortDirection = sortDirection
     attrs.variant = variant
 
