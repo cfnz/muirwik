@@ -14,7 +14,7 @@ private val avatarComponent: RComponent<MAvatarProps, RState> = avatarModule.def
 
 @Suppress("EnumEntryName")
 enum class MAvatarVariant {
-    circle, rounded, square
+    circle, circular, rounded, square
 }
 
 interface MAvatarProps : StyledPropsWithCommonAttributes {
