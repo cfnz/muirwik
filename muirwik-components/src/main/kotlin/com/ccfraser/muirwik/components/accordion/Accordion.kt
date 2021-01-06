@@ -12,10 +12,10 @@ import react.RState
 import styled.StyledHandler
 
 @JsModule("@material-ui/core/Accordion")
-private external val accordionModule: dynamic
+private external val module: dynamic
 
 @Suppress("UnsafeCastFromDynamic")
-private val accordionComponent: RComponent<MAccordionProps, RState> = accordionModule.default
+private val component: RComponent<MAccordionProps, RState> = module.default
 
 external interface MAccordionProps : StyledPropsWithCommonAttributes {
 	var defaultExpanded: Boolean
@@ -37,7 +37,7 @@ fun RBuilder.mAccordion(
 		square: Boolean = false,
 		onChange: ((Event, Boolean) -> Unit)? = null,
 		className: String? = null,
-		handler: StyledHandler<MAccordionProps>? = null) = createStyled(accordionComponent) {
+		handler: StyledHandler<MAccordionProps>? = null) = createStyled(component) {
 			attrs.defaultExpanded = defaultExpanded
 			attrs.disabled = disabled
 			attrs.square = square
