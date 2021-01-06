@@ -194,7 +194,7 @@ enum class Page(val title: String, val render: RBuilder.() -> ReactElement){
     RadioButtons("Radio Buttons", RBuilder::testRadioButtons),
     Selects("Selects", RBuilder::testSelects),
     Sliders("Sliders", RBuilder::testSliders),
-    Snakbars("Snackbars", RBuilder::testSnackbar),
+    Snackbars("Snackbars", RBuilder::testSnackbar),
     Styles("Styles", RBuilder::testStyles),
     Switches("Switches", RBuilder::testSwitches),
     Tables("Tables", RBuilder::testTables),
