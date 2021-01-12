@@ -48,6 +48,7 @@ class MainFrame(props: MainFrameProps) : RComponent<MainFrameProps, MainFrameSta
             "ClickAwayListener" to RBuilder::testClickAwayListener,
             "Dialogs" to RBuilder::testDialogs,
             "Drawers" to RBuilder::testDrawers,
+            "Error Boundary" to RBuilder::testErrorBoundary,
             //                            "Gridsto RBuilder::> testGrids,
             "Grid Lists" to RBuilder::testGridLists,
             "Lab - Alert" to RBuilder::testLabAlert,
