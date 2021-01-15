@@ -28,7 +28,7 @@ enum class MTypographyVariant {
 }
 
 interface MTypographyProps : StyledPropsWithCommonAttributes {
-    var component: String
+    var component: ElementType
     var gutterBottom: Boolean
     var noWrap: Boolean
     var paragraph: Boolean
