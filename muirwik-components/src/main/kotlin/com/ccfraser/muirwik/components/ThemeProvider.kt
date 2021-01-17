@@ -48,3 +48,7 @@ fun RBuilder.mThemeProvider(theme: Theme = createMuiTheme(), handler: RHandler<R
     if (handler != null) handler()
 }
 
+fun useTheme(): Theme {
+    return useContext(themeContext)
+}
+
