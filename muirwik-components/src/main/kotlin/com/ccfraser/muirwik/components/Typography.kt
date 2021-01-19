@@ -46,7 +46,7 @@ fun RBuilder.mTypography(
         gutterBottom: Boolean = false,
         noWrap: Boolean = false,
         paragraph: Boolean = false,
-        component: String? = null,
+        component: ElementType? = null,
 
         addAsChild: Boolean = true,
         className: String? = null,
