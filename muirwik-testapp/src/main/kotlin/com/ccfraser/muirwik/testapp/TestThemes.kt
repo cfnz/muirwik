@@ -28,7 +28,7 @@ class TestThemes : RComponent<RProps, RState>() {
         mThemeProvider(theme) {
             styledDiv {
                 css { backgroundColor = Color(theme.palette.background.default) }
-                mTypography("First is the Default theme (darker than the demo theme), then a lighter theme, then a repeat of the demo app")
+                mTypography("First is the Default theme (darker than the demo theme), then a lighter theme using a functional component with a theme hook, then a repeat of the demo app")
                 mButton("Dark/Light Switch", onClick = {
                     setState { themeColor = if (themeColor == "light") "dark" else "light" }
                 })
@@ -40,7 +40,7 @@ class TestThemes : RComponent<RProps, RState>() {
                 theme2Options.palette?.primary.main = Colors.Blue.shade200.toString()
 
                 mThemeProvider(createMuiTheme(theme2Options)) {
-                    testThemeComponent()
+                    testThemesComponentFunctional()
                 }
 
                 app()
