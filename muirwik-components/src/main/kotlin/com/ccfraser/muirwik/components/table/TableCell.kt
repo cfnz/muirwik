@@ -54,11 +54,14 @@ interface MTableCellProps : StyledPropsWithCommonAttributes {
     @JsName("sortDirection")
     var rawSortDirection: dynamic
 }
+
 var MTableCellProps.align by EnumPropToString(MTableCellAlign.values())
 var MTableCellProps.padding by EnumPropToString(MTableCellPadding.values())
 var MTableCellProps.size by EnumPropToString(MTableCellSize.values())
 var MTableCellProps.sortDirection: MTableCellSortDirection
-    get() = if (rawSortDirection == false) MTableCellSortDirection.False else MTableCellSortDirection.valueOf(rawSortDirection)
+    get() = if (rawSortDirection == false) MTableCellSortDirection.False else MTableCellSortDirection.valueOf(
+            rawSortDirection
+    )
     set(value) {
         rawSortDirection = if (value == MTableCellSortDirection.False) false else value.toString()
     }
@@ -67,26 +70,34 @@ var MTableCellProps.variant by EnumPropToString(MTableCellVariant.values())
 
 fun RBuilder.mTableCell(
         key: Any? = null,
-        variant: MTableCellVariant = MTableCellVariant.body,
-        sortDirection: MTableCellSortDirection = MTableCellSortDirection.False,
-        align: MTableCellAlign = MTableCellAlign.inherit,
-        padding: MTableCellPadding = MTableCellPadding.default,
-        size: MTableCellSize = MTableCellSize.medium,
+        variant: MTableCellVariant? = null,
+        sortDirection: MTableCellSortDirection? = null,
+        align: MTableCellAlign? = null,
+        padding: MTableCellPadding? = null,
+        size: MTableCellSize? = null,
         colSpan: Int? = null,
         component: String? = null,
         scope: String? = null,
-
         className: String? = null,
-        handler: StyledHandler<MTableCellProps>? = null) = createStyled(TableCellComponent) {
-    attrs.align = align
+        handler: StyledHandler<MTableCellProps>? = null
+) = createStyled(TableCellComponent) {
+    if (align != null) {
+        attrs.align = align
+    }
     colSpan?.let { attrs.colSpan = it }
     component?.let { attrs.component = component }
     key?.let { attrs.key = it }
-    attrs.padding = padding
+    if (padding != null) {
+        attrs.padding = padding
+    }
     scope?.let { attrs.scope = it }
-    attrs.size = size
-    attrs.sortDirection = sortDirection
-    attrs.variant = variant
+    size?.let { attrs.size = it }
+    if (sortDirection != null) {
+        attrs.sortDirection = sortDirection
+    }
+    if (variant != null) {
+        attrs.variant = variant
+    }
 
     setStyledPropsAndRunHandler(className, handler)
 }
