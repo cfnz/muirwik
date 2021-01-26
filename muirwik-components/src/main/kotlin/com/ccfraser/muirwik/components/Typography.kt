@@ -28,7 +28,7 @@ enum class MTypographyVariant {
 }
 
 interface MTypographyProps : StyledPropsWithCommonAttributes {
-    var component: String
+    var component: ElementType
     var gutterBottom: Boolean
     var noWrap: Boolean
     var paragraph: Boolean
@@ -46,7 +46,7 @@ fun RBuilder.mTypography(
         gutterBottom: Boolean = false,
         noWrap: Boolean = false,
         paragraph: Boolean = false,
-        component: String? = null,
+        component: ElementType? = null,
 
         addAsChild: Boolean = true,
         className: String? = null,
