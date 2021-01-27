@@ -28,7 +28,7 @@ interface MIconProps : StyledProps {
     var component: String?
 }
 
-var MIconProps.color by EnumPropToString(MIconColor.values())
+var MIconProps.color by EnumPropToStringNullable(MIconColor.values())
 var MIconProps.fontSize by EnumPropToString(MIconFontSize.values())
 
 fun RBuilder.mIcon(

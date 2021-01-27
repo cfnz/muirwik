@@ -48,7 +48,10 @@ fun RBuilder.mThemeProvider(theme: Theme = createMuiTheme(), handler: RHandler<R
     if (handler != null) handler()
 }
 
-fun useTheme(): Theme {
-    return useContext(themeContext)
-}
-
+/**
+ * Provides access to the Material UI useTheme hook.
+ */
+@JsModule("@material-ui/core/styles/useTheme")
+private external val useThemeDefault: dynamic
+@Suppress("UNCHECKED_CAST_TO_EXTERNAL_INTERFACE")
+fun useTheme(): Theme = useThemeDefault.default() as Theme
