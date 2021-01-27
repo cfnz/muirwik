@@ -19,19 +19,19 @@ private val component: RComponent<MAlertProps, RState> = module.default
 
 @Suppress("EnumEntryName")
 enum class MAlertVariant {
-  filled, outlined, standard
+    filled, outlined, standard
 }
 
 @Suppress("EnumEntryName")
 enum class MAlertSeverity {
-  error, info, success, warning
+    error, info, success, warning
 }
 
 interface MAlertProps : StyledPropsWithCommonAttributes {
-  var action: ReactElement
-  var icon: ReactElement
-  var onClose: (Event) -> Unit
-  var closeText: String
+    var action: ReactElement
+    var icon: ReactElement
+    var onClose: (Event) -> Unit
+    var closeText: String
 }
 
 var MAlertProps.variant by EnumPropToStringNullable(MAlertVariant.values())
@@ -47,13 +47,13 @@ fun RBuilder.mAlert(
 
         className: String? = null,
         handler: StyledHandler<MAlertProps>? = null) = createStyled(component, addAsChild) {
-  message?.let { +message }
-  attrs.variant = variant
-  attrs.severity = severity
-  attrs.closeText = closeText
-  onClose?.let { attrs.onClose = onClose }
+    message?.let { +message }
+    attrs.variant = variant
+    attrs.severity = severity
+    attrs.closeText = closeText
+    onClose?.let { attrs.onClose = onClose }
 
-  setStyledPropsAndRunHandler(className, handler)
+    setStyledPropsAndRunHandler(className, handler)
 }
 
 fun RBuilder.mAlert(
@@ -67,13 +67,13 @@ fun RBuilder.mAlert(
 
         className: String? = null,
         handler: StyledHandler<MAlertProps>? = null) = createStyled(component, addAsChild) {
-  attrs.variant = variant
-  attrs.severity = severity
-  attrs.closeText = closeText
-  onClose?.let { attrs.onClose = onClose }
+    attrs.variant = variant
+    attrs.severity = severity
+    attrs.closeText = closeText
+    onClose?.let { attrs.onClose = onClose }
 
-  +mAlertTitle(title, false)
-  message?.let { +message }
+    +mAlertTitle(title, false)
+    message?.let { +message }
 
-  setStyledPropsAndRunHandler(className, handler)
+    setStyledPropsAndRunHandler(className, handler)
 }

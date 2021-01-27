@@ -59,6 +59,7 @@ class MainFrame(props: MainFrameProps) : RComponent<MainFrameProps, MainFrameSta
             "Popover" to RBuilder::testPopover,
             "Progress" to RBuilder::testProgress,
             "Radio Buttons" to RBuilder::testRadioButtons,
+            "Ratings" to RBuilder::testRatings,
             "Selects" to RBuilder::testSelects,
             "Sliders" to RBuilder::testSliders,
             "Snackbars" to RBuilder::testSnackbar,
