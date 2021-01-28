@@ -4,7 +4,7 @@ import com.ccfraser.muirwik.components.*
 import com.ccfraser.muirwik.components.lab.MIconContainerProps
 import com.ccfraser.muirwik.components.lab.MRatingSize
 import com.ccfraser.muirwik.components.lab.mRating
-import com.ccfraser.muirwik.testapp.ComponentStyles.margin
+import com.ccfraser.muirwik.testapp.RatingsStyles.margin
 import kotlinx.css.*
 import react.*
 import styled.StyleSheet
@@ -12,7 +12,7 @@ import styled.css
 import styled.styledDiv
 
 
-private object ComponentStyles : StyleSheet("ComponentStyles", isStatic = true) {
+private object RatingsStyles : StyleSheet("RatingStyles", isStatic = true) {
     val margin by css {
         margin(2.spacingUnits)
     }
@@ -83,7 +83,7 @@ private val testRatings = functionalComponent<RProps> { props ->
         mTypography("Hover Feedback", MTypographyVariant.h4)
         styledDiv {
             css {
-                +ComponentStyles.margin
+                +RatingsStyles.margin
                 display = Display.flex
                 alignItems = Align.center
             }
@@ -103,7 +103,7 @@ private val testRatings = functionalComponent<RProps> { props ->
         mTypography("Sizes", MTypographyVariant.h4)
         styledDiv {
             css {
-                +ComponentStyles.margin
+                +RatingsStyles.margin
                 display = Display.flex
                 flexDirection = FlexDirection.column
             }

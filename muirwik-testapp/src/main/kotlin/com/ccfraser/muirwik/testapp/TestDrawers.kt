@@ -5,13 +5,13 @@ import com.ccfraser.muirwik.components.button.mButton
 import com.ccfraser.muirwik.components.button.mIconButton
 import com.ccfraser.muirwik.components.list.mList
 import com.ccfraser.muirwik.components.list.mListItemWithIcon
-import com.ccfraser.muirwik.components.styles.*
+import com.ccfraser.muirwik.components.styles.Breakpoint
+import com.ccfraser.muirwik.components.styles.up
 import com.ccfraser.muirwik.components.transitions.SimpleTransitionDuration
 import com.ccfraser.muirwik.testapp.TestDrawers.ComponentStyles.drawer
 import kotlinext.js.js
 import kotlinext.js.jsObject
 import kotlinx.css.*
-import kotlinx.css.Color
 import kotlinx.css.properties.Timing
 import kotlinx.css.properties.Transition
 import kotlinx.css.properties.ms
@@ -319,15 +319,6 @@ class TestDrawers : RComponent<RProps, RState>() {
                         styledDiv {
                             css { padding(2.spacingUnits) }
                             mTypography("This is the main content area")
-                            mTypography("Breakpoint info up(lg) ${theme.breakpoints.up(Breakpoint.lg)}")
-                            mTypography("Breakpoint info up(md) ${theme.breakpoints.up(Breakpoint.md)}")
-                            mTypography("Breakpoint info up(sm) ${theme.breakpoints.up(Breakpoint.sm)}")
-                            mTypography("Breakpoint info dn(lg) ${theme.breakpoints.down(Breakpoint.lg)}")
-                            mTypography("Breakpoint info dn(md) ${theme.breakpoints.down(Breakpoint.md)}")
-                            mTypography("Breakpoint info dn(sm) ${theme.breakpoints.down(Breakpoint.sm)}")
-                            mTypography("Breakpoint info bt(sm and md) ${theme.breakpoints.between(Breakpoint.sm, Breakpoint.md)}")
-                            mTypography("Breakpoint info only sm ${theme.breakpoints.only(Breakpoint.sm)}")
-                            mTypography("Breakpoint info width sm ${theme.breakpoints.width(Breakpoint.sm)}")
                         }
                     }
                 }

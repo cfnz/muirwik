@@ -60,7 +60,7 @@ var MTableCellProps.padding by EnumPropToString(MTableCellPadding.values())
 var MTableCellProps.size by EnumPropToString(MTableCellSize.values())
 var MTableCellProps.sortDirection: MTableCellSortDirection
     get() = if (rawSortDirection == false) MTableCellSortDirection.False else MTableCellSortDirection.valueOf(
-            rawSortDirection
+        rawSortDirection
     )
     set(value) {
         rawSortDirection = if (value == MTableCellSortDirection.False) false else value.toString()
@@ -69,35 +69,27 @@ var MTableCellProps.variant by EnumPropToString(MTableCellVariant.values())
 
 
 fun RBuilder.mTableCell(
-        key: Any? = null,
-        variant: MTableCellVariant? = null,
-        sortDirection: MTableCellSortDirection? = null,
-        align: MTableCellAlign? = null,
-        padding: MTableCellPadding? = null,
-        size: MTableCellSize? = null,
-        colSpan: Int? = null,
-        component: String? = null,
-        scope: String? = null,
-        className: String? = null,
-        handler: StyledHandler<MTableCellProps>? = null
+    key: Any? = null,
+    variant: MTableCellVariant? = null,
+    sortDirection: MTableCellSortDirection? = null,
+    align: MTableCellAlign? = null,
+    padding: MTableCellPadding? = null,
+    size: MTableCellSize? = null,
+    colSpan: Int? = null,
+    component: String? = null,
+    scope: String? = null,
+    className: String? = null,
+    handler: StyledHandler<MTableCellProps>? = null
 ) = createStyled(TableCellComponent) {
-    if (align != null) {
-        attrs.align = align
-    }
+    align?.let { attrs.align = it }
     colSpan?.let { attrs.colSpan = it }
     component?.let { attrs.component = component }
     key?.let { attrs.key = it }
-    if (padding != null) {
-        attrs.padding = padding
-    }
+    padding?.let { attrs.padding = it }
     scope?.let { attrs.scope = it }
     size?.let { attrs.size = it }
-    if (sortDirection != null) {
-        attrs.sortDirection = sortDirection
-    }
-    if (variant != null) {
-        attrs.variant = variant
-    }
+    sortDirection?.let { attrs.sortDirection = it }
+    variant?.let { attrs.variant = it }
 
     setStyledPropsAndRunHandler(className, handler)
 }

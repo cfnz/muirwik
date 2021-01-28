@@ -7,6 +7,7 @@ import com.ccfraser.muirwik.components.styles.invoke
 import kotlinx.css.px
 import react.*
 
+
 // Material UI 3.3.2 (or a bit earlier) has depreciated some typography enums. We do the following
 // so we don't get any warning messages for the default theme.
 private val themeOptions: ThemeOptions = js("({typography: {useNextVariants: true}})")

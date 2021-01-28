@@ -45,11 +45,12 @@ class MainFrame(props: MainFrameProps) : RComponent<MainFrameProps, MainFrameSta
             "Cards" to RBuilder::testCards,
             "Checkboxes" to RBuilder::testCheckboxes,
             "Chips" to RBuilder::testChips,
-            "ClickAwayListener" to RBuilder::testClickAwayListener,
+            "Click Away Listener" to RBuilder::testClickAwayListener,
             "Dialogs" to RBuilder::testDialogs,
             "Drawers" to RBuilder::testDrawers,
             "Error Boundary" to RBuilder::testErrorBoundary,
             //                            "Gridsto RBuilder::> testGrids,
+            "Grid & Breakpoints" to RBuilder::testGridsAndBreakpoints,
             "Grid Lists" to RBuilder::testGridLists,
             "Lab - Alert" to RBuilder::testLabAlert,
             "Links" to RBuilder::testLinks,
@@ -76,7 +77,7 @@ class MainFrame(props: MainFrameProps) : RComponent<MainFrameProps, MainFrameSta
     override fun RBuilder.render() {
         mCssBaseline()
 
-        val drawerWidth = 180.px
+        val drawerWidth = 190.px
 
         themeContext.Consumer {theme ->
             styledDiv {
