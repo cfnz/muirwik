@@ -58,10 +58,18 @@ private val testRatings = functionalComponent<RProps> { props ->
         }
         styledDiv {
             css(margin)
-            // TODO: Not sure how to apply the color styles as in the original demo
-            mTypography("Custom icon and color (color is still a WIP)", component = "legend")
+            mTypography("Custom icon and color", component = "legend")
             mRating("customized-empty", value, precision = 0.5, onChange = { _, newValue -> value = newValue },
-                icon = mIcon("favorite", fontSize = MIconFontSize.inherit, addAsChild = false))
+                icon = mIcon("favorite", fontSize = MIconFontSize.inherit, addAsChild = false)) {
+                css {
+                    ".MuiRating-iconFilled" {
+                        color = Color("#ff6d75")
+                    }
+                    ".MuiRating-iconHover" {
+                        color = Color("#ff3d47")
+                    }
+                }
+            }
         }
         styledDiv {
             css(margin)
