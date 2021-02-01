@@ -31,7 +31,7 @@ fun RBuilder.mAvatar(
         src: String? = null,
         alt: String? = null,
         srcSet: String? = null,
-        variant: MAvatarVariant = MAvatarVariant.circle,
+        variant: MAvatarVariant = MAvatarVariant.circular,
         component: String = "div",
         imgProps: RProps? = null,
         sizes: String? = null,

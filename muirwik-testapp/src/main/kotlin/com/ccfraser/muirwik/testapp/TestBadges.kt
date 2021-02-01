@@ -99,26 +99,22 @@ class TestBadges : RComponent<RProps, RState>() {
                 mGridItem {
                     mFormControl {
                         mFormLabel("Vertical")
-                        mRadioGroup(value = anchorOriginVertical.toString()) {
-                            mRadioWithLabel("Top", value = MBadgeAnchorOriginVertical.top.toString(), onChange = {
-                                _, checked -> setState { anchorOriginVertical = if (checked) MBadgeAnchorOriginVertical.top else MBadgeAnchorOriginVertical.bottom }
-                            })
-                            mRadioWithLabel("Bottom", value = MBadgeAnchorOriginVertical.bottom.toString(), onChange = {
-                                _, checked -> setState { anchorOriginVertical = if (checked) MBadgeAnchorOriginVertical.bottom else MBadgeAnchorOriginVertical.top }
-                            })
+                        mRadioGroup(value = anchorOriginVertical.toString(), onChange = {_, value ->
+                                setState { anchorOriginVertical = MBadgeAnchorOriginVertical.valueOf(value) }
+                        }) {
+                            mRadioWithLabel("Top", value = MBadgeAnchorOriginVertical.top.toString())
+                            mRadioWithLabel("Bottom", value = MBadgeAnchorOriginVertical.bottom.toString())
                         }
                     }
                 }
                 mGridItem {
                     mFormControl {
                         mFormLabel("Horizontal")
-                        mRadioGroup(value = anchorOriginHorizontal.toString()) {
-                            mRadioWithLabel("Left", value = MBadgeAnchorOriginHorizontal.left.toString(), onChange = {
-                                _, checked -> setState { anchorOriginHorizontal = if (checked) MBadgeAnchorOriginHorizontal.left else MBadgeAnchorOriginHorizontal.right }
-                            })
-                            mRadioWithLabel("Right", value = MBadgeAnchorOriginHorizontal.right.toString(), onChange = {
-                                _, checked -> setState { anchorOriginHorizontal = if (checked) MBadgeAnchorOriginHorizontal.right else MBadgeAnchorOriginHorizontal.left }
-                            })
+                        mRadioGroup(value = anchorOriginHorizontal.toString(), onChange = { _, value ->
+                                setState { anchorOriginHorizontal = MBadgeAnchorOriginHorizontal.valueOf(value) }
+                        }) {
+                            mRadioWithLabel("Left", value = MBadgeAnchorOriginHorizontal.left.toString())
+                            mRadioWithLabel("Right", value = MBadgeAnchorOriginHorizontal.right.toString())
                         }
                     }
                 }

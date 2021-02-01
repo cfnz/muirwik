@@ -182,6 +182,19 @@ class TestAppBar : RComponent<RProps, RState>() {
                         }
                     }
                 }
+
+                styledDiv {
+                    css { flexGrow = 1.0; padding(2.spacingUnits) }
+
+                    mAppBar(position = MAppBarPosition.static) {
+                        attrs.elevation = 0
+                        mToolbar {
+                            mIconButton("menu", color = MColor.inherit) { css { marginLeft = -12.px; marginRight = 20.px }}
+                            mToolbarTitle("Flat (elevation = 0)")
+                            mIconButton ("account_circle", color = MColor.inherit )
+                        }
+                    }
+                }
             }
 
         }

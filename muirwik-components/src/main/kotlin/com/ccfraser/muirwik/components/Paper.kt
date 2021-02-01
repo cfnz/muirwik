@@ -4,7 +4,6 @@ import react.RBuilder
 import react.RComponent
 import react.RState
 import styled.StyledHandler
-import styled.StyledProps
 
 
 @JsModule("@material-ui/core/Paper")
@@ -18,7 +17,7 @@ enum class MPaperVariant {
     elevation, outlined
 }
 
-external interface MPaperProps : StyledProps {
+external interface MPaperProps : StyledPropsWithCommonAttributes {
     var component: String
     var elevation: Int
     var square: Boolean

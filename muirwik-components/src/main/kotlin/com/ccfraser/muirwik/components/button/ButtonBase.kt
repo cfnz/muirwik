@@ -1,5 +1,6 @@
 package com.ccfraser.muirwik.components.button
 
+import com.ccfraser.muirwik.components.ElementType
 import com.ccfraser.muirwik.components.StyledPropsWithCommonAttributes
 import org.w3c.dom.events.Event
 import react.RProps
@@ -7,7 +8,7 @@ import react.RProps
 
 external interface MButtonBaseProps: StyledPropsWithCommonAttributes {
     var centerRipple: Boolean
-    var component: String
+    var component: ElementType
     var disabled: Boolean
     var disableRipple: Boolean
     var focusRipple: Boolean

@@ -7,6 +7,7 @@ import react.RBuilder
 import react.RComponent
 import react.RProps
 import react.RState
+import styled.StyledElementBuilder
 import styled.StyledHandler
 
 
@@ -87,25 +88,9 @@ fun RBuilder.mTextField(
 
         className: String? = null,
         handler: StyledHandler<MTextFieldProps>? = null) = createStyled(textFieldComponent) {
-    autoComplete?.let { attrs.autoComplete = it }
-    attrs.autoFocus = autoFocus
-    defaultValue?.let { attrs.defaultValue = defaultValue }
-    attrs.disabled = disabled
-    attrs.error = error
-    attrs.fullWidth = fullWidth
-    helperText?.let { attrs.helperText = helperText }
-    id?.let { attrs.id = it }
-    attrs.label = label
-    attrs.margin = margin
-    attrs.multiline = false
-    name?.let { attrs.name = it }
-    onChange?.let { attrs.onChange = onChange }
-    placeholder?.let { attrs.placeholder = placeholder }
-    attrs.required = required
-    attrs.select = false
-    attrs.type = type.toString()
-    value?.let { attrs.value = value }
-    attrs.variant = variant
+
+    setAttributes(this, autoComplete, autoFocus, defaultValue, disabled, error, fullWidth, helperText, id, label, margin,
+        false, name, onChange, placeholder, required, null, null, false, type, value, variant)
 
     setStyledPropsAndRunHandler(className, handler)
 }
@@ -133,26 +118,9 @@ fun RBuilder.mTextFieldMultiLine(
 
         className: String? = null,
         handler: StyledHandler<MTextFieldProps>? = null) = createStyled(textFieldComponent) {
-    attrs.autoFocus = autoFocus
-    defaultValue?.let { attrs.defaultValue = defaultValue }
-    attrs.disabled = disabled
-    attrs.error = error
-    attrs.fullWidth = fullWidth
-    helperText?.let { attrs.helperText = helperText }
-    id?.let { attrs.id = it }
-    attrs.label = label
-    attrs.margin = margin
-    attrs.multiline = true
-    name?.let { attrs.name = it }
-    onChange?.let { attrs.onChange = onChange }
-    placeholder?.let { attrs.placeholder = placeholder }
-    attrs.required = required
-    rows?.let { attrs.rows = rows }
-    rowsMax?.let { attrs.rowsMax = rowsMax }
-    attrs.select = false
-    attrs.type = InputType.text.toString()
-    value?.let { attrs.value = value }
-    attrs.variant = variant
+
+    setAttributes(this, null, autoFocus, defaultValue, disabled, error, fullWidth, helperText, id, label, margin,
+        true, name, onChange, placeholder, required, rows, rowsMax, false, InputType.text, value, variant)
 
     setStyledPropsAndRunHandler(className, handler)
 }
@@ -182,26 +150,56 @@ fun RBuilder.mTextFieldSelect(
 
         className: String? = null,
         handler: StyledHandler<MTextFieldProps>? = null) = createStyled(textFieldComponent) {
-    autoComplete?.let { attrs.autoComplete = it }
-    attrs.autoFocus = autoFocus
-    defaultValue?.let { attrs.defaultValue = defaultValue }
-    attrs.disabled = disabled
-    attrs.error = error
-    attrs.fullWidth = fullWidth
-    helperText?.let { attrs.helperText = helperText }
-    id?.let { attrs.id = it }
-    attrs.label = label
-    attrs.margin = margin
-    attrs.multiline = true
-    name?.let { attrs.name = it }
-    onChange?.let { attrs.onChange = onChange }
-    placeholder?.let { attrs.placeholder = placeholder }
-    attrs.required = required
-    attrs.select = true
-    attrs.type = InputType.text.toString()
-    value?.let { attrs.value = value }
-    attrs.variant = variant
+
+    setAttributes(this, autoComplete, autoFocus, defaultValue, disabled, error, fullWidth, helperText, id, label, margin,
+        false, name, onChange, placeholder, required, null, null, true, InputType.text, value, variant)
 
     setStyledPropsAndRunHandler(className, handler)
 }
 
+private fun setAttributes(
+    textField: StyledElementBuilder<MTextFieldProps>,
+    autoComplete: String?,
+    autoFocus: Boolean,
+    defaultValue: String?,
+    disabled: Boolean,
+    error: Boolean,
+    fullWidth: Boolean,
+    helperText: String?,
+    id: String?,
+    label: String,
+    margin: MFormControlMargin,
+    multiline: Boolean,
+    name: String?,
+    onChange: ((event: Event) -> Unit)?,
+    placeholder: String?,
+    required: Boolean,
+    rows: Int?,
+    rowsMax: Int?,
+    select: Boolean,
+    type: InputType,
+    value: String?,
+    variant: MFormControlVariant
+) {
+    autoComplete?.let { textField.attrs.autoComplete = it }
+    textField.attrs.autoFocus = autoFocus
+    defaultValue?.let { textField.attrs.defaultValue = it }
+    textField.attrs.disabled = disabled
+    textField.attrs.error = error
+    textField.attrs.fullWidth = fullWidth
+    helperText?.let { textField.attrs.helperText = it }
+    id?.let { textField.attrs.id = it }
+    textField.attrs.label = label
+    textField.attrs.margin = margin
+    textField.attrs.multiline = multiline
+    name?.let { textField.attrs.name = it }
+    onChange?.let { textField.attrs.onChange = it }
+    placeholder?.let { textField.attrs.placeholder = it }
+    textField.attrs.required = required
+    rows?.let { textField.attrs.rows = it }
+    rowsMax?.let { textField.attrs.rowsMax = it }
+    textField.attrs.select = select
+    textField.attrs.type = type.realValue
+    value?.let { textField.attrs.value = it }
+    textField.attrs.variant = variant
+}

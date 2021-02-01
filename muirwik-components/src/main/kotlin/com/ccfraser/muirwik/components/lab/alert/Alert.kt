@@ -12,10 +12,10 @@ import react.ReactElement
 import styled.StyledHandler
 
 @JsModule("@material-ui/lab/Alert")
-private external val alertModule: dynamic
+private external val module: dynamic
 
 @Suppress("UnsafeCastFromDynamic")
-private val alertComponent: RComponent<MAlertProps, RState> = alertModule.default
+private val component: RComponent<MAlertProps, RState> = module.default
 
 @Suppress("EnumEntryName")
 enum class MAlertVariant {
@@ -27,7 +27,7 @@ enum class MAlertSeverity {
   error, info, success, warning
 }
 
-external interface MAlertProps : StyledPropsWithCommonAttributes {
+interface MAlertProps : StyledPropsWithCommonAttributes {
   var action: ReactElement
   var icon: ReactElement
   var onClose: (Event) -> Unit
@@ -46,7 +46,7 @@ fun RBuilder.mAlert(
         addAsChild: Boolean = true,
 
         className: String? = null,
-        handler: StyledHandler<MAlertProps>? = null) = createStyled(alertComponent, addAsChild) {
+        handler: StyledHandler<MAlertProps>? = null) = createStyled(component, addAsChild) {
   message?.let { +message }
   attrs.variant = variant
   attrs.severity = severity
@@ -66,7 +66,7 @@ fun RBuilder.mAlert(
         addAsChild: Boolean = true,
 
         className: String? = null,
-        handler: StyledHandler<MAlertProps>? = null) = createStyled(alertComponent, addAsChild) {
+        handler: StyledHandler<MAlertProps>? = null) = createStyled(component, addAsChild) {
   attrs.variant = variant
   attrs.severity = severity
   attrs.closeText = closeText

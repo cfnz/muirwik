@@ -219,3 +219,9 @@ fun setHRefTargetNoOpener(attrs: RProps, href: String?, targetBlank: Boolean, ta
  * A simple event... not sure if there is another one in Kotlin, but couldn't find it...
  */
 typealias SimpleEvent = () -> Unit
+
+/**
+ * Type type often used on the Component prop which should be a String or a Component... since we don't have
+ * union types, we will use Any for now.
+ */
+typealias ElementType = Any

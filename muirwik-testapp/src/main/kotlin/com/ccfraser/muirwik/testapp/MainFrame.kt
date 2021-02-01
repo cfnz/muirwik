@@ -35,7 +35,7 @@ class MainFrame(props: MainFrameProps) : RComponent<MainFrameProps, MainFrameSta
     override fun RBuilder.render() {
         mCssBaseline()
 
-        val drawerWidth = 180.px
+        val drawerWidth = 190.px
 
         themeContext.Consumer {theme ->
             styledDiv {
@@ -144,7 +144,6 @@ class MainFrame(props: MainFrameProps) : RComponent<MainFrameProps, MainFrameSta
                     wordBreak = WordBreak.keepAll
                 }
 
-
                 Page.values().forEach { addListItem(it) }
             }
         }
@@ -180,11 +179,13 @@ enum class Page(val title: String, val render: RBuilder.() -> ReactElement){
     Cards("Cards", RBuilder::testCards),
     Checkboxes("Checkboxes", RBuilder::testCheckboxes),
     Chips("Chips", RBuilder::testChips),
-    ClickAwayListener("ClickAwayListener", RBuilder::testClickAwayListener),
+    ClickAwayListener("Click Away Listener", RBuilder::testClickAwayListener),
     Dialogs("Dialogs", RBuilder::testDialogs),
     Drawers("Drawers", RBuilder::testDrawers),
+    ErrorBoundary("Error Boundary", RBuilder::testErrorBoundary),
+    GridAndBreakpoints("Grid & Breakpoints", RBuilder::testGridsAndBreakpoints),
     GridLists("Grid Lists", RBuilder::testGridLists),
-    LabAlert("Lab - Alert", RBuilder::testLabAlert),
+    LabAlert("Labs - Alert", RBuilder::testLabAlert),
     Links("Links", RBuilder::testLinks),
     Lists("Lists", RBuilder::testLists),
     Localization("Localization", RBuilder::testLocalization),
@@ -192,6 +193,7 @@ enum class Page(val title: String, val render: RBuilder.() -> ReactElement){
     Popover("Popover", RBuilder::testPopover),
     Progress("Progress", RBuilder::testProgress),
     RadioButtons("Radio Buttons", RBuilder::testRadioButtons),
+    Ratings("Ratings", RBuilder::testRatings),
     Selects("Selects", RBuilder::testSelects),
     Sliders("Sliders", RBuilder::testSliders),
     Snackbars("Snackbars", RBuilder::testSnackbar),
