@@ -146,6 +146,8 @@ class TestAppBar : RComponent<RProps, RState>() {
                                     mIcon("search")
                                 }
                                 val inputProps = object: RProps {
+                                    @JsName("className") // IR Compiler changed className to _className so we force it back to className
+                                                               // This fixes it in the UI though the console still complains of _className
                                     val className = "${ComponentStyles.name}-inputInput"
                                 }
                                 mInput(placeholder = "Search...", disableUnderline = true) {

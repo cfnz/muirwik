@@ -4,10 +4,10 @@ import kotlinext.js.jsObject
 import org.w3c.dom.MediaQueryList
 
 @JsModule("@material-ui/core/useMediaQuery")
-private external val module: dynamic
+private external val useMediaQueryModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")
-private val useMediaQueryRaw: ((query: Any, options: dynamic) -> Boolean) = module.default
+private fun useMediaQueryRaw(query: Any, options: dynamic): Boolean = useMediaQueryModule.default(query, options)
 
 typealias MatchMedia = ((query: String) -> MediaQueryList)
 

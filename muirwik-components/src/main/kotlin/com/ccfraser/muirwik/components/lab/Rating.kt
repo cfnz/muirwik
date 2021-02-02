@@ -9,17 +9,17 @@ import react.*
 import styled.StyledHandler
 
 @JsModule("@material-ui/lab/Rating")
-private external val module: dynamic
+private external val ratingModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")
-private val component: RComponent<MRatingProps, RState> = module.default
+private val jsComponent: RComponent<MRatingProps, RState> = ratingModule.default
 
 @Suppress("EnumEntryName")
 enum class MRatingSize {
     large, medium, small
 }
 
-interface MRatingProps : StyledPropsWithCommonAttributes {
+external interface MRatingProps : StyledPropsWithCommonAttributes {
     var defaultValue: Number
     var disabled: Boolean
     var emptyIcon: ReactElement
@@ -38,7 +38,7 @@ interface MRatingProps : StyledPropsWithCommonAttributes {
 }
 var MRatingProps.size by EnumPropToString(MRatingSize.values())
 
-interface MIconContainerProps : StyledPropsWithCommonAttributes {
+external interface MIconContainerProps : StyledPropsWithCommonAttributes {
     var value: Int
 }
 
@@ -59,7 +59,7 @@ fun RBuilder.mRating(
     addAsChild: Boolean = true,
     className: String? = null,
     handler: StyledHandler<MRatingProps>? = null
-) = createStyled(component, addAsChild) {
+) = createStyled(jsComponent, addAsChild) {
     defaultValue?.let { attrs.defaultValue = it }
     attrs.disabled = disabled
     emptyIcon?.let { attrs.emptyIcon = it }

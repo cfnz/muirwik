@@ -21,7 +21,6 @@ import kotlinx.html.role
 import react.*
 import react.dom.br
 import react.dom.div
-import react.dom.jsStyle
 import styled.StyleSheet
 import styled.css
 import styled.styledDiv
@@ -255,7 +254,8 @@ class TestDrawers : RComponent<RProps, RState>() {
 
                     // Using jsStyle...
                     div {
-                        attrs.jsStyle = js {
+//                        attrs.jsStyle = js {  IR Compiler didn't like this
+                        attrs.asDynamic().style = js {
                             flexGrow = 1
                         }
                         spacer()

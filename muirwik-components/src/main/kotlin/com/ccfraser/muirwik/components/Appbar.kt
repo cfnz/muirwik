@@ -5,7 +5,6 @@ import react.RComponent
 import react.RState
 import styled.StyledHandler
 
-
 @JsModule("@material-ui/core/AppBar")
 private external val appBarModule: dynamic
 

@@ -9,10 +9,10 @@ import react.RState
 import styled.StyledHandler
 
 @JsModule("@material-ui/core/AccordionActions")
-private external val module: dynamic
+private external val accordionActionsModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")
-private val component: RComponent<MAccordionActionsProps, RState> = module.default
+private val jsComponent: RComponent<MAccordionActionsProps, RState> = accordionActionsModule.default
 
 external interface MAccordionActionsProps : StyledPropsWithCommonAttributes {
 	var disableSpacing: Boolean
@@ -21,7 +21,7 @@ external interface MAccordionActionsProps : StyledPropsWithCommonAttributes {
 fun RBuilder.mAccordionActions(
 		disableSpacing: Boolean? = null,
 		className: String? = null,
-		handler: StyledHandler<MAccordionActionsProps>? = null) = createStyled(component) {
+		handler: StyledHandler<MAccordionActionsProps>? = null) = createStyled(jsComponent) {
 			disableSpacing?.let { attrs.disableSpacing = it }
 			setStyledPropsAndRunHandler(className, handler)
 		}
