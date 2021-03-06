@@ -28,6 +28,7 @@ enum class MListItemAlignItems {
 }
 
 interface MListItemProps : MButtonBaseProps {
+    var autoFocus: Boolean
     var button: Boolean
 
     @JsName("ContainerComponent")
@@ -148,12 +149,14 @@ fun RBuilder.mListItem(
         dense: Boolean = false,
         disableGutters: Boolean = false,
         divider: Boolean = false,
+        autoFocus: Boolean = false,
         hRefOptions: HRefOptions? = null,
         onClick: ((Event) -> Unit)? = null,
 
         className: String? = null,
         handler: StyledHandler<MListItemProps>? = null) = createStyled(listItemComponent) {
     attrs.alignItems = alignItems
+    attrs.autoFocus = autoFocus
     attrs.button = button
     component?.let { attrs.component = component }
     attrs.containerComponent = containerComponent

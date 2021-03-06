@@ -15,6 +15,9 @@ private external val menuListModule: dynamic
 private val menuList: RComponent<MMenuListProps, RState> = menuListModule.default
 
 interface MMenuListProps : MListProps {
+    var autoFocus: Boolean
+    var autoFocusItem: Boolean
+    var disabledItemsFocusable: Boolean
     var disableListWrap: Boolean
 }
 
