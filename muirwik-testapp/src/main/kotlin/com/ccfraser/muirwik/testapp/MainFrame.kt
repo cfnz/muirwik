@@ -36,6 +36,7 @@ class MainFrame(props: MainFrameProps) : RComponent<MainFrameProps, MainFrameSta
             "Intro" to RBuilder::intro,
             "Accordion" to RBuilder::testAccordion,
             "App Bar" to RBuilder::testAppBar,
+            "Auto Complete" to RBuilder::testAutoComplete,
             "Avatars" to RBuilder::testAvatars,
             "Badges" to RBuilder::testBadges,
             "Backdrop" to RBuilder::testBackdrop,
