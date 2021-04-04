@@ -3,7 +3,7 @@ import java.io.FileInputStream
 import java.util.*
 
 group = "com.ccfraser.muirwik"
-version = "0.6.7"
+version = "0.6.8"
 description = "Muirwik Components - a Material UI React wrapper written in Kotlin"
 
 plugins {
