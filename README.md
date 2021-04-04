@@ -71,7 +71,7 @@ then the following should work (possibly may also need npm installed):
 In Windows, it is probably (but have not tried it) more like:
 
     git clone https://github.com/cfnz/muirwik.git
-    cd muirwik/muirwik-testapp
+    cd muirwik
     gradlew.bat :muirwik-testapp:build
     gradlew.bat :muirwik-testapp:run
 
