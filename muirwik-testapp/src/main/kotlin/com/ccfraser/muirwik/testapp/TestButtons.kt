@@ -19,10 +19,7 @@ import kotlinx.html.id
 import kotlinx.html.js.onClickFunction
 import kotlinx.html.js.onMouseMoveFunction
 import react.*
-import react.dom.br
-import react.dom.button
-import react.dom.div
-import react.dom.label
+import react.dom.*
 import styled.*
 
 
