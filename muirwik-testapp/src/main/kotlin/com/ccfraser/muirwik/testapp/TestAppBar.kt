@@ -7,6 +7,7 @@ import com.ccfraser.muirwik.components.input.mInput
 import com.ccfraser.muirwik.components.styles.Breakpoint
 import com.ccfraser.muirwik.components.styles.fade
 import com.ccfraser.muirwik.components.styles.up
+import kotlinext.js.jsObject
 import kotlinx.css.*
 import kotlinx.css.properties.Timing
 import kotlinx.css.properties.Transition
@@ -15,6 +16,7 @@ import react.RBuilder
 import react.RComponent
 import react.RProps
 import react.RState
+import react.dom.attrs
 import styled.StyleSheet
 import styled.css
 import styled.styledDiv
@@ -145,11 +147,10 @@ class TestAppBar : RComponent<RProps, RState>() {
                                     css(ComponentStyles.searchIcon)
                                     mIcon("search")
                                 }
-                                val inputProps = object: RProps {
-                                    @JsName("className") // IR Compiler changed className to _className so we force it back to className
-                                                               // This fixes it in the UI though the console still complains of _className
-                                    val className = "${ComponentStyles.name}-inputInput"
-                                }
+
+                                val inputProps = js("({})")
+                                inputProps.className = "${ComponentStyles.name}-inputInput"
+
                                 mInput(placeholder = "Search...", disableUnderline = true) {
                                     attrs.inputProps = inputProps
                                     css {

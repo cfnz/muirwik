@@ -166,7 +166,17 @@ private fun setCommonAttrs(
     attrs.disabled = disabled
     getAriaValueText?.let { attrs.getAriaValueText = it }
     if (showMarks) {
-        attrs.marks = if (marks.isEmpty()) true else marks.toTypedArray()
+        // Before the IR compiler we could do the below...
+        // attrs.marks = if (marks.isEmpty()) true else marks.toTypedArray()
+
+        val jsArray = js("([])")
+        marks.forEach {
+            val element = js("({})")
+            element.value = it.value
+            element.label = it.label
+            jsArray.push(element)
+        }
+        attrs.marks = if (marks.isEmpty()) true else jsArray
     }
     attrs.max = max
     attrs.min = min

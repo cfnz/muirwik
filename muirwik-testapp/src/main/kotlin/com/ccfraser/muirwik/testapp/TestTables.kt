@@ -56,10 +56,10 @@ class TestTables : RComponent<RProps, RState>() {
         br {  }
         br {  }
         mTypography("Sorting and Selecting")
-        sortingAndSelecting()
+        sortingAndSelectingTable()
     }
 
-    fun RBuilder.simpleTable() {
+    private fun RBuilder.simpleTable() {
         mPaper {
             css {
                 width = 100.pct
@@ -138,7 +138,7 @@ class TestTables : RComponent<RProps, RState>() {
         }
     }
 
-    private fun RBuilder.sortingAndSelecting() {
+    private fun RBuilder.sortingAndSelectingTable() {
         mPaper {
             css {
                 width = 100.pct
@@ -177,12 +177,17 @@ class TestTables : RComponent<RProps, RState>() {
                     }
                 }
             }
-            mTablePagination(count = androidDeserts.size, rowsPerPage = rowsPerPage, page = page,
-                    onChangePage = { _, newPage -> setState { page = newPage }},
-                    onChangeRowsPerPage = { setState {
-                        rowsPerPage = it.target.asDynamic().value
-                        page = 0
-                    }})
+            mTablePagination(
+                count = androidDeserts.size,
+                rowsPerPage = rowsPerPage,
+                rowsPerPageOptions = arrayOf(5, 10, 25),
+                page = page,
+                onChangePage = { _, newPage -> setState { page = newPage }},
+                onChangeRowsPerPage = { setState {
+                    rowsPerPage = it.target.asDynamic().value
+                    page = 0
+                }}
+            )
         }
     }
 
@@ -216,7 +221,7 @@ class TestTables : RComponent<RProps, RState>() {
         }
     }
 
-    fun RBuilder.enhancedTableToolbar(numSelected: Int) {
+    private fun RBuilder.enhancedTableToolbar(numSelected: Int) {
         themeContext.Consumer { theme ->
             val styles = object : StyleSheet("ComponentStyles", isStatic = true) {
                 val spacer by css {
