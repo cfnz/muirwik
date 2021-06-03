@@ -23,12 +23,14 @@ enum class MenuOnCloseReason {
     escapeKeyDown, backdropClick, tabKeyDown
 }
 
+@Suppress("EnumEntryName")
 enum class MMenuVariant {
     menu, selectedMenu
 }
 
 external interface MMenuProps : MPopoverProps {
     var autoFocus: Boolean
+    var disableAutoFocusItem: Boolean
 
     @JsName("MenuListProps")
     var menuListProps: MMenuListProps
@@ -46,6 +48,7 @@ fun RBuilder.mMenu(
         anchorElement: Node? = null,
         onClose: ((Event, MenuOnCloseReason) -> Unit)? = null,
         autoFocus: Boolean = true,
+        disableAutoFocusItem: Boolean = false,
         menuListProps: MMenuListProps? = null,
         popoverClasses: String? = null,
         transitionComponent: TransitionComponent? = null,
@@ -56,6 +59,7 @@ fun RBuilder.mMenu(
         handler: StyledHandler<MMenuProps>) = createStyled(menuComponent) {
     anchorElement?.let { attrs.anchorEl = anchorElement }
     attrs.autoFocus = autoFocus
+    attrs.disableAutoFocusItem = disableAutoFocusItem
     menuListProps?.let { attrs.menuListProps = menuListProps }
     attrs.onClose = onClose
     attrs.open = open

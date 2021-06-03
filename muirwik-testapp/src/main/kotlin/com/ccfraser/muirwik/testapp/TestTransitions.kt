@@ -6,15 +6,44 @@ import com.ccfraser.muirwik.components.mSwitch
 import com.ccfraser.muirwik.components.mTypography
 import com.ccfraser.muirwik.components.spacingUnits
 import com.ccfraser.muirwik.components.transitions.*
-import com.ccfraser.muirwik.testapp.TestTransitions.ComponentStyles.paper
 import kotlinext.js.js
 import kotlinx.css.*
 import react.*
 import react.dom.div
 import react.dom.jsStyle
+import react.dom.svg
 import styled.StyleSheet
 import styled.css
 import styled.styledDiv
+
+
+private open class ShapeProps (
+    val points: String,
+    val stroke: String,
+    val fill: String,
+    val strokeWidth: Int
+): RProps
+
+private fun RBuilder.upsideDownV(w: Int, h: Int) {
+    svg {
+        attrs["width"] = "$w"
+        attrs["height"] = "$h"
+//        attrs["viewBox"] = "0 0 $w $h"
+
+        child(createElement("polygon", ShapeProps("0,$h ${w/2},0 $w,$h", "silver", "white", 1)))
+    }
+}
+
+private fun RBuilder.demoComponent() {
+    mPaper(elevation = 4) {
+        css {
+            width = 100.px
+            height = 100.px
+            margin(1.spacingUnits)
+        }
+        upsideDownV(100, 100)
+    }
+}
 
 class TestTransitions : RComponent<RProps, RState>() {
     var collapseShown: Boolean = false
@@ -23,15 +52,10 @@ class TestTransitions : RComponent<RProps, RState>() {
     var slideShown: Boolean = false
     var zoomShown: Boolean = false
 
-    private object ComponentStyles : StyleSheet("ComponentStyles", isStatic = true) {
+    object ComponentStyles : StyleSheet("TransitionStyles", isStatic = true) {
         val area by css {
             height = 180.px
             padding(2.spacingUnits)
-        }
-        val paper by css {
-            width = 100.px
-            height = 100.px
-            margin(1.spacingUnits)
         }
     }
 
@@ -47,25 +71,32 @@ class TestTransitions : RComponent<RProps, RState>() {
                     css { display = Display.flex }
                     mCollapse(show = collapseShown) {
                         attrs.timeout = AutoTransitionDuration()
-                        mPaper(elevation = 4) { css(paper) }
+                        demoComponent()
                     }
                     mCollapse(show = collapseShown, collapsedHeight = 40.px) {
-                        mPaper(elevation = 4) { css(paper) }
+                        demoComponent()
                     }
                     mTypography("(Shows use of collapseHeight)")
                 }
             }
+
             styledDiv {
                 css(ComponentStyles.area)
                 mFormControlLabel("Fade (with a slow duration set)", altBuilder.mSwitch(checked = fadeShown, onChange = {_, _ ->  setState {fadeShown = ! fadeShown}}))
+
                 styledDiv {
-                    css { display = Display.flex }
+                    css {
+                        display = Display.flex
+                    }
                     mFade(show = fadeShown) {
-                        attrs.timeout = SimpleTransitionDuration(2000)
-                        mPaper(elevation = 4) { css(paper) }
+                        demoComponent()
+                    }
+                    mFade(show = fadeShown) {
+                        attrs.timeout = SimpleTransitionDuration(1000)
+                        demoComponent()
                     }
                     mFade(show = fadeShown, timeout = SimpleTransitionDuration(2000)) {
-                        mPaper(elevation = 4) { css(paper) }
+                        demoComponent()
                     }
                 }
             }
@@ -75,12 +106,12 @@ class TestTransitions : RComponent<RProps, RState>() {
                 styledDiv {
                     css { display = Display.flex }
                     mGrow(show = growShown) {
-                        mPaper(elevation = 4) { css(paper) }
+                        demoComponent()
                     }
                     mGrow(show = growShown, timeout = EnterExitTransitionDuration(500, 1500)) {
                         attrs.asDynamic().style = js {transformOrigin = "0 0 0"}
                         attrs.timeout = AutoTransitionDuration()
-                        mPaper(elevation = 4) { css(paper) }
+                        demoComponent()
                     }
                 }
             }
@@ -90,7 +121,7 @@ class TestTransitions : RComponent<RProps, RState>() {
                 styledDiv {
                     css { display = Display.flex }
                     mSlide(show = slideShown, direction = SlideTransitionDirection.up) {
-                        mPaper(elevation = 4) { css(paper) }
+                        demoComponent()
                     }
                 }
             }
@@ -100,11 +131,11 @@ class TestTransitions : RComponent<RProps, RState>() {
                 styledDiv {
                     css { display = Display.flex }
                     mZoom(show = zoomShown) {
-                        mPaper(elevation = 4) { css(paper) }
+                        demoComponent()
                     }
                     mZoom(show = zoomShown) {
                         attrs.asDynamic().style = js {transitionDelay = if (zoomShown) 500 else 0}
-                        mPaper(elevation = 4) { css(paper) }
+                        demoComponent()
                     }
                 }
             }

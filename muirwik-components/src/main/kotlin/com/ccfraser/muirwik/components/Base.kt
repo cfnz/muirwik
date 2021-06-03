@@ -1,6 +1,7 @@
 package com.ccfraser.muirwik.components
 
 import kotlinext.js.Object
+import kotlinext.js.getOwnPropertyNames
 import kotlinext.js.jsObject
 import kotlinx.css.CSSBuilder
 import org.w3c.dom.HTMLInputElement
@@ -11,6 +12,7 @@ import styled.StyledElementBuilder
 import styled.StyledHandler
 import styled.StyledProps
 import styled.toStyle
+import kotlin.js.Json
 import kotlin.reflect.KClass
 
 
@@ -64,6 +66,36 @@ fun <P : StyledProps> RBuilder.createStyled(componentClass: KClass<out RComponen
 
     return el
 }
+
+/**
+ * Spreads the props passed in to the props of the component.
+ *
+ * Used in situations like this jsx: <TextField {...params} label="Combo box" />
+ *
+ * Applied like:
+ *     val props = propsFromSomewhere
+ *     mTextField("Combo Box", variant = MFormControlVariant.outlined) {
+ *         spreadProps(props)
+ *     }
+ *
+ * Note: if the props contains and prop used in the constructor, the constructor version will get overwritten,
+ * i.e. in this example, if the props includes the variant prop, it will overwrite the constructor param.
+ */
+fun RElementBuilder<RProps>.spreadProps(props: RProps) {
+    val json: Json = props.asDynamic()
+
+    json.getOwnPropertyNames().forEach {
+        attrs.asDynamic()[it] = json[it]
+    }
+}
+//
+//fun RProps.spreadProps(nprops: RProps) {
+//    val json: Json = nprops.asDynamic()
+//
+//    json.getOwnPropertyNames().forEach {
+//        attrs.asDynamic()[it] = json[it]
+//    }
+//}
 
 /**
  * This is only a simple jsObjectToCss converter. So far it can only handle
