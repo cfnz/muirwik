@@ -184,7 +184,7 @@ enum class Page(val title: String, val render: RBuilder.() -> ReactElement){
     Dialogs("Dialogs", RBuilder::testDialogs),
     Drawers("Drawers", RBuilder::testDrawers),
     ErrorBoundary("Error Boundary", RBuilder::testErrorBoundary),
-    Grids("Grids", RBuilder::testGrids),
+//    Grids("Grids", RBuilder::testGrids),
     GridAndBreakpoints("Grid & Breakpoints", RBuilder::testGridsAndBreakpoints),
     GridLists("Grid Lists", RBuilder::testGridLists),
     LabAlert("Labs - Alert", RBuilder::testLabAlert),

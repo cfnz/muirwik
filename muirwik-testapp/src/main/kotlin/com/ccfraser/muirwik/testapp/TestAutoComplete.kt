@@ -22,7 +22,7 @@ private object AutoCompleteStyles : StyleSheet("AutoCompleteStyles", isStatic = 
     }
 }
 
-private val testAutoComplete = functionalComponent<RProps> { props ->
+private val testAutoComplete = functionalComponent<RProps> { _ ->
     mTypography("This demo shows usage of the Lab AutoComplete component (and how to use flag emojis)")
     mAutoComplete(top100Films, { params -> mTextField("Combo Box", variant = MFormControlVariant.outlined) {
         spreadProps(params)
@@ -96,7 +96,8 @@ fun isoCountryCodeToFlagEmoji(code: String): String {
     } else {
         val sb = StringBuilder()
         code.forEach {
-            val s: String = js("String.fromCodePoint(it + 127397)") as String
+            val num = it.code // Need to convert it to a number for the IR Compiler
+            val s: String = js("String.fromCodePoint(num + 127397)") as String
             sb.append(s)
         }
         sb.toString()
