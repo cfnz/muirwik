@@ -45,8 +45,8 @@ class TestBadges : RComponent<RProps, RState>() {
                         css(ComponentStyles.padding)
                         +"Item 1"
                     })
-                    mTab(label = RBuilder().span { +"Item 2" })
-                    mTab(label = RBuilder().span { +"Item 3" })
+                    mTab("Item 2")
+                    mTab("Item 3")
                 }
             }
             mBadge(100, color = MBadgeColor.primary) {

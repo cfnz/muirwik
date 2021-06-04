@@ -70,7 +70,7 @@ external interface MAutoCompleteProps<T> : StyledPropsWithCommonAttributes {
     var fullWidth: Boolean
     var getLimitTagsText: (more: Int) -> ReactElement
     var getOptionDisabled: (option: T) -> Boolean
-    var getOptionLabel: (option: T) -> String
+    var getOptionLabel: (option: T?) -> String
     var getOptionSelected: (option: T?, value: T) -> Boolean
     var groupBy: (option: T) -> String
     var handleHomeEndKeys: Boolean

@@ -10,12 +10,10 @@ import kotlinext.js.js
 import kotlinx.css.*
 import react.*
 import react.dom.div
-import react.dom.jsStyle
 import react.dom.svg
 import styled.StyleSheet
 import styled.css
 import styled.styledDiv
-
 
 private open class ShapeProps (
     val points: String,
@@ -144,4 +142,3 @@ class TestTransitions : RComponent<RProps, RState>() {
 }
 
 fun RBuilder.testTransitions() = child(TestTransitions::class) {}
-

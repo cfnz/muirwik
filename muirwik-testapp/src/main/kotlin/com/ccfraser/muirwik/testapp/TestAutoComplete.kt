@@ -27,7 +27,7 @@ private val testAutoComplete = functionalComponent<RProps> { _ ->
     mAutoComplete(top100Films, { params -> mTextField("Combo Box", variant = MFormControlVariant.outlined) {
         spreadProps(params)
     } }) {
-        attrs.getOptionLabel = {option -> option.title }
+        attrs.getOptionLabel = { option -> option?.title ?: "" }
         css {
           width = 350.px
         }
@@ -38,11 +38,11 @@ private val testAutoComplete = functionalComponent<RProps> { _ ->
     mAutoComplete(countries, { params -> mTextField("Choose a country", variant = MFormControlVariant.outlined) {
             spreadProps(params)
         }
-    }) {
+    }, selectedCountry) {
         attrs.apply {
             id = "country-select-demo"
             autoHighlight = true
-            getOptionLabel = { option -> option.label }
+            getOptionLabel = { option -> option?.label ?: "" }
             renderOption = { option, _ ->
                 Fragment {
                     styledSpan {
@@ -71,7 +71,7 @@ private val testAutoComplete = functionalComponent<RProps> { _ ->
     } }) {
         attrs.id = "grouped-auto-complete"
         attrs.groupBy = { option -> option.title.first().toString() }
-        attrs.getOptionLabel = {option -> option.title }
+        attrs.getOptionLabel = { option -> option?.title ?: ""}
         css {
             width = 350.px
         }
@@ -83,7 +83,7 @@ private val testAutoComplete = functionalComponent<RProps> { _ ->
         attrs.id = "multiple-values"
         attrs.multiple = true
         attrs.filterSelectedOptions = true
-        attrs.getOptionLabel = {option -> option.title }
+        attrs.getOptionLabel = { option -> option?.title ?: ""}
         css {
             width = 700.px
         }

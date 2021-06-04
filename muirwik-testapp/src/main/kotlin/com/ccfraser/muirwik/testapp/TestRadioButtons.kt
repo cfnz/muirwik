@@ -14,16 +14,12 @@ external interface TestRadioButtonsState : RState {
     var gender2Value: String
 }
 
-private fun testRadioButtonsState(gender2Value: String) = object: TestRadioButtonsState {
-    override var gender2Value: String = gender2Value
-}
-
 class TestRadioButtons : RComponent<RProps, TestRadioButtonsState>() {
     private var radioValue: String = "a"
     private var gender1Value: String = "female"
 
     init {
-        state = testRadioButtonsState("male")
+        state.gender2Value = "male"
     }
 
     object ComponentStyles : StyleSheet("ComponentStyles", isStatic = true) {

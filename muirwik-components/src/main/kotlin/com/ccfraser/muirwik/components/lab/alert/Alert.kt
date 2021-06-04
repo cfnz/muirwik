@@ -15,7 +15,7 @@ import styled.StyledHandler
 private external val alertModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")
-private val jsComponent: RComponent<MAlertProps, RState> = alertModule.default
+private val alertComponent: RComponent<MAlertProps, RState> = alertModule.default
 
 @Suppress("EnumEntryName")
 enum class MAlertVariant {
@@ -47,7 +47,7 @@ fun RBuilder.mAlert(
 
     className: String? = null,
     handler: StyledHandler<MAlertProps>? = null
-) = createStyled(jsComponent, addAsChild) {
+) = createStyled(alertComponent, addAsChild) {
     message?.let { +message }
     attrs.variant = variant
     attrs.severity = severity
@@ -68,7 +68,7 @@ fun RBuilder.mAlert(
 
     className: String? = null,
     handler: StyledHandler<MAlertProps>? = null
-) = createStyled(jsComponent, addAsChild) {
+) = createStyled(alertComponent, addAsChild) {
     attrs.variant = variant
     attrs.severity = severity
     attrs.closeText = closeText

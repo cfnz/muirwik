@@ -1,5 +1,5 @@
 group = "com.ccfraser.muirwik"
-version = "0.7.0"
+version = "0.7.1"
 description = "Muirwik Components - a Material UI React wrapper written in Kotlin"
 
 plugins {
@@ -28,7 +28,13 @@ dependencies {
 }
 
 kotlin {
-    js(IR) {
+    // Everything should now work with the IR compiler. However, at time of writing, the IR compiler is still
+    // alpha and does not support incremental compilation, so while the IR compiler should work, for development
+    // purposes, the Legacy compiler is more productive.
+    // For releases, we will try and use BOTH (and ideally automate it... but not yet)
+//    js(IR) {
+//    js(BOTH) {
+    js(LEGACY) {
         useCommonJs()
         browser {
             commonWebpackConfig {

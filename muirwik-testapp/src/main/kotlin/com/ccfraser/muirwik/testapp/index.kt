@@ -5,9 +5,9 @@ import kotlinx.browser.document
 import react.dom.render
 
 //@JsModule("react-hot-loader/root")
-@JsModule("react-hot-loader")
-private external val hotModule: dynamic
-private val hot = hotModule.hot
+//@JsModule("react-hot-loader")
+//private external val hotModule: dynamic
+//private val hot = hotModule.hot
 //private val indexModule = js("module")
 
 fun main() {

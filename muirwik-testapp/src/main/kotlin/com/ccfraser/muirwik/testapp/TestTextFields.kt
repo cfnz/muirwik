@@ -22,18 +22,14 @@ external interface TestTextFieldsState : RState {
     var age: Int
 }
 
-private fun testTextFieldsState(textValue: String, multiLineValue: String,age: Int) = object: TestTextFieldsState {
-    override var textValue: String = textValue
-    override var multiLineValue: String = multiLineValue
-    override var age: Int = age
-}
-
 class TestTextFields : RComponent<RProps, TestTextFieldsState>() {
     var name: String = "Name via local var 'state'"
     var selectValue: String = "Item 2"
 
     init {
-        state = testTextFieldsState("", "", 0)
+        state.textValue = ""
+        state.multiLineValue = ""
+        state.age = 0
     }
 
     private object ComponentStyles : StyleSheet("ComponentStyles", isStatic = true) {

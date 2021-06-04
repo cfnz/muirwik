@@ -12,7 +12,7 @@ import styled.StyledHandler
 private external val ratingModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")
-private val jsComponent: RComponent<MRatingProps, RState> = ratingModule.default
+private val ratingComponent: RComponent<MRatingProps, RState> = ratingModule.default
 
 @Suppress("EnumEntryName")
 enum class MRatingSize {
@@ -59,7 +59,7 @@ fun RBuilder.mRating(
     addAsChild: Boolean = true,
     className: String? = null,
     handler: StyledHandler<MRatingProps>? = null
-) = createStyled(jsComponent, addAsChild) {
+) = createStyled(ratingComponent, addAsChild) {
     defaultValue?.let { attrs.defaultValue = it }
     attrs.disabled = disabled
     emptyIcon?.let { attrs.emptyIcon = it }

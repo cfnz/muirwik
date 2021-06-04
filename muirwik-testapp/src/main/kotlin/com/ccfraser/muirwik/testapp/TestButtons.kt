@@ -203,7 +203,7 @@ class TestButtons : RComponent<RProps, RState>() {
             mButton("Contained", variant = MButtonVariant.contained) { css(buttonMargin) }
             mButton("Primary", MColor.primary, variant = MButtonVariant.contained) { css(buttonMargin) }
             mButton("Secondary with HRef", color = MColor.secondary, hRefOptions = HRefOptions("https://github.com/cfnz/muirwik"),
-                    variant = MButtonVariant.contained) { css(buttonMargin) }
+                variant = MButtonVariant.contained) { css(buttonMargin) }
             mButton("Styled Button") {
                 css {
                     background = "linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)"
@@ -299,9 +299,9 @@ class TestButtons : RComponent<RProps, RState>() {
     private fun RBuilder.moreComplexButton() {
         data class ImageInfo(val imageName: String, val title: String, val width: String)
         val imageInfos = listOf(
-                ImageInfo("breakfast.jpg", "Breakfast", "40%"),
-                ImageInfo("burgers.jpg", "Burgers", "30%"),
-                ImageInfo("camera.jpg", "Camera", "30%")
+            ImageInfo("breakfast.jpg", "Breakfast", "40%"),
+            ImageInfo("burgers.jpg", "Burgers", "30%"),
+            ImageInfo("camera.jpg", "Camera", "30%")
         )
 
         themeContext.Consumer { theme ->
