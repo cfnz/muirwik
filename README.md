@@ -40,18 +40,17 @@ example to get you going. You don't even need to clone/use this repository at al
 
 ### Adding Muirwik as a dependency
 Add the Muirwik dependency to your own app as follows:
-(Note: in Kotlin 1.4.0 and earlier, the kotlin-styled version was 1.0.0 instead of 5.2.0)
+(Note: in Kotlin 1.4.0 and earlier, the kotlin-styled version was 1.0.0 instead of that shown below)
 ```
 repositories {
     ...
-    jcenter()
-    maven { setUrl("https://dl.bintray.com/kotlin/kotlin-js-wrappers") }
+    mavenCentral()
 }
 
 dependencies {
     ...
-    implementation("org.jetbrains", "kotlin-styled", "5.2.0-$kotlinJsVersion")
-    implementation("com.ccfraser.muirwik:muirwik-components:0.6.2")
+    implementation("org.jetbrains", "kotlin-styled", "5.3.0-$kotlinJsVersion")
+    implementation("com.ccfraser.muirwik:muirwik-components:0.7.0")
 }
 ```
 
@@ -71,7 +70,7 @@ then the following should work (possibly may also need npm installed):
 In Windows, it is probably (but have not tried it) more like:
 
     git clone https://github.com/cfnz/muirwik.git
-    cd muirwik/muirwik-testapp
+    cd muirwik
     gradlew.bat :muirwik-testapp:build
     gradlew.bat :muirwik-testapp:run
 

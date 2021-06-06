@@ -32,6 +32,49 @@ class MainFrame(props: MainFrameProps) : RComponent<MainFrameProps, MainFrameSta
         responsiveDrawerOpen = false
     }
 
+    private val nameToTestMap = hashMapOf(
+            "Intro" to RBuilder::intro,
+            "Accordion" to RBuilder::testAccordion,
+            "App Bar" to RBuilder::testAppBar,
+            "Auto Complete" to RBuilder::testAutoComplete,
+            "Avatars" to RBuilder::testAvatars,
+            "Badges" to RBuilder::testBadges,
+            "Backdrop" to RBuilder::testBackdrop,
+            "Bottom Nav" to RBuilder::testBottomNavigation,
+            "Breadcrumbs" to RBuilder::testBreadcrumbs,
+            "Buttons" to RBuilder::testButtons,
+            "Cards" to RBuilder::testCards,
+            "Checkboxes" to RBuilder::testCheckboxes,
+            "Chips" to RBuilder::testChips,
+            "Click Away Listener" to RBuilder::testClickAwayListener,
+            "Dialogs" to RBuilder::testDialogs,
+            "Drawers" to RBuilder::testDrawers,
+            "Error Boundary" to RBuilder::testErrorBoundary,
+            //                            "Gridsto RBuilder::> testGrids,
+            "Grid & Breakpoints" to RBuilder::testGridsAndBreakpoints,
+            "Grid Lists" to RBuilder::testGridLists,
+            "Lab - Alert" to RBuilder::testLabAlert,
+            "Links" to RBuilder::testLinks,
+            "Lists" to RBuilder::testLists,
+            "Localization" to RBuilder::testLocalization,
+            "Menus" to RBuilder::testMenus,
+            "Popover" to RBuilder::testPopover,
+            "Progress" to RBuilder::testProgress,
+            "Radio Buttons" to RBuilder::testRadioButtons,
+            "Ratings" to RBuilder::testRatings,
+            "Selects" to RBuilder::testSelects,
+            "Sliders" to RBuilder::testSliders,
+            "Snackbars" to RBuilder::testSnackbar,
+            "Styles" to RBuilder::testStyles,
+            "Switches" to RBuilder::testSwitches,
+            "Tables" to RBuilder::testTables,
+            "Tabs" to RBuilder::testTabs,
+            "Text Fields" to RBuilder::testTextFields,
+            "Themes" to RBuilder::testThemes,
+            "Tooltips" to RBuilder::testTooltips,
+            "Transitions" to RBuilder::testTransitions
+    )
+
     override fun RBuilder.render() {
         mCssBaseline()
 

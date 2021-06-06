@@ -1,5 +1,6 @@
 package com.ccfraser.muirwik.components.list
 
+import com.ccfraser.muirwik.components.MTypographyProps
 import com.ccfraser.muirwik.components.button.MButtonBaseProps
 import com.ccfraser.muirwik.components.createStyled
 import com.ccfraser.muirwik.components.setStyledPropsAndRunHandler
@@ -20,7 +21,9 @@ external interface MListItemTextProps : MButtonBaseProps {
     var disableTypography: Boolean
     var inset: Boolean
     var primary: ReactElement
+    var primaryTypographyProps: MTypographyProps
     var secondary: ReactElement
+    var secondaryTypographyProps: MTypographyProps
 }
 
 /**
