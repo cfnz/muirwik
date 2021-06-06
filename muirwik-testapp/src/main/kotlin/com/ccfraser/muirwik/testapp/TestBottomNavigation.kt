@@ -8,6 +8,9 @@ import react.*
 import react.dom.br
 
 
+@OptIn(ExperimentalJsExport::class)
+@Suppress("NON_EXPORTABLE_TYPE")
+@JsExport
 class TestBottomNavigation : RComponent<RProps, RState>() {
     private var value1: Any = 0 // Use default which is index position for value
     private var value2: Any = "recents" // Use a string just for the sake of it...

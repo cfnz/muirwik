@@ -14,6 +14,9 @@ import styled.StyleSheet
 import styled.css
 import styled.styledDiv
 
+@OptIn(ExperimentalJsExport::class)
+@Suppress("NON_EXPORTABLE_TYPE")
+@JsExport
 class TestLists : RComponent<RProps, RState>() {
     private var expanded: Boolean = false
     private var checked = Array(3) { false }

@@ -18,6 +18,9 @@ private fun testRadioButtonsState(gender2Value: String) = object: TestRadioButto
     override var gender2Value: String = gender2Value
 }
 
+@OptIn(ExperimentalJsExport::class)
+@Suppress("NON_EXPORTABLE_TYPE")
+@JsExport
 class TestRadioButtons : RComponent<RProps, TestRadioButtonsState>() {
     private var radioValue: String = "a"
     private var gender1Value: String = "female"

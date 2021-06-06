@@ -5,7 +5,7 @@ import react.*
 
 typealias ErrorBoundaryErrorEvent = (error: Throwable, info: RErrorInfo) -> Unit
 
-interface ErrorBoundaryProps : RProps {
+external interface ErrorBoundaryProps : RProps {
     /**
      * Content you want to display on an error (note, we don't want to add this as a child, i.e. don't use the normal RBuilder
      * in a render (e.g. use a different (or new) RBuilder or for material components, set addAsChild = false if available
@@ -18,10 +18,14 @@ interface ErrorBoundaryProps : RProps {
     var onError: ErrorBoundaryErrorEvent?
 }
 
-interface ErrorBoundaryState : RState {
+external interface ErrorBoundaryState : RState {
     var hasError: Boolean
 }
 
+
+@OptIn(ExperimentalJsExport::class)
+@Suppress("NON_EXPORTABLE_TYPE")
+@JsExport
 class ErrorBoundary(props: ErrorBoundaryProps) : RComponent<ErrorBoundaryProps, ErrorBoundaryState>(props) {
 
     override fun RBuilder.render() {

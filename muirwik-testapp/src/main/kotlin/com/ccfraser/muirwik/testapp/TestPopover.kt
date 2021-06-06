@@ -18,6 +18,9 @@ import styled.css
 import styled.styledDiv
 
 
+@OptIn(ExperimentalJsExport::class)
+@Suppress("NON_EXPORTABLE_TYPE")
+@JsExport
 class TestPopover : RComponent<RProps, RState>() {
     private var open: Boolean = false
     private var anchorRef: MPopoverAnchorRef = MPopoverAnchorRef.anchorEl

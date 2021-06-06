@@ -8,6 +8,9 @@ import styled.css
 import styled.styledDiv
 
 
+@OptIn(ExperimentalJsExport::class)
+@Suppress("NON_EXPORTABLE_TYPE")
+@JsExport
 class TestTabs : RComponent<RProps, RState>() {
     private var tab1Value: Any = "one"
     private var tab2Value: Any = 0

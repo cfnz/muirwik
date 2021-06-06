@@ -13,6 +13,9 @@ import react.*
 import styled.StyleSheet
 import styled.css
 
+@OptIn(ExperimentalJsExport::class)
+@Suppress("NON_EXPORTABLE_TYPE")
+@JsExport
 private class TestErrorComponent : RComponent<RProps, RState>() {
     override fun RBuilder.render() {
         mTypography("No Error Yet")
@@ -22,6 +25,9 @@ private class TestErrorComponent : RComponent<RProps, RState>() {
 
 }
 
+@OptIn(ExperimentalJsExport::class)
+@Suppress("NON_EXPORTABLE_TYPE")
+@JsExport
 class TestErrorBoundary : RComponent<RProps, RState>() {
     private object CustomStyles : StyleSheet("ComponentStyles", isStatic = true) {
         val paper by css {

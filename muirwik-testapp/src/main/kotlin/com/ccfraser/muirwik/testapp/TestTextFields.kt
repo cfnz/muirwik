@@ -28,6 +28,9 @@ private fun testTextFieldsState(textValue: String, multiLineValue: String,age: I
     override var age: Int = age
 }
 
+@OptIn(ExperimentalJsExport::class)
+@Suppress("NON_EXPORTABLE_TYPE")
+@JsExport
 class TestTextFields : RComponent<RProps, TestTextFieldsState>() {
     var name: String = "Name via local var 'state'"
     var selectValue: String = "Item 2"

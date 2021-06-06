@@ -10,6 +10,9 @@ import react.dom.br
 import styled.css
 import styled.styledDiv
 
+@OptIn(ExperimentalJsExport::class)
+@Suppress("NON_EXPORTABLE_TYPE")
+@JsExport
 class TestCheckboxes : RComponent<RProps, RState>() {
     private var checked1: Boolean = false
     private var checked2: Boolean = false

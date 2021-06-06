@@ -15,7 +15,9 @@ import styled.StyleSheet
 import styled.css
 import styled.styledDiv
 
-
+@OptIn(ExperimentalJsExport::class)
+@Suppress("NON_EXPORTABLE_TYPE")
+@JsExport
 class Intro : RComponent<RProps, RState>() {
 
     private object ComponentStyles : StyleSheet("ComponentStyles", isStatic = true) {

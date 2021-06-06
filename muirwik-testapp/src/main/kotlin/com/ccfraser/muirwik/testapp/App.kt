@@ -11,6 +11,9 @@ external interface AppState: RState {
     var themeColor: String
 }
 
+@OptIn(ExperimentalJsExport::class)
+@Suppress("NON_EXPORTABLE_TYPE")
+@JsExport
 class App(props: RProps) : RComponent<RProps, AppState>(props) {
     override fun AppState.init() {
         themeColor = "light"

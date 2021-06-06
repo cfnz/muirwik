@@ -13,6 +13,9 @@ import react.*
 import styled.css
 import styled.styledDiv
 
+@OptIn(ExperimentalJsExport::class)
+@Suppress("NON_EXPORTABLE_TYPE")
+@JsExport
 class TestAccordion : RComponent<RProps, RState>() {
     private var expandedItem: String? = null
 

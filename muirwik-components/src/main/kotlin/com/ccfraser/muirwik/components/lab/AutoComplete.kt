@@ -44,7 +44,7 @@ enum class MAutoCompleteOnCloseReason {
     toggleInput, escape, selectOption, blur
 }
 
-interface MAutoCompleteProps<T> : StyledPropsWithCommonAttributes {
+external interface MAutoCompleteProps<T> : StyledPropsWithCommonAttributes {
     var autoComplete: Boolean
     var autoHighlight: Boolean
     var autoSelect: Boolean

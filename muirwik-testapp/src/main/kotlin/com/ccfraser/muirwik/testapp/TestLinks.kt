@@ -11,6 +11,9 @@ import styled.StyleSheet
 import styled.css
 
 
+@OptIn(ExperimentalJsExport::class)
+@Suppress("NON_EXPORTABLE_TYPE")
+@JsExport
 class TestLinks : RComponent<RProps, RState>() {
     private object CustomTabStyles : StyleSheet("ComponentStyles", isStatic = true) {
         val linkMargin by css {

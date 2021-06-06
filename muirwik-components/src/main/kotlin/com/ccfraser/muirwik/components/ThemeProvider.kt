@@ -33,6 +33,9 @@ val themeContext = createContext(defaultTheme)
 val Int.spacingUnits get() = (defaultTheme.spacing(this)).px
 
 
+@OptIn(ExperimentalJsExport::class)
+@Suppress("NON_EXPORTABLE_TYPE")
+@JsExport
 class MThemeProvider(props: MuiThemeProviderProps) : RComponent<MuiThemeProviderProps, RState>(props) {
     override fun RBuilder.render() {
         @Suppress("DEPRECATION")

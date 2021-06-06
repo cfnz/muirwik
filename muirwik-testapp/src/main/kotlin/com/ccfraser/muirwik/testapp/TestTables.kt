@@ -13,6 +13,9 @@ import styled.styledDiv
 import kotlin.math.min
 
 
+@OptIn(ExperimentalJsExport::class)
+@Suppress("NON_EXPORTABLE_TYPE")
+@JsExport
 class TestTables : RComponent<RProps, RState>() {
     private data class Dessert(val id: Int, val dessertName: String, val calories: Int, val fat: Double, val carbs: Int, val protein: Double)
     private val androidDeserts = mutableListOf(

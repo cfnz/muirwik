@@ -176,7 +176,7 @@ fun String.toHyphenCase(): String {
     this.forEach {
         if (it in 'A'..'Z') {
             if (!isFirst) text += "-"
-            text += it.toLowerCase()
+            text += it.lowercaseChar()
         } else {
             text += it
         }

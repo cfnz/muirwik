@@ -22,6 +22,9 @@ import react.dom.option
 import react.dom.span
 import styled.*
 
+@OptIn(ExperimentalJsExport::class)
+@Suppress("NON_EXPORTABLE_TYPE")
+@JsExport
 class TestSelects : RComponent<RProps, RState>() {
     private var age: Any = 10
     private var name: Any = ""

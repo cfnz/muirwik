@@ -20,7 +20,7 @@ enum class MAppBarColor {
     default, inherit, primary, secondary, transparent
 }
 
-interface MAppBarProps : MPaperProps
+external interface MAppBarProps : MPaperProps
 var MAppBarProps.color by EnumPropToString(MAppBarColor.values())
 var MAppBarProps.position by EnumPropToString(MAppBarPosition.values())
 

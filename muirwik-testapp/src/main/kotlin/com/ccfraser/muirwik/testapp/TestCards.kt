@@ -14,6 +14,9 @@ import react.*
 import styled.css
 import styled.styledDiv
 
+@OptIn(ExperimentalJsExport::class)
+@Suppress("NON_EXPORTABLE_TYPE")
+@JsExport
 class TestCards : RComponent<RProps, RState>() {
     private var count = 0
     private var leftExpanded = false

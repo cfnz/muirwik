@@ -24,6 +24,19 @@ import styled.css
 import styled.styledDiv
 
 
+// For some reason this is a bit different to providing the snackbar a transition... this works for menu, not for snackbar
+@OptIn(ExperimentalJsExport::class)
+@Suppress("NON_EXPORTABLE_TYPE")
+@JsExport
+class FadeTransition(props: MTransitionProps) : RComponent<MTransitionProps, RState>(props) {
+    override fun RBuilder.render() {
+        childList.add(cloneElement(mFade(addAsChild = false), props))
+    }
+}
+
+@OptIn(ExperimentalJsExport::class)
+@Suppress("NON_EXPORTABLE_TYPE")
+@JsExport
 class TestMenus : RComponent<RProps, RState>() {
     private var anchorElement: Node? = null
     private var selectedOption = "Selection Example..."
@@ -121,13 +134,6 @@ class TestMenus : RComponent<RProps, RState>() {
             }
             styledDiv {
                 css { display = Display.inlineFlex }
-
-            // For some reason this is a bit different to providing the snackbar a transition... this works for menu, not for snackbar
-                class FadeTransition(props: MTransitionProps) : RComponent<MTransitionProps, RState>(props) {
-                    override fun RBuilder.render() {
-                        childList.add(cloneElement(mFade(addAsChild = false), props))
-                    }
-                }
 
                 mButton("With Slow Transition", onClick = { handleShowMenuClick(it, 5) })
                 div {

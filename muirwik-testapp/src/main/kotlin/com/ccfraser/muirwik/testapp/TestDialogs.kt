@@ -24,6 +24,9 @@ import styled.css
 import kotlin.reflect.KClass
 
 
+@OptIn(ExperimentalJsExport::class)
+@Suppress("NON_EXPORTABLE_TYPE")
+@JsExport
 class TestDialogs : RComponent<RProps, RState>() {
     private var selectedValue: String = ""
     private var simpleDialogOpen: Boolean = false

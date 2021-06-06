@@ -16,6 +16,9 @@ import styled.StyleSheet
 import styled.css
 import styled.styledDiv
 
+@OptIn(ExperimentalJsExport::class)
+@Suppress("NON_EXPORTABLE_TYPE")
+@JsExport
 class TestLabAlert : RComponent<RProps, RState>() {
     private object CustomStyles : StyleSheet("ComponentStyles", isStatic = true) {
         val margin by css {

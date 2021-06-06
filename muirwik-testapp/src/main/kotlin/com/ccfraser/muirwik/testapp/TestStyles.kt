@@ -17,6 +17,9 @@ import styled.css
 import styled.styledDiv
 import styled.toStyle
 
+@OptIn(ExperimentalJsExport::class)
+@Suppress("NON_EXPORTABLE_TYPE")
+@JsExport
 class TestStyles : RComponent<RProps, RState>() {
     private object ComponentStyles : StyleSheet("ComponentStyles", isStatic = true) {
         val divPadding by css {

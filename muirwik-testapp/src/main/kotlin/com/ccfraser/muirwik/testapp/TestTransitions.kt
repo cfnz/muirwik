@@ -17,6 +17,9 @@ import styled.css
 import styled.styledDiv
 
 
+@OptIn(ExperimentalJsExport::class)
+@Suppress("NON_EXPORTABLE_TYPE")
+@JsExport
 private open class ShapeProps (
     val points: String,
     val stroke: String,
@@ -45,6 +48,9 @@ private fun RBuilder.demoComponent() {
     }
 }
 
+@OptIn(ExperimentalJsExport::class)
+@Suppress("NON_EXPORTABLE_TYPE")
+@JsExport
 class TestTransitions : RComponent<RProps, RState>() {
     var collapseShown: Boolean = false
     var fadeShown: Boolean = false

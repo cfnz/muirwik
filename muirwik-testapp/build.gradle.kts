@@ -41,6 +41,9 @@ kotlin {
                 }
             }
         }
+        compilations.all {
+            compileKotlinTask.kotlinOptions.freeCompilerArgs += "-Xopt-in=kotlin.RequiresOptIn"
+        }
     }
 }
 

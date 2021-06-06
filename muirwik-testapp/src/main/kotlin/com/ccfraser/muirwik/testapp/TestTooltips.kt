@@ -13,6 +13,9 @@ import react.dom.br
 import styled.css
 import styled.styledDiv
 
+@OptIn(ExperimentalJsExport::class)
+@Suppress("NON_EXPORTABLE_TYPE")
+@JsExport
 class TestTooltips : RComponent<RProps, RState>() {
 
     override fun RBuilder.render() {

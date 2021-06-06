@@ -10,6 +10,9 @@ import styled.css
 import styled.styledDiv
 
 
+@OptIn(ExperimentalJsExport::class)
+@Suppress("NON_EXPORTABLE_TYPE")
+@JsExport
 class TestChips : RComponent<RProps, RState>() {
     val chipData = hashMapOf(
             0 to "Angular",

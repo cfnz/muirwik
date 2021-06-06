@@ -13,6 +13,9 @@ import styled.StyleSheet
 import styled.css
 
 
+@OptIn(ExperimentalJsExport::class)
+@Suppress("NON_EXPORTABLE_TYPE")
+@JsExport
 class TestBreadcrumbs : RComponent<RProps, RState>() {
 
     private object ComponentStyles : StyleSheet("ComponentStyles", isStatic = true) {

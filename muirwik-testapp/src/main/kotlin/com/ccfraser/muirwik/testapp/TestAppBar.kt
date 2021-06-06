@@ -19,7 +19,9 @@ import styled.StyleSheet
 import styled.css
 import styled.styledDiv
 
-
+@OptIn(ExperimentalJsExport::class)
+@Suppress("NON_EXPORTABLE_TYPE")
+@JsExport
 class TestAppBar : RComponent<RProps, RState>() {
     var loggedIn = false
 

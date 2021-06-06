@@ -23,6 +23,9 @@ import styled.styledDiv
 import styled.styledImg
 
 
+@OptIn(ExperimentalJsExport::class)
+@Suppress("NON_EXPORTABLE_TYPE")
+@JsExport
 class TestGridLists : RComponent<RProps, RState>() {
     private data class TileData(val img: String, val title: String, val author: String, val cols: Int = 1, val featured: Boolean = false)
     private val tileData = listOf(

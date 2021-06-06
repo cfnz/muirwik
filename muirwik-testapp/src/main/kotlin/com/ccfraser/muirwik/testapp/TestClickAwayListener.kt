@@ -14,6 +14,9 @@ import styled.css
 import styled.styledDiv
 
 
+@OptIn(ExperimentalJsExport::class)
+@Suppress("NON_EXPORTABLE_TYPE")
+@JsExport
 class TestClickAwayListener : RComponent<RProps, RState>() {
     private var open: Boolean = false
 

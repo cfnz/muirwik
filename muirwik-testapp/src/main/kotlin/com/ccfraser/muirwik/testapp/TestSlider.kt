@@ -9,6 +9,9 @@ import react.dom.br
 import styled.css
 import styled.styledDiv
 
+@OptIn(ExperimentalJsExport::class)
+@Suppress("NON_EXPORTABLE_TYPE")
+@JsExport
 class TestSlider : RComponent<RProps, RState>() {
     private var value: Number = 10
 

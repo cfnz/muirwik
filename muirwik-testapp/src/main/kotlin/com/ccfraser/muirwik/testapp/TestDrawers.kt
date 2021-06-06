@@ -25,6 +25,9 @@ import styled.StyleSheet
 import styled.css
 import styled.styledDiv
 
+@OptIn(ExperimentalJsExport::class)
+@Suppress("NON_EXPORTABLE_TYPE")
+@JsExport
 class TestDrawers : RComponent<RProps, RState>() {
     private var temporaryLeftOpen: Boolean = false
     private var temporaryRightOpen: Boolean = false

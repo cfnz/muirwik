@@ -15,6 +15,9 @@ data class Film(val title: String, val year: Int)
 data class Country(val code: String, val label: String, val phone: String)
 
 
+@OptIn(ExperimentalJsExport::class)
+@Suppress("NON_EXPORTABLE_TYPE")
+@JsExport
 private object AutoCompleteStyles : StyleSheet("AutoCompleteStyles", isStatic = true) {
     val margin by css {
         marginRight = 10.px

@@ -9,6 +9,9 @@ import react.RState
 import react.dom.div
 import styled.css
 
+@OptIn(ExperimentalJsExport::class)
+@Suppress("NON_EXPORTABLE_TYPE")
+@JsExport
 class TestThemeComponent : RComponent<RProps, RState>() {
 
     override fun RBuilder.render() {

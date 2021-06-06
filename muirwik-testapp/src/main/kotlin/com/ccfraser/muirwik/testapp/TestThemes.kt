@@ -15,6 +15,9 @@ import styled.css
 import styled.styledDiv
 
 
+@OptIn(ExperimentalJsExport::class)
+@Suppress("NON_EXPORTABLE_TYPE")
+@JsExport
 class TestThemes : RComponent<RProps, RState>() {
     var themeColor = "light"
 

@@ -20,6 +20,9 @@ import kotlin.math.min
 import kotlin.random.Random
 
 
+@OptIn(ExperimentalJsExport::class)
+@Suppress("NON_EXPORTABLE_TYPE")
+@JsExport
 class TestProgress : RComponent<RProps, RState>() {
     private var loading = false
     private var success = false

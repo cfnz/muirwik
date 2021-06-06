@@ -12,6 +12,9 @@ import react.dom.div
 import styled.css
 import styled.styledDiv
 
+@OptIn(ExperimentalJsExport::class)
+@Suppress("NON_EXPORTABLE_TYPE")
+@JsExport
 class TestSwitches : RComponent<RProps, RState>() {
     var checked1: Boolean = false
     var checked2: Boolean = false

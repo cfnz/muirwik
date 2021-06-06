@@ -26,7 +26,7 @@ enum class MTableCellSortDirection {
     asc, desc, False;
 
     override fun toString(): String {
-        return super.toString().toLowerCase()
+        return super.toString().lowercase()
     }
 }
 

@@ -23,6 +23,9 @@ import react.dom.*
 import styled.*
 
 
+@OptIn(ExperimentalJsExport::class)
+@Suppress("NON_EXPORTABLE_TYPE")
+@JsExport
 class TestButtons : RComponent<RProps, RState>() {
 
     private fun handleMouseMove() {

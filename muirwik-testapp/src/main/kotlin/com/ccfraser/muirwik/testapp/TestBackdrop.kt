@@ -10,6 +10,9 @@ import react.dom.div
 import styled.css
 
 
+@OptIn(ExperimentalJsExport::class)
+@Suppress("NON_EXPORTABLE_TYPE")
+@JsExport
 class TestBackdrop : RComponent<RProps, RState>() {
     var open = false
 

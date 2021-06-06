@@ -50,7 +50,7 @@ external interface TouchEventInit : UIEventInit {
         set(value) = definedExternally
 }
 
-interface Touch {
+external interface Touch {
     var identifier: Long
     var screenX: Int
     var screenY: Int

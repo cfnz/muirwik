@@ -17,6 +17,9 @@ import styled.StyleSheet
 import styled.css
 import styled.styledDiv
 
+@OptIn(ExperimentalJsExport::class)
+@Suppress("NON_EXPORTABLE_TYPE")
+@JsExport
 class TestSnackbar : RComponent<RProps, RState>() {
     var simpleSnackbarOpen: Boolean = false
     var simpleSnackbarWithTextOpen: Boolean = false

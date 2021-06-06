@@ -50,7 +50,7 @@ class TransitionComponentDelegate : ReadWriteProperty<RProps, TransitionComponen
     override fun setValue(thisRef: RProps, property: KProperty<*>, value: TransitionComponent?) {
         // The actual prop name is a component so has an uppercase first letter whereas for kotlin
         // we have kept the convention that props start with lowercase...
-        val propName = property.name.first().toUpperCase() + property.name.substring(1)
+        val propName = property.name.first().uppercaseChar() + property.name.substring(1)
 
         // This does not seem to like null but works with undefined
         thisRef.asDynamic()[propName] = value?.js ?: undefined
