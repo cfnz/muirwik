@@ -31,10 +31,10 @@ kotlin {
     // Everything should now work with the IR compiler. However, at time of writing, the IR compiler is still
     // alpha and does not support incremental compilation, so while the IR compiler should work, for development
     // purposes, the Legacy compiler is more productive.
-    // For releases, we will try and use BOTH (and ideally automate it... but not yet)
+    // For releases, we will try and use BOTH
 //    js(IR) {
-//    js(BOTH) {
-    js(LEGACY) {
+    js(BOTH) {
+//    js(LEGACY) {
         useCommonJs()
         browser {
             commonWebpackConfig {
@@ -76,7 +76,8 @@ publishing {
         create<MavenPublication>(publicationName) {
             from(components["kotlin"])
 //            artifact(tasks["KDocJar"])
-            artifact(tasks.getByName<Zip>("jsSourcesJar"))
+            if (tasks.names.contains("jsSourcesJar")) { artifact(tasks.getByName<Zip>("jsSourcesJar")) }
+            if (tasks.names.contains("jsIrSourcesJar")) { artifact(tasks.getByName<Zip>("jsIrSourcesJar")) }
 
             pom {
                 name.set("Muirwik Components")

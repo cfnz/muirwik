@@ -28,8 +28,8 @@ dependencies {
 kotlin {
     // See notes on the components project about which compiler to use...
 //    js(IR) {
-//    js(BOTH) {
     js(LEGACY) {
+//    js(BOTH) {
         useCommonJs()
         browser {
             binaries.executable()

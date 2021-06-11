@@ -18,7 +18,7 @@ private object RatingsStyles : StyleSheet("RatingStyles", isStatic = true) {
     }
 }
 
-private val testRatings = functionalComponent<RProps> { props ->
+private val testRatings = functionalComponent<RProps> { _ ->
     styledDiv {
         var value: Number? by useState(2)
         css(margin)

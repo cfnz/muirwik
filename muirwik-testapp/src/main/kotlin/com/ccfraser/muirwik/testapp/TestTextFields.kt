@@ -96,7 +96,10 @@ class TestTextFields : RComponent<RProps, TestTextFieldsState>() {
             }
             mTextField(label = "Read Only", defaultValue = "Hello World", variant = variant) {
                 css(textField)
-                attrs.inputProps = object : RProps { val readOnly = true }
+//                attrs.inputProps = object : RProps { val readOnly = true } IR Compiler didn't like this way of doing things
+                attrs.inputProps = jsObject {
+                    this.asDynamic().readOnly = true
+                }
             }
             mTextField(label = "Dense", margin = MFormControlMargin.dense, variant = variant) {
                 css {
@@ -118,14 +121,16 @@ class TestTextFields : RComponent<RProps, TestTextFieldsState>() {
             mTextField(label = "With Placeholder", placeholder = "Placeholder Value", autoComplete = "current-password", variant = variant) {
                 css(textField)
             }
-            mTextFieldMultiLine(label = "Multiline Placeholder", placeholder = "Placeholder Value", variant = variant) {
+            mTextFieldMultiLine(label = "Multiline Placeholder", placeholder = "Placeholder Value", helperText = "With pre shrunk label", variant = variant) {
                 css(textField)
+//                attrs.inputLabelProps = object : RProps { val shrink = true } IR Compiler didn't like this way of doing things
+                attrs.inputLabelProps = jsObject {
+                    this.asDynamic().shrink = true
+                }
             }
-            mTextField(label = "Number", type = InputType.number, value = state.age.toString(),
-                    onChange = { val value = it.targetInputValue; setState { age = value.toIntOrNull() ?: 0 } },
-                    helperText = "Number with pre shrunk label", variant = variant) {
+            mTextField(label = "Number", type = InputType.number, value = state.age.toString(), variant = variant,
+                    onChange = { val value = it.targetInputValue; setState { age = value.toIntOrNull() ?: 0 } }) {
                 css(textField)
-                attrs.inputLabelProps = object : RProps { val shrink = true }
             }
             mTextField(label = "Search", type = InputType.search, variant = variant) {
                 css(textField)
@@ -138,18 +143,18 @@ class TestTextFields : RComponent<RProps, TestTextFieldsState>() {
                 }
                 mMenuItem {
                     +"Item 1"
-                    attrs.asDynamic().key = "Item 1"
-                    attrs.asDynamic().value = "Item 1"
+                    attrs.key = "Item 1"
+                    attrs.value = "Item 1"
                 }
                 mMenuItem {
                     +"Item 2"
-                    attrs.asDynamic().key = "Item 2"
-                    attrs.asDynamic().value = "Item 2"
+                    attrs.key = "Item 2"
+                    attrs.value = "Item 2"
                 }
                 mMenuItem {
                     +"Item 3"
-                    attrs.asDynamic().key = "Item 3"
-                    attrs.asDynamic().value = "Item 3"
+                    attrs.key = "Item 3"
+                    attrs.value = "Item 3"
                 }
             }
 

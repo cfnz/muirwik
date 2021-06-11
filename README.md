@@ -5,31 +5,28 @@ Welcome to Muirwik.
 Muirwik gets it name from being a [Material UI](https://material-ui.com/) [React](https://reactjs.org/) wrapper written 
 in [Kotlin](https://kotlinlang.org/).
 
-Note: Lots of breaking changes in [latest release](https://github.com/cfnz/muirwik/wiki/Release-Notes).
-
 For more information, see the above links (particularly [Material UI](https://material-ui.com/) as its documentation 
 will be important in terms of figuring out how this works.
 
 Also see the [Kotlin Wrappers](https://github.com/JetBrains/kotlin-wrappers) page, as this project uses most of the
-wrappers there too.
+wrappers there.
 
-A couple of [screenshots](https://github.com/cfnz/muirwik/wiki) have been added
-to the wiki page.
+A couple of [screenshots](https://github.com/cfnz/muirwik/wiki) have been added to the wiki page.
 
 ## IR-Compiler
 At time of writing using the IR-Compiler with the [Kotlin Wrappers](https://github.com/JetBrains/kotlin-wrappers), 
 particularly the  React Wrappers, has some [issues](https://kotlinlang.slack.com/archives/C0B8L3U69/p1585318146030900) 
 (or at least requires some extra code to make things work properly).
 
-It seems that the Kotlin JS team may be changing how things work related to these issues, so I 
-have created a different branch to target the IR Compiler for now.
+These changes have been added to a new branch (IR-Compiler) and have now been merged into master. 
+In other words, the master branch now works with the IR Compiler and with the Legacy compiler, so the IR branch is now no longer needed.
 
-The two main branches are:
-* master - targeting the current "legacy" compiler
-* IR-Compiler - targeting the new (currently alpha) compiler (note, still todo)
+At time of writing, the IR compiler is still alpha and does not yet support incremental compilation. 
+For this reason, during development, it is faster (in terms of edit/rebuild/view result cycle) to
+use the legacy compiler. 
 
-Any updates to master will be merged to the IR-Compiler, and eventually, once the IR Compiler is
-out of alpha (or maybe beta) the IR-Compiler branch will be merged back to master and deleted.
+The version release to Maven Central will be built with js(BOTH). Projects using Muirwik should therefore be
+able to use js(LEGACY) or js(IR).
 
 
 ## To Get Started
@@ -50,7 +47,7 @@ repositories {
 dependencies {
     ...
     implementation("org.jetbrains", "kotlin-styled", "5.3.0-$kotlinJsVersion")
-    implementation("com.ccfraser.muirwik:muirwik-components:0.7.0")
+    implementation("com.ccfraser.muirwik:muirwik-components:0.7.1")
 }
 ```
 

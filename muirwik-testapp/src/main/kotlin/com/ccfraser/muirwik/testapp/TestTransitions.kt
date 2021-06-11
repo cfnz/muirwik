@@ -7,6 +7,7 @@ import com.ccfraser.muirwik.components.mTypography
 import com.ccfraser.muirwik.components.spacingUnits
 import com.ccfraser.muirwik.components.transitions.*
 import kotlinext.js.js
+import kotlinext.js.jsObject
 import kotlinx.css.*
 import react.*
 import react.dom.div
@@ -15,20 +16,38 @@ import styled.StyleSheet
 import styled.css
 import styled.styledDiv
 
-private open class ShapeProps (
-    val points: String,
-    val stroke: String,
-    val fill: String,
-    val strokeWidth: Int
-): RProps
+// This works in Legacy, but not IR
+//private open class ShapeProps (
+//    val points: String,
+//    val stroke: String,
+//    val fill: String,
+//    val strokeWidth: Int
+//): RProps
+
+external interface ShapeProps : RProps {
+    var points: String
+    var stroke: String
+    var fill: String
+    var strokeWidth: Int
+}
+
 
 private fun RBuilder.upsideDownV(w: Int, h: Int) {
+    val shapeProps = jsObject<ShapeProps> {
+        points = "0,$h ${w/2},0 $w,$h"
+        stroke = "silver"
+        fill = "white"
+        strokeWidth = 1
+    }
+
     svg {
         attrs["width"] = "$w"
         attrs["height"] = "$h"
 //        attrs["viewBox"] = "0 0 $w $h"
 
-        child(createElement("polygon", ShapeProps("0,$h ${w/2},0 $w,$h", "silver", "white", 1)))
+//        Works in Legacy, but not IR... need to use the longer method of creating a jsObject as above
+//        child(createElement("polygon", ShapeProps("0,$h ${w/2},0 $w,$h", "silver", "white", 1)))
+        child(createElement("polygon", shapeProps))
     }
 }
 

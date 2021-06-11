@@ -39,7 +39,7 @@ class TestLabAlert : RComponent<RProps, RState>() {
 
                 MAlertVariant.values().reversed().forEach { variant ->
                     mGridItem(breakpoints) {
-                        mTypography("${variant.name.capitalize()} Alerts")
+                        mTypography("${variant.name.replaceFirstChar { it.titlecase() }} Alerts")
                         MAlertSeverity.values().forEach { severity ->
                             val an = if (severity.name[0] in listOf('a', 'e', 'i', 'o', 'u')) "an" else "a"
                             mAlert("This is $an ${severity.name} alert", variant, severity) {

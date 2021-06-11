@@ -5,11 +5,11 @@ package com.ccfraser.muirwik.components.transitions
  * Attempt at a type safe way of specifying transition durations for some transition props... almost the same
  * as TransitionTimeout but some props don't have the auto value, so this type doesn't either.
  */
-interface TransitionDuration {
+external interface TransitionDuration {
     fun value(): dynamic
 }
 
-interface TransitionDurationWithAuto {
+external interface TransitionDurationWithAuto {
     fun value(): dynamic
 }
 

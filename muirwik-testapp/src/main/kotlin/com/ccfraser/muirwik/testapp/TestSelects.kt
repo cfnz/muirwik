@@ -263,6 +263,7 @@ class TestSelects : RComponent<RProps, RState>() {
                 names.forEach {
                     builder.mMenuItem(key = it, value = it) {
                         css {
+                            @Suppress("UNCHECKED_CAST")
                             fontWeight = when ((selectedNames as? Array<String>)?.contains(it) ?: false) {
                                 true -> FontWeight(theme.typography.fontWeightMedium.toString())
                                 else -> FontWeight(theme.typography.fontWeightRegular.toString())
@@ -271,6 +272,7 @@ class TestSelects : RComponent<RProps, RState>() {
                         when (useCheckBoxes) {
                             false -> +it
                             else -> {
+                                @Suppress("UNCHECKED_CAST")
                                 mCheckbox((selectedNames as? Array<String>)?.contains(it) ?: false)
                                 mListItemText(it)
                             }
@@ -295,6 +297,7 @@ class TestSelects : RComponent<RProps, RState>() {
                     mInputLabel("Checkbox", htmlFor = "select-multiple-checkbox")
                     mSelect(selectedNames, multiple = true, input = mInput(id = "select-multiple-checkbox", addAsChild = false),
                             onChange = { event, _ -> handleMultipleChange(event) }) {
+                        @Suppress("UNCHECKED_CAST")
                         attrs.renderValue = { value -> span { +(value as Array<String>).joinToString(", ") }}
                         addMenuItems(this, true)
                     }
@@ -307,6 +310,7 @@ class TestSelects : RComponent<RProps, RState>() {
                         attrs.renderValue = { value: Any ->
                             styledDiv {
                                 css(chips)
+                                @Suppress("UNCHECKED_CAST")
                                 (value as Array<String>).forEach {
                                     mChip(it, key = it) {
                                         css(chip)

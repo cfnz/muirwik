@@ -96,6 +96,7 @@ fun isoCountryCodeToFlagEmoji(code: String): String {
     } else {
         val sb = StringBuilder()
         code.forEach {
+            @Suppress("UNUSED_VARIABLE")
             val num = it.code // Need to convert it to a number for the IR Compiler
             val s: String = js("String.fromCodePoint(num + 127397)") as String
             sb.append(s)

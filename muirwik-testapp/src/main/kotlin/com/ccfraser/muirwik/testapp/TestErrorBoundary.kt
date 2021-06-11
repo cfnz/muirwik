@@ -17,7 +17,8 @@ private class TestErrorComponent : RComponent<RProps, RState>() {
     override fun RBuilder.render() {
         mTypography("No Error Yet")
         throw Error("Opps")
-        mTypography("After the error")
+        @Suppress("UNREACHABLE_CODE")
+        mTypography("After the error - We won't get here")
     }
 
 }
