@@ -10,6 +10,7 @@ import com.ccfraser.muirwik.components.styles.Breakpoint
 import com.ccfraser.muirwik.testapp.TestLabAlert.CustomStyles.margin
 import kotlinx.css.margin
 import kotlinx.css.padding
+import kotlinx.css.paddingBottom
 import kotlinx.css.px
 import react.*
 import styled.StyleSheet
@@ -31,6 +32,8 @@ class TestLabAlert : RComponent<RProps, RState>() {
             css {
                 padding(16.px)
             }
+
+            labNoteComponent()
 
             mGridContainer(MGridSpacing.spacing2) {
                 val breakpoints = MGridBreakpoints(MGridSize.cells6)

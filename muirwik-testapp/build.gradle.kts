@@ -1,7 +1,7 @@
 import org.jetbrains.kotlin.utils.addToStdlib.min
 
 group = "com.ccfraser.muirwik"
-version = "0.8.0"
+version = "0.8.1"
 description = "Test Application for Muirwik (a Material UI React wrapper written in Kotlin)"
 
 plugins {

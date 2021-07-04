@@ -1,5 +1,5 @@
 group = "com.ccfraser.muirwik"
-version = "0.8.0"
+version = "0.8.1"
 description = "Muirwik Components - a Material UI React wrapper written in Kotlin"
 
 plugins {

@@ -1,12 +1,15 @@
 package com.ccfraser.muirwik.testapp
 
-import com.ccfraser.muirwik.components.*
 import com.ccfraser.muirwik.components.form.MFormControlVariant
 import com.ccfraser.muirwik.components.lab.mAutoComplete
+import com.ccfraser.muirwik.components.lab.mAutoCompleteMultiValue
+import com.ccfraser.muirwik.components.mTextField
+import com.ccfraser.muirwik.components.mTypography
+import com.ccfraser.muirwik.components.spacingUnits
+import com.ccfraser.muirwik.components.spreadProps
 import com.ccfraser.muirwik.testapp.AutoCompleteStyles.margin
 import kotlinx.css.*
 import react.*
-import react.dom.span
 import styled.StyleSheet
 import styled.css
 import styled.styledSpan
@@ -23,6 +26,8 @@ private object AutoCompleteStyles : StyleSheet("AutoCompleteStyles", isStatic = 
 }
 
 private val testAutoComplete = functionalComponent<RProps> { _ ->
+    labNoteComponent()
+
     mTypography("This demo shows usage of the Lab AutoComplete component (and how to use flag emojis)")
     mAutoComplete(top100Films, { params -> mTextField("Combo Box", variant = MFormControlVariant.outlined) {
         spreadProps(params)
@@ -34,11 +39,10 @@ private val testAutoComplete = functionalComponent<RProps> { _ ->
     }
 
     var selectedCountry: Country? by useState(null)
-
     mAutoComplete(countries, { params -> mTextField("Choose a country", variant = MFormControlVariant.outlined) {
             spreadProps(params)
         }
-    }, selectedCountry) {
+    }) {
         attrs.apply {
             id = "country-select-demo"
             autoHighlight = true
@@ -52,10 +56,12 @@ private val testAutoComplete = functionalComponent<RProps> { _ ->
                     +"${option.label} (${option.code}) +${option.phone} "
                 }
             }
-            onChange = { event, value, reason ->
-                println("onChange event: $event, value: $value, reason: $reason")
-                selectedCountry = value
-            }
+//          Not sure why, but the following in combination with the mAutoCompleteMultiValue causes issues...
+//          Will just leave it out for now
+//            onChange = { _, newValue, _ ->
+//                println("Country onChange event value: $newValue")
+//                selectedCountry = newValue
+//            }
         }
         css {
             width = 350.px
@@ -77,16 +83,43 @@ private val testAutoComplete = functionalComponent<RProps> { _ ->
         }
     }
 
-    mAutoComplete(top100Films.sortedBy { film -> film.title }.toTypedArray(), { params -> mTextField("Multiple Values", variant = MFormControlVariant.outlined) {
+    var selectedFilms1: Array<Film> by useState(arrayOf())
+    mAutoCompleteMultiValue(top100Films.sortedBy { film -> film.title }.toTypedArray(), { params -> mTextField("Multiple Values", variant = MFormControlVariant.outlined) {
         spreadProps(params)
-    } }) {
-        attrs.id = "multiple-values"
-        attrs.multiple = true
+    } }, selectedFilms1) {
+        attrs.id = "multiple-values-1"
         attrs.filterSelectedOptions = true
         attrs.getOptionLabel = { option -> option?.title ?: ""}
+        attrs.onChange = { _, value, _ ->
+            selectedFilms1 = value
+        }
         css {
             width = 700.px
         }
+    }
+    if (selectedFilms1.isNotEmpty()) {
+        mTypography("Selected Films 1: " + selectedFilms1.joinToString(transform = { film -> film.title }))
+    }
+
+    var selectedFilms2: Array<Film> by useState(arrayOf())
+    mAutoCompleteMultiValue(top100Films.sortedBy { film -> film.title }.toTypedArray(), { params -> mTextField("Multiple Values With Defaults", variant = MFormControlVariant.outlined) {
+        spreadProps(params)
+    } }) {
+        attrs.apply {
+            id = "multiple-values-2"
+            filterSelectedOptions = true
+            getOptionLabel = { option -> option?.title ?: ""}
+            defaultValue = arrayOf(top100Films[3], top100Films[7])
+            onChange = { _, value, _ ->
+                selectedFilms2 = value
+            }
+        }
+        css {
+            width = 700.px
+        }
+    }
+    if (selectedFilms2.isNotEmpty()) {
+        mTypography("Selected Films 2: " + selectedFilms2.joinToString(transform = { film -> film.title }))
     }
 }
 

@@ -169,6 +169,7 @@ fun RBuilder.spacer() {
 enum class Page(val title: String, val render: RBuilder.() -> ReactElement){
     Intro("Intro", RBuilder::intro),
     Accordion("Accordion", RBuilder::testAccordion),
+    Alert("Alert", RBuilder::testLabAlert),
     AppBar("App Bar", RBuilder::testAppBar),
     AutoComplete("Auto Complete", RBuilder::testAutoComplete),
     Avatars("Avatars", RBuilder::testAvatars),
@@ -187,7 +188,6 @@ enum class Page(val title: String, val render: RBuilder.() -> ReactElement){
 //    Grids("Grids", RBuilder::testGrids),
     GridAndBreakpoints("Grid & Breakpoints", RBuilder::testGridsAndBreakpoints),
     GridLists("Grid Lists", RBuilder::testGridLists),
-    LabAlert("Labs - Alert", RBuilder::testLabAlert),
     Links("Links", RBuilder::testLinks),
     Lists("Lists", RBuilder::testLists),
     Localization("Localization", RBuilder::testLocalization),

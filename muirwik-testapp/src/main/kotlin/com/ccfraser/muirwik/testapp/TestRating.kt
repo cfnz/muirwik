@@ -19,6 +19,8 @@ private object RatingsStyles : StyleSheet("RatingStyles", isStatic = true) {
 }
 
 private val testRatings = functionalComponent<RProps> { _ ->
+    labNoteComponent()
+
     styledDiv {
         var value: Number? by useState(2)
         css(margin)
