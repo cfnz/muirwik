@@ -3,9 +3,8 @@ package com.ccfraser.muirwik.components.table
 import com.ccfraser.muirwik.components.EnumPropToString
 import com.ccfraser.muirwik.components.createStyled
 import com.ccfraser.muirwik.components.setStyledPropsAndRunHandler
+import react.ComponentType
 import react.RBuilder
-import react.RComponent
-import react.RState
 import styled.StyledHandler
 import styled.StyledProps
 
@@ -14,7 +13,7 @@ import styled.StyledProps
 private external val tableModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")
-private val tableComponent: RComponent<MTableProps, RState> = tableModule.default
+private val tableComponentType: ComponentType<MTableProps> = tableModule.default
 
 external interface MTableProps : StyledProps {
     var component: String
@@ -31,7 +30,7 @@ fun RBuilder.mTable(
         component: String = "table",
 
         className: String? = null,
-        handler: StyledHandler<MTableProps>? = null) = createStyled(tableComponent) {
+        handler: StyledHandler<MTableProps>? = null) = createStyled(tableComponentType) {
     attrs.component = component
     setStyledPropsAndRunHandler(className, handler)
 }

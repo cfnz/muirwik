@@ -1,9 +1,8 @@
 package com.ccfraser.muirwik.components
 
 import com.ccfraser.muirwik.components.form.MFormControlProps
+import react.ComponentType
 import react.RBuilder
-import react.RComponent
-import react.RState
 import styled.StyledHandler
 
 
@@ -11,7 +10,7 @@ import styled.StyledHandler
 private external val textAreaAutosizeDefault: dynamic
 
 @Suppress("UnsafeCastFromDynamic")
-private val textAreaAutosizeComponent: RComponent<MTextAreaAutosizeProps, RState> = textAreaAutosizeDefault.default
+private val textAreaAutosizeComponentType: ComponentType<MTextAreaAutosizeProps> = textAreaAutosizeDefault.default
 
 external interface MTextAreaAutosizeProps : MFormControlProps {
     var rowsMax: Int
@@ -23,7 +22,7 @@ fun RBuilder.mTextAreaAutosize(
         rowsMax: Int? = null,
 
         className: String? = null,
-        handler: StyledHandler<MTextAreaAutosizeProps>? = null) = createStyled(textAreaAutosizeComponent) {
+        handler: StyledHandler<MTextAreaAutosizeProps>? = null) = createStyled(textAreaAutosizeComponentType) {
     rowsMax?.let { attrs.rowsMax = it }
     attrs.rowsMin = rowsMin
 

@@ -2,9 +2,8 @@ package com.ccfraser.muirwik.components.transitions
 
 import com.ccfraser.muirwik.components.createStyled
 import com.ccfraser.muirwik.components.setStyledPropsAndRunHandler
+import react.ComponentType
 import react.RBuilder
-import react.RComponent
-import react.RState
 import styled.StyledHandler
 
 
@@ -12,7 +11,7 @@ import styled.StyledHandler
 private external val growModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")
-private val growComponent: RComponent<MGrowProps, RState> = growModule.default
+private val growComponentType: ComponentType<MGrowProps> = growModule.default
 
 external interface MGrowProps : MTransitionProps
 var MGrowProps.timeout by TransitionDurationWithAutoDelegate()
@@ -23,7 +22,7 @@ fun RBuilder.mGrow(
 
         addAsChild: Boolean = true,
         className: String? = null,
-        handler: StyledHandler<MGrowProps>? = null) = createStyled(growComponent, addAsChild) {
+        handler: StyledHandler<MGrowProps>? = null) = createStyled(growComponentType, addAsChild) {
     attrs.show = show
     timeout?.let { attrs.timeout = it }
 

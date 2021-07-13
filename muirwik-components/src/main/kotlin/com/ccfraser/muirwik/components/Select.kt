@@ -11,7 +11,7 @@ import styled.StyledHandler
 private external val selectModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")
-private val selectComponent: RComponent<MSelectProps, RState> = selectModule.default
+private val selectComponentType: ComponentType<MSelectProps> = selectModule.default
 
 /**
  * MSelectProps inherits from MInputBaseNoOnChangeProps rather than MInputProps as MInputProps has
@@ -68,7 +68,7 @@ fun RBuilder.mSelect(
         addAsChild: Boolean = true,
         className: String? = null,
 
-        handler: StyledHandler<MSelectProps>? = null) = createStyled(selectComponent, addAsChild) {
+        handler: StyledHandler<MSelectProps>? = null) = createStyled(selectComponentType, addAsChild) {
     autoFocus?.let { attrs.autoFocus = it }
     attrs.autoWidth = autoWidth
     disabled?.let { attrs.disabled = it }

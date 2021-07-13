@@ -4,14 +4,17 @@ import com.ccfraser.muirwik.components.*
 import kotlinext.js.Object
 import org.w3c.dom.Node
 import org.w3c.dom.events.Event
-import react.*
+import react.ComponentType
+import react.RBuilder
+import react.RProps
+import react.ReactElement
 import styled.StyledHandler
 
 @JsModule("@material-ui/lab/Autocomplete")
 private external val autoCompleteModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")
-private val autoCompleteComponent = autoCompleteModule.default
+private val autoCompleteComponentType = autoCompleteModule.default
 
 @Suppress("EnumEntryName")
 enum class MAutoCompleteBlurOnSelect {
@@ -143,7 +146,7 @@ fun <T> RBuilder.mAutoComplete(
     className: String? = null,
     handler: StyledHandler<MAutoCompleteProps<T>>? = null
 ): ReactElement {
-    val myComponent: RComponent<MAutoCompleteProps<T>, RState> = autoCompleteComponent
+    val myComponent: ComponentType<MAutoCompleteProps<T>> = autoCompleteComponentType
 
     return createStyled(myComponent, addAsChild) {
         attrs.options = options
@@ -166,7 +169,7 @@ fun <T> RBuilder.mAutoCompleteMultiValue(
     className: String? = null,
     handler: StyledHandler<MAutoCompletePropsMultiValue<T>>? = null
 ): ReactElement {
-    val myComponent: RComponent<MAutoCompletePropsMultiValue<T>, RState> = autoCompleteComponent
+    val myComponent: ComponentType<MAutoCompletePropsMultiValue<T>> = autoCompleteComponentType
 
     return createStyled(myComponent, addAsChild) {
         attrs.options = options

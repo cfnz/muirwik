@@ -2,9 +2,8 @@ package com.ccfraser.muirwik.components.dialog
 
 import com.ccfraser.muirwik.components.createStyled
 import com.ccfraser.muirwik.components.setStyledPropsAndRunHandler
+import react.ComponentType
 import react.RBuilder
-import react.RComponent
-import react.RState
 import styled.StyledHandler
 import styled.StyledProps
 
@@ -13,7 +12,7 @@ import styled.StyledProps
 private external val dialogTitleModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")
-private val dialogTitleComponent: RComponent<MDialogTitleProps, RState> = dialogTitleModule.default
+private val dialogTitleComponentType: ComponentType<MDialogTitleProps> = dialogTitleModule.default
 
 external interface MDialogTitleProps : StyledProps {
     var disableTypography: Boolean
@@ -24,7 +23,7 @@ fun RBuilder.mDialogTitle(
         disableTypography: Boolean = false,
 
         className: String? = null,
-        handler: StyledHandler<MDialogTitleProps>? = null) = createStyled(dialogTitleComponent) {
+        handler: StyledHandler<MDialogTitleProps>? = null) = createStyled(dialogTitleComponentType) {
     attrs.disableTypography = disableTypography
 
     childList.add(text)

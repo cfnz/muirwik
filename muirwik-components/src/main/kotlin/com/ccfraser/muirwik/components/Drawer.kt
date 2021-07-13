@@ -4,10 +4,9 @@ import com.ccfraser.muirwik.components.transitions.MSlideProps
 import com.ccfraser.muirwik.components.transitions.TransitionDuration
 import com.ccfraser.muirwik.components.transitions.TransitionDurationDelegateNullable
 import org.w3c.dom.events.Event
+import react.ComponentType
 import react.RBuilder
-import react.RComponent
 import react.RProps
-import react.RState
 import styled.StyledHandler
 
 
@@ -15,7 +14,7 @@ import styled.StyledHandler
 private external val drawerModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")
-private val drawerComponent: RComponent<MDrawerProps, RState> = drawerModule.default
+private val drawerComponentType: ComponentType<MDrawerProps> = drawerModule.default
 
 @Suppress("EnumEntryName")
 enum class MDrawerAnchor {
@@ -59,7 +58,7 @@ fun RBuilder.mDrawer(
         transitionDuration: TransitionDuration? = null,
 
         className: String? = null,
-        handler: StyledHandler<MDrawerProps>) = createStyled(drawerComponent) {
+        handler: StyledHandler<MDrawerProps>) = createStyled(drawerComponentType) {
     attrs.anchor = anchor
     attrs.elevation = elevation
     modalProps?.let { attrs.modalProps = it }

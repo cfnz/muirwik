@@ -11,7 +11,7 @@ import styled.StyledHandler
 private external val nativeSelectModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")
-private val nativeSelectComponent: RComponent<MNativeSelectProps, RState> = nativeSelectModule.default
+private val nativeSelectComponentType: ComponentType<MNativeSelectProps> = nativeSelectModule.default
 
 external interface MNativeSelectProps : StyledPropsWithCommonAttributes {
     var autoFocus: Boolean
@@ -53,7 +53,7 @@ fun RBuilder.mNativeSelect(
         addAsChild: Boolean = true,
         className: String? = null,
 
-        handler: StyledHandler<MNativeSelectProps>? = null) = createStyled(nativeSelectComponent, addAsChild) {
+        handler: StyledHandler<MNativeSelectProps>? = null) = createStyled(nativeSelectComponentType, addAsChild) {
     autoFocus?.let { attrs.autoFocus = it }
     disabled?.let { attrs.disabled = it }
     error?.let { attrs.error = it }

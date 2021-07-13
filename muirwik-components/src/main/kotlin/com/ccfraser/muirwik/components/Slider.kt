@@ -1,9 +1,8 @@
 package com.ccfraser.muirwik.components
 
 import kotlinext.js.Object
+import react.ComponentType
 import react.RBuilder
-import react.RComponent
-import react.RState
 import react.ReactElement
 import styled.StyledHandler
 
@@ -12,7 +11,7 @@ import styled.StyledHandler
 private external val sliderModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")
-private val sliderComponent: RComponent<MSliderProps, RState> = sliderModule.default
+private val sliderComponentType: ComponentType<MSliderProps> = sliderModule.default
 
 
 @Suppress("EnumEntryName")
@@ -83,7 +82,7 @@ fun RBuilder.mSlider(
 
         addAsChild: Boolean = true,
         className: String? = null,
-        handler: StyledHandler<MSliderProps>? = null) = createStyled(sliderComponent, addAsChild) {
+        handler: StyledHandler<MSliderProps>? = null) = createStyled(sliderComponentType, addAsChild) {
 
     setCommonAttrs(attrs, min, max, step, showMarks, marks, orientation, disabled, label, labelledBy, name, component,
             thumbComponent, valueText, onChange, onChangeCommitted, getAriaValueText, valueLabelComponent,
@@ -124,7 +123,7 @@ fun RBuilder.mSliderWithRange(
 
         addAsChild: Boolean = true,
         className: String? = null,
-        handler: StyledHandler<MSliderProps>? = null) = createStyled(sliderComponent, addAsChild) {
+        handler: StyledHandler<MSliderProps>? = null) = createStyled(sliderComponentType, addAsChild) {
 
     setCommonAttrs(attrs, min, max, step, showMarks, marks, orientation, disabled, label, labelledBy, name, component,
             thumbComponent, valueText, onChange, onChangeCommitted, getAriaValueText, valueLabelComponent,

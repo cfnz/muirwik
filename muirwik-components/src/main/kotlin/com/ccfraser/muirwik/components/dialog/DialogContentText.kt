@@ -2,10 +2,9 @@ package com.ccfraser.muirwik.components.dialog
 
 import com.ccfraser.muirwik.components.createStyled
 import com.ccfraser.muirwik.components.setStyledPropsAndRunHandler
+import react.ComponentType
 import react.RBuilder
-import react.RComponent
 import react.RHandler
-import react.RState
 import styled.StyledProps
 
 
@@ -13,13 +12,13 @@ import styled.StyledProps
 private external val dialogContentTextModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")
-private val dialogContentTextComponent: RComponent<StyledProps, RState> = dialogContentTextModule.default
+private val dialogContentTextComponentType: ComponentType<StyledProps> = dialogContentTextModule.default
 
 fun RBuilder.mDialogContentText(
         text: String,
 
         className: String? = null,
-        handler: RHandler<StyledProps>? = null) = createStyled(dialogContentTextComponent) {
+        handler: RHandler<StyledProps>? = null) = createStyled(dialogContentTextComponentType) {
     childList.add(text)
     setStyledPropsAndRunHandler(className, handler)
 }

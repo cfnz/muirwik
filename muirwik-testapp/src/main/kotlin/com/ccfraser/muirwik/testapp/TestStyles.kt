@@ -8,10 +8,7 @@ import com.ccfraser.muirwik.testapp.TestStyles.ComponentStyles.divPadding
 import kotlinext.js.js
 import kotlinx.css.*
 import kotlinx.css.properties.BoxShadow
-import react.RBuilder
-import react.RComponent
-import react.RProps
-import react.RState
+import react.*
 import styled.StyleSheet
 import styled.css
 import styled.styledDiv

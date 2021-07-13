@@ -11,7 +11,7 @@ import styled.StyledHandler
 private external val listItemModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")
-val listItemComponent: RComponent<MListItemProps, RState> = listItemModule.default
+val listItemComponentType: ComponentType<MListItemProps> = listItemModule.default
 
 /**
  * This is for the vertical alignment of list items, for example, if you have an avatar and a long list item
@@ -154,7 +154,7 @@ fun RBuilder.mListItem(
         onClick: ((Event) -> Unit)? = null,
 
         className: String? = null,
-        handler: StyledHandler<MListItemProps>? = null) = createStyled(listItemComponent) {
+        handler: StyledHandler<MListItemProps>? = null) = createStyled(listItemComponentType) {
     attrs.alignItems = alignItems
     attrs.autoFocus = autoFocus
     attrs.button = button

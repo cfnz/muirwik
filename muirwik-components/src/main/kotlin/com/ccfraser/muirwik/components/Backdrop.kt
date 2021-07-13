@@ -4,16 +4,15 @@ import com.ccfraser.muirwik.components.transitions.MFadeProps
 import com.ccfraser.muirwik.components.transitions.TransitionDuration
 import com.ccfraser.muirwik.components.transitions.TransitionDurationDelegate
 import org.w3c.dom.events.Event
+import react.ComponentType
 import react.RBuilder
-import react.RComponent
-import react.RState
 import styled.StyledHandler
 
 @JsModule("@material-ui/core/Backdrop")
 private external val backdropModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")
-private val backdropComponent: RComponent<MBackdropProps, RState> = backdropModule.default
+private val backdropComponentType: ComponentType<MBackdropProps> = backdropModule.default
 
 external interface MBackdropProps : MFadeProps, ReactHtmlElementEvents {
     var invisible: Boolean
@@ -29,7 +28,7 @@ fun RBuilder.mBackdrop(
         onClick: ((Event) -> Unit)? = null,
 
         className: String? = null,
-        handler: StyledHandler<MBackdropProps>? = null) = createStyled(backdropComponent) {
+        handler: StyledHandler<MBackdropProps>? = null) = createStyled(backdropComponentType) {
     attrs.open = open
     attrs.invisible = invisible
     transitionDuration?.let { attrs.transitionDuration = it }

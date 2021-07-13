@@ -1,9 +1,8 @@
 package com.ccfraser.muirwik.components.button
 
 import com.ccfraser.muirwik.components.*
+import react.ComponentType
 import react.RBuilder
-import react.RComponent
-import react.RState
 import styled.StyledHandler
 
 
@@ -11,7 +10,7 @@ import styled.StyledHandler
 private external val buttonGroupModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")
-private val buttonGroupComponent: RComponent<MButtonGroupProps, RState> = buttonGroupModule.default
+private val buttonGroupComponentType: ComponentType<MButtonGroupProps> = buttonGroupModule.default
 
 enum class MButtonGroupVariant {
     text, outlined, contained
@@ -48,7 +47,7 @@ fun RBuilder.mButtonGroup(
         disableRipple: Boolean = false,
 
         className: String? = null,
-        handler: StyledHandler<MButtonGroupProps>? = null) = createStyled(buttonGroupComponent) {
+        handler: StyledHandler<MButtonGroupProps>? = null) = createStyled(buttonGroupComponentType) {
     attrs.color = color
     component?.let { attrs.component = component}
     attrs.disabled = disabled

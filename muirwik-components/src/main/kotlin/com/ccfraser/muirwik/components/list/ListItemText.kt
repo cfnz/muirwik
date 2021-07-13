@@ -4,9 +4,8 @@ import com.ccfraser.muirwik.components.MTypographyProps
 import com.ccfraser.muirwik.components.button.MButtonBaseProps
 import com.ccfraser.muirwik.components.createStyled
 import com.ccfraser.muirwik.components.setStyledPropsAndRunHandler
+import react.ComponentType
 import react.RBuilder
-import react.RComponent
-import react.RState
 import react.ReactElement
 import styled.StyledHandler
 
@@ -14,7 +13,7 @@ import styled.StyledHandler
 private external val listItemTextModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")
-val listItemTextComponent: RComponent<MListItemTextProps, RState> = listItemTextModule.default
+val listItemTextComponentType: ComponentType<MListItemTextProps> = listItemTextModule.default
 
 external interface MListItemTextProps : MButtonBaseProps {
     var disableTypography: Boolean
@@ -63,7 +62,7 @@ fun RBuilder.mListItemText(
     disableTypography: Boolean = false,
 
     className: String? = null,
-    handler: StyledHandler<MListItemTextProps>? = null) = createStyled(listItemTextComponent) {
+    handler: StyledHandler<MListItemTextProps>? = null) = createStyled(listItemTextComponentType) {
     attrs.disableTypography = disableTypography
     attrs.inset = inset
     primary?.let { attrs.primary = primary }

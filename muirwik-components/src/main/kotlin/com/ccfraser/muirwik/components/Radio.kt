@@ -6,7 +6,10 @@ import com.ccfraser.muirwik.components.form.MFormGroupProps
 import com.ccfraser.muirwik.components.form.MLabelPlacement
 import com.ccfraser.muirwik.components.form.mFormControlLabel
 import org.w3c.dom.events.Event
-import react.*
+import react.ComponentType
+import react.RBuilder
+import react.RProps
+import react.ReactElement
 import styled.StyledHandler
 
 
@@ -14,7 +17,7 @@ import styled.StyledHandler
 private external val radioModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")
-private val radioComponent: RComponent<MRadioProps, RState> = radioModule.default
+private val radioComponentType: ComponentType<MRadioProps> = radioModule.default
 
 
 external interface MRadioProps : StyledPropsWithCommonAttributes {
@@ -45,7 +48,7 @@ fun RBuilder.mRadio(
 
         addAsChild: Boolean = true,
         className: String? = null,
-        handler: StyledHandler<MRadioProps>? = null) = createStyled(radioComponent, addAsChild) {
+        handler: StyledHandler<MRadioProps>? = null) = createStyled(radioComponentType, addAsChild) {
     checked?.let { attrs.checked = it }
     attrs.color = color
     attrs.disabled = disabled
@@ -87,7 +90,7 @@ fun RBuilder.mRadioWithLabel(
 private external val radioGroupModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")
-private val radioGroupComponent: RComponent<MRadioGroupProps, RState> = radioGroupModule.default
+private val radioGroupComponentType: ComponentType<MRadioGroupProps> = radioGroupModule.default
 
 external interface MRadioGroupProps : MFormGroupProps {
     var name: String?
@@ -102,7 +105,7 @@ fun RBuilder.mRadioGroup(
         name: String? = null,
 
         className: String? = null,
-        handler: StyledHandler<MRadioGroupProps>? = null) = createStyled(radioGroupComponent) {
+        handler: StyledHandler<MRadioGroupProps>? = null) = createStyled(radioGroupComponentType) {
     name?.let { attrs.name = name }
     onChange?.let { attrs.onChange = onChange }
     attrs.row = row

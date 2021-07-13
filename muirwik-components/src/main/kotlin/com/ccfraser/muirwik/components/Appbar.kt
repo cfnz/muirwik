@@ -1,15 +1,14 @@
 package com.ccfraser.muirwik.components
 
+import react.ComponentType
 import react.RBuilder
-import react.RComponent
-import react.RState
 import styled.StyledHandler
 
 @JsModule("@material-ui/core/AppBar")
 private external val appBarModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")
-private val appBarComponent: RComponent<MAppBarProps, RState> = appBarModule.default
+private val appBarComponentType: ComponentType<MAppBarProps> = appBarModule.default
 
 @Suppress("EnumEntryName")
 enum class MAppBarPosition {
@@ -29,7 +28,7 @@ fun RBuilder.mAppBar(
         position: MAppBarPosition = MAppBarPosition.fixed,
 
         className: String? = null,
-        handler: StyledHandler<MAppBarProps>? = null) = createStyled(appBarComponent) {
+        handler: StyledHandler<MAppBarProps>? = null) = createStyled(appBarComponentType) {
 
     attrs.color = color
     attrs.position = position

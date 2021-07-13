@@ -2,9 +2,8 @@ package com.ccfraser.muirwik.components.button
 
 import com.ccfraser.muirwik.components.*
 import org.w3c.dom.events.Event
+import react.ComponentType
 import react.RBuilder
-import react.RComponent
-import react.RState
 import styled.StyledHandler
 
 
@@ -12,7 +11,7 @@ import styled.StyledHandler
 private external val iconButtonModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")
-private val iconButtonComponent: RComponent<MIconButtonProps, RState> = iconButtonModule.default
+private val iconButtonComponentType: ComponentType<MIconButtonProps> = iconButtonModule.default
 
 @Suppress("EnumEntryName")
 enum class MIconButtonSize {
@@ -49,7 +48,7 @@ fun RBuilder.mIconButton(
 
         addAsChild: Boolean = true,
         className: String? = null,
-        handler: StyledHandler<MIconButtonProps>? = null) = createStyled(iconButtonComponent, addAsChild) {
+        handler: StyledHandler<MIconButtonProps>? = null) = createStyled(iconButtonComponentType, addAsChild) {
     attrs.color = color
     attrs.disabled = disabled
     edge?.let { attrs.edge = it }

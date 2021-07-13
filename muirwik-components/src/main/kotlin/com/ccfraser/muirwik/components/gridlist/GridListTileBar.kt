@@ -3,9 +3,8 @@ package com.ccfraser.muirwik.components.gridlist
 import com.ccfraser.muirwik.components.EnumPropToString
 import com.ccfraser.muirwik.components.createStyled
 import com.ccfraser.muirwik.components.setStyledPropsAndRunHandler
+import react.ComponentType
 import react.RBuilder
-import react.RComponent
-import react.RState
 import react.ReactElement
 import styled.StyledHandler
 import styled.StyledProps
@@ -13,7 +12,7 @@ import styled.StyledProps
 
 @JsModule("@material-ui/core/GridListTileBar")
 private external val gridListTileBarModule: dynamic
-private val gridListTileBarComponent: RComponent<MGridListTileBarProps, RState> =gridListTileBarModule.default
+private val gridListTileBarComponentType: ComponentType<MGridListTileBarProps> = gridListTileBarModule.default
 
 @Suppress("EnumEntryName")
 enum class MActionPosition {
@@ -45,7 +44,7 @@ fun RBuilder.mGridListTileBar(
         actionPosition: MActionPosition = MActionPosition.right,
 
         className: String? = null,
-        handler: StyledHandler<MGridListTileBarProps>? = null) = createStyled(gridListTileBarComponent) {
+        handler: StyledHandler<MGridListTileBarProps>? = null) = createStyled(gridListTileBarComponentType) {
     actionIcon?.let { attrs.actionIcon = it }
     attrs.actionPosition = actionPosition
 
@@ -68,7 +67,7 @@ fun RBuilder.mGridListTileBar(
         actionPosition: MActionPosition = MActionPosition.right,
 
         className: String? = null,
-        handler: StyledHandler<MGridListTileBarProps>? = null) = createStyled(gridListTileBarComponent) {
+        handler: StyledHandler<MGridListTileBarProps>? = null) = createStyled(gridListTileBarComponentType) {
     actionIcon?.let { attrs.actionIcon = it }
     attrs.actionPosition = actionPosition
     subtitle?.let { attrs.subtitle = it }

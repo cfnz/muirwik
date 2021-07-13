@@ -4,9 +4,8 @@ import com.ccfraser.muirwik.components.EnumPropToString
 import com.ccfraser.muirwik.components.StyledPropsWithCommonAttributes
 import com.ccfraser.muirwik.components.createStyled
 import com.ccfraser.muirwik.components.setStyledPropsAndRunHandler
+import react.ComponentType
 import react.RBuilder
-import react.RComponent
-import react.RState
 import styled.StyledHandler
 
 
@@ -14,7 +13,7 @@ import styled.StyledHandler
 private external val tableCellModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")
-private val TableCellComponent: RComponent<MTableCellProps, RState> = tableCellModule.default
+private val TableCellComponentType: ComponentType<MTableCellProps> = tableCellModule.default
 
 @Suppress("EnumEntryName")
 enum class MTableCellPadding {
@@ -80,7 +79,7 @@ fun RBuilder.mTableCell(
     scope: String? = null,
     className: String? = null,
     handler: StyledHandler<MTableCellProps>? = null
-) = createStyled(TableCellComponent) {
+) = createStyled(TableCellComponentType) {
     align?.let { attrs.align = it }
     colSpan?.let { attrs.colSpan = it }
     component?.let { attrs.component = component }

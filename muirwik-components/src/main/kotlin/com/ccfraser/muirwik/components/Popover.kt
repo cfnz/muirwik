@@ -8,7 +8,10 @@ import com.ccfraser.muirwik.components.transitions.TransitionDurationWithAutoDel
 import kotlinext.js.Object
 import org.w3c.dom.Node
 import org.w3c.dom.events.Event
-import react.*
+import react.ComponentType
+import react.RBuilder
+import react.RProps
+import react.ReactElement
 import styled.StyledHandler
 
 
@@ -16,7 +19,7 @@ import styled.StyledHandler
 private external val popoverModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")
-private val popoverComponent: RComponent<MPopoverProps, RState> = popoverModule.default
+private val popoverComponentType: ComponentType<MPopoverProps> = popoverModule.default
 
 
 enum class MPopoverAnchorRef {
@@ -124,7 +127,7 @@ fun RBuilder.mPopover(
         onEscapeKeyDown: SimpleEvent? = null,
 
         className: String? = null,
-        handler: StyledHandler<MPopoverProps>) = createStyled(popoverComponent) {
+        handler: StyledHandler<MPopoverProps>) = createStyled(popoverComponentType) {
     attrs.anchorOriginHorizontal = anchorOriginHorizontal
     attrs.anchorOriginVertical = anchorOriginVertical
     attrs.closeAfterTransition = closeAfterTransition

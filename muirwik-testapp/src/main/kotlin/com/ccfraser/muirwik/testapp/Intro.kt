@@ -6,10 +6,7 @@ import com.ccfraser.muirwik.components.mTypography
 import com.ccfraser.muirwik.components.spacingUnits
 import com.ccfraser.muirwik.testapp.Intro.ComponentStyles.typographyStyle
 import kotlinx.css.*
-import react.RBuilder
-import react.RComponent
-import react.RProps
-import react.RState
+import react.*
 import react.dom.img
 import styled.StyleSheet
 import styled.css

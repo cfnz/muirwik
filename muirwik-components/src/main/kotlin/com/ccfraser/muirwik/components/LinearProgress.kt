@@ -1,8 +1,7 @@
 package com.ccfraser.muirwik.components
 
+import react.ComponentType
 import react.RBuilder
-import react.RComponent
-import react.RState
 import styled.StyledHandler
 import styled.StyledProps
 
@@ -11,7 +10,7 @@ import styled.StyledProps
 private external val linearProgressModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")
-private val linearProgressComponent: RComponent<MLinearProgressProps, RState> = linearProgressModule.default
+private val linearProgressComponentType: ComponentType<MLinearProgressProps> = linearProgressModule.default
 
 @Suppress("EnumEntryName")
 enum class MLinearProgressColor {
@@ -38,7 +37,7 @@ fun RBuilder.mLinearProgress(
         color: MLinearProgressColor = MLinearProgressColor.primary,
 
         className: String? = null,
-        handler: StyledHandler<MLinearProgressProps>? = null) = createStyled(linearProgressComponent) {
+        handler: StyledHandler<MLinearProgressProps>? = null) = createStyled(linearProgressComponentType) {
     attrs.color = color
     value?.let { attrs.value = it }
     valueBuffer?.let { attrs.valueBuffer = it }

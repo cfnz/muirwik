@@ -3,10 +3,9 @@ package com.ccfraser.muirwik.components
 import com.ccfraser.muirwik.components.form.*
 import kotlinx.html.InputType
 import org.w3c.dom.events.Event
+import react.ComponentType
 import react.RBuilder
-import react.RComponent
 import react.RProps
-import react.RState
 import styled.StyledElementBuilder
 import styled.StyledHandler
 
@@ -15,7 +14,7 @@ import styled.StyledHandler
 private external val textFieldDefault: dynamic
 
 @Suppress("UnsafeCastFromDynamic")
-private val textFieldComponent: RComponent<MTextFieldProps, RState> = textFieldDefault.default
+private val textFieldComponentType: ComponentType<MTextFieldProps> = textFieldDefault.default
 
 @Suppress("EnumEntryName")
 enum class MTextFieldColor {
@@ -87,7 +86,7 @@ fun RBuilder.mTextField(
         name: String? = null,
 
         className: String? = null,
-        handler: StyledHandler<MTextFieldProps>? = null) = createStyled(textFieldComponent) {
+        handler: StyledHandler<MTextFieldProps>? = null) = createStyled(textFieldComponentType) {
 
     setAttributes(this, autoComplete, autoFocus, defaultValue, disabled, error, fullWidth, helperText, id, label, margin,
         false, name, onChange, placeholder, required, null, null, false, type, value, variant)
@@ -117,7 +116,7 @@ fun RBuilder.mTextFieldMultiLine(
         name: String? = null,
 
         className: String? = null,
-        handler: StyledHandler<MTextFieldProps>? = null) = createStyled(textFieldComponent) {
+        handler: StyledHandler<MTextFieldProps>? = null) = createStyled(textFieldComponentType) {
 
     setAttributes(this, null, autoFocus, defaultValue, disabled, error, fullWidth, helperText, id, label, margin,
         true, name, onChange, placeholder, required, rows, rowsMax, false, InputType.text, value, variant)
@@ -149,7 +148,7 @@ fun RBuilder.mTextFieldSelect(
         name: String? = null,
 
         className: String? = null,
-        handler: StyledHandler<MTextFieldProps>? = null) = createStyled(textFieldComponent) {
+        handler: StyledHandler<MTextFieldProps>? = null) = createStyled(textFieldComponentType) {
 
     setAttributes(this, autoComplete, autoFocus, defaultValue, disabled, error, fullWidth, helperText, id, label, margin,
         false, name, onChange, placeholder, required, null, null, true, InputType.text, value, variant)

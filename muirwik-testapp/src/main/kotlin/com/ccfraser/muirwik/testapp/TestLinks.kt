@@ -3,10 +3,7 @@ package com.ccfraser.muirwik.testapp
 import com.ccfraser.muirwik.components.*
 import com.ccfraser.muirwik.testapp.TestLinks.CustomTabStyles.linkMargin
 import kotlinx.css.margin
-import react.RBuilder
-import react.RComponent
-import react.RProps
-import react.RState
+import react.*
 import styled.StyleSheet
 import styled.css
 

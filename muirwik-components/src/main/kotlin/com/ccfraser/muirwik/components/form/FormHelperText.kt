@@ -4,9 +4,8 @@ import com.ccfraser.muirwik.components.EnumPropToString
 import com.ccfraser.muirwik.components.EnumPropToStringNullable
 import com.ccfraser.muirwik.components.createStyled
 import com.ccfraser.muirwik.components.setStyledPropsAndRunHandler
+import react.ComponentType
 import react.RBuilder
-import react.RComponent
-import react.RState
 import styled.StyledHandler
 import styled.StyledProps
 
@@ -15,7 +14,7 @@ import styled.StyledProps
 private external val formHelperTextModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")
-private val formHelperTextComponent: RComponent<MFormHelperTextProps, RState> = formHelperTextModule.default
+private val formHelperTextComponentType: ComponentType<MFormHelperTextProps> = formHelperTextModule.default
 
 external interface MFormHelperTextProps : StyledProps {
     var component: String
@@ -40,7 +39,7 @@ fun RBuilder.mFormHelperText (
         component: String? = null,
 
         className: String? = null,
-        handler: StyledHandler<MFormHelperTextProps>? = null) = createStyled(formHelperTextComponent) {
+        handler: StyledHandler<MFormHelperTextProps>? = null) = createStyled(formHelperTextComponentType) {
     component?.let { attrs.component = it }
     attrs.disabled = disabled
     attrs.error = error

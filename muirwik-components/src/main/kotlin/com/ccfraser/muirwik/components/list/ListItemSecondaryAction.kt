@@ -3,9 +3,8 @@ package com.ccfraser.muirwik.components.list
 import com.ccfraser.muirwik.components.button.MButtonBaseProps
 import com.ccfraser.muirwik.components.createStyled
 import com.ccfraser.muirwik.components.setStyledPropsAndRunHandler
+import react.ComponentType
 import react.RBuilder
-import react.RComponent
-import react.RState
 import styled.StyledHandler
 
 
@@ -13,10 +12,10 @@ import styled.StyledHandler
 private external val listItemSecondaryActionModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")
-val listItemSecondaryActionComponent: RComponent<MButtonBaseProps, RState> = listItemSecondaryActionModule.default
+val listItemSecondaryActionComponentType: ComponentType<MButtonBaseProps> = listItemSecondaryActionModule.default
 
 fun RBuilder.mListItemSecondaryAction(
         className: String? = null,
-        handler: StyledHandler<MButtonBaseProps>? = null) = createStyled(listItemSecondaryActionComponent) {
+        handler: StyledHandler<MButtonBaseProps>? = null) = createStyled(listItemSecondaryActionComponentType) {
     setStyledPropsAndRunHandler(className, handler)
 }

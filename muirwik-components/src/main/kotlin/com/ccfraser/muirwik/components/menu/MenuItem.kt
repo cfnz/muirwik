@@ -14,7 +14,7 @@ import styled.StyledHandler
 private external val menuItemModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")
-private val menuItemComponent: RComponent<MMenuItemProps, RState> = menuItemModule.default
+private val menuItemComponentType: ComponentType<MMenuItemProps> = menuItemModule.default
 
 external interface MMenuItemProps : MListItemProps {
     // Selected has been moved to ListItemProps
@@ -143,7 +143,7 @@ fun RBuilder.mMenuItem(
         onClick: ((Event) -> Unit)? = null,
 
         className: String? = null,
-        handler: StyledHandler<MMenuItemProps>? = null) = createStyled(menuItemComponent) {
+        handler: StyledHandler<MMenuItemProps>? = null) = createStyled(menuItemComponentType) {
     attrs.button = button
     component?.let { attrs.component = it }
     attrs.containerComponent = containerComponent

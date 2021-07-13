@@ -4,9 +4,8 @@ import com.ccfraser.muirwik.components.EnumPropToString
 import com.ccfraser.muirwik.components.createStyled
 import com.ccfraser.muirwik.components.setStyledPropsAndRunHandler
 import org.w3c.dom.events.Event
+import react.ComponentType
 import react.RBuilder
-import react.RComponent
-import react.RState
 import react.ReactElement
 import styled.StyledHandler
 import styled.StyledProps
@@ -16,7 +15,7 @@ import styled.StyledProps
 private external val tableSortLabelModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")
-private val tableSortLabelComponent: RComponent<MTableSortLabelProps, RState> = tableSortLabelModule.default
+private val tableSortLabelComponentType: ComponentType<MTableSortLabelProps> = tableSortLabelModule.default
 
 @Suppress("EnumEntryName")
 enum class MTableSortLabelDirection {
@@ -39,7 +38,7 @@ fun RBuilder.mTableSortLabel(
         onClick: ((event: Event) -> Unit)? = null,
         iconFunction: (() -> ReactElement)? = null,
         className: String? = null,
-        handler: StyledHandler<MTableSortLabelProps>? = null) = createStyled(tableSortLabelComponent) {
+        handler: StyledHandler<MTableSortLabelProps>? = null) = createStyled(tableSortLabelComponentType) {
     attrs.active = active
     attrs.direction = direction
     iconFunction?.let { attrs.iconFunction = iconFunction }
@@ -56,7 +55,7 @@ fun RBuilder.mTableSortLabel(
         iconFunction: (() -> ReactElement)? = null,
 
         className: String? = null,
-        handler: StyledHandler<MTableSortLabelProps>? = null) = createStyled(tableSortLabelComponent) {
+        handler: StyledHandler<MTableSortLabelProps>? = null) = createStyled(tableSortLabelComponentType) {
     attrs.active = active
     attrs.direction = direction
     iconFunction?.let { attrs.iconFunction = iconFunction }

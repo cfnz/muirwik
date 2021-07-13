@@ -4,9 +4,8 @@ import com.ccfraser.muirwik.components.createStyled
 import com.ccfraser.muirwik.components.setStyledPropsAndRunHandler
 import kotlinx.html.InputType
 import org.w3c.dom.events.Event
+import react.ComponentType
 import react.RBuilder
-import react.RComponent
-import react.RState
 import styled.StyledHandler
 
 
@@ -14,7 +13,7 @@ import styled.StyledHandler
 private external val outlinedInputModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")
-private val outlinedInputComponent: RComponent<MOutlinedInputProps, RState> = outlinedInputModule.default
+private val outlinedInputComponentType: ComponentType<MOutlinedInputProps> = outlinedInputModule.default
 
 external interface MOutlinedInputProps : MInputBaseProps {
     var labelWidth: Number
@@ -48,7 +47,7 @@ fun RBuilder.mOutlinedInput(
         addAsChild: Boolean = true,
         className: String? = null,
 
-        handler: StyledHandler<MOutlinedInputProps>? = null) = createStyled(outlinedInputComponent, addAsChild) {
+        handler: StyledHandler<MOutlinedInputProps>? = null) = createStyled(outlinedInputComponentType, addAsChild) {
     autoFocus?.let{ attrs.autoFocus = it }
     defaultValue?.let { attrs.defaultValue = it }
     disabled?.let { attrs.disabled = it }

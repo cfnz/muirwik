@@ -2,9 +2,8 @@ package com.ccfraser.muirwik.components.transitions
 
 import com.ccfraser.muirwik.components.createStyled
 import com.ccfraser.muirwik.components.setStyledPropsAndRunHandler
+import react.ComponentType
 import react.RBuilder
-import react.RComponent
-import react.RState
 import styled.StyledHandler
 
 
@@ -12,7 +11,7 @@ import styled.StyledHandler
 private external val zoomModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")
-private val zoomComponent: RComponent<MZoomProps, RState> = zoomModule.default
+private val zoomComponentType: ComponentType<MZoomProps> = zoomModule.default
 
 external interface MZoomProps : MTransitionProps
 var MZoomProps.timeout by TransitionDurationDelegate()
@@ -23,7 +22,7 @@ fun RBuilder.mZoom(
 
         addAsChild: Boolean = true,
         className: String? = null,
-        handler: StyledHandler<MZoomProps>? = null) = createStyled(zoomComponent, addAsChild) {
+        handler: StyledHandler<MZoomProps>? = null) = createStyled(zoomComponentType, addAsChild) {
     attrs.show = show
     timeout?.let { attrs.timeout = it }
 

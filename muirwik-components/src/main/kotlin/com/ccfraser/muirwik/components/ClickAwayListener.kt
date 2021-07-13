@@ -1,9 +1,10 @@
 package com.ccfraser.muirwik.components
 
+import kotlinext.js.jsObject
+import react.ComponentType
 import react.RBuilder
-import react.RComponent
 import react.RHandler
-import react.RState
+import react.RProps
 import styled.StyledProps
 
 
@@ -11,7 +12,7 @@ import styled.StyledProps
 private external val clickAwayListenerModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")
-private val clickAwayListenerComponent: RComponent<MClickAwayListenerProps, RState> = clickAwayListenerModule.default
+private val clickAwayListenerComponentType: ComponentType<MClickAwayListenerProps> = clickAwayListenerModule.default
 
 @Suppress("EnumEntryName")
 enum class MClickAwayListenerMouseEvent {
@@ -49,7 +50,7 @@ fun RBuilder.mClickAwayListener(
         onClickAway: () -> Unit,
         mouseEvent: MClickAwayListenerMouseEvent = MClickAwayListenerMouseEvent.onClick,
         touchEvent: MClickAwayListenerTouchEvent = MClickAwayListenerTouchEvent.onTouchStart,
-        handler: RHandler<MClickAwayListenerProps>? = null) = child(clickAwayListenerComponent) {
+        handler: RHandler<MClickAwayListenerProps>? = null) = child(clickAwayListenerComponentType, jsObject()) {
     attrs.mouseEvent = mouseEvent
     attrs.touchEvent = touchEvent
     attrs.onClickAway = onClickAway

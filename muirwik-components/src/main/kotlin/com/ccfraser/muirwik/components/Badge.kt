@@ -1,8 +1,7 @@
 package com.ccfraser.muirwik.components
 
+import react.ComponentType
 import react.RBuilder
-import react.RComponent
-import react.RState
 import react.ReactElement
 import styled.StyledHandler
 
@@ -11,7 +10,7 @@ import styled.StyledHandler
 private external val badgeModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")
-private val badgeComponent: RComponent<MBadgeProps, RState> = badgeModule.default
+private val badgeComponentType: ComponentType<MBadgeProps> = badgeModule.default
 
 @Suppress("EnumEntryName")
 enum class MBadgeColor {
@@ -102,7 +101,7 @@ fun RBuilder.mBadge(
 
         addAsChild: Boolean = true,
         className: String? = null,
-        handler: StyledHandler<MBadgeProps>? = null) = createStyled(badgeComponent, addAsChild) {
+        handler: StyledHandler<MBadgeProps>? = null) = createStyled(badgeComponentType, addAsChild) {
 
     attrs.badgeContent = badgeContent
     attrs.color = color
@@ -122,7 +121,7 @@ fun RBuilder.mBadgeDot(
 
         addAsChild: Boolean = true,
         className: String? = null,
-        handler: StyledHandler<MBadgeProps>? = null) = createStyled(badgeComponent, addAsChild) {
+        handler: StyledHandler<MBadgeProps>? = null) = createStyled(badgeComponentType, addAsChild) {
     attrs.color = color
     invisible?.let { attrs.invisible = it }
     attrs.variant = MBadgeVariant.dot

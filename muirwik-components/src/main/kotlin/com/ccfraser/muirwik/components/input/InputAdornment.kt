@@ -4,9 +4,8 @@ import com.ccfraser.muirwik.components.EnumPropToStringNullable
 import com.ccfraser.muirwik.components.createStyled
 import com.ccfraser.muirwik.components.form.MFormControlVariant
 import com.ccfraser.muirwik.components.setStyledPropsAndRunHandler
+import react.ComponentType
 import react.RBuilder
-import react.RComponent
-import react.RState
 import styled.StyledHandler
 import styled.StyledProps
 
@@ -15,7 +14,7 @@ import styled.StyledProps
 private external val inputAdornmentDefault: dynamic
 
 @Suppress("UnsafeCastFromDynamic")
-private val inputAdornmentComponent: RComponent<MInputAdornmentProps, RState> = inputAdornmentDefault.default
+private val inputAdornmentComponentType: ComponentType<MInputAdornmentProps> = inputAdornmentDefault.default
 
 @Suppress("EnumEntryName")
 enum class MInputAdornmentPosition {
@@ -37,7 +36,7 @@ fun RBuilder.mInputAdornment(
 
         className: String? = null,
 
-        handler: StyledHandler<MInputAdornmentProps>? = null) = createStyled(inputAdornmentComponent, false) {
+        handler: StyledHandler<MInputAdornmentProps>? = null) = createStyled(inputAdornmentComponentType, false) {
     attrs.disablePointerEvents = disablePointerEvents
     attrs.disableTypography = disableTypography
     attrs.position = position

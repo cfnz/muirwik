@@ -5,18 +5,14 @@ import com.ccfraser.muirwik.components.button.mButton
 import com.ccfraser.muirwik.components.button.mIconButton
 import com.ccfraser.muirwik.components.input.mInput
 import com.ccfraser.muirwik.components.styles.Breakpoint
+import com.ccfraser.muirwik.components.styles.Theme
 import com.ccfraser.muirwik.components.styles.fade
 import com.ccfraser.muirwik.components.styles.up
-import kotlinext.js.jsObject
 import kotlinx.css.*
 import kotlinx.css.properties.Timing
 import kotlinx.css.properties.Transition
 import kotlinx.css.properties.ms
-import react.RBuilder
-import react.RComponent
-import react.RProps
-import react.RState
-import react.dom.attrs
+import react.*
 import styled.StyleSheet
 import styled.css
 import styled.styledDiv
@@ -40,7 +36,7 @@ class TestAppBar : RComponent<RProps, RState>() {
     override fun RBuilder.render() {
         mTypography("This demo shows the AppBar and Toolbar components")
 
-        themeContext.Consumer { theme ->
+        themeContext.Consumer { theme: Theme ->
             val themeStyles = object : StyleSheet("ComponentStyles", isStatic = true) {
                 val search by css {
                     position = Position.relative
@@ -199,7 +195,6 @@ class TestAppBar : RComponent<RProps, RState>() {
                     }
                 }
             }
-
         }
     }
 }

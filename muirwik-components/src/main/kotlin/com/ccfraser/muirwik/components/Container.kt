@@ -1,9 +1,8 @@
 package com.ccfraser.muirwik.components
 
 import com.ccfraser.muirwik.components.styles.Breakpoint
+import react.ComponentType
 import react.RBuilder
-import react.RComponent
-import react.RState
 import styled.StyledHandler
 import styled.StyledProps
 
@@ -12,7 +11,7 @@ import styled.StyledProps
 private external val containerModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")
-private val containerComponent: RComponent<MContainerProps, RState> = containerModule.default
+private val containerComponentType: ComponentType<MContainerProps> = containerModule.default
 
 external interface MContainerProps : StyledProps {
     var component: String
@@ -32,7 +31,7 @@ fun RBuilder.mContainer(
         component: String = "div",
 
         className: String? = null,
-        handler: StyledHandler<MContainerProps>? = null) = createStyled(containerComponent) {
+        handler: StyledHandler<MContainerProps>? = null) = createStyled(containerComponentType) {
     attrs.component = component
     attrs.disableGutters = disableGutters
     attrs.fixed = fixed

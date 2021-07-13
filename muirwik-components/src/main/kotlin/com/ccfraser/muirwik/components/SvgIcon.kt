@@ -1,14 +1,17 @@
 package com.ccfraser.muirwik.components
 
 import kotlinext.js.jsObject
-import react.*
+import react.ComponentType
+import react.RBuilder
+import react.RProps
+import react.createElement
 import styled.StyledHandler
 
 @JsModule("@material-ui/core/SvgIcon")
 private external val svgIconModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")
-private val svgIconComponent: RComponent<MSvgIconProps, RState> = svgIconModule.default
+private val svgIconComponentType: ComponentType<MSvgIconProps> = svgIconModule.default
 
 @Suppress("EnumEntryName")
 enum class SvgShapeRendering {
@@ -30,7 +33,7 @@ fun RBuilder.mSvgIcon(
 
         addAsChild: Boolean = true,
         className: String? = null,
-        handler: StyledHandler<MSvgIconProps>? = null) = createStyled(svgIconComponent, addAsChild) {
+        handler: StyledHandler<MSvgIconProps>? = null) = createStyled(svgIconComponentType, addAsChild) {
     attrs.color = color
     htmlColor?.let { attrs.htmlColor = it }
     attrs.fontSize = fontSize

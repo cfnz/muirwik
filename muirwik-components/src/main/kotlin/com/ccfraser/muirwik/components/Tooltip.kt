@@ -1,10 +1,9 @@
 package com.ccfraser.muirwik.components
 
 import org.w3c.dom.events.Event
+import react.ComponentType
 import react.RBuilder
-import react.RComponent
 import react.RProps
-import react.RState
 import styled.StyledHandler
 
 
@@ -12,7 +11,7 @@ import styled.StyledHandler
 private external val tooltipModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")
-private val tooltipComponent: RComponent<MTooltipProps, RState> = tooltipModule.default
+private val tooltipComponentType: ComponentType<MTooltipProps> = tooltipModule.default
 
 @Suppress("EnumEntryName")
 enum class TooltipPlacement {
@@ -55,7 +54,7 @@ fun RBuilder.mTooltip(
         id: String? = null,
 
         className: String? = null,
-        handler: StyledHandler<MTooltipProps>? = null) = createStyled(tooltipComponent) {
+        handler: StyledHandler<MTooltipProps>? = null) = createStyled(tooltipComponentType) {
     attrs.arrow = arrow
     enterDelay?.let { attrs.enterDelay = enterDelay }
     enterTouchDelay?.let { attrs.enterTouchDelay = enterTouchDelay }

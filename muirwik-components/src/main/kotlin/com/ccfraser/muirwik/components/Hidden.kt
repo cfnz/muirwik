@@ -1,9 +1,8 @@
 package com.ccfraser.muirwik.components
 
 import com.ccfraser.muirwik.components.styles.Breakpoint
+import react.ComponentType
 import react.RBuilder
-import react.RComponent
-import react.RState
 import styled.StyledHandler
 import styled.StyledProps
 
@@ -12,7 +11,7 @@ import styled.StyledProps
 private external val hiddenModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")
-private val hiddenComponent: RComponent<MHiddenProps, RState> = hiddenModule.default
+private val hiddenComponentType: ComponentType<MHiddenProps> = hiddenModule.default
 
 @Suppress("EnumEntryName")
 enum class MHiddenImplementation {
@@ -51,7 +50,7 @@ fun RBuilder.mHidden(
         implementation: MHiddenImplementation = MHiddenImplementation.js,
         initialWidth: Breakpoint? = null,
 
-        handler: StyledHandler<MHiddenProps>) = createStyled(hiddenComponent) {
+        handler: StyledHandler<MHiddenProps>) = createStyled(hiddenComponentType) {
     attrs.implementation = implementation
     initialWidth?.let {  attrs.initialWidth = it }
     attrs.lgDown = lgDown

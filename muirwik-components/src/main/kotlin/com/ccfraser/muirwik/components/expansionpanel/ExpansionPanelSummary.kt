@@ -3,14 +3,17 @@ package com.ccfraser.muirwik.components.expansionpanel
 import com.ccfraser.muirwik.components.StyledPropsWithCommonAttributes
 import com.ccfraser.muirwik.components.createStyled
 import com.ccfraser.muirwik.components.setStyledPropsAndRunHandler
-import react.*
+import react.ComponentType
+import react.RBuilder
+import react.RProps
+import react.ReactElement
 import styled.StyledHandler
 
 @JsModule("@material-ui/core/ExpansionPanelSummary")
 private external val expansionPanelSummaryModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")
-private val expansionPanelSummaryComponent: RComponent<MExpansionPanelSummaryProps, RState> = expansionPanelSummaryModule.default
+private val expansionPanelSummaryComponentType: ComponentType<MExpansionPanelSummaryProps> = expansionPanelSummaryModule.default
 
 external interface MExpansionPanelSummaryProps : StyledPropsWithCommonAttributes {
 	var expandIcon: ReactElement
@@ -23,7 +26,7 @@ fun RBuilder.mExpansionPanelSummary(expandIcon: ReactElement? = null,
                                     iconButtonProps: RProps? = null,
                                     className: String? = null,
                                     handler: StyledHandler<MExpansionPanelSummaryProps>? = null) =
-		createStyled(expansionPanelSummaryComponent) {
+		createStyled(expansionPanelSummaryComponentType) {
 			expandIcon?.let { attrs.expandIcon = it }
 			iconButtonProps?.let { attrs.iconButtonProps = it }
 			setStyledPropsAndRunHandler(className, handler)

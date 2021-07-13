@@ -5,7 +5,10 @@ import com.ccfraser.muirwik.components.form.MFormControlLabelProps
 import com.ccfraser.muirwik.components.form.mFormControlLabel
 import kotlinx.html.InputType
 import org.w3c.dom.events.Event
-import react.*
+import react.ComponentType
+import react.RBuilder
+import react.RProps
+import react.ReactElement
 import styled.StyledHandler
 
 
@@ -13,7 +16,7 @@ import styled.StyledHandler
 private external val switchDefault: dynamic
 
 @Suppress("UnsafeCastFromDynamic")
-private val switchComponent: RComponent<MSwitchProps, RState> = switchDefault.default
+private val switchComponentType: ComponentType<MSwitchProps> = switchDefault.default
 
 @Suppress("EnumEntryName")
 enum class MSwitchEdge {
@@ -50,7 +53,7 @@ fun RBuilder.mSwitch(
 
         addAsChild: Boolean = true,
         className: String? = null,
-        handler: StyledHandler<MSwitchProps>? = null) = createStyled(switchComponent, addAsChild) {
+        handler: StyledHandler<MSwitchProps>? = null) = createStyled(switchComponentType, addAsChild) {
     attrs.checked = checked
     attrs.color = color
     attrs.disabled = disabled

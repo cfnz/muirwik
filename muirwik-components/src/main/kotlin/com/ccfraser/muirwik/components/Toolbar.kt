@@ -1,9 +1,8 @@
 package com.ccfraser.muirwik.components
 
 import kotlinx.css.flexGrow
+import react.ComponentType
 import react.RBuilder
-import react.RComponent
-import react.RState
 import react.ReactElement
 import styled.StyledHandler
 import styled.StyledProps
@@ -14,7 +13,7 @@ import styled.css
 private external val toolbarModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")
-private val toolbarComponent: RComponent<MToolbarProps, RState> = toolbarModule.default
+private val toolbarComponentType: ComponentType<MToolbarProps> = toolbarModule.default
 
 @Suppress("EnumEntryName")
 enum class ToolbarVariant {
@@ -31,7 +30,7 @@ fun RBuilder.mToolbar(
         variant: ToolbarVariant = ToolbarVariant.regular,
 
         className: String? = null,
-        handler: StyledHandler<MToolbarProps>? = null) = createStyled(toolbarComponent) {
+        handler: StyledHandler<MToolbarProps>? = null) = createStyled(toolbarComponentType) {
     attrs.disableGutters = disableGutters
     attrs.variant = variant
 

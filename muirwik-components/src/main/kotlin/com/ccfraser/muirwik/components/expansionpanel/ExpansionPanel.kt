@@ -4,16 +4,15 @@ import com.ccfraser.muirwik.components.StyledPropsWithCommonAttributes
 import com.ccfraser.muirwik.components.createStyled
 import com.ccfraser.muirwik.components.setStyledPropsAndRunHandler
 import org.w3c.dom.events.Event
+import react.ComponentType
 import react.RBuilder
-import react.RComponent
-import react.RState
 import styled.StyledHandler
 
 @JsModule("@material-ui/core/ExpansionPanel")
 private external val expansionPanelModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")
-private val expansionPanelComponent: RComponent<MExpansionPanelProps, RState> = expansionPanelModule.default
+private val expansionPanelComponentType: ComponentType<MExpansionPanelProps> = expansionPanelModule.default
 
 external interface MExpansionPanelProps : StyledPropsWithCommonAttributes {
 	var defaultExpanded: Boolean
@@ -29,7 +28,7 @@ fun RBuilder.mExpansionPanel(expanded: Boolean? = null,
                              disabled: Boolean = false,
                              onChange: ((Event, Boolean) -> Unit)? = null,
                              className: String? = null,
-                             handler: StyledHandler<MExpansionPanelProps>? = null) = createStyled(expansionPanelComponent) {
+                             handler: StyledHandler<MExpansionPanelProps>? = null) = createStyled(expansionPanelComponentType) {
 	attrs.defaultExpanded = defaultExpanded
 	attrs.disabled = disabled
 	expanded?.let { attrs.expanded = it }

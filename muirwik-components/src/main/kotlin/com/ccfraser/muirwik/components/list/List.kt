@@ -4,9 +4,8 @@ import com.ccfraser.muirwik.components.button.MButtonBaseProps
 import com.ccfraser.muirwik.components.createStyled
 import com.ccfraser.muirwik.components.mDivider
 import com.ccfraser.muirwik.components.setStyledPropsAndRunHandler
+import react.ComponentType
 import react.RBuilder
-import react.RComponent
-import react.RState
 import react.ReactElement
 import styled.StyledHandler
 
@@ -15,7 +14,7 @@ import styled.StyledHandler
 private external val listModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")
-private val listComponent: RComponent<MListProps, RState> = listModule.default
+private val listComponentType: ComponentType<MListProps> = listModule.default
 
 external interface MListProps : MButtonBaseProps {
     var dense: Boolean
@@ -30,7 +29,7 @@ fun RBuilder.mList(
         component: String = "ul",
 
         className: String? = null,
-        handler: StyledHandler<MListProps>? = null) = createStyled(listComponent) {
+        handler: StyledHandler<MListProps>? = null) = createStyled(listComponentType) {
     attrs.component = component
     attrs.dense = dense
     attrs.disablePadding = disablePadding
@@ -47,7 +46,7 @@ fun RBuilder.mList(
         component: String = "ul",
 
         className: String? = null,
-        handler: StyledHandler<MListProps>? = null) = createStyled(listComponent) {
+        handler: StyledHandler<MListProps>? = null) = createStyled(listComponentType) {
     attrs.component = component
     attrs.dense = dense
     attrs.disablePadding = disablePadding

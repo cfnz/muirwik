@@ -1,8 +1,7 @@
 package com.ccfraser.muirwik.components
 
+import react.ComponentType
 import react.RBuilder
-import react.RComponent
-import react.RState
 import styled.StyledHandler
 import styled.StyledProps
 
@@ -11,7 +10,7 @@ import styled.StyledProps
 private external val iconModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")
-private val iconComponent: RComponent<MIconProps, RState> = iconModule.default
+private val iconComponentType: ComponentType<MIconProps> = iconModule.default
 
 @Suppress("EnumEntryName")
 enum class MIconColor {
@@ -38,7 +37,7 @@ fun RBuilder.mIcon(
 
         addAsChild: Boolean = true,
         className: String? = null,
-        handler: StyledHandler<MIconProps>? = null) = createStyled(iconComponent, addAsChild) {
+        handler: StyledHandler<MIconProps>? = null) = createStyled(iconComponentType, addAsChild) {
     attrs.color = color
     attrs.fontSize = fontSize
 

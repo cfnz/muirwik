@@ -7,9 +7,8 @@ import com.ccfraser.muirwik.components.form.MFormControlVariant
 import com.ccfraser.muirwik.components.form.MFormLabelProps
 import com.ccfraser.muirwik.components.form.MLabelMargin
 import com.ccfraser.muirwik.components.setStyledPropsAndRunHandler
+import react.ComponentType
 import react.RBuilder
-import react.RComponent
-import react.RState
 import styled.StyledHandler
 
 
@@ -17,7 +16,7 @@ import styled.StyledHandler
 private external val inputLabelModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")
-private val inputLabelComponent: RComponent<MInputLabelProps, RState> = inputLabelModule.default
+private val inputLabelComponentType: ComponentType<MInputLabelProps> = inputLabelModule.default
 
 external interface MInputLabelProps : MFormLabelProps {
     var disableAnimation: Boolean
@@ -41,7 +40,7 @@ fun RBuilder.mInputLabel (
         component: String? = null,
 
         className: String? = null,
-        handler: StyledHandler<MInputLabelProps>? = null) = createStyled(inputLabelComponent) {
+        handler: StyledHandler<MInputLabelProps>? = null) = createStyled(inputLabelComponentType) {
     component?.let { attrs.component = it }
     disabled?.let { attrs.disabled = it }
     attrs.disableAnimation = disableAnimation

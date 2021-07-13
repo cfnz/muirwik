@@ -3,7 +3,10 @@ package com.ccfraser.muirwik.components
 import com.ccfraser.muirwik.components.transitions.TransitionComponentDelegate
 import com.ccfraser.muirwik.components.transitions.TransitionDurationDelegate
 import org.w3c.dom.events.Event
-import react.*
+import react.ComponentType
+import react.RBuilder
+import react.RProps
+import react.ReactElement
 import styled.StyledHandler
 import styled.StyledProps
 
@@ -12,7 +15,7 @@ import styled.StyledProps
 private external val SnackbarModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")
-private val snackbarComponent: RComponent<MSnackbarProps, RState> = SnackbarModule.default
+private val snackbarComponentType: ComponentType<MSnackbarProps> = SnackbarModule.default
 
 @Suppress("EnumEntryName")
 enum class MSnackbarHorizAnchor {
@@ -76,7 +79,7 @@ fun RBuilder.mSnackbar(
         resumeHideDuration: Int? = null,
 
         className: String? = null,
-        handler: StyledHandler<MSnackbarProps>? = null) = createStyled(snackbarComponent) {
+        handler: StyledHandler<MSnackbarProps>? = null) = createStyled(snackbarComponentType) {
     attrs.anchorOriginHorizontal = horizAnchor
     attrs.anchorOriginVertical = vertAnchor
     autoHideDuration?.let { attrs.autoHideDuration = it }

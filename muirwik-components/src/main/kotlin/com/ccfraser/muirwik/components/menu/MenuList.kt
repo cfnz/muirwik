@@ -3,16 +3,15 @@ package com.ccfraser.muirwik.components.menu
 import com.ccfraser.muirwik.components.createStyled
 import com.ccfraser.muirwik.components.list.MListProps
 import com.ccfraser.muirwik.components.setStyledPropsAndRunHandler
+import react.ComponentType
 import react.RBuilder
-import react.RComponent
-import react.RState
 import react.ReactElement
 import styled.StyledHandler
 
 
 @JsModule("@material-ui/core/MenuList")
 private external val menuListModule: dynamic
-private val menuList: RComponent<MMenuListProps, RState> = menuListModule.default
+private val menuListType: ComponentType<MMenuListProps> = menuListModule.default
 
 external interface MMenuListProps : MListProps {
     var autoFocus: Boolean
@@ -32,7 +31,7 @@ fun RBuilder.mMenuList(
         disableListWrap: Boolean = false,
 
         className: String? = null,
-        handler: StyledHandler<MMenuListProps>? = null) = createStyled(menuList) {
+        handler: StyledHandler<MMenuListProps>? = null) = createStyled(menuListType) {
 
     attrs.component = component
     attrs.dense = dense

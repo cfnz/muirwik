@@ -2,9 +2,8 @@ package com.ccfraser.muirwik.components
 
 import com.ccfraser.muirwik.components.button.MButtonBaseProps
 import org.w3c.dom.events.Event
+import react.ComponentType
 import react.RBuilder
-import react.RComponent
-import react.RState
 import react.ReactElement
 import styled.StyledHandler
 
@@ -13,7 +12,7 @@ import styled.StyledHandler
 private external val bottomNavigationModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")
-private val bottomNavigationComponent: RComponent<MBottomNavigationProps, RState> = bottomNavigationModule.default
+private val bottomNavigationComponentType: ComponentType<MBottomNavigationProps> = bottomNavigationModule.default
 
 
 external interface MBottomNavigationProps: StyledPropsWithCommonAttributes {
@@ -30,7 +29,7 @@ fun RBuilder.mBottomNavigation(
         onChange: ((event: Event, indexValue: Any) -> Unit)? = null,
 
         className: String? = null,
-        handler: StyledHandler<MBottomNavigationProps>? = null) = createStyled(bottomNavigationComponent) {
+        handler: StyledHandler<MBottomNavigationProps>? = null) = createStyled(bottomNavigationComponentType) {
     attrs.component = component
     onChange?.let { attrs.onChange = it }
     attrs.showLabels = showLabels
@@ -44,7 +43,7 @@ fun RBuilder.mBottomNavigation(
 private external val bottomNavigationActionModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")
-private val bottomNavigationActionComponent: RComponent<MBottomNavigationActionProps, RState> = bottomNavigationActionModule.default
+private val bottomNavigationActionComponentType: ComponentType<MBottomNavigationActionProps> = bottomNavigationActionModule.default
 
 external interface MBottomNavigationActionProps: MButtonBaseProps {
     var icon: ReactElement
@@ -75,7 +74,7 @@ fun RBuilder.mBottomNavigationAction(
         disabled: Boolean = false,
 
         className: String? = null,
-        handler: StyledHandler<MBottomNavigationActionProps>? = null) = createStyled(bottomNavigationActionComponent) {
+        handler: StyledHandler<MBottomNavigationActionProps>? = null) = createStyled(bottomNavigationActionComponentType) {
     attrs.disabled = disabled
     icon?.let { attrs.icon = icon }
     label?.let { attrs.label = it }

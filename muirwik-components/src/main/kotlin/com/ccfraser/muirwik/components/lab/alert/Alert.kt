@@ -5,9 +5,8 @@ import com.ccfraser.muirwik.components.StyledPropsWithCommonAttributes
 import com.ccfraser.muirwik.components.createStyled
 import com.ccfraser.muirwik.components.setStyledPropsAndRunHandler
 import org.w3c.dom.events.Event
+import react.ComponentType
 import react.RBuilder
-import react.RComponent
-import react.RState
 import react.ReactElement
 import styled.StyledHandler
 
@@ -15,7 +14,7 @@ import styled.StyledHandler
 private external val alertModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")
-private val alertComponent: RComponent<MAlertProps, RState> = alertModule.default
+private val alertComponentType: ComponentType<MAlertProps> = alertModule.default
 
 @Suppress("EnumEntryName")
 enum class MAlertVariant {
@@ -47,7 +46,7 @@ fun RBuilder.mAlert(
 
     className: String? = null,
     handler: StyledHandler<MAlertProps>? = null
-) = createStyled(alertComponent, addAsChild) {
+) = createStyled(alertComponentType, addAsChild) {
     message?.let { +message }
     attrs.variant = variant
     attrs.severity = severity
@@ -68,7 +67,7 @@ fun RBuilder.mAlert(
 
     className: String? = null,
     handler: StyledHandler<MAlertProps>? = null
-) = createStyled(alertComponent, addAsChild) {
+) = createStyled(alertComponentType, addAsChild) {
     attrs.variant = variant
     attrs.severity = severity
     attrs.closeText = closeText

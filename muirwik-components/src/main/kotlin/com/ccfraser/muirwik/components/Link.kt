@@ -1,14 +1,13 @@
 package com.ccfraser.muirwik.components
 
+import react.ComponentType
 import react.RBuilder
-import react.RComponent
-import react.RState
 import styled.StyledHandler
 
 
 @JsModule("@material-ui/core/Link")
 private external val linkModule: dynamic
-private val linkComponent: RComponent<MLinkProps, RState> = linkModule.default
+private val linkComponentType: ComponentType<MLinkProps> = linkModule.default
 
 @Suppress("EnumEntryName")
 enum class MLinkUnderline {
@@ -37,7 +36,7 @@ fun RBuilder.mLink(
         noWrap: Boolean = false,
 
         className: String? = null,
-        handler: StyledHandler<MLinkProps>? = null) = createStyled(linkComponent) {
+        handler: StyledHandler<MLinkProps>? = null) = createStyled(linkComponentType) {
     attrs.gutterBottom = gutterBottom
     hRefOptions?.let { setHRefTargetNoOpener(attrs, it) }
     attrs.noWrap = noWrap

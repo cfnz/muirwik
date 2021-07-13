@@ -1,5 +1,5 @@
 group = "com.ccfraser.muirwik"
-version = "0.8.2"
+version = "0.8.3"
 description = "Muirwik Components - a Material UI React wrapper written in Kotlin"
 
 plugins {
@@ -13,8 +13,8 @@ repositories {
 }
 
 dependencies {
-    val kotlinVersion = "1.5.0"
-    val kotlinJsVersion = "pre.204-kotlin-$kotlinVersion"
+    val kotlinVersion = "1.5.20"
+    val kotlinJsVersion = "pre.216-kotlin-$kotlinVersion"
     val kotlinReactVersion = "17.0.2-$kotlinJsVersion"
 
     implementation(kotlin("stdlib-js", kotlinVersion))
@@ -22,9 +22,9 @@ dependencies {
     implementation("org.jetbrains.kotlin-wrappers", "kotlin-react-dom", kotlinReactVersion)
     implementation("org.jetbrains.kotlin-wrappers", "kotlin-styled", "5.3.0-$kotlinJsVersion")
 
-    implementation(npm("@material-ui/core", "4.11.1"))
-    implementation(npm("@material-ui/lab", "4.0.0-alpha.56"))
-    implementation(npm("@material-ui/icons", "4.9.1"))
+    implementation(npm("@material-ui/core", "4.11.4"))
+    implementation(npm("@material-ui/lab", "4.0.0-alpha.57"))
+    implementation(npm("@material-ui/icons", "4.11.2"))
 }
 
 kotlin {

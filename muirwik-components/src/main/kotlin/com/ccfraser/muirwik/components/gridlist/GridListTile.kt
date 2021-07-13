@@ -2,9 +2,8 @@ package com.ccfraser.muirwik.components.gridlist
 
 import com.ccfraser.muirwik.components.createStyled
 import com.ccfraser.muirwik.components.setStyledPropsAndRunHandler
+import react.ComponentType
 import react.RBuilder
-import react.RComponent
-import react.RState
 import react.key
 import styled.StyledHandler
 import styled.StyledProps
@@ -12,7 +11,7 @@ import styled.StyledProps
 
 @JsModule("@material-ui/core/GridListTile")
 private external val gridListTileModule: dynamic
-private val gridListTileComponent: RComponent<MGridListTileProps, RState> =gridListTileModule.default
+private val gridListTileComponentType: ComponentType<MGridListTileProps> = gridListTileModule.default
 
 external interface MGridListTileProps: StyledProps {
     var cols: Int
@@ -27,7 +26,7 @@ fun RBuilder.mGridListTile(
         rows: Int = 1,
 
         className: String? = null,
-        handler: StyledHandler<MGridListTileProps>? = null) = createStyled(gridListTileComponent) {
+        handler: StyledHandler<MGridListTileProps>? = null) = createStyled(gridListTileComponentType) {
     attrs.cols = cols
     attrs.component = component
     attrs.key = key

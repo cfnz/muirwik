@@ -1,8 +1,7 @@
 package com.ccfraser.muirwik.components
 
+import react.ComponentType
 import react.RBuilder
-import react.RComponent
-import react.RState
 import styled.StyledHandler
 import styled.StyledProps
 
@@ -11,7 +10,7 @@ import styled.StyledProps
 private external val dividerModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")
-private val dividerComponent: RComponent<MDividerProps, RState> = dividerModule.default
+private val dividerComponentType: ComponentType<MDividerProps> = dividerModule.default
 
 @Suppress("EnumEntryName")
 enum class MDividerOrientation {
@@ -40,7 +39,7 @@ fun RBuilder.mDivider(
 
         addAsChild: Boolean = true,
         className: String? = null,
-        handler: StyledHandler<MDividerProps>? = null) = createStyled(dividerComponent, addAsChild) {
+        handler: StyledHandler<MDividerProps>? = null) = createStyled(dividerComponentType, addAsChild) {
     attrs.absolute = absolute
     attrs.component = component
     attrs.light = light

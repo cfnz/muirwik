@@ -13,7 +13,6 @@ import styled.StyledHandler
 import styled.StyledProps
 import styled.toStyle
 import kotlin.js.Json
-import kotlin.reflect.KClass
 
 
 /**
@@ -27,7 +26,7 @@ fun <P : StyledProps> StyledElementBuilder<P>.setStyledPropsAndRunHandler(classN
 /**
  * Create a child with empty props
  */
-fun <P : RProps, S : RState> RBuilder.child(component: RComponent<P, S>, handler: RHandler<P>): ReactElement {
+fun <P : RProps, S : RState> RBuilder.child(component: ComponentType<P>, handler: RHandler<P>): ReactElement {
     val props: P = jsObject {}
     return child(component, props, handler)
 }
@@ -46,26 +45,33 @@ fun <P : RProps, S : RState> RBuilder.child(component: RComponent<P, S>, handler
  *      etc
  * }
  */
-fun <P : StyledProps> RBuilder.createStyled(component: RComponent<P, RState>, addAsChild: Boolean = true, handler: StyledHandler<P>): ReactElement {
-    val builder = StyledElementBuilder<P>(component)
+//fun <P : StyledProps> RBuilder.createStyled(component: RComponent<P, RState>, addAsChild: Boolean = true, handler: StyledHandler<P>): ReactElement {
+//    val builder = StyledElementBuilder<P>(component)
+//    handler(builder)
+//    return if (addAsChild) child(builder.create()) else builder.create()
+//}
+
+fun <P : StyledProps> RBuilder.createStyled(componentType: ComponentType<P>, addAsChild: Boolean = true, handler: StyledHandler<P>): ReactElement {
+    val builder = StyledElementBuilder<P>(componentType)
     handler(builder)
     return if (addAsChild) child(builder.create()) else builder.create()
 }
 
+
 /**
  * Helper for creating a styled component from a component class (e.g. MyComponent::class)
  */
-fun <P : StyledProps> RBuilder.createStyled(componentClass: KClass<out RComponent<P, RState>>, addAsChild: Boolean = true, handler: StyledHandler<P>): ReactElement {
-    val builder = StyledElementBuilder<P>(componentClass.js)
-    handler(builder)
-
-    val el = if (addAsChild) child(builder.create()) else builder.create()
-
-    // For some reason, we seem to need to add the children here whereas in the method above we don't...
-    el.props.children
-
-    return el
-}
+//fun <P : StyledProps> RBuilder.createStyled(componentClass: KClass<out RComponent<P, RState>>, addAsChild: Boolean = true, handler: StyledHandler<P>): ReactElement {
+//    val builder = StyledElementBuilder<P>(componentClass.js)
+//    handler(builder)
+//
+//    val el = if (addAsChild) child(builder.create()) else builder.create()
+//
+//    // For some reason, we seem to need to add the children here whereas in the method above we don't...
+//    el.props.children
+//
+//    return el
+//}
 
 /**
  * Spreads the props passed in to the props of the component.

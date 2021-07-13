@@ -4,10 +4,7 @@ import com.ccfraser.muirwik.components.*
 import com.ccfraser.muirwik.testapp.TestBreadcrumbs.ComponentStyles.icon
 import com.ccfraser.muirwik.testapp.TestBreadcrumbs.ComponentStyles.paper
 import kotlinx.css.*
-import react.RBuilder
-import react.RComponent
-import react.RProps
-import react.RState
+import react.*
 import react.dom.br
 import styled.StyleSheet
 import styled.css

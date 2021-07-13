@@ -2,9 +2,8 @@ package com.ccfraser.muirwik.components.button
 
 import com.ccfraser.muirwik.components.*
 import org.w3c.dom.events.Event
+import react.ComponentType
 import react.RBuilder
-import react.RComponent
-import react.RState
 import styled.StyledHandler
 
 
@@ -12,7 +11,7 @@ import styled.StyledHandler
 private external val fabModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")
-private val fabComponent: RComponent<MFabProps, RState> = fabModule.default
+private val fabComponentType: ComponentType<MFabProps> = fabModule.default
 
 @Suppress("EnumEntryName")
 enum class MFabVariant {
@@ -42,7 +41,7 @@ fun RBuilder.mFab(
 
         addAsChild: Boolean = true,
         className: String? = null,
-        handler: StyledHandler<MFabProps>? = null) = createStyled(fabComponent, addAsChild) {
+        handler: StyledHandler<MFabProps>? = null) = createStyled(fabComponentType, addAsChild) {
     attrs.color = color
     attrs.disabled = disabled
     hRefOptions?.let { setHRefTargetNoOpener(attrs, it) }
@@ -77,7 +76,7 @@ fun RBuilder.mFab(
 
         addAsChild: Boolean = true,
         className: String? = null,
-        handler: StyledHandler<MFabProps>? = null) = createStyled(fabComponent, addAsChild) {
+        handler: StyledHandler<MFabProps>? = null) = createStyled(fabComponentType, addAsChild) {
     attrs.color = color
     attrs.disabled = disabled
     hRefOptions?.let { setHRefTargetNoOpener(attrs, it) }

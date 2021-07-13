@@ -1,9 +1,8 @@
 package com.ccfraser.muirwik.components.form
 
 import com.ccfraser.muirwik.components.*
+import react.ComponentType
 import react.RBuilder
-import react.RComponent
-import react.RState
 import styled.StyledHandler
 
 
@@ -11,7 +10,7 @@ import styled.StyledHandler
 private external val formControlModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")
-private val formControlComponent: RComponent<MFormControlProps, RState> = formControlModule.default
+private val formControlComponentType: ComponentType<MFormControlProps> = formControlModule.default
 
 @Suppress("EnumEntryName")
 enum class MFormControlVariant {
@@ -59,7 +58,7 @@ fun RBuilder.mFormControl(
         variant: MFormControlVariant = MFormControlVariant.standard,
         hiddenLabel: Boolean = false,
         className: String? = null,
-        handler: StyledHandler<MFormControlProps>? = null) = createStyled(formControlComponent) {
+        handler: StyledHandler<MFormControlProps>? = null) = createStyled(formControlComponentType) {
     attrs.component = component
     attrs.disabled = disabled
     attrs.error = error

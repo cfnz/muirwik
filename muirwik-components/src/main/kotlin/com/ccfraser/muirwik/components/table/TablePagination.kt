@@ -6,10 +6,9 @@ import com.ccfraser.muirwik.components.createStyled
 import com.ccfraser.muirwik.components.setStyledPropsAndRunHandler
 import org.w3c.dom.Node
 import org.w3c.dom.events.Event
+import react.ComponentType
 import react.RBuilder
-import react.RComponent
 import react.RProps
-import react.RState
 import styled.StyledHandler
 
 
@@ -17,7 +16,7 @@ import styled.StyledHandler
 private external val tablePaginationModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")
-private val tablePaginationComponent: RComponent<MTablePaginationProps, RState> = tablePaginationModule.default
+private val tablePaginationComponentType: ComponentType<MTablePaginationProps> = tablePaginationModule.default
 
 external interface MTablePaginationProps : MButtonBaseProps {
     @JsName("actions")
@@ -52,7 +51,7 @@ fun RBuilder.mTablePagination(
         selectProps: RProps? = null,
 
         className: String? = null,
-        handler: StyledHandler<MTablePaginationProps>? = null) = createStyled(tablePaginationComponent) {
+        handler: StyledHandler<MTablePaginationProps>? = null) = createStyled(tablePaginationComponentType) {
     actions?.let { attrs.actions = it }
     backIconButtonProps?.let { attrs.backIconButtonProps = it }
     component?.let { attrs.component = it }

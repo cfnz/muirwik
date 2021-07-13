@@ -1,16 +1,15 @@
 package com.ccfraser.muirwik.components
 
+import react.ComponentType
 import react.RBuilder
-import react.RComponent
 import react.RProps
-import react.RState
 import styled.StyledHandler
 
 @JsModule("@material-ui/core/Avatar")
 private external val avatarModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")
-private val avatarComponent: RComponent<MAvatarProps, RState> = avatarModule.default
+private val avatarComponentType: ComponentType<MAvatarProps> = avatarModule.default
 
 @Suppress("EnumEntryName")
 enum class MAvatarVariant {
@@ -38,7 +37,7 @@ fun RBuilder.mAvatar(
         addAsChild: Boolean = true,
 
         className: String? = null,
-        handler: StyledHandler<MAvatarProps>? = null) = createStyled(avatarComponent, addAsChild) {
+        handler: StyledHandler<MAvatarProps>? = null) = createStyled(avatarComponentType, addAsChild) {
     alt?.let { attrs.alt = alt }
     attrs.component = component
     imgProps?.let { attrs.imgProps = imgProps }

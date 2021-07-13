@@ -4,9 +4,8 @@ import com.ccfraser.muirwik.components.createStyled
 import com.ccfraser.muirwik.components.setStyledPropsAndRunHandler
 import kotlinx.html.InputType
 import org.w3c.dom.events.Event
+import react.ComponentType
 import react.RBuilder
-import react.RComponent
-import react.RState
 import styled.StyledHandler
 
 
@@ -14,7 +13,7 @@ import styled.StyledHandler
 private external val inputModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")
-private val inputComponent: RComponent<MInputProps, RState> = inputModule.default
+private val inputComponentType: ComponentType<MInputProps> = inputModule.default
 
 external interface MInputProps : MInputBaseProps {
     var disableUnderline: Boolean
@@ -46,7 +45,7 @@ fun RBuilder.mInput(
         addAsChild: Boolean = true,
         className: String? = null,
 
-        handler: StyledHandler<MInputProps>? = null) = createStyled(com.ccfraser.muirwik.components.input.inputComponent, addAsChild) {
+        handler: StyledHandler<MInputProps>? = null) = createStyled(inputComponentType, addAsChild) {
     autoFocus?.let{ attrs.autoFocus = it }
     defaultValue?.let { attrs.defaultValue = it }
     disabled?.let { attrs.disabled = it }

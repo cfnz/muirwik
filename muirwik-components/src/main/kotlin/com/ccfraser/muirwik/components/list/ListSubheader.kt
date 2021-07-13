@@ -8,9 +8,8 @@ import com.ccfraser.muirwik.components.spacingUnits
 import kotlinx.css.lineHeight
 import kotlinx.css.padding
 import kotlinx.css.properties.LineHeight
+import react.ComponentType
 import react.RBuilder
-import react.RComponent
-import react.RState
 import styled.StyledHandler
 import styled.css
 
@@ -19,7 +18,7 @@ import styled.css
 private external val listSubheaderModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")
-val listSubheaderComponent: RComponent<MListSubheaderProps, RState> = listSubheaderModule.default
+val listSubheaderComponentType: ComponentType<MListSubheaderProps> = listSubheaderModule.default
 
 @Suppress("EnumEntryName")
 enum class MListSubheaderColor {
@@ -47,7 +46,7 @@ fun RBuilder.mListSubheader(
 
         addAsChild: Boolean = true,
         className: String? = null,
-        handler: StyledHandler<MListSubheaderProps>? = null) = createStyled(listSubheaderComponent, addAsChild) {
+        handler: StyledHandler<MListSubheaderProps>? = null) = createStyled(listSubheaderComponentType, addAsChild) {
     attrs.color = color
     component?.let { attrs.component = component }
     attrs.disableGutters = disableGutters
@@ -78,7 +77,7 @@ fun RBuilder.mListSubheader(
 
         addAsChild: Boolean = true,
         className: String? = null,
-        handler: StyledHandler<MListSubheaderProps>? = null) = createStyled(listSubheaderComponent, addAsChild) {
+        handler: StyledHandler<MListSubheaderProps>? = null) = createStyled(listSubheaderComponentType, addAsChild) {
     attrs.color = color
     component?.let { attrs.component = component }
     attrs.disableGutters = disableGutters

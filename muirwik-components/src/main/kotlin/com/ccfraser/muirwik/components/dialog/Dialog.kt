@@ -6,10 +6,7 @@ import com.ccfraser.muirwik.components.transitions.TransitionComponent
 import com.ccfraser.muirwik.components.transitions.TransitionComponentDelegate
 import com.ccfraser.muirwik.components.transitions.TransitionDurationDelegateNullable
 import org.w3c.dom.events.Event
-import react.RBuilder
-import react.RComponent
-import react.RProps
-import react.RState
+import react.*
 import styled.StyledHandler
 
 
@@ -17,7 +14,7 @@ import styled.StyledHandler
 private external val dialogModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")
-private val dialogComponent: RComponent<MDialogProps, RState> = dialogModule.default
+private val dialogComponentType: ComponentType<MDialogProps> = dialogModule.default
 
 @Suppress("EnumEntryName")
 enum class DialogScroll {
@@ -76,7 +73,7 @@ fun RBuilder.mDialog(
         transitionProps: RProps? = null,
 
         className: String? = null,
-        handler: StyledHandler<MDialogProps>) = createStyled(dialogComponent) {
+        handler: StyledHandler<MDialogProps>) = createStyled(dialogComponentType) {
     attrs.closeAfterTransition = closeAfterTransition
     attrs.hideBackdrop = hideBackdrop
     attrs.keepMounted = keepMounted

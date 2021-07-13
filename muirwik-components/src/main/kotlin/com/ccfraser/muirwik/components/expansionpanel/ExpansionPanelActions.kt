@@ -3,16 +3,15 @@ package com.ccfraser.muirwik.components.expansionpanel
 import com.ccfraser.muirwik.components.StyledPropsWithCommonAttributes
 import com.ccfraser.muirwik.components.createStyled
 import com.ccfraser.muirwik.components.setStyledPropsAndRunHandler
+import react.ComponentType
 import react.RBuilder
-import react.RComponent
-import react.RState
 import styled.StyledHandler
 
 @JsModule("@material-ui/core/ExpansionPanelActions")
 private external val expansionPanelActionsModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")
-private val expansionPanelActionsComponent: RComponent<MExpansionPanelActionsProps, RState> = expansionPanelActionsModule.default
+private val expansionPanelActionsComponentType: ComponentType<MExpansionPanelActionsProps> = expansionPanelActionsModule.default
 
 external interface MExpansionPanelActionsProps : StyledPropsWithCommonAttributes {
 	var disableSpacing: Boolean
@@ -23,7 +22,7 @@ external interface MExpansionPanelActionsProps : StyledPropsWithCommonAttributes
 fun RBuilder.mExpansionPanelActions(disableSpacing: Boolean? = null,
                                     className: String? = null,
                                     handler: StyledHandler<MExpansionPanelActionsProps>? = null) =
-		createStyled(expansionPanelActionsComponent) {
+		createStyled(expansionPanelActionsComponentType) {
 			disableSpacing?.let { attrs.disableSpacing = it }
 			setStyledPropsAndRunHandler(className, handler)
 		}

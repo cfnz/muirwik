@@ -6,9 +6,8 @@ import com.ccfraser.muirwik.components.transitions.TransitionComponent
 import com.ccfraser.muirwik.components.transitions.TransitionDurationWithAuto
 import org.w3c.dom.Node
 import org.w3c.dom.events.Event
+import react.ComponentType
 import react.RBuilder
-import react.RComponent
-import react.RState
 import styled.StyledHandler
 
 
@@ -16,7 +15,7 @@ import styled.StyledHandler
 private external val menuModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")
-private val menuComponent: RComponent<MMenuProps, RState>  = menuModule.default
+private val menuComponentType: ComponentType<MMenuProps> = menuModule.default
 
 @Suppress("EnumEntryName")
 enum class MenuOnCloseReason {
@@ -56,7 +55,7 @@ fun RBuilder.mMenu(
         variant: MMenuVariant = MMenuVariant.selectedMenu,
 
         className: String? = null,
-        handler: StyledHandler<MMenuProps>) = createStyled(menuComponent) {
+        handler: StyledHandler<MMenuProps>) = createStyled(menuComponentType) {
     anchorElement?.let { attrs.anchorEl = anchorElement }
     attrs.autoFocus = autoFocus
     attrs.disableAutoFocusItem = disableAutoFocusItem

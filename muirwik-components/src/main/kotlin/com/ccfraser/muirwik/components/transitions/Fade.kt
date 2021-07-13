@@ -2,9 +2,8 @@ package com.ccfraser.muirwik.components.transitions
 
 import com.ccfraser.muirwik.components.createStyled
 import com.ccfraser.muirwik.components.setStyledPropsAndRunHandler
+import react.ComponentType
 import react.RBuilder
-import react.RComponent
-import react.RState
 import styled.StyledHandler
 
 
@@ -12,7 +11,7 @@ import styled.StyledHandler
 private external val fadeModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")
-private val fadeComponent: RComponent<MFadeProps, RState> = fadeModule.default
+private val fadeComponentType: ComponentType<MFadeProps> = fadeModule.default
 
 external interface MFadeProps : MTransitionProps
 var MFadeProps.timeout by TransitionDurationDelegate()
@@ -23,7 +22,7 @@ fun RBuilder.mFade(
 
         addAsChild: Boolean = true,
         className: String? = null,
-        handler: StyledHandler<MFadeProps>? = null) = createStyled(fadeComponent, addAsChild) {
+        handler: StyledHandler<MFadeProps>? = null) = createStyled(fadeComponentType, addAsChild) {
     attrs.show = show
     timeout?.let { attrs.timeout = it }
 

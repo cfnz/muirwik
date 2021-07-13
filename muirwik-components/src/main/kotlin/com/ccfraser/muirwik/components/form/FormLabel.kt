@@ -3,9 +3,8 @@ package com.ccfraser.muirwik.components.form
 import com.ccfraser.muirwik.components.StyledPropsWithCommonAttributes
 import com.ccfraser.muirwik.components.createStyled
 import com.ccfraser.muirwik.components.setStyledPropsAndRunHandler
+import react.ComponentType
 import react.RBuilder
-import react.RComponent
-import react.RState
 import styled.StyledHandler
 
 
@@ -13,7 +12,7 @@ import styled.StyledHandler
 private external val formLabelModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")
-private val formLabelComponent: RComponent<MFormLabelProps, RState> = formLabelModule.default
+private val formLabelComponentType: ComponentType<MFormLabelProps> = formLabelModule.default
 
 external interface MFormLabelProps : StyledPropsWithCommonAttributes {
     var component: String
@@ -35,7 +34,7 @@ fun RBuilder.mFormLabel (
         filled: Boolean? = null,
         component: String = "label",
         className: String? = null,
-        handler: StyledHandler<MFormLabelProps>? = null) = createStyled(formLabelComponent) {
+        handler: StyledHandler<MFormLabelProps>? = null) = createStyled(formLabelComponentType) {
     attrs.component = component
     disabled?.let { attrs.disabled = it }
     error?.let { attrs.error = it }

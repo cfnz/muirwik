@@ -22,7 +22,7 @@ private var defaultTheme: Theme = createMuiTheme(themeOptions)
  * set outside of the render, but using this method, if we want to access properties of the theme, we need to
  * move those styles into the render function.
  */
-val themeContext = createContext(defaultTheme)
+val themeContext: Context<Theme> = createContext(defaultTheme)
 
 /**
  * Allows you to easily specify the theme's spacing unit. Usually used in css e.g. css { padding(2.spacingUnits) }

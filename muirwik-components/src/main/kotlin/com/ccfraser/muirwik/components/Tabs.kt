@@ -2,7 +2,10 @@ package com.ccfraser.muirwik.components
 
 import com.ccfraser.muirwik.components.button.MButtonBaseProps
 import org.w3c.dom.events.Event
-import react.*
+import react.ComponentType
+import react.RBuilder
+import react.RProps
+import react.ReactElement
 import styled.StyledHandler
 import styled.StyledProps
 
@@ -11,7 +14,7 @@ import styled.StyledProps
 private external val tabsModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")
-private val tabsComponent: RComponent<MTabsProps, RState> = tabsModule.default
+private val tabsComponentType: ComponentType<MTabsProps> = tabsModule.default
 
 @Suppress("EnumEntryName")
 enum class MTabTextColor {
@@ -75,7 +78,7 @@ fun RBuilder.mTabs(
         action: ((actions: Any) -> Unit)? = null,
 
         className: String? = null,
-        handler: StyledHandler<MTabsProps>? = null) = createStyled(tabsComponent) {
+        handler: StyledHandler<MTabsProps>? = null) = createStyled(tabsComponentType) {
     action?.let { attrs.action = it }
     attrs.centered = centered
     attrs.indicatorColor = indicatorColor
@@ -96,7 +99,7 @@ fun RBuilder.mTabs(
 private external val tabModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")
-private val tabComponent: RComponent<MTabProps, RState> = tabModule.default
+private val tabComponentType: ComponentType<MTabProps> = tabModule.default
 
 external interface MTabProps: MButtonBaseProps {
     var disableFocusRipple: Boolean
@@ -116,7 +119,7 @@ fun RBuilder.mTab(
         wrapped: Boolean = false,
 
         className: String? = null,
-        handler: StyledHandler<MTabProps>? = null) = createStyled(tabComponent) {
+        handler: StyledHandler<MTabProps>? = null) = createStyled(tabComponentType) {
     attrs.disabled = disabled
     disableFocusRipple?.let { attrs.disableFocusRipple = it }
     disableRipple?.let { attrs.disableRipple = it }
@@ -136,7 +139,7 @@ fun RBuilder.mTab(
         disabled: Boolean = false,
 
         className: String? = null,
-        handler: StyledHandler<MTabProps>? = null) = createStyled(tabComponent) {
+        handler: StyledHandler<MTabProps>? = null) = createStyled(tabComponentType) {
     attrs.disabled = disabled
     icon?.let { attrs.icon = icon }
     @Suppress("UnsafeCastFromDynamic")

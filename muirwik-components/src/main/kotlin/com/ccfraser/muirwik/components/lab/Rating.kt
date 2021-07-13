@@ -12,7 +12,7 @@ import styled.StyledHandler
 private external val ratingModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")
-private val ratingComponent: RComponent<MRatingProps, RState> = ratingModule.default
+private val ratingComponentType: ComponentType<MRatingProps> = ratingModule.default
 
 @Suppress("EnumEntryName")
 enum class MRatingSize {
@@ -27,7 +27,7 @@ external interface MRatingProps : StyledPropsWithCommonAttributes {
     var getLabelText: (value: Number) -> String
     var icon: ReactElement
     @JsName("IconContainerComponent")
-    var iconContainerComponent: FunctionalComponent<MIconContainerProps>
+    var iconContainerComponent: FunctionComponent<MIconContainerProps>
     var max: Number
     var name: String
     var onChange: (event: Object, newValue: Number) -> Unit
@@ -59,7 +59,7 @@ fun RBuilder.mRating(
     addAsChild: Boolean = true,
     className: String? = null,
     handler: StyledHandler<MRatingProps>? = null
-) = createStyled(ratingComponent, addAsChild) {
+) = createStyled(ratingComponentType, addAsChild) {
     defaultValue?.let { attrs.defaultValue = it }
     attrs.disabled = disabled
     emptyIcon?.let { attrs.emptyIcon = it }

@@ -12,10 +12,7 @@ import com.ccfraser.muirwik.testapp.TestGridLists.ComponentStyles.icon
 import com.ccfraser.muirwik.testapp.TestGridLists.ComponentStyles.rootDiv
 import com.ccfraser.muirwik.testapp.TestGridLists.ComponentStyles.titleBar
 import kotlinx.css.*
-import react.RBuilder
-import react.RComponent
-import react.RProps
-import react.RState
+import react.*
 import react.dom.img
 import styled.StyleSheet
 import styled.css

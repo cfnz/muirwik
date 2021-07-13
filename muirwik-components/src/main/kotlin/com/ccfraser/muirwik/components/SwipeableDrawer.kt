@@ -2,9 +2,8 @@ package com.ccfraser.muirwik.components
 
 import com.ccfraser.muirwik.components.transitions.TransitionDuration
 import org.w3c.dom.events.Event
+import react.ComponentType
 import react.RBuilder
-import react.RComponent
-import react.RState
 import styled.StyledHandler
 import styled.StyledProps
 
@@ -13,7 +12,7 @@ import styled.StyledProps
 private external val swipeableDrawerModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")
-private val swipeableDrawerComponent: RComponent<MSwipeableDrawerProps, RState> = swipeableDrawerModule.default
+private val swipeableDrawerComponentType: ComponentType<MSwipeableDrawerProps> = swipeableDrawerModule.default
 
 external interface MSwipeableDrawerProps : MDrawerProps {
     var disableBackdropTransition: Boolean
@@ -40,7 +39,7 @@ fun RBuilder.mSwipeableDrawer(
         transitionDuration: TransitionDuration? = null,
 
         className: String? = null,
-        handler: StyledHandler<MSwipeableDrawerProps>) = createStyled(swipeableDrawerComponent) {
+        handler: StyledHandler<MSwipeableDrawerProps>) = createStyled(swipeableDrawerComponentType) {
     attrs.anchor = anchor
     attrs.elevation = elevation
     attrs.swipeAreaWidth = swipeAreaWidth

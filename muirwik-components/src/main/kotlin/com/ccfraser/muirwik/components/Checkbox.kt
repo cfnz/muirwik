@@ -5,7 +5,10 @@ import com.ccfraser.muirwik.components.form.MLabelPlacement
 import com.ccfraser.muirwik.components.form.mFormControlLabel
 import kotlinx.html.InputType
 import org.w3c.dom.events.Event
-import react.*
+import react.ComponentType
+import react.RBuilder
+import react.RProps
+import react.ReactElement
 import styled.StyledHandler
 
 
@@ -13,7 +16,7 @@ import styled.StyledHandler
 private external val checkboxModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")
-private val checkboxComponent : RComponent<MCheckboxProps, RState> = checkboxModule.default
+private val checkboxComponentType: ComponentType<MCheckboxProps> = checkboxModule.default
 
 
 external interface MCheckboxProps : StyledPropsWithCommonAttributes {
@@ -48,7 +51,7 @@ fun RBuilder.mCheckbox(
 
         addAsChild: Boolean = true,
         className: String? = null,
-        handler: StyledHandler<MCheckboxProps>? = null) = createStyled(checkboxComponent, addAsChild) {
+        handler: StyledHandler<MCheckboxProps>? = null) = createStyled(checkboxComponentType, addAsChild) {
     attrs.checked = checked
     attrs.color = color
     attrs.disabled = disabled

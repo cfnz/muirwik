@@ -1,10 +1,9 @@
 package com.ccfraser.muirwik.components
 
 import com.ccfraser.muirwik.components.styles.Breakpoint
+import react.ComponentType
 import react.RBuilder
-import react.RComponent
 import react.RProps
-import react.RState
 import styled.StyledHandler
 import styled.StyledProps
 import kotlin.properties.ReadWriteProperty
@@ -15,7 +14,7 @@ import kotlin.reflect.KProperty
 private external val gridDefault: dynamic
 
 @Suppress("UnsafeCastFromDynamic")
-private val gridComponent: RComponent<MGridProps, RState> = gridDefault.default
+private val gridComponentType: ComponentType<MGridProps> = gridDefault.default
 
 @Suppress("EnumEntryName")
 enum class MGridAlignContent {
@@ -231,7 +230,7 @@ fun RBuilder.mGridContainer(
         wrap: MGridWrap = MGridWrap.wrap,
 
         className: String? = null,
-        handler: StyledHandler<MGridProps>? = null) = createStyled(gridComponent) {
+        handler: StyledHandler<MGridProps>? = null) = createStyled(gridComponentType) {
     attrs.alignContent = alignContent
     attrs.alignItems = alignItems
     attrs.container = true
@@ -251,7 +250,7 @@ fun RBuilder.mGridItem(
         zeroMinWidth: Boolean? = null,
 
         className: String? = null,
-        handler: StyledHandler<MGridProps>? = null) = createStyled(gridComponent) {
+        handler: StyledHandler<MGridProps>? = null) = createStyled(gridComponentType) {
     attrs.item = true
     attrs.sm = sm
     attrs.md = md

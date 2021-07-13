@@ -1,7 +1,7 @@
 package com.ccfraser.muirwik.components.styles
 
-import com.ccfraser.muirwik.components.child
 import kotlinext.js.Object
+import kotlinext.js.jsObject
 import org.w3c.dom.Element
 import react.*
 
@@ -9,7 +9,7 @@ import react.*
 private external val stylesProviderModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")
-val stylesProviderComponent: RComponent<MStylesProviderProps, RState> = stylesProviderModule.default
+val stylesProviderComponentType: ComponentType<MStylesProviderProps> = stylesProviderModule.default
 
 @JsModule("@material-ui/styles/jssPreset")
 private external val jssPresetModule: dynamic
@@ -59,7 +59,7 @@ fun RBuilder.mStylesProvider(
         disableGeneration: Boolean = false,
         generateClassName: (() -> Unit)? = null,
         jss: Object? = null,
-        handler: RHandler<MStylesProviderProps>? = null) = child(stylesProviderComponent) {
+        handler: RHandler<MStylesProviderProps>? = null) = child(stylesProviderComponentType, jsObject()) {
     attrs.injectFirst = injectFirst
     attrs.disableGeneration = disableGeneration
     generateClassName?.let { attrs.generateClassName = it }

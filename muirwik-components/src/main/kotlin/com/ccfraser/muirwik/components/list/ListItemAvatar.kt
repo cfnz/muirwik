@@ -5,10 +5,9 @@ import com.ccfraser.muirwik.components.button.MButtonBaseProps
 import com.ccfraser.muirwik.components.createStyled
 import com.ccfraser.muirwik.components.mAvatar
 import com.ccfraser.muirwik.components.setStyledPropsAndRunHandler
+import react.ComponentType
 import react.RBuilder
-import react.RComponent
 import react.RProps
-import react.RState
 import styled.StyledHandler
 
 
@@ -16,11 +15,11 @@ import styled.StyledHandler
 private external val listItemAvatarModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")
-private val listItemAvatarComponent: RComponent<MButtonBaseProps, RState> = listItemAvatarModule.default
+private val listItemAvatarComponentType: ComponentType<MButtonBaseProps> = listItemAvatarModule.default
 
 fun RBuilder.mListItemAvatar(
         className: String? = null,
-        handler: StyledHandler<MButtonBaseProps>? = null) = createStyled(listItemAvatarComponent) {
+        handler: StyledHandler<MButtonBaseProps>? = null) = createStyled(listItemAvatarComponentType) {
     setStyledPropsAndRunHandler(className, handler)
 }
 
@@ -35,7 +34,7 @@ fun RBuilder.mListItemAvatar(
         sizes: String? = null,
 
         className: String? = null,
-        handler: StyledHandler<MButtonBaseProps>? = null) = createStyled(listItemAvatarComponent) {
+        handler: StyledHandler<MButtonBaseProps>? = null) = createStyled(listItemAvatarComponentType) {
 
     mAvatar(src, srcSet, alt, variant, component, imgProps, sizes)
 

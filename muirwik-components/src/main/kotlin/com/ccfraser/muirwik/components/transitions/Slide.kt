@@ -2,9 +2,8 @@ package com.ccfraser.muirwik.components.transitions
 
 import com.ccfraser.muirwik.components.createStyled
 import com.ccfraser.muirwik.components.setStyledPropsAndRunHandler
+import react.ComponentType
 import react.RBuilder
-import react.RComponent
-import react.RState
 import styled.StyledHandler
 
 
@@ -12,7 +11,7 @@ import styled.StyledHandler
 private external val slideModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")
-private val slideComponent: RComponent<MSlideProps, RState> = slideModule.default
+private val slideComponentType: ComponentType<MSlideProps> = slideModule.default
 
 @Suppress("EnumEntryName")
 enum class SlideTransitionDirection {
@@ -31,7 +30,7 @@ fun RBuilder.mSlide(
 
         addAsChild: Boolean = true,
         className: String? = null,
-        handler: StyledHandler<MSlideProps>? = null) = createStyled(slideComponent, addAsChild) {
+        handler: StyledHandler<MSlideProps>? = null) = createStyled(slideComponentType, addAsChild) {
     attrs.direction = direction
     attrs.show = show
     timeout?.let { attrs.timeout = it }

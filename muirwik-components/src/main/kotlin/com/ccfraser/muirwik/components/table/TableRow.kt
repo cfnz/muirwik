@@ -4,9 +4,8 @@ import com.ccfraser.muirwik.components.button.MButtonBaseProps
 import com.ccfraser.muirwik.components.createStyled
 import com.ccfraser.muirwik.components.setStyledPropsAndRunHandler
 import org.w3c.dom.events.Event
+import react.ComponentType
 import react.RBuilder
-import react.RComponent
-import react.RState
 import styled.StyledHandler
 
 
@@ -14,7 +13,7 @@ import styled.StyledHandler
 private external val tableRowModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")
-private val tableRowComponent: RComponent<MTableRowProps, RState> = tableRowModule.default
+private val tableRowComponentType: ComponentType<MTableRowProps> = tableRowModule.default
 
 external interface MTableRowProps : MButtonBaseProps {
     var hover: Boolean
@@ -30,7 +29,7 @@ fun RBuilder.mTableRow(
         component: String = "tr",
 
         className: String? = null,
-        handler: StyledHandler<MTableRowProps>? = null) = createStyled(tableRowComponent) {
+        handler: StyledHandler<MTableRowProps>? = null) = createStyled(tableRowComponentType) {
     key?.let { attrs.key = key }
     attrs.component = component
     attrs.hover = hover

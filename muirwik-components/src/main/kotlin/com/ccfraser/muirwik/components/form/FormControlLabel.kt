@@ -5,9 +5,8 @@ import com.ccfraser.muirwik.components.StyledPropsWithCommonAttributes
 import com.ccfraser.muirwik.components.createStyled
 import com.ccfraser.muirwik.components.setStyledPropsAndRunHandler
 import org.w3c.dom.events.Event
+import react.ComponentType
 import react.RBuilder
-import react.RComponent
-import react.RState
 import react.ReactElement
 import styled.StyledHandler
 
@@ -15,7 +14,7 @@ import styled.StyledHandler
 private external val formControlLabelModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")
-private val formControlLabelComponent: RComponent<MFormControlLabelProps, RState> = formControlLabelModule.default
+private val formControlLabelComponentType: ComponentType<MFormControlLabelProps> = formControlLabelModule.default
 
 @Suppress("EnumEntryName")
 enum class MLabelPlacement {
@@ -45,7 +44,7 @@ fun RBuilder.mFormControlLabel (
         onChange: ((Event, Boolean) -> Unit)? = null,
 
         className: String? = null,
-        handler: StyledHandler<MFormControlLabelProps>? = null) = createStyled(formControlLabelComponent) {
+        handler: StyledHandler<MFormControlLabelProps>? = null) = createStyled(formControlLabelComponentType) {
     checked?.let { attrs.checked = checked }
     attrs.control = control
     attrs.disabled = disabled

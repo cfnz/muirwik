@@ -2,9 +2,8 @@ package com.ccfraser.muirwik.components
 
 import kotlinx.css.LinearDimension
 import kotlinx.css.px
+import react.ComponentType
 import react.RBuilder
-import react.RComponent
-import react.RState
 import styled.StyledHandler
 import styled.StyledProps
 
@@ -13,7 +12,7 @@ import styled.StyledProps
 private external val circularProgressModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")
-private val circularProgressComponent: RComponent<MCircularProgressProps, RState> = circularProgressModule.default
+private val circularProgressComponentType: ComponentType<MCircularProgressProps> = circularProgressModule.default
 
 @Suppress("EnumEntryName")
 enum class MCircularProgressColor {
@@ -47,7 +46,7 @@ fun RBuilder.mCircularProgress(
         disableShrink: Boolean = false,
 
         className: String? = null,
-        handler: StyledHandler<MCircularProgressProps>? = null) = createStyled(circularProgressComponent) {
+        handler: StyledHandler<MCircularProgressProps>? = null) = createStyled(circularProgressComponentType) {
     attrs.color = color
     attrs.disableShrink = disableShrink
     attrs.size = size

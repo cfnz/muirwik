@@ -2,9 +2,8 @@ package com.ccfraser.muirwik.components.card
 
 import com.ccfraser.muirwik.components.createStyled
 import com.ccfraser.muirwik.components.setStyledPropsAndRunHandler
+import react.ComponentType
 import react.RBuilder
-import react.RComponent
-import react.RState
 import styled.StyledHandler
 import styled.StyledProps
 
@@ -13,14 +12,14 @@ import styled.StyledProps
 private external val cardActionsModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")
-private val cardActionsComponent: RComponent<MCardActionsProps, RState> = cardActionsModule.default
+private val cardActionsComponentType: ComponentType<MCardActionsProps> = cardActionsModule.default
 
 external interface MCardActionsProps : StyledProps {
     var disableSpacing: Boolean
 }
 
 fun RBuilder.mCardActions(disableSpacing: Boolean = false,
-                          handler: StyledHandler<MCardActionsProps>?) = createStyled(cardActionsComponent) {
+                          handler: StyledHandler<MCardActionsProps>?) = createStyled(cardActionsComponentType) {
     attrs.disableSpacing = disableSpacing
     setStyledPropsAndRunHandler(null, handler)
 }

@@ -1,8 +1,7 @@
 package com.ccfraser.muirwik.components
 
+import react.ComponentType
 import react.RBuilder
-import react.RComponent
-import react.RState
 import react.ReactElement
 import styled.StyledHandler
 
@@ -11,7 +10,7 @@ import styled.StyledHandler
 private external val breadcrumbsModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")
-private val breadcrumbsComponent: RComponent<MBreadcrumbsProps, RState> = breadcrumbsModule.default
+private val breadcrumbsComponentType: ComponentType<MBreadcrumbsProps> = breadcrumbsModule.default
 
 external interface MBreadcrumbsProps: StyledPropsWithCommonAttributes {
     var component: String
@@ -43,7 +42,7 @@ fun RBuilder.mBreadcrumbs(
         component: String = "nav",
 
         className: String? = null,
-        handler: StyledHandler<MBreadcrumbsProps>? = null) = createStyled(breadcrumbsComponent) {
+        handler: StyledHandler<MBreadcrumbsProps>? = null) = createStyled(breadcrumbsComponentType) {
     attrs.component = component
     attrs.itemsAfterCollapse = itemsAfterCollapse
     attrs.itemsBeforeCollapse = itemsBeforeCollapse

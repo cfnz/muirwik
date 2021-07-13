@@ -2,9 +2,8 @@ package com.ccfraser.muirwik.components.button
 
 import com.ccfraser.muirwik.components.*
 import org.w3c.dom.events.Event
+import react.ComponentType
 import react.RBuilder
-import react.RComponent
-import react.RState
 import react.ReactElement
 import styled.StyledHandler
 
@@ -13,7 +12,7 @@ import styled.StyledHandler
 private external val buttonModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")
-private val buttonComponent: RComponent<MButtonProps, RState> = buttonModule.default
+private val buttonComponentType: ComponentType<MButtonProps> = buttonModule.default
 
 
 external interface MButtonProps : MButtonBaseProps {
@@ -44,7 +43,7 @@ fun RBuilder.mButton(
 
         addAsChild: Boolean = true,
         className: String? = null,
-        handler: StyledHandler<MButtonProps>? = null) = createStyled(buttonComponent, addAsChild) {
+        handler: StyledHandler<MButtonProps>? = null) = createStyled(buttonComponentType, addAsChild) {
     attrs.color = color
     attrs.disabled = disabled
     hRefOptions?.let { setHRefTargetNoOpener(attrs, it) }

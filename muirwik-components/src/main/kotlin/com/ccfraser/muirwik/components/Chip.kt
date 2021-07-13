@@ -2,9 +2,8 @@ package com.ccfraser.muirwik.components
 
 import org.w3c.dom.Node
 import org.w3c.dom.events.Event
+import react.ComponentType
 import react.RBuilder
-import react.RComponent
-import react.RState
 import react.ReactElement
 import styled.StyledHandler
 
@@ -13,7 +12,7 @@ import styled.StyledHandler
 private external val chipModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")
-private val chipComponent: RComponent<MChipProps, RState> = chipModule.default
+private val chipComponentType: ComponentType<MChipProps> = chipModule.default
 
 @Suppress("EnumEntryName")
 enum class MChipVariant {
@@ -58,7 +57,7 @@ fun RBuilder.mChip(
 
         addAsChild: Boolean = true,
         className: String? = null,
-        handler: StyledHandler<MChipProps>? = null) = createStyled(chipComponent, addAsChild) {
+        handler: StyledHandler<MChipProps>? = null) = createStyled(chipComponentType, addAsChild) {
     avatar?.let { attrs.avatar = it }
     attrs.color = color
     attrs.component = "div"
