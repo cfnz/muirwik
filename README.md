@@ -47,7 +47,7 @@ repositories {
 dependencies {
     ...
     implementation("org.jetbrains", "kotlin-styled", "5.3.0-$kotlinJsVersion")
-    implementation("com.ccfraser.muirwik:muirwik-components:0.7.1")
+    implementation("com.ccfraser.muirwik:muirwik-components:0.8.2")
 }
 ```
 
