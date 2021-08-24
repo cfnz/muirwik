@@ -43,7 +43,7 @@ external interface Breakpoints {
     fun widthWithStringKey(key: String): Int
 }
 
-private fun removeMediaString(query: String) = if (query.startsWith("@media")) query.substring(6) else query
+private fun removeMediaString(query: String) = query.removePrefix("@media")
 
 fun Breakpoints.up(key: Breakpoint): String {
     return removeMediaString(upWithMediaTerm(key.toString()))
