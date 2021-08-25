@@ -14,6 +14,7 @@ import com.ccfraser.muirwik.components.transitions.mFade
 import kotlinext.js.js
 import kotlinext.js.jsObject
 import kotlinx.css.*
+import kotlinx.html.BUTTON
 import org.w3c.dom.Node
 import org.w3c.dom.events.Event
 import react.*
@@ -24,11 +25,11 @@ import styled.css
 import styled.styledDiv
 
 
-class TestMenus : RComponent<RProps, RState>() {
+class TestMenus : RComponent<Props, State>() {
     private var anchorElement: Node? = null
     private var selectedOption = "Selection Example..."
     private var selectedMenuIndex: Int? = null
-    private var refAnchorElement: Node? = null
+    private var refAnchorElement = createRef<Node>()
 
     private fun handleShowMenuClick(event: Event, menuIndex: Int) {
         selectedMenuIndex = menuIndex
@@ -76,16 +77,10 @@ class TestMenus : RComponent<RProps, RState>() {
                 }
 
                 mButton("Anchor with Ref", onClick = { setState { selectedMenuIndex = 2 } }) {
-                    ref {
-                        // Docs say don't get into the habit of finding the rendered DOM node, but also says it is
-                        // ok for things like positioning... and that is what we are doing. "it" is a reference
-                        // to a react node instance, so we need to use findDOMNode to get the real DOM item so
-                        // we can position our menu on top of it. (Note that "it" is also null sometimes.)
-                        refAnchorElement = findDOMNode(it)
-                    }
+                    ref = refAnchorElement
                 }
                 div {
-                    mMenu(selectedMenuIndex == 2, anchorElement = refAnchorElement, onClose = { _, reason -> handleOnClose(reason) }) {
+                    mMenu(selectedMenuIndex == 2, anchorElement = refAnchorElement.current, onClose = { _, reason -> handleOnClose(reason) }) {
                         mMenuItem("Profile", onClick = { handleSimpleClick() })
                         mMenuItem("My account", onClick = { handleSimpleClick() })
                         mMenuItem("Logout", onClick = { handleSimpleClick() })
@@ -122,10 +117,10 @@ class TestMenus : RComponent<RProps, RState>() {
             styledDiv {
                 css { display = Display.inlineFlex }
 
-            // For some reason this is a bit different to providing the snackbar a transition... this works for menu, not for snackbar
-                class FadeTransition(props: MTransitionProps) : RComponent<MTransitionProps, RState>(props) {
+                // For some reason this is a bit different to providing the snackbar a transition... this works for menu, not for snackbar
+                class FadeTransition(props: MTransitionProps) : RComponent<MTransitionProps, State>(props) {
                     override fun RBuilder.render() {
-                        childList.add(cloneElement(mFade(addAsChild = false), props))
+                        childList.add(cloneElement(buildElement { mFade() }, props))
                     }
                 }
 
@@ -197,6 +192,4 @@ class TestMenus : RComponent<RProps, RState>() {
         }
     }
 }
-
-fun RBuilder.testMenus() = child(TestMenus::class) {}
 

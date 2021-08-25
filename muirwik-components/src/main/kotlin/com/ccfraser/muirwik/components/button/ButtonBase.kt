@@ -3,7 +3,7 @@ package com.ccfraser.muirwik.components.button
 import com.ccfraser.muirwik.components.ElementType
 import com.ccfraser.muirwik.components.StyledPropsWithCommonAttributes
 import org.w3c.dom.events.Event
-import react.RProps
+import react.Props
 
 
 external interface MButtonBaseProps: StyledPropsWithCommonAttributes {
@@ -15,7 +15,7 @@ external interface MButtonBaseProps: StyledPropsWithCommonAttributes {
     var onKeyboardFocus: (Event) -> Unit
 
     @JsName("TouchRippleProps")
-    var touchRippleProps: RProps?
+    var touchRippleProps: Props?
 }
 
 @Suppress("EnumEntryName")

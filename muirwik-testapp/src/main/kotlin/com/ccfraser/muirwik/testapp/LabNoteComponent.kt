@@ -6,10 +6,7 @@ import com.ccfraser.muirwik.components.mTypography
 import com.ccfraser.muirwik.components.spacingUnits
 import com.ccfraser.muirwik.testapp.LabNoteComponentStyles.paddingBottom
 import kotlinx.css.*
-import react.RBuilder
-import react.RProps
-import react.child
-import react.functionalComponent
+import react.*
 import styled.StyleSheet
 import styled.css
 
@@ -22,7 +19,7 @@ private object LabNoteComponentStyles : StyleSheet("LabNoteComponentStyles", isS
     }
 }
 
-private val labNoteComponent = functionalComponent<RProps> {
+private val labNoteComponent = fc<Props> {
     mCard {
         mCardContent {
             css(paddingBottom)
@@ -42,4 +39,6 @@ private val labNoteComponent = functionalComponent<RProps> {
     }
 }
 
-fun RBuilder.labNoteComponent() = child(labNoteComponent)
+fun RBuilder.labNoteComponent() {
+    child(labNoteComponent)
+}

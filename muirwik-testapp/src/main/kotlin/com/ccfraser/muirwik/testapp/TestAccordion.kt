@@ -13,7 +13,7 @@ import react.*
 import styled.css
 import styled.styledDiv
 
-class TestAccordion : RComponent<RProps, RState>() {
+class TestAccordion : RComponent<Props, State>() {
     private var expandedItem: String? = null
 
     private fun handleExpanded(expanded: Boolean, panelName: String) {
@@ -28,7 +28,7 @@ class TestAccordion : RComponent<RProps, RState>() {
                 width = 100.pct
             }
             mAccordion {
-                mAccordionSummary(expandIcon = mIcon("expand_more", addAsChild = false)) {
+                mAccordionSummary(expandIcon = buildElement { mIcon("expand_more") }) {
                     mTypography("Accordion Item 1")
                 }
                 mAccordionDetails {
@@ -37,7 +37,7 @@ class TestAccordion : RComponent<RProps, RState>() {
                 }
             }
             mAccordion {
-                mAccordionSummary(expandIcon = mIcon("expand_more", addAsChild = false)) {
+                mAccordionSummary(expandIcon = buildElement { mIcon("expand_more") }) {
                     mTypography("Accordion Item 2")
                 }
                 mAccordionDetails {
@@ -46,7 +46,7 @@ class TestAccordion : RComponent<RProps, RState>() {
                 }
             }
             mAccordion(disabled = true) {
-                mAccordionSummary(expandIcon = mIcon("expand_more", addAsChild = false)) {
+                mAccordionSummary(expandIcon = buildElement { mIcon("expand_more") }) {
                     mTypography("Accordion Item 3")
                 }
                 mAccordionDetails {
@@ -63,7 +63,7 @@ class TestAccordion : RComponent<RProps, RState>() {
                 width = 100.pct
             }
             mAccordion(expandedItem == "panel1", onChange = { _, expanded -> handleExpanded(expanded, "panel1")}) {
-                mAccordionSummary(expandIcon = mIcon("expand_more", addAsChild = false)) {
+                mAccordionSummary(expandIcon = buildElement { mIcon("expand_more") }) {
                     mTypography("Accordion Item 1")
                 }
                 mAccordionDetails {
@@ -72,7 +72,7 @@ class TestAccordion : RComponent<RProps, RState>() {
                 }
             }
             mAccordion(expandedItem == "panel2", onChange = { _, expanded -> handleExpanded(expanded, "panel2")}) {
-                mAccordionSummary(expandIcon = mIcon("expand_more", addAsChild = false)) {
+                mAccordionSummary(expandIcon = buildElement { mIcon("expand_more") }) {
                     mTypography("Accordion Item 2")
                 }
                 mAccordionDetails {
@@ -81,7 +81,7 @@ class TestAccordion : RComponent<RProps, RState>() {
                 }
             }
             mAccordion(expandedItem == "panel3", onChange = { _, expanded -> handleExpanded(expanded, "panel3")}) {
-                mAccordionSummary(expandIcon = mIcon("expand_more", addAsChild = false)) {
+                mAccordionSummary(expandIcon = buildElement { mIcon("expand_more") }) {
                     mTypography("Accordion Item 3")
                 }
                 mAccordionDetails {
@@ -92,5 +92,3 @@ class TestAccordion : RComponent<RProps, RState>() {
         }
     }
 }
-
-fun RBuilder.testAccordion() = child(TestAccordion::class) {}

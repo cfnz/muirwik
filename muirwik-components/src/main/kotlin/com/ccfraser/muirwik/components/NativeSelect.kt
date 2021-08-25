@@ -11,7 +11,7 @@ import styled.StyledHandler
 private external val nativeSelectModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")
-private val nativeSelectComponent: RComponent<MNativeSelectProps, RState> = nativeSelectModule.default
+private val nativeSelectComponentType: ComponentType<MNativeSelectProps> = nativeSelectModule.default
 
 external interface MNativeSelectProps : StyledPropsWithCommonAttributes {
     var autoFocus: Boolean
@@ -20,10 +20,10 @@ external interface MNativeSelectProps : StyledPropsWithCommonAttributes {
     var fullWidth: Boolean
 
     @JsName("IconComponent")
-    var iconComponent: RComponent<MIconProps, RState>?
+    var iconComponent: RComponent<MIconProps, State>?
 
     var input: ReactElement?
-    var inputProps: RProps
+    var inputProps: Props
     var multiple: Boolean
     var name: String
     var onChange: ((event: Event, child: ReactElement?) -> Unit)?
@@ -38,34 +38,31 @@ var MNativeSelectProps.variant by EnumPropToString(MFormControlVariant.values())
  * In other words, the mSelect control can do the same thing.
  */
 fun RBuilder.mNativeSelect(
-        value: Any?,
-        error: Boolean? = null,
-        disabled: Boolean? = null,
-        multiple: Boolean = false,
-        iconComponent: RComponent<MIconProps, RState>? = null,
-        autoFocus: Boolean? = null,
-        id: String? = null,
-        name: String? = null,
-        variant: MFormControlVariant = MFormControlVariant.standard,
-
-        onChange: ((event: Event, child: ReactElement?) -> Unit)? = null,
-
-        addAsChild: Boolean = true,
-        className: String? = null,
-
-        handler: StyledHandler<MNativeSelectProps>? = null) = createStyled(nativeSelectComponent, addAsChild) {
-    autoFocus?.let { attrs.autoFocus = it }
-    disabled?.let { attrs.disabled = it }
-    error?.let { attrs.error = it }
-    iconComponent?.let { attrs.iconComponent = it }
-    id?.let { attrs.id = it }
-    attrs.multiple = multiple
-    name?.let { attrs.name = it }
-    onChange?.let { attrs.onChange = it }
-    value?.let { attrs.value = it }
-    attrs.variant = variant
-
-    setStyledPropsAndRunHandler(className, handler)
+    value: Any?,
+    error: Boolean? = null,
+    disabled: Boolean? = null,
+    multiple: Boolean = false,
+    iconComponent: RComponent<MIconProps, State>? = null,
+    autoFocus: Boolean? = null,
+    id: String? = null,
+    name: String? = null,
+    variant: MFormControlVariant = MFormControlVariant.standard,
+    onChange: ((event: Event, child: ReactElement?) -> Unit)? = null,
+    className: String? = null,
+    handler: StyledHandler<MNativeSelectProps>? = null
+) {
+    createStyled(nativeSelectComponentType, className, handler) {
+        autoFocus?.let { attrs.autoFocus = it }
+        disabled?.let { attrs.disabled = it }
+        error?.let { attrs.error = it }
+        iconComponent?.let { attrs.iconComponent = it }
+        id?.let { attrs.id = it }
+        attrs.multiple = multiple
+        name?.let { attrs.name = it }
+        onChange?.let { attrs.onChange = it }
+        value?.let { attrs.value = it }
+        attrs.variant = variant
+    }
 }
 
 

@@ -3,15 +3,12 @@ package com.ccfraser.muirwik.testapp
 import com.ccfraser.muirwik.components.*
 import com.ccfraser.muirwik.testapp.TestLinks.CustomTabStyles.linkMargin
 import kotlinx.css.margin
-import react.RBuilder
-import react.RComponent
-import react.RProps
-import react.RState
+import react.*
 import styled.StyleSheet
 import styled.css
 
 
-class TestLinks : RComponent<RProps, RState>() {
+class TestLinks : RComponent<Props, State>() {
     private object CustomTabStyles : StyleSheet("ComponentStyles", isStatic = true) {
         val linkMargin by css {
             margin(1.spacingUnits)
@@ -31,5 +28,3 @@ class TestLinks : RComponent<RProps, RState>() {
         }
     }
 }
-
-fun RBuilder.testLinks() = child(TestLinks::class) {}

@@ -23,7 +23,7 @@ import react.dom.*
 import styled.*
 
 
-class TestButtons : RComponent<RProps, RState>() {
+class TestButtons : RComponent<Props, State>() {
 
     private fun handleMouseMove() {
         console.log("Another Move")
@@ -124,19 +124,19 @@ class TestButtons : RComponent<RProps, RState>() {
             mTypography("Buttons with icons")
             mButton("Delete", MColor.secondary, MButtonVariant.contained) {
                 css(buttonMargin)
-                attrs.startIcon = mIcon("delete", fontSize = MIconFontSize.small, addAsChild = false)
+                attrs.startIcon = buildElement { mIcon("delete", fontSize = MIconFontSize.small) }
             }
             mButton("Send", MColor.primary, MButtonVariant.contained) {
                 css(buttonMargin)
-                attrs.endIcon = mIcon("send", fontSize = MIconFontSize.small, addAsChild = false)
+                attrs.endIcon = buildElement { mIcon("send", fontSize = MIconFontSize.small) }
             }
             mButton("Upload", variant = MButtonVariant.contained) {
                 css(buttonMargin)
-                attrs.startIcon = mIcon("cloud_upload", fontSize = MIconFontSize.small, addAsChild = false)
+                attrs.startIcon = buildElement { mIcon("cloud_upload", fontSize = MIconFontSize.small) }
             }
             mButton("Svg Icon", variant = MButtonVariant.contained) {
                 css(buttonMargin)
-                attrs.startIcon = mSvgIcon("M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z", addAsChild = false)
+                attrs.startIcon = buildElement { mSvgIcon("M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z") }
             }
         }
         br { }
@@ -351,6 +351,3 @@ class TestButtons : RComponent<RProps, RState>() {
         }
     }
 }
-
-
-fun RBuilder.testButtons() = child(TestButtons::class) {}

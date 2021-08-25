@@ -1,8 +1,8 @@
 package com.ccfraser.muirwik.components
 
+import react.ComponentType
 import react.RBuilder
-import react.RComponent
-import react.RState
+import react.ReactNode
 import styled.StyledHandler
 
 
@@ -10,7 +10,7 @@ import styled.StyledHandler
 private external val typographyDefault: dynamic
 
 @Suppress("UnsafeCastFromDynamic")
-private val typographyComponent: RComponent<MTypographyProps, RState> = typographyDefault.default
+private val typographyComponentType: ComponentType<MTypographyProps> = typographyDefault.default
 
 @Suppress("EnumEntryName")
 enum class MTypographyAlign {
@@ -47,20 +47,19 @@ fun RBuilder.mTypography(
         noWrap: Boolean = false,
         paragraph: Boolean = false,
         component: ElementType? = null,
-
-        addAsChild: Boolean = true,
         className: String? = null,
-        handler: StyledHandler<MTypographyProps>? = null) = createStyled(typographyComponent, addAsChild) {
-    attrs.align = align
-    attrs.color = color
-    component?.let { attrs.component = it }
-    attrs.gutterBottom = gutterBottom
-    attrs.noWrap = noWrap
-    attrs.paragraph = paragraph
-    attrs.variant = variant
+        handler: StyledHandler<MTypographyProps>? = null
+) {
+    createStyled(typographyComponentType, className, handler) {
+        attrs.align = align
+        attrs.color = color
+        component?.let { attrs.component = it }
+        attrs.gutterBottom = gutterBottom
+        attrs.noWrap = noWrap
+        attrs.paragraph = paragraph
+        attrs.variant = variant
 
-    text?.let {childList.add(it)}
-
-    setStyledPropsAndRunHandler(className, handler)
+        text?.let {childList.add(ReactNode(it))}
+    }
 }
 

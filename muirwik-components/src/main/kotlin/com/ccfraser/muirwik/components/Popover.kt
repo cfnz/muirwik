@@ -8,7 +8,10 @@ import com.ccfraser.muirwik.components.transitions.TransitionDurationWithAutoDel
 import kotlinext.js.Object
 import org.w3c.dom.Node
 import org.w3c.dom.events.Event
-import react.*
+import react.ComponentType
+import react.RBuilder
+import react.Props
+import react.ReactElement
 import styled.StyledHandler
 
 
@@ -16,7 +19,7 @@ import styled.StyledHandler
 private external val popoverModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")
-private val popoverComponent: RComponent<MPopoverProps, RState> = popoverModule.default
+private val popoverComponentType: ComponentType<MPopoverProps> = popoverModule.default
 
 
 enum class MPopoverAnchorRef {
@@ -52,7 +55,7 @@ external interface MPopoverProps : MModalProps {
     var paperProps: MPaperProps?
 
     @JsName("TransitionProps")
-    var transitionProps: RProps?
+    var transitionProps: Props?
 }
 
 /**
@@ -118,26 +121,25 @@ fun RBuilder.mPopover(
         hideBackdrop: Boolean = false,
         keepMounted: Boolean = false,
         closeAfterTransition: Boolean = false,
-
         onBackdropClick: SimpleEvent? = null,
         onClose: ((Event, reason: ModalOnCloseReason) -> Unit)? = null,
         onEscapeKeyDown: SimpleEvent? = null,
-
         className: String? = null,
-        handler: StyledHandler<MPopoverProps>) = createStyled(popoverComponent) {
-    attrs.anchorOriginHorizontal = anchorOriginHorizontal
-    attrs.anchorOriginVertical = anchorOriginVertical
-    attrs.closeAfterTransition = closeAfterTransition
-    container?.let { attrs.container = it }
-    attrs.hideBackdrop = hideBackdrop
-    attrs.keepMounted = keepMounted
+        handler: StyledHandler<MPopoverProps>
+) {
+    createStyled(popoverComponentType, className, handler) {
+        attrs.anchorOriginHorizontal = anchorOriginHorizontal
+        attrs.anchorOriginVertical = anchorOriginVertical
+        attrs.closeAfterTransition = closeAfterTransition
+        container?.let { attrs.container = it }
+        attrs.hideBackdrop = hideBackdrop
+        attrs.keepMounted = keepMounted
 //    manager?.let { attrs.manager = manager }
-    onBackdropClick?.let { attrs.onBackdropClick = it }
-    attrs.onClose = onClose
-    onEscapeKeyDown?.let { attrs.onEscapeKeyDown = it }
-    attrs.open = open
-
-    setStyledPropsAndRunHandler(className, handler)
+        onBackdropClick?.let { attrs.onBackdropClick = it }
+        attrs.onClose = onClose
+        onEscapeKeyDown?.let { attrs.onEscapeKeyDown = it }
+        attrs.open = open
+    }
 }
 
 

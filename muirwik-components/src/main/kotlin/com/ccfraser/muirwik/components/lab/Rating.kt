@@ -3,16 +3,18 @@ package com.ccfraser.muirwik.components.lab
 import com.ccfraser.muirwik.components.EnumPropToString
 import com.ccfraser.muirwik.components.StyledPropsWithCommonAttributes
 import com.ccfraser.muirwik.components.createStyled
-import com.ccfraser.muirwik.components.setStyledPropsAndRunHandler
 import kotlinext.js.Object
-import react.*
+import react.ComponentType
+import react.FunctionComponent
+import react.RBuilder
+import react.ReactElement
 import styled.StyledHandler
 
 @JsModule("@material-ui/lab/Rating")
 private external val ratingModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")
-private val ratingComponent: RComponent<MRatingProps, RState> = ratingModule.default
+private val ratingComponentType: ComponentType<MRatingProps> = ratingModule.default
 
 @Suppress("EnumEntryName")
 enum class MRatingSize {
@@ -27,7 +29,7 @@ external interface MRatingProps : StyledPropsWithCommonAttributes {
     var getLabelText: (value: Number) -> String
     var icon: ReactElement
     @JsName("IconContainerComponent")
-    var iconContainerComponent: FunctionalComponent<MIconContainerProps>
+    var iconContainerComponent: FunctionComponent<MIconContainerProps>
     var max: Number
     var name: String
     var onChange: (event: Object, newValue: Number) -> Unit
@@ -55,23 +57,21 @@ fun RBuilder.mRating(
     emptyIcon: ReactElement? = null,
     emptyLabelText: String = "Empty",
     size: MRatingSize = MRatingSize.medium,
-
-    addAsChild: Boolean = true,
     className: String? = null,
     handler: StyledHandler<MRatingProps>? = null
-) = createStyled(ratingComponent, addAsChild) {
-    defaultValue?.let { attrs.defaultValue = it }
-    attrs.disabled = disabled
-    emptyIcon?.let { attrs.emptyIcon = it }
-    attrs.emptyLabelText = emptyLabelText
-    icon?.let { attrs.icon = icon }
-    attrs.max = max
-    attrs.name = name
-    onChange?.let { attrs.onChange = it }
-    attrs.precision = precision
-    attrs.readOnly = readOnly
-    attrs.size = size
-    value?.let { attrs.value = it }
-
-  setStyledPropsAndRunHandler(className, handler)
+) {
+    createStyled(ratingComponentType, className, handler) {
+        defaultValue?.let { attrs.defaultValue = it }
+        attrs.disabled = disabled
+        emptyIcon?.let { attrs.emptyIcon = it }
+        attrs.emptyLabelText = emptyLabelText
+        icon?.let { attrs.icon = icon }
+        attrs.max = max
+        attrs.name = name
+        onChange?.let { attrs.onChange = it }
+        attrs.precision = precision
+        attrs.readOnly = readOnly
+        attrs.size = size
+        value?.let { attrs.value = it }
+    }
 }

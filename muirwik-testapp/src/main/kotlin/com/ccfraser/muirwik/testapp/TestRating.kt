@@ -7,6 +7,7 @@ import com.ccfraser.muirwik.components.lab.mRating
 import com.ccfraser.muirwik.testapp.RatingsStyles.margin
 import kotlinx.css.*
 import react.*
+import react.dom.span
 import styled.StyleSheet
 import styled.css
 import styled.styledDiv
@@ -18,7 +19,7 @@ private object RatingsStyles : StyleSheet("RatingStyles", isStatic = true) {
     }
 }
 
-private val testRatings = functionalComponent<RProps> { _ ->
+public val testRatings = fc<Props> { _ ->
     labNoteComponent()
 
     styledDiv {
@@ -55,14 +56,14 @@ private val testRatings = functionalComponent<RProps> { _ ->
             css(margin)
             mTypography("Custom empty icon", component = "legend")
             mRating("customized-empty", value, precision = 0.5, onChange = { _, newValue -> value = newValue }) {
-                attrs.emptyIcon = mIcon("star_border", fontSize = MIconFontSize.inherit, addAsChild = false)
+                attrs.emptyIcon = buildElement { mIcon("star_border", fontSize = MIconFontSize.inherit) }
             }
         }
         styledDiv {
             css(margin)
             mTypography("Custom icon and color", component = "legend")
             mRating("customized-empty", value, precision = 0.5, onChange = { _, newValue -> value = newValue },
-                icon = mIcon("favorite", fontSize = MIconFontSize.inherit, addAsChild = false)) {
+                icon = buildElement { mIcon("favorite", fontSize = MIconFontSize.inherit) }) {
                 css {
                     ".MuiRating-iconFilled" {
                         color = Color("#ff6d75")
@@ -138,16 +139,18 @@ private fun labelForValue(value: Number) = when(value) {
     else -> "Unknown"
 }
 
-private val iconContainer = functionalComponent<MIconContainerProps> { props ->
-    createElement("span", props, when (props.value) {
+private val iconContainer = fc<MIconContainerProps> { props ->
+    span {
+        when (props.value) {
             1 -> mIcon("sentiment_very_dissatisfied", className = props.className)
             2 -> mIcon("sentiment_dissatisfied", className = props.className)
             3 -> mIcon("sentiment_satisfied", className = props.className)
             4 -> mIcon("sentiment_satisfied_alt", className = props.className)
             else -> mIcon("sentiment_very_satisfied", className = props.className)
         }
-    )
+    }
 }
 
-fun RBuilder.testRatings() =  child(testRatings) {
+fun RBuilder.testRatings() {
+    child(testRatings) {}
 }

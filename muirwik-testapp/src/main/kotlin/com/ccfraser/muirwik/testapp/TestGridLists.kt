@@ -12,10 +12,7 @@ import com.ccfraser.muirwik.testapp.TestGridLists.ComponentStyles.icon
 import com.ccfraser.muirwik.testapp.TestGridLists.ComponentStyles.rootDiv
 import com.ccfraser.muirwik.testapp.TestGridLists.ComponentStyles.titleBar
 import kotlinx.css.*
-import react.RBuilder
-import react.RComponent
-import react.RProps
-import react.RState
+import react.*
 import react.dom.img
 import styled.StyleSheet
 import styled.css
@@ -23,7 +20,7 @@ import styled.styledDiv
 import styled.styledImg
 
 
-class TestGridLists : RComponent<RProps, RState>() {
+class TestGridLists : RComponent<Props, State>() {
     private data class TileData(val img: String, val title: String, val author: String, val cols: Int = 1, val featured: Boolean = false)
     private val tileData = listOf(
             TileData("breakfast.jpg", "Breakfast", "jill111", 2, true),
@@ -91,9 +88,9 @@ class TestGridLists : RComponent<RProps, RState>() {
                     mGridListTile(key = it.img) {
                         img(src = "/images/grid-list/${it.img}", alt = it.title) {}
                         mGridListTileBar(it.title, "by ${it.author}",
-                                mIconButton("info", iconColor = MIconColor.inherit) {
-                                    css(icon)
-                                }
+                            buildElement { mIconButton("info", iconColor = MIconColor.inherit) {
+                                css(icon)
+                            }}
                         )
                     }
                 }
@@ -108,10 +105,13 @@ class TestGridLists : RComponent<RProps, RState>() {
                 tileData.forEach {
                     mGridListTile(key = it.img, cols = if (it.featured) 2 else 1, rows = if (it.featured) 2 else 1) {
                         img(src = "/images/grid-list/${it.img}", alt = it.title) {}
-                        mGridListTileBar(it.title, titlePosition = MTitlePosition.top, actionPosition = MActionPosition.left,
-                                actionIcon = mIconButton("star-border", iconColor = MIconColor.inherit) {
-                                    css(icon)
-                                }
+                        mGridListTileBar(
+                            it.title,
+                            titlePosition = MTitlePosition.top,
+                            actionPosition = MActionPosition.left,
+                            actionIcon = buildElement { mIconButton("star-border", iconColor = MIconColor.inherit) {
+                                css(icon)
+                            }}
                         ) {
                             css(titleBar)
                         }
@@ -138,5 +138,3 @@ class TestGridLists : RComponent<RProps, RState>() {
         }
     }
 }
-
-fun RBuilder.testGridLists() = child(TestGridLists::class) {}

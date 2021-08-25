@@ -4,16 +4,13 @@ import com.ccfraser.muirwik.components.*
 import com.ccfraser.muirwik.testapp.TestBreadcrumbs.ComponentStyles.icon
 import com.ccfraser.muirwik.testapp.TestBreadcrumbs.ComponentStyles.paper
 import kotlinx.css.*
-import react.RBuilder
-import react.RComponent
-import react.RProps
-import react.RState
+import react.*
 import react.dom.br
 import styled.StyleSheet
 import styled.css
 
 
-class TestBreadcrumbs : RComponent<RProps, RState>() {
+class TestBreadcrumbs : RComponent<Props, State>() {
 
     private object ComponentStyles : StyleSheet("ComponentStyles", isStatic = true) {
         val paper by css {
@@ -63,7 +60,7 @@ class TestBreadcrumbs : RComponent<RProps, RState>() {
         br {}
         mPaper {
             css(paper)
-            mBreadcrumbs(mIcon("navigate_next", fontSize = MIconFontSize.small, addAsChild = false)) {
+            mBreadcrumbs(buildElement { mIcon("navigate_next", fontSize = MIconFontSize.small) }) {
                 mLink("Material-UI", HRefOptions("#"))
                 mLink("Core", HRefOptions("#"))
                 mTypography("Breadcrumb")
@@ -106,5 +103,3 @@ class TestBreadcrumbs : RComponent<RProps, RState>() {
         }
     }
 }
-
-fun RBuilder.testBreadcrumbs() = child(TestBreadcrumbs::class) {}

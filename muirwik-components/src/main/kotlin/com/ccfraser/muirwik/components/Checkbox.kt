@@ -13,7 +13,7 @@ import styled.StyledHandler
 private external val checkboxModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")
-private val checkboxComponent : RComponent<MCheckboxProps, RState> = checkboxModule.default
+private val checkboxComponentType: ComponentType<MCheckboxProps> = checkboxModule.default
 
 
 external interface MCheckboxProps : StyledPropsWithCommonAttributes {
@@ -24,7 +24,7 @@ external interface MCheckboxProps : StyledPropsWithCommonAttributes {
     var icon: ReactElement?
     var indeterminate: Boolean
     var indeterminateIcon: ReactElement
-    var inputProps: RProps?
+    var inputProps: Props?
     var onChange: ((Event, Boolean) -> Unit)
     var required: Boolean
     var type: String
@@ -43,24 +43,23 @@ fun RBuilder.mCheckbox(
         indeterminate: Boolean = false,
         onChange: ((event: Event, checked: Boolean) -> Unit)? = null,
         id: String? = null,
-        inputProps: RProps? = null,
+        inputProps: Props? = null,
         value: String? = null,
-
-        addAsChild: Boolean = true,
         className: String? = null,
-        handler: StyledHandler<MCheckboxProps>? = null) = createStyled(checkboxComponent, addAsChild) {
-    attrs.checked = checked
-    attrs.color = color
-    attrs.disabled = disabled
-    required?.let { attrs.required = it }
-    id?.let { attrs.id = id }
-    attrs.indeterminate = indeterminate
-    inputProps?.let { attrs.inputProps = inputProps }
-    onChange?.let { attrs.onChange = onChange }
-    attrs.type = InputType.checkBox.realValue
-    value?.let {attrs.value = value}
-
-    setStyledPropsAndRunHandler(className, handler)
+        handler: StyledHandler<MCheckboxProps>? = null
+) {
+     createStyled(checkboxComponentType, className, handler) {
+         attrs.checked = checked
+         attrs.color = color
+         attrs.disabled = disabled
+         required?.let { attrs.required = it }
+         id?.let { attrs.id = id }
+         attrs.indeterminate = indeterminate
+         inputProps?.let { attrs.inputProps = inputProps }
+         onChange?.let { attrs.onChange = onChange }
+         attrs.type = InputType.checkBox.realValue
+         value?.let { attrs.value = value }
+     }
 }
 
 /**
@@ -68,21 +67,23 @@ fun RBuilder.mCheckbox(
  * mFormControlLabel and pass in a mCheckbox.
  */
 fun RBuilder.mCheckboxWithLabel(
-        label: String,
-        checked: Boolean = false,
-        color: MOptionColor = MOptionColor.secondary,
-        disabled: Boolean = false,
-        required: Boolean? = null,
-        indeterminate: Boolean = false,
-        labelPlacement: MLabelPlacement = MLabelPlacement.end,
-        onChange: ((event: Event, checked: Boolean) -> Unit)? = null,
-        id: String? = null,
-        inputProps: RProps? = null,
-        value: String? = null,
+    label: String,
+    checked: Boolean = false,
+    color: MOptionColor = MOptionColor.secondary,
+    disabled: Boolean = false,
+    required: Boolean? = null,
+    indeterminate: Boolean = false,
+    labelPlacement: MLabelPlacement = MLabelPlacement.end,
+    onChange: ((event: Event, checked: Boolean) -> Unit)? = null,
+    id: String? = null,
+    inputProps: Props? = null,
+    value: String? = null,
+    className: String? = null,
+    handler: StyledHandler<MFormControlLabelProps>? = null
+) {
+    val checkBox = buildElement {
+        mCheckbox(checked, color, disabled, required, indeterminate, onChange, id, inputProps, value, className)
+    }
 
-        className: String? = null,
-        handler: StyledHandler<MFormControlLabelProps>? = null): ReactElement {
-    val checkBox = mCheckbox(checked, color, disabled, required, indeterminate, onChange, id, inputProps, value, false)
-
-    return mFormControlLabel(label, checkBox, checked, disabled, value = value, labelPlacement = labelPlacement, className = className, handler = handler)
+    mFormControlLabel(label, checkBox, checked, disabled, value = value, labelPlacement = labelPlacement, className = className, handler = handler)
 }

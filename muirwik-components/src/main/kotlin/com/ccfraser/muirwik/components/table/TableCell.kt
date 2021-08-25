@@ -3,10 +3,8 @@ package com.ccfraser.muirwik.components.table
 import com.ccfraser.muirwik.components.EnumPropToString
 import com.ccfraser.muirwik.components.StyledPropsWithCommonAttributes
 import com.ccfraser.muirwik.components.createStyled
-import com.ccfraser.muirwik.components.setStyledPropsAndRunHandler
+import react.ComponentType
 import react.RBuilder
-import react.RComponent
-import react.RState
 import styled.StyledHandler
 
 
@@ -14,7 +12,7 @@ import styled.StyledHandler
 private external val tableCellModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")
-private val TableCellComponent: RComponent<MTableCellProps, RState> = tableCellModule.default
+private val TableCellComponentType: ComponentType<MTableCellProps> = tableCellModule.default
 
 @Suppress("EnumEntryName")
 enum class MTableCellPadding {
@@ -80,16 +78,16 @@ fun RBuilder.mTableCell(
     scope: String? = null,
     className: String? = null,
     handler: StyledHandler<MTableCellProps>? = null
-) = createStyled(TableCellComponent) {
-    align?.let { attrs.align = it }
-    colSpan?.let { attrs.colSpan = it }
-    component?.let { attrs.component = component }
-    key?.let { attrs.key = it }
-    padding?.let { attrs.padding = it }
-    scope?.let { attrs.scope = it }
-    size?.let { attrs.size = it }
-    sortDirection?.let { attrs.sortDirection = it }
-    variant?.let { attrs.variant = it }
-
-    setStyledPropsAndRunHandler(className, handler)
+) {
+    createStyled(TableCellComponentType, className, handler) {
+        align?.let { attrs.align = it }
+        colSpan?.let { attrs.colSpan = it }
+        component?.let { attrs.component = component }
+        key?.let { attrs.key = it }
+        padding?.let { attrs.padding = it }
+        scope?.let { attrs.scope = it }
+        size?.let { attrs.size = it }
+        sortDirection?.let { attrs.sortDirection = it }
+        variant?.let { attrs.variant = it }
+    }
 }

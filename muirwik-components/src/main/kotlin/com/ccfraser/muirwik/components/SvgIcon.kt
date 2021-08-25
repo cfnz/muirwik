@@ -1,14 +1,17 @@
 package com.ccfraser.muirwik.components
 
 import kotlinext.js.jsObject
-import react.*
+import react.ComponentType
+import react.RBuilder
+import react.Props
+import react.createElement
 import styled.StyledHandler
 
 @JsModule("@material-ui/core/SvgIcon")
 private external val svgIconModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")
-private val svgIconComponent: RComponent<MSvgIconProps, RState> = svgIconModule.default
+private val svgIconComponentType: ComponentType<MSvgIconProps> = svgIconModule.default
 
 @Suppress("EnumEntryName")
 enum class SvgShapeRendering {
@@ -23,24 +26,23 @@ external interface MSvgIconProps : MIconProps {
 var MSvgIconProps.shapeRendering by EnumPropToStringNullable(SvgShapeRendering.values())
 
 fun RBuilder.mSvgIcon(
-        svgPath: String,
-        color: MIconColor = MIconColor.inherit,
-        htmlColor: String? = null,
-        fontSize: MIconFontSize = MIconFontSize.default,
+    svgPath: String,
+    color: MIconColor = MIconColor.inherit,
+    htmlColor: String? = null,
+    fontSize: MIconFontSize = MIconFontSize.default,
+    className: String? = null,
+    handler: StyledHandler<MSvgIconProps>? = null
+) {
+    createStyled(svgIconComponentType, className, handler) {
+        attrs.color = color
+        htmlColor?.let { attrs.htmlColor = it }
+        attrs.fontSize = fontSize
 
-        addAsChild: Boolean = true,
-        className: String? = null,
-        handler: StyledHandler<MSvgIconProps>? = null) = createStyled(svgIconComponent, addAsChild) {
-    attrs.color = color
-    htmlColor?.let { attrs.htmlColor = it }
-    attrs.fontSize = fontSize
+        val props: Props =  jsObject {  }
+        props.asDynamic().d = svgPath
 
-    val props: RProps =  jsObject {  }
-    props.asDynamic().d = svgPath
-
-    childList.add(createElement("path", props))
-
-    setStyledPropsAndRunHandler(className, handler)
+        childList.add(createElement("path", props))
+    }
 }
 
 

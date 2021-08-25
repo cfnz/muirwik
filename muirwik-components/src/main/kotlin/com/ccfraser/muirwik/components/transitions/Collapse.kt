@@ -1,12 +1,10 @@
 package com.ccfraser.muirwik.components.transitions
 
 import com.ccfraser.muirwik.components.createStyled
-import com.ccfraser.muirwik.components.setStyledPropsAndRunHandler
 import kotlinx.css.LinearDimension
 import kotlinx.css.px
+import react.ComponentType
 import react.RBuilder
-import react.RComponent
-import react.RState
 import styled.StyledHandler
 
 
@@ -14,7 +12,7 @@ import styled.StyledHandler
 private external val collapseModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")
-private val collapseComponent: RComponent<MCollapseProps, RState> = collapseModule.default
+private val collapseComponentType: ComponentType<MCollapseProps> = collapseModule.default
 
 external interface MCollapseProps : MTransitionProps {
     var collapsedHeight: String
@@ -27,15 +25,14 @@ fun RBuilder.mCollapse(
         collapsedHeight: LinearDimension = 0.px,
         component: String = "div",
         timeout: TransitionDurationWithAuto? = null,
-
-        addAsChild: Boolean = true,
         className: String? = null,
-        handler: StyledHandler<MCollapseProps>? = null) = createStyled(collapseComponent, addAsChild) {
-    attrs.collapsedHeight = collapsedHeight.toString()
-    attrs.component = component
-    attrs.show = show
-    timeout?.let { attrs.timeout = it }
-
-    setStyledPropsAndRunHandler(className, handler)
+        handler: StyledHandler<MCollapseProps>? = null
+) {
+    createStyled(collapseComponentType, className, handler) {
+        attrs.collapsedHeight = collapsedHeight.toString()
+        attrs.component = component
+        attrs.show = show
+        timeout?.let { attrs.timeout = it }
+    }
 }
 

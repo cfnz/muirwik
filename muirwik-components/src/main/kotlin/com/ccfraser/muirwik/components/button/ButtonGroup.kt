@@ -1,9 +1,8 @@
 package com.ccfraser.muirwik.components.button
 
 import com.ccfraser.muirwik.components.*
+import react.ComponentType
 import react.RBuilder
-import react.RComponent
-import react.RState
 import styled.StyledHandler
 
 
@@ -11,7 +10,7 @@ import styled.StyledHandler
 private external val buttonGroupModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")
-private val buttonGroupComponent: RComponent<MButtonGroupProps, RState> = buttonGroupModule.default
+private val buttonGroupComponentType: ComponentType<MButtonGroupProps> = buttonGroupModule.default
 
 enum class MButtonGroupVariant {
     text, outlined, contained
@@ -36,29 +35,30 @@ var MButtonGroupProps.variant by EnumPropToString(MButtonGroupVariant.values())
 
 
 fun RBuilder.mButtonGroup(
-        color: MColor = MColor.default,
-        variant: MButtonGroupVariant = MButtonGroupVariant.outlined,
-        orientation: MButtonGroupOrientation = MButtonGroupOrientation.horizontal,
-        size: MButtonSize = MButtonSize.medium,
-        fullWidth: Boolean = false,
-        disabled: Boolean = false,
-        component: String? = null,
+    color: MColor = MColor.default,
+    variant: MButtonGroupVariant = MButtonGroupVariant.outlined,
+    orientation: MButtonGroupOrientation = MButtonGroupOrientation.horizontal,
+    size: MButtonSize = MButtonSize.medium,
+    fullWidth: Boolean = false,
+    disabled: Boolean = false,
+    component: String? = null,
 
-        disableFocusRipple: Boolean = false,
-        disableRipple: Boolean = false,
+    disableFocusRipple: Boolean = false,
+    disableRipple: Boolean = false,
 
-        className: String? = null,
-        handler: StyledHandler<MButtonGroupProps>? = null) = createStyled(buttonGroupComponent) {
-    attrs.color = color
-    component?.let { attrs.component = component}
-    attrs.disabled = disabled
-    attrs.disableFocusRipple = disableFocusRipple
-    attrs.disableRipple = disableRipple
-    attrs.fullWidth = fullWidth
-    attrs.orientation = orientation
-    attrs.size = size
-    attrs.variant = variant
-
-    setStyledPropsAndRunHandler(className, handler)
+    className: String? = null,
+    handler: StyledHandler<MButtonGroupProps>? = null
+) {
+    createStyled(buttonGroupComponentType, className, handler) {
+        attrs.color = color
+        component?.let { attrs.component = component }
+        attrs.disabled = disabled
+        attrs.disableFocusRipple = disableFocusRipple
+        attrs.disableRipple = disableRipple
+        attrs.fullWidth = fullWidth
+        attrs.orientation = orientation
+        attrs.size = size
+        attrs.variant = variant
+    }
 }
 

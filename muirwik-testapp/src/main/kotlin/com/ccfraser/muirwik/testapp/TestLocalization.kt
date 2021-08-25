@@ -15,7 +15,7 @@ import react.*
 import styled.css
 import styled.styledDiv
 
-class TestLocalization : RComponent<RProps, RState>() {
+class TestLocalization : RComponent<Props, State>() {
     var locale = "enUS"
 
     override fun RBuilder.render() {
@@ -44,7 +44,3 @@ class TestLocalization : RComponent<RProps, RState>() {
         }
     }
 }
-
-
-fun RBuilder.testLocalization() = child(TestLocalization::class) {}
-

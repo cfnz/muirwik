@@ -17,7 +17,7 @@ import styled.StyleSheet
 import styled.css
 import styled.styledDiv
 
-class TestLabAlert : RComponent<RProps, RState>() {
+class TestLabAlert : RComponent<Props, State>() {
     private object CustomStyles : StyleSheet("ComponentStyles", isStatic = true) {
         val margin by css {
             margin(1.spacingUnits)
@@ -66,8 +66,9 @@ class TestLabAlert : RComponent<RProps, RState>() {
             mTypography("This is an alert with an action")
             mAlert("Alert Title", "This is a warning alert", severity = MAlertSeverity.warning, onClose = {}) {
                 css(margin)
-                attrs.action = mButton("Undo", addAsChild = false,
-                        onClick = { showSnackbarAlert("You hit Undo!") })
+                attrs.action = buildElement {
+                    mButton("Undo", onClick = { showSnackbarAlert("You hit Undo!") })
+                }
             }
         }
 
@@ -88,5 +89,3 @@ class TestLabAlert : RComponent<RProps, RState>() {
         }
     }
 }
-
-fun RBuilder.testLabAlert() = child(TestLabAlert::class) {}

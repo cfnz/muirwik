@@ -3,9 +3,8 @@ package com.ccfraser.muirwik.components.dialog
 import com.ccfraser.muirwik.components.OnClosePropWithReasonDelegate
 import com.ccfraser.muirwik.components.SimpleEvent
 import com.ccfraser.muirwik.components.StyledPropsWithCommonAttributes
-import react.RComponent
-import react.RProps
-import react.RState
+import react.ComponentType
+import react.Props
 import react.ReactElement
 
 
@@ -13,7 +12,7 @@ import react.ReactElement
 private external val dialogModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")
-private val dialogComponent: RComponent<MDialogProps, RState> = dialogModule.default
+private val dialogComponentType: ComponentType<MDialogProps> = dialogModule.default
 
 @Suppress("EnumEntryName")
 enum class ModalOnCloseReason {
@@ -26,7 +25,7 @@ external interface MModalProps : StyledPropsWithCommonAttributes {
     var backdropComponent: ReactElement
 
     @Suppress("BackdropProps")
-    var backdropProps: RProps
+    var backdropProps: Props
 
     var closeAfterTransition: Boolean
     var container: ReactElement

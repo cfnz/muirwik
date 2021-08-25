@@ -1,10 +1,8 @@
 package com.ccfraser.muirwik.components.table
 
 import com.ccfraser.muirwik.components.createStyled
-import com.ccfraser.muirwik.components.setStyledPropsAndRunHandler
+import react.ComponentType
 import react.RBuilder
-import react.RComponent
-import react.RState
 import styled.StyledHandler
 import styled.StyledProps
 
@@ -13,17 +11,18 @@ import styled.StyledProps
 private external val tableHeadModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")
-private val TableHeadComponent: RComponent<MTableHeadProps, RState> = tableHeadModule.default
+private val TableHeadComponentType: ComponentType<MTableHeadProps> = tableHeadModule.default
 
 external interface MTableHeadProps : StyledProps {
     var component: String
 }
 
 fun RBuilder.mTableHead(
-        component: String = "thead",
-
-        className: String? = null,
-        handler: StyledHandler<MTableHeadProps>? = null) = createStyled(TableHeadComponent) {
-    attrs.component = component
-    setStyledPropsAndRunHandler(className, handler)
+    component: String = "thead",
+    className: String? = null,
+    handler: StyledHandler<MTableHeadProps>? = null
+) {
+    createStyled(TableHeadComponentType, className, handler) {
+        attrs.component = component
+    }
 }

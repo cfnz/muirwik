@@ -8,7 +8,7 @@ import styled.css
 import styled.styledDiv
 
 
-class TestTabs : RComponent<RProps, RState>() {
+class TestTabs : RComponent<Props, State>() {
     private var tab1Value: Any = "one"
     private var tab2Value: Any = 0
     private var tab3Value: Any = 1
@@ -85,13 +85,13 @@ class TestTabs : RComponent<RProps, RState>() {
                 mAppBar(position = MAppBarPosition.static, color = MAppBarColor.default) {
                     mTabs(tab2Value, variant = MTabVariant.scrollable, textColor = MTabTextColor.primary, indicatorColor = MTabIndicatorColor.primary,
                             onChange = { _, value -> setState { tab2Value = value }}) {
-                        mTab("Item One", 0, icon = mIcon("phone", addAsChild = false))
-                        mTab("Item Two", 1, icon = mIcon("favorite", addAsChild = false))
-                        mTab("Item Three", 2, icon = mIcon("person_pin", addAsChild = false))
-                        mTab("Item Four", 3, icon = mIcon("help", addAsChild = false))
-                        mTab("Item Five", 4, icon = mIcon("shopping_basket", addAsChild = false))
-                        mTab("Item Six", 5, icon = mIcon("thumb_down", addAsChild = false))
-                        mTab("Item Seven", 6, icon = mIcon("thumb_up", addAsChild = false))
+                        mTab("Item One", 0, icon = buildElement { mIcon("phone") })
+                        mTab("Item Two", 1, icon = buildElement { mIcon("favorite") })
+                        mTab("Item Three", 2, icon = buildElement { mIcon("person_pin") })
+                        mTab("Item Four", 3, icon = buildElement { mIcon("help") })
+                        mTab("Item Five", 4, icon = buildElement { mIcon("shopping_basket") })
+                        mTab("Item Six", 5, icon = buildElement { mIcon("thumb_down") })
+                        mTab("Item Seven", 6, icon = buildElement { mIcon("thumb_up") })
                     }
                 }
                 when (tab2Value) {

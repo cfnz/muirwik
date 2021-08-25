@@ -1,8 +1,8 @@
 package com.ccfraser.muirwik.components
 
+import react.ComponentType
 import react.RBuilder
-import react.RComponent
-import react.RState
+import react.ReactNode
 import styled.StyledHandler
 import styled.StyledProps
 
@@ -11,7 +11,7 @@ import styled.StyledProps
 private external val iconModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")
-private val iconComponent: RComponent<MIconProps, RState> = iconModule.default
+private val iconComponentType: ComponentType<MIconProps> = iconModule.default
 
 @Suppress("EnumEntryName")
 enum class MIconColor {
@@ -32,18 +32,18 @@ var MIconProps.color by EnumPropToStringNullable(MIconColor.values())
 var MIconProps.fontSize by EnumPropToString(MIconFontSize.values())
 
 fun RBuilder.mIcon(
-        iconName: String,
-        color: MIconColor = MIconColor.inherit,
-        fontSize: MIconFontSize = MIconFontSize.default,
+    iconName: String,
+    color: MIconColor = MIconColor.inherit,
+    fontSize: MIconFontSize = MIconFontSize.default,
+    className: String? = null,
+    handler: StyledHandler<MIconProps>? = null
+) {
+    createStyled(iconComponentType, className, handler) {
+        attrs.color = color
+        attrs.fontSize = fontSize
 
-        addAsChild: Boolean = true,
-        className: String? = null,
-        handler: StyledHandler<MIconProps>? = null) = createStyled(iconComponent, addAsChild) {
-    attrs.color = color
-    attrs.fontSize = fontSize
-
-    childList.add(iconName)
-    setStyledPropsAndRunHandler(className, handler)
+        childList.add(ReactNode(iconName))
+    }
 }
 
 

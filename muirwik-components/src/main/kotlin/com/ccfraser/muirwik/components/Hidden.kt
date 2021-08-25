@@ -1,9 +1,8 @@
 package com.ccfraser.muirwik.components
 
 import com.ccfraser.muirwik.components.styles.Breakpoint
+import react.ComponentType
 import react.RBuilder
-import react.RComponent
-import react.RState
 import styled.StyledHandler
 import styled.StyledProps
 
@@ -12,7 +11,7 @@ import styled.StyledProps
 private external val hiddenModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")
-private val hiddenComponent: RComponent<MHiddenProps, RState> = hiddenModule.default
+private val hiddenComponentType: ComponentType<MHiddenProps> = hiddenModule.default
 
 @Suppress("EnumEntryName")
 enum class MHiddenImplementation {
@@ -36,37 +35,37 @@ var MHiddenProps.initialWidth by EnumPropToStringNullable(Breakpoint.values())
 var MHiddenProps.implementation by EnumPropToString(MHiddenImplementation.values())
 
 fun RBuilder.mHidden(
-        only: Array<Breakpoint> = emptyArray(),
-        xsUp: Boolean = false,
-        smUp: Boolean = false,
-        mdUp: Boolean = false,
-        lgUp: Boolean = false,
-        xlUp: Boolean = false,
-        xsDown: Boolean = false,
-        smDown: Boolean = false,
-        mdDown: Boolean = false,
-        lgDown: Boolean = false,
-        xlDown: Boolean = false,
-        className: String? = null,
-        implementation: MHiddenImplementation = MHiddenImplementation.js,
-        initialWidth: Breakpoint? = null,
-
-        handler: StyledHandler<MHiddenProps>) = createStyled(hiddenComponent) {
-    attrs.implementation = implementation
-    initialWidth?.let {  attrs.initialWidth = it }
-    attrs.lgDown = lgDown
-    attrs.lgUp = lgUp
-    attrs.mdDown = mdDown
-    attrs.mdUp = mdUp
-    attrs.only = only
-    attrs.smDown = smDown
-    attrs.smUp = smUp
-    attrs.xlDown = xlDown
-    attrs.xlUp = xlUp
-    attrs.xsDown = xsDown
-    attrs.xsUp = xsUp
-
-    setStyledPropsAndRunHandler(className, handler)
+    only: Array<Breakpoint> = emptyArray(),
+    xsUp: Boolean = false,
+    smUp: Boolean = false,
+    mdUp: Boolean = false,
+    lgUp: Boolean = false,
+    xlUp: Boolean = false,
+    xsDown: Boolean = false,
+    smDown: Boolean = false,
+    mdDown: Boolean = false,
+    lgDown: Boolean = false,
+    xlDown: Boolean = false,
+    className: String? = null,
+    implementation: MHiddenImplementation = MHiddenImplementation.js,
+    initialWidth: Breakpoint? = null,
+    handler: StyledHandler<MHiddenProps>
+) {
+    createStyled(hiddenComponentType, className, handler) {
+        attrs.implementation = implementation
+        initialWidth?.let { attrs.initialWidth = it }
+        attrs.lgDown = lgDown
+        attrs.lgUp = lgUp
+        attrs.mdDown = mdDown
+        attrs.mdUp = mdUp
+        attrs.only = only
+        attrs.smDown = smDown
+        attrs.smUp = smUp
+        attrs.xlDown = xlDown
+        attrs.xlUp = xlUp
+        attrs.xsDown = xsDown
+        attrs.xsUp = xsUp
+    }
 }
 
 

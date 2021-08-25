@@ -1,7 +1,7 @@
 package com.ccfraser.muirwik.components.styles
 
 import kotlinext.js.jsObject
-import react.RProps
+import react.Props
 
 /**
  * ts2kt types with tweaks from material-ui/styles/createMuiTheme
@@ -13,7 +13,7 @@ external interface ThemeOptions {
     var mixins: dynamic
     var overrides: dynamic
     var palette: PaletteOptions? get() = definedExternally; set(value) = definedExternally
-    var props: RProps
+    var props: Props
     var shadows: dynamic
     var spacing: dynamic
     var transitions: TransitionsOptions? get() = definedExternally; set(value) = definedExternally
@@ -29,7 +29,7 @@ external interface Theme {
     var mixins: Mixins
     var overrides: dynamic
     var palette: Palette
-    var props: RProps
+    var props: Props
     var shadows: dynamic
     var spacing: Spacing
     var transitions: Transitions

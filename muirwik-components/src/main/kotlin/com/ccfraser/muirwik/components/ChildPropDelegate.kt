@@ -1,6 +1,6 @@
 package com.ccfraser.muirwik.components
 
-import react.RProps
+import react.Props
 import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KProperty
 
@@ -13,12 +13,12 @@ import kotlin.reflect.KProperty
  * @param childPropName The name of the child prop.
  *
  */
-class ChildPropDelegate<T>(private val propName: String, private val childPropName: String) : ReadWriteProperty<RProps, T> {
-    override fun getValue(thisRef: RProps, property: KProperty<*>): T {
+class ChildPropDelegate<T>(private val propName: String, private val childPropName: String) : ReadWriteProperty<Props, T> {
+    override fun getValue(thisRef: Props, property: KProperty<*>): T {
         return thisRef.asDynamic()[propName][childPropName] as T
     }
 
-    override fun setValue(thisRef: RProps, property: KProperty<*>, value: T) {
+    override fun setValue(thisRef: Props, property: KProperty<*>, value: T) {
         if (thisRef.asDynamic()[propName] == undefined) {
             thisRef.asDynamic()[propName] = js ("({})")
         }
@@ -30,7 +30,7 @@ class ChildPropDelegate<T>(private val propName: String, private val childPropNa
  * Same as [ChildPropDelegate] but allows nullable props
  */
 class ChildPropDelegateNullable<T>(val propName: String, val childPropName: String) {
-    inline operator fun <reified T> getValue(thisRef: RProps, property: KProperty<*>): T? {
+    inline operator fun <reified T> getValue(thisRef: Props, property: KProperty<*>): T? {
 
         return when {
             thisRef.asDynamic()[propName] == undefined -> null
@@ -40,7 +40,7 @@ class ChildPropDelegateNullable<T>(val propName: String, val childPropName: Stri
         }
     }
 
-    operator fun setValue(thisRef: RProps, property: KProperty<*>, value: T?) {
+    operator fun setValue(thisRef: Props, property: KProperty<*>, value: T?) {
         if (thisRef.asDynamic()[propName] == undefined) {
             thisRef.asDynamic()[propName] = js ("({})")
         }

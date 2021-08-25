@@ -1,10 +1,9 @@
 package com.ccfraser.muirwik.components
 
 import org.w3c.dom.events.Event
+import react.ComponentType
 import react.RBuilder
-import react.RComponent
-import react.RProps
-import react.RState
+import react.Props
 import styled.StyledHandler
 
 
@@ -12,7 +11,7 @@ import styled.StyledHandler
 private external val tooltipModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")
-private val tooltipComponent: RComponent<MTooltipProps, RState> = tooltipModule.default
+private val tooltipComponentType: ComponentType<MTooltipProps> = tooltipModule.default
 
 @Suppress("EnumEntryName")
 enum class TooltipPlacement {
@@ -38,35 +37,33 @@ external interface MTooltipProps : StyledPropsWithCommonAttributes {
     var open: Boolean
 
     @JsName("PopperProps")
-    var popperProps: RProps
+    var popperProps: Props
 }
 var MTooltipProps.placement by EnumPropToString(TooltipPlacement.values())
 
 
 fun RBuilder.mTooltip(
-        title: String,
-        placement: TooltipPlacement = TooltipPlacement.bottom,
-        arrow: Boolean = false,
-        enterDelay: Int? = null,
-        enterTouchDelay: Int? = null,
-        leaveDelay: Int? = null,
-        leaveTouchDelay: Int? = null,
-
-        id: String? = null,
-
-        className: String? = null,
-        handler: StyledHandler<MTooltipProps>? = null) = createStyled(tooltipComponent) {
-    attrs.arrow = arrow
-    enterDelay?.let { attrs.enterDelay = enterDelay }
-    enterTouchDelay?.let { attrs.enterTouchDelay = enterTouchDelay }
-    id?.let { attrs.id = id }
-    leaveDelay?.let { attrs.leaveDelay = leaveDelay }
-    leaveTouchDelay?.let { attrs.leaveTouchDelay = leaveTouchDelay }
-    attrs.placement = placement
-    attrs.title = title
-
-    setStyledPropsAndRunHandler(className, handler)
-    attrs.asDynamic().placement = attrs.placement.toString()
+    title: String,
+    placement: TooltipPlacement = TooltipPlacement.bottom,
+    arrow: Boolean = false,
+    enterDelay: Int? = null,
+    enterTouchDelay: Int? = null,
+    leaveDelay: Int? = null,
+    leaveTouchDelay: Int? = null,
+    id: String? = null,
+    className: String? = null,
+    handler: StyledHandler<MTooltipProps>? = null
+) {
+    createStyled(tooltipComponentType, className, handler) {
+        attrs.arrow = arrow
+        enterDelay?.let { attrs.enterDelay = enterDelay }
+        enterTouchDelay?.let { attrs.enterTouchDelay = enterTouchDelay }
+        id?.let { attrs.id = id }
+        leaveDelay?.let { attrs.leaveDelay = leaveDelay }
+        leaveTouchDelay?.let { attrs.leaveTouchDelay = leaveTouchDelay }
+        attrs.placement = placement
+        attrs.title = title
+    }
 }
 
 

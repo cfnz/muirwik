@@ -1,7 +1,7 @@
 package com.ccfraser.muirwik.components
 
 import org.w3c.dom.events.Event
-import react.RProps
+import react.Props
 import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KProperty
 
@@ -10,12 +10,12 @@ import kotlin.reflect.KProperty
  * but we usually make a type safe class to wrap it. This delegate makes it easy to declare such extension
  * properties.
  */
-class OnClosePropWithReasonDelegate<T>(private val enumValues: Array<T>) : ReadWriteProperty<RProps, ((Event, T) -> Unit)?> {
-    override fun getValue(thisRef: RProps, property: KProperty<*>): ((Event, T) -> Unit)? {
+class OnClosePropWithReasonDelegate<T>(private val enumValues: Array<T>) : ReadWriteProperty<Props, ((Event, T) -> Unit)?> {
+    override fun getValue(thisRef: Props, property: KProperty<*>): ((Event, T) -> Unit)? {
         error("Can't read value of ${thisRef}.${property.name}")
     }
 
-    override fun setValue(thisRef: RProps, property: KProperty<*>, value: ((Event, T) -> Unit)?) {
+    override fun setValue(thisRef: Props, property: KProperty<*>, value: ((Event, T) -> Unit)?) {
         if (value == null) {
             thisRef.asDynamic()[property.name] = null
         } else {

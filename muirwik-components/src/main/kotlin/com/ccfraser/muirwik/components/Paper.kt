@@ -1,8 +1,7 @@
 package com.ccfraser.muirwik.components
 
+import react.ComponentType
 import react.RBuilder
-import react.RComponent
-import react.RState
 import styled.StyledHandler
 
 
@@ -10,7 +9,7 @@ import styled.StyledHandler
 private external val paperModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")
-private val paperComponent: RComponent<MPaperProps, RState> = paperModule.default
+private val paperComponentType: ComponentType<MPaperProps> = paperModule.default
 
 @Suppress("EnumEntryName")
 enum class MPaperVariant {
@@ -25,19 +24,19 @@ external interface MPaperProps : StyledPropsWithCommonAttributes {
 var MPaperProps.variant by EnumPropToString(MPaperVariant.values())
 
 fun RBuilder.mPaper(
-        component: String = "div",
-        elevation: Int = 2,
-        square: Boolean = false,
-        variant: MPaperVariant = MPaperVariant.elevation,
-
-        className: String? = null,
-        handler: StyledHandler<MPaperProps>? = null) = createStyled(paperComponent) {
-    attrs.component = component
-    attrs.elevation = elevation
-    attrs.square = square
-    attrs.variant = variant
-
-    setStyledPropsAndRunHandler(className, handler)
+    component: String = "div",
+    elevation: Int = 2,
+    square: Boolean = false,
+    variant: MPaperVariant = MPaperVariant.elevation,
+    className: String? = null,
+    handler: StyledHandler<MPaperProps>? = null
+) {
+    createStyled(paperComponentType, className, handler) {
+        attrs.component = component
+        attrs.elevation = elevation
+        attrs.square = square
+        attrs.variant = variant
+    }
 }
 
 

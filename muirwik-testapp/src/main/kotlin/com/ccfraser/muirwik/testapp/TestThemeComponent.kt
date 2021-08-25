@@ -2,14 +2,11 @@ package com.ccfraser.muirwik.testapp
 
 import com.ccfraser.muirwik.components.*
 import kotlinx.css.marginBottom
-import react.RBuilder
-import react.RComponent
-import react.RProps
-import react.RState
+import react.*
 import react.dom.div
 import styled.css
 
-class TestThemeComponent : RComponent<RProps, RState>() {
+class TestThemeComponent : RComponent<Props, State>() {
 
     override fun RBuilder.render() {
         div {
@@ -25,6 +22,4 @@ class TestThemeComponent : RComponent<RProps, RState>() {
     }
 }
 
-
 fun RBuilder.testThemeComponent() = child(TestThemeComponent::class) {}
-

@@ -25,7 +25,7 @@ import styled.StyleSheet
 import styled.css
 import styled.styledDiv
 
-class TestDrawers : RComponent<RProps, RState>() {
+class TestDrawers : RComponent<Props, State>() {
     private var temporaryLeftOpen: Boolean = false
     private var temporaryRightOpen: Boolean = false
     private var temporaryTopOpen: Boolean = false
@@ -386,6 +386,3 @@ class TestDrawers : RComponent<RProps, RState>() {
     }
 
 }
-
-
-fun RBuilder.testDrawers() = child(TestDrawers::class) {}

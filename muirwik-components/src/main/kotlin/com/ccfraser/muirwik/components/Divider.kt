@@ -1,8 +1,7 @@
 package com.ccfraser.muirwik.components
 
+import react.ComponentType
 import react.RBuilder
-import react.RComponent
-import react.RState
 import styled.StyledHandler
 import styled.StyledProps
 
@@ -11,7 +10,7 @@ import styled.StyledProps
 private external val dividerModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")
-private val dividerComponent: RComponent<MDividerProps, RState> = dividerModule.default
+private val dividerComponentType: ComponentType<MDividerProps> = dividerModule.default
 
 @Suppress("EnumEntryName")
 enum class MDividerOrientation {
@@ -28,25 +27,22 @@ external interface MDividerProps : StyledProps {
     var component: String
     var light: Boolean
 }
+
 var MDividerProps.orientation by EnumPropToString(MDividerOrientation.values())
 var MDividerProps.variant by EnumPropToString(MDividerVariant.values())
 
 fun RBuilder.mDivider(
-        variant: MDividerVariant = MDividerVariant.fullWidth,
-        light: Boolean = false,
-        absolute: Boolean = false,
-        orientation: MDividerOrientation = MDividerOrientation.horizontal,
-        component: String = "hr",
-
-        addAsChild: Boolean = true,
-        className: String? = null,
-        handler: StyledHandler<MDividerProps>? = null) = createStyled(dividerComponent, addAsChild) {
+    variant: MDividerVariant = MDividerVariant.fullWidth,
+    light: Boolean = false,
+    absolute: Boolean = false,
+    orientation: MDividerOrientation = MDividerOrientation.horizontal,
+    component: String = "hr",
+    className: String? = null,
+    handler: StyledHandler<MDividerProps>? = null
+) = createStyled(dividerComponentType, className, handler) {
     attrs.absolute = absolute
     attrs.component = component
     attrs.light = light
     attrs.orientation = orientation
     attrs.variant = variant
-
-    setStyledPropsAndRunHandler(className, handler)
 }
-

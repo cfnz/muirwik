@@ -9,7 +9,7 @@ import react.dom.br
 import styled.css
 import styled.styledDiv
 
-class TestSlider : RComponent<RProps, RState>() {
+class TestSlider : RComponent<Props, State>() {
     private var value: Number = 10
 
     override fun RBuilder.render() {
@@ -82,5 +82,3 @@ class TestSlider : RComponent<RProps, RState>() {
         }
     }
 }
-
-fun RBuilder.testSliders() = child(TestSlider::class) {}

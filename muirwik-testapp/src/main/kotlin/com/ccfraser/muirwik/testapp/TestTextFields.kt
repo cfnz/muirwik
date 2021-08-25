@@ -16,13 +16,13 @@ import styled.css
 import styled.styledDiv
 import styled.styledForm
 
-external interface TestTextFieldsState : RState {
+external interface TestTextFieldsState : State {
     var textValue: String
     var multiLineValue: String
     var age: Int
 }
 
-class TestTextFields : RComponent<RProps, TestTextFieldsState>() {
+class TestTextFields : RComponent<Props, TestTextFieldsState>() {
     var name: String = "Name via local var 'state'"
     var selectValue: String = "Item 2"
 
@@ -96,7 +96,7 @@ class TestTextFields : RComponent<RProps, TestTextFieldsState>() {
             }
             mTextField(label = "Read Only", defaultValue = "Hello World", variant = variant) {
                 css(textField)
-//                attrs.inputProps = object : RProps { val readOnly = true } IR Compiler didn't like this way of doing things
+//                attrs.inputProps = object : Props { val readOnly = true } IR Compiler didn't like this way of doing things
                 attrs.inputProps = jsObject {
                     this.asDynamic().readOnly = true
                 }
@@ -123,7 +123,7 @@ class TestTextFields : RComponent<RProps, TestTextFieldsState>() {
             }
             mTextFieldMultiLine(label = "Multiline Placeholder", placeholder = "Placeholder Value", helperText = "With pre shrunk label", variant = variant) {
                 css(textField)
-//                attrs.inputLabelProps = object : RProps { val shrink = true } IR Compiler didn't like this way of doing things
+//                attrs.inputLabelProps = object : Props { val shrink = true } IR Compiler didn't like this way of doing things
                 attrs.inputLabelProps = jsObject {
                     this.asDynamic().shrink = true
                 }
@@ -160,7 +160,7 @@ class TestTextFields : RComponent<RProps, TestTextFieldsState>() {
 
             mTextField(label = "Adornment", variant = variant) {
                 css(textField)
-                val adornment = mInputAdornment { +"Kg" }
+                val adornment = buildElement { mInputAdornment { +"Kg" } }
                 attrs.inputProps = jsObject { this.asDynamic().startAdornment = adornment }
             }
         }
@@ -171,6 +171,3 @@ class TestTextFields : RComponent<RProps, TestTextFieldsState>() {
         setState { name = value }
     }
 }
-
-
-fun RBuilder.testTextFields() = child(TestTextFields::class) {}

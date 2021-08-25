@@ -12,7 +12,7 @@ import styled.StyledProps
 private external val SnackbarModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")
-private val snackbarComponent: RComponent<MSnackbarProps, RState> = SnackbarModule.default
+private val snackbarComponentType: ComponentType<MSnackbarProps> = SnackbarModule.default
 
 @Suppress("EnumEntryName")
 enum class MSnackbarHorizAnchor {
@@ -35,10 +35,10 @@ external interface MSnackbarProps : StyledProps {
     var autoHideDuration: Int
 
     @JsName("ClickAwayListenerProps")
-    var clickAwayListenerProps: RProps
+    var clickAwayListenerProps: Props
 
     @JsName("ContentProps")
-    var contentProps: RProps
+    var contentProps: Props
 
     var disableWindowBlurListener: Boolean
     var key: String
@@ -53,7 +53,7 @@ external interface MSnackbarProps : StyledProps {
     var resumeHideDuration: Int
 
     @JsName("TransitionProps")
-    var transitionProps: RProps
+    var transitionProps: Props
 }
 
 var MSnackbarProps.anchorOriginHorizontal by EnumPropToStringNullable(MSnackbarHorizAnchor.values(), "anchorOrigin", "horizontal")
@@ -66,48 +66,48 @@ var MSnackbarProps.transitionDuration by TransitionDurationDelegate()
  * Base builder for Snackbar.
  */
 fun RBuilder.mSnackbar(
-        message: ReactElement?,
-        open: Boolean? = null,
-        onClose: ((Event, MSnackbarOnCloseReason) -> Unit)? = null,
-        horizAnchor: MSnackbarHorizAnchor = MSnackbarHorizAnchor.center,
-        vertAnchor: MSnackbarVertAnchor = MSnackbarVertAnchor.bottom,
-        key: String? = null,
-        autoHideDuration: Int? = null,
-        resumeHideDuration: Int? = null,
-
-        className: String? = null,
-        handler: StyledHandler<MSnackbarProps>? = null) = createStyled(snackbarComponent) {
-    attrs.anchorOriginHorizontal = horizAnchor
-    attrs.anchorOriginVertical = vertAnchor
-    autoHideDuration?.let { attrs.autoHideDuration = it }
-    key?.let { attrs.key = it }
-    message?.let { attrs.message = message}
-    attrs.onClose = onClose
-    open?.let { attrs.open = it }
-    resumeHideDuration?.let { attrs.resumeHideDuration = it }
-
-    setStyledPropsAndRunHandler(className, handler)
+    message: ReactElement?,
+    open: Boolean? = null,
+    onClose: ((Event, MSnackbarOnCloseReason) -> Unit)? = null,
+    horizAnchor: MSnackbarHorizAnchor = MSnackbarHorizAnchor.center,
+    vertAnchor: MSnackbarVertAnchor = MSnackbarVertAnchor.bottom,
+    key: String? = null,
+    autoHideDuration: Int? = null,
+    resumeHideDuration: Int? = null,
+    className: String? = null,
+    handler: StyledHandler<MSnackbarProps>? = null
+) {
+    createStyled(snackbarComponentType, className, handler) {
+        attrs.anchorOriginHorizontal = horizAnchor
+        attrs.anchorOriginVertical = vertAnchor
+        autoHideDuration?.let { attrs.autoHideDuration = it }
+        key?.let { attrs.key = it }
+        message?.let { attrs.message = message}
+        attrs.onClose = onClose
+        open?.let { attrs.open = it }
+        resumeHideDuration?.let { attrs.resumeHideDuration = it }
+    }
 }
 
 /**
  * Builder for Snackbar with a message of type string.
  */
 fun RBuilder.mSnackbar(
-        message: String,
-        open: Boolean? = null,
-        onClose: ((Event, MSnackbarOnCloseReason) -> Unit)? = null,
-        horizAnchor: MSnackbarHorizAnchor = MSnackbarHorizAnchor.center,
-        vertAnchor: MSnackbarVertAnchor = MSnackbarVertAnchor.bottom,
-        key: String? = null,
-        autoHideDuration: Int? = null,
-        resumeHideDuration: Int? = null,
+    message: String,
+    open: Boolean? = null,
+    onClose: ((Event, MSnackbarOnCloseReason) -> Unit)? = null,
+    horizAnchor: MSnackbarHorizAnchor = MSnackbarHorizAnchor.center,
+    vertAnchor: MSnackbarVertAnchor = MSnackbarVertAnchor.bottom,
+    key: String? = null,
+    autoHideDuration: Int? = null,
+    resumeHideDuration: Int? = null,
 
-        className: String? = null,
-        handler: StyledHandler<MSnackbarProps>? = null): ReactElement {
+    className: String? = null,
+    handler: StyledHandler<MSnackbarProps>? = null
+) {
     @Suppress("UnsafeCastFromDynamic")
     val dynamicElement: ReactElement = message.asDynamic()
-    return mSnackbar(dynamicElement, open, onClose, horizAnchor, vertAnchor, key, autoHideDuration, resumeHideDuration,
-            className, handler)
+    mSnackbar(dynamicElement, open, onClose, horizAnchor, vertAnchor, key, autoHideDuration, resumeHideDuration, className, handler)
 }
 
 
@@ -124,8 +124,8 @@ fun RBuilder.mSnackbar(
     resumeHideDuration: Int? = null,
 
     className: String? = null,
-    handler: StyledHandler<MSnackbarProps>? = null): ReactElement {
+    handler: StyledHandler<MSnackbarProps>? = null
+) {
     @Suppress("UnsafeCastFromDynamic")
-    return mSnackbar(null, open, onClose, horizAnchor, vertAnchor, key, autoHideDuration, resumeHideDuration,
-        className, handler)
+    mSnackbar(null, open, onClose, horizAnchor, vertAnchor, key, autoHideDuration, resumeHideDuration, className, handler)
 }

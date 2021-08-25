@@ -24,7 +24,7 @@ import styled.css
 import kotlin.reflect.KClass
 
 
-class TestDialogs : RComponent<RProps, RState>() {
+class TestDialogs : RComponent<Props, State>() {
     private var selectedValue: String = ""
     private var simpleDialogOpen: Boolean = false
     private var alertDialogOpen: Boolean = false
@@ -37,7 +37,7 @@ class TestDialogs : RComponent<RProps, RState>() {
     private var confirmationDialogValue: String = ""
     private var confirmationDialogSelectedValue: String = ""
 
-    private var alertTransition: KClass<out RComponent<MTransitionProps, RState>>? = null
+    private var alertTransition: KClass<out RComponent<MTransitionProps, State>>? = null
     private val slowTransitionProps: MTransitionProps = js("({timeout: 1000})")
     private var slow = false
 
@@ -48,10 +48,10 @@ class TestDialogs : RComponent<RProps, RState>() {
         }
     }
 
-    class SlideUpTransitionComponent(props: MTransitionProps) : RComponent<MTransitionProps, RState>(props) {
+    class SlideUpTransitionComponent(props: MTransitionProps) : RComponent<MTransitionProps, State>(props) {
         override fun RBuilder.render() {
             // This works but is a bit long winded and does not use our function
-//            val p2: RProps = EmptyProps();
+//            val p2: Props = EmptyProps();
 //            p2.asDynamic().direction = "up"
 //
 //            val e1 = React.createElement(slideComponent, props)
@@ -74,11 +74,11 @@ class TestDialogs : RComponent<RProps, RState>() {
 
             // Yay, this works with no warning... just have to use a different RBuilder or addAsChild = false!!
 //            childList.add(cloneElement(RBuilder().mSlide(direction = SlideTransitionDirection.up, handler = {}), props))
-            childList.add(cloneElement(mSlide(direction = SlideTransitionDirection.down, addAsChild = false), props))
+            childList.add(cloneElement(buildElement { mSlide(direction = SlideTransitionDirection.down) }, props))
         }
     }
 
-//    class SlideUpTransitionComponent2(props: MTransitionProps) : RComponent<MTransitionProps, RState>(props) {
+//    class SlideUpTransitionComponent2(props: MTransitionProps) : RComponent<MTransitionProps, State>(props) {
 //        override fun RBuilder.render() {
 //            childList.add(mSlide(props.show, direction = SlideTransitionDirection.down, timeout = SimpleTransitionTimeout(3000), addAsChild = false) {
 //                props.children()
@@ -260,6 +260,3 @@ class TestDialogs : RComponent<RProps, RState>() {
 //        }
     }
 }
-
-
-fun RBuilder.testDialogs() = child(TestDialogs::class) {}

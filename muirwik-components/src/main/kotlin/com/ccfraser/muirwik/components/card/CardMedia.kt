@@ -1,10 +1,8 @@
 package com.ccfraser.muirwik.components.card
 
 import com.ccfraser.muirwik.components.createStyled
-import com.ccfraser.muirwik.components.setStyledPropsAndRunHandler
+import react.ComponentType
 import react.RBuilder
-import react.RComponent
-import react.RState
 import styled.StyledHandler
 import styled.StyledProps
 
@@ -12,7 +10,7 @@ import styled.StyledProps
 private external val cardMediaModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")
-private val cardMediaComponent: RComponent<MCardMediaProps, RState> = cardMediaModule.default
+private val cardMediaComponentType: ComponentType<MCardMediaProps> = cardMediaModule.default
 
 external interface MCardMediaProps : StyledProps {
     var component: String
@@ -20,13 +18,14 @@ external interface MCardMediaProps : StyledProps {
     var title: String
 }
 
-fun RBuilder.mCardMedia(image: String,
-                        title: String = "",
-
-                        className: String? = null,
-                        handler: StyledHandler<MCardMediaProps>? = null) = createStyled(cardMediaComponent) {
-    attrs.image = image
-    attrs.title = title
-
-    setStyledPropsAndRunHandler(className, handler)
+fun RBuilder.mCardMedia(
+    image: String,
+    title: String = "",
+    className: String? = null,
+    handler: StyledHandler<MCardMediaProps>? = null
+) {
+    createStyled(cardMediaComponentType, className, handler) {
+        attrs.image = image
+        attrs.title = title
+    }
 }

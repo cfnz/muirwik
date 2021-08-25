@@ -8,13 +8,13 @@ import com.ccfraser.muirwik.testapp.TestAvatars.ComponentStyles.standard
 import kotlinx.css.*
 import react.RBuilder
 import react.RComponent
-import react.RProps
-import react.RState
+import react.Props
+import react.State
 import styled.StyleSheet
 import styled.css
 import styled.styledDiv
 
-class TestAvatars : RComponent<RProps, RState>() {
+class TestAvatars : RComponent<Props, State>() {
 
     private object ComponentStyles : StyleSheet("ComponentStyles", isStatic = true) {
         val standard by css {
@@ -37,7 +37,6 @@ class TestAvatars : RComponent<RProps, RState>() {
             backgroundColor = Colors.DeepOrange.shade500
         }
     }
-
 
     override fun RBuilder.render() {
         styledDiv {
@@ -106,5 +105,3 @@ class TestAvatars : RComponent<RProps, RState>() {
         }
     }
 }
-
-fun RBuilder.testAvatars() = child(TestAvatars::class) {}

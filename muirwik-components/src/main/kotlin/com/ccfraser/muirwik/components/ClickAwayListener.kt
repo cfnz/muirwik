@@ -1,9 +1,9 @@
 package com.ccfraser.muirwik.components
 
+import kotlinext.js.jsObject
+import react.ComponentType
 import react.RBuilder
-import react.RComponent
 import react.RHandler
-import react.RState
 import styled.StyledProps
 
 
@@ -11,7 +11,7 @@ import styled.StyledProps
 private external val clickAwayListenerModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")
-private val clickAwayListenerComponent: RComponent<MClickAwayListenerProps, RState> = clickAwayListenerModule.default
+private val clickAwayListenerComponentType: ComponentType<MClickAwayListenerProps> = clickAwayListenerModule.default
 
 @Suppress("EnumEntryName")
 enum class MClickAwayListenerMouseEvent {
@@ -46,17 +46,20 @@ var MClickAwayListenerProps.touchEvent: MClickAwayListenerTouchEvent
 
 
 fun RBuilder.mClickAwayListener(
-        onClickAway: () -> Unit,
-        mouseEvent: MClickAwayListenerMouseEvent = MClickAwayListenerMouseEvent.onClick,
-        touchEvent: MClickAwayListenerTouchEvent = MClickAwayListenerTouchEvent.onTouchStart,
-        handler: RHandler<MClickAwayListenerProps>? = null) = child(clickAwayListenerComponent) {
-    attrs.mouseEvent = mouseEvent
-    attrs.touchEvent = touchEvent
-    attrs.onClickAway = onClickAway
+    onClickAway: () -> Unit,
+    mouseEvent: MClickAwayListenerMouseEvent = MClickAwayListenerMouseEvent.onClick,
+    touchEvent: MClickAwayListenerTouchEvent = MClickAwayListenerTouchEvent.onTouchStart,
+    handler: RHandler<MClickAwayListenerProps>? = null
+) {
+    child(clickAwayListenerComponentType, jsObject()) {
+        attrs.mouseEvent = mouseEvent
+        attrs.touchEvent = touchEvent
+        attrs.onClickAway = onClickAway
 
-    if (handler != null) handler()
+        if (handler != null) handler()
 
-    attrs.asDynamic().mouseEvent = attrs.mouseEvent.value()
-    attrs.asDynamic().touchEvent = attrs.touchEvent.value()
+        attrs.asDynamic().mouseEvent = attrs.mouseEvent.value()
+        attrs.asDynamic().touchEvent = attrs.touchEvent.value()
+    }
 }
 

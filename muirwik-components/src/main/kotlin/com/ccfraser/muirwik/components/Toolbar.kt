@@ -1,9 +1,8 @@
 package com.ccfraser.muirwik.components
 
 import kotlinx.css.flexGrow
+import react.ComponentType
 import react.RBuilder
-import react.RComponent
-import react.RState
 import react.ReactElement
 import styled.StyledHandler
 import styled.StyledProps
@@ -14,7 +13,7 @@ import styled.css
 private external val toolbarModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")
-private val toolbarComponent: RComponent<MToolbarProps, RState> = toolbarModule.default
+private val toolbarComponentType: ComponentType<MToolbarProps> = toolbarModule.default
 
 @Suppress("EnumEntryName")
 enum class ToolbarVariant {
@@ -27,20 +26,21 @@ external interface MToolbarProps : StyledProps {
 var MToolbarProps.variant by EnumPropToString(ToolbarVariant.values())
 
 fun RBuilder.mToolbar(
-        disableGutters: Boolean = false,
-        variant: ToolbarVariant = ToolbarVariant.regular,
+    disableGutters: Boolean = false,
+    variant: ToolbarVariant = ToolbarVariant.regular,
 
-        className: String? = null,
-        handler: StyledHandler<MToolbarProps>? = null) = createStyled(toolbarComponent) {
-    attrs.disableGutters = disableGutters
-    attrs.variant = variant
-
-    setStyledPropsAndRunHandler(className, handler)
+    className: String? = null,
+    handler: StyledHandler<MToolbarProps>? = null
+) {
+    createStyled(toolbarComponentType, className, handler) {
+        attrs.disableGutters = disableGutters
+        attrs.variant = variant
+    }
 }
 
 /**
  * Just a simple title with padding to push any items to the right, and no wrapping
  */
-fun RBuilder.mToolbarTitle(text: String): ReactElement {
-    return mTypography(text, variant = MTypographyVariant.h6, color = MTypographyColor.inherit, noWrap = true) { css { flexGrow = 1.0 }}
+fun RBuilder.mToolbarTitle(text: String) {
+    mTypography(text, variant = MTypographyVariant.h6, color = MTypographyColor.inherit, noWrap = true) { css { flexGrow = 1.0 }}
 }

@@ -13,7 +13,7 @@ import react.*
 import styled.StyleSheet
 import styled.css
 
-private class TestErrorComponent : RComponent<RProps, RState>() {
+private class TestErrorComponent : RComponent<Props, State>() {
     override fun RBuilder.render() {
         mTypography("No Error Yet")
         throw Error("Opps")
@@ -23,7 +23,7 @@ private class TestErrorComponent : RComponent<RProps, RState>() {
 
 }
 
-class TestErrorBoundary : RComponent<RProps, RState>() {
+class TestErrorBoundary : RComponent<Props, State>() {
     private object CustomStyles : StyleSheet("ComponentStyles", isStatic = true) {
         val paper by css {
             padding(2.spacingUnits)
@@ -44,7 +44,7 @@ class TestErrorBoundary : RComponent<RProps, RState>() {
             mTypography("This is not an error")
         }
         try {
-            errorBoundary(fallbackComponent("Oh dear, we have a problem caught by an errorBoundary, not by the try/catch")) {
+            errorBoundary(buildElement { fallbackComponent("Oh dear, we have a problem caught by an errorBoundary, not by the try/catch") }) {
                 mPaper {
                     css(errorPaper)
                     mTypography("This won't render")
@@ -55,7 +55,7 @@ class TestErrorBoundary : RComponent<RProps, RState>() {
             mTypography("The Error Boundary handles this error, so we won't get here.")
         }
         try {
-            errorBoundary(fallbackComponent("Oh Dear, we have a problem caught by a try/catch, so this error boundary won't come into play")) {
+            errorBoundary(buildElement { fallbackComponent("Oh Dear, we have a problem caught by a try/catch, so this error boundary won't come into play") }) {
                 mPaper {
                     css(errorPaper)
                     mTypography("This won't render")
@@ -84,14 +84,11 @@ class TestErrorBoundary : RComponent<RProps, RState>() {
         }
     }
 
-    private fun fallbackComponent(text: String): ReactElement {
+    private fun fallbackComponent(text: String) {
         // Note we purposely use a new RBuilder so we don't render into our normal display
-        return RBuilder().mPaper {
+        RBuilder().mPaper {
             css(errorPaper)
             mTypography(text)
         }
     }
 }
-
-
-fun RBuilder.testErrorBoundary() = child(TestErrorBoundary::class) {}

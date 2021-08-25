@@ -11,7 +11,7 @@ import styled.StyledHandler
 private external val selectModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")
-private val selectComponent: RComponent<MSelectProps, RState> = selectModule.default
+private val selectComponentType: ComponentType<MSelectProps> = selectModule.default
 
 /**
  * MSelectProps inherits from MInputBaseNoOnChangeProps rather than MInputProps as MInputProps has
@@ -24,13 +24,13 @@ external interface MSelectProps : MInputBaseNoOnChangeProps {
     var displayEmpty: Boolean
 
     @JsName("IconComponent")
-    var iconComponent: RComponent<MIconProps, RState>?
+    var iconComponent: RComponent<MIconProps, State>?
 
     var input: ReactElement?
     var margin: String
 
     @JsName("MenuProps")
-    var menuProps: RProps?
+    var menuProps: Props?
 
     var multiple: Boolean
     var native: Boolean
@@ -42,50 +42,47 @@ external interface MSelectProps : MInputBaseNoOnChangeProps {
     var renderValue: ((value: Any) -> ReactElement)?
 
     @JsName("SelectDisplayProps")
-    var selectDisplayProps: RProps?
+    var selectDisplayProps: Props?
 
     var variant: String
 }
 
 fun RBuilder.mSelect(
-        value: Any?,
-        open: Boolean? = null,
-        error: Boolean? = null,
-        disabled: Boolean? = null,
-        multiple: Boolean = false,
-        variant: MFormControlVariant? = null,
-        autoWidth: Boolean = false,
-        fullWidth: Boolean = false,
-        displayEmpty: Boolean = false,
-        autoFocus: Boolean? = null,
-        id: String? = null,
-        name: String? = null,
-        input: ReactElement? = null,
-        native: Boolean = false,
-
-        onChange: ((event: Event, child: ReactElement?) -> Unit)? = null,
-
-        addAsChild: Boolean = true,
-        className: String? = null,
-
-        handler: StyledHandler<MSelectProps>? = null) = createStyled(selectComponent, addAsChild) {
-    autoFocus?.let { attrs.autoFocus = it }
-    attrs.autoWidth = autoWidth
-    disabled?.let { attrs.disabled = it }
-    attrs.displayEmpty = displayEmpty
-    error?.let { attrs.error = it }
-    attrs.fullWidth = fullWidth
-    id?.let { attrs.id = it }
-    input?.let { attrs.input = it }
-    attrs.multiple = multiple
-    attrs.native = native
-    name?.let { attrs.name = it }
-    onChange?.let { attrs.onChange = it }
-    open?.let { attrs.open = it }
-    value?.let { attrs.value = it }
-    variant?.let {attrs.variant = it.toString() }
-
-    setStyledPropsAndRunHandler(className, handler)
+    value: Any?,
+    open: Boolean? = null,
+    error: Boolean? = null,
+    disabled: Boolean? = null,
+    multiple: Boolean = false,
+    variant: MFormControlVariant? = null,
+    autoWidth: Boolean = false,
+    fullWidth: Boolean = false,
+    displayEmpty: Boolean = false,
+    autoFocus: Boolean? = null,
+    id: String? = null,
+    name: String? = null,
+    input: ReactElement? = null,
+    native: Boolean = false,
+    onChange: ((event: Event, child: ReactElement?) -> Unit)? = null,
+    className: String? = null,
+    handler: StyledHandler<MSelectProps>? = null
+) {
+    createStyled(selectComponentType, className, handler) {
+        autoFocus?.let { attrs.autoFocus = it }
+        attrs.autoWidth = autoWidth
+        disabled?.let { attrs.disabled = it }
+        attrs.displayEmpty = displayEmpty
+        error?.let { attrs.error = it }
+        attrs.fullWidth = fullWidth
+        id?.let { attrs.id = it }
+        input?.let { attrs.input = it }
+        attrs.multiple = multiple
+        attrs.native = native
+        name?.let { attrs.name = it }
+        onChange?.let { attrs.onChange = it }
+        open?.let { attrs.open = it }
+        value?.let { attrs.value = it }
+        variant?.let {attrs.variant = it.toString() }
+    }
 }
 
 

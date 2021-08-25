@@ -1,10 +1,8 @@
 package com.ccfraser.muirwik.components.form
 
 import com.ccfraser.muirwik.components.createStyled
-import com.ccfraser.muirwik.components.setStyledPropsAndRunHandler
+import react.ComponentType
 import react.RBuilder
-import react.RComponent
-import react.RState
 import styled.StyledHandler
 import styled.StyledProps
 
@@ -13,7 +11,7 @@ import styled.StyledProps
 private external val formGroupModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")
-private val formGroupComponent: RComponent<MFormGroupProps, RState> = formGroupModule.default
+private val formGroupComponentType: ComponentType<MFormGroupProps> = formGroupModule.default
 
 /**
  * From material-ui: FormGroup wraps controls such as Checkbox and Switch. It provides compact row layout. For the Radio,
@@ -24,11 +22,11 @@ external interface MFormGroupProps : StyledProps {
 }
 
 fun RBuilder.mFormGroup (
-        row: Boolean = false,
-
-        className: String? = null,
-        handler: StyledHandler<MFormGroupProps>? = null) = createStyled(formGroupComponent) {
-    attrs.row = row
-
-    setStyledPropsAndRunHandler(className,  handler)
+    row: Boolean = false,
+    className: String? = null,
+    handler: StyledHandler<MFormGroupProps>? = null
+) {
+    createStyled(formGroupComponentType, className, handler) {
+        attrs.row = row
+    }
 }

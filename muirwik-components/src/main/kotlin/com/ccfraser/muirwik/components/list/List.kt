@@ -3,11 +3,10 @@ package com.ccfraser.muirwik.components.list
 import com.ccfraser.muirwik.components.button.MButtonBaseProps
 import com.ccfraser.muirwik.components.createStyled
 import com.ccfraser.muirwik.components.mDivider
-import com.ccfraser.muirwik.components.setStyledPropsAndRunHandler
+import react.ComponentType
 import react.RBuilder
-import react.RComponent
-import react.RState
 import react.ReactElement
+import react.buildElement
 import styled.StyledHandler
 
 
@@ -15,7 +14,7 @@ import styled.StyledHandler
 private external val listModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")
-private val listComponent: RComponent<MListProps, RState> = listModule.default
+private val listComponentType: ComponentType<MListProps> = listModule.default
 
 external interface MListProps : MButtonBaseProps {
     var dense: Boolean
@@ -24,40 +23,40 @@ external interface MListProps : MButtonBaseProps {
 }
 
 fun RBuilder.mList(
-        dense: Boolean = false,
-        disablePadding: Boolean = false,
-        subheader: ReactElement? = null,
-        component: String = "ul",
-
-        className: String? = null,
-        handler: StyledHandler<MListProps>? = null) = createStyled(listComponent) {
-    attrs.component = component
-    attrs.dense = dense
-    attrs.disablePadding = disablePadding
-    subheader?.let { attrs.subheader = subheader }
-
-    setStyledPropsAndRunHandler(className, handler)
+    dense: Boolean = false,
+    disablePadding: Boolean = false,
+    subheader: ReactElement? = null,
+    component: String = "ul",
+    className: String? = null,
+    handler: StyledHandler<MListProps>? = null
+) {
+    createStyled(listComponentType, className, handler) {
+        attrs.component = component
+        attrs.dense = dense
+        attrs.disablePadding = disablePadding
+        subheader?.let { attrs.subheader = subheader }
+    }
 }
 
 fun RBuilder.mList(
-        subheader: String,
-        addHeadDivider: Boolean = false,
-        dense: Boolean = false,
-        disablePadding: Boolean = false,
-        component: String = "ul",
+    subheader: String,
+    addHeadDivider: Boolean = false,
+    dense: Boolean = false,
+    disablePadding: Boolean = false,
+    component: String = "ul",
+    className: String? = null,
+    handler: StyledHandler<MListProps>? = null
+) {
+    createStyled(listComponentType, className, handler) {
+        attrs.component = component
+        attrs.dense = dense
+        attrs.disablePadding = disablePadding
 
-        className: String? = null,
-        handler: StyledHandler<MListProps>? = null) = createStyled(listComponent) {
-    attrs.component = component
-    attrs.dense = dense
-    attrs.disablePadding = disablePadding
+        @Suppress("UnsafeCastFromDynamic")
+        attrs.subheader = buildElement { mListSubheader(subheader) }
 
-    @Suppress("UnsafeCastFromDynamic")
-    attrs.subheader = mListSubheader(subheader, addAsChild = false)
-
-    if (addHeadDivider) {
-        childList.add(mDivider(addAsChild = false))
+        if (addHeadDivider) {
+            childList.add( buildElement { mDivider() })
+        }
     }
-
-    setStyledPropsAndRunHandler(className, handler)
 }

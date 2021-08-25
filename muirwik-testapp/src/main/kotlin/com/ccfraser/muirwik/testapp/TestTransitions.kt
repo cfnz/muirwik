@@ -22,9 +22,9 @@ import styled.styledDiv
 //    val stroke: String,
 //    val fill: String,
 //    val strokeWidth: Int
-//): RProps
+//): Props
 
-external interface ShapeProps : RProps {
+external interface ShapeProps : Props {
     var points: String
     var stroke: String
     var fill: String
@@ -62,7 +62,7 @@ private fun RBuilder.demoComponent() {
     }
 }
 
-class TestTransitions : RComponent<RProps, RState>() {
+class TestTransitions : RComponent<Props, State>() {
     var collapseShown: Boolean = false
     var fadeShown: Boolean = false
     var growShown: Boolean = false
@@ -78,11 +78,10 @@ class TestTransitions : RComponent<RProps, RState>() {
 
     override fun RBuilder.render() {
         // For building things that we don't want to render now (e.g. the component will render it later), we need another builder
-        val altBuilder = RBuilder()
         div {
             styledDiv {
                 css(ComponentStyles.area)
-                mFormControlLabel("Collapse", altBuilder.mSwitch(checked = collapseShown, onChange = {_, _ ->  setState {collapseShown = ! collapseShown}}))
+                mFormControlLabel("Collapse", buildElement { mSwitch(checked = collapseShown, onChange = {_, _ ->  setState {collapseShown = ! collapseShown}}) })
 
                 styledDiv {
                     css { display = Display.flex }
@@ -99,7 +98,7 @@ class TestTransitions : RComponent<RProps, RState>() {
 
             styledDiv {
                 css(ComponentStyles.area)
-                mFormControlLabel("Fade (with a slow duration set)", altBuilder.mSwitch(checked = fadeShown, onChange = {_, _ ->  setState {fadeShown = ! fadeShown}}))
+                mFormControlLabel("Fade (with a slow duration set)", buildElement { mSwitch(checked = fadeShown, onChange = {_, _ ->  setState {fadeShown = ! fadeShown}}) })
 
                 styledDiv {
                     css {
@@ -119,7 +118,7 @@ class TestTransitions : RComponent<RProps, RState>() {
             }
             styledDiv {
                 css(ComponentStyles.area)
-                mFormControlLabel("Grow", altBuilder.mSwitch(checked = growShown, onChange = {_, _ ->  setState {growShown = ! growShown}}))
+                mFormControlLabel("Grow", buildElement { mSwitch(checked = growShown, onChange = {_, _ ->  setState {growShown = ! growShown}}) })
                 styledDiv {
                     css { display = Display.flex }
                     mGrow(show = growShown) {
@@ -134,7 +133,7 @@ class TestTransitions : RComponent<RProps, RState>() {
             }
             styledDiv {
                 css(ComponentStyles.area)
-                mFormControlLabel("Slide", altBuilder.mSwitch(checked = slideShown, onChange = {_, _ ->  setState {slideShown = ! slideShown}}))
+                mFormControlLabel("Slide", buildElement { mSwitch(checked = slideShown, onChange = {_, _ ->  setState {slideShown = ! slideShown}}) })
                 styledDiv {
                     css { display = Display.flex }
                     mSlide(show = slideShown, direction = SlideTransitionDirection.up) {
@@ -144,7 +143,7 @@ class TestTransitions : RComponent<RProps, RState>() {
             }
             styledDiv {
                 css(ComponentStyles.area)
-                mFormControlLabel("Zoom", altBuilder.mSwitch(checked = zoomShown, onChange = {_, _ ->  setState {zoomShown = ! zoomShown}}))
+                mFormControlLabel("Zoom", buildElement { mSwitch(checked = zoomShown, onChange = {_, _ ->  setState {zoomShown = ! zoomShown}}) })
                 styledDiv {
                     css { display = Display.flex }
                     mZoom(show = zoomShown) {
@@ -159,5 +158,3 @@ class TestTransitions : RComponent<RProps, RState>() {
         }
     }
 }
-
-fun RBuilder.testTransitions() = child(TestTransitions::class) {}

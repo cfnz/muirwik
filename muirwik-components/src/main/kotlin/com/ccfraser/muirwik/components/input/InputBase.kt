@@ -2,11 +2,12 @@ package com.ccfraser.muirwik.components.input
 
 import com.ccfraser.muirwik.components.EnumPropToStringNullable
 import com.ccfraser.muirwik.components.StyledPropsWithCommonAttributes
+import kotlinx.html.INPUT
 import kotlinx.html.InputType
 import org.w3c.dom.events.Event
-import react.RProps
-import react.RRef
+import react.Props
 import react.ReactElement
+import react.Ref
 
 
 @Suppress("EnumEntryName")
@@ -28,8 +29,8 @@ external interface MInputBaseNoOnChangeProps : StyledPropsWithCommonAttributes {
     var error: Boolean
     var fullWidth: Boolean
     var inputComponent: String
-    var inputProps: RProps
-    var inputRef: RRef
+    var inputProps: Props
+    var inputRef: Ref<INPUT>
     var multiline: Boolean
     var name: String
     var placeholder: String

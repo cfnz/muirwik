@@ -2,9 +2,8 @@ package com.ccfraser.muirwik.components
 
 import kotlinx.css.LinearDimension
 import kotlinx.css.px
+import react.ComponentType
 import react.RBuilder
-import react.RComponent
-import react.RState
 import styled.StyledHandler
 import styled.StyledProps
 
@@ -13,7 +12,7 @@ import styled.StyledProps
 private external val circularProgressModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")
-private val circularProgressComponent: RComponent<MCircularProgressProps, RState> = circularProgressModule.default
+private val circularProgressComponentType: ComponentType<MCircularProgressProps> = circularProgressModule.default
 
 @Suppress("EnumEntryName")
 enum class MCircularProgressColor {
@@ -39,22 +38,21 @@ var MCircularProgressProps.size: LinearDimension
     }
 
 fun RBuilder.mCircularProgress(
-        value: Double? = null,
-        variant: MCircularProgressVariant = MCircularProgressVariant.indeterminate,
-        size: LinearDimension = 40.px,
-        color: MCircularProgressColor = MCircularProgressColor.primary,
-        thickness: Double = 3.6,
-        disableShrink: Boolean = false,
-
-        className: String? = null,
-        handler: StyledHandler<MCircularProgressProps>? = null) = createStyled(circularProgressComponent) {
-    attrs.color = color
-    attrs.disableShrink = disableShrink
-    attrs.size = size
-    attrs.thickness = thickness
-    value?.let { attrs.value = it }
-    attrs.variant = variant
-
-    setStyledPropsAndRunHandler(className, handler)
+    value: Double? = null,
+    variant: MCircularProgressVariant = MCircularProgressVariant.indeterminate,
+    size: LinearDimension = 40.px,
+    color: MCircularProgressColor = MCircularProgressColor.primary,
+    thickness: Double = 3.6,
+    disableShrink: Boolean = false,
+    className: String? = null,
+    handler: StyledHandler<MCircularProgressProps>? = null
+) {
+    createStyled(circularProgressComponentType, className, handler) {
+        attrs.color = color
+        attrs.disableShrink = disableShrink
+        attrs.size = size
+        attrs.thickness = thickness
+        value?.let { attrs.value = it }
+        attrs.variant = variant
+    }
 }
-

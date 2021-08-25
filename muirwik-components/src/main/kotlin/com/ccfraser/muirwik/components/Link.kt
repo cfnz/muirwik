@@ -1,14 +1,14 @@
 package com.ccfraser.muirwik.components
 
+import react.ComponentType
 import react.RBuilder
-import react.RComponent
-import react.RState
+import react.ReactNode
 import styled.StyledHandler
 
 
 @JsModule("@material-ui/core/Link")
 private external val linkModule: dynamic
-private val linkComponent: RComponent<MLinkProps, RState> = linkModule.default
+private val linkComponentType: ComponentType<MLinkProps> = linkModule.default
 
 @Suppress("EnumEntryName")
 enum class MLinkUnderline {
@@ -30,33 +30,34 @@ var MLinkProps.underline by EnumPropToString(MLinkUnderline.values())
  * recommended in https://material-ui.com/style/links/. When targetBlank is true target will not be used.
  */
 fun RBuilder.mLink(
-        text: String? = null,
-        hRefOptions: HRefOptions? = null,
-        underline: MLinkUnderline = MLinkUnderline.hover,
-        gutterBottom: Boolean = false,
-        noWrap: Boolean = false,
-
-        className: String? = null,
-        handler: StyledHandler<MLinkProps>? = null) = createStyled(linkComponent) {
-    attrs.gutterBottom = gutterBottom
-    hRefOptions?.let { setHRefTargetNoOpener(attrs, it) }
-    attrs.noWrap = noWrap
-    attrs.underline = underline
-    text?.let {childList.add(it)}
-
-    setStyledPropsAndRunHandler(className, handler)
+    text: String? = null,
+    hRefOptions: HRefOptions? = null,
+    underline: MLinkUnderline = MLinkUnderline.hover,
+    gutterBottom: Boolean = false,
+    noWrap: Boolean = false,
+    className: String? = null,
+    handler: StyledHandler<MLinkProps>? = null
+) {
+    createStyled(linkComponentType, className, handler) {
+        attrs.gutterBottom = gutterBottom
+        hRefOptions?.let { setHRefTargetNoOpener(attrs, it) }
+        attrs.noWrap = noWrap
+        attrs.underline = underline
+        text?.let {childList.add(ReactNode(it))}
+    }
 }
 
 /**
  * Sets up a link with text and an href anchor which will have a _blank target and rel="noopener"
  */
 fun RBuilder.mLink(
-        text: String,
-        hRef: String,
-        underline: MLinkUnderline = MLinkUnderline.hover,
-        gutterBottom: Boolean = false,
-        noWrap: Boolean = false,
-
-        className: String? = null,
-        handler: StyledHandler<MLinkProps>? = null) = mLink(text, HRefOptions(hRef), underline, gutterBottom,
-            noWrap, className, handler)
+    text: String,
+    hRef: String,
+    underline: MLinkUnderline = MLinkUnderline.hover,
+    gutterBottom: Boolean = false,
+    noWrap: Boolean = false,
+    className: String? = null,
+    handler: StyledHandler<MLinkProps>? = null
+) {
+    mLink(text, HRefOptions(hRef), underline, gutterBottom, noWrap, className, handler)
+}

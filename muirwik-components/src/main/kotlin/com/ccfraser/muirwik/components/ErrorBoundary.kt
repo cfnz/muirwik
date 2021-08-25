@@ -3,9 +3,9 @@ package com.ccfraser.muirwik.components
 import kotlinext.js.jsObject
 import react.*
 
-typealias ErrorBoundaryErrorEvent = (error: Throwable, info: RErrorInfo) -> Unit
+typealias ErrorBoundaryErrorEvent = (error: Throwable, info: ErrorInfo) -> Unit
 
-external interface ErrorBoundaryProps : RProps {
+external interface ErrorBoundaryProps : PropsWithChildren {
     /**
      * Content you want to display on an error (note, we don't want to add this as a child, i.e. don't use the normal RBuilder
      * in a render (e.g. use a different (or new) RBuilder or for material components, set addAsChild = false if available
@@ -18,7 +18,7 @@ external interface ErrorBoundaryProps : RProps {
     var onError: ErrorBoundaryErrorEvent?
 }
 
-external interface ErrorBoundaryState : RState {
+external interface ErrorBoundaryState : State {
     var hasError: Boolean
 }
 
@@ -28,11 +28,11 @@ class ErrorBoundary(props: ErrorBoundaryProps) : RComponent<ErrorBoundaryProps, 
         if (state.hasError) {
             child(props.fallbackContent)
         } else {
-            children()
+            props.children()
         }
     }
 
-    override fun componentDidCatch(error: Throwable, info: RErrorInfo) {
+    override fun componentDidCatch(error: Throwable, info: ErrorInfo) {
         props.onError?.let { it(error, info) }
     }
 
@@ -47,7 +47,7 @@ class ErrorBoundary(props: ErrorBoundaryProps) : RComponent<ErrorBoundaryProps, 
     }
 }
 
-fun RBuilder.errorBoundary(fallbackContent: ReactElement, onError: ErrorBoundaryErrorEvent? = null, handler: RHandler<RProps>) = child(ErrorBoundary::class) {
+fun RBuilder.errorBoundary(fallbackContent: ReactElement, onError: ErrorBoundaryErrorEvent? = null, handler: RHandler<Props>) = child(ErrorBoundary::class) {
     attrs.fallbackContent = fallbackContent
     attrs.onError = onError
     handler()

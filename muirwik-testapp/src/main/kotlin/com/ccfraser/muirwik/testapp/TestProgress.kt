@@ -20,7 +20,7 @@ import kotlin.math.min
 import kotlin.random.Random
 
 
-class TestProgress : RComponent<RProps, RState>() {
+class TestProgress : RComponent<Props, State>() {
     private var loading = false
     private var success = false
     private var timerId: Int? = null
@@ -168,5 +168,3 @@ class TestProgress : RComponent<RProps, RState>() {
         mLinearProgress(variant = MLinearProgressVariant.buffer, value = linearValue.toDouble(), valueBuffer = linearBuffer.toDouble())
     }
 }
-
-fun RBuilder.testProgress() = child(TestProgress::class) {}

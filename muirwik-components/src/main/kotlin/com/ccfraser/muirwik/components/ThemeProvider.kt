@@ -22,7 +22,7 @@ private var defaultTheme: Theme = createMuiTheme(themeOptions)
  * set outside of the render, but using this method, if we want to access properties of the theme, we need to
  * move those styles into the render function.
  */
-val themeContext = createContext(defaultTheme)
+val themeContext: Context<Theme> = createContext(defaultTheme)
 
 /**
  * Allows you to easily specify the theme's spacing unit. Usually used in css e.g. css { padding(2.spacingUnits) }
@@ -33,18 +33,18 @@ val themeContext = createContext(defaultTheme)
 val Int.spacingUnits get() = (defaultTheme.spacing(this)).px
 
 
-class MThemeProvider(props: MuiThemeProviderProps) : RComponent<MuiThemeProviderProps, RState>(props) {
+class MThemeProvider(props: MuiThemeProviderProps) : RComponent<MuiThemeProviderProps, State>(props) {
     override fun RBuilder.render() {
         @Suppress("DEPRECATION")
         mMuiThemeProvider(props.theme) {
             themeContext.Provider(props.theme) {
-                children()
+                props.children()
             }
         }
     }
 }
 
-fun RBuilder.mThemeProvider(theme: Theme = createMuiTheme(), handler: RHandler<RProps>? = null) = child(MThemeProvider::class) {
+fun RBuilder.mThemeProvider(theme: Theme = createMuiTheme(), handler: RHandler<Props>? = null) = child(MThemeProvider::class) {
     attrs.theme = theme
     if (handler != null) handler()
 }
