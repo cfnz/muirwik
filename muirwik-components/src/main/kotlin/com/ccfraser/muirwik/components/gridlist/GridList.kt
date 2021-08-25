@@ -1,7 +1,6 @@
 package com.ccfraser.muirwik.components.gridlist
 
 import com.ccfraser.muirwik.components.createStyled
-import com.ccfraser.muirwik.components.setStyledPropsAndRunHandler
 import react.ComponentType
 import react.RBuilder
 import styled.StyledHandler
@@ -31,17 +30,18 @@ var MGridListProps.cellHeight: Int
  * Creates a GridList. For auto cell height, set cellHeight to 0.
  */
 fun RBuilder.mGridList(
-        cols: Number = 2,
-        spacing: Int = 4,
-        cellHeight: Int = 180,
-        component: String = "ul",
+    cols: Number = 2,
+    spacing: Int = 4,
+    cellHeight: Int = 180,
+    component: String = "ul",
 
-        className: String? = null,
-        handler: StyledHandler<MGridListProps>? = null) = createStyled(gridListComponentType) {
-    attrs.cellHeight = cellHeight
-    attrs.cols = cols
-    attrs.component = component
-    attrs.spacing = spacing
-
-    setStyledPropsAndRunHandler(className, handler)
+    className: String? = null,
+    handler: StyledHandler<MGridListProps>? = null
+) {
+    createStyled(gridListComponentType, className, handler) {
+        attrs.cellHeight = cellHeight
+        attrs.cols = cols
+        attrs.component = component
+        attrs.spacing = spacing
+    }
 }

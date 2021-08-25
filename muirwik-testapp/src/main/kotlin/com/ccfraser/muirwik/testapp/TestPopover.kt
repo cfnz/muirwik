@@ -18,14 +18,14 @@ import styled.css
 import styled.styledDiv
 
 
-class TestPopover : RComponent<RProps, RState>() {
+class TestPopover : RComponent<Props, State>() {
     private var open: Boolean = false
     private var anchorRef: MPopoverAnchorRef = MPopoverAnchorRef.anchorEl
     private var anchorOriginVertical: MPopoverVerticalPosition = MPopoverVerticalPosition.top
     private var anchorOriginHorizontal: MPopoverHorizontalPosition = MPopoverHorizontalPosition.left
     private var transformOriginVertical: MPopoverVerticalPosition = MPopoverVerticalPosition.top
     private var transformOriginHorizontal: MPopoverHorizontalPosition = MPopoverHorizontalPosition.left
-    private var buttonRef: Node? = null
+    private var buttonRef = createRef<Node>()
     private var anchorPosTop: Int = 50
     private var anchorPosLeft: Int = 70
 
@@ -43,8 +43,10 @@ class TestPopover : RComponent<RProps, RState>() {
         }
     }
 
-    private fun RBuilder.greenRadio() = mRadio(color = MOptionColor.default, addAsChild = false) {
-        css(greenRadio)
+    private fun greenRadio() = buildElement {
+        mRadio(color = MOptionColor.default) {
+            css(greenRadio)
+        }
     }
 
     override fun RBuilder.render() {
@@ -60,9 +62,7 @@ class TestPopover : RComponent<RProps, RState>() {
                             marginBottom = 32.px
                         }
                         mButton("Open Popover", variant = MButtonVariant.contained, onClick = { setState { open = true }} ) {
-                            ref {
-                                buttonRef = findDOMNode(it)
-                            }
+                            ref = buttonRef
                         }
                         styledDiv {
                             css {
@@ -88,7 +88,7 @@ class TestPopover : RComponent<RProps, RState>() {
                     }
                     mPopover(open, onClose = { _, _ -> setState { open = false}} ) {
                         attrs.anchorReference = anchorRef
-                        attrs.anchorEl = buttonRef
+                        attrs.anchorEl = buttonRef.current
                         if (anchorRef == MPopoverAnchorRef.anchorEl) {
                             attrs.anchorOriginVertical = anchorOriginVertical
                             attrs.anchorOriginHorizontal = anchorOriginHorizontal
@@ -176,5 +176,3 @@ class TestPopover : RComponent<RProps, RState>() {
         }
     }
 }
-
-fun RBuilder.testPopover() = child(TestPopover::class) {}

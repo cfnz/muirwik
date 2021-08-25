@@ -3,14 +3,16 @@ package com.ccfraser.muirwik.components
 import kotlinext.js.jsObject
 import react.ComponentType
 import react.RBuilder
-import react.RProps
+import react.Props
 
 
 @JsModule("@material-ui/core/CssBaseline")
 private external val cssBaselineModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")
-private val cssBaselineComponentType: ComponentType<RProps> = cssBaselineModule.default
+private val cssBaselineComponentType: ComponentType<Props> = cssBaselineModule.default
 
-fun RBuilder.mCssBaseline() = child(cssBaselineComponentType, jsObject()) {}
+fun RBuilder.mCssBaseline() {
+    child(cssBaselineComponentType, jsObject()) {}
+}
 

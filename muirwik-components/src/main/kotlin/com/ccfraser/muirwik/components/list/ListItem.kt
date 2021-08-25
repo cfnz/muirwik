@@ -35,7 +35,7 @@ external interface MListItemProps : MButtonBaseProps {
     var containerComponent: String
 
     @JsName("ContainerProps")
-    var containerProps: RProps?
+    var containerProps: Props?
 
     var dense: Boolean
     var disableGutters: Boolean
@@ -53,17 +53,18 @@ var MListItemProps.alignItems by EnumPropToString(MListItemAlignItems.values())
  * For item with icon or avatar, use [mListItemWithIcon] or [mListItemWithAvatar]
  */
 fun RBuilder.mListItem(
-        primaryText: String,
-        secondaryText: String? = null,
-        selected: Boolean = false,
-        key: String? = null,
-        alignItems: MListItemAlignItems = MListItemAlignItems.center,
-        divider: Boolean = true,
-        hRefOptions: HRefOptions? = null,
-        onClick: ((Event) -> Unit)? = null,
-        className: String? = null,
-        handler: StyledHandler<MListItemProps>? = null): ReactElement {
-    return mListItem(button = true, selected = selected, key = key, alignItems = alignItems, divider = divider,
+    primaryText: String,
+    secondaryText: String? = null,
+    selected: Boolean = false,
+    key: String? = null,
+    alignItems: MListItemAlignItems = MListItemAlignItems.center,
+    divider: Boolean = true,
+    hRefOptions: HRefOptions? = null,
+    onClick: ((Event) -> Unit)? = null,
+    className: String? = null,
+    handler: StyledHandler<MListItemProps>? = null
+) {
+    mListItem(button = true, selected = selected, key = key, alignItems = alignItems, divider = divider,
             hRefOptions = hRefOptions, onClick = onClick, className = className) {
 
         hRefOptions?.let { attrs.component = "a" }
@@ -78,21 +79,21 @@ fun RBuilder.mListItem(
  * More user friendly version with icon (don't usually need to add children as the params here do pretty much all that is required)
  */
 fun RBuilder.mListItemWithIcon(
-        iconName: String,
-        primaryText: String,
-        secondaryText: String? = null,
-        selected: Boolean = false,
-        key: String? = null,
-        alignItems: MListItemAlignItems = MListItemAlignItems.center,
-        divider: Boolean = true,
-        useAvatar: Boolean = false,
-        hRefOptions: HRefOptions? = null,
-        onClick: ((Event) -> Unit)? = null,
-        className: String? = null,
-        handler: StyledHandler<MListItemProps>? = null): ReactElement {
-    return mListItem(button = true, selected = selected, key = key, alignItems = alignItems, divider = divider,
+    iconName: String,
+    primaryText: String,
+    secondaryText: String? = null,
+    selected: Boolean = false,
+    key: String? = null,
+    alignItems: MListItemAlignItems = MListItemAlignItems.center,
+    divider: Boolean = true,
+    useAvatar: Boolean = false,
+    hRefOptions: HRefOptions? = null,
+    onClick: ((Event) -> Unit)? = null,
+    className: String? = null,
+    handler: StyledHandler<MListItemProps>? = null
+) {
+    mListItem(button = true, selected = selected, key = key, alignItems = alignItems, divider = divider,
             hRefOptions = hRefOptions, onClick = onClick, className = className) {
-
         hRefOptions?.let { attrs.component = "a" }
 
         if (useAvatar) {
@@ -112,18 +113,19 @@ fun RBuilder.mListItemWithIcon(
  * Note, for icon with avatar use [mListItemWithIcon]
  */
 fun RBuilder.mListItemWithAvatar(
-        avatarSrc: String,
-        primaryText: String,
-        secondaryText: String? = null,
-        selected: Boolean = false,
-        key: String? = null,
-        alignItems: MListItemAlignItems = MListItemAlignItems.center,
-        divider: Boolean = true,
-        hRefOptions: HRefOptions? = null,
-        onClick: ((Event) -> Unit)? = null,
-        className: String? = null,
-        handler: StyledHandler<MListItemProps>? = null): ReactElement {
-    return mListItem(button = true, selected = selected, key = key, alignItems = alignItems, divider = divider,
+    avatarSrc: String,
+    primaryText: String,
+    secondaryText: String? = null,
+    selected: Boolean = false,
+    key: String? = null,
+    alignItems: MListItemAlignItems = MListItemAlignItems.center,
+    divider: Boolean = true,
+    hRefOptions: HRefOptions? = null,
+    onClick: ((Event) -> Unit)? = null,
+    className: String? = null,
+    handler: StyledHandler<MListItemProps>? = null
+) {
+    mListItem(button = true, selected = selected, key = key, alignItems = alignItems, divider = divider,
             hRefOptions = hRefOptions, onClick =  onClick, className = className) {
 
         hRefOptions?.let { attrs.component = "a" }
@@ -139,36 +141,36 @@ fun RBuilder.mListItemWithAvatar(
  * Full version, but you will need to use other components as children, e.g. mListItemText
  */
 fun RBuilder.mListItem(
-        button: Boolean = false,
-        component: String? = null,
-        containerComponent: String = "li",
-        selected: Boolean = false,
-        key: String? = null,
-        alignItems: MListItemAlignItems = MListItemAlignItems.center,
-        containerProps: RProps? = null,
-        dense: Boolean = false,
-        disableGutters: Boolean = false,
-        divider: Boolean = false,
-        autoFocus: Boolean = false,
-        hRefOptions: HRefOptions? = null,
-        onClick: ((Event) -> Unit)? = null,
-
-        className: String? = null,
-        handler: StyledHandler<MListItemProps>? = null) = createStyled(listItemComponentType) {
-    attrs.alignItems = alignItems
-    attrs.autoFocus = autoFocus
-    attrs.button = button
-    component?.let { attrs.component = component }
-    attrs.containerComponent = containerComponent
-    containerProps?.let { attrs.containerProps = containerProps }
-    attrs.dense = dense
-    attrs.disableGutters = disableGutters
-    attrs.divider = divider
-    hRefOptions?.let { setHRefTargetNoOpener(attrs, it) }
-    onClick?.let { attrs.onClick = onClick }
-    attrs.selected = selected
-    key?.let { attrs.key = key }
-    attrs.selected = selected
-
-    setStyledPropsAndRunHandler(className, handler)
+    button: Boolean = false,
+    component: String? = null,
+    containerComponent: String = "li",
+    selected: Boolean = false,
+    key: String? = null,
+    alignItems: MListItemAlignItems = MListItemAlignItems.center,
+    containerProps: Props? = null,
+    dense: Boolean = false,
+    disableGutters: Boolean = false,
+    divider: Boolean = false,
+    autoFocus: Boolean = false,
+    hRefOptions: HRefOptions? = null,
+    onClick: ((Event) -> Unit)? = null,
+    className: String? = null,
+    handler: StyledHandler<MListItemProps>? = null
+) {
+    createStyled(listItemComponentType, className, handler) {
+        attrs.alignItems = alignItems
+        attrs.autoFocus = autoFocus
+        attrs.button = button
+        component?.let { attrs.component = component }
+        attrs.containerComponent = containerComponent
+        containerProps?.let { attrs.containerProps = containerProps }
+        attrs.dense = dense
+        attrs.disableGutters = disableGutters
+        attrs.divider = divider
+        hRefOptions?.let { setHRefTargetNoOpener(attrs, it) }
+        onClick?.let { attrs.onClick = onClick }
+        attrs.selected = selected
+        key?.let { attrs.key = key }
+        attrs.selected = selected
+    }
 }

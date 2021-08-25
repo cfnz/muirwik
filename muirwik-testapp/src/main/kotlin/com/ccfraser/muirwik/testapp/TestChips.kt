@@ -10,7 +10,7 @@ import styled.css
 import styled.styledDiv
 
 
-class TestChips : RComponent<RProps, RState>() {
+class TestChips : RComponent<Props, State>() {
     val chipData = hashMapOf(
             0 to "Angular",
             1 to "jQuery",
@@ -40,20 +40,35 @@ class TestChips : RComponent<RProps, RState>() {
             mChip("Basic Chip") {
                 css(margin)
             }
-            mChip("Clickable Chip", avatar = mAvatar(addAsChild = false) { +"MB" }, onClick = { handleClick() }) {
+            mChip(
+                "Clickable Chip",
+                avatar = buildElement { mAvatar { +"MB" } },
+                onClick = { handleClick() }
+            ) {
                 css(margin)
             }
-            mChip("Deletable Chip", avatar = mAvatar(src = "/images/cards/contemplative-reptile.jpg", addAsChild = false),
-                    onDelete = { handleDelete() }) {
+            mChip(
+                "Deletable Chip",
+                avatar = buildElement { mAvatar(src = "/images/cards/contemplative-reptile.jpg") },
+                onDelete = { handleDelete() }
+            ) {
                 css(margin)
             }
-            mChip("Clickable Deletable Chip", avatar = mAvatar(addAsChild = false) { mIcon("face") },
-                    onClick = { handleClick() }, onDelete = { handleDelete() }) {
+            mChip(
+                "Clickable Deletable Chip",
+                avatar = buildElement { mAvatar { buildElement { mIcon("face") }}},
+                onClick = { handleClick() },
+                onDelete = { handleDelete() }
+            ) {
                 css(margin)
             }
-            mChip("Custom delete icon Chip".asDynamic(), onClick = { handleClick() }, onDelete = { handleDelete() }) {
+            mChip(
+                "Custom delete icon Chip".asDynamic(),
+                onClick = { handleClick() },
+                onDelete = { handleDelete() }
+            ) {
                 css(margin)
-                attrs.deleteIcon = mIcon("done", addAsChild = false)
+                attrs.deleteIcon = buildElement { mIcon("done") }
             }
             mChip("Primary Color Chip", color = MChipColor.primary, onClick = { handleClick() }, onDelete = { handleDelete() }) {
                 css(margin)
@@ -87,20 +102,21 @@ class TestChips : RComponent<RProps, RState>() {
             css { display = Display.flex; justifyContent = JustifyContent.center; flexWrap = FlexWrap.wrap; padding(2.spacingUnits) }
 
             chipData.forEach { entry ->
-                mChip(entry.value, key = entry.key,
-                        avatar = if (entry.value == "React" || entry.value == "Kotlin") (mAvatar(addAsChild = false, handler = { mIcon("tag_faces")})) else null,
-                        onDelete = {
-                            if (entry.value == "React" || entry.value == "Kotlin") {
-                                window.alert("Why would you want to delete ${entry.value}? :-)")
-                            } else {
-                                setState { chipData.remove(entry.key) }
-                            }
-                        }) {
+                mChip(
+                    entry.value,
+                    key = entry.key,
+                    avatar = if (entry.value == "React" || entry.value == "Kotlin") buildElement { mAvatar { buildElement { mIcon("tag_faces")}}} else null,
+                    onDelete = {
+                        if (entry.value == "React" || entry.value == "Kotlin") {
+                            window.alert("Why would you want to delete ${entry.value}? :-)")
+                        } else {
+                            setState { chipData.remove(entry.key) }
+                        }
+                    }
+                ) {
                     css(margin)
                 }
             }
         }
     }
 }
-
-fun RBuilder.testChips() = child(TestChips::class) {}

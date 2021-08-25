@@ -1,7 +1,6 @@
 package com.ccfraser.muirwik.components.table
 
 import com.ccfraser.muirwik.components.createStyled
-import com.ccfraser.muirwik.components.setStyledPropsAndRunHandler
 import react.ComponentType
 import react.RBuilder
 import styled.StyledHandler
@@ -19,10 +18,12 @@ external interface MTableFooterProps : StyledProps {
 }
 
 fun RBuilder.mTableFooter(
-        component: String = "tfoot",
+    component: String = "tfoot",
 
-        className: String? = null,
-        handler: StyledHandler<MTableFooterProps>? = null) = createStyled(TableFooterComponentType) {
-    attrs.component = component
-    setStyledPropsAndRunHandler(className, handler)
+    className: String? = null,
+    handler: StyledHandler<MTableFooterProps>? = null
+) {
+    createStyled(TableFooterComponentType, className, handler) {
+        attrs.component = component
+    }
 }

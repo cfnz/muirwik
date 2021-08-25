@@ -7,11 +7,11 @@ import com.ccfraser.muirwik.components.styles.ThemeOptions
 import com.ccfraser.muirwik.components.styles.createMuiTheme
 import react.*
 
-external interface AppState: RState {
+external interface AppState: State {
     var themeColor: String
 }
 
-class App(props: RProps) : RComponent<RProps, AppState>(props) {
+class App(props: Props) : RComponent<Props, AppState>(props) {
     override fun AppState.init() {
         themeColor = "light"
     }
@@ -31,7 +31,9 @@ class App(props: RProps) : RComponent<RProps, AppState>(props) {
     }
 }
 
-fun RBuilder.app() = child(App::class) {}
+fun RBuilder.app() {
+    child(App::class) {}
+}
 
 
 

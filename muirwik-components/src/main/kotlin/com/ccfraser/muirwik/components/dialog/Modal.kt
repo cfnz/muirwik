@@ -4,7 +4,7 @@ import com.ccfraser.muirwik.components.OnClosePropWithReasonDelegate
 import com.ccfraser.muirwik.components.SimpleEvent
 import com.ccfraser.muirwik.components.StyledPropsWithCommonAttributes
 import react.ComponentType
-import react.RProps
+import react.Props
 import react.ReactElement
 
 
@@ -25,7 +25,7 @@ external interface MModalProps : StyledPropsWithCommonAttributes {
     var backdropComponent: ReactElement
 
     @Suppress("BackdropProps")
-    var backdropProps: RProps
+    var backdropProps: Props
 
     var closeAfterTransition: Boolean
     var container: ReactElement

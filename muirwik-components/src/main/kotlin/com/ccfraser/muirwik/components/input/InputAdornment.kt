@@ -3,7 +3,6 @@ package com.ccfraser.muirwik.components.input
 import com.ccfraser.muirwik.components.EnumPropToStringNullable
 import com.ccfraser.muirwik.components.createStyled
 import com.ccfraser.muirwik.components.form.MFormControlVariant
-import com.ccfraser.muirwik.components.setStyledPropsAndRunHandler
 import react.ComponentType
 import react.RBuilder
 import styled.StyledHandler
@@ -29,20 +28,19 @@ var MInputAdornmentProps.position by EnumPropToStringNullable(MInputAdornmentPos
 var MInputAdornmentProps.variant by EnumPropToStringNullable(MFormControlVariant.values())
 
 fun RBuilder.mInputAdornment(
-        position: MInputAdornmentPosition = MInputAdornmentPosition.start,
-        disablePointerEvents: Boolean = false,
-        disableTypography: Boolean = false,
-        variant: MFormControlVariant? = null,
-
-        className: String? = null,
-
-        handler: StyledHandler<MInputAdornmentProps>? = null) = createStyled(inputAdornmentComponentType, false) {
-    attrs.disablePointerEvents = disablePointerEvents
-    attrs.disableTypography = disableTypography
-    attrs.position = position
-    attrs.variant = variant
-
-    setStyledPropsAndRunHandler(className, handler)
+    position: MInputAdornmentPosition = MInputAdornmentPosition.start,
+    disablePointerEvents: Boolean = false,
+    disableTypography: Boolean = false,
+    variant: MFormControlVariant? = null,
+    className: String? = null,
+    handler: StyledHandler<MInputAdornmentProps>? = null
+) {
+    createStyled(inputAdornmentComponentType, className, handler) {
+        attrs.disablePointerEvents = disablePointerEvents
+        attrs.disableTypography = disableTypography
+        attrs.position = position
+        attrs.variant = variant
+    }
 }
 
 

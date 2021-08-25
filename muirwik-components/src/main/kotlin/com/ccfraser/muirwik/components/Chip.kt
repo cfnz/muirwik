@@ -46,31 +46,29 @@ var MChipProps.variant by EnumPropToString(MChipVariant.values())
  * This is the simpler version of the chip component allowing you to pass in a string label for the chip
  */
 fun RBuilder.mChip(
-        label: String,
-        avatar: ReactElement? = null,
-        onClick: ((Event) -> Unit)? = null,
-        onDelete: ((Event) -> Unit)? = null,
-        key: Any? = null,
-        color: MChipColor = MChipColor.default,
-        size: MChipSize = MChipSize.medium,
-        variant: MChipVariant = MChipVariant.default,
+    label: String,
+    avatar: ReactElement? = null,
+    onClick: ((Event) -> Unit)? = null,
+    onDelete: ((Event) -> Unit)? = null,
+    key: Any? = null,
+    color: MChipColor = MChipColor.default,
+    size: MChipSize = MChipSize.medium,
+    variant: MChipVariant = MChipVariant.default,
+    className: String? = null,
+    handler: StyledHandler<MChipProps>? = null
+) {
+    createStyled(chipComponentType, className, handler) {
+        avatar?.let { attrs.avatar = it }
+        attrs.color = color
+        attrs.component = "div"
 
-        addAsChild: Boolean = true,
-        className: String? = null,
-        handler: StyledHandler<MChipProps>? = null) = createStyled(chipComponentType, addAsChild) {
-    avatar?.let { attrs.avatar = it }
-    attrs.color = color
-    attrs.component = "div"
+        @Suppress("UnsafeCastFromDynamic")
+        attrs.label = label.asDynamic()
 
-    @Suppress("UnsafeCastFromDynamic")
-    attrs.label = label.asDynamic()
-
-    key?.let { attrs.key = it }
-    onClick?.let { attrs.onClick = it }
-    onDelete?.let { attrs.onDelete = it }
-    attrs.size = size
-    attrs.variant = variant
-
-    setStyledPropsAndRunHandler(className, handler)
+        key?.let { attrs.key = it }
+        onClick?.let { attrs.onClick = it }
+        onDelete?.let { attrs.onDelete = it }
+        attrs.size = size
+        attrs.variant = variant
+    }
 }
-

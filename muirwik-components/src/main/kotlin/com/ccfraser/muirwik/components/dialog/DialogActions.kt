@@ -1,7 +1,6 @@
 package com.ccfraser.muirwik.components.dialog
 
 import com.ccfraser.muirwik.components.createStyled
-import com.ccfraser.muirwik.components.setStyledPropsAndRunHandler
 import react.ComponentType
 import react.RBuilder
 import styled.StyledHandler
@@ -19,11 +18,13 @@ external interface MDialogActionsProps : StyledProps {
 }
 
 fun RBuilder.mDialogActions(
-        disableSpacing: Boolean = false,
-        className: String? = null,
-        handler: StyledHandler<MDialogActionsProps>) = createStyled(dialogActionsComponentType) {
-    attrs.disableSpacing = disableSpacing
-    setStyledPropsAndRunHandler(className, handler)
+    disableSpacing: Boolean = false,
+    className: String? = null,
+    handler: StyledHandler<MDialogActionsProps>
+) {
+    createStyled(dialogActionsComponentType, className, handler) {
+        attrs.disableSpacing = disableSpacing
+    }
 }
 
 

@@ -1,7 +1,6 @@
 package com.ccfraser.muirwik.components.expansionpanel
 
 import com.ccfraser.muirwik.components.createStyled
-import com.ccfraser.muirwik.components.setStyledPropsAndRunHandler
 import react.ComponentType
 import react.RBuilder
 import styled.StyledHandler
@@ -15,8 +14,9 @@ private val expansionPanelDetailsComponentType: ComponentType<StyledProps> = exp
 
 @Deprecated("Getting removed in Material-UI 5", ReplaceWith("mAccordionDetails(className, handler)",
 		"com.ccfraser.muirwik.components.accordion.mAccordionDetails"))
-fun RBuilder.mExpansionPanelDetails(className: String? = null,
-                                    handler: StyledHandler<StyledProps>? = null) =
-		createStyled(expansionPanelDetailsComponentType) {
-			setStyledPropsAndRunHandler(className, handler)
-		}
+fun RBuilder.mExpansionPanelDetails(
+	className: String? = null,
+    handler: StyledHandler<StyledProps>? = null
+) {
+	createStyled(expansionPanelDetailsComponentType, className, handler)
+}

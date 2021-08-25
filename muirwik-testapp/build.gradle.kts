@@ -1,7 +1,7 @@
 import org.jetbrains.kotlin.utils.addToStdlib.min
 
 group = "com.ccfraser.muirwik"
-version = "0.8.3"
+version = "0.9.0"
 description = "Test Application for Muirwik (a Material UI React wrapper written in Kotlin)"
 
 plugins {
@@ -14,8 +14,8 @@ repositories {
 }
 
 dependencies {
-    val kotlinVersion = "1.5.20"
-    val kotlinJsVersion = "pre.216-kotlin-$kotlinVersion"
+    val kotlinVersion = "1.5.21"
+    val kotlinJsVersion = "pre.231-kotlin-$kotlinVersion"
 
     implementation(kotlin("stdlib-js", kotlinVersion))
     implementation("org.jetbrains.kotlin-wrappers", "kotlin-styled", "5.3.0-$kotlinJsVersion")

@@ -10,7 +10,7 @@ import styled.StyleSheet
 import styled.css
 
 
-class TestBreadcrumbs : RComponent<RProps, RState>() {
+class TestBreadcrumbs : RComponent<Props, State>() {
 
     private object ComponentStyles : StyleSheet("ComponentStyles", isStatic = true) {
         val paper by css {
@@ -60,7 +60,7 @@ class TestBreadcrumbs : RComponent<RProps, RState>() {
         br {}
         mPaper {
             css(paper)
-            mBreadcrumbs(mIcon("navigate_next", fontSize = MIconFontSize.small, addAsChild = false)) {
+            mBreadcrumbs(buildElement { mIcon("navigate_next", fontSize = MIconFontSize.small) }) {
                 mLink("Material-UI", HRefOptions("#"))
                 mLink("Core", HRefOptions("#"))
                 mTypography("Breadcrumb")
@@ -103,5 +103,3 @@ class TestBreadcrumbs : RComponent<RProps, RState>() {
         }
     }
 }
-
-fun RBuilder.testBreadcrumbs() = child(TestBreadcrumbs::class) {}

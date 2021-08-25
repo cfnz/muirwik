@@ -15,20 +15,21 @@ import react.*
 import styled.StyleSheet
 import styled.css
 import styled.styledDiv
+import kotlin.reflect.KClass
 
-external interface MainFrameProps : RProps {
+external interface MainFrameProps : Props {
     var onThemeSwitch: () -> Unit
-    var initialView: Page
+    var initialPage: Page
 }
 
-external interface MainFrameState: RState {
-    var view: Page
+external interface MainFrameState: State {
+    var page: Page
     var responsiveDrawerOpen: Boolean
 }
 
 class MainFrame(props: MainFrameProps) : RComponent<MainFrameProps, MainFrameState>(props) {
     override fun MainFrameState.init(props: MainFrameProps) {
-        view = props.initialView
+        page = props.initialPage
         responsiveDrawerOpen = false
     }
 
@@ -60,7 +61,7 @@ class MainFrame(props: MainFrameProps) : RComponent<MainFrameProps, MainFrameSta
                             mHidden(mdUp = true, implementation = MHiddenImplementation.css) {
                                 mIconButton("menu", color = MColor.inherit, onClick = { setState { responsiveDrawerOpen = true }})
                             }
-                            mToolbarTitle("Muirwik - Material-UI React Wrapper in Kotlin - Demo (or play) Area - ${ state.view.title }")
+                            mToolbarTitle("Muirwik - Material-UI React Wrapper in Kotlin - Demo (or play) Area - ${ state.page.title }")
                             mIconButton("lightbulb_outline", onClick = {
                                 props.onThemeSwitch()
                             })
@@ -104,7 +105,11 @@ class MainFrame(props: MainFrameProps) : RComponent<MainFrameProps, MainFrameSta
                                 padding(2.spacingUnits)
                                 backgroundColor = Color(theme.palette.background.default)
                             }
-                            state.view.render(this)
+                            if (state.page.kClass != null) {
+                                child(state.page.kClass!!) {}
+                            } else if (state.page.fc != null) {
+                                child(state.page.fc!!)
+                            }
                         }
                     }
                 }
@@ -113,14 +118,14 @@ class MainFrame(props: MainFrameProps) : RComponent<MainFrameProps, MainFrameSta
     }
 
     private fun RBuilder.demoItems() {
-        fun RBuilder.addListItem(page: Page): Unit {
+        fun RBuilder.addListItem(page: Page) {
 //            mListItem(caption, onClick = {setState {currentView = caption}})
             // We want to get rid of the extra right padding, so must use the longer version as below
-            mListItem(true, onClick = { setState { view = page; responsiveDrawerOpen = false }}) {
+            mListItem(true, onClick = { setState { this.page = page; responsiveDrawerOpen = false }}) {
                 mListItemText(page.title) {
                     css {
                         paddingRight = 0.px
-                        if (page == state.view) {
+                        if (page == state.page) {
                             descendants {
                                 color = Colors.Blue.shade500
                             }
@@ -166,51 +171,53 @@ fun RBuilder.spacer() {
     }
 }
 
-enum class Page(val title: String, val render: RBuilder.() -> ReactElement){
-    Intro("Intro", RBuilder::intro),
-    Accordion("Accordion", RBuilder::testAccordion),
-    Alert("Alert", RBuilder::testLabAlert),
-    AppBar("App Bar", RBuilder::testAppBar),
-    AutoComplete("Auto Complete", RBuilder::testAutoComplete),
-    Avatars("Avatars", RBuilder::testAvatars),
-    Badges("Badges", RBuilder::testBadges),
-    Backdrop("Backdrop", RBuilder::testBackdrop),
-    BottomNav("Bottom Nav", RBuilder::testBottomNavigation),
-    Breadcrumbs("Breadcrumbs", RBuilder::testBreadcrumbs),
-    Buttons("Buttons", RBuilder::testButtons),
-    Cards("Cards", RBuilder::testCards),
-    Checkboxes("Checkboxes", RBuilder::testCheckboxes),
-    Chips("Chips", RBuilder::testChips),
-    ClickAwayListener("Click Away Listener", RBuilder::testClickAwayListener),
-    Dialogs("Dialogs", RBuilder::testDialogs),
-    Drawers("Drawers", RBuilder::testDrawers),
-    ErrorBoundary("Error Boundary", RBuilder::testErrorBoundary),
-//    Grids("Grids", RBuilder::testGrids),
-    GridAndBreakpoints("Grid & Breakpoints", RBuilder::testGridsAndBreakpoints),
-    GridLists("Grid Lists", RBuilder::testGridLists),
-    Links("Links", RBuilder::testLinks),
-    Lists("Lists", RBuilder::testLists),
-    Localization("Localization", RBuilder::testLocalization),
-    Menus("Menus", RBuilder::testMenus),
-    Popover("Popover", RBuilder::testPopover),
-    Progress("Progress", RBuilder::testProgress),
-    RadioButtons("Radio Buttons", RBuilder::testRadioButtons),
-    Ratings("Ratings", RBuilder::testRatings),
-    Selects("Selects", RBuilder::testSelects),
-    Sliders("Sliders", RBuilder::testSliders),
-    Snackbars("Snackbars", RBuilder::testSnackbar),
-    Styles("Styles", RBuilder::testStyles),
-    Switches("Switches", RBuilder::testSwitches),
-    Tables("Tables", RBuilder::testTables),
-    Tabs("Tabs", RBuilder::testTabs),
-    TextFields("Text Fields", RBuilder::testTextFields),
-    Themes("Themes", RBuilder::testThemes),
-    Tooltips("Tooltips", RBuilder::testTooltips),
-    Transitions("Transitions", RBuilder::testTransitions);
+enum class Page(val title: String, val kClass: KClass<out RComponent<Props, out State>>?, val fc: FC<Props>? = null){
+    Intro("Intro", TestIntro::class),
+    Accordion("Accordion", TestAccordion::class),
+    Alert("Alert",  TestLabAlert::class),
+    AppBar("App Bar", TestAppBar::class),
+    AutoComplete("Auto Complete", null, testAutoComplete),
+    Avatars("Avatars", TestAvatars::class),
+    Badges("Badges", TestBadges::class),
+    Backdrop("Backdrop", TestBackdrop::class),
+    BottomNav("Bottom Nav", TestBottomNavigation::class),
+    Breadcrumbs("Breadcrumbs", TestBreadcrumbs::class),
+    Buttons("Buttons", TestButtons::class),
+    Cards("Cards", TestCards::class),
+    Checkboxes("Checkboxes", TestCheckboxes::class),
+    Chips("Chips", TestChips::class),
+    ClickAwayListener("Click Away Listener", TestClickAwayListener::class),
+    Dialogs("Dialogs", TestDialogs::class),
+    Drawers("Drawers", TestDrawers::class),
+    ErrorBoundary("Error Boundary", TestErrorBoundary::class),
+//    Grids("Grids", TestGrids::class),
+    GridAndBreakpoints("Grid & Breakpoints", null, testGridsAndBreakpoints),
+    GridLists("Grid Lists", TestGridLists::class),
+    Links("Links", TestLinks::class),
+    Lists("Lists", TestLists::class),
+    Localization("Localization", TestLocalization::class),
+    Menus("Menus", TestMenus::class),
+    Popover("Popover", TestPopover::class),
+    Progress("Progress", TestProgress::class),
+    RadioButtons("Radio Buttons", TestRadioButtons::class),
+    Ratings("Ratings", null, testRatings),
+    Selects("Selects", TestSelects::class),
+    Sliders("Sliders", TestSlider::class),
+    Snackbars("Snackbars", TestSnackbar::class),
+    Styles("Styles", TestStyles::class),
+    Switches("Switches", TestSwitches::class),
+    Tables("Tables", TestTables::class),
+    Tabs("Tabs", TestTabs::class),
+    TextFields("Text Fields", TestTextFields::class),
+    Themes("Themes", TestThemes::class),
+    Tooltips("Tooltips", TestTooltips::class),
+    Transitions("Transitions", TestTransitions::class);
 }
 
 
-fun RBuilder.mainFrame(initialView: Page, onThemeSwitch: () -> Unit) = child(MainFrame::class) {
-    attrs.onThemeSwitch = onThemeSwitch
-    attrs.initialView = initialView
+fun RBuilder.mainFrame(initialView: Page, onThemeSwitch: () -> Unit) {
+    child(MainFrame::class) {
+        attrs.onThemeSwitch = onThemeSwitch
+        attrs.initialPage = initialView
+    }
 }

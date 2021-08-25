@@ -6,7 +6,7 @@ import react.*
 import react.dom.div
 import styled.css
 
-class TestThemeComponent : RComponent<RProps, RState>() {
+class TestThemeComponent : RComponent<Props, State>() {
 
     override fun RBuilder.render() {
         div {
@@ -22,6 +22,4 @@ class TestThemeComponent : RComponent<RProps, RState>() {
     }
 }
 
-
 fun RBuilder.testThemeComponent() = child(TestThemeComponent::class) {}
-

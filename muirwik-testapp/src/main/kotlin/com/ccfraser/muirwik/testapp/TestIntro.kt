@@ -4,7 +4,7 @@ import com.ccfraser.muirwik.components.MTypographyVariant
 import com.ccfraser.muirwik.components.mLink
 import com.ccfraser.muirwik.components.mTypography
 import com.ccfraser.muirwik.components.spacingUnits
-import com.ccfraser.muirwik.testapp.Intro.ComponentStyles.typographyStyle
+import com.ccfraser.muirwik.testapp.TestIntro.ComponentStyles.typographyStyle
 import kotlinx.css.*
 import react.*
 import react.dom.img
@@ -13,7 +13,7 @@ import styled.css
 import styled.styledDiv
 
 
-class Intro : RComponent<RProps, RState>() {
+class TestIntro : RComponent<Props, State>() {
 
     private object ComponentStyles : StyleSheet("ComponentStyles", isStatic = true) {
         val typographyStyle by css {
@@ -23,7 +23,6 @@ class Intro : RComponent<RProps, RState>() {
     }
 
     override fun RBuilder.render() {
-
         styledDiv {
             css {
                 padding(3.spacingUnits)
@@ -59,4 +58,3 @@ class Intro : RComponent<RProps, RState>() {
     }
 }
 
-fun RBuilder.intro() = child(Intro::class) {}

@@ -2,7 +2,6 @@ package com.ccfraser.muirwik.components.accordion
 
 import com.ccfraser.muirwik.components.StyledPropsWithCommonAttributes
 import com.ccfraser.muirwik.components.createStyled
-import com.ccfraser.muirwik.components.setStyledPropsAndRunHandler
 import react.ComponentType
 import react.RBuilder
 import styled.StyledHandler
@@ -20,7 +19,9 @@ external interface MAccordionActionsProps : StyledPropsWithCommonAttributes {
 fun RBuilder.mAccordionActions(
 		disableSpacing: Boolean? = null,
 		className: String? = null,
-		handler: StyledHandler<MAccordionActionsProps>? = null) = createStyled(jsComponentType) {
-			disableSpacing?.let { attrs.disableSpacing = it }
-			setStyledPropsAndRunHandler(className, handler)
-		}
+		handler: StyledHandler<MAccordionActionsProps>? = null
+) {
+	createStyled(jsComponentType, className, handler) {
+		disableSpacing?.let { attrs.disableSpacing = it }
+	}
+}

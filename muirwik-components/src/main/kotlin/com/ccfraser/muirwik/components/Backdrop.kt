@@ -22,17 +22,17 @@ var MBackdropProps.transitionDuration by TransitionDurationDelegate()
 
 
 fun RBuilder.mBackdrop(
-        open: Boolean,
-        invisible: Boolean = false,
-        transitionDuration: TransitionDuration? = null,
-        onClick: ((Event) -> Unit)? = null,
-
-        className: String? = null,
-        handler: StyledHandler<MBackdropProps>? = null) = createStyled(backdropComponentType) {
-    attrs.open = open
-    attrs.invisible = invisible
-    transitionDuration?.let { attrs.transitionDuration = it }
-    onClick?.let { attrs.onClick = it }
-
-    setStyledPropsAndRunHandler(className, handler)
+    open: Boolean,
+    invisible: Boolean = false,
+    transitionDuration: TransitionDuration? = null,
+    onClick: ((Event) -> Unit)? = null,
+    className: String? = null,
+    handler: StyledHandler<MBackdropProps>? = null
+) {
+    createStyled(backdropComponentType, className, handler) {
+        attrs.open = open
+        attrs.invisible = invisible
+        transitionDuration?.let { attrs.transitionDuration = it }
+        onClick?.let { attrs.onClick = it }
+   }
 }

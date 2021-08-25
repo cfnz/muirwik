@@ -1,7 +1,6 @@
 package com.ccfraser.muirwik.components.form
 
 import com.ccfraser.muirwik.components.createStyled
-import com.ccfraser.muirwik.components.setStyledPropsAndRunHandler
 import react.ComponentType
 import react.RBuilder
 import styled.StyledHandler
@@ -23,11 +22,11 @@ external interface MFormGroupProps : StyledProps {
 }
 
 fun RBuilder.mFormGroup (
-        row: Boolean = false,
-
-        className: String? = null,
-        handler: StyledHandler<MFormGroupProps>? = null) = createStyled(formGroupComponentType) {
-    attrs.row = row
-
-    setStyledPropsAndRunHandler(className,  handler)
+    row: Boolean = false,
+    className: String? = null,
+    handler: StyledHandler<MFormGroupProps>? = null
+) {
+    createStyled(formGroupComponentType, className, handler) {
+        attrs.row = row
+    }
 }

@@ -3,7 +3,6 @@ package com.ccfraser.muirwik.components.table
 import com.ccfraser.muirwik.components.EnumPropToString
 import com.ccfraser.muirwik.components.StyledPropsWithCommonAttributes
 import com.ccfraser.muirwik.components.createStyled
-import com.ccfraser.muirwik.components.setStyledPropsAndRunHandler
 import react.ComponentType
 import react.RBuilder
 import styled.StyledHandler
@@ -79,16 +78,16 @@ fun RBuilder.mTableCell(
     scope: String? = null,
     className: String? = null,
     handler: StyledHandler<MTableCellProps>? = null
-) = createStyled(TableCellComponentType) {
-    align?.let { attrs.align = it }
-    colSpan?.let { attrs.colSpan = it }
-    component?.let { attrs.component = component }
-    key?.let { attrs.key = it }
-    padding?.let { attrs.padding = it }
-    scope?.let { attrs.scope = it }
-    size?.let { attrs.size = it }
-    sortDirection?.let { attrs.sortDirection = it }
-    variant?.let { attrs.variant = it }
-
-    setStyledPropsAndRunHandler(className, handler)
+) {
+    createStyled(TableCellComponentType, className, handler) {
+        align?.let { attrs.align = it }
+        colSpan?.let { attrs.colSpan = it }
+        component?.let { attrs.component = component }
+        key?.let { attrs.key = it }
+        padding?.let { attrs.padding = it }
+        scope?.let { attrs.scope = it }
+        size?.let { attrs.size = it }
+        sortDirection?.let { attrs.sortDirection = it }
+        variant?.let { attrs.variant = it }
+    }
 }

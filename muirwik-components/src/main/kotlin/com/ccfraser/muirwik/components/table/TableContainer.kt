@@ -2,7 +2,6 @@ package com.ccfraser.muirwik.components.table
 
 import com.ccfraser.muirwik.components.StyledPropsWithCommonAttributes
 import com.ccfraser.muirwik.components.createStyled
-import com.ccfraser.muirwik.components.setStyledPropsAndRunHandler
 import react.ComponentType
 import react.RBuilder
 import styled.StyledHandler
@@ -19,11 +18,12 @@ external interface MTableContainerProps : StyledPropsWithCommonAttributes {
 }
 
 fun RBuilder.mTableContainer(
-        component: String? = "div",
+    component: String? = "div",
 
-        className: String? = null,
-        handler: StyledHandler<MTableContainerProps>? = null) = createStyled(tableContainerComponentType) {
-    component?.let { attrs.component = it }
-
-    setStyledPropsAndRunHandler(className, handler)
+    className: String? = null,
+    handler: StyledHandler<MTableContainerProps>? = null
+) {
+    createStyled(tableContainerComponentType, className, handler) {
+        component?.let { attrs.component = it }
+    }
 }

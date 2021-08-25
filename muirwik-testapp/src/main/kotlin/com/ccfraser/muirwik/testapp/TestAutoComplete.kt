@@ -25,120 +25,7 @@ private object AutoCompleteStyles : StyleSheet("AutoCompleteStyles", isStatic = 
     }
 }
 
-private val testAutoComplete = functionalComponent<RProps> { _ ->
-    labNoteComponent()
-
-    mTypography("This demo shows usage of the Lab AutoComplete component (and how to use flag emojis)")
-    mAutoComplete(top100Films, { params -> mTextField("Combo Box", variant = MFormControlVariant.outlined) {
-        spreadProps(params)
-    } }) {
-        attrs.getOptionLabel = { option -> option?.title ?: "" }
-        css {
-          width = 350.px
-        }
-    }
-
-    var selectedCountry: Country? by useState(null)
-    mAutoComplete(countries, { params -> mTextField("Choose a country", variant = MFormControlVariant.outlined) {
-            spreadProps(params)
-        }
-    }) {
-        attrs.apply {
-            id = "country-select-demo"
-            autoHighlight = true
-            getOptionLabel = { option -> option?.label ?: "" }
-            renderOption = { option, _ ->
-                Fragment {
-                    styledSpan {
-                        +isoCountryCodeToFlagEmoji(option.code)
-                        css(margin)
-                    }
-                    +"${option.label} (${option.code}) +${option.phone} "
-                }
-            }
-//          Not sure why, but the following in combination with the mAutoCompleteMultiValue causes issues...
-//          Will just leave it out for now
-//            onChange = { _, newValue, _ ->
-//                println("Country onChange event value: $newValue")
-//                selectedCountry = newValue
-//            }
-        }
-        css {
-            width = 350.px
-        }
-    }
-
-    selectedCountry?.let {
-        mTypography("Selected country's flag: ${isoCountryCodeToFlagEmoji(it.code)}")
-    }
-
-    mAutoComplete(top100Films.sortedBy { film -> film.title }.toTypedArray(), { params -> mTextField("Grouped", variant = MFormControlVariant.outlined) {
-        spreadProps(params)
-    } }) {
-        attrs.id = "grouped-auto-complete"
-        attrs.groupBy = { option -> option.title.first().toString() }
-        attrs.getOptionLabel = { option -> option?.title ?: ""}
-        css {
-            width = 350.px
-        }
-    }
-
-    var selectedFilms1: Array<Film> by useState(arrayOf())
-    mAutoCompleteMultiValue(top100Films.sortedBy { film -> film.title }.toTypedArray(), { params -> mTextField("Multiple Values", variant = MFormControlVariant.outlined) {
-        spreadProps(params)
-    } }, selectedFilms1) {
-        attrs.id = "multiple-values-1"
-        attrs.filterSelectedOptions = true
-        attrs.getOptionLabel = { option -> option?.title ?: ""}
-        attrs.onChange = { _, value, _ ->
-            selectedFilms1 = value
-        }
-        css {
-            width = 700.px
-        }
-    }
-    if (selectedFilms1.isNotEmpty()) {
-        mTypography("Selected Films 1: " + selectedFilms1.joinToString(transform = { film -> film.title }))
-    }
-
-    var selectedFilms2: Array<Film> by useState(arrayOf())
-    mAutoCompleteMultiValue(top100Films.sortedBy { film -> film.title }.toTypedArray(), { params -> mTextField("Multiple Values With Defaults", variant = MFormControlVariant.outlined) {
-        spreadProps(params)
-    } }) {
-        attrs.apply {
-            id = "multiple-values-2"
-            filterSelectedOptions = true
-            getOptionLabel = { option -> option?.title ?: ""}
-            defaultValue = arrayOf(top100Films[3], top100Films[7])
-            onChange = { _, value, _ ->
-                selectedFilms2 = value
-            }
-        }
-        css {
-            width = 700.px
-        }
-    }
-    if (selectedFilms2.isNotEmpty()) {
-        mTypography("Selected Films 2: " + selectedFilms2.joinToString(transform = { film -> film.title }))
-    }
-}
-
-fun isoCountryCodeToFlagEmoji(code: String): String {
-    return if (code.length != 2) {
-        code
-    } else {
-        val sb = StringBuilder()
-        code.forEach {
-            @Suppress("UNUSED_VARIABLE")
-            val num = it.code // Need to convert it to a number for the IR Compiler
-            val s: String = js("String.fromCodePoint(num + 127397)") as String
-            sb.append(s)
-        }
-        sb.toString()
-    }
-}
-
-val top100Films = arrayOf(
+private val top100Films = arrayOf(
     Film("The Shawshank Redemption", 1994),
     Film("The Godfather", 1972),
     Film("The Godfather: Part II", 1974),
@@ -241,7 +128,7 @@ val top100Films = arrayOf(
     Film("Monty Python and the Holy Grail", 1975),
 )
 
-val countries = arrayOf(
+private val countries = arrayOf(
     Country("AD", "Andorra", "376"),
     Country("AE", "United Arab Emirates", "971"),
     Country("AF", "Afghanistan", "93"),
@@ -492,4 +379,122 @@ val countries = arrayOf(
     Country("ZW", "Zimbabwe", "263"),
 )
 
-fun RBuilder.testAutoComplete() = child(testAutoComplete)
+private fun isoCountryCodeToFlagEmoji(code: String): String {
+    return if (code.length != 2) {
+        code
+    } else {
+        val sb = StringBuilder()
+        code.forEach {
+            @Suppress("UNUSED_VARIABLE")
+            val num = it.code // Need to convert it to a number for the IR Compiler
+            val s: String = js("String.fromCodePoint(num + 127397)") as String
+            sb.append(s)
+        }
+        sb.toString()
+    }
+}
+
+public val testAutoComplete = fc<Props> { _ ->
+    labNoteComponent()
+
+    mTypography("This demo shows usage of the Lab AutoComplete component (and how to use flag emojis)")
+    mAutoComplete(top100Films, { params -> buildElement { mTextField("Combo Box", variant = MFormControlVariant.outlined) {
+        spreadProps(params)
+    }}}) {
+        attrs.getOptionLabel = { option -> option?.title ?: "" }
+        css {
+          width = 350.px
+        }
+    }
+
+    var selectedCountry: Country? by useState(null)
+    mAutoComplete(countries, { params -> buildElement { mTextField("Choose a country", variant = MFormControlVariant.outlined) {
+        spreadProps(params)
+    }}}) {
+        attrs.apply {
+            id = "country-select-demo"
+            autoHighlight = true
+            getOptionLabel = { option -> option?.label ?: "" }
+            renderOption = { option, _ ->
+                buildElement {
+                    Fragment {
+                        styledSpan {
+                            +isoCountryCodeToFlagEmoji(option.code)
+                            css(margin)
+                        }
+                        +"${option.label} (${option.code}) +${option.phone} "
+                    }
+                }
+            }
+//          Not sure why, but the following in combination with the mAutoCompleteMultiValue causes issues...
+//          Will just leave it out for now
+//            onChange = { _, newValue, _ ->
+//                println("Country onChange event value: $newValue")
+//                selectedCountry = newValue
+//            }
+        }
+        css {
+            width = 350.px
+        }
+    }
+
+    selectedCountry?.let {
+        mTypography("Selected country's flag: ${isoCountryCodeToFlagEmoji(it.code)}")
+    }
+
+    mAutoComplete(top100Films.sortedBy { film -> film.title }.toTypedArray(), { params ->
+        buildElement { mTextField("Grouped", variant = MFormControlVariant.outlined) {
+            spreadProps(params)
+        }}
+    }) {
+        attrs.id = "grouped-auto-complete"
+        attrs.groupBy = { option -> option.title.first().toString() }
+        attrs.getOptionLabel = { option -> option?.title ?: ""}
+        css {
+            width = 350.px
+        }
+    }
+
+    var selectedFilms1: Array<Film> by useState(arrayOf())
+    mAutoCompleteMultiValue(top100Films.sortedBy { film -> film.title }.toTypedArray(), { params ->
+        buildElement{ mTextField("Multiple Values", variant = MFormControlVariant.outlined) {
+            spreadProps(params)
+        }}
+    }, selectedFilms1) {
+        attrs.id = "multiple-values-1"
+        attrs.filterSelectedOptions = true
+        attrs.getOptionLabel = { option -> option?.title ?: ""}
+        attrs.onChange = { _, value, _ ->
+            selectedFilms1 = value
+        }
+        css {
+            width = 700.px
+        }
+    }
+    if (selectedFilms1.isNotEmpty()) {
+        mTypography("Selected Films 1: " + selectedFilms1.joinToString(transform = { film -> film.title }))
+    }
+
+    var selectedFilms2: Array<Film> by useState(arrayOf())
+    mAutoCompleteMultiValue(top100Films.sortedBy { film -> film.title }.toTypedArray(), { params ->
+        buildElement { mTextField("Multiple Values With Defaults", variant = MFormControlVariant.outlined) {
+            spreadProps(params)
+        }}
+    }) {
+        attrs.apply {
+            id = "multiple-values-2"
+            filterSelectedOptions = true
+            getOptionLabel = { option -> option?.title ?: ""}
+            defaultValue = arrayOf(top100Films[3], top100Films[7])
+            onChange = { _, value, _ ->
+                selectedFilms2 = value
+            }
+        }
+        css {
+            width = 700.px
+        }
+    }
+    if (selectedFilms2.isNotEmpty()) {
+        mTypography("Selected Films 2: " + selectedFilms2.joinToString(transform = { film -> film.title }))
+    }
+}

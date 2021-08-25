@@ -2,7 +2,6 @@ package com.ccfraser.muirwik.components.menu
 
 import com.ccfraser.muirwik.components.createStyled
 import com.ccfraser.muirwik.components.list.MListProps
-import com.ccfraser.muirwik.components.setStyledPropsAndRunHandler
 import react.ComponentType
 import react.RBuilder
 import react.ReactElement
@@ -24,21 +23,20 @@ external interface MMenuListProps : MListProps {
  * Includes the props from ListItem
  */
 fun RBuilder.mMenuList(
-        dense: Boolean = false,
-        disablePadding: Boolean = false,
-        subheader: ReactElement? = null,
-        component: String = "ul",
-        disableListWrap: Boolean = false,
-
-        className: String? = null,
-        handler: StyledHandler<MMenuListProps>? = null) = createStyled(menuListType) {
-
-    attrs.component = component
-    attrs.dense = dense
-    attrs.disableListWrap = disableListWrap
-    attrs.disablePadding = disablePadding
-    subheader?.let { attrs.subheader = subheader }
-
-    setStyledPropsAndRunHandler(className, handler)
+    dense: Boolean = false,
+    disablePadding: Boolean = false,
+    subheader: ReactElement? = null,
+    component: String = "ul",
+    disableListWrap: Boolean = false,
+    className: String? = null,
+    handler: StyledHandler<MMenuListProps>? = null
+) {
+    createStyled(menuListType, className, handler) {
+        attrs.component = component
+        attrs.dense = dense
+        attrs.disableListWrap = disableListWrap
+        attrs.disablePadding = disablePadding
+        subheader?.let { attrs.subheader = subheader }
+    }
 }
 

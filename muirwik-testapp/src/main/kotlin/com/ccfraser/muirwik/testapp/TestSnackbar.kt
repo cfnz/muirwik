@@ -17,7 +17,7 @@ import styled.StyleSheet
 import styled.css
 import styled.styledDiv
 
-class TestSnackbar : RComponent<RProps, RState>() {
+class TestSnackbar : RComponent<Props, State>() {
     var simpleSnackbarOpen: Boolean = false
     var simpleSnackbarWithTextOpen: Boolean = false
     var positionedOpen: Boolean = false
@@ -28,7 +28,6 @@ class TestSnackbar : RComponent<RProps, RState>() {
     var fabMoveSnackbarOpen: Boolean = false
     var hAnchor: MSnackbarHorizAnchor = MSnackbarHorizAnchor.center
     var vAnchor: MSnackbarVertAnchor = MSnackbarVertAnchor.bottom
-    val altBuilder = RBuilder()
 
     private object ComponentStyles : StyleSheet("ComponentStyles", isStatic = true) {
         val fabMoveUp by css {
@@ -67,7 +66,7 @@ class TestSnackbar : RComponent<RProps, RState>() {
 
     // The props that come in from the snackbar already include some transition values and the details of the children... so we need
     // to include some of them and override others
-    class SlideTransitionComponent(props: MTransitionProps) : RComponent<MTransitionProps, RState>(props) {
+    class SlideTransitionComponent(props: MTransitionProps) : RComponent<MTransitionProps, State>(props) {
         override fun RBuilder.render() {
             mSlide(props.show, direction = SlideTransitionDirection.left, timeout = SimpleTransitionDuration(1500)) {
                 props.children()
@@ -75,16 +74,16 @@ class TestSnackbar : RComponent<RProps, RState>() {
         }
     }
 
-    // Old way of doing it... don't need to clone it as above
-    class SlideTransitionComponent2(props: RProps) : RComponent<RProps, RState>(props) {
-        override fun RBuilder.render() {
-            val e = mSlide(props.asDynamic().`in`, direction = SlideTransitionDirection.left,
-                    timeout = SimpleTransitionDuration(2000), addAsChild = false)
-            childList.add(cloneElement(e, e.props, props.children))
-        }
-    }
+//    // Old way of doing it... don't need to clone it as above
+//    class SlideTransitionComponent2(props: PropsWithChildren) : RComponent<PropsWithChildren, State>(props) {
+//        override fun RBuilder.render() {
+//            val e = mSlide(props.asDynamic().`in`, direction = SlideTransitionDirection.left,
+//                    timeout = SimpleTransitionDuration(2000), addAsChild = false)
+//            childList.add(cloneElement(e, e.props, buildElement { props.children() }))
+//        }
+//    }
 
-    class FadeTransition(props: MTransitionProps) : RComponent<MTransitionProps, RState>(props) {
+    class FadeTransition(props: MTransitionProps) : RComponent<MTransitionProps, State>(props) {
         override fun RBuilder.render() {
             mFade(props.show, timeout = SimpleTransitionDuration(1000)) {
                 props.children()
@@ -107,13 +106,11 @@ class TestSnackbar : RComponent<RProps, RState>() {
             mButton("Duration", onClick = { setState { delaySnackbarOpen = true }})
             mButton("Fab Move", onClick = { setState { fabMoveOptionOpen = true }})
 
-            mSnackbar(altBuilder.span { +"Note archived" }, open = simpleSnackbarOpen, horizAnchor = MSnackbarHorizAnchor.left,
+            mSnackbar(
+                buildElement { span { +"Note archived" } }, open = simpleSnackbarOpen, horizAnchor = MSnackbarHorizAnchor.left,
                     autoHideDuration = 4000,
                     onClose = { _, reason: MSnackbarOnCloseReason -> handleClose(reason) }) {
-                attrs.action = altBuilder.div {
-                    mButton("UNDO", color = MColor.secondary, variant = MButtonVariant.text, size = MButtonSize.small, onClick = { closeAll() })
-                    mIconButton("close", onClick = { closeAll() }, color = MColor.inherit)
-                }
+                attrs.action = buildAction()
             }
 
             // Using attrs instead of params
@@ -121,10 +118,7 @@ class TestSnackbar : RComponent<RProps, RState>() {
                     onClose = { _, reason: MSnackbarOnCloseReason -> handleClose(reason) }) {
                 attrs.anchorOriginHorizontal = MSnackbarHorizAnchor.left
                 attrs.autoHideDuration = 4000
-                attrs.action = altBuilder.div {
-                    mButton("UNDO", color = MColor.secondary, variant = MButtonVariant.text, size = MButtonSize.small, onClick = { closeAll() })
-                    mIconButton("close", onClick = { closeAll() }, color = MColor.inherit)
-                }
+                attrs.action = buildAction()
             }
 
             // Wrapping Params for comparison
@@ -133,26 +127,17 @@ class TestSnackbar : RComponent<RProps, RState>() {
                     vertAnchor = vAnchor,
                     autoHideDuration = 4000,
                     onClose = { _, reason: MSnackbarOnCloseReason -> handleClose(reason) }) {
-                attrs.action = altBuilder.div {
-                    mButton("UNDO", color = MColor.secondary, variant = MButtonVariant.text, size = MButtonSize.small, onClick = { closeAll() })
-                    mIconButton("close", onClick = { closeAll() }, color = MColor.inherit)
-                }
+                attrs.action = buildAction()
             }
 
             mSnackbar("Transitioned by Sliding...", transition1SnackbarOpen) {
                 attrs.transitionComponent = SlideTransitionComponent::class
-                attrs.action = altBuilder.div {
-                    mButton("UNDO", color = MColor.secondary, variant = MButtonVariant.text, size = MButtonSize.small, onClick = { closeAll() })
-                    mIconButton("close", onClick = { closeAll() }, color = MColor.inherit)
-                }
+                attrs.action = buildAction()
             }
 
             mSnackbar("Transitioned by Fade...", open = transition2SnackbarOpen) {
                 attrs.transitionComponent = FadeTransition::class
-                attrs.action = altBuilder.div {
-                    mButton("UNDO", color = MColor.secondary, variant = MButtonVariant.text, size = MButtonSize.small, onClick = { closeAll() })
-                    mIconButton("close", onClick = { closeAll() }, color = MColor.inherit)
-                }
+                attrs.action = buildAction()
             }
 
             mSnackbar("Custom Transition Delays...", delaySnackbarOpen,
@@ -161,7 +146,7 @@ class TestSnackbar : RComponent<RProps, RState>() {
             }
 
             if (fabMoveOptionOpen) {
-                val contentProps = PropsWithJsStyle(CSSBuilder().apply { width = 360.px }.toJsStyle())
+                val contentProps = PropsWithJsStyle(CssBuilder().apply { width = 360.px }.toJsStyle())
 
                 themeContext.Consumer { theme ->
                     styledDiv {
@@ -187,8 +172,12 @@ class TestSnackbar : RComponent<RProps, RState>() {
             }
         }
     }
+
+    fun buildAction() = buildElement {
+        div {
+            mButton("UNDO", color = MColor.secondary, variant = MButtonVariant.text, size = MButtonSize.small, onClick = { closeAll() })
+            mIconButton("close", onClick = { closeAll() }, color = MColor.inherit)
+        }
+    }
+
 }
-
-
-fun RBuilder.testSnackbar() = child(TestSnackbar::class) {}
-

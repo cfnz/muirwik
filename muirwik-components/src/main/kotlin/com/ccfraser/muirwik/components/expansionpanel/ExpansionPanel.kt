@@ -2,7 +2,6 @@ package com.ccfraser.muirwik.components.expansionpanel
 
 import com.ccfraser.muirwik.components.StyledPropsWithCommonAttributes
 import com.ccfraser.muirwik.components.createStyled
-import com.ccfraser.muirwik.components.setStyledPropsAndRunHandler
 import org.w3c.dom.events.Event
 import react.ComponentType
 import react.RBuilder
@@ -23,15 +22,18 @@ external interface MExpansionPanelProps : StyledPropsWithCommonAttributes {
 
 @Deprecated("Getting removed in Material-UI 5", ReplaceWith("mAccordion(expanded, defaultExpanded, disabled, square, " +
 		"onChange, className, handler)", "com.ccfraser.muirwik.components.accordion.mAccordion"))
-fun RBuilder.mExpansionPanel(expanded: Boolean? = null,
-							 defaultExpanded: Boolean = false,
-                             disabled: Boolean = false,
-                             onChange: ((Event, Boolean) -> Unit)? = null,
-                             className: String? = null,
-                             handler: StyledHandler<MExpansionPanelProps>? = null) = createStyled(expansionPanelComponentType) {
-	attrs.defaultExpanded = defaultExpanded
-	attrs.disabled = disabled
-	expanded?.let { attrs.expanded = it }
-	onChange?.let { attrs.onChange = it }
-	setStyledPropsAndRunHandler(className, handler)
+fun RBuilder.mExpansionPanel(
+	expanded: Boolean? = null,
+	defaultExpanded: Boolean = false,
+	disabled: Boolean = false,
+	onChange: ((Event, Boolean) -> Unit)? = null,
+	className: String? = null,
+	handler: StyledHandler<MExpansionPanelProps>? = null
+) {
+	createStyled(expansionPanelComponentType, className, handler) {
+		attrs.defaultExpanded = defaultExpanded
+		attrs.disabled = disabled
+		expanded?.let { attrs.expanded = it }
+		onChange?.let { attrs.onChange = it }
+	}
 }

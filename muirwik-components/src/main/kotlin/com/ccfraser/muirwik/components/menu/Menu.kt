@@ -43,30 +43,30 @@ var MMenuProps.onClose by OnClosePropWithReasonDelegate(MenuOnCloseReason.values
 
 
 fun RBuilder.mMenu(
-        open: Boolean,
-        anchorElement: Node? = null,
-        onClose: ((Event, MenuOnCloseReason) -> Unit)? = null,
-        autoFocus: Boolean = true,
-        disableAutoFocusItem: Boolean = false,
-        menuListProps: MMenuListProps? = null,
-        popoverClasses: String? = null,
-        transitionComponent: TransitionComponent? = null,
-        transitionDuration: TransitionDurationWithAuto = AutoTransitionDuration(),
-        variant: MMenuVariant = MMenuVariant.selectedMenu,
-
-        className: String? = null,
-        handler: StyledHandler<MMenuProps>) = createStyled(menuComponentType) {
-    anchorElement?.let { attrs.anchorEl = anchorElement }
-    attrs.autoFocus = autoFocus
-    attrs.disableAutoFocusItem = disableAutoFocusItem
-    menuListProps?.let { attrs.menuListProps = menuListProps }
-    attrs.onClose = onClose
-    attrs.open = open
-    popoverClasses?.let { attrs.popoverClasses = popoverClasses }
-    attrs.transitionComponent = transitionComponent
-    attrs.transitionDuration = transitionDuration
-    attrs.variant = variant
-
-    setStyledPropsAndRunHandler(className, handler)
+    open: Boolean,
+    anchorElement: Node? = null,
+    onClose: ((Event, MenuOnCloseReason) -> Unit)? = null,
+    autoFocus: Boolean = true,
+    disableAutoFocusItem: Boolean = false,
+    menuListProps: MMenuListProps? = null,
+    popoverClasses: String? = null,
+    transitionComponent: TransitionComponent? = null,
+    transitionDuration: TransitionDurationWithAuto = AutoTransitionDuration(),
+    variant: MMenuVariant = MMenuVariant.selectedMenu,
+    className: String? = null,
+    handler: StyledHandler<MMenuProps>
+) {
+    createStyled(menuComponentType, className, handler) {
+        anchorElement?.let { attrs.anchorEl = anchorElement }
+        attrs.autoFocus = autoFocus
+        attrs.disableAutoFocusItem = disableAutoFocusItem
+        menuListProps?.let { attrs.menuListProps = menuListProps }
+        attrs.onClose = onClose
+        attrs.open = open
+        popoverClasses?.let { attrs.popoverClasses = popoverClasses }
+        attrs.transitionComponent = transitionComponent
+        attrs.transitionDuration = transitionDuration
+        attrs.variant = variant
+    }
 }
 

@@ -3,9 +3,11 @@ package com.ccfraser.muirwik.components.lab
 import com.ccfraser.muirwik.components.EnumPropToString
 import com.ccfraser.muirwik.components.StyledPropsWithCommonAttributes
 import com.ccfraser.muirwik.components.createStyled
-import com.ccfraser.muirwik.components.setStyledPropsAndRunHandler
 import kotlinext.js.Object
-import react.*
+import react.ComponentType
+import react.FunctionComponent
+import react.RBuilder
+import react.ReactElement
 import styled.StyledHandler
 
 @JsModule("@material-ui/lab/Rating")
@@ -55,23 +57,21 @@ fun RBuilder.mRating(
     emptyIcon: ReactElement? = null,
     emptyLabelText: String = "Empty",
     size: MRatingSize = MRatingSize.medium,
-
-    addAsChild: Boolean = true,
     className: String? = null,
     handler: StyledHandler<MRatingProps>? = null
-) = createStyled(ratingComponentType, addAsChild) {
-    defaultValue?.let { attrs.defaultValue = it }
-    attrs.disabled = disabled
-    emptyIcon?.let { attrs.emptyIcon = it }
-    attrs.emptyLabelText = emptyLabelText
-    icon?.let { attrs.icon = icon }
-    attrs.max = max
-    attrs.name = name
-    onChange?.let { attrs.onChange = it }
-    attrs.precision = precision
-    attrs.readOnly = readOnly
-    attrs.size = size
-    value?.let { attrs.value = it }
-
-  setStyledPropsAndRunHandler(className, handler)
+) {
+    createStyled(ratingComponentType, className, handler) {
+        defaultValue?.let { attrs.defaultValue = it }
+        attrs.disabled = disabled
+        emptyIcon?.let { attrs.emptyIcon = it }
+        attrs.emptyLabelText = emptyLabelText
+        icon?.let { attrs.icon = icon }
+        attrs.max = max
+        attrs.name = name
+        onChange?.let { attrs.onChange = it }
+        attrs.precision = precision
+        attrs.readOnly = readOnly
+        attrs.size = size
+        value?.let { attrs.value = it }
+    }
 }

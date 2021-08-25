@@ -4,6 +4,7 @@ import com.ccfraser.muirwik.components.*
 import org.w3c.dom.events.Event
 import react.ComponentType
 import react.RBuilder
+import react.ReactNode
 import styled.StyledHandler
 
 
@@ -32,60 +33,57 @@ var MFabProps.variant by EnumPropToString(MFabVariant.values())
  * FAB button that is round and has a convenience iconName.
  */
 fun RBuilder.mFab(
-        iconName: String? = null,
-        color: MColor = MColor.default,
-        disabled: Boolean = false,
-        onClick: ((Event) -> Unit)? = null,
-        size: MButtonSize = MButtonSize.medium,
-        hRefOptions: HRefOptions? = null,
+    iconName: String? = null,
+    color: MColor = MColor.default,
+    disabled: Boolean = false,
+    onClick: ((Event) -> Unit)? = null,
+    size: MButtonSize = MButtonSize.medium,
+    hRefOptions: HRefOptions? = null,
+    className: String? = null,
+    handler: StyledHandler<MFabProps>? = null
+) {
+    createStyled(fabComponentType, className, handler) {
+        attrs.color = color
+        attrs.disabled = disabled
+        hRefOptions?.let { setHRefTargetNoOpener(attrs, it) }
+        onClick?.let { attrs.onClick = onClick }
+        attrs.size = size
+        attrs.variant = MFabVariant.round
 
-        addAsChild: Boolean = true,
-        className: String? = null,
-        handler: StyledHandler<MFabProps>? = null) = createStyled(fabComponentType, addAsChild) {
-    attrs.color = color
-    attrs.disabled = disabled
-    hRefOptions?.let { setHRefTargetNoOpener(attrs, it) }
-    onClick?.let { attrs.onClick = onClick }
-    attrs.size = size
-    attrs.variant = MFabVariant.round
-
-    if (iconName != null) {
-        val fontSize = when (size) {
-            MButtonSize.small -> MIconFontSize.small
-            MButtonSize.medium -> MIconFontSize.default
-            MButtonSize.large -> MIconFontSize.large
+        if (iconName != null) {
+            val fontSize = when (size) {
+                MButtonSize.small -> MIconFontSize.small
+                MButtonSize.medium -> MIconFontSize.default
+                MButtonSize.large -> MIconFontSize.large
+            }
+            mIcon(iconName, fontSize = fontSize)
         }
-
-        mIcon(iconName, fontSize = fontSize)
     }
-
-    setStyledPropsAndRunHandler(className, handler)
 }
 
 /**
  * FAB button with a caption which turns into an extended FAB type.
  */
 fun RBuilder.mFab(
-        iconName: String,
-        caption: String,
-        color: MColor = MColor.default,
-        disabled: Boolean = false,
-        onClick: ((Event) -> Unit)? = null,
-        size: MButtonSize = MButtonSize.medium,
-        hRefOptions: HRefOptions? = null,
+    iconName: String,
+    caption: String,
+    color: MColor = MColor.default,
+    disabled: Boolean = false,
+    onClick: ((Event) -> Unit)? = null,
+    size: MButtonSize = MButtonSize.medium,
+    hRefOptions: HRefOptions? = null,
+    className: String? = null,
+    handler: StyledHandler<MFabProps>? = null
+) {
+    createStyled(fabComponentType, className, handler) {
+        attrs.color = color
+        attrs.disabled = disabled
+        hRefOptions?.let { setHRefTargetNoOpener(attrs, it) }
+        onClick?.let { attrs.onClick = onClick }
+        attrs.size = size
+        attrs.variant = MFabVariant.extended
 
-        addAsChild: Boolean = true,
-        className: String? = null,
-        handler: StyledHandler<MFabProps>? = null) = createStyled(fabComponentType, addAsChild) {
-    attrs.color = color
-    attrs.disabled = disabled
-    hRefOptions?.let { setHRefTargetNoOpener(attrs, it) }
-    onClick?.let { attrs.onClick = onClick }
-    attrs.size = size
-    attrs.variant = MFabVariant.extended
-
-    mIcon(iconName)
-    childList.add(caption)
-
-    setStyledPropsAndRunHandler(className, handler)
+        mIcon(iconName)
+        childList.add(ReactNode(caption))
+    }
 }

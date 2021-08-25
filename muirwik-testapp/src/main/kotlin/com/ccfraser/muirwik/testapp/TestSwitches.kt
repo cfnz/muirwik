@@ -12,7 +12,7 @@ import react.dom.div
 import styled.css
 import styled.styledDiv
 
-class TestSwitches : RComponent<RProps, RState>() {
+class TestSwitches : RComponent<Props, State>() {
     var checked1: Boolean = false
     var checked2: Boolean = false
     var checked3: Boolean = false
@@ -28,17 +28,31 @@ class TestSwitches : RComponent<RProps, RState>() {
                 mSwitch(checked = checked2, onChange = { _, _ -> setState { checked2 = !checked2 } })
                 br { }
                 // The icons are more for a checkbox type control, but for fun, we shall put the star on the switch
-                mSwitch(checked = checked3, onChange = { _, _ -> setState { checked3 = !checked3 } }) {
-                        attrs.icon = mIcon("star", color = MIconColor.action, addAsChild = false) {
+                mSwitch(
+                    checked = checked3,
+                    onChange = { _, _ -> setState { checked3 = !checked3 } }
+                ) {
+                    attrs.icon = buildElement {
+                        mIcon("star", color = MIconColor.action) {
                             css { marginTop = -(2.px) }
                         }
-                        attrs.checkedIcon = mIcon("star", addAsChild = false) {
+                    }
+                    attrs.checkedIcon = buildElement {
+                        mIcon("star") {
                             css { marginTop = -(2.px) }
                         }
+                    }
                 }
                 br {  }
-                mFormControlLabel("As Form Control", control = mSwitch(checked4, MOptionColor.primary,
-                        addAsChild = false, onChange = { _, _ -> setState { checked4 = !checked4 } }))
+                mFormControlLabel(
+                    "As Form Control",
+                    control = buildElement {
+                        mSwitch(checked4,
+                            MOptionColor.primary,
+                            onChange = { _, _ -> setState { checked4 = !checked4 } }
+                        )
+                    }
+                )
             }
             div {
                 mTypography("Using 'WithLabel'")
@@ -51,5 +65,3 @@ class TestSwitches : RComponent<RProps, RState>() {
         }
     }
 }
-
-fun RBuilder.testSwitches() = child(TestSwitches::class) {}

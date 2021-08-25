@@ -2,6 +2,7 @@ package com.ccfraser.muirwik.components
 
 import react.ComponentType
 import react.RBuilder
+import react.ReactNode
 import styled.StyledHandler
 
 
@@ -46,20 +47,19 @@ fun RBuilder.mTypography(
         noWrap: Boolean = false,
         paragraph: Boolean = false,
         component: ElementType? = null,
-
-        addAsChild: Boolean = true,
         className: String? = null,
-        handler: StyledHandler<MTypographyProps>? = null) = createStyled(typographyComponentType, addAsChild) {
-    attrs.align = align
-    attrs.color = color
-    component?.let { attrs.component = it }
-    attrs.gutterBottom = gutterBottom
-    attrs.noWrap = noWrap
-    attrs.paragraph = paragraph
-    attrs.variant = variant
+        handler: StyledHandler<MTypographyProps>? = null
+) {
+    createStyled(typographyComponentType, className, handler) {
+        attrs.align = align
+        attrs.color = color
+        component?.let { attrs.component = it }
+        attrs.gutterBottom = gutterBottom
+        attrs.noWrap = noWrap
+        attrs.paragraph = paragraph
+        attrs.variant = variant
 
-    text?.let {childList.add(it)}
-
-    setStyledPropsAndRunHandler(className, handler)
+        text?.let {childList.add(ReactNode(it))}
+    }
 }
 

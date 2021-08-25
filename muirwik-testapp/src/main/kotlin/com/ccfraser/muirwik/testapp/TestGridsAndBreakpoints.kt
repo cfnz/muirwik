@@ -6,11 +6,8 @@ import com.ccfraser.muirwik.testapp.TestGridsAndBreakpointsStyles.paper
 import com.ccfraser.muirwik.testapp.TestGridsAndBreakpointsStyles.root
 import kotlinx.css.*
 import kotlinx.css.Color
-import react.RBuilder
-import react.RProps
-import react.child
+import react.*
 import react.dom.div
-import react.functionalComponent
 import styled.StyleSheet
 import styled.css
 import styled.styledDiv
@@ -32,7 +29,7 @@ private object TestGridsAndBreakpointsStyles : StyleSheet("TestGridsAndBreakpoin
 }
 
 
-private val testGridsAndBreakpoints = functionalComponent<RProps> {
+val testGridsAndBreakpoints = fc<Props> {
     theme = useTheme()
 
     fun RBuilder.item(xsGridSize: MGridSize, smGridSize: MGridSize?, text: String) {
@@ -44,7 +41,6 @@ private val testGridsAndBreakpoints = functionalComponent<RProps> {
             }
         }
     }
-
 
     styledDiv {
         css(root)
@@ -103,5 +99,3 @@ private val testGridsAndBreakpoints = functionalComponent<RProps> {
         div { +"theme.breakpoints.up(Breakpoint.xl) matches: $matchesXl ${if (matchesXl) "(Show on XL and bigger)" else ""}" }
     }
 }
-
-fun RBuilder.testGridsAndBreakpoints() = child(testGridsAndBreakpoints) {}

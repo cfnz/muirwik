@@ -6,7 +6,7 @@ import org.w3c.dom.Node
 import org.w3c.dom.events.Event
 import react.ComponentType
 import react.RBuilder
-import react.RProps
+import react.Props
 import react.ReactElement
 import styled.StyledHandler
 
@@ -57,7 +57,7 @@ external interface MAutoCompleteBaseProps<T> : StyledPropsWithCommonAttributes {
     var autoSelect: Boolean
     var blurOnSelect: MAutoCompleteBlurOnSelect
     @JsName("ChipProps")
-    var chipProps: RProps
+    var chipProps: Props
     var clearOnBlur: Boolean
     var clearOnEscape: Boolean
     var clearText: String
@@ -87,7 +87,7 @@ external interface MAutoCompleteBaseProps<T> : StyledPropsWithCommonAttributes {
     @JsName("ListboxComponent")
     var listboxComponent: ElementType
     @JsName("ListboxProps")
-    var listboxProps: RProps
+    var listboxProps: Props
     var loading: Boolean
     var loadingText: Node
     var multiple: Boolean
@@ -106,9 +106,9 @@ external interface MAutoCompleteBaseProps<T> : StyledPropsWithCommonAttributes {
     var popperComponent: ReactElement
     var popupIcon: Node
     var renderGroup: (option: T) -> ReactElement
-    var renderInput: (params: RProps) -> ReactElement
+    var renderInput: (params: Props) -> ReactElement
     var renderOption: (option: T, state: Object) -> ReactElement
-    var renderTags: (value: Array<T>, getTagProps: () -> RProps) -> ReactElement
+    var renderTags: (value: Array<T>, getTagProps: () -> Props) -> ReactElement
     var selectOnFocus: Boolean
 }
 var <T> MAutoCompleteBaseProps<T>.size by EnumPropToString(MRatingSize.values())
@@ -139,20 +139,17 @@ external interface MAutoCompletePropsMultiValue<T> : MAutoCompleteBaseProps<T> {
  */
 fun <T> RBuilder.mAutoComplete(
     options: Array<T>,
-    renderInput: (params: RProps) -> ReactElement,
+    renderInput: (params: Props) -> ReactElement,
     value: T? = null,
-
-    addAsChild: Boolean = true,
-    className: String? = null,
+   className: String? = null,
     handler: StyledHandler<MAutoCompleteProps<T>>? = null
-): ReactElement {
+) {
     val myComponent: ComponentType<MAutoCompleteProps<T>> = autoCompleteComponentType
 
-    return createStyled(myComponent, addAsChild) {
+    createStyled(myComponent, className, handler) {
         attrs.options = options
         attrs.renderInput = renderInput
         value?.let { attrs.value = it }
-        setStyledPropsAndRunHandler(className, handler)
     }
 }
 
@@ -162,20 +159,17 @@ fun <T> RBuilder.mAutoComplete(
  */
 fun <T> RBuilder.mAutoCompleteMultiValue(
     options: Array<T>,
-    renderInput: (params: RProps) -> ReactElement,
+    renderInput: (params: Props) -> ReactElement,
     value: Array<T>? = null,
-
-    addAsChild: Boolean = true,
     className: String? = null,
     handler: StyledHandler<MAutoCompletePropsMultiValue<T>>? = null
-): ReactElement {
+) {
     val myComponent: ComponentType<MAutoCompletePropsMultiValue<T>> = autoCompleteComponentType
 
-    return createStyled(myComponent, addAsChild) {
+    createStyled(myComponent, className, handler) {
         attrs.options = options
         attrs.renderInput = renderInput
         attrs.multiple = true
         value?.let { attrs.value = it }
-        setStyledPropsAndRunHandler(className, handler)
     }
 }

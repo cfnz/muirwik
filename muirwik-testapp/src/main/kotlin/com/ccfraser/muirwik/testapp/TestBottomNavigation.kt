@@ -8,28 +8,26 @@ import react.*
 import react.dom.br
 
 
-class TestBottomNavigation : RComponent<RProps, RState>() {
+class TestBottomNavigation : RComponent<Props, State>() {
     private var value1: Any = 0 // Use default which is index position for value
     private var value2: Any = "recents" // Use a string just for the sake of it...
 
     override fun RBuilder.render() {
         mTypography("Bottom Nav with showLabels = true")
         mBottomNavigation(value1, true, onChange = { _, indexValue -> setState { value1 = indexValue }}) {
-            mBottomNavigationAction("Recents", mIcon("restore", addAsChild = false))
-            mBottomNavigationAction("Favourites", mIcon("favorite", addAsChild = false))
-            mBottomNavigationAction("Nearby", mIcon("location_on", addAsChild = false))
+            mBottomNavigationAction("Recents", buildElement { mIcon("restore") })
+            mBottomNavigationAction("Favourites", buildElement { mIcon("favorite") })
+            mBottomNavigationAction("Nearby", buildElement { mIcon("location_on") })
         }
 
         br {}
 
         mTypography("Bottom Nav with showLabels = false (the default)")
         mBottomNavigation(value2, onChange = { _, indexValue -> setState { value2 = indexValue }}) {
-            mBottomNavigationAction("Recents", mIcon("restore", addAsChild = false), value = "recents")
-            mBottomNavigationAction("Favourites", mIcon("favorite", addAsChild = false), value = "favorite")
-            mBottomNavigationAction("Nearby", mIcon("location_on", addAsChild = false), value = "nearby")
-            mBottomNavigationAction("Folder", mIcon("folder", addAsChild = false), value = "folder")
+            mBottomNavigationAction("Recents", buildElement { mIcon("restore") }, value = "recents")
+            mBottomNavigationAction("Favourites", buildElement { mIcon("favorite") }, value = "favorite")
+            mBottomNavigationAction("Nearby", buildElement { mIcon("location_on") }, value = "nearby")
+            mBottomNavigationAction("Folder", buildElement { mIcon("folder") }, value = "folder")
         }
     }
 }
-
-fun RBuilder.testBottomNavigation() = child(TestBottomNavigation::class) {}

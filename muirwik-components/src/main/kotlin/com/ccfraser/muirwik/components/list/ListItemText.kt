@@ -3,7 +3,6 @@ package com.ccfraser.muirwik.components.list
 import com.ccfraser.muirwik.components.MTypographyProps
 import com.ccfraser.muirwik.components.button.MButtonBaseProps
 import com.ccfraser.muirwik.components.createStyled
-import com.ccfraser.muirwik.components.setStyledPropsAndRunHandler
 import react.ComponentType
 import react.RBuilder
 import react.ReactElement
@@ -32,17 +31,16 @@ fun RBuilder.mListItemText(
     secondary: String? = null,
     inset: Boolean = false,
     disableTypography: Boolean = false,
-
     className: String? = null,
-    handler: StyledHandler<MListItemTextProps>? = null): ReactElement {
-
+    handler: StyledHandler<MListItemTextProps>? = null
+) {
     @Suppress("UnsafeCastFromDynamic")
     val primaryAsElement: ReactElement = primary.asDynamic()
 
     @Suppress("UnsafeCastFromDynamic")
     val secondaryAsElement: ReactElement? = secondary?.asDynamic()
 
-    return mListItemText(
+    mListItemText(
         primaryAsElement,
         secondaryAsElement,
         inset,
@@ -60,13 +58,13 @@ fun RBuilder.mListItemText(
     secondary: ReactElement? = null,
     inset: Boolean = false,
     disableTypography: Boolean = false,
-
     className: String? = null,
-    handler: StyledHandler<MListItemTextProps>? = null) = createStyled(listItemTextComponentType) {
-    attrs.disableTypography = disableTypography
-    attrs.inset = inset
-    primary?.let { attrs.primary = primary }
-    secondary?.let { attrs.secondary = secondary }
-
-    setStyledPropsAndRunHandler(className, handler)
+    handler: StyledHandler<MListItemTextProps>? = null
+) {
+    createStyled(listItemTextComponentType, className, handler) {
+        attrs.disableTypography = disableTypography
+        attrs.inset = inset
+        primary?.let { attrs.primary = primary }
+        secondary?.let { attrs.secondary = secondary }
+    }
 }

@@ -13,7 +13,7 @@ import styled.styledDiv
 import kotlin.math.min
 
 
-class TestTables : RComponent<RProps, RState>() {
+class TestTables : RComponent<Props, State>() {
     private data class Dessert(val id: Int, val dessertName: String, val calories: Int, val fat: Double, val carbs: Int, val protein: Double)
     private val androidDeserts = mutableListOf(
             Dessert(1, "Cupcake", 305, 3.7, 67, 4.3),
@@ -268,5 +268,3 @@ class TestTables : RComponent<RProps, RState>() {
         }
     }
 }
-
-fun RBuilder.testTables() = child(TestTables::class) {}

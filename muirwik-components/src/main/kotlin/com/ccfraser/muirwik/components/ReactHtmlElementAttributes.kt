@@ -1,6 +1,6 @@
 package com.ccfraser.muirwik.components
 
-import react.RProps
+import react.Props
 
 /**
  * This is not an exhaustive list of global element attributes, but more of the regularly used
@@ -21,7 +21,7 @@ enum class DropZone {
     copy, move, link
 }
 
-external interface ReactHtmlElementAttributes : RProps {
+external interface ReactHtmlElementAttributes : Props {
     var accessKey: String
     var autoCapitalize: AutoCapitalize
 //    var class: String

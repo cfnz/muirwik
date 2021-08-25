@@ -18,13 +18,14 @@ external interface MTextAreaAutosizeProps : MFormControlProps {
 }
 
 fun RBuilder.mTextAreaAutosize(
-        rowsMin: Int = 1,
-        rowsMax: Int? = null,
+    rowsMin: Int = 1,
+    rowsMax: Int? = null,
 
-        className: String? = null,
-        handler: StyledHandler<MTextAreaAutosizeProps>? = null) = createStyled(textAreaAutosizeComponentType) {
-    rowsMax?.let { attrs.rowsMax = it }
-    attrs.rowsMin = rowsMin
-
-    setStyledPropsAndRunHandler(className, handler)
+    className: String? = null,
+    handler: StyledHandler<MTextAreaAutosizeProps>? = null
+) {
+    createStyled(textAreaAutosizeComponentType, className, handler) {
+        rowsMax?.let { attrs.rowsMax = it }
+        attrs.rowsMin = rowsMin
+    }
 }

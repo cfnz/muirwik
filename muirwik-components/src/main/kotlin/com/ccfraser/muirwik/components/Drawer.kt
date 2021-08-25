@@ -6,7 +6,7 @@ import com.ccfraser.muirwik.components.transitions.TransitionDurationDelegateNul
 import org.w3c.dom.events.Event
 import react.ComponentType
 import react.RBuilder
-import react.RProps
+import react.Props
 import styled.StyledHandler
 
 
@@ -30,7 +30,7 @@ external interface MDrawerProps : StyledPropsWithCommonAttributes {
     var elevation: Int
 
     @JsName("ModalProps")
-    var modalProps: RProps
+    var modalProps: Props
 
     var onClose: (Event) -> Unit
     var open: Boolean
@@ -52,24 +52,25 @@ fun RBuilder.mDrawer(
         variant: MDrawerVariant = MDrawerVariant.temporary,
         onClose: ((Event) -> Unit)? = null,
         elevation: Int = 16,
-        modalProps: RProps? = null,
+        modalProps: Props? = null,
         paperProps: MPaperProps? = null,
         slideProps: MSlideProps? = null,
         transitionDuration: TransitionDuration? = null,
 
         className: String? = null,
-        handler: StyledHandler<MDrawerProps>) = createStyled(drawerComponentType) {
-    attrs.anchor = anchor
-    attrs.elevation = elevation
-    modalProps?.let { attrs.modalProps = it }
-    onClose?.let { attrs.onClose = it }
-    attrs.open = open
-    paperProps?.let { attrs.paperProps = it }
-    slideProps?.let { attrs.slideProps = it }
-    attrs.variant = variant
-    transitionDuration?.let { attrs.transitionDuration = it }
-
-    setStyledPropsAndRunHandler(className, handler)
+        handler: StyledHandler<MDrawerProps>
+) {
+    createStyled(drawerComponentType, className, handler) {
+        attrs.anchor = anchor
+        attrs.elevation = elevation
+        modalProps?.let { attrs.modalProps = it }
+        onClose?.let { attrs.onClose = it }
+        attrs.open = open
+        paperProps?.let { attrs.paperProps = it }
+        slideProps?.let { attrs.slideProps = it }
+        attrs.variant = variant
+        transitionDuration?.let { attrs.transitionDuration = it }
+    }
 }
 
 

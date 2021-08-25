@@ -1,7 +1,7 @@
 package com.ccfraser.muirwik.components.transitions
 
 import react.Component
-import react.RState
+import react.State
 import styled.StyledProps
 import kotlin.reflect.KClass
 
@@ -14,4 +14,4 @@ external interface MTransitionProps : StyledProps {
     var show: Boolean
 }
 
-typealias TransitionComponent = KClass<out Component<MTransitionProps, RState>>
+typealias TransitionComponent = KClass<out Component<MTransitionProps, State>>

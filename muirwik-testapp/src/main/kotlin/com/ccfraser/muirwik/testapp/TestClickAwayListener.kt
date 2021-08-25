@@ -14,7 +14,7 @@ import styled.css
 import styled.styledDiv
 
 
-class TestClickAwayListener : RComponent<RProps, RState>() {
+class TestClickAwayListener : RComponent<Props, State>() {
     private var open: Boolean = false
 
     private object ComponentStyles : StyleSheet("ComponentStyles", isStatic = true) {
@@ -57,5 +57,3 @@ class TestClickAwayListener : RComponent<RProps, RState>() {
         }
     }
 }
-
-fun RBuilder.testClickAwayListener() = child(TestClickAwayListener::class) {}

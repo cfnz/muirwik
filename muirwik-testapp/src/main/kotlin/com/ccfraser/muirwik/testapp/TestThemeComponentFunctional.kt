@@ -2,14 +2,11 @@ package com.ccfraser.muirwik.testapp
 
 import com.ccfraser.muirwik.components.*
 import kotlinx.css.marginBottom
-import react.RBuilder
-import react.RProps
-import react.child
+import react.*
 import react.dom.div
-import react.functionalComponent
 import styled.css
 
-private val testThemesComponentFunctional = functionalComponent<RProps> {
+private val testThemesComponentFunctional = fc<Props> {
     val theme = useTheme()
 
     div {

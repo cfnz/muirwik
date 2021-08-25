@@ -14,7 +14,7 @@ import react.*
 import styled.css
 import styled.styledDiv
 
-class TestCards : RComponent<RProps, RState>() {
+class TestCards : RComponent<Props, State>() {
     private var count = 0
     private var leftExpanded = false
     private var rightExpanded = false
@@ -32,8 +32,8 @@ class TestCards : RComponent<RProps, RState>() {
                 mGridItem(breakpoints) {
                     mCard {
                         mCardHeader(title = "Shrimp and Chorizo Paella", subHeader = "September 14",
-                                avatar = mAvatar(addAsChild = false) {+"R"},
-                                action = mIconButton("more_vert", addAsChild = false)
+                                avatar = buildElement { mAvatar {+"R"} },
+                                action = buildElement { mIconButton("more_vert") }
                         )
                         mCardMedia("/images/cards/paella.jpg") {
                             css { height = 150.px }
@@ -86,17 +86,18 @@ class TestCards : RComponent<RProps, RState>() {
                 }
                 mGridItem(breakpoints) {
                     mCard(raised = true) {
-                        mCardHeader(title = "Expand for more info",
-                                action = mIconButton("expand_more",
-                                        onClick = { setState { leftExpanded = !leftExpanded; count++ }},
-                                        addAsChild = false) {
+                        mCardHeader(
+                            title = "Expand for more info",
+                            action = buildElement { mIconButton("expand_more",
+                                onClick = { setState { leftExpanded = !leftExpanded; count++ }},
+                                ) {
                                     css {
                                         if (leftExpanded) transform.rotate(180.deg)
                                         else transform.rotate(0.deg)
 
                                         transition("transform", 500.ms, Timing.easeInOut)
                                     }
-                                }
+                                } }
                         )
                         mCollapse(show = leftExpanded) {
                             mCardContent {
@@ -145,5 +146,3 @@ class TestCards : RComponent<RProps, RState>() {
         }
     }
 }
-
-fun RBuilder.testCards() = child(TestCards::class) {}

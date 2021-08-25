@@ -5,7 +5,7 @@ import kotlinx.html.InputType
 import org.w3c.dom.events.Event
 import react.ComponentType
 import react.RBuilder
-import react.RProps
+import react.Props
 import styled.StyledElementBuilder
 import styled.StyledHandler
 
@@ -27,22 +27,22 @@ external interface MTextFieldProps : MFormControlProps {
     var defaultValue: String
 
     @JsName("FormHelperTextProps")
-    var formHelperTextProps: RProps
+    var formHelperTextProps: Props
 
     var helperText: String
 
     @JsName("InputLabelProps")
-    var inputLabelProps: RProps
+    var inputLabelProps: Props
 
     @JsName("InputProps")
-    var inputProps: RProps
+    var inputProps: Props
 
     //    var inputRef	func		Use that property to pass a ref callback to the native input component.
 
     var label: String
 
     @JsName("inputProps")
-    var nativeInputProps: RProps
+    var nativeInputProps: Props
 
     var multiline: Boolean
     var name: String
@@ -66,94 +66,86 @@ var MTextFieldProps.color by EnumPropToString(MTextFieldColor.values())
  * and FormHelperText ) that you can leverage directly to significantly customize your form inputs.
  */
 fun RBuilder.mTextField(
-        label: String,
-        value: String? = null,
-        helperText: String? = null,
-        defaultValue: String? = null,
-        placeholder: String? = null,
-        variant: MFormControlVariant = MFormControlVariant.standard,
-        onChange: ((event: Event) -> Unit)? = null,
-        type: InputType = InputType.text,
-        required: Boolean = false,
-        disabled: Boolean = false,
-        error: Boolean = false,
-        autoFocus: Boolean = false,
-        fullWidth: Boolean = false,
-        margin: MFormControlMargin = MFormControlMargin.normal,
-
-        autoComplete: String? = null,
-        id: String? = null,
-        name: String? = null,
-
-        className: String? = null,
-        handler: StyledHandler<MTextFieldProps>? = null) = createStyled(textFieldComponentType) {
-
-    setAttributes(this, autoComplete, autoFocus, defaultValue, disabled, error, fullWidth, helperText, id, label, margin,
-        false, name, onChange, placeholder, required, null, null, false, type, value, variant)
-
-    setStyledPropsAndRunHandler(className, handler)
+    label: String,
+    value: String? = null,
+    helperText: String? = null,
+    defaultValue: String? = null,
+    placeholder: String? = null,
+    variant: MFormControlVariant = MFormControlVariant.standard,
+    onChange: ((event: Event) -> Unit)? = null,
+    type: InputType = InputType.text,
+    required: Boolean = false,
+    disabled: Boolean = false,
+    error: Boolean = false,
+    autoFocus: Boolean = false,
+    fullWidth: Boolean = false,
+    margin: MFormControlMargin = MFormControlMargin.normal,
+    autoComplete: String? = null,
+    id: String? = null,
+    name: String? = null,
+    className: String? = null,
+    handler: StyledHandler<MTextFieldProps>? = null
+) {
+    createStyled(textFieldComponentType, className, handler) {
+        setAttributes(this, autoComplete, autoFocus, defaultValue, disabled, error, fullWidth, helperText, id, label, margin,
+            false, name, onChange, placeholder, required, null, null, false, type, value, variant)
+    }
 }
 
 fun RBuilder.mTextFieldMultiLine(
-        label: String,
-        value: String? = null,
-        helperText: String? = null,
-        defaultValue: String? = null,
-        placeholder: String? = null,
-        variant: MFormControlVariant = MFormControlVariant.standard,
-        onChange: ((event: Event) -> Unit)? = null,
-        required: Boolean = false,
-        disabled: Boolean = false,
-        error: Boolean = false,
-        autoFocus: Boolean = false,
-        fullWidth: Boolean = false,
-
-        margin: MFormControlMargin = MFormControlMargin.normal,
-        rows: Int? = null,
-        rowsMax: Int? = null,
-
-        id: String? = null,
-        name: String? = null,
-
-        className: String? = null,
-        handler: StyledHandler<MTextFieldProps>? = null) = createStyled(textFieldComponentType) {
-
-    setAttributes(this, null, autoFocus, defaultValue, disabled, error, fullWidth, helperText, id, label, margin,
-        true, name, onChange, placeholder, required, rows, rowsMax, false, InputType.text, value, variant)
-
-    setStyledPropsAndRunHandler(className, handler)
+    label: String,
+    value: String? = null,
+    helperText: String? = null,
+    defaultValue: String? = null,
+    placeholder: String? = null,
+    variant: MFormControlVariant = MFormControlVariant.standard,
+    onChange: ((event: Event) -> Unit)? = null,
+    required: Boolean = false,
+    disabled: Boolean = false,
+    error: Boolean = false,
+    autoFocus: Boolean = false,
+    fullWidth: Boolean = false,
+    margin: MFormControlMargin = MFormControlMargin.normal,
+    rows: Int? = null,
+    rowsMax: Int? = null,
+    id: String? = null,
+    name: String? = null,
+    className: String? = null,
+    handler: StyledHandler<MTextFieldProps>? = null
+) {
+    createStyled(textFieldComponentType, className, handler) {
+        setAttributes(this, null, autoFocus, defaultValue, disabled, error, fullWidth, helperText, id, label, margin,
+            true, name, onChange, placeholder, required, rows, rowsMax, false, InputType.text, value, variant)
+    }
 }
 
 /**
  * I don't know why there is a text field select when there is a select... but here you go...
  */
 fun RBuilder.mTextFieldSelect(
-        label: String,
-        value: String? = null,
-        helperText: String? = null,
-        defaultValue: String? = null,
-        placeholder: String? = null,
-        variant: MFormControlVariant = MFormControlVariant.standard,
-        onChange: ((event: Event) -> Unit)? = null,
-        required: Boolean = false,
-        disabled: Boolean = false,
-        error: Boolean = false,
-        autoFocus: Boolean = false,
-        fullWidth: Boolean = false,
-
-        margin: MFormControlMargin = MFormControlMargin.normal,
-
-        autoComplete: String? = null,
-        id: String? = null,
-        name: String? = null,
-
-        className: String? = null,
-        handler: StyledHandler<MTextFieldProps>? = null) = createStyled(textFieldComponentType) {
-
-    setAttributes(this, autoComplete, autoFocus, defaultValue, disabled, error, fullWidth, helperText, id, label, margin,
-        false, name, onChange, placeholder, required, null, null, true, InputType.text, value, variant)
-
-    setStyledPropsAndRunHandler(className, handler)
+    label: String,
+    value: String? = null,
+    helperText: String? = null,
+    defaultValue: String? = null,
+    placeholder: String? = null,
+    variant: MFormControlVariant = MFormControlVariant.standard,
+    onChange: ((event: Event) -> Unit)? = null,
+    required: Boolean = false,
+    disabled: Boolean = false,
+    error: Boolean = false,
+    autoFocus: Boolean = false,
+    fullWidth: Boolean = false,
+    margin: MFormControlMargin = MFormControlMargin.normal,
+    autoComplete: String? = null,
+    id: String? = null,
+    name: String? = null,
+    className: String? = null,
+    handler: StyledHandler<MTextFieldProps>? = null
+) {
+    createStyled(textFieldComponentType, className, handler) {
+        setAttributes(this, autoComplete, autoFocus, defaultValue, disabled, error, fullWidth, helperText, id, label, margin,
+            false, name, onChange, placeholder, required, null, null, true, InputType.text, value, variant)
+    }
 }
 
 private fun setAttributes(

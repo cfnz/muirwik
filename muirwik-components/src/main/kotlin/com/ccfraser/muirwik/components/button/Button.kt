@@ -5,6 +5,7 @@ import org.w3c.dom.events.Event
 import react.ComponentType
 import react.RBuilder
 import react.ReactElement
+import react.ReactNode
 import styled.StyledHandler
 
 
@@ -33,26 +34,25 @@ var MButtonProps.variant by EnumPropToStringNullable(MButtonVariant.values())
 //groups color or variant, even if color is default... so allowing color and variant to default to null which seems
 //to fix the issue and does not cause any issues
 fun RBuilder.mButton(
-        caption: String,
-        color: MColor = MColor.default,
-        variant: MButtonVariant? = null,
-        disabled: Boolean = false,
-        onClick: ((Event) -> Unit)? = null,
-        size: MButtonSize = MButtonSize.medium,
-        hRefOptions: HRefOptions? = null,
+    caption: String,
+    color: MColor = MColor.default,
+    variant: MButtonVariant? = null,
+    disabled: Boolean = false,
+    onClick: ((Event) -> Unit)? = null,
+    size: MButtonSize = MButtonSize.medium,
+    hRefOptions: HRefOptions? = null,
+    className: String? = null,
+    handler: StyledHandler<MButtonProps>? = null
+) {
+    createStyled(buttonComponentType, className, handler) {
+        attrs.color = color
+        attrs.disabled = disabled
+        hRefOptions?.let { setHRefTargetNoOpener(attrs, it) }
+        onClick?.let { attrs.onClick = onClick }
+        attrs.size = size
+        attrs.variant = variant
 
-        addAsChild: Boolean = true,
-        className: String? = null,
-        handler: StyledHandler<MButtonProps>? = null) = createStyled(buttonComponentType, addAsChild) {
-    attrs.color = color
-    attrs.disabled = disabled
-    hRefOptions?.let { setHRefTargetNoOpener(attrs, it) }
-    onClick?.let { attrs.onClick = onClick }
-    attrs.size = size
-    attrs.variant = variant
-
-    childList.add(caption)
-
-    setStyledPropsAndRunHandler(className, handler)
+        childList.add(ReactNode(caption))
+    }
 }
 

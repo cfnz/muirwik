@@ -1,7 +1,6 @@
 package com.ccfraser.muirwik.components.card
 
 import com.ccfraser.muirwik.components.createStyled
-import com.ccfraser.muirwik.components.setStyledPropsAndRunHandler
 import react.ComponentType
 import react.RBuilder
 import styled.StyledHandler
@@ -18,8 +17,11 @@ external interface MCardActionsProps : StyledProps {
     var disableSpacing: Boolean
 }
 
-fun RBuilder.mCardActions(disableSpacing: Boolean = false,
-                          handler: StyledHandler<MCardActionsProps>?) = createStyled(cardActionsComponentType) {
-    attrs.disableSpacing = disableSpacing
-    setStyledPropsAndRunHandler(null, handler)
+fun RBuilder.mCardActions(
+    disableSpacing: Boolean = false,
+    handler: StyledHandler<MCardActionsProps>?
+) {
+    createStyled(cardActionsComponentType, null, handler) {
+        attrs.disableSpacing = disableSpacing
+    }
 }

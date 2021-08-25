@@ -10,11 +10,11 @@ import styled.StyleSheet
 import styled.css
 import styled.styledDiv
 
-external interface TestRadioButtonsState : RState {
+external interface TestRadioButtonsState : State {
     var gender2Value: String
 }
 
-class TestRadioButtons : RComponent<RProps, TestRadioButtonsState>() {
+class TestRadioButtons : RComponent<Props, TestRadioButtonsState>() {
     private var radioValue: String = "a"
     private var gender1Value: String = "female"
 
@@ -31,8 +31,6 @@ class TestRadioButtons : RComponent<RProps, TestRadioButtonsState>() {
     override fun RBuilder.render() {
         // For building things that we don't want to render now (e.g. the component will render it later), we need another builder
         // Update: Now you can actually pass in addAsChild as false instead.
-        val altBuilder = RBuilder()
-
         mTypography("Radio options and groups")
         styledDiv {
             css { display = Display.inlineFlex; marginTop = 16.px }
@@ -41,13 +39,13 @@ class TestRadioButtons : RComponent<RProps, TestRadioButtonsState>() {
                 mRadio(value = "a")
                 // The icons are more for a checkbox type control, but for fun, we shall put the star here too
                 mRadio(value = "b") {
-                    attrs.icon = altBuilder.mIcon("star")
+                    attrs.icon = buildElement { mIcon("star") }
                 }
             }
             mRadioGroup(value = radioValue, onChange = { _, value -> setState { radioValue = value } }) {
                 css { display = Display.inlineFlex }
-                mFormControlLabel("With Label C", value = "c", control = altBuilder.mRadio()) { css(paddingLeft12) } // With a label it seems to need a bit of left padding
-                mFormControlLabel("With Label D", value = "d", control = altBuilder.mRadio()) { css(paddingLeft12) } // With a label it seems to need a bit of left padding
+                mFormControlLabel("With Label C", value = "c", control =  buildElement { mRadio() }) { css(paddingLeft12) } // With a label it seems to need a bit of left padding
+                mFormControlLabel("With Label D", value = "d", control =  buildElement { mRadio() }) { css(paddingLeft12) } // With a label it seems to need a bit of left padding
             }
         }
         br {}
@@ -57,20 +55,20 @@ class TestRadioButtons : RComponent<RProps, TestRadioButtonsState>() {
                 css { display = Display.inlineFlex }
                 mFormLabel("Gender", required = true, component = "legend")
                 mRadioGroup(value = state.gender2Value, onChange = { _, value -> setState { gender2Value = value; println("Value: $value") } }) {
-                    mFormControlLabel("Female", value = "female", control = altBuilder.mRadio())
-                    mFormControlLabel("Male", value = "male", control = altBuilder.mRadio())
-                    mFormControlLabel("Other", value = "other", control = altBuilder.mRadio())
-                    mFormControlLabel("Disabled Option", value = "disabled", disabled = true, control = altBuilder.mRadio())
+                    mFormControlLabel("Female", value = "female", control = buildElement { mRadio() })
+                    mFormControlLabel("Male", value = "male", control = buildElement { mRadio() })
+                    mFormControlLabel("Other", value = "other", control = buildElement { mRadio() })
+                    mFormControlLabel("Disabled Option", value = "disabled", disabled = true, control =  buildElement { mRadio() })
                 }
             }
             mFormControl(component = MFormControlComponent.fieldSet, required = true, error = true) {
                 css { display = Display.inlineFlex }
                 mFormLabel("Gender2", required = true, component = "legend")
                 mRadioGroup(value = gender1Value, name = "gender1", onChange = { _, value -> setState { gender1Value = value; println("Value: $value") } }) {
-                    mFormControlLabel("Male", value = "male", control = altBuilder.mRadio())
-                    mFormControlLabel("Female", value = "female", control = altBuilder.mRadio())
-                    mFormControlLabel("Other", value = "other", control = altBuilder.mRadio())
-                    mFormControlLabel("Disabled Option", value = "disabled", disabled = true, control = altBuilder.mRadio())
+                    mFormControlLabel("Male", value = "male", control = buildElement { mRadio() })
+                    mFormControlLabel("Female", value = "female", control = buildElement { mRadio() })
+                    mFormControlLabel("Other", value = "other", control = buildElement { mRadio() })
+                    mFormControlLabel("Disabled Option", value = "disabled", disabled = true, control = buildElement { mRadio() })
                 }
             }
             mFormControl(component = MFormControlComponent.fieldSet, required = true, error = true) {
@@ -91,5 +89,3 @@ class TestRadioButtons : RComponent<RProps, TestRadioButtonsState>() {
         }
     }
 }
-
-fun RBuilder.testRadioButtons() = child(TestRadioButtons::class) {}

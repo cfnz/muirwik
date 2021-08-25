@@ -4,7 +4,6 @@ import kotlinext.js.jsObject
 import react.ComponentType
 import react.RBuilder
 import react.RHandler
-import react.RProps
 import styled.StyledProps
 
 
@@ -47,17 +46,20 @@ var MClickAwayListenerProps.touchEvent: MClickAwayListenerTouchEvent
 
 
 fun RBuilder.mClickAwayListener(
-        onClickAway: () -> Unit,
-        mouseEvent: MClickAwayListenerMouseEvent = MClickAwayListenerMouseEvent.onClick,
-        touchEvent: MClickAwayListenerTouchEvent = MClickAwayListenerTouchEvent.onTouchStart,
-        handler: RHandler<MClickAwayListenerProps>? = null) = child(clickAwayListenerComponentType, jsObject()) {
-    attrs.mouseEvent = mouseEvent
-    attrs.touchEvent = touchEvent
-    attrs.onClickAway = onClickAway
+    onClickAway: () -> Unit,
+    mouseEvent: MClickAwayListenerMouseEvent = MClickAwayListenerMouseEvent.onClick,
+    touchEvent: MClickAwayListenerTouchEvent = MClickAwayListenerTouchEvent.onTouchStart,
+    handler: RHandler<MClickAwayListenerProps>? = null
+) {
+    child(clickAwayListenerComponentType, jsObject()) {
+        attrs.mouseEvent = mouseEvent
+        attrs.touchEvent = touchEvent
+        attrs.onClickAway = onClickAway
 
-    if (handler != null) handler()
+        if (handler != null) handler()
 
-    attrs.asDynamic().mouseEvent = attrs.mouseEvent.value()
-    attrs.asDynamic().touchEvent = attrs.touchEvent.value()
+        attrs.asDynamic().mouseEvent = attrs.mouseEvent.value()
+        attrs.asDynamic().touchEvent = attrs.touchEvent.value()
+    }
 }
 

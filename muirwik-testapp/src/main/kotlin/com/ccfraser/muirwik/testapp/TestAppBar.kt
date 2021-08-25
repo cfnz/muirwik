@@ -18,7 +18,7 @@ import styled.css
 import styled.styledDiv
 
 
-class TestAppBar : RComponent<RProps, RState>() {
+class TestAppBar : RComponent<Props, State>() {
     var loggedIn = false
 
     private object ComponentStyles : StyleSheet("ComponentStyles", isStatic = true) {
@@ -185,7 +185,7 @@ class TestAppBar : RComponent<RProps, RState>() {
                 styledDiv {
                     css { flexGrow = 1.0; padding(2.spacingUnits) }
 
-                    mAppBar(position = MAppBarPosition.static) {
+                    mAppBar(position = MAppBarPosition.static, className = "hello") {
                         attrs.elevation = 0
                         mToolbar {
                             mIconButton("menu", color = MColor.inherit) { css { marginLeft = -12.px; marginRight = 20.px }}
@@ -198,5 +198,3 @@ class TestAppBar : RComponent<RProps, RState>() {
         }
     }
 }
-
-fun RBuilder.testAppBar() = child(TestAppBar::class) {}

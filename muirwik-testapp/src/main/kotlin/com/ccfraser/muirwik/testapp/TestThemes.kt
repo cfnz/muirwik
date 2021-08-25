@@ -15,7 +15,7 @@ import styled.css
 import styled.styledDiv
 
 
-class TestThemes : RComponent<RProps, RState>() {
+class TestThemes : RComponent<Props, State>() {
     var themeColor = "light"
 
     override fun RBuilder.render() {
@@ -48,7 +48,6 @@ class TestThemes : RComponent<RProps, RState>() {
         }
     }
 }
-
 
 fun RBuilder.testThemes() = child(TestThemes::class) {}
 

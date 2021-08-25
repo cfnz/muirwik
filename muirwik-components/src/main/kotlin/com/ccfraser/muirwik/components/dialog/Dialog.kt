@@ -1,6 +1,9 @@
 package com.ccfraser.muirwik.components.dialog
 
-import com.ccfraser.muirwik.components.*
+import com.ccfraser.muirwik.components.EnumPropToString
+import com.ccfraser.muirwik.components.MPaperProps
+import com.ccfraser.muirwik.components.SimpleEvent
+import com.ccfraser.muirwik.components.createStyled
 import com.ccfraser.muirwik.components.styles.Breakpoint
 import com.ccfraser.muirwik.components.transitions.TransitionComponent
 import com.ccfraser.muirwik.components.transitions.TransitionComponentDelegate
@@ -34,13 +37,13 @@ external interface MDialogProps : MModalProps {
     var onExiting: SimpleEvent
 
     @JsName("PaperComponent")
-    var paperComponent: RComponent<RProps, RState>?
+    var paperComponent: RComponent<Props, State>?
 
     @JsName("PaperProps")
     var paperProps: MPaperProps?
 
     @JsName("TransitionProps")
-    var transitionProps: RProps?
+    var transitionProps: Props?
 }
 var MDialogProps.scroll by EnumPropToString(DialogScroll.values())
 var MDialogProps.transitionComponent by TransitionComponentDelegate()
@@ -51,47 +54,45 @@ var MDialogProps.transitionDuration by TransitionDurationDelegateNullable()
  * We will leave some of the props to be set by javascript
  */
 fun RBuilder.mDialog(
-        open: Boolean = false,
-        fullScreen: Boolean = false,
-        fullWidth: Boolean = false,
-        maxWidth: Breakpoint? = Breakpoint.sm,
-        hideBackdrop: Boolean = false,
-        keepMounted: Boolean = false,
-        closeAfterTransition: Boolean = false,
+    open: Boolean = false,
+    fullScreen: Boolean = false,
+    fullWidth: Boolean = false,
+    maxWidth: Breakpoint? = Breakpoint.sm,
+    hideBackdrop: Boolean = false,
+    keepMounted: Boolean = false,
+    closeAfterTransition: Boolean = false,
 
-        onBackdropClick: SimpleEvent? = null,
-        onClose: ((Event, reason: ModalOnCloseReason) -> Unit)? = null,
-        onEscapeKeyDown: SimpleEvent? = null,
+    onBackdropClick: SimpleEvent? = null,
+    onClose: ((Event, reason: ModalOnCloseReason) -> Unit)? = null,
+    onEscapeKeyDown: SimpleEvent? = null,
 
-        scroll: DialogScroll = DialogScroll.paper,
+    scroll: DialogScroll = DialogScroll.paper,
 
-        transitionComponent: TransitionComponent? = null,
-        // Can't seem to get the transitionDuration working, but you can use the transitionProps, e.g.
-        //     val transitionProps = EmptyProps()
-        //     transitionProps.asDynamic().timeout = 5000
+    transitionComponent: TransitionComponent? = null,
+    // Can't seem to get the transitionDuration working, but you can use the transitionProps, e.g.
+    //     val transitionProps = EmptyProps()
+    //     transitionProps.asDynamic().timeout = 5000
 //        transitionDuration: TransitionTimeout? = null,
-        transitionProps: RProps? = null,
+    transitionProps: Props? = null,
 
-        className: String? = null,
-        handler: StyledHandler<MDialogProps>) = createStyled(dialogComponentType) {
-    attrs.closeAfterTransition = closeAfterTransition
-    attrs.hideBackdrop = hideBackdrop
-    attrs.keepMounted = keepMounted
+    className: String? = null,
+    handler: StyledHandler<MDialogProps>
+) {
+    createStyled(dialogComponentType, className, handler) {
+        attrs.closeAfterTransition = closeAfterTransition
+        attrs.hideBackdrop = hideBackdrop
+        attrs.keepMounted = keepMounted
 //    manager?.let { attrs.manager = manager }
-    onBackdropClick?.let { attrs.onBackdropClick = it }
-    attrs.onClose = onClose
-    onEscapeKeyDown?.let { attrs.onEscapeKeyDown = it }
-    attrs.open = open
-    attrs.fullScreen = fullScreen
-    attrs.fullWidth = fullWidth
-    attrs.maxWidth = maxWidth?.toString() ?: false
-    attrs.scroll = scroll
-    attrs.transitionComponent = transitionComponent
+        onBackdropClick?.let { attrs.onBackdropClick = it }
+        attrs.onClose = onClose
+        onEscapeKeyDown?.let { attrs.onEscapeKeyDown = it }
+        attrs.open = open
+        attrs.fullScreen = fullScreen
+        attrs.fullWidth = fullWidth
+        attrs.maxWidth = maxWidth?.toString() ?: false
+        attrs.scroll = scroll
+        attrs.transitionComponent = transitionComponent
 //    transitionDuration?.let { attrs.transitionDuration = it }
-    transitionProps?.let { attrs.transitionProps = it }
-
-    setStyledPropsAndRunHandler(className, handler)
+        transitionProps?.let { attrs.transitionProps = it }
+    }
 }
-
-
-

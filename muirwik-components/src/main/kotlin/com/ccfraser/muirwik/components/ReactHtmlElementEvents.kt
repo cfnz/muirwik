@@ -3,7 +3,7 @@ package com.ccfraser.muirwik.components
 import org.w3c.dom.DragEvent
 import org.w3c.dom.clipboard.ClipboardEvent
 import org.w3c.dom.events.*
-import react.RProps
+import react.Props
 
 /**
  * This is non exhaustive typed list of HTML Element events (which is a mixture of events inherited
@@ -14,7 +14,7 @@ import react.RProps
  * Since most of the Material UI components pass on any props to the underlying element, this makes it easier
  * to set them if required.
  */
-external interface ReactHtmlElementEvents : RProps {
+external interface ReactHtmlElementEvents : Props {
     var onAbort: ((Event) -> Unit)?
     var onBlur: ((FocusEvent) -> Unit)?
     var onCanPlay: ((Event) -> Unit)?

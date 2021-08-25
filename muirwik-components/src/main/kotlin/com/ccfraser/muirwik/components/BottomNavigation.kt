@@ -23,21 +23,20 @@ external interface MBottomNavigationProps: StyledPropsWithCommonAttributes {
 }
 
 fun RBuilder.mBottomNavigation(
-        value: Any = false, // false means none selected
-        showLabels: Boolean = false,
-        component: String = "div",
-        onChange: ((event: Event, indexValue: Any) -> Unit)? = null,
-
-        className: String? = null,
-        handler: StyledHandler<MBottomNavigationProps>? = null) = createStyled(bottomNavigationComponentType) {
-    attrs.component = component
-    onChange?.let { attrs.onChange = it }
-    attrs.showLabels = showLabels
-    attrs.value = value
-
-    setStyledPropsAndRunHandler(className, handler)
+    value: Any = false, // false means none selected
+    showLabels: Boolean = false,
+    component: String = "div",
+    onChange: ((event: Event, indexValue: Any) -> Unit)? = null,
+    className: String? = null,
+    handler: StyledHandler<MBottomNavigationProps>? = null
+) {
+    createStyled(bottomNavigationComponentType, className, handler) {
+        attrs.component = component
+        onChange?.let { attrs.onChange = it }
+        attrs.showLabels = showLabels
+        attrs.value = value
+    }
 }
-
 
 @JsModule("@material-ui/core/BottomNavigationAction")
 private external val bottomNavigationActionModule: dynamic
@@ -54,33 +53,33 @@ external interface MBottomNavigationActionProps: MButtonBaseProps {
 
 @Suppress("UNCHECKED_CAST_TO_EXTERNAL_INTERFACE")
 fun RBuilder.mBottomNavigationAction(
-        label: String,
-        icon: ReactElement? = null,
-        showLabel: Boolean? = null,
-        value: Any? = null,
-        disabled: Boolean = false,
-
-        className: String? = null,
-        handler: StyledHandler<MBottomNavigationActionProps>? = null) = mBottomNavigationAction(
-    label.asDynamic() as ReactElement?, icon, showLabel, value, disabled, className, handler
-)
+    label: String,
+    icon: ReactElement? = null,
+    showLabel: Boolean? = null,
+    value: Any? = null,
+    disabled: Boolean = false,
+    className: String? = null,
+    handler: StyledHandler<MBottomNavigationActionProps>? = null
+) {
+    mBottomNavigationAction(label.asDynamic() as ReactElement?, icon, showLabel, value, disabled, className, handler)
+}
 
 
 fun RBuilder.mBottomNavigationAction(
-        label: ReactElement? = null,
-        icon: ReactElement? = null,
-        showLabel: Boolean? = null,
-        value: Any? = null,
-        disabled: Boolean = false,
-
-        className: String? = null,
-        handler: StyledHandler<MBottomNavigationActionProps>? = null) = createStyled(bottomNavigationActionComponentType) {
-    attrs.disabled = disabled
-    icon?.let { attrs.icon = icon }
-    label?.let { attrs.label = it }
-    showLabel?.let { attrs.showLabel = showLabel }
-    value?.let { attrs.value = it }
-
-    setStyledPropsAndRunHandler(className, handler)
+    label: ReactElement? = null,
+    icon: ReactElement? = null,
+    showLabel: Boolean? = null,
+    value: Any? = null,
+    disabled: Boolean = false,
+    className: String? = null,
+    handler: StyledHandler<MBottomNavigationActionProps>? = null
+) {
+    createStyled(bottomNavigationActionComponentType, className, handler) {
+        attrs.disabled = disabled
+        icon?.let { attrs.icon = icon }
+        label?.let { attrs.label = it }
+        showLabel?.let { attrs.showLabel = showLabel }
+        value?.let { attrs.value = it }
+    }
 }
 

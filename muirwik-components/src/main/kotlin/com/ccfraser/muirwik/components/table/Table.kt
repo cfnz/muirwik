@@ -2,7 +2,6 @@ package com.ccfraser.muirwik.components.table
 
 import com.ccfraser.muirwik.components.EnumPropToString
 import com.ccfraser.muirwik.components.createStyled
-import com.ccfraser.muirwik.components.setStyledPropsAndRunHandler
 import react.ComponentType
 import react.RBuilder
 import styled.StyledHandler
@@ -27,10 +26,11 @@ var MTableProps.padding by EnumPropToString(MTableCellPadding.values())
 var MTableProps.size by EnumPropToString(MTableCellSize.values())
 
 fun RBuilder.mTable(
-        component: String = "table",
-
-        className: String? = null,
-        handler: StyledHandler<MTableProps>? = null) = createStyled(tableComponentType) {
-    attrs.component = component
-    setStyledPropsAndRunHandler(className, handler)
+    component: String = "table",
+    className: String? = null,
+    handler: StyledHandler<MTableProps>? = null
+) {
+    createStyled(tableComponentType, className, handler) {
+        attrs.component = component
+    }
 }

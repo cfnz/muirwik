@@ -18,7 +18,7 @@ private external val jssPresetModule: dynamic
 private external val jss: dynamic
 
 
-external interface MStylesProviderProps : RProps {
+external interface MStylesProviderProps : Props {
     var disableGeneration: Boolean
     var generateClassName: () -> Unit
     var injectFirst: Boolean
@@ -55,45 +55,48 @@ external interface MStylesProviderProps : RProps {
  *     }
  */
 fun RBuilder.mStylesProvider(
-        injectFirst: Boolean = false,
-        disableGeneration: Boolean = false,
-        generateClassName: (() -> Unit)? = null,
-        jss: Object? = null,
-        handler: RHandler<MStylesProviderProps>? = null) = child(stylesProviderComponentType, jsObject()) {
-    attrs.injectFirst = injectFirst
-    attrs.disableGeneration = disableGeneration
-    generateClassName?.let { attrs.generateClassName = it }
-    jss?.let { attrs.jss = it }
+    injectFirst: Boolean = false,
+    disableGeneration: Boolean = false,
+    generateClassName: (() -> Unit)? = null,
+    jss: Object? = null,
+    handler: RHandler<MStylesProviderProps>? = null
+) {
+    child(stylesProviderComponentType, jsObject()) {
+        attrs.injectFirst = injectFirst
+        attrs.disableGeneration = disableGeneration
+        generateClassName?.let { attrs.generateClassName = it }
+        jss?.let { attrs.jss = it }
 
-    handler?.let { it() }
+        handler?.let { it() }
+    }
 }
 
 /**
  * See the comments for the full mStylesProvider version.
  */
 fun RBuilder.mStylesProvider(
-        insertionPointComment: String,
-        handler: RHandler<MStylesProviderProps>? = null): ReactElement {
-
+    insertionPointComment: String,
+    handler: RHandler<MStylesProviderProps>? = null
+) {
     val jssPresets = jssPresetModule.default()
     jssPresets.insertionPoint = insertionPointComment
 
     val jss = jss.create(jssPresets)
 
-    return mStylesProvider(false, false, null, jss, handler)
+    mStylesProvider(false, false, null, jss, handler)
 }
 
 /**
  * See the comments for the full mStylesProvider version.
  */
 fun RBuilder.mStylesProvider(
-        insertionPointElement: Element,
-        handler: RHandler<MStylesProviderProps>? = null): ReactElement {
-
+    insertionPointElement: Element,
+    handler: RHandler<MStylesProviderProps>? = null
+) {
     val jssPresets = jssPresetModule.default()
     jssPresets.insertionPoint = insertionPointElement
 
     val jss = jss.create(jssPresets)
 
-    return mStylesProvider(false, false, null, jss, handler)
+    mStylesProvider(false, false, null, jss, handler)
 }

@@ -1,7 +1,6 @@
 package com.ccfraser.muirwik.components.card
 
 import com.ccfraser.muirwik.components.createStyled
-import com.ccfraser.muirwik.components.setStyledPropsAndRunHandler
 import react.ComponentType
 import react.RBuilder
 import styled.StyledHandler
@@ -18,10 +17,12 @@ external interface MCardProps : StyledProps {
     var raised: Boolean
 }
 
-fun RBuilder.mCard(raised: Boolean = false,
-                   className: String? = null,
-                   handler: StyledHandler<MCardProps>? = null) = createStyled(cardComponentType) {
-    attrs.raised = raised
-
-    setStyledPropsAndRunHandler(className, handler)
+fun RBuilder.mCard(
+    raised: Boolean = false,
+   className: String? = null,
+   handler: StyledHandler<MCardProps>? = null
+) {
+    createStyled(cardComponentType, className, handler) {
+        attrs.raised = raised
+    }
 }

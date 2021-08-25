@@ -14,7 +14,7 @@ import styled.StyleSheet
 import styled.css
 import styled.styledDiv
 
-class TestLists : RComponent<RProps, RState>() {
+class TestLists : RComponent<Props, State>() {
     private var expanded: Boolean = false
     private var checked = Array(3) { false }
     private var selected = 0
@@ -39,9 +39,6 @@ class TestLists : RComponent<RProps, RState>() {
     }
 
     override fun RBuilder.render() {
-        // For building things that we don't want to render now (e.g. the component will render it later), we need another builder
-        val builder2 = RBuilder()
-
         themeContext.Consumer { theme ->
             val themeStyles = object : StyleSheet("ComponentStyles", isStatic = true) {
                 val list by css {
@@ -63,9 +60,7 @@ class TestLists : RComponent<RProps, RState>() {
             styledDiv {
                 css(listDiv)
                 // This is the same list as above but using the more Material-UI code layout... it is longer, and for the rest of the lists we will se the shorter version.
-                val h = builder2.div {
-                    mListSubheader { +"Sub Header (more code)" }
-                }
+                val h = buildElement { div { mListSubheader { +"Sub Header (more code)" } } }
                 mList(subheader = h, component = "nav") {
                     //}, style = js { width = 320; backgroundColor = "white" }) {
                     css(themeStyles.list)
@@ -74,19 +69,19 @@ class TestLists : RComponent<RProps, RState>() {
                         mListItemIcon {
                             mIcon("drafts")
                         }
-                        mListItemText(primary = builder2.span { +"Drafts" })
+                        mListItemText(primary = buildElement { span { +"Drafts" } })
                     }
                     mListItem(button = true) {
                         mListItemIcon("inbox")
-                        mListItemText(primary = builder2.span { +"Inbox" })
+                        mListItemText(primary = buildElement { span { +"Inbox" } })
                     }
                     mDivider()
                     mListItem(button = true, hRefOptions = HRefOptions("https://github.com/cfnz/muirwik"), component = "a") {
                         attrs.asDynamic().target = "_Blank"
-                        mListItemText(primary = builder2.span { +"Trash (<a> with an href)" })
+                        mListItemText(primary = buildElement { span { +"Trash (<a> with an href)" } })
                     }
                     mListItem(button = true) {
-                        mListItemText(primary = builder2.span { +"Spam" })
+                        mListItemText(primary = buildElement { span { +"Spam" } })
                     }
                 }
             }
@@ -126,7 +121,7 @@ class TestLists : RComponent<RProps, RState>() {
                             mListItem(button = true) {
                                 css { paddingLeft = 8.spacingUnits }
                                 mIcon("star")
-                                mListItemText(builder2.span { +"Starred (v1)" }, inset = true)
+                                mListItemText(buildElement { span { +"Starred (v1)" } }, inset = true)
                             }
                             mListItemWithIcon("star", "Starred (v2)") { css { paddingLeft = 8.spacingUnits } }
                         }
@@ -225,24 +220,24 @@ class TestLists : RComponent<RProps, RState>() {
 
                     mListItem( alignItems = MListItemAlignItems.flexStart, button = true) {
                         mListItemAvatar(src = "/images/cards/contemplative-reptile.jpg")
-                        mListItemText( builder2.span {+"Brunch this weekend?"}, builder2.span {
+                        mListItemText( buildElement { span {+"Brunch this weekend?"} }, buildElement { span {
                             mTypography("Ali Connors", component = "span", variant = MTypographyVariant.body2) { css (inline) }
                             +" — I'll be in your neighborhood doing errands this…"
-                        })
+                        } })
                     }
                     mListItem(alignItems = MListItemAlignItems.flexStart, button = true) {
                         mListItemAvatar(src = "/images/cards/live-from-space.jpg")
-                        mListItemText( builder2.span {+"Summer BBQ"}, builder2.span {
+                        mListItemText( buildElement { span {+"Summer BBQ"} }, buildElement { span {
                             mTypography("Scott, Alex, Jennifer", component = "span", variant = MTypographyVariant.body2) { css (inline) }
                             +" — Note that this is a longer item, but it has alignItems to flexStart so the icon is at the top…"
-                        })
+                        } })
                     }
                     mListItem(alignItems = MListItemAlignItems.center, button = true) {
                         mListItemAvatar(src = "/images/cards/paella.jpg")
-                        mListItemText( builder2.span {+"Oui Oui"}, builder2.span {
+                        mListItemText( buildElement { span {+"Oui Oui"} }, buildElement { span {
                             mTypography("Sandra Adams", component = "span", variant = MTypographyVariant.body2) { css (inline) }
                             +" — Note that this item has AlignItems at center - note the icon position relative to the list item"
-                        })
+                        } })
                     }
                 }
             }

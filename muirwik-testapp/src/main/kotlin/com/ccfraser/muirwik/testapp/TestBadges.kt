@@ -14,7 +14,7 @@ import styled.css
 import styled.styledDiv
 
 
-class TestBadges : RComponent<RProps, RState>() {
+class TestBadges : RComponent<Props, State>() {
     var anchorOriginHorizontal = MBadgeAnchorOriginHorizontal.left
     var anchorOriginVertical = MBadgeAnchorOriginVertical.top
 
@@ -41,10 +41,10 @@ class TestBadges : RComponent<RProps, RState>() {
             mAppBar(position = MAppBarPosition.static) {
                 css(ComponentStyles.margin)
                 mTabs(0) {
-                    mTab(label = mBadge(4, color = MBadgeColor.secondary, addAsChild = false) {
+                    mTab(label = buildElement { mBadge(4, color = MBadgeColor.secondary) {
                         css(ComponentStyles.padding)
                         +"Item 1"
-                    })
+                    }})
                     mTab("Item 2")
                     mTab("Item 3")
                 }
@@ -140,5 +140,3 @@ class TestBadges : RComponent<RProps, RState>() {
         }
     }
 }
-
-fun RBuilder.testBadges() = child(TestBadges::class) {}

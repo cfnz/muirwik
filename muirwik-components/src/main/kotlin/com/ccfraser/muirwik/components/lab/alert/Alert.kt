@@ -3,7 +3,6 @@ package com.ccfraser.muirwik.components.lab.alert
 import com.ccfraser.muirwik.components.EnumPropToStringNullable
 import com.ccfraser.muirwik.components.StyledPropsWithCommonAttributes
 import com.ccfraser.muirwik.components.createStyled
-import com.ccfraser.muirwik.components.setStyledPropsAndRunHandler
 import org.w3c.dom.events.Event
 import react.ComponentType
 import react.RBuilder
@@ -42,18 +41,16 @@ fun RBuilder.mAlert(
     severity: MAlertSeverity = MAlertSeverity.success,
     closeText: String = "Close",
     onClose: ((Event) -> Unit)? = null,
-    addAsChild: Boolean = true,
-
     className: String? = null,
     handler: StyledHandler<MAlertProps>? = null
-) = createStyled(alertComponentType, addAsChild) {
-    message?.let { +message }
-    attrs.variant = variant
-    attrs.severity = severity
-    attrs.closeText = closeText
-    onClose?.let { attrs.onClose = onClose }
-
-    setStyledPropsAndRunHandler(className, handler)
+) {
+    createStyled(alertComponentType, className, handler) {
+        message?.let { +message }
+        attrs.variant = variant
+        attrs.severity = severity
+        attrs.closeText = closeText
+        onClose?.let { attrs.onClose = onClose }
+    }
 }
 
 fun RBuilder.mAlert(
@@ -63,18 +60,16 @@ fun RBuilder.mAlert(
     severity: MAlertSeverity = MAlertSeverity.success,
     closeText: String = "Close",
     onClose: ((Event) -> Unit)? = null,
-    addAsChild: Boolean = true,
-
     className: String? = null,
     handler: StyledHandler<MAlertProps>? = null
-) = createStyled(alertComponentType, addAsChild) {
-    attrs.variant = variant
-    attrs.severity = severity
-    attrs.closeText = closeText
-    onClose?.let { attrs.onClose = onClose }
+){
+    createStyled(alertComponentType, className, handler) {
+        attrs.variant = variant
+        attrs.severity = severity
+        attrs.closeText = closeText
+        onClose?.let { attrs.onClose = onClose }
 
-    +mAlertTitle(title, false)
-    message?.let { +message }
-
-    setStyledPropsAndRunHandler(className, handler)
+        mAlertTitle(title)
+        message?.let { +message }
+    }
 }

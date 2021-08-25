@@ -25,18 +25,19 @@ external interface MContainerProps : StyledProps {
  * Note: Setting maxWidth to null will disable maxWidth (i.e. pass false to underlying Material UI)
  */
 fun RBuilder.mContainer(
-        maxWidth: Breakpoint? = Breakpoint.lg,
-        fixed: Boolean = false,
-        disableGutters: Boolean = false,
-        component: String = "div",
-
-        className: String? = null,
-        handler: StyledHandler<MContainerProps>? = null) = createStyled(containerComponentType) {
-    attrs.component = component
-    attrs.disableGutters = disableGutters
-    attrs.fixed = fixed
-    attrs.maxWidth = maxWidth?.toString() ?: false
-
-    setStyledPropsAndRunHandler(className, handler)
+    maxWidth: Breakpoint? = Breakpoint.lg,
+    fixed: Boolean = false,
+    disableGutters: Boolean = false,
+    component: String = "div",
+    className: String? = null,
+    handler: StyledHandler<MContainerProps>? = null
+) {
+    createStyled(containerComponentType, className, handler) {
+        attrs.component = component
+        attrs.disableGutters = disableGutters
+        attrs.fixed = fixed
+        attrs.maxWidth = maxWidth?.toString() ?: false
+    }
 }
+
 

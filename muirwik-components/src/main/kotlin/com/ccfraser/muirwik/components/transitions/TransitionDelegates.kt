@@ -1,22 +1,22 @@
 package com.ccfraser.muirwik.components.transitions
 
-import react.RProps
+import react.Props
 import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KProperty
 
 
-class TransitionDurationDelegate : ReadWriteProperty<RProps, TransitionDuration> {
-    override fun getValue(thisRef: RProps, property: KProperty<*>): TransitionDuration {
+class TransitionDurationDelegate : ReadWriteProperty<Props, TransitionDuration> {
+    override fun getValue(thisRef: Props, property: KProperty<*>): TransitionDuration {
         error("transitionDuration cannot be read from props")
     }
 
-    override fun setValue(thisRef: RProps, property: KProperty<*>, value: TransitionDuration) {
+    override fun setValue(thisRef: Props, property: KProperty<*>, value: TransitionDuration) {
         thisRef.asDynamic()[property.name] = value.value()
     }
 }
 
-class TransitionDurationDelegateNullable : ReadWriteProperty<RProps, TransitionDuration?> {
-    override fun getValue(thisRef: RProps, property: KProperty<*>): TransitionDuration? {
+class TransitionDurationDelegateNullable : ReadWriteProperty<Props, TransitionDuration?> {
+    override fun getValue(thisRef: Props, property: KProperty<*>): TransitionDuration? {
 //        val propValue = thisRef.asDynamic()[property.name]
 //        return when (propValue) {
 //            is Number -> SimpleTransitionDuration(propValue)
@@ -27,27 +27,27 @@ class TransitionDurationDelegateNullable : ReadWriteProperty<RProps, TransitionD
         error("transitionDuration cannot be read from props")
     }
 
-    override fun setValue(thisRef: RProps, property: KProperty<*>, value: TransitionDuration?) {
+    override fun setValue(thisRef: Props, property: KProperty<*>, value: TransitionDuration?) {
         thisRef.asDynamic()[property.name] = value?.value()
     }
 }
 
-class TransitionDurationWithAutoDelegate : ReadWriteProperty<RProps, TransitionDurationWithAuto> {
-    override fun getValue(thisRef: RProps, property: KProperty<*>): TransitionDurationWithAuto {
+class TransitionDurationWithAutoDelegate : ReadWriteProperty<Props, TransitionDurationWithAuto> {
+    override fun getValue(thisRef: Props, property: KProperty<*>): TransitionDurationWithAuto {
         error("transitionDuration cannot be read from props")
     }
 
-    override fun setValue(thisRef: RProps, property: KProperty<*>, value: TransitionDurationWithAuto) {
+    override fun setValue(thisRef: Props, property: KProperty<*>, value: TransitionDurationWithAuto) {
         thisRef.asDynamic()[property.name] = value.value()
     }
 }
 
-class TransitionComponentDelegate : ReadWriteProperty<RProps, TransitionComponent?> {
-    override fun getValue(thisRef: RProps, property: KProperty<*>): TransitionComponent? {
+class TransitionComponentDelegate : ReadWriteProperty<Props, TransitionComponent?> {
+    override fun getValue(thisRef: Props, property: KProperty<*>): TransitionComponent? {
         error("transitionComponent cannot be read from props")
     }
 
-    override fun setValue(thisRef: RProps, property: KProperty<*>, value: TransitionComponent?) {
+    override fun setValue(thisRef: Props, property: KProperty<*>, value: TransitionComponent?) {
         // The actual prop name is a component so has an uppercase first letter whereas for kotlin
         // we have kept the convention that props start with lowercase...
         val propName = property.name.first().uppercaseChar() + property.name.substring(1)

@@ -1,7 +1,6 @@
 package com.ccfraser.muirwik.components.table
 
 import com.ccfraser.muirwik.components.createStyled
-import com.ccfraser.muirwik.components.setStyledPropsAndRunHandler
 import react.ComponentType
 import react.RBuilder
 import styled.StyledHandler
@@ -19,10 +18,11 @@ external interface MTableHeadProps : StyledProps {
 }
 
 fun RBuilder.mTableHead(
-        component: String = "thead",
-
-        className: String? = null,
-        handler: StyledHandler<MTableHeadProps>? = null) = createStyled(TableHeadComponentType) {
-    attrs.component = component
-    setStyledPropsAndRunHandler(className, handler)
+    component: String = "thead",
+    className: String? = null,
+    handler: StyledHandler<MTableHeadProps>? = null
+) {
+    createStyled(TableHeadComponentType, className, handler) {
+        attrs.component = component
+    }
 }

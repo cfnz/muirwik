@@ -10,7 +10,7 @@ import react.dom.div
 import styled.css
 
 
-class TestBackdrop : RComponent<RProps, RState>() {
+class TestBackdrop : RComponent<Props, State>() {
     var open = false
 
     override fun RBuilder.render() {
@@ -28,5 +28,3 @@ class TestBackdrop : RComponent<RProps, RState>() {
         }
     }
 }
-
-fun RBuilder.testBackdrop() = child(TestBackdrop::class) {}

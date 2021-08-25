@@ -1,7 +1,6 @@
 package com.ccfraser.muirwik.components.transitions
 
 import com.ccfraser.muirwik.components.createStyled
-import com.ccfraser.muirwik.components.setStyledPropsAndRunHandler
 import react.ComponentType
 import react.RBuilder
 import styled.StyledHandler
@@ -17,15 +16,14 @@ external interface MFadeProps : MTransitionProps
 var MFadeProps.timeout by TransitionDurationDelegate()
 
 fun RBuilder.mFade(
-        show: Boolean = false,
-        timeout: TransitionDuration? = null,
-
-        addAsChild: Boolean = true,
-        className: String? = null,
-        handler: StyledHandler<MFadeProps>? = null) = createStyled(fadeComponentType, addAsChild) {
-    attrs.show = show
-    timeout?.let { attrs.timeout = it }
-
-    setStyledPropsAndRunHandler(className, handler)
+    show: Boolean = false,
+    timeout: TransitionDuration? = null,
+    className: String? = null,
+    handler: StyledHandler<MFadeProps>? = null
+) {
+    createStyled(fadeComponentType, className, handler) {
+        attrs.show = show
+        timeout?.let { attrs.timeout = it }
+    }
 }
 

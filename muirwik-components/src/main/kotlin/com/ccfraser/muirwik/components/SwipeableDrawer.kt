@@ -28,28 +28,27 @@ external interface MSwipeableDrawerProps : MDrawerProps {
 external interface MSwipeAreaProps : StyledProps
 
 fun RBuilder.mSwipeableDrawer(
-        open: Boolean = false,
-        anchor: MDrawerAnchor = MDrawerAnchor.left,
-        variant: MDrawerVariant = MDrawerVariant.temporary,
-        onOpen: ((Event) -> Unit)? = null,
-        onClose: ((Event) -> Unit)? = null,
-        swipeAreaWidth: Number = 20,
-
-        elevation: Int = 16,
-        transitionDuration: TransitionDuration? = null,
-
-        className: String? = null,
-        handler: StyledHandler<MSwipeableDrawerProps>) = createStyled(swipeableDrawerComponentType) {
-    attrs.anchor = anchor
-    attrs.elevation = elevation
-    attrs.swipeAreaWidth = swipeAreaWidth
-    onClose?.let { attrs.onClose = it }
-    attrs.open = open
-    onOpen?.let { attrs.onOpen = it }
-    transitionDuration?.let { attrs.transitionDuration = it }
-    attrs.variant = variant
-
-    setStyledPropsAndRunHandler(className, handler)
+    open: Boolean = false,
+    anchor: MDrawerAnchor = MDrawerAnchor.left,
+    variant: MDrawerVariant = MDrawerVariant.temporary,
+    onOpen: ((Event) -> Unit)? = null,
+    onClose: ((Event) -> Unit)? = null,
+    swipeAreaWidth: Number = 20,
+    elevation: Int = 16,
+    transitionDuration: TransitionDuration? = null,
+    className: String? = null,
+    handler: StyledHandler<MSwipeableDrawerProps>
+) {
+    createStyled(swipeableDrawerComponentType, className, handler) {
+        attrs.anchor = anchor
+        attrs.elevation = elevation
+        attrs.swipeAreaWidth = swipeAreaWidth
+        onClose?.let { attrs.onClose = it }
+        attrs.open = open
+        onOpen?.let { attrs.onOpen = it }
+        transitionDuration?.let { attrs.transitionDuration = it }
+        attrs.variant = variant
+    }
 }
 
 

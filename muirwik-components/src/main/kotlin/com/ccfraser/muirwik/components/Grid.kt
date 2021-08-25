@@ -3,7 +3,7 @@ package com.ccfraser.muirwik.components
 import com.ccfraser.muirwik.components.styles.Breakpoint
 import react.ComponentType
 import react.RBuilder
-import react.RProps
+import react.Props
 import styled.StyledHandler
 import styled.StyledProps
 import kotlin.properties.ReadWriteProperty
@@ -165,8 +165,8 @@ var MGridProps.wrap by EnumPropToString(MGridWrap.values())
 var MGridProps.xl by GridSizeDelegate()
 var MGridProps.xs by GridSizeDelegate()
 
-class GridSizeDelegate : ReadWriteProperty<RProps, MGridSize?> {
-    override fun getValue(thisRef: RProps, property: KProperty<*>): MGridSize? {
+class GridSizeDelegate : ReadWriteProperty<Props, MGridSize?> {
+    override fun getValue(thisRef: Props, property: KProperty<*>): MGridSize? {
         return when (thisRef.asDynamic()[property.name]) {
             null -> null
             undefined -> null
@@ -188,13 +188,13 @@ class GridSizeDelegate : ReadWriteProperty<RProps, MGridSize?> {
         }
     }
 
-    override fun setValue(thisRef: RProps, property: KProperty<*>, value: MGridSize?) {
+    override fun setValue(thisRef: Props, property: KProperty<*>, value: MGridSize?) {
         thisRef.asDynamic()[property.name] = value?.sizeVal
     }
 }
 
-class GridSpacingDelegate : ReadWriteProperty<RProps, MGridSpacing?> {
-    override fun getValue(thisRef: RProps, property: KProperty<*>): MGridSpacing? {
+class GridSpacingDelegate : ReadWriteProperty<Props, MGridSpacing?> {
+    override fun getValue(thisRef: Props, property: KProperty<*>): MGridSpacing? {
         return when (thisRef.asDynamic()[property.name]) {
             null -> null
             undefined -> null
@@ -212,7 +212,7 @@ class GridSpacingDelegate : ReadWriteProperty<RProps, MGridSpacing?> {
         }
     }
 
-    override fun setValue(thisRef: RProps, property: KProperty<*>, value: MGridSpacing?) {
+    override fun setValue(thisRef: Props, property: KProperty<*>, value: MGridSpacing?) {
         thisRef.asDynamic()[property.name] = value?.size
     }
 }
@@ -223,56 +223,60 @@ class GridSpacingDelegate : ReadWriteProperty<RProps, MGridSpacing?> {
  * to add an extra child item.
  */
 fun RBuilder.mGridContainer(
-        spacing: MGridSpacing = MGridSpacing.spacing0,
-        alignContent: MGridAlignContent = MGridAlignContent.stretch,
-        alignItems: MGridAlignItems = MGridAlignItems.stretch,
-        justify: MGridJustify = MGridJustify.flexStart,
-        wrap: MGridWrap = MGridWrap.wrap,
+    spacing: MGridSpacing = MGridSpacing.spacing0,
+    alignContent: MGridAlignContent = MGridAlignContent.stretch,
+    alignItems: MGridAlignItems = MGridAlignItems.stretch,
+    justify: MGridJustify = MGridJustify.flexStart,
+    wrap: MGridWrap = MGridWrap.wrap,
 
-        className: String? = null,
-        handler: StyledHandler<MGridProps>? = null) = createStyled(gridComponentType) {
-    attrs.alignContent = alignContent
-    attrs.alignItems = alignItems
-    attrs.container = true
-    attrs.justify = justify
-    attrs.spacing = spacing
-    attrs.wrap = wrap
-
-    setStyledPropsAndRunHandler(className, handler)
+    className: String? = null,
+    handler: StyledHandler<MGridProps>? = null
+) {
+    createStyled(gridComponentType, className, handler) {
+        attrs.alignContent = alignContent
+        attrs.alignItems = alignItems
+        attrs.container = true
+        attrs.justify = justify
+        attrs.spacing = spacing
+        attrs.wrap = wrap
+    }
 }
 
 fun RBuilder.mGridItem(
-        xs: MGridSize = MGridSize.cellsFalse,
-        sm: MGridSize = MGridSize.cellsFalse,
-        md: MGridSize = MGridSize.cellsFalse,
-        lg: MGridSize = MGridSize.cellsFalse,
-        xl: MGridSize = MGridSize.cellsFalse,
-        zeroMinWidth: Boolean? = null,
+    xs: MGridSize = MGridSize.cellsFalse,
+    sm: MGridSize = MGridSize.cellsFalse,
+    md: MGridSize = MGridSize.cellsFalse,
+    lg: MGridSize = MGridSize.cellsFalse,
+    xl: MGridSize = MGridSize.cellsFalse,
+    zeroMinWidth: Boolean? = null,
 
-        className: String? = null,
-        handler: StyledHandler<MGridProps>? = null) = createStyled(gridComponentType) {
-    attrs.item = true
-    attrs.sm = sm
-    attrs.md = md
-    attrs.lg = lg
-    attrs.xs = xs
-    attrs.xl = xl
-    zeroMinWidth?.let { attrs.zeroMinWidth = it }
-
-    setStyledPropsAndRunHandler(className, handler)
+    className: String? = null,
+    handler: StyledHandler<MGridProps>? = null
+) {
+    createStyled(gridComponentType, className, handler) {
+        attrs.item = true
+        attrs.sm = sm
+        attrs.md = md
+        attrs.lg = lg
+        attrs.xs = xs
+        attrs.xl = xl
+        zeroMinWidth?.let { attrs.zeroMinWidth = it }
+    }
 }
 
 fun RBuilder.mGridItem(
-        breakpoints: MGridBreakpoints,
-        className: String? = null,
-        handler: StyledHandler<MGridProps>? = null) =
+    breakpoints: MGridBreakpoints,
+    className: String? = null,
+    handler: StyledHandler<MGridProps>? = null
+) {
     mGridItem(
-            breakpoints.xs,
-            breakpoints.sm,
-            breakpoints.md,
-            breakpoints.lg,
-            breakpoints.xl,
-            null,
-            className,
-            handler
+        breakpoints.xs,
+        breakpoints.sm,
+        breakpoints.md,
+        breakpoints.lg,
+        breakpoints.xl,
+        null,
+        className,
+        handler
     )
+}

@@ -2,9 +2,9 @@ package com.ccfraser.muirwik.components.form
 
 import com.ccfraser.muirwik.components.StyledPropsWithCommonAttributes
 import com.ccfraser.muirwik.components.createStyled
-import com.ccfraser.muirwik.components.setStyledPropsAndRunHandler
 import react.ComponentType
 import react.RBuilder
+import react.ReactNode
 import styled.StyledHandler
 
 
@@ -25,24 +25,26 @@ external interface MFormLabelProps : StyledPropsWithCommonAttributes {
 }
 
 fun RBuilder.mFormLabel (
-        caption: String,
-        htmlFor: String? = null,
-        required: Boolean? = null,
-        disabled: Boolean? = null,
-        error: Boolean? = null,
-        focused: Boolean? = null,
-        filled: Boolean? = null,
-        component: String = "label",
-        className: String? = null,
-        handler: StyledHandler<MFormLabelProps>? = null) = createStyled(formLabelComponentType) {
-    attrs.component = component
-    disabled?.let { attrs.disabled = it }
-    error?.let { attrs.error = it }
-    filled?.let { attrs.filled = it }
-    focused?.let { attrs.focused = it }
-    htmlFor?.let { attrs.htmlFor = it }
-    required?.let { attrs.required = it }
+    caption: String,
+    htmlFor: String? = null,
+    required: Boolean? = null,
+    disabled: Boolean? = null,
+    error: Boolean? = null,
+    focused: Boolean? = null,
+    filled: Boolean? = null,
+    component: String = "label",
+    className: String? = null,
+    handler: StyledHandler<MFormLabelProps>? = null
+) {
+    createStyled(formLabelComponentType, className, handler) {
+        attrs.component = component
+        disabled?.let { attrs.disabled = it }
+        error?.let { attrs.error = it }
+        filled?.let { attrs.filled = it }
+        focused?.let { attrs.focused = it }
+        htmlFor?.let { attrs.htmlFor = it }
+        required?.let { attrs.required = it }
 
-    childList.add(caption)
-    setStyledPropsAndRunHandler(className,  handler)
+        childList.add(ReactNode(caption))
+    }
 }

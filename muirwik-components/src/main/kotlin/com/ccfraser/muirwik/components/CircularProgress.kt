@@ -38,22 +38,21 @@ var MCircularProgressProps.size: LinearDimension
     }
 
 fun RBuilder.mCircularProgress(
-        value: Double? = null,
-        variant: MCircularProgressVariant = MCircularProgressVariant.indeterminate,
-        size: LinearDimension = 40.px,
-        color: MCircularProgressColor = MCircularProgressColor.primary,
-        thickness: Double = 3.6,
-        disableShrink: Boolean = false,
-
-        className: String? = null,
-        handler: StyledHandler<MCircularProgressProps>? = null) = createStyled(circularProgressComponentType) {
-    attrs.color = color
-    attrs.disableShrink = disableShrink
-    attrs.size = size
-    attrs.thickness = thickness
-    value?.let { attrs.value = it }
-    attrs.variant = variant
-
-    setStyledPropsAndRunHandler(className, handler)
+    value: Double? = null,
+    variant: MCircularProgressVariant = MCircularProgressVariant.indeterminate,
+    size: LinearDimension = 40.px,
+    color: MCircularProgressColor = MCircularProgressColor.primary,
+    thickness: Double = 3.6,
+    disableShrink: Boolean = false,
+    className: String? = null,
+    handler: StyledHandler<MCircularProgressProps>? = null
+) {
+    createStyled(circularProgressComponentType, className, handler) {
+        attrs.color = color
+        attrs.disableShrink = disableShrink
+        attrs.size = size
+        attrs.thickness = thickness
+        value?.let { attrs.value = it }
+        attrs.variant = variant
+    }
 }
-

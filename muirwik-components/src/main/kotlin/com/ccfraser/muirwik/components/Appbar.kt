@@ -2,6 +2,8 @@ package com.ccfraser.muirwik.components
 
 import react.ComponentType
 import react.RBuilder
+import react.dom.WithClassName
+import styled.StyledElementBuilder
 import styled.StyledHandler
 
 @JsModule("@material-ui/core/AppBar")
@@ -24,15 +26,13 @@ var MAppBarProps.color by EnumPropToString(MAppBarColor.values())
 var MAppBarProps.position by EnumPropToString(MAppBarPosition.values())
 
 fun RBuilder.mAppBar(
-        color: MAppBarColor = MAppBarColor.primary,
-        position: MAppBarPosition = MAppBarPosition.fixed,
-
-        className: String? = null,
-        handler: StyledHandler<MAppBarProps>? = null) = createStyled(appBarComponentType) {
-
-    attrs.color = color
-    attrs.position = position
-
-    setStyledPropsAndRunHandler(className, handler)
+    color: MAppBarColor = MAppBarColor.primary,
+    position: MAppBarPosition = MAppBarPosition.fixed,
+    className: String? = null,
+    handler: StyledHandler<MAppBarProps>? = null
+) {
+    createStyled(appBarComponentType, className, handler) {
+        attrs.color = color
+        attrs.position = position
+    }
 }
-

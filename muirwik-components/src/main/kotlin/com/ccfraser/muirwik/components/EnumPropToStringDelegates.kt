@@ -1,6 +1,6 @@
 package com.ccfraser.muirwik.components
 
-import react.RProps
+import react.Props
 import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KProperty
 
@@ -9,11 +9,11 @@ import kotlin.reflect.KProperty
  * but couldn't get it going with nullable, so reverted to the non reified version which needs to pass
  * in the enumValues, and to keep nullable and non null consistent, we are using the non reified version for both.
 class EnumPropToStringR<T> {
-    inline operator fun <reified T : Enum<T>> getValue(thisRef: RProps, property: KProperty<*>): T {
+    inline operator fun <reified T : Enum<T>> getValue(thisRef: Props, property: KProperty<*>): T {
         return enumValueOf(thisRef.asDynamic()[property.name] as String)
     }
 
-    operator fun setValue(thisRef: RProps, property: KProperty<*>, value: T) {
+    operator fun setValue(thisRef: Props, property: KProperty<*>, value: T) {
         thisRef.asDynamic()[property.name] = value.toString()
     }
 }
@@ -36,13 +36,13 @@ class EnumPropToStringR<T> {
  */
 class EnumPropToString<T>(private val enumValues: Array<T>,
                           private val propNameOverride: String? = null,
-                          private val childProp: String? = null) : ReadWriteProperty<RProps, T> {
-    override fun getValue(thisRef: RProps, property: KProperty<*>): T {
+                          private val childProp: String? = null) : ReadWriteProperty<Props, T> {
+    override fun getValue(thisRef: Props, property: KProperty<*>): T {
         val valAsString = valueAsString(property, thisRef, propNameOverride, childProp)
         return enumValues.first { it.toString() == valAsString }
     }
 
-    override fun setValue(thisRef: RProps, property: KProperty<*>, value: T) {
+    override fun setValue(thisRef: Props, property: KProperty<*>, value: T) {
         val propName = propNameOverride ?: property.name
 
         if (childProp == null) {
@@ -61,8 +61,8 @@ class EnumPropToString<T>(private val enumValues: Array<T>,
  */
 class EnumPropToStringNullable<T>(private val enumValues: Array<T>,
                                   private val propNameOverride: String? = null,
-                                  private val childProp: String? = null) : ReadWriteProperty<RProps, T?> {
-    override fun getValue(thisRef: RProps, property: KProperty<*>): T? {
+                                  private val childProp: String? = null) : ReadWriteProperty<Props, T?> {
+    override fun getValue(thisRef: Props, property: KProperty<*>): T? {
         val valAsString = valueAsString(property, thisRef, propNameOverride, childProp)
 
         return if (valAsString != null) {
@@ -72,7 +72,7 @@ class EnumPropToStringNullable<T>(private val enumValues: Array<T>,
         }
     }
 
-    override fun setValue(thisRef: RProps, property: KProperty<*>, value: T?) {
+    override fun setValue(thisRef: Props, property: KProperty<*>, value: T?) {
         val propName = propNameOverride ?: property.name
 
         if (childProp == null) {
@@ -86,7 +86,7 @@ class EnumPropToStringNullable<T>(private val enumValues: Array<T>,
     }
 }
 
-private fun valueAsString(property: KProperty<*>, thisRef: RProps, propNameOverride: String?, childProp: String?): String? {
+private fun valueAsString(property: KProperty<*>, thisRef: Props, propNameOverride: String?, childProp: String?): String? {
     val propName = propNameOverride ?: property.name
 
     return if (childProp == null) {
@@ -112,21 +112,21 @@ private fun valueAsString(property: KProperty<*>, thisRef: RProps, propNameOverr
 
 //class EnumPropToString<T>(private val enumValues: Array<T>,
 //                          private val propNameOverride: String? = null,
-//                          private val childProp: String? = null) : ReadWriteProperty<RProps, T> {
-//    override fun getValue(thisRef: RProps, property: KProperty<*>): T {
+//                          private val childProp: String? = null) : ReadWriteProperty<Props, T> {
+//    override fun getValue(thisRef: Props, property: KProperty<*>): T {
 //        val valAsString = thisRef.asDynamic()[property.name] as String
 //        return enumValues.first { it.toString() == valAsString }
 //    }
 //
-//    override fun setValue(thisRef: RProps, property: KProperty<*>, value: T) {
+//    override fun setValue(thisRef: Props, property: KProperty<*>, value: T) {
 //        thisRef.asDynamic()[property.name] = value.toString()
 //    }
 //}
 
 //class EnumPropToStringNullable<T>(private val enumValues: Array<T>,
 //                                  private val propNameOverride: String? = null,
-//                                  private val childProp: String? = null) : ReadWriteProperty<RProps, T?> {
-//    override fun getValue(thisRef: RProps, property: KProperty<*>): T? {
+//                                  private val childProp: String? = null) : ReadWriteProperty<Props, T?> {
+//    override fun getValue(thisRef: Props, property: KProperty<*>): T? {
 //        val valAsString = thisRef.asDynamic()[property.name] as String?
 //        return if (valAsString != null) {
 //            enumValues.firstOrNull { it.toString() == valAsString }
@@ -135,13 +135,13 @@ private fun valueAsString(property: KProperty<*>, thisRef: RProps, propNameOverr
 //        }
 //    }
 //
-//    override fun setValue(thisRef: RProps, property: KProperty<*>, value: T?) {
+//    override fun setValue(thisRef: Props, property: KProperty<*>, value: T?) {
 //        thisRef.asDynamic()[property.name] = value?.toString()
 //    }
 //}
 //
-//class EnumPropToStringNullableChildProp<T>(private val enumValues: Array<T>, private val propNameOverride: String? = null, private val childProp: String? = null) : ReadWriteProperty<RProps, T?> {
-//    override fun getValue(thisRef: RProps, property: KProperty<*>): T? {
+//class EnumPropToStringNullableChildProp<T>(private val enumValues: Array<T>, private val propNameOverride: String? = null, private val childProp: String? = null) : ReadWriteProperty<Props, T?> {
+//    override fun getValue(thisRef: Props, property: KProperty<*>): T? {
 //        val propName = propNameOverride ?: property.name
 //
 //        val valAsString = if (childProp == null) {
@@ -161,7 +161,7 @@ private fun valueAsString(property: KProperty<*>, thisRef: RProps, propNameOverr
 //        }
 //    }
 //
-//    override fun setValue(thisRef: RProps, property: KProperty<*>, value: T?) {
+//    override fun setValue(thisRef: Props, property: KProperty<*>, value: T?) {
 //        val propName = propNameOverride ?: property.name
 //
 //        if (childProp == null) {

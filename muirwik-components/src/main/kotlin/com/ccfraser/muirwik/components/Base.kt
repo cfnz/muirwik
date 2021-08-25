@@ -2,12 +2,12 @@ package com.ccfraser.muirwik.components
 
 import kotlinext.js.Object
 import kotlinext.js.getOwnPropertyNames
-import kotlinext.js.jsObject
-import kotlinx.css.CSSBuilder
+import kotlinx.css.CssBuilder
 import org.w3c.dom.HTMLInputElement
 import org.w3c.dom.HTMLTextAreaElement
 import org.w3c.dom.events.Event
 import react.*
+import react.dom.WithClassName
 import styled.StyledElementBuilder
 import styled.StyledHandler
 import styled.StyledProps
@@ -15,63 +15,23 @@ import styled.toStyle
 import kotlin.js.Json
 
 
+
 /**
- * Just a one liner to replace a repetitive two liner :-)
+ * This is just a little helper to make the creation of our components shorter and ensure the classname is passed along
  */
-fun <P : StyledProps> StyledElementBuilder<P>.setStyledPropsAndRunHandler(className: String?, handler: StyledHandler<P>?) {
-    className?.let {attrs.className = it}
-    if (handler != null) handler()
+fun <P : WithClassName> RBuilder.createStyled(
+    componentType: ComponentType<P>,
+    className: String? = null,
+    handler: StyledHandler<P>? = null,
+    ourOwnPropsHandler: StyledHandler<P>? = null
+) {
+    child(with(StyledElementBuilder(componentType)) {
+        attrs.className = className
+        if (ourOwnPropsHandler != null) ourOwnPropsHandler(this)
+        if (handler != null) handler(this)
+        create()
+    })
 }
-
-/**
- * Create a child with empty props
- */
-fun <P : RProps, S : RState> RBuilder.child(component: ComponentType<P>, handler: RHandler<P>): ReactElement {
-    val props: P = jsObject {}
-    return child(component, props, handler)
-}
-
-/**
- * This is just a little helper to make the creation of our components shorter, for example
- *
- * ...handler: StyledHandler<MCheckboxProps>? = null) = child(with(StyledElementBuilder<MCheckboxProps>(checkboxComponent)) {
- *      etc
- *      create()
- * })
- *
- * becomes
- *
- * ... handler: StyledHandler<MCheckboxProps>? = null) = createStyled(checkboxComponent) {
- *      etc
- * }
- */
-//fun <P : StyledProps> RBuilder.createStyled(component: RComponent<P, RState>, addAsChild: Boolean = true, handler: StyledHandler<P>): ReactElement {
-//    val builder = StyledElementBuilder<P>(component)
-//    handler(builder)
-//    return if (addAsChild) child(builder.create()) else builder.create()
-//}
-
-fun <P : StyledProps> RBuilder.createStyled(componentType: ComponentType<P>, addAsChild: Boolean = true, handler: StyledHandler<P>): ReactElement {
-    val builder = StyledElementBuilder<P>(componentType)
-    handler(builder)
-    return if (addAsChild) child(builder.create()) else builder.create()
-}
-
-
-/**
- * Helper for creating a styled component from a component class (e.g. MyComponent::class)
- */
-//fun <P : StyledProps> RBuilder.createStyled(componentClass: KClass<out RComponent<P, RState>>, addAsChild: Boolean = true, handler: StyledHandler<P>): ReactElement {
-//    val builder = StyledElementBuilder<P>(componentClass.js)
-//    handler(builder)
-//
-//    val el = if (addAsChild) child(builder.create()) else builder.create()
-//
-//    // For some reason, we seem to need to add the children here whereas in the method above we don't...
-//    el.props.children
-//
-//    return el
-//}
 
 /**
  * Spreads the props passed in to the props of the component.
@@ -87,28 +47,21 @@ fun <P : StyledProps> RBuilder.createStyled(componentType: ComponentType<P>, add
  * Note: if the props contains and prop used in the constructor, the constructor version will get overwritten,
  * i.e. in this example, if the props includes the variant prop, it will overwrite the constructor param.
  */
-fun RElementBuilder<RProps>.spreadProps(props: RProps) {
+fun RElementBuilder<Props>.spreadProps(props: Props) {
     val json: Json = props.asDynamic()
 
     json.getOwnPropertyNames().forEach {
         attrs.asDynamic()[it] = json[it]
     }
 }
-//
-//fun RProps.spreadProps(nprops: RProps) {
-//    val json: Json = nprops.asDynamic()
-//
-//    json.getOwnPropertyNames().forEach {
-//        attrs.asDynamic()[it] = json[it]
-//    }
-//}
+
 
 /**
  * This is only a simple jsObjectToCss converter. So far it can only handle
  * a jsObject that is one layer deep, or two layers if the second layer is a
  * media query (used initially just to convert the currentTheme.mixins.toolbar)
  */
-fun CSSBuilder.toolbarJsCssToPartialCss(jsObject: Object) {
+fun CssBuilder.toolbarJsCssToPartialCss(jsObject: Object) {
     // TODO: Pretty rude and crude for now, if it is a height or width, put px on the end of the value
     fun addSuffix(key: String, value: String): String {
         return if (key.contains("height", true) || key.contains("width", true)) {
@@ -141,11 +94,11 @@ fun CSSBuilder.toolbarJsCssToPartialCss(jsObject: Object) {
 }
 
 
-//class EmptyProps : RProps
-class PropsWithJsStyle(var style: Object?) : RProps
+//class EmptyProps : Props
+class PropsWithJsStyle(var style: Object?) : Props
 
 @Suppress("UNCHECKED_CAST_TO_EXTERNAL_INTERFACE")
-fun CSSBuilder.toJsStyle() = toStyle() as Object
+fun CssBuilder.toJsStyle() = toStyle() as Object
 
 @Suppress("EnumEntryName")
 enum class MAlignment {
@@ -224,7 +177,7 @@ data class HRefOptions(val href: String, val targetBlank: Boolean = true, val ta
 /**
  * See the other [setHRefTargetNoOpener] for more information.
  */
-fun setHRefTargetNoOpener(attrs: RProps, hRefOptions: HRefOptions) {
+fun setHRefTargetNoOpener(attrs: Props, hRefOptions: HRefOptions) {
     setHRefTargetNoOpener(attrs, hRefOptions.href, hRefOptions.targetBlank, hRefOptions.target)
 }
 
@@ -238,7 +191,7 @@ fun setHRefTargetNoOpener(attrs: RProps, hRefOptions: HRefOptions) {
  *
  * This function only takes effect if href is not null.
  */
-fun setHRefTargetNoOpener(attrs: RProps, href: String?, targetBlank: Boolean, target: String?) {
+fun setHRefTargetNoOpener(attrs: Props, href: String?, targetBlank: Boolean, target: String?) {
     href?.let {
         attrs.asDynamic().href = it
 

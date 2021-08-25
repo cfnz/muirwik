@@ -10,7 +10,7 @@ import react.dom.br
 import styled.css
 import styled.styledDiv
 
-class TestTooltips : RComponent<RProps, RState>() {
+class TestTooltips : RComponent<Props, State>() {
 
     override fun RBuilder.render() {
         styledDiv {
@@ -48,5 +48,3 @@ class TestTooltips : RComponent<RProps, RState>() {
         }
     }
 }
-
-fun RBuilder.testTooltips() = child(TestTooltips::class) {}

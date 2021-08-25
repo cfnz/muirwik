@@ -8,7 +8,7 @@ import styled.StyleSheet
 import styled.css
 
 
-class TestLinks : RComponent<RProps, RState>() {
+class TestLinks : RComponent<Props, State>() {
     private object CustomTabStyles : StyleSheet("ComponentStyles", isStatic = true) {
         val linkMargin by css {
             margin(1.spacingUnits)
@@ -28,5 +28,3 @@ class TestLinks : RComponent<RProps, RState>() {
         }
     }
 }
-
-fun RBuilder.testLinks() = child(TestLinks::class) {}

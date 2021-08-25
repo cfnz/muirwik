@@ -24,19 +24,19 @@ external interface MPaperProps : StyledPropsWithCommonAttributes {
 var MPaperProps.variant by EnumPropToString(MPaperVariant.values())
 
 fun RBuilder.mPaper(
-        component: String = "div",
-        elevation: Int = 2,
-        square: Boolean = false,
-        variant: MPaperVariant = MPaperVariant.elevation,
-
-        className: String? = null,
-        handler: StyledHandler<MPaperProps>? = null) = createStyled(paperComponentType) {
-    attrs.component = component
-    attrs.elevation = elevation
-    attrs.square = square
-    attrs.variant = variant
-
-    setStyledPropsAndRunHandler(className, handler)
+    component: String = "div",
+    elevation: Int = 2,
+    square: Boolean = false,
+    variant: MPaperVariant = MPaperVariant.elevation,
+    className: String? = null,
+    handler: StyledHandler<MPaperProps>? = null
+) {
+    createStyled(paperComponentType, className, handler) {
+        attrs.component = component
+        attrs.elevation = elevation
+        attrs.square = square
+        attrs.variant = variant
+    }
 }
 
 
