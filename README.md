@@ -18,7 +18,7 @@ At time of writing using the IR-Compiler with the [Kotlin Wrappers](https://gith
 particularly the  React Wrappers, has some [issues](https://kotlinlang.slack.com/archives/C0B8L3U69/p1585318146030900) 
 (or at least requires some extra code to make things work properly).
 
-These changes have been added to a new branch (IR-Compiler) and have now been merged into master. 
+These changes were added to the IR-Compiler branch, and have now been merged into master. 
 In other words, the master branch now works with the IR Compiler and with the Legacy compiler, so the IR branch is now no longer needed.
 
 At time of writing, the IR compiler is still alpha and does not yet support incremental compilation. 
@@ -47,7 +47,7 @@ repositories {
 dependencies {
     ...
     implementation("org.jetbrains", "kotlin-styled", "5.3.0-$kotlinJsVersion")
-    implementation("com.ccfraser.muirwik:muirwik-components:0.8.2")
+    implementation("com.ccfraser.muirwik:muirwik-components:0.9.0")
 }
 ```
 

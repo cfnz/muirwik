@@ -13,8 +13,8 @@ repositories {
 }
 
 dependencies {
-    val kotlinVersion = "1.5.21"
-    val kotlinJsVersion = "pre.231-kotlin-$kotlinVersion"
+    val kotlinVersion = "1.5.30"
+    val kotlinJsVersion = "pre.236-kotlin-$kotlinVersion"
     val kotlinReactVersion = "17.0.2-$kotlinJsVersion"
 
     implementation(kotlin("stdlib-js", kotlinVersion))
