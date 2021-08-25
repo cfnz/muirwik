@@ -160,7 +160,7 @@ class TestTextFields : RComponent<Props, TestTextFieldsState>() {
 
             mTextField(label = "Adornment", variant = variant) {
                 css(textField)
-                val adornment = mInputAdornment { +"Kg" }
+                val adornment = buildElement { mInputAdornment { +"Kg" } }
                 attrs.inputProps = jsObject { this.asDynamic().startAdornment = adornment }
             }
         }
