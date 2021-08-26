@@ -1,7 +1,7 @@
 import kotlin.math.min
 
 group = "com.ccfraser.muirwik"
-version = "0.9.0"
+version = "0.9.1"
 description = "Test Application for Muirwik (a Material UI React wrapper written in Kotlin)"
 
 plugins {

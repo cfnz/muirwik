@@ -13,7 +13,7 @@ import styled.StyledHandler
 import styled.StyledProps
 import styled.toStyle
 import kotlin.js.Json
-
+import kotlin.reflect.KClass
 
 
 /**
@@ -32,6 +32,16 @@ fun <P : WithClassName> RBuilder.createStyled(
         create()
     })
 }
+
+fun <P : StyledProps> RBuilder.createStyled(
+    componentClass: KClass<out RComponent<P, State>>,
+    className: String? = null,
+    handler: StyledHandler<P>? = null,
+    ourOwnPropsHandler: StyledHandler<P>? = null
+) {
+    createStyled(componentClass.js.unsafeCast<ComponentType<P>>(), className, handler, ourOwnPropsHandler)
+}
+
 
 /**
  * Spreads the props passed in to the props of the component.
@@ -211,7 +221,7 @@ fun setHRefTargetNoOpener(attrs: Props, href: String?, targetBlank: Boolean, tar
 typealias SimpleEvent = () -> Unit
 
 /**
- * Type type often used on the Component prop which should be a String or a Component... since we don't have
+ * Type often used on the Component prop which should be a String or a Component... since we don't have
  * union types, we will use Any for now.
  */
 typealias ElementType = Any
