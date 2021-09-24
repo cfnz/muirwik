@@ -7,7 +7,6 @@ import org.w3c.dom.HTMLInputElement
 import org.w3c.dom.HTMLTextAreaElement
 import org.w3c.dom.events.Event
 import react.*
-import react.dom.WithClassName
 import styled.StyledElementBuilder
 import styled.StyledHandler
 import styled.StyledProps
@@ -19,7 +18,7 @@ import kotlin.reflect.KClass
 /**
  * This is just a little helper to make the creation of our components shorter and ensure the classname is passed along
  */
-fun <P : WithClassName> RBuilder.createStyled(
+fun <P : PropsWithClassName> RBuilder.createStyled(
     componentType: ComponentType<P>,
     className: String? = null,
     handler: StyledHandler<P>? = null,

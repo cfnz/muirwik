@@ -2,8 +2,6 @@ package com.ccfraser.muirwik.components
 
 import react.ComponentType
 import react.RBuilder
-import react.dom.WithClassName
-import styled.StyledElementBuilder
 import styled.StyledHandler
 
 @JsModule("@material-ui/core/AppBar")
