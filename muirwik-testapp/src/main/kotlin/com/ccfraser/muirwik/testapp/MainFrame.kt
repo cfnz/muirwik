@@ -1,6 +1,7 @@
 package com.ccfraser.muirwik.testapp
 
 import com.ccfraser.muirwik.components.*
+import com.ccfraser.muirwik.components.button.MIconButtonColor
 import com.ccfraser.muirwik.components.button.mIconButton
 import com.ccfraser.muirwik.components.list.mList
 import com.ccfraser.muirwik.components.list.mListItem
@@ -59,7 +60,7 @@ class MainFrame(props: MainFrameProps) : RComponent<MainFrameProps, MainFrameSta
                         }
                         mToolbar {
                             mHidden(mdUp = true, implementation = MHiddenImplementation.css) {
-                                mIconButton("menu", color = MColor.inherit, onClick = { setState { responsiveDrawerOpen = true }})
+                                mIconButton("menu", color = MIconButtonColor.inherit, onClick = { setState { responsiveDrawerOpen = true }})
                             }
                             mToolbarTitle("Muirwik - Material-UI React Wrapper in Kotlin - Demo (or play) Area - ${ state.page.title }")
                             mIconButton("lightbulb_outline", onClick = {
@@ -174,7 +175,7 @@ fun RBuilder.spacer() {
 enum class Page(val title: String, val kClass: KClass<out RComponent<Props, out State>>?, val fc: FC<Props>? = null){
     Intro("Intro", TestIntro::class),
     Accordion("Accordion", TestAccordion::class),
-    Alert("Alert",  TestLabAlert::class),
+    Alert("Alert",  TestAlert::class),
     AppBar("App Bar", TestAppBar::class),
     AutoComplete("Auto Complete", null, testAutoComplete),
     Avatars("Avatars", TestAvatars::class),
@@ -192,7 +193,7 @@ enum class Page(val title: String, val kClass: KClass<out RComponent<Props, out 
     ErrorBoundary("Error Boundary", TestErrorBoundary::class),
 //    Grids("Grids", TestGrids::class),
     GridAndBreakpoints("Grid & Breakpoints", null, testGridsAndBreakpoints),
-    GridLists("Grid Lists", TestGridLists::class),
+    ImageLists("Image Lists", TestImageLists::class),
     Links("Links", TestLinks::class),
     Lists("Lists", TestLists::class),
     Localization("Localization", TestLocalization::class),

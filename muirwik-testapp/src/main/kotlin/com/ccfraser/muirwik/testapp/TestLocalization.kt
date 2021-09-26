@@ -6,7 +6,7 @@ import com.ccfraser.muirwik.components.mTextFieldSelect
 import com.ccfraser.muirwik.components.mThemeProvider
 import com.ccfraser.muirwik.components.menu.mMenuItem
 import com.ccfraser.muirwik.components.styles.Theme
-import com.ccfraser.muirwik.components.styles.createMuiTheme
+import com.ccfraser.muirwik.components.styles.createTheme
 import com.ccfraser.muirwik.components.table.mTablePagination
 import com.ccfraser.muirwik.components.targetValue
 import kotlinx.css.Display
@@ -19,7 +19,7 @@ class TestLocalization : RComponent<Props, State>() {
     var locale = "enUS"
 
     override fun RBuilder.render() {
-        val theme: Theme = createMuiTheme(null, Locales.findByKey(locale))
+        val theme: Theme = createTheme(null, Locales.findByKey(locale))
 
         styledDiv {
             css {

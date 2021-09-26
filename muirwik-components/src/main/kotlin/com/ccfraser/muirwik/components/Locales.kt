@@ -2,7 +2,7 @@ package com.ccfraser.muirwik.components
 
 import kotlinext.js.Object
 
-@JsModule("@material-ui/core/locale")
+@JsModule("@mui/material/locale")
 private external val localeModule: dynamic
 
 object Locales {
@@ -12,7 +12,7 @@ object Locales {
     fun keys() = Object.keys(localeModule as Any)
 
     /**
-     * Returns a Locale which can be passed as the last parameter to [createMuiTheme][com.ccfraser.muirwik.components.styles.createMuiTheme]
+     * Returns a Locale which can be passed as the last parameter to [createMuiTheme][com.ccfraser.muirwik.components.styles.createTheme]
      */
     fun findByKey(key: String) = localeModule[key]
 }

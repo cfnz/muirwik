@@ -8,7 +8,7 @@ import react.ComponentType
 import react.RBuilder
 import styled.StyledHandler
 
-@JsModule("@material-ui/core/Backdrop")
+@JsModule("@mui/material/Backdrop")
 private external val backdropModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")

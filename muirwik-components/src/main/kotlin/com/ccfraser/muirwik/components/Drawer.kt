@@ -10,7 +10,7 @@ import react.Props
 import styled.StyledHandler
 
 
-@JsModule("@material-ui/core/Drawer")
+@JsModule("@mui/material/Drawer")
 private external val drawerModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")

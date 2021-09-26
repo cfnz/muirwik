@@ -8,7 +8,7 @@ import react.RBuilder
 import styled.StyledHandler
 
 
-@JsModule("@material-ui/core/Input")
+@JsModule("@mui/material/Input")
 private external val inputModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")

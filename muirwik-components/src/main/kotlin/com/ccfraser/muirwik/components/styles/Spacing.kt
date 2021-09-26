@@ -6,13 +6,13 @@ package com.ccfraser.muirwik.components.styles
 external interface Spacing
 
 @Suppress("NOTHING_TO_INLINE")
-inline operator fun Spacing.invoke(): Number {
-    return asDynamic()() as Number
+inline operator fun Spacing.invoke(): String {
+    return asDynamic()() as String
 }
 
 @Suppress("NOTHING_TO_INLINE")
-inline operator fun Spacing.invoke(value1: Number): Number {
-    return asDynamic()(value1) as Number
+inline operator fun Spacing.invoke(value1: Number): String {
+    return asDynamic()(value1) as String
 }
 
 @Suppress("NOTHING_TO_INLINE")

@@ -6,7 +6,7 @@ import react.RBuilder
 import styled.StyledHandler
 
 
-@JsModule("@material-ui/core/TextareaAutosize")
+@JsModule("@mui/material/TextareaAutosize")
 private external val textAreaAutosizeDefault: dynamic
 
 @Suppress("UnsafeCastFromDynamic")

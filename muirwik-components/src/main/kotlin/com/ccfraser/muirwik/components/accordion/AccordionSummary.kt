@@ -8,7 +8,7 @@ import react.Props
 import react.ReactElement
 import styled.StyledHandler
 
-@JsModule("@material-ui/core/AccordionSummary")
+@JsModule("@mui/material/AccordionSummary")
 private external val accordionSummaryModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")

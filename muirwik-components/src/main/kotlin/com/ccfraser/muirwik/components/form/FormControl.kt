@@ -9,7 +9,7 @@ import react.RBuilder
 import styled.StyledHandler
 
 
-@JsModule("@material-ui/core/FormControl")
+@JsModule("@mui/material/FormControl")
 private external val formControlModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")

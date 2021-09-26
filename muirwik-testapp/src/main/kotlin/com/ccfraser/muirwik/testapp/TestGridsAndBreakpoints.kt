@@ -22,7 +22,7 @@ private object TestGridsAndBreakpointsStyles : StyleSheet("TestGridsAndBreakpoin
     }
 
     val paper by css {
-        padding(theme.spacing(2).px)
+        padding(LinearDimension(theme.spacing(2)))
         textAlign = TextAlign.center
         color = Color(theme.palette.text.secondary)
     }

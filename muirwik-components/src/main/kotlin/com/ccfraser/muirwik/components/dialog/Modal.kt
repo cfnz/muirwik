@@ -8,7 +8,7 @@ import react.Props
 import react.ReactElement
 
 
-@JsModule("@material-ui/core/Dialog")
+@JsModule("@mui/material/Dialog")
 private external val dialogModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")

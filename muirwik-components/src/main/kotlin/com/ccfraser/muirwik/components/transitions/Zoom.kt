@@ -6,7 +6,7 @@ import react.RBuilder
 import styled.StyledHandler
 
 
-@JsModule("@material-ui/core/Zoom")
+@JsModule("@mui/material/Zoom")
 private external val zoomModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")

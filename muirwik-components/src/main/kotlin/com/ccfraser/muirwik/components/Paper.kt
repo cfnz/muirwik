@@ -5,7 +5,7 @@ import react.RBuilder
 import styled.StyledHandler
 
 
-@JsModule("@material-ui/core/Paper")
+@JsModule("@mui/material/Paper")
 private external val paperModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")

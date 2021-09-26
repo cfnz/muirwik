@@ -5,7 +5,7 @@ import react.RBuilder
 import react.Props
 import styled.StyledHandler
 
-@JsModule("@material-ui/core/Avatar")
+@JsModule("@mui/material/Avatar")
 private external val avatarModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")

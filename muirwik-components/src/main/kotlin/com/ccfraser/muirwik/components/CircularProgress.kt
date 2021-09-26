@@ -8,7 +8,7 @@ import styled.StyledHandler
 import styled.StyledProps
 
 
-@JsModule("@material-ui/core/CircularProgress")
+@JsModule("@mui/material/CircularProgress")
 private external val circularProgressModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")

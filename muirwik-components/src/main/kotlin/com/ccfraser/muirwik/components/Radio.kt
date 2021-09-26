@@ -10,7 +10,7 @@ import react.*
 import styled.StyledHandler
 
 
-@JsModule("@material-ui/core/Radio")
+@JsModule("@mui/material/Radio")
 private external val radioModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")
@@ -82,7 +82,7 @@ fun RBuilder.mRadioWithLabel(
 }
 
 
-@JsModule("@material-ui/core/RadioGroup")
+@JsModule("@mui/material/RadioGroup")
 private external val radioGroupModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")

@@ -8,7 +8,7 @@ import react.RBuilder
 import styled.StyledHandler
 
 
-@JsModule("@material-ui/core/OutlinedInput")
+@JsModule("@mui/material/OutlinedInput")
 private external val outlinedInputModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")

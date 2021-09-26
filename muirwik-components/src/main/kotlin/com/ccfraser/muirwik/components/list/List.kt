@@ -10,7 +10,7 @@ import react.buildElement
 import styled.StyledHandler
 
 
-@JsModule("@material-ui/core/List")
+@JsModule("@mui/material/List")
 private external val listModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")

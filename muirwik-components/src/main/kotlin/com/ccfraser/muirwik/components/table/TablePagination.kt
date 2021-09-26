@@ -11,7 +11,7 @@ import react.RBuilder
 import styled.StyledHandler
 
 
-@JsModule("@material-ui/core/TablePagination")
+@JsModule("@mui/material/TablePagination")
 private external val tablePaginationModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")

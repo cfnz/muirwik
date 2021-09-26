@@ -7,7 +7,7 @@ import react.ComponentType
 import react.RBuilder
 import styled.StyledHandler
 
-@JsModule("@material-ui/core/ListItemIcon")
+@JsModule("@mui/material/ListItemIcon")
 private external val listItemIconModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")

@@ -6,7 +6,7 @@ import react.RBuilder
 import styled.StyledHandler
 
 
-@JsModule("@material-ui/core/Grow")
+@JsModule("@mui/material/Grow")
 private external val growModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")

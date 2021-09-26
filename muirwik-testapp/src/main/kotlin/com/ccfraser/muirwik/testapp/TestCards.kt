@@ -1,6 +1,7 @@
 package com.ccfraser.muirwik.testapp
 
 import com.ccfraser.muirwik.components.*
+import com.ccfraser.muirwik.components.button.MButtonColor
 import com.ccfraser.muirwik.components.button.MButtonSize
 import com.ccfraser.muirwik.components.button.mButton
 import com.ccfraser.muirwik.components.button.mIconButton
@@ -79,8 +80,8 @@ class TestCards : RComponent<Props, State>() {
                             }
                         }
                         mCardActions {
-                            mButton("Share", MColor.primary, size = MButtonSize.small)
-                            mButton("Learn More", MColor.primary, size = MButtonSize.small)
+                            mButton("Share", MButtonColor.primary, size = MButtonSize.small)
+                            mButton("Learn More", MButtonColor.primary, size = MButtonSize.small)
                         }
                     }
                 }

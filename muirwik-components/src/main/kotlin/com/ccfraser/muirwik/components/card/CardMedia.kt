@@ -6,7 +6,7 @@ import react.RBuilder
 import styled.StyledHandler
 import styled.StyledProps
 
-@JsModule("@material-ui/core/CardMedia")
+@JsModule("@mui/material/CardMedia")
 private external val cardMediaModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")

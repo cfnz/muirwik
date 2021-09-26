@@ -6,7 +6,7 @@ import react.ReactElement
 import styled.StyledHandler
 
 
-@JsModule("@material-ui/core/Breadcrumbs")
+@JsModule("@mui/material/Breadcrumbs")
 private external val breadcrumbsModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")

@@ -8,7 +8,7 @@ import react.RBuilder
 import styled.StyledHandler
 
 
-@JsModule("@material-ui/core/CardActionArea")
+@JsModule("@mui/material/CardActionArea")
 private external val cardActionAreaModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")

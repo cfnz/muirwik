@@ -175,8 +175,8 @@ class TestSnackbar : RComponent<Props, State>() {
 
     fun buildAction() = buildElement {
         div {
-            mButton("UNDO", color = MColor.secondary, variant = MButtonVariant.text, size = MButtonSize.small, onClick = { closeAll() })
-            mIconButton("close", onClick = { closeAll() }, color = MColor.inherit)
+            mButton("UNDO", color = MButtonColor.secondary, variant = MButtonVariant.text, size = MButtonSize.small, onClick = { closeAll() })
+            mIconButton("close", onClick = { closeAll() }, color = MIconButtonColor.inherit)
         }
     }
 

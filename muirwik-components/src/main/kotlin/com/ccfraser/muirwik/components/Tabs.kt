@@ -10,7 +10,7 @@ import styled.StyledHandler
 import styled.StyledProps
 
 
-@JsModule("@material-ui/core/Tabs")
+@JsModule("@mui/material/Tabs")
 private external val tabsModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")
@@ -94,7 +94,7 @@ fun RBuilder.mTabs(
 }
 
 
-@JsModule("@material-ui/core/Tab")
+@JsModule("@mui/material/Tab")
 private external val tabModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")

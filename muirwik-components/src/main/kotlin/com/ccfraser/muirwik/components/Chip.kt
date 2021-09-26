@@ -8,7 +8,7 @@ import react.ReactElement
 import styled.StyledHandler
 
 
-@JsModule("@material-ui/core/Chip")
+@JsModule("@mui/material/Chip")
 private external val chipModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")

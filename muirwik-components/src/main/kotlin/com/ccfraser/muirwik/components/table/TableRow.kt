@@ -8,7 +8,7 @@ import react.RBuilder
 import styled.StyledHandler
 
 
-@JsModule("@material-ui/core/TableRow")
+@JsModule("@mui/material/TableRow")
 private external val tableRowModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")

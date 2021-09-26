@@ -9,7 +9,7 @@ import react.ReactNode
 import styled.StyledHandler
 
 
-@JsModule("@material-ui/core/Button")
+@JsModule("@mui/material/Button")
 private external val buttonModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")
@@ -24,8 +24,14 @@ external interface MButtonProps : MButtonBaseProps {
     var href: String
     var startIcon: ReactElement
 }
+
+@Suppress("EnumEntryName")
+enum class MButtonColor {
+    inherit, primary, secondary, success, error, info, warning
+}
+
 //var MButtonProps.color by EnumPropToStringNullable(MColor.values())
-var MButtonProps.color by EnumPropToString(MColor.values())
+var MButtonProps.color by EnumPropToString(MButtonColor.values())
 var MButtonProps.size by EnumPropToString(MButtonSize.values())
 var MButtonProps.variant by EnumPropToStringNullable(MButtonVariant.values())
 
@@ -35,7 +41,7 @@ var MButtonProps.variant by EnumPropToStringNullable(MButtonVariant.values())
 //to fix the issue and does not cause any issues
 fun RBuilder.mButton(
     caption: String,
-    color: MColor = MColor.default,
+    color: MButtonColor = MButtonColor.primary,
     variant: MButtonVariant? = null,
     disabled: Boolean = false,
     onClick: ((Event) -> Unit)? = null,

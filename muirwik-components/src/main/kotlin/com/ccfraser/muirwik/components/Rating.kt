@@ -1,8 +1,5 @@
-package com.ccfraser.muirwik.components.lab
+package com.ccfraser.muirwik.components
 
-import com.ccfraser.muirwik.components.EnumPropToString
-import com.ccfraser.muirwik.components.StyledPropsWithCommonAttributes
-import com.ccfraser.muirwik.components.createStyled
 import kotlinext.js.Object
 import react.ComponentType
 import react.FunctionComponent
@@ -10,7 +7,7 @@ import react.RBuilder
 import react.ReactElement
 import styled.StyledHandler
 
-@JsModule("@material-ui/lab/Rating")
+@JsModule("@mui/material/Rating")
 private external val ratingModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")

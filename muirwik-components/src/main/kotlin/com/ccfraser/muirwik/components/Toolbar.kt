@@ -9,7 +9,7 @@ import styled.StyledProps
 import styled.css
 
 
-@JsModule("@material-ui/core/Toolbar")
+@JsModule("@mui/material/Toolbar")
 private external val toolbarModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")

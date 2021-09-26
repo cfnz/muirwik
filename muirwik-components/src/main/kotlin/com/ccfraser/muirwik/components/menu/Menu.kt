@@ -11,7 +11,7 @@ import react.RBuilder
 import styled.StyledHandler
 
 
-@JsModule("@material-ui/core/Menu")
+@JsModule("@mui/material/Menu")
 private external val menuModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")

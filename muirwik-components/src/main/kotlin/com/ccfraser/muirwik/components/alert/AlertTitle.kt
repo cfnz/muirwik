@@ -1,4 +1,4 @@
-package com.ccfraser.muirwik.components.lab.alert
+package com.ccfraser.muirwik.components.alert
 
 import com.ccfraser.muirwik.components.createStyled
 import react.ComponentType
@@ -6,7 +6,7 @@ import react.RBuilder
 import styled.StyledHandler
 import styled.StyledProps
 
-@JsModule("@material-ui/lab/AlertTitle")
+@JsModule("@mui/material/AlertTitle")
 private external val alertTitleModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")

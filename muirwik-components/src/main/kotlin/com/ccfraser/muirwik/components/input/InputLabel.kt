@@ -12,7 +12,7 @@ import react.ReactNode
 import styled.StyledHandler
 
 
-@JsModule("@material-ui/core/InputLabel")
+@JsModule("@mui/material/InputLabel")
 private external val inputLabelModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")

@@ -1,5 +1,5 @@
 group = "com.ccfraser.muirwik"
-version = "0.9.2"
+version = "0.10.0"
 description = "Muirwik Components - a Material UI React wrapper written in Kotlin"
 
 plugins {
@@ -22,10 +22,23 @@ dependencies {
     implementation("org.jetbrains.kotlin-wrappers", "kotlin-react-dom", kotlinReactVersion)
     implementation("org.jetbrains.kotlin-wrappers", "kotlin-styled", "5.3.1-$kotlinJsVersion")
 
-    implementation(npm("@material-ui/core", "4.11.4"))
-    implementation(npm("@material-ui/lab", "4.0.0-alpha.57"))
-    implementation(npm("@material-ui/icons", "4.11.2"))
+    implementation(npm("@mui/material", "5.0.1"))
+    implementation(npm("@mui/icons-material", "5.0.1"))
+    implementation(npm("styled-components", "5.3.1"))
+    implementation(npm("@mui/styled-engine-sc", "5.0.0"))
+    implementation(npm("@mui/styled-engine", "npm:@mui/styled-engine-sc@5.0.0"))
+
+    // This is for legacy styling
+    implementation(npm("@mui/styles", "5.0.1"))
+
+    implementation(npm("@emotion/react", "11.4.1"))
+    implementation(npm("@emotion/styled","11.3.0"))
+    implementation(npm("@mui/lab", "5.0.0-alpha.48"))
+
+    implementation(devNpm("customize-cra", "latest"))
 }
+
+
 
 kotlin {
     // Everything should now work with the IR compiler. However, at time of writing, the IR compiler is still
@@ -33,9 +46,14 @@ kotlin {
     // purposes, the Legacy compiler is more productive.
     // For releases, we will try and use BOTH
 //    js(IR) {
-    js(BOTH) {
-//    js(LEGACY) {
+//    js(BOTH) {
+    js(LEGACY) {
         useCommonJs()
+
+        compilations["main"].packageJson {
+            customField("resolutions", mapOf("@mui/styled-engine" to "npm:@mui/styled-engine-sc@5.0.0"))
+        }
+
         browser {
             commonWebpackConfig {
                 cssSupport.enabled = true

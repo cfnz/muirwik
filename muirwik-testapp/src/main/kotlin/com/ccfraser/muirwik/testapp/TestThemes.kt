@@ -6,7 +6,7 @@ import com.ccfraser.muirwik.components.mThemeProvider
 import com.ccfraser.muirwik.components.mTypography
 import com.ccfraser.muirwik.components.styles.Theme
 import com.ccfraser.muirwik.components.styles.ThemeOptions
-import com.ccfraser.muirwik.components.styles.createMuiTheme
+import com.ccfraser.muirwik.components.styles.createTheme
 import kotlinx.css.Color
 import kotlinx.css.backgroundColor
 import react.*
@@ -23,7 +23,7 @@ class TestThemes : RComponent<Props, State>() {
         themeOptions.palette?.type = themeColor
 
         // Create a new theme with the default colours (darker primary colours than the demo)
-        val theme: Theme = createMuiTheme(themeOptions)
+        val theme: Theme = createTheme(themeOptions)
 
         mThemeProvider(theme) {
             styledDiv {
@@ -39,7 +39,7 @@ class TestThemes : RComponent<Props, State>() {
                 theme2Options.palette?.type = themeColor
                 theme2Options.palette?.primary.main = Colors.Blue.shade200.toString()
 
-                mThemeProvider(createMuiTheme(theme2Options)) {
+                mThemeProvider(createTheme(theme2Options)) {
                     testThemesComponentFunctional()
                 }
 

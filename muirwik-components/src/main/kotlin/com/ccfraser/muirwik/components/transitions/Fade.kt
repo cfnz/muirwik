@@ -6,7 +6,7 @@ import react.RBuilder
 import styled.StyledHandler
 
 
-@JsModule("@material-ui/core/Fade")
+@JsModule("@mui/material/Fade")
 private external val fadeModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")

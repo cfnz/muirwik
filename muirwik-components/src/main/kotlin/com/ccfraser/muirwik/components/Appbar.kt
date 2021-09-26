@@ -4,7 +4,7 @@ import react.ComponentType
 import react.RBuilder
 import styled.StyledHandler
 
-@JsModule("@material-ui/core/AppBar")
+@JsModule("@mui/material/AppBar")
 private external val appBarModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")

@@ -9,7 +9,7 @@ import react.Props
 import react.RBuilder
 import styled.StyledHandler
 
-@JsModule("@material-ui/core/Accordion")
+@JsModule("@mui/material/Accordion")
 private external val accordionModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")

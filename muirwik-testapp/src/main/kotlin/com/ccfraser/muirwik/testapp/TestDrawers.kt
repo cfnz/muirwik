@@ -1,6 +1,7 @@
 package com.ccfraser.muirwik.testapp
 
 import com.ccfraser.muirwik.components.*
+import com.ccfraser.muirwik.components.button.MIconButtonColor
 import com.ccfraser.muirwik.components.button.mButton
 import com.ccfraser.muirwik.components.button.mIconButton
 import com.ccfraser.muirwik.components.list.mList
@@ -181,7 +182,7 @@ class TestDrawers : RComponent<Props, State>() {
 
                         mToolbar(disableGutters = !slideOutDrawerOpen) {
                             if (!slideOutDrawerOpen) {
-                                mIconButton("menu", color = MColor.inherit, onClick = { setState { slideOutDrawerOpen = true } })
+                                mIconButton("menu", color = MIconButtonColor.inherit, onClick = { setState { slideOutDrawerOpen = true } })
                             }
                             mToolbarTitle("Persistent drawer - Slideout Nav")
                         }
@@ -226,7 +227,7 @@ class TestDrawers : RComponent<Props, State>() {
                         }
                         mToolbar(disableGutters = !miniDrawerOpen) {
                             if (!miniDrawerOpen) {
-                                mIconButton("menu", color = MColor.inherit, onClick = { setState { miniDrawerOpen = true } })
+                                mIconButton("menu", color = MIconButtonColor.inherit, onClick = { setState { miniDrawerOpen = true } })
                             }
                             mToolbarTitle("Mini drawer")
                         }
@@ -286,7 +287,7 @@ class TestDrawers : RComponent<Props, State>() {
                         }
                         mToolbar {
                             mHidden(mdUp = true, implementation = MHiddenImplementation.css) {
-                                mIconButton("menu", color = MColor.inherit, onClick = { setState { responsiveDrawerOpen = true } })
+                                mIconButton("menu", color = MIconButtonColor.inherit, onClick = { setState { responsiveDrawerOpen = true } })
                             }
                             mToolbarTitle("Responsive Drawer")
                         }

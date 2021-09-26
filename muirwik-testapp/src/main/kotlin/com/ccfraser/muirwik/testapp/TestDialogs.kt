@@ -1,9 +1,7 @@
 package com.ccfraser.muirwik.testapp
 
 import com.ccfraser.muirwik.components.*
-import com.ccfraser.muirwik.components.button.MButtonVariant
-import com.ccfraser.muirwik.components.button.mButton
-import com.ccfraser.muirwik.components.button.mIconButton
+import com.ccfraser.muirwik.components.button.*
 import com.ccfraser.muirwik.components.dialog.*
 import com.ccfraser.muirwik.components.form.MFormControlMargin
 import com.ccfraser.muirwik.components.list.*
@@ -164,8 +162,8 @@ class TestDialogs : RComponent<Props, State>() {
                 mDialogContentText("Let Google help apps determine location. This means sending anonymous location data to Google, even when no apps are running.")
             }
             mDialogActions {
-                mButton("Disagree", MColor.primary, onClick = { closeAlertDialog() })
-                mButton("Agree", MColor.primary, onClick = { closeAlertDialog() })
+                mButton("Disagree", onClick = { closeAlertDialog() })
+                mButton("Agree", onClick = { closeAlertDialog() })
             }
         }
     }
@@ -188,11 +186,11 @@ class TestDialogs : RComponent<Props, State>() {
                 }
             }
             mDialogActions {
-                mButton("Cancel", color = MColor.primary, onClick = { setState {
+                mButton("Cancel", onClick = { setState {
                     confirmationDialogOpen = false
                     confirmationDialogScrollOpen = false
                 }})
-                mButton("Ok", color = MColor.primary, onClick = { setState {
+                mButton("Ok", onClick = { setState {
                     confirmationDialogSelectedValue = confirmationDialogValue;
                     confirmationDialogOpen = false
                     confirmationDialogScrollOpen = false
@@ -211,9 +209,9 @@ class TestDialogs : RComponent<Props, State>() {
                     position = Position.relative
                 }
                 mToolbar {
-                    mIconButton(iconName = "close", color = MColor.inherit, iconColor = MIconColor.inherit, onClick = { handleClose() })
+                    mIconButton(iconName = "close", color = MIconButtonColor.inherit, iconColor = MIconColor.inherit, onClick = { handleClose() })
                     mToolbarTitle("Sound")
-                    mButton("save", variant = MButtonVariant.text, color = MColor.inherit, onClick = { handleClose() })
+                    mButton("save", variant = MButtonVariant.text, color = MButtonColor.inherit, onClick = { handleClose() })
                 }
             }
             mListItem(primaryText = "Phone ringtone", secondaryText = "Titania", divider = true)
@@ -232,8 +230,8 @@ class TestDialogs : RComponent<Props, State>() {
                 mTextField("Email Address", autoFocus = true, margin = MFormControlMargin.dense, type = InputType.email, fullWidth = true)
             }
             mDialogActions {
-                mButton("Cancel", color = MColor.primary, onClick = { handleClose() }, variant = MButtonVariant.text)
-                mButton("Subscribe", color = MColor.primary, onClick = { handleClose() }, variant = MButtonVariant.text)
+                mButton("Cancel", onClick = { handleClose() }, variant = MButtonVariant.text)
+                mButton("Subscribe", onClick = { handleClose() }, variant = MButtonVariant.text)
             }
         }
     }

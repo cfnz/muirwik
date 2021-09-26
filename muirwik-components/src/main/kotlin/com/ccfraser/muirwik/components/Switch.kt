@@ -9,7 +9,7 @@ import react.*
 import styled.StyledHandler
 
 
-@JsModule("@material-ui/core/Switch")
+@JsModule("@mui/material/Switch")
 private external val switchDefault: dynamic
 
 @Suppress("UnsafeCastFromDynamic")

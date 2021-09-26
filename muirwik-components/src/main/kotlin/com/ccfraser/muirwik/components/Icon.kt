@@ -7,7 +7,7 @@ import styled.StyledHandler
 import styled.StyledProps
 
 
-@JsModule("@material-ui/core/Icon")
+@JsModule("@mui/material/Icon")
 private external val iconModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")
@@ -15,7 +15,7 @@ private val iconComponentType: ComponentType<MIconProps> = iconModule.default
 
 @Suppress("EnumEntryName")
 enum class MIconColor {
-    inherit, primary, secondary, action, error, disabled
+    inherit, action, disabled, primary, secondary, error, info, success, warning
 }
 
 @Suppress("EnumEntryName")

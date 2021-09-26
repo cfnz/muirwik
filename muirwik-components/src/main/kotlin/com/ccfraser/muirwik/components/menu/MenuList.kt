@@ -8,7 +8,7 @@ import react.ReactElement
 import styled.StyledHandler
 
 
-@JsModule("@material-ui/core/MenuList")
+@JsModule("@mui/material/MenuList")
 private external val menuListModule: dynamic
 private val menuListType: ComponentType<MMenuListProps> = menuListModule.default
 

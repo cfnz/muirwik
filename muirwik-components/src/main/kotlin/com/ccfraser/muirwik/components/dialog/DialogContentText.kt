@@ -8,7 +8,7 @@ import react.ReactNode
 import styled.StyledProps
 
 
-@JsModule("@material-ui/core/DialogContentText")
+@JsModule("@mui/material/DialogContentText")
 private external val dialogContentTextModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")

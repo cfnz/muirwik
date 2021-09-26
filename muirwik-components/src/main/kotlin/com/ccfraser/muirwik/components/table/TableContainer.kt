@@ -7,7 +7,7 @@ import react.RBuilder
 import styled.StyledHandler
 
 
-@JsModule("@material-ui/core/TableContainer")
+@JsModule("@mui/material/TableContainer")
 private external val tableContainerModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")

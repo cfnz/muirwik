@@ -7,7 +7,7 @@ import react.Props
 import react.createElement
 import styled.StyledHandler
 
-@JsModule("@material-ui/core/SvgIcon")
+@JsModule("@mui/material/SvgIcon")
 private external val svgIconModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")

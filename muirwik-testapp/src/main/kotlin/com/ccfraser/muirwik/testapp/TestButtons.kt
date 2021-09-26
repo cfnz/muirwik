@@ -41,11 +41,14 @@ class TestButtons : RComponent<Props, State>() {
             mTypography(heading)
             mButton("Default", variant = variant) {
                 if (margin) css(buttonMargin)
+                css {
+                    margin(2.spacingUnits)
+                }
             }
-            mButton("Primary", MColor.primary, variant = variant) {
+            mButton("Primary", MButtonColor.primary, variant = variant) {
                 if (margin) css(buttonMargin)
             }
-            mButton("Secondary", MColor.secondary, variant = variant) {
+            mButton("Secondary", MButtonColor.secondary, variant = variant) {
                 if (margin) css(buttonMargin)
             }
             mButton("Disabled", disabled = true, variant = variant) {
@@ -89,10 +92,10 @@ class TestButtons : RComponent<Props, State>() {
             }
             br { }
             br { }
-            mButtonGroup(MColor.primary, MButtonGroupVariant.contained) {
-                mButton("One", MColor.primary)
-                mButton("Two", MColor.primary)
-                mButton("Three", MColor.primary)
+            mButtonGroup(MButtonColor.primary, MButtonGroupVariant.contained) {
+                mButton("One", MButtonColor.primary)
+                mButton("Two", MButtonColor.primary)
+                mButton("Three", MButtonColor.primary)
             }
             br { }
             br { }
@@ -105,7 +108,7 @@ class TestButtons : RComponent<Props, State>() {
         br { }
         styledDiv {
             mTypography("Split buttons")
-            mButtonGroup(MColor.primary, MButtonGroupVariant.contained) {
+            mButtonGroup(MButtonColor.primary, MButtonGroupVariant.contained) {
                 mButton("One")
                 mButton("", variant = MButtonVariant.contained, size = MButtonSize.small) {
                     mIcon("arrow_drop_down")
@@ -117,16 +120,16 @@ class TestButtons : RComponent<Props, State>() {
             mTypography("Icon buttons")
             mIconButton("send", onClick = { window.alert("I was clicked")})
             mIconButton("star")
-            mIconButton("delete", MColor.primary)
-            mIconButton("delete", color = MColor.secondary)
+            mIconButton("delete", MIconButtonColor.primary)
+            mIconButton("delete", color = MIconButtonColor.secondary)
         }
         styledDiv {
             mTypography("Buttons with icons")
-            mButton("Delete", MColor.secondary, MButtonVariant.contained) {
+            mButton("Delete", MButtonColor.secondary, MButtonVariant.contained) {
                 css(buttonMargin)
                 attrs.startIcon = buildElement { mIcon("delete", fontSize = MIconFontSize.small) }
             }
-            mButton("Send", MColor.primary, MButtonVariant.contained) {
+            mButton("Send", MButtonColor.primary, MButtonVariant.contained) {
                 css(buttonMargin)
                 attrs.endIcon = buildElement { mIcon("send", fontSize = MIconFontSize.small) }
             }
@@ -142,11 +145,11 @@ class TestButtons : RComponent<Props, State>() {
         br { }
         styledDiv {
             mTypography("FABs")
-            mFab("add", MColor.primary) { css(buttonMargin) }
-            mFab("edit-icon", MColor.secondary) { css(buttonMargin) }
+            mFab("add", MFabColor.primary) { css(buttonMargin) }
+            mFab("edit-icon", MFabColor.secondary) { css(buttonMargin) }
             mFab("navigation-icon", disabled = true) { css(buttonMargin) }
-            mFab("navigation-icon", "Extended", color = MColor.secondary) { css(buttonMargin) }
-            mFab("add", MColor.secondary) { css(buttonMargin) }
+            mFab("navigation-icon", "Extended", color = MFabColor.secondary) { css(buttonMargin) }
+            mFab("add", MFabColor.secondary) { css(buttonMargin) }
         }
         br { }
         styledDiv {
@@ -157,24 +160,24 @@ class TestButtons : RComponent<Props, State>() {
                 mButton("Large", size = MButtonSize.large) { css(buttonMargin) }
             }
             div {
-                mButton("Small", MColor.primary, size = MButtonSize.small, variant = MButtonVariant.outlined) { css(buttonMargin) }
-                mButton("Medium", MColor.primary, size = MButtonSize.medium, variant = MButtonVariant.outlined) { css(buttonMargin) }
-                mButton("Large", MColor.primary, size = MButtonSize.large, variant = MButtonVariant.outlined) { css(buttonMargin) }
+                mButton("Small", size = MButtonSize.small, variant = MButtonVariant.outlined) { css(buttonMargin) }
+                mButton("Medium", size = MButtonSize.medium, variant = MButtonVariant.outlined) { css(buttonMargin) }
+                mButton("Large", size = MButtonSize.large, variant = MButtonVariant.outlined) { css(buttonMargin) }
             }
             div {
-                mButton("Small", MColor.primary, size = MButtonSize.small, variant = MButtonVariant.contained) { css(buttonMargin) }
-                mButton("Medium", MColor.primary, size = MButtonSize.medium, variant = MButtonVariant.contained) { css(buttonMargin) }
-                mButton("Large", MColor.primary, size = MButtonSize.large, variant = MButtonVariant.contained) { css(buttonMargin) }
+                mButton("Small", size = MButtonSize.small, variant = MButtonVariant.contained) { css(buttonMargin) }
+                mButton("Medium", size = MButtonSize.medium, variant = MButtonVariant.contained) { css(buttonMargin) }
+                mButton("Large", size = MButtonSize.large, variant = MButtonVariant.contained) { css(buttonMargin) }
             }
             div {
-                mFab("add", MColor.secondary, size = MButtonSize.small) { css(buttonMargin) }
-                mFab("add", MColor.secondary, size = MButtonSize.medium) { css(buttonMargin) }
-                mFab("add", MColor.secondary, size = MButtonSize.large) { css(buttonMargin) }
+                mFab("add", MFabColor.secondary, size = MButtonSize.small) { css(buttonMargin) }
+                mFab("add", MFabColor.secondary, size = MButtonSize.medium) { css(buttonMargin) }
+                mFab("add", MFabColor.secondary, size = MButtonSize.large) { css(buttonMargin) }
             }
             div {
-                mFab("navigation", "Extended", MColor.primary, size = MButtonSize.small) { css(buttonMargin) }
-                mFab("navigation", "Extended", MColor.primary, size = MButtonSize.medium) { css(buttonMargin) }
-                mFab("navigation", "Extended", MColor.primary, size = MButtonSize.large) { css(buttonMargin) }
+                mFab("navigation", "Extended", size = MButtonSize.small) { css(buttonMargin) }
+                mFab("navigation", "Extended", size = MButtonSize.medium) { css(buttonMargin) }
+                mFab("navigation", "Extended", size = MButtonSize.large) { css(buttonMargin) }
             }
             div {
                 mIconButton("delete", size = MIconButtonSize.small) { css(buttonMargin) }
@@ -201,8 +204,8 @@ class TestButtons : RComponent<Props, State>() {
                 attrs.onMouseMove = { handleMouseMove() }
             }
             mButton("Contained", variant = MButtonVariant.contained) { css(buttonMargin) }
-            mButton("Primary", MColor.primary, variant = MButtonVariant.contained) { css(buttonMargin) }
-            mButton("Secondary with HRef", color = MColor.secondary, hRefOptions = HRefOptions("https://github.com/cfnz/muirwik"),
+            mButton("Primary", MButtonColor.primary, variant = MButtonVariant.contained) { css(buttonMargin) }
+            mButton("Secondary with HRef", color = MButtonColor.secondary, hRefOptions = HRefOptions("https://github.com/cfnz/muirwik"),
                 variant = MButtonVariant.contained) { css(buttonMargin) }
             mButton("Styled Button") {
                 css {
@@ -216,7 +219,7 @@ class TestButtons : RComponent<Props, State>() {
                     margin(1.spacingUnits)
                 }
             }
-            mButton("Icon", MColor.primary, variant = MButtonVariant.contained) {
+            mButton("Icon", MButtonColor.primary, variant = MButtonVariant.contained) {
                 css(buttonMargin)
                 mIcon("send", MIconColor.inherit) {
                     css { marginLeft = 1.em }

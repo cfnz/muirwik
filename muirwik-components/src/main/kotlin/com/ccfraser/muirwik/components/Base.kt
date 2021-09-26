@@ -114,10 +114,10 @@ enum class MAlignment {
     inherit, left, center, right, justify
 }
 
-@Suppress("EnumEntryName")
-enum class MColor {
-    default, inherit, primary, secondary
-}
+//@Suppress("EnumEntryName")
+//enum class MColor {
+//    default, inherit, primary, secondary
+//}
 
 @Suppress("EnumEntryName")
 enum class MOptionColor {

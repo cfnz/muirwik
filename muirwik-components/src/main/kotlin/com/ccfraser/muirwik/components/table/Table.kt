@@ -8,7 +8,7 @@ import styled.StyledHandler
 import styled.StyledProps
 
 
-@JsModule("@material-ui/core/Table")
+@JsModule("@mui/material/Table")
 private external val tableModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")

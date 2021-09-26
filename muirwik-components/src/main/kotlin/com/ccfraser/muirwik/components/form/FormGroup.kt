@@ -7,7 +7,7 @@ import styled.StyledHandler
 import styled.StyledProps
 
 
-@JsModule("@material-ui/core/FormGroup")
+@JsModule("@mui/material/FormGroup")
 private external val formGroupModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")

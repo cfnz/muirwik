@@ -37,8 +37,8 @@ external interface Theme {
     var zIndex: ZIndex
 }
 
-@JsModule("@material-ui/core/styles/createMuiTheme")
-private external val createMuiThemeModule: dynamic
+@JsModule("@mui/material/styles/createTheme")
+private external val createThemeModule: dynamic
 
 /**
  * @param themeOptions Options for changing the theme (see Material-UI documentation)
@@ -46,10 +46,10 @@ private external val createMuiThemeModule: dynamic
  *             guide of Material-UI documentation and the test Localization example.)
  */
 @Suppress("UnsafeCastFromDynamic")
-fun createMuiTheme(themeOptions: ThemeOptions? = null, args: dynamic = null): Theme {
+fun createTheme(themeOptions: ThemeOptions? = null, args: dynamic = null): Theme {
 
     // We shall just use default (i.e. blank) options if none are provided
     val ourThemeOptions = themeOptions ?: jsObject {  }
 
-    return createMuiThemeModule.default(ourThemeOptions, args)
+    return createThemeModule.default(ourThemeOptions, args)
 }

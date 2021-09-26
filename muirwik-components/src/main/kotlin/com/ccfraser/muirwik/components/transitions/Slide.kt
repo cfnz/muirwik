@@ -7,7 +7,7 @@ import react.RBuilder
 import styled.StyledHandler
 
 
-@JsModule("@material-ui/core/Slide")
+@JsModule("@mui/material/Slide")
 private external val slideModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")

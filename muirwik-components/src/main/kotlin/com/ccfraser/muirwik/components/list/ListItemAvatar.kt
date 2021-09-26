@@ -10,7 +10,7 @@ import react.RBuilder
 import styled.StyledHandler
 
 
-@JsModule("@material-ui/core/ListItemAvatar")
+@JsModule("@mui/material/ListItemAvatar")
 private external val listItemAvatarModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")

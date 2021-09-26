@@ -7,7 +7,7 @@ import styled.StyledHandler
 import styled.StyledProps
 
 
-@JsModule("@material-ui/core/Hidden")
+@JsModule("@mui/material/Hidden")
 private external val hiddenModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")

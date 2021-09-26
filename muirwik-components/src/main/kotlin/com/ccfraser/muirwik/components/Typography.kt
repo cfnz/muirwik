@@ -6,7 +6,7 @@ import react.ReactNode
 import styled.StyledHandler
 
 
-@JsModule("@material-ui/core/Typography")
+@JsModule("@mui/material/Typography")
 private external val typographyDefault: dynamic
 
 @Suppress("UnsafeCastFromDynamic")

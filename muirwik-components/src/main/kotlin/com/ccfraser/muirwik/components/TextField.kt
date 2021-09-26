@@ -10,7 +10,7 @@ import styled.StyledElementBuilder
 import styled.StyledHandler
 
 
-@JsModule("@material-ui/core/TextField")
+@JsModule("@mui/material/TextField")
 private external val textFieldDefault: dynamic
 
 @Suppress("UnsafeCastFromDynamic")

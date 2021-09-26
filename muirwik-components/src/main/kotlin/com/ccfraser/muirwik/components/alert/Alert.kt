@@ -1,4 +1,4 @@
-package com.ccfraser.muirwik.components.lab.alert
+package com.ccfraser.muirwik.components.alert
 
 import com.ccfraser.muirwik.components.EnumPropToStringNullable
 import com.ccfraser.muirwik.components.StyledPropsWithCommonAttributes
@@ -9,7 +9,7 @@ import react.RBuilder
 import react.ReactElement
 import styled.StyledHandler
 
-@JsModule("@material-ui/lab/Alert")
+@JsModule("@mui/material/Alert")
 private external val alertModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")

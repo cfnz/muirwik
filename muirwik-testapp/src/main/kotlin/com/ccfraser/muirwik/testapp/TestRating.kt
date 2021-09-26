@@ -1,9 +1,9 @@
 package com.ccfraser.muirwik.testapp
 
 import com.ccfraser.muirwik.components.*
-import com.ccfraser.muirwik.components.lab.MIconContainerProps
-import com.ccfraser.muirwik.components.lab.MRatingSize
-import com.ccfraser.muirwik.components.lab.mRating
+import com.ccfraser.muirwik.components.MIconContainerProps
+import com.ccfraser.muirwik.components.MRatingSize
+import com.ccfraser.muirwik.components.mRating
 import com.ccfraser.muirwik.testapp.RatingsStyles.margin
 import kotlinx.css.*
 import react.*
@@ -63,7 +63,9 @@ public val testRatings = fc<Props> { _ ->
             css(margin)
             mTypography("Custom icon and color", component = "legend")
             mRating("customized-empty", value, precision = 0.5, onChange = { _, newValue -> value = newValue },
-                icon = buildElement { mIcon("favorite", fontSize = MIconFontSize.inherit) }) {
+                icon = buildElement { mIcon("favorite", fontSize = MIconFontSize.inherit) },
+                emptyIcon =  buildElement { mIcon("favorite_border", fontSize = MIconFontSize.inherit) }
+            ) {
                 css {
                     ".MuiRating-iconFilled" {
                         color = Color("#ff6d75")

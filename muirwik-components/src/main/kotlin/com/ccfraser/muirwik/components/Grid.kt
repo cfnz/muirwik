@@ -10,7 +10,7 @@ import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KProperty
 
 
-@JsModule("@material-ui/core/Grid")
+@JsModule("@mui/material/Grid")
 private external val gridDefault: dynamic
 
 @Suppress("UnsafeCastFromDynamic")

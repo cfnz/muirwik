@@ -1,6 +1,7 @@
 package com.ccfraser.muirwik.testapp
 
 import com.ccfraser.muirwik.components.*
+import com.ccfraser.muirwik.components.button.MButtonColor
 import com.ccfraser.muirwik.components.button.mButton
 import kotlinx.css.Color
 import kotlinx.css.color
@@ -16,7 +17,7 @@ class TestBackdrop : RComponent<Props, State>() {
     override fun RBuilder.render() {
         themeContext.Consumer { theme ->
             div {
-                mButton("Show Backdrop", MColor.primary, onClick = { setState { open = !open } })
+                mButton("Show Backdrop", MButtonColor.primary, onClick = { setState { open = !open } })
                 mBackdrop(open, onClick = { setState { open = !open } }) {
                     css {
                         zIndex = theme.zIndex.drawer + 1

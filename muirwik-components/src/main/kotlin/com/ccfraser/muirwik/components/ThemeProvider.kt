@@ -2,8 +2,9 @@ package com.ccfraser.muirwik.components
 
 import com.ccfraser.muirwik.components.styles.Theme
 import com.ccfraser.muirwik.components.styles.ThemeOptions
-import com.ccfraser.muirwik.components.styles.createMuiTheme
+import com.ccfraser.muirwik.components.styles.createTheme
 import com.ccfraser.muirwik.components.styles.invoke
+import kotlinx.css.LinearDimension
 import kotlinx.css.px
 import react.*
 
@@ -11,7 +12,7 @@ import react.*
 // Material UI 3.3.2 (or a bit earlier) has depreciated some typography enums. We do the following
 // so we don't get any warning messages for the default theme.
 private val themeOptions: ThemeOptions = js("({typography: {useNextVariants: true}})")
-private var defaultTheme: Theme = createMuiTheme(themeOptions)
+private var defaultTheme: Theme = createTheme(themeOptions)
 
 /**
  * Contexts seem to be global in react. This is the context for supplying the current theme to a component
@@ -30,7 +31,13 @@ val themeContext: Context<Theme> = createContext(defaultTheme)
  * if another theme with different spacing units are used... things might not turn out so well.
  * We do this because currently we have used the Int.spacingUnit outside of the render function in our test apps
  */
-val Int.spacingUnits get() = (defaultTheme.spacing(this)).px
+val Int.spacingUnits get(): LinearDimension {
+    println("This is $this")
+    val r = LinearDimension(defaultTheme.spacing(this))
+    println("result is $r")
+    return r
+}
+
 
 
 class MThemeProvider(props: MuiThemeProviderProps) : RComponent<MuiThemeProviderProps, State>(props) {
@@ -44,7 +51,7 @@ class MThemeProvider(props: MuiThemeProviderProps) : RComponent<MuiThemeProvider
     }
 }
 
-fun RBuilder.mThemeProvider(theme: Theme = createMuiTheme(), handler: RHandler<Props>? = null) = child(MThemeProvider::class) {
+fun RBuilder.mThemeProvider(theme: Theme = createTheme(), handler: RHandler<Props>? = null) = child(MThemeProvider::class) {
     attrs.theme = theme
     if (handler != null) handler()
 }
@@ -52,7 +59,7 @@ fun RBuilder.mThemeProvider(theme: Theme = createMuiTheme(), handler: RHandler<P
 /**
  * Provides access to the Material UI useTheme hook.
  */
-@JsModule("@material-ui/core/styles/useTheme")
+@JsModule("@mui/material/styles/useTheme")
 private external val useThemeDefault: dynamic
 @Suppress("UNCHECKED_CAST_TO_EXTERNAL_INTERFACE")
 fun useTheme(): Theme = useThemeDefault.default() as Theme

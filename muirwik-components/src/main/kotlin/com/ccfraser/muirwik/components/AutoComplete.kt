@@ -1,6 +1,5 @@
-package com.ccfraser.muirwik.components.lab
+package com.ccfraser.muirwik.components
 
-import com.ccfraser.muirwik.components.*
 import kotlinext.js.Object
 import org.w3c.dom.Node
 import org.w3c.dom.events.Event
@@ -10,7 +9,7 @@ import react.Props
 import react.ReactElement
 import styled.StyledHandler
 
-@JsModule("@material-ui/lab/Autocomplete")
+@JsModule("@mui/material/Autocomplete")
 private external val autoCompleteModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")

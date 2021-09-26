@@ -3,7 +3,7 @@ package com.ccfraser.muirwik.components.styles
 import kotlinext.js.jsObject
 import org.w3c.dom.MediaQueryList
 
-@JsModule("@material-ui/core/useMediaQuery")
+@JsModule("@mui/material/useMediaQuery")
 private external val useMediaQueryModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")

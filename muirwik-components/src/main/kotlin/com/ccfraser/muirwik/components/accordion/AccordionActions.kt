@@ -6,7 +6,7 @@ import react.ComponentType
 import react.RBuilder
 import styled.StyledHandler
 
-@JsModule("@material-ui/core/AccordionActions")
+@JsModule("@mui/material/AccordionActions")
 private external val accordionActionsModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")

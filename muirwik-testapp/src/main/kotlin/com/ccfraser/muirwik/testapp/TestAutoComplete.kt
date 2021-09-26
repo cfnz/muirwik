@@ -1,11 +1,10 @@
 package com.ccfraser.muirwik.testapp
 
 import com.ccfraser.muirwik.components.form.MFormControlVariant
-import com.ccfraser.muirwik.components.lab.mAutoComplete
-import com.ccfraser.muirwik.components.lab.mAutoCompleteMultiValue
+import com.ccfraser.muirwik.components.mAutoComplete
+import com.ccfraser.muirwik.components.mAutoCompleteMultiValue
 import com.ccfraser.muirwik.components.mTextField
 import com.ccfraser.muirwik.components.mTypography
-import com.ccfraser.muirwik.components.spacingUnits
 import com.ccfraser.muirwik.components.spreadProps
 import com.ccfraser.muirwik.testapp.AutoCompleteStyles.margin
 import kotlinx.css.*

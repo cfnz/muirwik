@@ -1,6 +1,7 @@
 package com.ccfraser.muirwik.testapp
 
 import com.ccfraser.muirwik.components.*
+import com.ccfraser.muirwik.components.button.MFabColor
 import com.ccfraser.muirwik.components.button.mButton
 import com.ccfraser.muirwik.components.button.mFab
 import com.ccfraser.muirwik.components.button.mIconButton
@@ -20,7 +21,7 @@ class TestTooltips : RComponent<Props, State>() {
                 mIconButton("delete") { css { marginRight = 2.spacingUnits }}
             }
             mTooltip("Add") {
-                mFab("add", MColor.primary) { css { marginRight = 2.spacingUnits }}
+                mFab("add") { css { marginRight = 2.spacingUnits }}
             }
             mTooltip("No Delay", enterDelay = 0) {
                 mButton("No Delay") { css { marginRight = 2.spacingUnits }}
@@ -37,7 +38,7 @@ class TestTooltips : RComponent<Props, State>() {
             br {  }
             br {  }
             mTooltip("FAB") {
-                mFab("add", MColor.secondary) {
+                mFab("add", MFabColor.secondary) {
                     css {
                         position = Position.absolute
                         bottom = 2.spacingUnits

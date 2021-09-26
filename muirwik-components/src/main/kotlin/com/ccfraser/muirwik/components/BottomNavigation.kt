@@ -8,7 +8,7 @@ import react.ReactElement
 import styled.StyledHandler
 
 
-@JsModule("@material-ui/core/BottomNavigation")
+@JsModule("@mui/material/BottomNavigation")
 private external val bottomNavigationModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")
@@ -38,7 +38,7 @@ fun RBuilder.mBottomNavigation(
     }
 }
 
-@JsModule("@material-ui/core/BottomNavigationAction")
+@JsModule("@mui/material/BottomNavigationAction")
 private external val bottomNavigationActionModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")

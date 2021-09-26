@@ -3,14 +3,14 @@ package com.ccfraser.muirwik.testapp
 import com.ccfraser.muirwik.components.MIconColor
 import com.ccfraser.muirwik.components.MTypographyVariant
 import com.ccfraser.muirwik.components.button.mIconButton
-import com.ccfraser.muirwik.components.gridlist.*
+import com.ccfraser.muirwik.components.imagelist.*
 import com.ccfraser.muirwik.components.list.mListSubheader
 import com.ccfraser.muirwik.components.mTypography
 import com.ccfraser.muirwik.components.spacingUnits
-import com.ccfraser.muirwik.testapp.TestGridLists.ComponentStyles.gridList
-import com.ccfraser.muirwik.testapp.TestGridLists.ComponentStyles.icon
-import com.ccfraser.muirwik.testapp.TestGridLists.ComponentStyles.rootDiv
-import com.ccfraser.muirwik.testapp.TestGridLists.ComponentStyles.titleBar
+import com.ccfraser.muirwik.testapp.TestImageLists.ComponentStyles.icon
+import com.ccfraser.muirwik.testapp.TestImageLists.ComponentStyles.imageList
+import com.ccfraser.muirwik.testapp.TestImageLists.ComponentStyles.rootDiv
+import com.ccfraser.muirwik.testapp.TestImageLists.ComponentStyles.titleBar
 import kotlinx.css.*
 import react.*
 import react.dom.img
@@ -20,7 +20,7 @@ import styled.styledDiv
 import styled.styledImg
 
 
-class TestGridLists : RComponent<Props, State>() {
+class TestImageLists : RComponent<Props, State>() {
     private data class TileData(val img: String, val title: String, val author: String, val cols: Int = 1, val featured: Boolean = false)
     private val tileData = listOf(
             TileData("breakfast.jpg", "Breakfast", "jill111", 2, true),
@@ -45,7 +45,7 @@ class TestGridLists : RComponent<Props, State>() {
             overflow = Overflow.hidden
         }
 
-        val gridList by css {
+        val imageList by css {
             width = 500.px
             height = 450.px
         }
@@ -63,10 +63,10 @@ class TestGridLists : RComponent<Props, State>() {
         mTypography("Image Only Grid List", MTypographyVariant.h5)
         styledDiv {
             css(rootDiv)
-            mGridList(3, cellHeight = 160) {
-                css(gridList)
+            mImageList(3, cellHeight = 160) {
+                css(imageList)
                 tileData.forEach {
-                    mGridListTile(key = it.img, cols = it.cols) {
+                    mGridImage(key = it.img, cols = it.cols) {
                         img(src = "/images/grid-list/${it.img}", alt = it.title) {}
                     }
                 }
@@ -76,18 +76,18 @@ class TestGridLists : RComponent<Props, State>() {
         mTypography("Grid List with Title Bars", MTypographyVariant.h5) { css { paddingTop = 3.spacingUnits }}
         styledDiv {
             css(rootDiv)
-            mGridList(cellHeight = 180) {
-                css(gridList)
-                mGridListTile("Subheader", 2) {
+            mImageList(cellHeight = 180) {
+                css(imageList)
+                mGridImage("Subheader", 2) {
                     css { put("height", (6.spacingUnits).toString() + " !important") }
                     mListSubheader("December", component = "div") {
                         css { height = LinearDimension.auto }
                     }
                 }
                 tileData.forEach {
-                    mGridListTile(key = it.img) {
+                    mGridImage(key = it.img) {
                         img(src = "/images/grid-list/${it.img}", alt = it.title) {}
-                        mGridListTileBar(it.title, "by ${it.author}",
+                        mImageListItemBar(it.title, "by ${it.author}",
                             buildElement { mIconButton("info", iconColor = MIconColor.inherit) {
                                 css(icon)
                             }}
@@ -100,12 +100,12 @@ class TestGridLists : RComponent<Props, State>() {
         mTypography("With Rows and Cols", MTypographyVariant.h5) { css { paddingTop = 3.spacingUnits }}
         styledDiv {
             css(rootDiv)
-            mGridList(cellHeight = 200, spacing = 1) {
-                css(gridList)
+            mImageList(cellHeight = 200, spacing = 1) {
+                css(imageList)
                 tileData.forEach {
-                    mGridListTile(key = it.img, cols = if (it.featured) 2 else 1, rows = if (it.featured) 2 else 1) {
+                    mGridImage(key = it.img, cols = if (it.featured) 2 else 1, rows = if (it.featured) 2 else 1) {
                         img(src = "/images/grid-list/${it.img}", alt = it.title) {}
-                        mGridListTileBar(
+                        mImageListItemBar(
                             it.title,
                             titlePosition = MTitlePosition.top,
                             actionPosition = MActionPosition.left,
@@ -123,12 +123,12 @@ class TestGridLists : RComponent<Props, State>() {
         mTypography("Single Line List", MTypographyVariant.h5) { css { paddingTop = 3.spacingUnits }}
         styledDiv {
             css(rootDiv)
-            mGridList(cellHeight = 200, cols = 2.5) {
+            mImageList(cellHeight = 200, cols = 2.5) {
                 css {
                     flexWrap = FlexWrap.nowrap
                 }
                 tileData.forEach {
-                    mGridListTile(key = it.img) {
+                    mGridImage(key = it.img) {
                         styledImg(src = "/images/grid-list/${it.img}", alt = it.title) {
 //                            css { width = 100.pct }
                         }

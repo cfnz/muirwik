@@ -8,7 +8,7 @@ import react.ReactNode
 import styled.StyledHandler
 
 
-@JsModule("@material-ui/core/FormLabel")
+@JsModule("@mui/material/FormLabel")
 private external val formLabelModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")

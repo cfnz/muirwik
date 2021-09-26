@@ -7,7 +7,7 @@ import react.RBuilder
 import styled.StyledHandler
 
 
-@JsModule("@material-ui/core/ListItemSecondaryAction")
+@JsModule("@mui/material/ListItemSecondaryAction")
 private external val listItemSecondaryActionModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")

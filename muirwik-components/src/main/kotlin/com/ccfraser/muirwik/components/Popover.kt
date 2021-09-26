@@ -15,7 +15,7 @@ import react.ReactElement
 import styled.StyledHandler
 
 
-@JsModule("@material-ui/core/Popover")
+@JsModule("@mui/material/Popover")
 private external val popoverModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")

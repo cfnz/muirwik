@@ -7,7 +7,7 @@ import styled.StyledHandler
 import styled.StyledProps
 
 
-@JsModule("@material-ui/core/DialogActions")
+@JsModule("@mui/material/DialogActions")
 private external val dialogActionsModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")

@@ -8,7 +8,7 @@ import react.RBuilder
 import styled.StyledHandler
 
 
-@JsModule("@material-ui/core/FilledInput")
+@JsModule("@mui/material/FilledInput")
 private external val filledInputModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")

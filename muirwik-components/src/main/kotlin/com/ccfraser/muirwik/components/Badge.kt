@@ -6,7 +6,7 @@ import react.ReactElement
 import styled.StyledHandler
 
 
-@JsModule("@material-ui/core/Badge")
+@JsModule("@mui/material/Badge")
 private external val badgeModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")

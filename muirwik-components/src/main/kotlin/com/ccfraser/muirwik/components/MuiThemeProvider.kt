@@ -5,7 +5,7 @@ import kotlinext.js.jsObject
 import react.*
 
 
-@JsModule("@material-ui/core/styles")
+@JsModule("@mui/material/styles")
 private external val muiThemeProviderModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")

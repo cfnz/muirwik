@@ -8,7 +8,7 @@ import react.RBuilder
 import styled.StyledHandler
 
 
-@JsModule("@material-ui/core/Collapse")
+@JsModule("@mui/material/Collapse")
 private external val collapseModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")

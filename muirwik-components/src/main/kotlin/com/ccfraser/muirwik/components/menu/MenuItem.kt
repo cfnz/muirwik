@@ -10,7 +10,7 @@ import react.*
 import styled.StyledHandler
 
 
-@JsModule("@material-ui/core/MenuItem")
+@JsModule("@mui/material/MenuItem")
 private external val menuItemModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")

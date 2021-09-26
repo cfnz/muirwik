@@ -1,7 +1,7 @@
 import kotlin.math.min
 
 group = "com.ccfraser.muirwik"
-version = "0.9.2"
+version = "0.10.0"
 description = "Test Application for Muirwik (a Material UI React wrapper written in Kotlin)"
 
 plugins {
@@ -30,6 +30,13 @@ kotlin {
     js(LEGACY) {
 //    js(BOTH) {
         useCommonJs()
+
+
+        compilations["main"].packageJson {
+            customField("resolutions2", mapOf("@mui/styled-engine" to "npm:@mui/styled-engine-sc@latest"))
+        }
+
+
         browser {
             binaries.executable()
 

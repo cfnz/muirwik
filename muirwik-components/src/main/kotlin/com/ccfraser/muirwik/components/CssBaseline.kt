@@ -6,7 +6,7 @@ import react.RBuilder
 import react.Props
 
 
-@JsModule("@material-ui/core/CssBaseline")
+@JsModule("@mui/material/CssBaseline")
 private external val cssBaselineModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")

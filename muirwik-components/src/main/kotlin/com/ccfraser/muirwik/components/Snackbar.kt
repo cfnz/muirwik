@@ -8,7 +8,7 @@ import styled.StyledHandler
 import styled.StyledProps
 
 
-@JsModule("@material-ui/core/Snackbar")
+@JsModule("@mui/material/Snackbar")
 private external val SnackbarModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")

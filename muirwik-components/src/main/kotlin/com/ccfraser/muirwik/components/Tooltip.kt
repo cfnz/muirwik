@@ -7,7 +7,7 @@ import react.Props
 import styled.StyledHandler
 
 
-@JsModule("@material-ui/core/Tooltip")
+@JsModule("@mui/material/Tooltip")
 private external val tooltipModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")

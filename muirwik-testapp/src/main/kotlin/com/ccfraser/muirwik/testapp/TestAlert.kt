@@ -3,21 +3,20 @@ package com.ccfraser.muirwik.testapp
 import com.ccfraser.muirwik.components.*
 import com.ccfraser.muirwik.components.button.MButtonVariant
 import com.ccfraser.muirwik.components.button.mButton
-import com.ccfraser.muirwik.components.lab.alert.MAlertSeverity
-import com.ccfraser.muirwik.components.lab.alert.MAlertVariant
-import com.ccfraser.muirwik.components.lab.alert.mAlert
+import com.ccfraser.muirwik.components.alert.MAlertSeverity
+import com.ccfraser.muirwik.components.alert.MAlertVariant
+import com.ccfraser.muirwik.components.alert.mAlert
 import com.ccfraser.muirwik.components.styles.Breakpoint
-import com.ccfraser.muirwik.testapp.TestLabAlert.CustomStyles.margin
+import com.ccfraser.muirwik.testapp.TestAlert.CustomStyles.margin
 import kotlinx.css.margin
 import kotlinx.css.padding
-import kotlinx.css.paddingBottom
 import kotlinx.css.px
 import react.*
 import styled.StyleSheet
 import styled.css
 import styled.styledDiv
 
-class TestLabAlert : RComponent<Props, State>() {
+class TestAlert : RComponent<Props, State>() {
     private object CustomStyles : StyleSheet("ComponentStyles", isStatic = true) {
         val margin by css {
             margin(1.spacingUnits)
@@ -33,7 +32,6 @@ class TestLabAlert : RComponent<Props, State>() {
                 padding(16.px)
             }
 
-            labNoteComponent()
 
             mGridContainer(MGridSpacing.spacing2) {
                 val breakpoints = MGridBreakpoints(MGridSize.cells6)

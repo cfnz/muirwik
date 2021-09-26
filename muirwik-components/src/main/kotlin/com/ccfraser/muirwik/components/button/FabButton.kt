@@ -8,7 +8,7 @@ import react.ReactNode
 import styled.StyledHandler
 
 
-@JsModule("@material-ui/core/Fab")
+@JsModule("@mui/material/Fab")
 private external val fabModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")
@@ -24,7 +24,11 @@ external interface MFabProps : MButtonBaseProps {
     var href: String
 }
 
-var MFabProps.color by EnumPropToString(MColor.values())
+enum class MFabColor {
+    default, inherit, primary, secondary
+}
+
+var MFabProps.color by EnumPropToString(MFabColor.values())
 var MFabProps.size by EnumPropToString(MButtonSize.values())
 var MFabProps.variant by EnumPropToString(MFabVariant.values())
 
@@ -34,7 +38,7 @@ var MFabProps.variant by EnumPropToString(MFabVariant.values())
  */
 fun RBuilder.mFab(
     iconName: String? = null,
-    color: MColor = MColor.default,
+    color: MFabColor = MFabColor.default,
     disabled: Boolean = false,
     onClick: ((Event) -> Unit)? = null,
     size: MButtonSize = MButtonSize.medium,
@@ -67,7 +71,7 @@ fun RBuilder.mFab(
 fun RBuilder.mFab(
     iconName: String,
     caption: String,
-    color: MColor = MColor.default,
+    color: MFabColor = MFabColor.default,
     disabled: Boolean = false,
     onClick: ((Event) -> Unit)? = null,
     size: MButtonSize = MButtonSize.medium,

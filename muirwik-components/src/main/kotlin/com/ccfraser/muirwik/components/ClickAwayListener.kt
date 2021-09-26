@@ -7,7 +7,7 @@ import react.RHandler
 import styled.StyledProps
 
 
-@JsModule("@material-ui/core/ClickAwayListener")
+@JsModule("@mui/material/ClickAwayListener")
 private external val clickAwayListenerModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")

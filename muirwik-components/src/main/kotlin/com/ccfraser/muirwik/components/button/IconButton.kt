@@ -7,7 +7,7 @@ import react.RBuilder
 import styled.StyledHandler
 
 
-@JsModule("@material-ui/core/IconButton")
+@JsModule("@mui/material/IconButton")
 private external val iconButtonModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")
@@ -26,7 +26,12 @@ external interface MIconButtonProps : MButtonBaseProps {
     var disableFocusRipple: Boolean
     var href: String
 }
-var MIconButtonProps.color by EnumPropToString(MColor.values())
+
+enum class MIconButtonColor {
+    inherit, default, primary, secondary, error, info, success, warning
+}
+
+var MIconButtonProps.color by EnumPropToString(MIconButtonColor.values())
 var MIconButtonProps.edge by EnumPropToStringNullable(MIconEdge.values())
 var MIconButtonProps.size by EnumPropToString(MIconButtonSize.values())
 
@@ -38,7 +43,7 @@ var MIconButtonProps.size by EnumPropToString(MIconButtonSize.values())
  */
 fun RBuilder.mIconButton(
     iconName: String? = null,
-    color: MColor = MColor.default,
+    color: MIconButtonColor = MIconButtonColor.default,
     disabled: Boolean = false,
     onClick: ((Event) -> Unit)? = null,
     size: MIconButtonSize = MIconButtonSize.medium,
@@ -59,10 +64,14 @@ fun RBuilder.mIconButton(
         // If the iconColor is null, we shall map to the button color if we can
         if (iconColorToUse == null) {
             iconColorToUse = when (color) {
-                MColor.inherit -> MIconColor.inherit
-                MColor.default -> MIconColor.action
-                MColor.secondary -> MIconColor.secondary
-                MColor.primary -> MIconColor.primary
+                MIconButtonColor.inherit -> MIconColor.inherit
+                MIconButtonColor.default -> MIconColor.action
+                MIconButtonColor.primary -> MIconColor.primary
+                MIconButtonColor.secondary -> MIconColor.secondary
+                MIconButtonColor.error -> MIconColor.error
+                MIconButtonColor.info -> MIconColor.info
+                MIconButtonColor.success -> MIconColor.success
+                MIconButtonColor.warning -> MIconColor.warning
             }
         }
         attrs.size = size
