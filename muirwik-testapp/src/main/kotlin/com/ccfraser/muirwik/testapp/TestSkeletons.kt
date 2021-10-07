@@ -12,7 +12,6 @@ import react.Props
 import react.RBuilder
 import react.RComponent
 import react.State
-import react.dom.div
 import styled.css
 import styled.styledDiv
 
