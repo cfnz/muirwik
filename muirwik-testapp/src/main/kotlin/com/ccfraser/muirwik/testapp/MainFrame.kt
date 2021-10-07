@@ -202,6 +202,7 @@ enum class Page(val title: String, val kClass: KClass<out RComponent<Props, out 
     RadioButtons("Radio Buttons", TestRadioButtons::class),
     Ratings("Ratings", null, testRatings),
     Selects("Selects", TestSelects::class),
+    Skeleton("Skeletons", TestSkeletons::class),
     Sliders("Sliders", TestSlider::class),
     Snackbars("Snackbars", TestSnackbar::class),
     Styles("Styles", TestStyles::class),
