@@ -28,13 +28,11 @@ class TestSkeletons : RComponent<Props, State>() {
       mTypography("Variants", MTypographyVariant.h5, gutterBottom = true)
       styledDiv {
         css {
-          //todo I need to define a width here as otherwise the first skeleton will use max-width.
-          // Not sure why this behaviour is different from the example on MUI.
           width = smallContainerWidth
         }
         mSkeleton(variant = MSkeletonVariant.text)
-        mSkeleton(40, 40, variant = MSkeletonVariant.circle)
-        mSkeleton(210, 118, variant = MSkeletonVariant.rect)
+        mSkeleton(40.px, 40.px, variant = MSkeletonVariant.circle)
+        mSkeleton(210.px, 118.px, variant = MSkeletonVariant.rect)
       }
 
       mTypography("Animations", MTypographyVariant.h5, gutterBottom = true)

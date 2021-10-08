@@ -6,6 +6,7 @@ import com.ccfraser.muirwik.components.ElementType
 import com.ccfraser.muirwik.components.EnumPropToString
 import com.ccfraser.muirwik.components.StyledPropsWithCommonAttributes
 import com.ccfraser.muirwik.components.createStyled
+import kotlinx.css.LinearDimension
 import react.ComponentType
 import react.PropsWithChildren
 import react.RBuilder
@@ -39,18 +40,17 @@ enum class MSkeletonVariant {
 
 external interface MSkeletonProps : StyledPropsWithCommonAttributes, PropsWithChildren {
 
-  //todo classes
   var component: ElementType
-  var height: Number //todo or string
-  var width: Number //todo or string
+  var height: String
+  var width: String
 }
 
 var MSkeletonProps.variant by EnumPropToString(MSkeletonVariant.values())
 var MSkeletonProps.animation by EnumPropToString(MSkeletonAnimation.values())
 
 fun RBuilder.mSkeleton(
-    width: Number? = null,
-    height: Number? = null,
+    width: LinearDimension? = null,
+    height: LinearDimension? = null,
     variant: MSkeletonVariant = MSkeletonVariant.text,
     animation: MSkeletonAnimation = MSkeletonAnimation.pulse,
     component: ElementType? = null,
@@ -59,8 +59,8 @@ fun RBuilder.mSkeleton(
 ) {
   createStyled(skeletonComponentType, className = className, handler) {
     component?.let { attrs.component = it }
-    width?.let { attrs.width = it }
-    height?.let { attrs.height = it }
+    width?.let { attrs.width = it.toString() }
+    height?.let { attrs.height = it.toString() }
     attrs.variant = variant
     attrs.animation = animation
   }
