@@ -80,7 +80,7 @@ val testGridsAndBreakpoints = fc<Props> {
         mTypography("dn(lg) ${theme.breakpoints.down(Breakpoint.lg)}")
         mTypography("between sm and md ${theme.breakpoints.between(Breakpoint.sm, Breakpoint.md)}")
         mTypography("only sm ${theme.breakpoints.only(Breakpoint.sm)}")
-        mTypography("width sm ${theme.breakpoints.width(Breakpoint.sm)}")
+        mTypography("width sm ${theme.breakpoints.value(Breakpoint.sm)}")
     }
 
     styledDiv {

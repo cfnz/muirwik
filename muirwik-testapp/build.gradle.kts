@@ -32,9 +32,9 @@ kotlin {
         useCommonJs()
 
 
-        compilations["main"].packageJson {
-            customField("resolutions2", mapOf("@mui/styled-engine" to "npm:@mui/styled-engine-sc@latest"))
-        }
+//        compilations["main"].packageJson {
+//            customField("resolutions2", mapOf("@mui/styled-engine" to "npm:@mui/styled-engine-sc@latest"))
+//        }
 
 
         browser {

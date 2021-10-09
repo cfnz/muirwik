@@ -39,6 +39,7 @@ class TestButtons : RComponent<Props, State>() {
     private fun RBuilder.buttonSet(heading: String, variant: MButtonVariant = MButtonVariant.text, margin: Boolean = false) {
         styledDiv {
             mTypography(heading)
+
             mButton("Default", variant = variant) {
                 if (margin) css(buttonMargin)
                 css {

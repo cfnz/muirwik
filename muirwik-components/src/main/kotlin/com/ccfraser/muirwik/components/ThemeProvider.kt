@@ -20,7 +20,7 @@ private var defaultTheme: Theme = createTheme(themeOptions)
  * get the theme from the mMuiThemeProvider including trials using withTheme()... maybe there is a way, but
  * this method uses the context feature from the react wrappers and seems to work well. The only drawback is
  * that the consuming the context is only available in a RBuilder, so in the render. Lots of styles are
- * set outside of the render, but using this method, if we want to access properties of the theme, we need to
+ * set outside the render, but using this method, if we want to access properties of the theme, we need to
  * move those styles into the render function.
  */
 val themeContext: Context<Theme> = createContext(defaultTheme)
@@ -29,13 +29,10 @@ val themeContext: Context<Theme> = createContext(defaultTheme)
  * Allows you to easily specify the theme's spacing unit. Usually used in css e.g. css { padding(2.spacingUnits) }
  * This is now not ideal as we are setting a global var for the default theme's spacing unit. This means
  * if another theme with different spacing units are used... things might not turn out so well.
- * We do this because currently we have used the Int.spacingUnit outside of the render function in our test apps
+ * We do this because currently we have used the Int.spacingUnit outside the render function in our test apps
  */
 val Int.spacingUnits get(): LinearDimension {
-    println("This is $this")
-    val r = LinearDimension(defaultTheme.spacing(this))
-    println("result is $r")
-    return r
+    return LinearDimension(defaultTheme.spacing(this))
 }
 
 

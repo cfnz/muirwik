@@ -18,6 +18,7 @@ private val accordionComponentType: ComponentType<MAccordionProps> = accordionMo
 external interface MAccordionProps : StyledPropsWithCommonAttributes {
     var defaultExpanded: Boolean
     var disabled: Boolean
+    var disableGutters: Boolean
     var expanded: Boolean
     var onChange: (Event, Boolean) -> Unit
     var square: Boolean
@@ -28,7 +29,7 @@ external interface MAccordionProps : StyledPropsWithCommonAttributes {
 
 var MAccordionProps.transitionComponent by TransitionComponentDelegate()
 
-
+@Deprecated("Use the simpler version with attrs (params will mainly be used for required attributes).")
 fun RBuilder.mAccordion(
     expanded: Boolean? = null,
     defaultExpanded: Boolean = false,
@@ -45,4 +46,8 @@ fun RBuilder.mAccordion(
         expanded?.let { attrs.expanded = it }
         onChange?.let { attrs.onChange = it }
     }
+}
+
+fun RBuilder.mAccordion(handler: StyledHandler<MAccordionProps>) {
+    createStyled(accordionComponentType, handler)
 }

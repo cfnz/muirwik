@@ -45,7 +45,8 @@ class TestAccordion : RComponent<Props, State>() {
                             "sit amet blandit leo lobortis eget.")
                 }
             }
-            mAccordion(disabled = true) {
+            mAccordion {
+                attrs.disabled = true
                 mAccordionSummary(expandIcon = buildElement { mIcon("expand_more") }) {
                     mTypography("Accordion Item 3")
                 }
@@ -62,7 +63,9 @@ class TestAccordion : RComponent<Props, State>() {
                 padding(2.spacingUnits)
                 width = 100.pct
             }
-            mAccordion(expandedItem == "panel1", onChange = { _, expanded -> handleExpanded(expanded, "panel1")}) {
+            mAccordion {
+                attrs.expanded = expandedItem == "panel1"
+                attrs.onChange = { _, expanded -> handleExpanded(expanded, "panel1") }
                 mAccordionSummary(expandIcon = buildElement { mIcon("expand_more") }) {
                     mTypography("Accordion Item 1")
                 }

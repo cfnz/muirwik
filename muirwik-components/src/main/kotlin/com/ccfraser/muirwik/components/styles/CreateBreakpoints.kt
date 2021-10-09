@@ -1,7 +1,11 @@
 package com.ccfraser.muirwik.components.styles
 
+import kotlin.js.Json
+
 /**
- * Types from material-ui/styles/createBreakpoints
+ * Types from mui/material/styles breakpoints.
+ * The default Breakpoints are as below. MUI 5 allows custom named breakpoints in a theme, but we have not implemented
+ * those.
  */
 
 @Suppress("EnumEntryName")
@@ -39,8 +43,8 @@ external interface Breakpoints {
     @JsName("only")
     fun onlyWithMediaTerm(key: String): String
 
-    @JsName("width")
-    fun widthWithStringKey(key: String): Int
+    @JsName("values")
+    val values: Json
 }
 
 private fun removeMediaString(query: String) = query.removePrefix("@media")
@@ -61,6 +65,6 @@ fun Breakpoints.only(key: Breakpoint): String {
     return removeMediaString(onlyWithMediaTerm(key.toString()))
 }
 
-fun Breakpoints.width(key: Breakpoint): Int {
-    return widthWithStringKey(key.toString())
+fun Breakpoints.value(key: Breakpoint): Int {
+    return values[key.toString()] as Int
 }

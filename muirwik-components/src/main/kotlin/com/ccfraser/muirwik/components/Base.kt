@@ -32,6 +32,14 @@ fun <P : PropsWithClassName> RBuilder.createStyled(
     })
 }
 
+fun <P : PropsWithClassName> RBuilder.createStyled(
+    componentType: ComponentType<P>,
+    handler: StyledHandler<P>? = null,
+    ourOwnPropsHandler: StyledHandler<P>? = null
+) {
+    createStyled(componentType, null, handler, ourOwnPropsHandler)
+}
+
 fun <P : StyledProps> RBuilder.createStyled(
     componentClass: KClass<out RComponent<P, State>>,
     className: String? = null,

@@ -22,17 +22,17 @@ dependencies {
     implementation("org.jetbrains.kotlin-wrappers", "kotlin-react-dom", kotlinReactVersion)
     implementation("org.jetbrains.kotlin-wrappers", "kotlin-styled", "5.3.1-$kotlinJsVersion")
 
-    implementation(npm("@mui/material", "5.0.1"))
-    implementation(npm("@mui/icons-material", "5.0.1"))
+    implementation(npm("@mui/material", "5.0.3"))
+    implementation(npm("@mui/icons-material", "5.0.3"))
+    implementation(npm("@mui/styled-engine-sc", "5.0.3"))
     implementation(npm("styled-components", "5.3.1"))
-    implementation(npm("@mui/styled-engine-sc", "5.0.0"))
-    implementation(npm("@mui/styled-engine", "npm:@mui/styled-engine-sc@5.0.0"))
+    implementation(npm("@mui/styled-engine", "npm:@mui/styled-engine-sc@5.0.3"))
 
     // This is for legacy styling
     implementation(npm("@mui/styles", "5.0.1"))
 
-    implementation(npm("@emotion/react", "11.4.1"))
-    implementation(npm("@emotion/styled","11.3.0"))
+//    implementation(npm("@emotion/react", "11.4.1"))
+//    implementation(npm("@emotion/styled","11.3.0"))
     implementation(npm("@mui/lab", "5.0.0-alpha.48"))
 
     implementation(devNpm("customize-cra", "latest"))
@@ -50,9 +50,9 @@ kotlin {
     js(LEGACY) {
         useCommonJs()
 
-        compilations["main"].packageJson {
-            customField("resolutions", mapOf("@mui/styled-engine" to "npm:@mui/styled-engine-sc@5.0.0"))
-        }
+//        compilations["main"].packageJson {
+//            customField("resolutions", mapOf("@mui/styled-engine" to "npm:@mui/styled-engine-sc@5.0.3"))
+//        }
 
         browser {
             commonWebpackConfig {

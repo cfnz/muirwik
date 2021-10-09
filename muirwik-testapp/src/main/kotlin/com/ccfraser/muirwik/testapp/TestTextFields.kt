@@ -41,10 +41,6 @@ class TestTextFields : RComponent<Props, TestTextFieldsState>() {
 
     override fun RBuilder.render() {
         styledForm {
-            css {
-                display = Display.flex
-                flexWrap = FlexWrap.wrap
-            }
             attrs.autoComplete = false
             attrs.novalidate = true
 
@@ -56,6 +52,9 @@ class TestTextFields : RComponent<Props, TestTextFieldsState>() {
 
             mTypography("Filled Text Fields", variant = MTypographyVariant.h4)
             renderTextFields(MFormControlVariant.filled)
+
+            mTypography("Variations", variant = MTypographyVariant.h4)
+            renderVariations(MFormControlVariant.outlined)
         }
 
         mTypography("Coloured (When selected)", variant = MTypographyVariant.h4)
@@ -71,7 +70,11 @@ class TestTextFields : RComponent<Props, TestTextFieldsState>() {
 
     private fun RBuilder.renderTextFields(variant: MFormControlVariant) {
         styledDiv {
-            css { paddingBottom = 3.spacingUnits }
+            css {
+                display = Display.flex
+                flexWrap = FlexWrap.wrap
+                paddingBottom = 3.spacingUnits
+            }
 
             mTextField(label = "Name", value = name, variant = variant, onChange = { event -> handleInputChange(event) }) {
                 css(textField)
@@ -88,12 +91,6 @@ class TestTextFields : RComponent<Props, TestTextFieldsState>() {
             mTextField(label = "Disabled", disabled = true, defaultValue = "Hello World", variant = variant) {
                 css(textField)
             }
-            mTextField(label = "Email", type = InputType.email, autoComplete = "email", variant = variant) {
-                css(textField)
-            }
-            mTextField(label = "Password", type = InputType.password, autoComplete = "current-password", variant = variant) {
-                css(textField)
-            }
             mTextField(label = "Read Only", defaultValue = "Hello World", variant = variant) {
                 css(textField)
 //                attrs.inputProps = object : Props { val readOnly = true } IR Compiler didn't like this way of doing things
@@ -101,18 +98,31 @@ class TestTextFields : RComponent<Props, TestTextFieldsState>() {
                     this.asDynamic().readOnly = true
                 }
             }
+        }
+    }
+
+    private fun RBuilder.renderVariations(variant: MFormControlVariant) {
+        styledDiv {
+            css { paddingBottom = 3.spacingUnits }
+
+            mTextField(label = "Email", type = InputType.email, autoComplete = "email", variant = variant) {
+                css(textField)
+            }
+            mTextField(label = "Password", type = InputType.password, autoComplete = "current-password", variant = variant) {
+                css(textField)
+            }
             mTextField(label = "Dense", margin = MFormControlMargin.dense, variant = variant) {
                 css {
                     +textField
                     marginTop = 16.px
                 }
             }
-            mTextFieldMultiLine(label = "Multiline", rowsMax = 4, value = state.multiLineValue, helperText = "Some helper text", variant = variant,
-                    onChange = { val v = it.targetInputValue; setState { multiLineValue = v } }) {
+            mTextFieldMultiLine(label = "Multiline", maxRows = 4, value = state.multiLineValue, helperText = "Some helper text", variant = variant,
+                onChange = { val v = it.targetInputValue; setState { multiLineValue = v } }) {
                 css(textField)
             }
             mTextFieldMultiLine(label = "Multiline Fixed Rows", rows = 4, value = state.multiLineValue, variant = variant,
-                    onChange = { event -> event.persist(); setState { multiLineValue = event.targetInputValue } }) {
+                onChange = { event -> event.persist(); setState { multiLineValue = event.targetInputValue } }) {
                 css(textField)
             }
             mTextField(label = "Helper Text", defaultValue = "Default Value", helperText = "Some helper text", variant = variant) {
@@ -129,14 +139,14 @@ class TestTextFields : RComponent<Props, TestTextFieldsState>() {
                 }
             }
             mTextField(label = "Number", type = InputType.number, value = state.age.toString(), variant = variant,
-                    onChange = { val value = it.targetInputValue; setState { age = value.toIntOrNull() ?: 0 } }) {
+                onChange = { val value = it.targetInputValue; setState { age = value.toIntOrNull() ?: 0 } }) {
                 css(textField)
             }
             mTextField(label = "Search", type = InputType.search, variant = variant) {
                 css(textField)
             }
             mTextFieldSelect(label = "Select", value = selectValue, variant = variant,
-                    onChange = { event: Event -> setState { selectValue = event.target.asDynamic().value } }) {
+                onChange = { event: Event -> setState { selectValue = event.target.asDynamic().value } }) {
                 css {
                     +textField
                     width = 200.px

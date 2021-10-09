@@ -44,12 +44,13 @@ external interface MTextFieldProps : MFormControlProps {
     @JsName("inputProps")
     var nativeInputProps: Props
 
+    var maxRows: Int
+    var minRows: Int
     var multiline: Boolean
     var name: String
     var onChange: (event: Event) -> Unit
     var placeholder: String
     var rows: Int
-    var rowsMax: Int
     var select: Boolean
 
     @JsName("SelectProps")
@@ -107,7 +108,8 @@ fun RBuilder.mTextFieldMultiLine(
     fullWidth: Boolean = false,
     margin: MFormControlMargin = MFormControlMargin.normal,
     rows: Int? = null,
-    rowsMax: Int? = null,
+    maxRows: Int? = null,
+    minRows: Int? = null,
     id: String? = null,
     name: String? = null,
     className: String? = null,
@@ -115,7 +117,7 @@ fun RBuilder.mTextFieldMultiLine(
 ) {
     createStyled(textFieldComponentType, className, handler) {
         setAttributes(this, null, autoFocus, defaultValue, disabled, error, fullWidth, helperText, id, label, margin,
-            true, name, onChange, placeholder, required, rows, rowsMax, false, InputType.text, value, variant)
+            true, name, onChange, placeholder, required, rows, maxRows, false, InputType.text, value, variant)
     }
 }
 
@@ -166,7 +168,7 @@ private fun setAttributes(
     placeholder: String?,
     required: Boolean,
     rows: Int?,
-    rowsMax: Int?,
+    maxRows: Int?,
     select: Boolean,
     type: InputType,
     value: String?,
@@ -188,7 +190,7 @@ private fun setAttributes(
     placeholder?.let { textField.attrs.placeholder = it }
     textField.attrs.required = required
     rows?.let { textField.attrs.rows = it }
-    rowsMax?.let { textField.attrs.rowsMax = it }
+    maxRows?.let { textField.attrs.maxRows = it }
     textField.attrs.select = select
     textField.attrs.type = type.realValue
     value?.let { textField.attrs.value = it }

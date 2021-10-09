@@ -30,3 +30,8 @@ fun RBuilder.mAccordionSummary(
 		iconButtonProps?.let { attrs.iconButtonProps = it }
 	}
 }
+
+@Deprecated("Use the simpler version with attrs (params will mainly be used for required attributes).")
+fun RBuilder.mAccordionSummary(handler: StyledHandler<MAccordionSummaryProps>) {
+	createStyled(accordionSummaryComponentType, handler)
+}

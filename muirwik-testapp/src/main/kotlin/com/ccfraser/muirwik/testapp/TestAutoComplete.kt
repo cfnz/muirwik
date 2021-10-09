@@ -1,16 +1,16 @@
 package com.ccfraser.muirwik.testapp
 
+import com.ccfraser.muirwik.components.*
 import com.ccfraser.muirwik.components.form.MFormControlVariant
-import com.ccfraser.muirwik.components.mAutoComplete
-import com.ccfraser.muirwik.components.mAutoCompleteMultiValue
-import com.ccfraser.muirwik.components.mTextField
-import com.ccfraser.muirwik.components.mTypography
-import com.ccfraser.muirwik.components.spreadProps
 import com.ccfraser.muirwik.testapp.AutoCompleteStyles.margin
 import kotlinx.css.*
 import react.*
+import react.dom.ReactHTML.div
+import react.dom.img
+import react.dom.li
 import styled.StyleSheet
 import styled.css
+import styled.styledLi
 import styled.styledSpan
 
 data class Film(val title: String, val year: Int)
@@ -394,8 +394,6 @@ private fun isoCountryCodeToFlagEmoji(code: String): String {
 }
 
 public val testAutoComplete = fc<Props> { _ ->
-    labNoteComponent()
-
     mTypography("This demo shows usage of the Lab AutoComplete component (and how to use flag emojis)")
     mAutoComplete(top100Films, { params -> buildElement { mTextField("Combo Box", variant = MFormControlVariant.outlined) {
         spreadProps(params)
@@ -407,30 +405,32 @@ public val testAutoComplete = fc<Props> { _ ->
     }
 
     var selectedCountry: Country? by useState(null)
-    mAutoComplete(countries, { params -> buildElement { mTextField("Choose a country", variant = MFormControlVariant.outlined) {
-        spreadProps(params)
-    }}}) {
+    mAutoComplete(countries, renderInput = { params -> buildElement {
+        mTextField("Choose a country", variant = MFormControlVariant.outlined) {
+            spreadProps(params)
+            attrs.autoComplete = "new-password" // disable autocomplete and autofill
+        }
+    }}) {
         attrs.apply {
             id = "country-select-demo"
             autoHighlight = true
             getOptionLabel = { option -> option?.label ?: "" }
-            renderOption = { option, _ ->
+            renderOption = { props, option, _ ->
                 buildElement {
-                    Fragment {
+                    mBox("li") {
+                        spreadProps(props)
                         styledSpan {
                             +isoCountryCodeToFlagEmoji(option.code)
                             css(margin)
                         }
-                        +"${option.label} (${option.code}) +${option.phone} "
+                        +"${option.label} (${option.code}) +${option.phone}"
                     }
                 }
             }
-//          Not sure why, but the following in combination with the mAutoCompleteMultiValue causes issues...
-//          Will just leave it out for now
-//            onChange = { _, newValue, _ ->
-//                println("Country onChange event value: $newValue")
-//                selectedCountry = newValue
-//            }
+            onChange = { _, newValue, _ ->
+                println("Country onChange event value: $newValue")
+                selectedCountry = newValue
+            }
         }
         css {
             width = 350.px

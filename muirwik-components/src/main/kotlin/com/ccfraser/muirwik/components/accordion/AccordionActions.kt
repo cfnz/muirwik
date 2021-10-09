@@ -16,6 +16,7 @@ external interface MAccordionActionsProps : StyledPropsWithCommonAttributes {
 	var disableSpacing: Boolean
 }
 
+@Deprecated("Use the simpler version with attrs (params will mainly be used for required attributes).")
 fun RBuilder.mAccordionActions(
 		disableSpacing: Boolean? = null,
 		className: String? = null,
@@ -24,4 +25,8 @@ fun RBuilder.mAccordionActions(
 	createStyled(jsComponentType, className, handler) {
 		disableSpacing?.let { attrs.disableSpacing = it }
 	}
+}
+
+fun RBuilder.mAccordionActions(handler: StyledHandler<MAccordionActionsProps>) {
+	createStyled(jsComponentType, handler)
 }

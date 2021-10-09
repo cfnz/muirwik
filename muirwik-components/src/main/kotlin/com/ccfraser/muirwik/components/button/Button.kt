@@ -62,3 +62,20 @@ fun RBuilder.mButton(
     }
 }
 
+
+fun RBuilder.mButton(
+    caption: String,
+    handler: StyledHandler<MButtonProps>? = null
+) {
+    createStyled(buttonComponentType, null, handler) {
+        childList.add(ReactNode(caption))
+    }
+}
+
+
+fun RBuilder.mButton(
+    handler: StyledHandler<MButtonProps>
+) {
+    createStyled(buttonComponentType, null, handler) { }
+}
+

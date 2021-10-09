@@ -3,10 +3,7 @@ package com.ccfraser.muirwik.components
 import kotlinext.js.Object
 import org.w3c.dom.Node
 import org.w3c.dom.events.Event
-import react.ComponentType
-import react.RBuilder
-import react.Props
-import react.ReactElement
+import react.*
 import styled.StyledHandler
 
 @JsModule("@mui/material/Autocomplete")
@@ -57,12 +54,13 @@ external interface MAutoCompleteBaseProps<T> : StyledPropsWithCommonAttributes {
     var blurOnSelect: MAutoCompleteBlurOnSelect
     @JsName("ChipProps")
     var chipProps: Props
+    var clearIcon: Node
     var clearOnBlur: Boolean
     var clearOnEscape: Boolean
     var clearText: String
     var closeIcon: Node
     var closeText: String
-    var debug: Boolean
+    var componentProps: Props
     var disableClearable: Boolean
     var disableCloseOnSelect: Boolean
     var disabled: Boolean
@@ -77,11 +75,11 @@ external interface MAutoCompleteBaseProps<T> : StyledPropsWithCommonAttributes {
     var getLimitTagsText: (more: Int) -> ReactElement
     var getOptionDisabled: (option: T) -> Boolean
     var getOptionLabel: (option: T?) -> String
-    var getOptionSelected: (option: T?, value: T) -> Boolean
     var groupBy: (option: T) -> String
     var handleHomeEndKeys: Boolean
     var includeInputInList: Boolean
     var inputValue: String
+    var isOptionEqualToValue: (option: T?, value: T) -> Boolean
     var limitTags: Int
     @JsName("ListboxComponent")
     var listboxComponent: ElementType
@@ -96,6 +94,7 @@ external interface MAutoCompleteBaseProps<T> : StyledPropsWithCommonAttributes {
     var onHighlightChange: (event: Event, option: T?, reason: String) -> Unit
     var onInputChange: (event: Event, value: String, reason: String) -> Unit
     var onOpen: (event: Event) -> Unit
+    var open: Boolean
     var openOnFocus: Boolean
     var openText: String
     var options: Array<T>
@@ -106,7 +105,7 @@ external interface MAutoCompleteBaseProps<T> : StyledPropsWithCommonAttributes {
     var popupIcon: Node
     var renderGroup: (option: T) -> ReactElement
     var renderInput: (params: Props) -> ReactElement
-    var renderOption: (option: T, state: Object) -> ReactElement
+    var renderOption: (props: Props, option: T, state: State) -> ReactElement
     var renderTags: (value: Array<T>, getTagProps: () -> Props) -> ReactElement
     var selectOnFocus: Boolean
 }
