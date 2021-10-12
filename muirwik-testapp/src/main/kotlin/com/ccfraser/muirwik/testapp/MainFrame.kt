@@ -197,6 +197,7 @@ enum class Page(val title: String, val kClass: KClass<out RComponent<Props, out 
     Lists("Lists", TestLists::class),
     Localization("Localization", TestLocalization::class),
     Menus("Menus", TestMenus::class),
+    Pagination("Pagination", null, testPagination),
     Popover("Popover", TestPopover::class),
     Progress("Progress", TestProgress::class),
     RadioButtons("Radio Buttons", TestRadioButtons::class),

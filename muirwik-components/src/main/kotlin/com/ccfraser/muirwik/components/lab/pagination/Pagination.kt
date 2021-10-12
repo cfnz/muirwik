@@ -35,6 +35,12 @@ enum class MPaginationVariant {
   outlined
 }
 
+@Suppress("EnumEntryName")
+enum class MPaginationShape {
+  round,
+  rounded
+}
+
 external interface MPaginationProps : StyledPropsWithCommonAttributes {
   var boundaryCount: Number
   var count: Number
@@ -53,7 +59,7 @@ external interface MPaginationProps : StyledPropsWithCommonAttributes {
 }
 
 var MPaginationProps.color by EnumPropToString(MPaginationColor.values())
-var MPaginationProps.shape by EnumPropToString(MPaginationItemShape.values())
+var MPaginationProps.shape by EnumPropToString(MPaginationShape.values())
 var MPaginationProps.size by EnumPropToString(MPaginationSize.values())
 var MPaginationProps.variant by EnumPropToString(MPaginationVariant.values())
 
@@ -73,7 +79,7 @@ fun RBuilder.mPagination(
     siblingCount: Number = 1,
 
     color: MPaginationColor = MPaginationColor.standard,
-    shape: MPaginationItemShape = MPaginationItemShape.round,
+    shape: MPaginationShape = MPaginationShape.round,
     size: MPaginationSize = MPaginationSize.medium,
     variant: MPaginationVariant = MPaginationVariant.text,
 
