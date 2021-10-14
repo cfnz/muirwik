@@ -89,7 +89,7 @@ Switching from create-react-kotlin-app to using Gradle, yarn/npm and webpack dir
 curve but helped in the long run. This was inspired after watching [Gaetan Zoritchak's talk](https://www.youtube.com/watch?v=1Pu0TYJJ2Tw). 
 
 However, what this is, is a working multi-module Kotlin DSL gradle build that wraps quite a large javascript material 
-design library. It provides a working demo app (see [screenshots](https://github.com/cfnz/muirwik/issues/1)) and starer
+design library. It provides a working demo app (see [screenshots](https://github.com/cfnz/muirwik/issues/1)) and starter
 app which is quite a good starting point for real applications... (at least I think so). Quite a few hours were spent 
 just trying to make the basic development workflow work.
 
