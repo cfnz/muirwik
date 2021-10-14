@@ -17,12 +17,8 @@ external interface MDialogContentProps : StyledProps {
     var dividers: Boolean
 }
 
-fun RBuilder.mDialogContent(
-    dividers: Boolean = false,
-    className: String? = null,
-    handler: StyledHandler<MDialogContentProps>
-) {
-    createStyled(dialogContentComponentType, className, handler) {
+fun RBuilder.mDialogContent(dividers: Boolean = false, handler: StyledHandler<MDialogContentProps>) {
+    createStyled(dialogContentComponentType, handler) {
         attrs.dividers = dividers
     }
 }

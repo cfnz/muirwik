@@ -35,86 +35,97 @@ class TestChips : RComponent<Props, State>() {
     }
 
     override fun RBuilder.render() {
-        styledDiv {
-            css { display = Display.flex; justifyContent = JustifyContent.center; flexWrap = FlexWrap.wrap }
-            mChip("Basic Chip") {
-                css(margin)
-            }
-            mChip(
-                "Clickable Chip",
-                avatar = buildElement { mAvatar { +"MB" } },
-                onClick = { handleClick() }
-            ) {
-                css(margin)
-            }
-            mChip(
-                "Deletable Chip",
-                avatar = buildElement { mAvatar(src = "/images/cards/contemplative-reptile.jpg") },
-                onDelete = { handleDelete() }
-            ) {
-                css(margin)
-            }
-            mChip(
-                "Clickable Deletable Chip",
-                avatar = buildElement { mAvatar { buildElement { mIcon("face") }}},
-                onClick = { handleClick() },
-                onDelete = { handleDelete() }
-            ) {
-                css(margin)
-            }
-            mChip(
-                "Custom delete icon Chip".asDynamic(),
-                onClick = { handleClick() },
-                onDelete = { handleDelete() }
-            ) {
-                css(margin)
-                attrs.deleteIcon = buildElement { mIcon("done") }
-            }
-            mChip("Primary Color Chip", color = MChipColor.primary, onClick = { handleClick() }, onDelete = { handleDelete() }) {
-                css(margin)
-            }
-            mChip("Secondary Color Chip", color = MChipColor.secondary, onClick = { handleClick() }, onDelete = { handleDelete() }) {
-                css(margin)
-            }
-            mChip("Primary Outline Chip", color = MChipColor.primary, variant = MChipVariant.outlined, onClick = { handleClick() }, onDelete = { handleDelete() }) {
-                css(margin)
-            }
-        }
-
-        mTypography("Small Chips") {
-            css { marginTop = 3.spacingUnits }
-        }
-        mChip("Primary Color Chip", color = MChipColor.primary, size = MChipSize.small, onClick = { handleClick() }, onDelete = { handleDelete() }) {
-            css(margin)
-        }
-        mChip("Secondary Color Chip", color = MChipColor.secondary, size = MChipSize.small, onClick = { handleClick() }, onDelete = { handleDelete() }) {
-            css(margin)
-        }
-        mChip("Primary Outline Chip", color = MChipColor.primary, size = MChipSize.small, variant = MChipVariant.outlined, onClick = { handleClick() }, onDelete = { handleDelete() }) {
-            css(margin)
-        }
-
-        mTypography("Chip Array Example") {
-            css { marginTop = 3.spacingUnits }
-        }
-
-        mPaper() {
-            css { display = Display.flex; justifyContent = JustifyContent.center; flexWrap = FlexWrap.wrap; padding(2.spacingUnits) }
-
-            chipData.forEach { entry ->
+        demoContainer {
+            demoPanel("Standard Chips") {
+                css { display = Display.flex; justifyContent = JustifyContent.center; flexWrap = FlexWrap.wrap }
+                mChip("Basic Chip") {
+                    css(margin)
+                }
                 mChip(
-                    entry.value,
-                    key = entry.key,
-                    avatar = if (entry.value == "React" || entry.value == "Kotlin") buildElement { mAvatar { buildElement { mIcon("tag_faces")}}} else null,
-                    onDelete = {
-                        if (entry.value == "React" || entry.value == "Kotlin") {
-                            window.alert("Why would you want to delete ${entry.value}? :-)")
-                        } else {
-                            setState { chipData.remove(entry.key) }
-                        }
-                    }
+                    "Clickable Chip",
+                    avatar = buildElement { mAvatar { +"MB" } },
+                    onClick = { handleClick() }
                 ) {
                     css(margin)
+                }
+                mChip(
+                    "Deletable Chip",
+                    avatar = buildElement { mAvatar(src = "/images/cards/contemplative-reptile.jpg") },
+                    onDelete = { handleDelete() }
+                ) {
+                    css(margin)
+                }
+                mChip(
+                    "Clickable Deletable Chip",
+                    avatar = buildElement { mAvatar { buildElement { mIcon("face") }}},
+                    onClick = { handleClick() },
+                    onDelete = { handleDelete() }
+                ) {
+                    css(margin)
+                }
+                mChip(
+                    "Custom delete icon Chip".asDynamic(),
+                    onClick = { handleClick() },
+                    onDelete = { handleDelete() }
+                ) {
+                    css(margin)
+                    attrs.deleteIcon = buildElement { mIcon("done") }
+                }
+                mChip("Primary Color Chip", color = MChipColor.primary, onClick = { handleClick() }, onDelete = { handleDelete() }) {
+                    css(margin)
+                }
+                mChip("Secondary Color Chip", color = MChipColor.secondary, onClick = { handleClick() }, onDelete = { handleDelete() }) {
+                    css(margin)
+                }
+                mChip("Primary Outline Chip", color = MChipColor.primary, variant = MChipVariant.outlined, onClick = { handleClick() }, onDelete = { handleDelete() }) {
+                    css(margin)
+                }
+            }
+            demoPanel("Small Chips") {
+                mChip(
+                    "Primary Color Chip",
+                    color = MChipColor.primary,
+                    size = MChipSize.small,
+                    onClick = { handleClick() },
+                    onDelete = { handleDelete() }) {
+                    css(margin)
+                }
+                mChip(
+                    "Secondary Color Chip",
+                    color = MChipColor.secondary,
+                    size = MChipSize.small,
+                    onClick = { handleClick() },
+                    onDelete = { handleDelete() }) {
+                    css(margin)
+                }
+                mChip(
+                    "Primary Outline Chip",
+                    color = MChipColor.primary,
+                    size = MChipSize.small,
+                    variant = MChipVariant.outlined,
+                    onClick = { handleClick() },
+                    onDelete = { handleDelete() }) {
+                    css(margin)
+                }
+            }
+            demoPanel("Chip Array Example") {
+                css { display = Display.flex; justifyContent = JustifyContent.center; flexWrap = FlexWrap.wrap; padding(2.spacingUnits) }
+
+                chipData.forEach { entry ->
+                    mChip(
+                        entry.value,
+                        key = entry.key,
+                        avatar = if (entry.value == "React" || entry.value == "Kotlin") buildElement { mAvatar { buildElement { mIcon("tag_faces")}}} else null,
+                        onDelete = {
+                            if (entry.value == "React" || entry.value == "Kotlin") {
+                                window.alert("Why would you want to delete ${entry.value}? :-)")
+                            } else {
+                                setState { chipData.remove(entry.key) }
+                            }
+                        }
+                    ) {
+                        css(margin)
+                    }
                 }
             }
         }

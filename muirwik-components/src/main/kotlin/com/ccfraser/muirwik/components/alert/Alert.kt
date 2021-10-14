@@ -27,13 +27,15 @@ enum class MAlertSeverity {
 
 external interface MAlertProps : StyledPropsWithCommonAttributes {
     var action: ReactElement
+    var closeText: String
     var icon: ReactElement
     var onClose: (Event) -> Unit
-    var closeText: String
+    var role: String
 }
 
-var MAlertProps.variant by EnumPropToStringNullable(MAlertVariant.values())
+var MAlertProps.color by EnumPropToStringNullable(MAlertSeverity.values())
 var MAlertProps.severity by EnumPropToStringNullable(MAlertSeverity.values())
+var MAlertProps.variant by EnumPropToStringNullable(MAlertVariant.values())
 
 fun RBuilder.mAlert(
     message: String?,

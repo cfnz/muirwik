@@ -31,11 +31,7 @@ external interface MCircularProgressProps : StyledProps {
 }
 var MCircularProgressProps.color by EnumPropToString(MCircularProgressColor.values())
 var MCircularProgressProps.variant by EnumPropToString(MCircularProgressVariant.values())
-var MCircularProgressProps.size: LinearDimension
-    get() = LinearDimension(this.asDynamic().size as String)
-    set(value) {
-        this.asDynamic().size = value.toString()
-    }
+var MCircularProgressProps.size by LinearDimensionDelegate()
 
 fun RBuilder.mCircularProgress(
     value: Double? = null,

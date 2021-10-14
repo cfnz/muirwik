@@ -60,12 +60,16 @@ class MainFrame(props: MainFrameProps) : RComponent<MainFrameProps, MainFrameSta
                         }
                         mToolbar {
                             mHidden(mdUp = true, implementation = MHiddenImplementation.css) {
-                                mIconButton("menu", color = MIconButtonColor.inherit, onClick = { setState { responsiveDrawerOpen = true }})
+                                mIconButton("menu", MIconButtonColor.inherit) {
+                                    attrs.onClick = { setState { responsiveDrawerOpen = true }}
+                                }
                             }
                             mToolbarTitle("Muirwik - Material-UI React Wrapper in Kotlin - Demo (or play) Area - ${ state.page.title }")
-                            mIconButton("lightbulb_outline", onClick = {
-                                props.onThemeSwitch()
-                            })
+                            mIconButton("lightbulb_outline") {
+                                attrs.onClick = {
+                                    props.onThemeSwitch()
+                                }
+                            }
                         }
                     }
 

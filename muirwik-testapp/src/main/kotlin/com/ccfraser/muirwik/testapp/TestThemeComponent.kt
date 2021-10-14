@@ -1,6 +1,7 @@
 package com.ccfraser.muirwik.testapp
 
 import com.ccfraser.muirwik.components.*
+import com.ccfraser.muirwik.components.styles.mode
 import kotlinx.css.marginBottom
 import react.*
 import react.dom.div
@@ -14,7 +15,7 @@ class TestThemeComponent : RComponent<Props, State>() {
                 mAppBar(MAppBarColor.primary, MAppBarPosition.static) {
                     css { marginBottom = 2.spacingUnits }
                     mToolbar {
-                        mTypography("Theme Component Using Context - Theme Type '${theme.palette.type}', Primary Color '${theme.palette.primary.main}'", variant = MTypographyVariant.h6, color = MTypographyColor.inherit)
+                        mTypography("Theme Component Using Context - Theme Type '${theme.palette.mode}', Primary Color '${theme.palette.primary.main}'", variant = MTypographyVariant.h6, color = MTypographyColor.inherit)
                     }
                 }
             }

@@ -3,24 +3,17 @@ package com.ccfraser.muirwik.testapp
 import com.ccfraser.muirwik.components.*
 import com.ccfraser.muirwik.components.styles.*
 import com.ccfraser.muirwik.testapp.TestGridsAndBreakpointsStyles.paper
-import com.ccfraser.muirwik.testapp.TestGridsAndBreakpointsStyles.root
 import kotlinx.css.*
 import kotlinx.css.Color
 import react.*
 import react.dom.div
 import styled.StyleSheet
 import styled.css
-import styled.styledDiv
 
 // We set this in the functional component as it is used in the style sheets (and seems to get set before style sheets need it).
 private lateinit var theme: Theme
 
 private object TestGridsAndBreakpointsStyles : StyleSheet("TestGridsAndBreakpointStyles", isStatic = true) {
-    val root by css {
-        flexGrow = 1.0
-        margin(2.spacingUnits)
-    }
-
     val paper by css {
         padding(LinearDimension(theme.spacing(2)))
         textAlign = TextAlign.center
@@ -42,9 +35,7 @@ val testGridsAndBreakpoints = fc<Props> {
         }
     }
 
-    styledDiv {
-        css(root)
-        mTypography("Basic Grid", MTypographyVariant.h4)
+    demoPanel("Basic Grid") {
         mGridContainer(MGridSpacing.spacing3) {
             item(MGridSize.cells12, null, "xs=12")
             item(MGridSize.cells6, null, "xs=6")
@@ -55,9 +46,7 @@ val testGridsAndBreakpoints = fc<Props> {
             item(MGridSize.cells3, null, "xs=3")
         }
     }
-    styledDiv {
-        css(root)
-        mTypography("Grid with breakpoints", MTypographyVariant.h4)
+    demoPanel("Grid with breakpoints") {
         mGridContainer(MGridSpacing.spacing3) {
             item(MGridSize.cells12, null, "xs=12")
             item(MGridSize.cells12, MGridSize.cells6, "xs=12 sm=6")
@@ -69,9 +58,7 @@ val testGridsAndBreakpoints = fc<Props> {
         }
     }
 
-    styledDiv {
-        css(root)
-        mTypography("Breakpoints Info", MTypographyVariant.h4)
+    demoPanel("Breakpoints Info") {
         mTypography("up(sm) ${theme.breakpoints.up(Breakpoint.sm)}")
         mTypography("up(md) ${theme.breakpoints.up(Breakpoint.md)}")
         mTypography("up(lg) ${theme.breakpoints.up(Breakpoint.lg)}")
@@ -83,9 +70,7 @@ val testGridsAndBreakpoints = fc<Props> {
         mTypography("width sm ${theme.breakpoints.value(Breakpoint.sm)}")
     }
 
-    styledDiv {
-        css(root)
-        mTypography("useMediaQuery", MTypographyVariant.h4)
+    demoPanel("useMediaQuery") {
         mTypography("(Resize me)")
         val matchesSm = useMediaQuery(theme.breakpoints.up(Breakpoint.sm))
         val matchesMd = useMediaQuery(theme.breakpoints.up(Breakpoint.md))

@@ -1,5 +1,6 @@
 package com.ccfraser.muirwik.components.dialog
 
+import com.ccfraser.muirwik.components.ElementType
 import com.ccfraser.muirwik.components.OnClosePropWithReasonDelegate
 import com.ccfraser.muirwik.components.SimpleEvent
 import com.ccfraser.muirwik.components.StyledPropsWithCommonAttributes
@@ -28,17 +29,19 @@ external interface MModalProps : StyledPropsWithCommonAttributes {
     var backdropProps: Props
 
     var closeAfterTransition: Boolean
+    var component: ElementType
+    var components: Array<ElementType>
+    var componentProps: Props
     var container: ReactElement
     var disableAutoFocus: Boolean
-    var disableBackdropClick: Boolean
     var disableEnforceFocus: Boolean
     var disableEscapeKeyDown: Boolean
+    var disablePortal: Boolean
     var disableRestoreFocus: Boolean
+    var disableScrollLock: Boolean
     var hideBackdrop: Boolean
     var keepMounted: Boolean
     var onBackdropClick: SimpleEvent
-
-    var onEscapeKeyDown: SimpleEvent
     var onRendered: SimpleEvent
 
     var open: Boolean

@@ -14,12 +14,8 @@ private external val dialogContentTextModule: dynamic
 @Suppress("UnsafeCastFromDynamic")
 private val dialogContentTextComponentType: ComponentType<StyledProps> = dialogContentTextModule.default
 
-fun RBuilder.mDialogContentText(
-    text: String,
-    className: String? = null,
-    handler: RHandler<StyledProps>? = null
-) {
-    createStyled(dialogContentTextComponentType, className, handler) {
+fun RBuilder.mDialogContentText(text: String, handler: RHandler<StyledProps>? = null) {
+    createStyled(dialogContentTextComponentType, handler) {
         childList.add(ReactNode(text))
     }
 }

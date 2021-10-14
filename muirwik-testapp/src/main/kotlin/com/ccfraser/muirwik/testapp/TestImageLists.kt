@@ -48,6 +48,7 @@ class TestImageLists : RComponent<Props, State>() {
         val imageList by css {
             width = 500.px
             height = 450.px
+            margin(0.px)
         }
 
         val icon by css {
@@ -60,77 +61,73 @@ class TestImageLists : RComponent<Props, State>() {
     }
 
     override fun RBuilder.render() {
-        mTypography("Image Only Grid List", MTypographyVariant.h5)
-        styledDiv {
-            css(rootDiv)
-            mImageList(3, cellHeight = 160) {
-                css(imageList)
-                tileData.forEach {
-                    mGridImage(key = it.img, cols = it.cols) {
-                        img(src = "/images/grid-list/${it.img}", alt = it.title) {}
-                    }
-                }
-            }
-        }
-
-        mTypography("Grid List with Title Bars", MTypographyVariant.h5) { css { paddingTop = 3.spacingUnits }}
-        styledDiv {
-            css(rootDiv)
-            mImageList(cellHeight = 180) {
-                css(imageList)
-                mGridImage("Subheader", 2) {
-                    css { put("height", (6.spacingUnits).toString() + " !important") }
-                    mListSubheader("December", component = "div") {
-                        css { height = LinearDimension.auto }
-                    }
-                }
-                tileData.forEach {
-                    mGridImage(key = it.img) {
-                        img(src = "/images/grid-list/${it.img}", alt = it.title) {}
-                        mImageListItemBar(it.title, "by ${it.author}",
-                            buildElement { mIconButton("info", iconColor = MIconColor.inherit) {
-                                css(icon)
-                            }}
-                        )
-                    }
-                }
-            }
-        }
-
-        mTypography("With Rows and Cols", MTypographyVariant.h5) { css { paddingTop = 3.spacingUnits }}
-        styledDiv {
-            css(rootDiv)
-            mImageList(cellHeight = 200, spacing = 1) {
-                css(imageList)
-                tileData.forEach {
-                    mGridImage(key = it.img, cols = if (it.featured) 2 else 1, rows = if (it.featured) 2 else 1) {
-                        img(src = "/images/grid-list/${it.img}", alt = it.title) {}
-                        mImageListItemBar(
-                            it.title,
-                            titlePosition = MTitlePosition.top,
-                            actionPosition = MActionPosition.left,
-                            actionIcon = buildElement { mIconButton("star-border", iconColor = MIconColor.inherit) {
-                                css(icon)
-                            }}
-                        ) {
-                            css(titleBar)
+        demoContainer {
+            demoPanel("Image Only Grid List") {
+                css(rootDiv)
+                mImageList(3, cellHeight = 160) {
+                    css(imageList)
+                    tileData.forEach {
+                        mGridImage(key = it.img, cols = it.cols) {
+                            img(src = "/images/grid-list/${it.img}", alt = it.title) {}
                         }
                     }
                 }
             }
-        }
-
-        mTypography("Single Line List", MTypographyVariant.h5) { css { paddingTop = 3.spacingUnits }}
-        styledDiv {
-            css(rootDiv)
-            mImageList(cellHeight = 200, cols = 2.5) {
-                css {
-                    flexWrap = FlexWrap.nowrap
+            demoPanel("Grid List with Title Bars") {
+                css(rootDiv)
+                mImageList(cellHeight = 180) {
+                    css(imageList)
+                    mGridImage("Subheader", 2) {
+                        css { put("height", (6.spacingUnits).toString() + " !important") }
+                        mListSubheader("December", component = "div") {
+                            css { height = LinearDimension.auto }
+                        }
+                    }
+                    tileData.forEach {
+                        mGridImage(key = it.img) {
+                            img(src = "/images/grid-list/${it.img}", alt = it.title) {}
+                            mImageListItemBar(it.title, "by ${it.author}",
+                                buildElement { mIconButton("info", iconColor = MIconColor.inherit) {
+                                    css(icon)
+                                }}
+                            )
+                        }
+                    }
                 }
-                tileData.forEach {
-                    mGridImage(key = it.img) {
-                        styledImg(src = "/images/grid-list/${it.img}", alt = it.title) {
+            }
+            demoPanel("With Rows and Cols") {
+                css(rootDiv)
+                mImageList(cellHeight = 200, spacing = 1) {
+                    css(imageList)
+                    tileData.forEach {
+                        mGridImage(key = it.img, cols = if (it.featured) 2 else 1, rows = if (it.featured) 2 else 1) {
+                            img(src = "/images/grid-list/${it.img}", alt = it.title) {}
+                            mImageListItemBar(
+                                it.title,
+                                titlePosition = MTitlePosition.top,
+                                actionPosition = MActionPosition.left,
+                                actionIcon = buildElement { mIconButton("star-border", iconColor = MIconColor.inherit) {
+                                    css(icon)
+                                }}
+                            ) {
+                                css(titleBar)
+                            }
+                        }
+                    }
+                }
+            }
+            demoPanel("Single Line List") {
+                css(rootDiv)
+                mImageList(cellHeight = 200, cols = 2.5) {
+                    css {
+                        margin(0.px)
+                        flexWrap = FlexWrap.nowrap
+                    }
+                    tileData.forEach {
+                        mGridImage(key = it.img) {
+                            styledImg(src = "/images/grid-list/${it.img}", alt = it.title) {
 //                            css { width = 100.pct }
+                            }
                         }
                     }
                 }

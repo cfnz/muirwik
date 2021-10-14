@@ -13,7 +13,7 @@ private val avatarComponentType: ComponentType<MAvatarProps> = avatarModule.defa
 
 @Suppress("EnumEntryName")
 enum class MAvatarVariant {
-    circle, circular, rounded, square
+    circular, rounded, square
 }
 
 external interface MAvatarProps : StyledPropsWithCommonAttributes {
@@ -26,6 +26,13 @@ external interface MAvatarProps : StyledPropsWithCommonAttributes {
 }
 var MAvatarProps.variant by EnumPropToStringNullable(MAvatarVariant.values())
 
+fun RBuilder.mAvatar(variant: MAvatarVariant = MAvatarVariant.circular, handler: StyledHandler<MAvatarProps>) {
+    createStyled(avatarComponentType, handler) {
+        attrs.variant = variant
+    }
+}
+
+@Deprecated("Use the simpler version with attrs (params will mainly be used for required attributes).")
 fun RBuilder.mAvatar(
     src: String? = null,
     alt: String? = null,

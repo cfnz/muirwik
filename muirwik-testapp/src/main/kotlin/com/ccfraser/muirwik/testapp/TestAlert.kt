@@ -9,6 +9,7 @@ import com.ccfraser.muirwik.components.alert.mAlert
 import com.ccfraser.muirwik.components.styles.Breakpoint
 import com.ccfraser.muirwik.testapp.TestAlert.CustomStyles.margin
 import kotlinx.css.margin
+import kotlinx.css.marginTop
 import kotlinx.css.padding
 import kotlinx.css.px
 import react.*
@@ -28,50 +29,46 @@ class TestAlert : RComponent<Props, State>() {
 
     override fun RBuilder.render() {
         styledDiv {
-            css {
-                padding(16.px)
-            }
-
-
             mGridContainer(MGridSpacing.spacing2) {
                 val breakpoints = MGridBreakpoints(MGridSize.cells6)
-                        .up(Breakpoint.lg, MGridSize.cells4)
-                        .down(Breakpoint.sm, MGridSize.cells12)
+                    .up(Breakpoint.lg, MGridSize.cells4)
+                    .down(Breakpoint.sm, MGridSize.cells12)
 
                 MAlertVariant.values().reversed().forEach { variant ->
                     mGridItem(breakpoints) {
-                        mTypography("${variant.name.replaceFirstChar { it.titlecase() }} Alerts")
-                        MAlertSeverity.values().forEach { severity ->
-                            val an = if (severity.name[0] in listOf('a', 'e', 'i', 'o', 'u')) "an" else "a"
-                            mAlert("This is $an ${severity.name} alert", variant, severity) {
-                                css(margin)
+                        demoPanel("${variant.name.replaceFirstChar { it.titlecase() }} Alerts") {
+                            MAlertSeverity.values().forEach { severity ->
+                                val an = if (severity.name[0] in listOf('a', 'e', 'i', 'o', 'u')) "an" else "a"
+                                mAlert("This is $an ${severity.name} alert", variant, severity) {
+                                    css(margin)
+                                }
                             }
                         }
                     }
                 }
             }
 
-            mTypography("This is an alert with a title")
-            mAlert("Alert Title", "This is an error alert", severity = MAlertSeverity.error) {
-                css(margin)
+            demoPanel("This is an alert with a title") {
+                mAlert("Alert Title", "This is an error alert", severity = MAlertSeverity.error)
             }
 
-            mTypography("This is an alert with a close (that does not do anything)")
-            mAlert("Alert Title", "This is a success alert", onClose = { showSnackbarAlert("You hit close!") }) {
-                css(margin)
+            demoPanel("This is an alert with a close (that does not do anything)") {
+                mAlert("Alert Title", "This is a success alert", onClose = { showSnackbarAlert("You hit close!") })
             }
 
-            mTypography("This is an alert with an action")
-            mAlert("Alert Title", "This is a warning alert", severity = MAlertSeverity.warning, onClose = {}) {
-                css(margin)
-                attrs.action = buildElement {
-                    mButton("Undo", onClick = { showSnackbarAlert("You hit Undo!") })
+            demoPanel("This is an alert with an action") {
+                mAlert("Alert Title", "This is a warning alert", severity = MAlertSeverity.warning, onClose = {}) {
+                    attrs.action = buildElement {
+                        mButton("Undo", onClick = { showSnackbarAlert("You hit Undo!") })
+                    }
                 }
             }
         }
 
         mButton("click me", onClick = { setState { open = true; snackbarAlertText = "Ths is a Snackbar Alert" } }, variant = MButtonVariant.outlined) {
-            css(margin)
+            css {
+                marginTop = 2.spacingUnits
+            }
         }
 
         mSnackbar(open, autoHideDuration = 2500,

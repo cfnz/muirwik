@@ -19,10 +19,8 @@ class TestSwitches : RComponent<Props, State>() {
     var checked4: Boolean = false
 
     override fun RBuilder.render() {
-        styledDiv {
-            css { display = Display.flex }
-            div {
-                mTypography("Switches")
+        demoContainer {
+            demoPanel("Switches") {
                 mSwitch(checked = checked1, onChange = { _, _ -> setState { checked1 = !checked1 } })
                 br { }
                 mSwitch(checked = checked2, onChange = { _, _ -> setState { checked2 = !checked2 } })
@@ -54,8 +52,7 @@ class TestSwitches : RComponent<Props, State>() {
                     }
                 )
             }
-            div {
-                mTypography("Using 'WithLabel'")
+            demoPanel("Using 'WithLabel'") {
                 mSwitchWithLabel("Option 1", checked = checked1, onChange = { _, _ -> setState { checked1 = !checked1 } })
                 br { }
                 mSwitchWithLabel("Option 2", checked = checked2, onChange = { _, _ -> setState { checked2 = !checked2 } })

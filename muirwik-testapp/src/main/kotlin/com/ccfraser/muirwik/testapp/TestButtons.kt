@@ -2,6 +2,7 @@ package com.ccfraser.muirwik.testapp
 
 import com.ccfraser.muirwik.components.*
 import com.ccfraser.muirwik.components.button.*
+import com.ccfraser.muirwik.components.form.MFormControlProps
 import com.ccfraser.muirwik.testapp.TestButtons.ComplexComponentStyles.image
 import com.ccfraser.muirwik.testapp.TestButtons.ComplexComponentStyles.imageBackdrop
 import com.ccfraser.muirwik.testapp.TestButtons.ComplexComponentStyles.imageButton
@@ -24,6 +25,7 @@ import styled.*
 
 
 class TestButtons : RComponent<Props, State>() {
+    private var loading = false
 
     private fun handleMouseMove() {
         console.log("Another Move")
@@ -35,28 +37,37 @@ class TestButtons : RComponent<Props, State>() {
         }
     }
 
-    // Since we are creating 3 sets of buttons almost the same, we will put them into a function
-    private fun RBuilder.buttonSet(heading: String, variant: MButtonVariant = MButtonVariant.text, margin: Boolean = false) {
-        styledDiv {
-            mTypography(heading)
+    override fun RBuilder.render() {
+        demoContainer {
+            buttonSet("Standard (Text) buttons")
+            buttonSet("Outlined buttons", MButtonVariant.outlined)
+            buttonSet("Contained buttons", MButtonVariant.contained)
+            groupedButtons()
+            splitButtons()
+            iconButtons()
+            fabButtons()
+            loadingButtons()
+            buttonSizes()
+            playaAroundWithButtons()
+        }
+        br { }
+        moreComplexButton()
+    }
 
-            mButton("Default", variant = variant) {
-                if (margin) css(buttonMargin)
-                css {
-                    margin(2.spacingUnits)
-                }
+    // Since we are creating 3 sets of buttons almost the same, we will put them into a function
+    private fun RBuilder.buttonSet(heading: String, variant: MButtonVariant = MButtonVariant.text) {
+        demoPanel(heading) {
+            css {
+                child("button") { margin(1.spacingUnits) }
             }
-            mButton("Primary", MButtonColor.primary, variant = variant) {
-                if (margin) css(buttonMargin)
-            }
-            mButton("Secondary", MButtonColor.secondary, variant = variant) {
-                if (margin) css(buttonMargin)
-            }
-            mButton("Disabled", disabled = true, variant = variant) {
-                if (margin) css(buttonMargin)
+            mButton("Default", variant = variant)
+            mButton("Primary", MButtonColor.primary, variant = variant)
+            mButton("Secondary", MButtonColor.secondary, variant = variant)
+            mButton("Disabled", variant = variant) {
+                attrs.disabled = true
             }
             mButton("Link", hRefOptions = HRefOptions("https://github.com/cfnz/muirwik"), variant = variant) {
-                if (margin) css(buttonMargin)
+                css(buttonMargin)
             }
             styledInput {
                 css { display = Display.none }
@@ -70,22 +81,15 @@ class TestButtons : RComponent<Props, State>() {
             label {
                 attrs["htmlFor"] = "button-file" // This worked whereas (for some reason) attrs.hmlFor did not
                 mButton("Upload", variant = variant) {
-                    if (margin) css(buttonMargin)
+                    css(buttonMargin)
                     attrs.component = "span"
                 }
             }
         }
     }
 
-    override fun RBuilder.render() {
-        buttonSet("Standard (Text) buttons")
-        br { }
-        buttonSet("Outlined buttons", MButtonVariant.outlined, true)
-        br { }
-        buttonSet("Contained buttons", MButtonVariant.contained, true)
-        br { }
-        styledDiv {
-            mTypography("Grouped buttons")
+    private fun RBuilder.groupedButtons() {
+        demoPanel("Grouped buttons") {
             mButtonGroup {
                 mButton("One")
                 mButton("Two")
@@ -106,70 +110,67 @@ class TestButtons : RComponent<Props, State>() {
                 mButton("Three")
             }
         }
-        br { }
-        styledDiv {
-            mTypography("Split buttons")
+    }
+
+    private fun RBuilder.splitButtons() {
+        demoPanel("Split buttons") {
             mButtonGroup(MButtonColor.primary, MButtonGroupVariant.contained) {
                 mButton("One")
-                mButton("", variant = MButtonVariant.contained, size = MButtonSize.small) {
+                mButton {
+                    attrs.variant = MButtonVariant.contained
+                    attrs.size = MButtonSize.small
                     mIcon("arrow_drop_down")
                 }
             }
         }
-        br { }
-        styledDiv {
-            mTypography("Icon buttons")
-            mIconButton("send", onClick = { window.alert("I was clicked")})
+    }
+
+    private fun RBuilder.iconButtons() {
+        demoPanel("Icon buttons") {
+            mIconButton("send") { attrs.onClick = { window.alert("I was clicked") } }
             mIconButton("star")
             mIconButton("delete", MIconButtonColor.primary)
             mIconButton("delete", color = MIconButtonColor.secondary)
         }
-        styledDiv {
-            mTypography("Buttons with icons")
+        demoPanel("Buttons with icons") {
+            css {
+                child("button") { +buttonMargin }
+            }
             mButton("Delete", MButtonColor.secondary, MButtonVariant.contained) {
-                css(buttonMargin)
                 attrs.startIcon = buildElement { mIcon("delete", fontSize = MIconFontSize.small) }
             }
             mButton("Send", MButtonColor.primary, MButtonVariant.contained) {
-                css(buttonMargin)
                 attrs.endIcon = buildElement { mIcon("send", fontSize = MIconFontSize.small) }
             }
             mButton("Upload", variant = MButtonVariant.contained) {
-                css(buttonMargin)
                 attrs.startIcon = buildElement { mIcon("cloud_upload", fontSize = MIconFontSize.small) }
             }
             mButton("Svg Icon", variant = MButtonVariant.contained) {
-                css(buttonMargin)
                 attrs.startIcon = buildElement { mSvgIcon("M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z") }
             }
         }
-        br { }
-        styledDiv {
-            mTypography("FABs")
-            mFab("add", MFabColor.primary) { css(buttonMargin) }
-            mFab("edit-icon", MFabColor.secondary) { css(buttonMargin) }
-            mFab("navigation-icon", disabled = true) { css(buttonMargin) }
-            mFab("navigation-icon", "Extended", color = MFabColor.secondary) { css(buttonMargin) }
-            mFab("add", MFabColor.secondary) { css(buttonMargin) }
+    }
+
+    private fun RBuilder.fabButtons() {
+        demoPanel("FABs") {
+            css {
+                child("button") { +buttonMargin }
+            }
+            mFab("add", MFabColor.primary)
+            mFab("edit-icon", MFabColor.secondary)
+            mFab("navigation-icon") {
+                attrs.disabled = true
+            }
+            mFab("navigation-icon", "Extended", color = MFabColor.secondary)
+            mFab("add", MFabColor.secondary)
         }
-        br { }
-        styledDiv {
-            mTypography("Sizes")
-            div {
-                mButton("Small", size = MButtonSize.small) { css(buttonMargin) }
-                mButton("Medium", size = MButtonSize.medium) { css(buttonMargin) }
-                mButton("Large", size = MButtonSize.large) { css(buttonMargin) }
-            }
-            div {
-                mButton("Small", size = MButtonSize.small, variant = MButtonVariant.outlined) { css(buttonMargin) }
-                mButton("Medium", size = MButtonSize.medium, variant = MButtonVariant.outlined) { css(buttonMargin) }
-                mButton("Large", size = MButtonSize.large, variant = MButtonVariant.outlined) { css(buttonMargin) }
-            }
-            div {
-                mButton("Small", size = MButtonSize.small, variant = MButtonVariant.contained) { css(buttonMargin) }
-                mButton("Medium", size = MButtonSize.medium, variant = MButtonVariant.contained) { css(buttonMargin) }
-                mButton("Large", size = MButtonSize.large, variant = MButtonVariant.contained) { css(buttonMargin) }
-            }
+    }
+
+    private fun RBuilder.buttonSizes() {
+        demoPanel("Sizes") {
+            buttons(MButtonVariant.text)
+            buttons(MButtonVariant.outlined)
+            buttons(MButtonVariant.contained)
             div {
                 mFab("add", MFabColor.secondary, size = MButtonSize.small) { css(buttonMargin) }
                 mFab("add", MFabColor.secondary, size = MButtonSize.medium) { css(buttonMargin) }
@@ -189,9 +190,53 @@ class TestButtons : RComponent<Props, State>() {
                 }
             }
         }
-        br { }
+    }
+
+    private fun RBuilder.buttons(variant: MButtonVariant) {
         styledDiv {
-            mTypography("Some play around buttons (Check the console for event notifications...)")
+            css {
+                child("button") { +buttonMargin }
+            }
+            mButton("Small", variant = variant, size = MButtonSize.small)
+            mButton("Medium", variant = variant, size = MButtonSize.medium)
+            mButton("Large", variant = variant, size = MButtonSize.large)
+        }
+    }
+
+    private fun RBuilder.loadingButtons() {
+        demoPanel("Loading Buttons") {
+            mSwitchWithLabel("Loading", loading, MOptionColor.primary) {
+                attrs.onChange = { _, value -> setState { loading = value } }
+                css {
+                    paddingBottom = 1.spacingUnits
+                }
+            }
+            styledDiv {
+                css {
+                    display = Display.flex
+                    flexDirection = FlexDirection.row
+                    children("button") {
+                        margin(horizontal = 1.spacingUnits)
+                    }
+                }
+                mLoadingButton("Disabled", loading, variant = MButtonVariant.outlined) { attrs.disabled = true }
+                mLoadingButton("Fetch data", loading, variant = MButtonVariant.outlined) {
+                    attrs.loadingIndicator = ReactNode("Loading...")
+                }
+                mLoadingButton("Send", loading, variant = MButtonVariant.contained) {
+                    attrs.loadingPosition = MLoadingPosition.end
+                    attrs.endIcon = buildElement { mIcon("send") }
+                }
+                mLoadingButton("Save", loading, MButtonColor.secondary, MButtonVariant.contained) {
+                    attrs.loadingPosition = MLoadingPosition.start
+                    attrs.startIcon = buildElement { mIcon("save") }
+                }
+            }
+        }
+    }
+
+    private fun RBuilder.playaAroundWithButtons() {
+        demoPanel("Some play around buttons (Check the console for event notifications...)") {
             button {
                 +"Normal React Button"
                 attrs.onClickFunction = { console.log("Hello, I am clicked") }
@@ -199,8 +244,9 @@ class TestButtons : RComponent<Props, State>() {
             }
             br { }
             br { }
-            mButton("Clk, Dbl Clk and Move", onClick = { console.log("Yay, I clicked") }) {
+            mButton("Clk, Dbl Clk and Move") {
                 css(buttonMargin)
+                attrs.onClick = { console.log("Yay, I clicked") }
                 attrs.onDoubleClick = { console.log("A Double Click?") }
                 attrs.onMouseMove = { handleMouseMove() }
             }
@@ -227,9 +273,6 @@ class TestButtons : RComponent<Props, State>() {
                 }
             }
         }
-        br { }
-        mTypography("More complex button...")
-        moreComplexButton()
     }
 
     private object ComplexComponentStyles : StyleSheet("ComplexComponentStyles", isStatic = true) {
@@ -309,7 +352,7 @@ class TestButtons : RComponent<Props, State>() {
         )
 
         themeContext.Consumer { theme ->
-            styledDiv {
+            demoPanel("More complex button...") {
                 css(root)
                 imageInfos.forEach {
                     mButton(it.title) {

@@ -33,7 +33,9 @@ fun RBuilder.mPaper(
 ) {
     createStyled(paperComponentType, className, handler) {
         attrs.component = component
-        attrs.elevation = elevation
+        if (variant == MPaperVariant.elevation) {
+            attrs.elevation = elevation
+        }
         attrs.square = square
         attrs.variant = variant
     }

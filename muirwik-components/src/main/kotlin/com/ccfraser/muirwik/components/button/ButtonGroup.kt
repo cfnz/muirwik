@@ -34,7 +34,19 @@ var MButtonGroupProps.orientation by EnumPropToString(MButtonGroupOrientation.va
 var MButtonGroupProps.size by EnumPropToString(MButtonSize.values())
 var MButtonGroupProps.variant by EnumPropToString(MButtonGroupVariant.values())
 
+fun RBuilder.mButtonGroup(
+    color: MButtonColor = MButtonColor.primary,
+    variant: MButtonGroupVariant = MButtonGroupVariant.outlined,
+    orientation: MButtonGroupOrientation = MButtonGroupOrientation.horizontal,
+    handler: StyledHandler<MButtonGroupProps>) {
+    createStyled(buttonGroupComponentType, handler) {
+        attrs.color = color
+        attrs.orientation = orientation
+        attrs.variant = variant
+    }
+}
 
+@Deprecated("Use the simpler version with attrs (params will mainly be used for required attributes).")
 fun RBuilder.mButtonGroup(
     color: MButtonColor = MButtonColor.primary,
     variant: MButtonGroupVariant = MButtonGroupVariant.outlined,

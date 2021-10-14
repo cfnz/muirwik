@@ -32,10 +32,15 @@ class TestCards : RComponent<Props, State>() {
 
                 mGridItem(breakpoints) {
                     mCard {
-                        mCardHeader(title = "Shrimp and Chorizo Paella", subHeader = "September 14",
-                                avatar = buildElement { mAvatar {+"R"} },
-                                action = buildElement { mIconButton("more_vert") }
-                        )
+                        mCardHeader("Shrimp and Chorizo Paella", "September 14") {
+                            attrs.avatar = buildElement {
+                                mAvatar {
+                                    css { backgroundColor = Colors.Red.shade500}
+                                    +"R"
+                                }
+                            }
+                            attrs.action = buildElement { mIconButton("more_vert") }
+                        }
                         mCardMedia("/images/cards/paella.jpg") {
                             css { height = 150.px }
                         }
@@ -47,15 +52,15 @@ class TestCards : RComponent<Props, State>() {
                         mCardActions {
                             mIconButton("star")
                             mIconButton("send")
-
-                            mIconButton("expand_more", onClick = { setState { rightExpanded = !rightExpanded; count++ } }) {
+                            mIconButton("expand_more") {
                                 css {
                                     if (rightExpanded) transform.rotate(180.deg)
                                     else transform.rotate(0.deg)
 
                                     transition("transform", 500.ms, Timing.easeInOut)
-                                    marginLeft = LinearDimension.auto
+                                    css { put("marginLeft", "auto !important") }
                                 }
+                                attrs.onClick = { setState { rightExpanded = !rightExpanded; count++ } }
                             }
                         }
                         mCollapse(show = rightExpanded) {
@@ -69,14 +74,15 @@ class TestCards : RComponent<Props, State>() {
                 }
                 mGridItem(breakpoints) {
                     mCard {
-                        mCardActionArea(onClick = { window.alert("You clicked the action area.") }) {
+                        mCardActionArea {
+                            attrs.onClick = { window.alert("You clicked the action area.") }
                             mCardMedia("/images/cards/contemplative-reptile.jpg", "Contemplative Reptile") {
                                 css { height = 140.px }
                             }
                             mCardContent {
                                 mTypography("Lizard", gutterBottom = true, variant = MTypographyVariant.h5, component = "h2")
-                                mTypography("Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging\n" +
-                                        "            across all continents except Antarctica", component = "p")
+                                mTypography("Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging \n" +
+                                        "across all continents except Antarctica", component = "p")
                             }
                         }
                         mCardActions {
@@ -87,19 +93,19 @@ class TestCards : RComponent<Props, State>() {
                 }
                 mGridItem(breakpoints) {
                     mCard(raised = true) {
-                        mCardHeader(
-                            title = "Expand for more info",
-                            action = buildElement { mIconButton("expand_more",
-                                onClick = { setState { leftExpanded = !leftExpanded; count++ }},
-                                ) {
+                        mCardHeader("Expand for more info") {
+                            attrs.action = buildElement {
+                                mIconButton("expand_more") {
                                     css {
                                         if (leftExpanded) transform.rotate(180.deg)
                                         else transform.rotate(0.deg)
 
                                         transition("transform", 500.ms, Timing.easeInOut)
                                     }
-                                } }
-                        )
+                                    attrs.onClick = { setState { leftExpanded = !leftExpanded; count++ } }
+                                }
+                            }
+                        }
                         mCollapse(show = leftExpanded) {
                             mCardContent {
                                 mTypography("This is a raised card. As well as being a card demo, this shows use " +

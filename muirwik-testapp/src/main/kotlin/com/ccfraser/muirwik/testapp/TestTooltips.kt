@@ -14,9 +14,7 @@ import styled.styledDiv
 class TestTooltips : RComponent<Props, State>() {
 
     override fun RBuilder.render() {
-        styledDiv {
-            css { height = 100.px }
-            mTypography {+"Simple Tooltips"}
+        demoPanel("Simple Tooltips") {
             mTooltip("Delete") {
                 mIconButton("delete") { css { marginRight = 2.spacingUnits }}
             }
@@ -35,8 +33,6 @@ class TestTooltips : RComponent<Props, State>() {
             mTooltip("On the right", TooltipPlacement.right) {
                 mButton("On Right")
             }
-            br {  }
-            br {  }
             mTooltip("FAB") {
                 mFab("add", MFabColor.secondary) {
                     css {

@@ -17,11 +17,6 @@ external interface MCardActionsProps : StyledProps {
     var disableSpacing: Boolean
 }
 
-fun RBuilder.mCardActions(
-    disableSpacing: Boolean = false,
-    handler: StyledHandler<MCardActionsProps>?
-) {
-    createStyled(cardActionsComponentType, null, handler) {
-        attrs.disableSpacing = disableSpacing
-    }
+fun RBuilder.mCardActions(handler: StyledHandler<MCardActionsProps>) {
+    createStyled(cardActionsComponentType, handler)
 }

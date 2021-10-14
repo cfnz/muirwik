@@ -12,14 +12,16 @@ private val appBarComponentType: ComponentType<MAppBarProps> = appBarModule.defa
 
 @Suppress("EnumEntryName")
 enum class MAppBarPosition {
-    fixed, absolute, sticky, static, relative
+    absolute, fixed, relative, static, sticky
 }
 
 enum class MAppBarColor {
     default, inherit, primary, secondary, transparent
 }
 
-external interface MAppBarProps : MPaperProps
+external interface MAppBarProps : MPaperProps {
+    var enableColorOnDark: Boolean
+}
 var MAppBarProps.color by EnumPropToString(MAppBarColor.values())
 var MAppBarProps.position by EnumPropToString(MAppBarPosition.values())
 

@@ -18,49 +18,47 @@ class TestAvatars : RComponent<Props, State>() {
 
     private object ComponentStyles : StyleSheet("ComponentStyles", isStatic = true) {
         val standard by css {
-            margin(2.spacingUnits)
+            margin(1.spacingUnits)
             color = Colors.white
         }
         val pink by css {
-            margin(2.spacingUnits)
+            margin(1.spacingUnits)
             color = Colors.white
             backgroundColor = Colors.Pink.shade500
         }
         val green by css {
-            margin(2.spacingUnits)
+            margin(1.spacingUnits)
             color = Colors.white
             backgroundColor = Colors.Green.shade500
         }
         val orange by css {
-            margin(2.spacingUnits)
+            margin(1.spacingUnits)
             color = Colors.white
             backgroundColor = Colors.DeepOrange.shade500
         }
     }
 
     override fun RBuilder.render() {
-        styledDiv {
-            css {
-                padding(16.px)
-            }
-            mTypography("Image Avatars", MTypographyVariant.h5)
-            styledDiv {
-                css { display = Display.flex; marginBottom = 3.spacingUnits }
-                mAvatar(src = "/images/cards/contemplative-reptile.jpg", alt = "Reptile") {
-                    css { margin(2.spacingUnits) }
+        demoContainer {
+            demoPanel("Image Avatars") {
+                css { display = Display.flex }
+                mAvatar {
+                    attrs.src = "/images/cards/contemplative-reptile.jpg"
+                    attrs.alt = "Reptile"
                 }
-                mAvatar(src = "/images/cards/contemplative-reptile.jpg", alt = "Reptile") {
+                mAvatar {
                     css {
-                        margin(2.spacingUnits)
+                        marginLeft = 2.spacingUnits
                         width = 60.px
                         height = 60.px
                     }
+                    attrs.src = "/images/cards/contemplative-reptile.jpg"
+                    attrs.alt = "Reptile"
                 }
             }
 
-            mTypography("Icon Avatars", MTypographyVariant.h5)
-            styledDiv {
-                css { display = Display.flex; marginBottom = 3.spacingUnits }
+            demoPanel("Icon Avatars") {
+                css { display = Display.flex }
                 mAvatar {
                     css(standard)
                     mIcon("folder")
@@ -75,9 +73,8 @@ class TestAvatars : RComponent<Props, State>() {
                 }
             }
 
-            mTypography("Letter Avatars", MTypographyVariant.h5)
-            styledDiv {
-                css { display = Display.flex; marginBottom = 3.spacingUnits }
+            demoPanel("Letter Avatars") {
+                css { display = Display.flex }
                 mAvatar {
                     css(green)
                     +"H"
@@ -92,14 +89,17 @@ class TestAvatars : RComponent<Props, State>() {
                 }
             }
 
-            mTypography("Variants", MTypographyVariant.h5)
-            styledDiv {
-                css { display = Display.flex; marginBottom = 3.spacingUnits }
-                mAvatar(src = "/images/cards/contemplative-reptile.jpg", alt = "Reptile", variant = MAvatarVariant.rounded) {
-                    css { margin(2.spacingUnits) }
+            demoPanel("Variants") {
+                css { display = Display.flex }
+                mAvatar(MAvatarVariant.rounded) {
+                    attrs.src = "/images/cards/contemplative-reptile.jpg"
+                    attrs.alt = "Reptile"
+                    css { margin(1.spacingUnits) }
                 }
-                mAvatar(src = "/images/cards/contemplative-reptile.jpg", alt = "Reptile", variant = MAvatarVariant.square) {
-                    css { margin(2.spacingUnits) }
+                mAvatar(MAvatarVariant.square) {
+                    attrs.src = "/images/cards/contemplative-reptile.jpg"
+                    attrs.alt = "Reptile"
+                    css { margin(1.spacingUnits) }
                 }
             }
         }

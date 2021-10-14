@@ -1,8 +1,12 @@
 package com.ccfraser.muirwik.components
 
+import com.ccfraser.muirwik.components.styles.Breakpoint
+import com.ccfraser.muirwik.components.styles.Breakpoints
+import com.ccfraser.muirwik.components.styles.value
 import kotlinext.js.Object
 import kotlinext.js.getOwnPropertyNames
 import kotlinx.css.CssBuilder
+import kotlinx.css.LinearDimension
 import org.w3c.dom.HTMLInputElement
 import org.w3c.dom.HTMLTextAreaElement
 import org.w3c.dom.events.Event
@@ -12,7 +16,9 @@ import styled.StyledHandler
 import styled.StyledProps
 import styled.toStyle
 import kotlin.js.Json
+import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KClass
+import kotlin.reflect.KProperty
 
 
 /**
@@ -232,3 +238,33 @@ typealias SimpleEvent = () -> Unit
  * union types, we will use Any for now.
  */
 typealias ElementType = Any
+
+/**
+ * Allows LinearDimension as props
+ */
+class LinearDimensionDelegate : ReadWriteProperty<Props, LinearDimension> {
+    override fun getValue(thisRef: Props, property: KProperty<*>): LinearDimension {
+        error("Delegate can't read value of ${thisRef}.${property.name}")
+    }
+
+    override fun setValue(thisRef: Props, property: KProperty<*>, value: LinearDimension) {
+        thisRef.asDynamic()[property.name] = value.toString()
+    }
+}
+
+/**
+ * Allows Breakpoints as props
+ */
+class BreakpointNullToFalseDelegate : ReadWriteProperty<Props, Breakpoint?> {
+    override fun getValue(thisRef: Props, property: KProperty<*>): Breakpoint? {
+        error("Delegate can't read value of ${thisRef}.${property.name}")
+    }
+
+    override fun setValue(thisRef: Props, property: KProperty<*>, value: Breakpoint?) {
+        if (value == null) {
+            thisRef.asDynamic()[property.name] = false
+        } else {
+            thisRef.asDynamic()[property.name] = value.toString()
+        }
+    }
+}

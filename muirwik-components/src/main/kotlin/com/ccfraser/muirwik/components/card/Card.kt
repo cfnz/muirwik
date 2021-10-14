@@ -19,8 +19,8 @@ external interface MCardProps : StyledProps {
 
 fun RBuilder.mCard(
     raised: Boolean = false,
-   className: String? = null,
-   handler: StyledHandler<MCardProps>? = null
+    className: String? = null,
+    handler: StyledHandler<MCardProps>? = null
 ) {
     createStyled(cardComponentType, className, handler) {
         attrs.raised = raised

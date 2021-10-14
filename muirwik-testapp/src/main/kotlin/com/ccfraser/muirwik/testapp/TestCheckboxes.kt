@@ -17,19 +17,14 @@ class TestCheckboxes : RComponent<Props, State>() {
     private var checked4: Boolean = false
 
     override fun RBuilder.render() {
-        styledDiv {
-            css { display = Display.flex }
-            styledDiv {
-                mTypography("Checkboxes")
+        demoContainer {
+            demoPanel("Checkboxes") {
                 mCheckbox(checked = checked1, onChange = { _, _ -> setState { checked1 = !checked1 } })
-                br { }
                 mCheckbox(checked = checked2, onChange = { _, _ -> setState { checked2 = !checked2 } })
-                br { }
                 mCheckbox(checked = checked3, onChange = { _, _ -> setState { checked3 = !checked3 } }) {
                     attrs.icon = buildElement { mIcon("clear") }
                     attrs.checkedIcon = buildElement { mIcon("done") }
                 }
-                br {  }
                 mFormControlLabel(
                     "As Form Control",
                     control = buildElement {
@@ -37,7 +32,7 @@ class TestCheckboxes : RComponent<Props, State>() {
                     }
                 )
             }
-            styledDiv {
+            demoPanel("With Labels") {
                 css { paddingLeft = 3.spacingUnits }
                 mFormControl(component = MFormControlComponent.fieldSet) {
                     mFormLabel("In a FormGroup", component = "legend")

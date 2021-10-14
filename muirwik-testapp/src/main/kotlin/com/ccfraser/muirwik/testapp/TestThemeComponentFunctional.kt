@@ -1,6 +1,7 @@
 package com.ccfraser.muirwik.testapp
 
 import com.ccfraser.muirwik.components.*
+import com.ccfraser.muirwik.components.styles.mode
 import kotlinx.css.marginBottom
 import react.*
 import react.dom.div
@@ -13,7 +14,7 @@ private val testThemesComponentFunctional = fc<Props> {
         mAppBar(MAppBarColor.primary, MAppBarPosition.static) {
             css { marginBottom = 2.spacingUnits }
             mToolbar {
-                mTypography("Theme Functional Component Using Hook - Theme Type '${theme.palette.type}', Primary Color '${theme.palette.primary.main}'", variant = MTypographyVariant.h6, color = MTypographyColor.inherit)
+                mTypography("Theme Functional Component Using Hook - Theme Mode '${theme.palette.mode}', Primary Color '${theme.palette.primary.main}'", variant = MTypographyVariant.h6, color = MTypographyColor.inherit)
             }
         }
     }

@@ -36,6 +36,30 @@ var MButtonProps.size by EnumPropToString(MButtonSize.values())
 var MButtonProps.variant by EnumPropToStringNullable(MButtonVariant.values())
 
 
+
+fun RBuilder.mButton(
+    caption: String,
+    color: MButtonColor = MButtonColor.primary,
+    variant: MButtonVariant? = null,
+    size: MButtonSize = MButtonSize.medium,
+    hRefOptions: HRefOptions? = null,
+    handler: StyledHandler<MButtonProps>? = null
+) {
+    createStyled(buttonComponentType, null, handler) {
+        attrs.color = color
+        attrs.size = size
+        attrs.variant = variant
+        hRefOptions?.let { setHRefTargetNoOpener(attrs, it) }
+        childList.add(ReactNode(caption))
+    }
+}
+
+
+fun RBuilder.mButton(handler: StyledHandler<MButtonProps>) {
+    createStyled(buttonComponentType, null, handler) { }
+}
+
+@Deprecated("Use the simpler version with attrs (params will mainly be used for required attributes).")
 //Setting the color and variant to the default values seems to upset button groups... the buttons don't inherit the
 //groups color or variant, even if color is default... so allowing color and variant to default to null which seems
 //to fix the issue and does not cause any issues
@@ -61,21 +85,3 @@ fun RBuilder.mButton(
         childList.add(ReactNode(caption))
     }
 }
-
-
-fun RBuilder.mButton(
-    caption: String,
-    handler: StyledHandler<MButtonProps>? = null
-) {
-    createStyled(buttonComponentType, null, handler) {
-        childList.add(ReactNode(caption))
-    }
-}
-
-
-fun RBuilder.mButton(
-    handler: StyledHandler<MButtonProps>
-) {
-    createStyled(buttonComponentType, null, handler) { }
-}
-

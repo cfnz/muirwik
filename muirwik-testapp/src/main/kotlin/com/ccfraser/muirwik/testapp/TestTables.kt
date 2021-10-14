@@ -2,7 +2,9 @@ package com.ccfraser.muirwik.testapp
 
 import com.ccfraser.muirwik.components.*
 import com.ccfraser.muirwik.components.button.mIconButton
+import com.ccfraser.muirwik.components.styles.PaletteMode
 import com.ccfraser.muirwik.components.styles.lighten
+import com.ccfraser.muirwik.components.styles.mode
 import com.ccfraser.muirwik.components.table.*
 import kotlinx.css.*
 import react.*
@@ -228,7 +230,7 @@ class TestTables : RComponent<Props, State>() {
                     flex(1.0, 1.0, 100.pct)
                 }
                 val highlight by css {
-                    if (theme.palette.type == "light") {
+                    if (theme.palette.mode == PaletteMode.light) {
                         color = Color(theme.palette.secondary.main)
                         backgroundColor = Color(lighten(theme.palette.secondary.light, 0.85))
                     } else {

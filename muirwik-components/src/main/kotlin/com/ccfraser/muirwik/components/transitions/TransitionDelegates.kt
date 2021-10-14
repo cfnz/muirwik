@@ -56,4 +56,3 @@ class TransitionComponentDelegate : ReadWriteProperty<Props, TransitionComponent
         thisRef.asDynamic()[propName] = value?.js ?: undefined
     }
 }
-

@@ -29,37 +29,20 @@ external interface MCardHeaderProps : StyledProps {
 
 /**
  * This is a simpler version of a CardHeader allowing the use of strings for titles and subheaders. For more
- * options and control, you can use the full version of [mCardHeader]
+ * options and control, you can use the simpler version and use attributes of [mCardHeader]
  */
 @Suppress("UnsafeCastFromDynamic")
 fun RBuilder.mCardHeader(
     title: String,
     subHeader: String? = null,
-    avatar: ReactElement? = null,
-    action: ReactElement? = null,
-    className: String? = null,
     handler: StyledHandler<MCardHeaderProps>? = null
 ) {
-    val titleNode: Node? = title.asDynamic()
-    val subHeaderNode: Node? = subHeader?.asDynamic()
-    return mCardHeader(titleNode, subHeaderNode, avatar, action, className = className, handler = handler)
+    createStyled(cardHeaderComponentType, handler) {
+        attrs.title = title.asDynamic()
+        subHeader?.let { attrs.subheader = it.asDynamic() }
+    }
 }
 
-/**
- * The full version of mCardHeader.
- */
-fun RBuilder.mCardHeader(
-    title: Node? = null,
-    subHeader: Node? = null,
-    avatar: ReactElement? = null,
-    action: ReactElement? = null,
-    className: String? = null,
-    handler: StyledHandler<MCardHeaderProps>? = null
-) {
-    createStyled(cardHeaderComponentType, className, handler) {
-        action?.let { attrs.action = it }
-        avatar?.let { attrs.avatar = it }
-        subHeader?.let { attrs.subheader = it }
-        title?.let { attrs.title = it }
-    }
+fun RBuilder.mCardHeader(handler: StyledHandler<MCardHeaderProps>) {
+    createStyled(cardHeaderComponentType, handler)
 }

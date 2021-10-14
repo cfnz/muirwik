@@ -123,7 +123,6 @@ fun RBuilder.mPopover(
         closeAfterTransition: Boolean = false,
         onBackdropClick: SimpleEvent? = null,
         onClose: ((Event, reason: ModalOnCloseReason) -> Unit)? = null,
-        onEscapeKeyDown: SimpleEvent? = null,
         className: String? = null,
         handler: StyledHandler<MPopoverProps>
 ) {
@@ -137,7 +136,6 @@ fun RBuilder.mPopover(
 //    manager?.let { attrs.manager = manager }
         onBackdropClick?.let { attrs.onBackdropClick = it }
         attrs.onClose = onClose
-        onEscapeKeyDown?.let { attrs.onEscapeKeyDown = it }
         attrs.open = open
     }
 }

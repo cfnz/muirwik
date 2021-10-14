@@ -14,18 +14,10 @@ private external val dialogTitleModule: dynamic
 @Suppress("UnsafeCastFromDynamic")
 private val dialogTitleComponentType: ComponentType<MDialogTitleProps> = dialogTitleModule.default
 
-external interface MDialogTitleProps : StyledProps {
-    var disableTypography: Boolean
-}
+external interface MDialogTitleProps : StyledProps
 
-fun RBuilder.mDialogTitle(
-    text: String,
-    disableTypography: Boolean = false,
-    className: String? = null,
-    handler: StyledHandler<MDialogTitleProps>? = null
-) {
-    createStyled(dialogTitleComponentType, className, handler) {
-        attrs.disableTypography = disableTypography
+fun RBuilder.mDialogTitle(text: String, handler: StyledHandler<MDialogTitleProps>? = null) {
+    createStyled(dialogTitleComponentType, handler) {
         childList.add(ReactNode(text))
     }
 }

@@ -1,9 +1,6 @@
 package com.ccfraser.muirwik.components.dialog
 
-import com.ccfraser.muirwik.components.EnumPropToString
-import com.ccfraser.muirwik.components.MPaperProps
-import com.ccfraser.muirwik.components.SimpleEvent
-import com.ccfraser.muirwik.components.createStyled
+import com.ccfraser.muirwik.components.*
 import com.ccfraser.muirwik.components.styles.Breakpoint
 import com.ccfraser.muirwik.components.transitions.TransitionComponent
 import com.ccfraser.muirwik.components.transitions.TransitionComponentDelegate
@@ -27,7 +24,6 @@ enum class DialogScroll {
 external interface MDialogProps : MModalProps {
     var fullScreen: Boolean
     var fullWidth: Boolean
-    var maxWidth: Any
 
     var onEnter: SimpleEvent
     var onEntered: SimpleEvent
@@ -37,7 +33,7 @@ external interface MDialogProps : MModalProps {
     var onExiting: SimpleEvent
 
     @JsName("PaperComponent")
-    var paperComponent: RComponent<Props, State>?
+    var paperComponent: ReactElement
 
     @JsName("PaperProps")
     var paperProps: MPaperProps?
@@ -45,10 +41,23 @@ external interface MDialogProps : MModalProps {
     @JsName("TransitionProps")
     var transitionProps: Props?
 }
+var MDialogProps.maxWidth by BreakpointNullToFalseDelegate()
 var MDialogProps.scroll by EnumPropToString(DialogScroll.values())
 var MDialogProps.transitionComponent by TransitionComponentDelegate()
 var MDialogProps.transitionDuration by TransitionDurationDelegateNullable()
 
+
+fun RBuilder.mDialog(
+    open: Boolean = false,
+    handler: StyledHandler<MDialogProps>
+) {
+    createStyled(dialogComponentType, handler) {
+        attrs.open = open
+    }
+}
+
+
+@Deprecated("Use the simpler version with attrs (params will mainly be used for required attributes).")
 /**
  * Note setting maxWidth to null will disable maxWidth (i.e. pass false to the underlying Material UI component)
  * We will leave some of the props to be set by javascript
@@ -64,7 +73,6 @@ fun RBuilder.mDialog(
 
     onBackdropClick: SimpleEvent? = null,
     onClose: ((Event, reason: ModalOnCloseReason) -> Unit)? = null,
-    onEscapeKeyDown: SimpleEvent? = null,
 
     scroll: DialogScroll = DialogScroll.paper,
 
@@ -85,11 +93,10 @@ fun RBuilder.mDialog(
 //    manager?.let { attrs.manager = manager }
         onBackdropClick?.let { attrs.onBackdropClick = it }
         attrs.onClose = onClose
-        onEscapeKeyDown?.let { attrs.onEscapeKeyDown = it }
         attrs.open = open
         attrs.fullScreen = fullScreen
         attrs.fullWidth = fullWidth
-        attrs.maxWidth = maxWidth?.toString() ?: false
+        attrs.maxWidth = maxWidth
         attrs.scroll = scroll
         attrs.transitionComponent = transitionComponent
 //    transitionDuration?.let { attrs.transitionDuration = it }

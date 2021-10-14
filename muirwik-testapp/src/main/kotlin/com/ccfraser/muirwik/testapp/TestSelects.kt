@@ -76,15 +76,16 @@ class TestSelects : RComponent<Props, State>() {
     }
 
     override fun RBuilder.render() {
-        simpleSelects()
-        nativeSelects()
-        multiSelects()
-        selectVariants()
+        demoContainer {
+            simpleSelects()
+            nativeSelects()
+            multiSelects()
+            selectVariants()
+        }
     }
 
     private fun RBuilder.simpleSelects() {
-        mTypography("Simple Selects", MTypographyVariant.h4)
-        styledForm {
+        demoPanel("Simple Selects") {
             css { display = Display.flex; flexWrap = FlexWrap.wrap; paddingBottom = 4.spacingUnits }
             mFormControl {
                 css(formControl)
@@ -204,8 +205,7 @@ class TestSelects : RComponent<Props, State>() {
     }
 
     private fun RBuilder.nativeSelects() {
-        mTypography("Native Selects", MTypographyVariant.h4)
-        styledForm {
+        demoPanel("Native Selects") {
             css { display = Display.flex; flexWrap = FlexWrap.wrap; paddingBottom = 4.spacingUnits }
             mFormControl {
                 css(formControl)
@@ -281,8 +281,7 @@ class TestSelects : RComponent<Props, State>() {
                 }
             }
 
-            mTypography("Multi Selects", MTypographyVariant.h4)
-            styledForm {
+            demoPanel("Multi Selects") {
                 css { display = Display.flex; flexWrap = FlexWrap.wrap; paddingBottom = 4.spacingUnits }
                 mFormControl {
                     css(formControl)
@@ -326,8 +325,7 @@ class TestSelects : RComponent<Props, State>() {
     }
 
     private fun RBuilder.selectVariants() {
-        mTypography("Select Variants", MTypographyVariant.h4)
-        styledForm {
+        demoPanel("Select Variants") {
 //            css { display = Display.flex; flexWrap = FlexWrap.wrap; paddingBottom = 4.spacingUnits }
             mFormControl {
                 css(formControl)

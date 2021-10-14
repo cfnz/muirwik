@@ -1,20 +1,22 @@
 package com.ccfraser.muirwik.testapp
 
+import com.ccfraser.muirwik.components.*
 import com.ccfraser.muirwik.components.form.mFormControlLabel
-import com.ccfraser.muirwik.components.mPaper
-import com.ccfraser.muirwik.components.mSwitch
-import com.ccfraser.muirwik.components.mTypography
-import com.ccfraser.muirwik.components.spacingUnits
+import com.ccfraser.muirwik.components.styles.PaletteMode
+import com.ccfraser.muirwik.components.styles.mode
 import com.ccfraser.muirwik.components.transitions.*
 import kotlinext.js.js
 import kotlinext.js.jsObject
 import kotlinx.css.*
+import org.w3c.dom.HTMLElement
 import react.*
 import react.dom.div
 import react.dom.svg
 import styled.StyleSheet
 import styled.css
 import styled.styledDiv
+import kotlin.properties.ReadWriteProperty
+import kotlin.reflect.KProperty
 
 // This works in Legacy, but not IR
 //private open class ShapeProps (
@@ -68,6 +70,7 @@ class TestTransitions : RComponent<Props, State>() {
     var growShown: Boolean = false
     var slideShown: Boolean = false
     var zoomShown: Boolean = false
+    val containerRef = createRef<HTMLElement>()
 
     object ComponentStyles : StyleSheet("TransitionStyles", isStatic = true) {
         val area by css {
@@ -77,6 +80,7 @@ class TestTransitions : RComponent<Props, State>() {
     }
 
     override fun RBuilder.render() {
+
         // For building things that we don't want to render now (e.g. the component will render it later), we need another builder
         div {
             styledDiv {
@@ -89,7 +93,7 @@ class TestTransitions : RComponent<Props, State>() {
                         attrs.timeout = AutoTransitionDuration()
                         demoComponent()
                     }
-                    mCollapse(show = collapseShown, collapsedHeight = 40.px) {
+                    mCollapse(show = collapseShown, collapsedSize = 40.px) {
                         demoComponent()
                     }
                     mTypography("(Shows use of collapseHeight)")
@@ -132,12 +136,32 @@ class TestTransitions : RComponent<Props, State>() {
                 }
             }
             styledDiv {
-                css(ComponentStyles.area)
-                mFormControlLabel("Slide", buildElement { mSwitch(checked = slideShown, onChange = {_, _ ->  setState {slideShown = ! slideShown}}) })
+                css {
+                    +ComponentStyles.area
+                    display = Display.flex
+                }
                 styledDiv {
-                    css { display = Display.flex }
+                    css { width = 140.px}
+                    mFormControlLabel("Slide", buildElement { mSwitch(checked = slideShown, onChange = {_, _ ->  setState {slideShown = ! slideShown}}) })
                     mSlide(show = slideShown, direction = SlideTransitionDirection.up) {
                         demoComponent()
+                    }
+                }
+                themeContext.Consumer { theme ->
+                    mBox {
+                        css {
+                            height = 150.px
+                            width = 150.px
+                            display = Display.flex
+                            padding(2.spacingUnits)
+                            borderRadius = 1.spacingUnits
+                            backgroundColor = if (theme.palette.mode == PaletteMode.light) Colors.Grey.shade100 else Colors.Grey.shade900
+                            overflow = Overflow.hidden
+                        }
+                        ref = containerRef
+                        mSlide(show = slideShown, direction = SlideTransitionDirection.up, container = containerRef.current) {
+                            demoComponent()
+                        }
                     }
                 }
             }

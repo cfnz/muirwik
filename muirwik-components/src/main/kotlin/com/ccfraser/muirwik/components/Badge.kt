@@ -24,7 +24,7 @@ enum class MBadgeVariant {
 
 @Suppress("EnumEntryName")
 enum class MBadgeOverlap {
-    circle, rectangle
+    circular, rectangular
 }
 
 @Suppress("EnumEntryName")
@@ -56,6 +56,51 @@ var MBadgeProps.variant by EnumPropToString(MBadgeVariant.values())
 fun RBuilder.mBadge(
     badgeContent: String,
     color: MBadgeColor = MBadgeColor.default,
+    handler: StyledHandler<MBadgeProps>? = null
+) {
+    @Suppress("UNCHECKED_CAST_TO_EXTERNAL_INTERFACE")
+    val badgeContentAsElement = badgeContent.asDynamic() as ReactElement
+
+    createStyled(badgeComponentType, handler) {
+        attrs.badgeContent = badgeContentAsElement
+        attrs.color = color
+    }
+}
+
+fun RBuilder.mBadge(
+    badgeContent: Number,
+    showZero: Boolean = false,
+    max: Number = 99,
+    color: MBadgeColor = MBadgeColor.default,
+    handler: StyledHandler<MBadgeProps>? = null
+) {
+    @Suppress("UNCHECKED_CAST_TO_EXTERNAL_INTERFACE")
+    val badgeContentAsElement = badgeContent.asDynamic() as ReactElement
+
+    createStyled(badgeComponentType, handler) {
+        attrs.badgeContent = badgeContentAsElement
+        attrs.color = color
+        attrs.showZero = showZero
+        attrs.max = max
+    }
+}
+
+fun RBuilder.mBadgeDot(
+    color: MBadgeColor = MBadgeColor.default,
+    handler: StyledHandler<MBadgeProps>? = null
+) {
+    createStyled(badgeComponentType, handler) {
+        attrs.color = color
+        attrs.variant = MBadgeVariant.dot
+    }
+}
+
+
+
+@Deprecated("Use the simpler version with attrs (params will mainly be used for required attributes).")
+fun RBuilder.mBadge(
+    badgeContent: String,
+    color: MBadgeColor = MBadgeColor.default,
     variant: MBadgeVariant = MBadgeVariant.standard,
     component: String? = "span",
     invisible: Boolean? = null,
@@ -68,6 +113,7 @@ fun RBuilder.mBadge(
     mBadge(badgeContentAsElement, color, false, 99, variant, component, invisible, className, handler)
 }
 
+@Deprecated("Use the simpler version with attrs (params will mainly be used for required attributes).")
 fun RBuilder.mBadge(
     badgeContent: Number,
     color: MBadgeColor = MBadgeColor.default,
@@ -85,6 +131,7 @@ fun RBuilder.mBadge(
     mBadge(badgeContentAsElement, color, showZero, max, variant, component, invisible, className, handler)
 }
 
+@Deprecated("Use the simpler version with attrs (params will mainly be used for required attributes).")
 fun RBuilder.mBadge(
     badgeContent: ReactElement,
     color: MBadgeColor = MBadgeColor.default,
@@ -108,6 +155,7 @@ fun RBuilder.mBadge(
     }
 }
 
+@Deprecated("Use the simpler version with attrs (params will mainly be used for required attributes).")
 fun RBuilder.mBadgeDot(
     color: MBadgeColor = MBadgeColor.default,
     invisible: Boolean? = null,

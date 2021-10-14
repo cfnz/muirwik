@@ -14,6 +14,11 @@ private external val cardActionAreaModule: dynamic
 @Suppress("UnsafeCastFromDynamic")
 private val cardActionAreaComponentType: ComponentType<MButtonBaseProps> = cardActionAreaModule.default
 
+fun RBuilder.mCardActionArea(handler: StyledHandler<MButtonBaseProps>) {
+    createStyled(cardActionAreaComponentType, handler)
+}
+
+@Deprecated("Use the simpler version with attrs (params will mainly be used for required attributes).")
 fun RBuilder.mCardActionArea(
     onClick: ((Event) -> Unit)? = null,
     disabled: Boolean = false,

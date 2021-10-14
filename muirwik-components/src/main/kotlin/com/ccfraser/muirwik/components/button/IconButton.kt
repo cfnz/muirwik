@@ -22,20 +22,57 @@ enum class MIconEdge {
     start, end // We assume if the prop is null, then the default false will be used, so we don't have this as a value
 }
 
-external interface MIconButtonProps : MButtonBaseProps {
-    var disableFocusRipple: Boolean
-    var href: String
-}
-
 enum class MIconButtonColor {
     inherit, default, primary, secondary, error, info, success, warning
 }
 
+external interface MIconButtonProps : MButtonBaseProps {
+    var disableFocusRipple: Boolean
+    var href: String
+}
 var MIconButtonProps.color by EnumPropToString(MIconButtonColor.values())
 var MIconButtonProps.edge by EnumPropToStringNullable(MIconEdge.values())
 var MIconButtonProps.size by EnumPropToString(MIconButtonSize.values())
 
+/**
+ * If the icon name is given, we shall create a child mIcon with the given name and try and match the size and color.
+ * If the icon name is not given, a child mIcon should be given. This also allows more options and styling
+ * to be given to the icon.
+ */
+fun RBuilder.mIconButton(
+    iconName: String? = null,
+    color: MIconButtonColor = MIconButtonColor.default,
+    size: MIconButtonSize = MIconButtonSize.medium,
+    hRefOptions: HRefOptions? = null,
+    handler: StyledHandler<MIconButtonProps>? = null
+) {
+    createStyled(iconButtonComponentType, handler) {
+        attrs.color = color
+        hRefOptions?.let { setHRefTargetNoOpener(attrs, it) }
 
+        val iconColorToUse = when (color) {
+            MIconButtonColor.inherit -> MIconColor.inherit
+            MIconButtonColor.default -> MIconColor.action
+            MIconButtonColor.primary -> MIconColor.primary
+            MIconButtonColor.secondary -> MIconColor.secondary
+            MIconButtonColor.error -> MIconColor.error
+            MIconButtonColor.info -> MIconColor.info
+            MIconButtonColor.success -> MIconColor.success
+            MIconButtonColor.warning -> MIconColor.warning
+        }
+        attrs.size = size
+        if (iconName != null) {
+            val fontSize = when (size) {
+                MIconButtonSize.small -> MIconFontSize.small
+                MIconButtonSize.medium -> MIconFontSize.default
+            }
+
+            mIcon(iconName, color = iconColorToUse, fontSize = fontSize)
+        }
+    }
+}
+
+@Deprecated("Use the simpler version with attrs (params will mainly be used for required attributes).")
 /**
  * If the icon name is given, we shall create a child mIcon with the given name and try and match the size and color.
  * If the icon name is not given, a child mIcon should be given. This also allows more options and styling

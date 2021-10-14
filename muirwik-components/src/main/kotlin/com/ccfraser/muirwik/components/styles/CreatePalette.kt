@@ -1,30 +1,44 @@
 package com.ccfraser.muirwik.components.styles
 
+import com.ccfraser.muirwik.components.EnumPropToString
+import com.ccfraser.muirwik.components.EnumPropToStringNullable
+import react.Props
+
 /**
- * ts2kt types with tweaks from material-ui/styles/createPalette
+ * ts2kt types with tweaks from material-ui/styles/createPalette and tweaked
  */
 external interface TypeText {
     var primary: String
     var secondary: String
     var disabled: String
-    var hint: String
 }
 external interface TypeAction {
     var active: String
     var hover: String
+    var hoverOpacity: Number
     var selected: String
+    var selectedOpacity: Number
     var disabled: String
+    var disabledOpacity: Number
     var disabledBackground: String
+    var focus: String
+    var focusOpacity: Number
+    var activatedOpacity: Number
 }
 external interface TypeBackground {
     var default: String
     var paper: String
 }
+
+typealias TypeDivider = String
+
+typealias PaletteColorOptions = SimplePaletteColorOptions //SimplePaletteColorOptions | ColorPartial;
+
 external interface SimplePaletteColorOptions {
-    var light: String? get() = definedExternally; set(value) = definedExternally
+    var light: String?
     var main: String
-    var dark: String? get() = definedExternally; set(value) = definedExternally
-    var contrastText: String? get() = definedExternally; set(value) = definedExternally
+    var dark: String?
+    var contrastText: String?
 }
 external interface PaletteColor {
     var light: String
@@ -35,33 +49,57 @@ external interface PaletteColor {
 external interface TypeObject {
     var text: TypeText
     var action: TypeAction
+    var divider: TypeDivider
     var background: TypeBackground
 }
-external interface Palette {
+
+typealias PaletteTonalOffset = Any
+
+external interface PaletteAugmentColorOptions {
+    var color: dynamic
+    var mainShade: dynamic
+    var lightShade: dynamic
+    var darkShade: dynamic
+    var name: dynamic
+}
+enum class PaletteMode {
+    light, dark
+}
+external interface Palette : Props {
     var common: CommonColors
-    var type: String //export type PaletteType = 'light' | 'dark';
     var contrastThreshold: Int
     var tonalOffset: Float
     var primary: PaletteColor
     var secondary: PaletteColor
     var error: PaletteColor
+    var warning: PaletteColor
+    var info: PaletteColor
+    var success: PaletteColor
     var grey: Color
     var text: TypeText
     var divider: String
     var action: TypeAction
     var background: TypeBackground
     var getContrastText: (color: String) -> String
+    var augmentColor: (options: PaletteAugmentColorOptions) -> PaletteColor
 }
-external interface PaletteOptions {
-    var common: Any? get() = definedExternally; set(value) = definedExternally
-    var type: String? get() = definedExternally; set(value) = definedExternally
-    var primary: dynamic /* Any? | SimplePaletteColorOptions */ get() = definedExternally; set(value) = definedExternally
-    var secondary: dynamic /* Any? | SimplePaletteColorOptions */ get() = definedExternally; set(value) = definedExternally
-    var error: dynamic /* Any? | SimplePaletteColorOptions */ get() = definedExternally; set(value) = definedExternally
-    var grey: Any? get() = definedExternally; set(value) = definedExternally
-    var text: Any? get() = definedExternally; set(value) = definedExternally
-    var divider: String? get() = definedExternally; set(value) = definedExternally
-    var action: Any? get() = definedExternally; set(value) = definedExternally
-    var background: Any? get() = definedExternally; set(value) = definedExternally
-    var getContrastText: ((color: String) -> String)? get() = definedExternally; set(value) = definedExternally
+var Palette.mode by EnumPropToString(PaletteMode.values())
+
+external interface PaletteOptions : Props {
+    var primary: PaletteColorOptions?
+    var secondary: PaletteColorOptions?
+    var error: PaletteColorOptions?
+    var warning: PaletteColorOptions?
+    var info: PaletteColorOptions?
+    var success: PaletteColorOptions?
+    var tonalOffset: PaletteTonalOffset?
+    var contrastThreshold: Number?
+    var common: CommonColors? // Partial<CommonColors>?
+    var grey: Color? // ColorPartial?
+    var text: TypeText? // Partial<TypeText>?
+    var divider: String?
+    var action: TypeAction? // Partial<TypeAction>?
+    var background: TypeBackground? // Partial<TypeBackground>?
+    var getContrastText: (background: String) -> String?
 }
+var PaletteOptions.mode by EnumPropToStringNullable(PaletteMode.values())
