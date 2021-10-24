@@ -1,6 +1,9 @@
 package com.ccfraser.muirwik.components
 
 import com.ccfraser.muirwik.components.styles.Breakpoint
+import com.ccfraser.muirwik.components.utils.EnumPropToString
+import com.ccfraser.muirwik.components.utils.EnumPropToStringNullable
+import com.ccfraser.muirwik.components.utils.createStyled
 import react.ComponentType
 import react.RBuilder
 import styled.StyledHandler
@@ -11,14 +14,14 @@ import styled.StyledProps
 private external val hiddenModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")
-private val hiddenComponentType: ComponentType<MHiddenProps> = hiddenModule.default
+private val hiddenComponentType: ComponentType<HiddenProps> = hiddenModule.default
 
 @Suppress("EnumEntryName")
-enum class MHiddenImplementation {
+enum class HiddenImplementation {
     js, css
 }
 
-external interface MHiddenProps : StyledProps {
+external interface HiddenProps : StyledProps {
     var lgDown: Boolean
     var lgUp: Boolean
     var mdDown: Boolean
@@ -31,9 +34,14 @@ external interface MHiddenProps : StyledProps {
     var xsDown: Boolean
     var xsUp: Boolean
 }
-var MHiddenProps.initialWidth by EnumPropToStringNullable(Breakpoint.values())
-var MHiddenProps.implementation by EnumPropToString(MHiddenImplementation.values())
+var HiddenProps.initialWidth by EnumPropToStringNullable(Breakpoint.values())
+var HiddenProps.implementation by EnumPropToString(HiddenImplementation.values())
 
+fun RBuilder.hidden(handler: StyledHandler<HiddenProps>) {
+    createStyled(hiddenComponentType, handler)
+}
+
+@Deprecated("Use the simpler 'non m' version.")
 fun RBuilder.mHidden(
     only: Array<Breakpoint> = emptyArray(),
     xsUp: Boolean = false,
@@ -47,9 +55,9 @@ fun RBuilder.mHidden(
     lgDown: Boolean = false,
     xlDown: Boolean = false,
     className: String? = null,
-    implementation: MHiddenImplementation = MHiddenImplementation.js,
+    implementation: HiddenImplementation = HiddenImplementation.js,
     initialWidth: Breakpoint? = null,
-    handler: StyledHandler<MHiddenProps>
+    handler: StyledHandler<HiddenProps>
 ) {
     createStyled(hiddenComponentType, className, handler) {
         attrs.implementation = implementation

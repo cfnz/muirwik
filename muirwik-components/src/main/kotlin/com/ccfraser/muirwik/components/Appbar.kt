@@ -1,5 +1,7 @@
 package com.ccfraser.muirwik.components
 
+import com.ccfraser.muirwik.components.utils.EnumPropToString
+import com.ccfraser.muirwik.components.utils.createStyled
 import react.ComponentType
 import react.RBuilder
 import styled.StyledHandler
@@ -8,31 +10,41 @@ import styled.StyledHandler
 private external val appBarModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")
-private val appBarComponentType: ComponentType<MAppBarProps> = appBarModule.default
+private val appBarComponentType: ComponentType<AppBarProps> = appBarModule.default
 
 @Suppress("EnumEntryName")
-enum class MAppBarPosition {
+enum class AppBarPosition {
     absolute, fixed, relative, static, sticky
 }
 
-enum class MAppBarColor {
+@Suppress("EnumEntryName")
+enum class AppBarColor {
     default, inherit, primary, secondary, transparent
 }
 
-external interface MAppBarProps : MPaperProps {
+external interface AppBarProps : PaperProps {
     var enableColorOnDark: Boolean
 }
-var MAppBarProps.color by EnumPropToString(MAppBarColor.values())
-var MAppBarProps.position by EnumPropToString(MAppBarPosition.values())
+var AppBarProps.color by EnumPropToString(AppBarColor.values())
+var AppBarProps.position by EnumPropToString(AppBarPosition.values())
 
+fun RBuilder.appBar(position: AppBarPosition = AppBarPosition.fixed, handler: StyledHandler<AppBarProps>) {
+    createStyled(appBarComponentType, handler) {
+        attrs.position = position
+    }
+}
+
+@Deprecated("Replace with appBar")
 fun RBuilder.mAppBar(
-    color: MAppBarColor = MAppBarColor.primary,
-    position: MAppBarPosition = MAppBarPosition.fixed,
+    color: AppBarColor = AppBarColor.primary,
+    position: AppBarPosition = AppBarPosition.fixed,
     className: String? = null,
-    handler: StyledHandler<MAppBarProps>? = null
+    handler: StyledHandler<AppBarProps>? = null
 ) {
-    createStyled(appBarComponentType, className, handler) {
+    appBar {
         attrs.color = color
         attrs.position = position
+        attrs.className = className
+        handler?.invoke(this)
     }
 }

@@ -1,13 +1,8 @@
 package com.ccfraser.muirwik.testapp
 
 import com.ccfraser.muirwik.components.*
-import com.ccfraser.muirwik.components.button.*
-import com.ccfraser.muirwik.components.dialog.*
-import com.ccfraser.muirwik.components.form.MFormControlMargin
-import com.ccfraser.muirwik.components.list.*
-import com.ccfraser.muirwik.components.transitions.MTransitionProps
-import com.ccfraser.muirwik.components.transitions.SlideTransitionDirection
-import com.ccfraser.muirwik.components.transitions.mSlide
+import com.ccfraser.muirwik.components.utils.Colors
+import com.ccfraser.muirwik.components.utils.spreadProps
 import com.ccfraser.muirwik.testapp.TestDialogs.ComponentStyles.avatarStyle
 import kotlinx.css.Position
 import kotlinx.css.backgroundColor
@@ -19,26 +14,28 @@ import react.dom.br
 import react.dom.div
 import styled.StyleSheet
 import styled.css
-import styled.styledDiv
-import kotlin.reflect.KClass
-
 
 class TestDialogs : RComponent<Props, State>() {
-    private var selectedValue: String = ""
-    private var simpleDialogOpen: Boolean = false
-    private var alertDialogOpen: Boolean = false
-    private var confirmationDialogOpen: Boolean = false
-    private var confirmationDialogScrollOpen: Boolean = false
-    private var fullScreenDialogOpen: Boolean = false
-    private var formDialogOpen: Boolean = false
-    private var draggableDialogOpen: Boolean = false
+    private var selectedValue = ""
+    private var simpleDialogOpen = false
+    private var alertDialogOpen = false
+    private var confirmationDialogOpen = false
+    private var confirmationDialogScrollOpen = false
+    private var fullScreenDialogOpen = false
+    private var formDialogOpen = false
+    private var draggableDialogOpen = false
+    private var useAlertSlideTransition = false
 
     private var confirmationDialogValue: String = ""
     private var confirmationDialogSelectedValue: String = ""
 
-//    private var alertTransition: KClass<out RComponent<MTransitionProps, State>>? = null
-    private var alertTransition: ComponentType<MSliderProps>? = null
-    private val slowTransitionProps: MTransitionProps = js("({timeout: 1000})")
+    private val slideTransitionComponent = forwardRef { props: Props, ref -> slide(direction = SlideTransitionDirection.up) { attrs.ref = ref; spreadProps(props)} }
+//        forwardRef { props: Props, ref -> childList.add(cloneElement(buildElement { mSlide(direction = SlideTransitionDirection.down) { attrs.ref = ref} }, props)) }
+//        forwardRef { props: Props, ref -> child(cloneElement(buildElement { mSlide(direction = SlideTransitionDirection.down) { attrs.ref = ref} }, props)) }
+//        forwardRef { props: Props, ref -> child(buildElement { mSlide(direction = SlideTransitionDirection.down) { attrs.ref = ref; spreadProps(props)} }) }
+
+
+    private val slowTransitionProps: TransitionProps = js("({timeout: 1000})")
     private var slow = false
 
     private object ComponentStyles : StyleSheet("ComponentStyles", isStatic = true) {
@@ -48,76 +45,16 @@ class TestDialogs : RComponent<Props, State>() {
         }
     }
 
-    class SlideUpTransitionComponent(props: MTransitionProps) : RComponent<MTransitionProps, State>(props) {
-        override fun RBuilder.render() {
-            
-            // This works but is a bit long winded and does not use our function
-//            val p2: Props = EmptyProps();
-//            p2.asDynamic().direction = "up"
-//
-//            val e1 = React.createElement(slideComponent, props)
-//            val c1 = React.cloneElement(e1, p2)
-//            childList.add(c1)
-
-
-            // This works, and is a bit nicer than the above, but still does not use our function
-//            val addionalProps = EmptyProps()
-//            addionalProps.asDynamic().direction = "up"
-//            childList.add(React.cloneElement(React.createElement(slideComponent, props), addionalProps))
-
-
-            // This works but with a warning in the console
-//            val e2 = React.cloneElement(mSlide(direction = SlideTransitionDirection.up, handler = {
-//                attrs.direction = "left"
-//            }), props )
-//            childList.add(e2)
-
-
-            // Yay, this works with no warning... just have to use a different RBuilder or addAsChild = false!!
-//            childList.add(cloneElement(RBuilder().mSlide(direction = SlideTransitionDirection.up, handler = {}), props))
-            childList.add(cloneElement(buildElement { mSlide(direction = SlideTransitionDirection.down) }, props))
-        }
-    }
-
-//    class SlideUpTransitionComponent2(props: MTransitionProps) : RComponent<MTransitionProps, State>(props) {
-//        override fun RBuilder.render() {
-//            childList.add(mSlide(props.show, direction = SlideTransitionDirection.down, timeout = SimpleTransitionTimeout(3000), addAsChild = false) {
-//                props.children()
-//            })
-//        }
-//    }
-
-
     override fun RBuilder.render() {
         div {
-            mTypography(variant = MTypographyVariant.subtitle1) {
-                +"Selected Value: $selectedValue"
-                br {  }
-                mCheckboxWithLabel("Slow the transition down a bit", checked = slow, onChange = { _, value -> setState { slow = value } })
-                br {  }
-                br {  }
-                +"Dialog Types:"
-            }
+            checkboxWithLabel("Slow the transition down a bit", checked = slow) { attrs.onChange = { _, value -> setState { slow = value } } }
             br {  }
-            mButton("Open Simple") { attrs.onClick = { setState { simpleDialogOpen = true }}}
-            mButton("Open Alert") { attrs.onClick = { setState {alertDialogOpen = true; alertTransition = null }}}
-//            mButton("Slide Alert") { attrs.onClick = { setState {alertDialogOpen = true; alertTransition = SlideUpTransitionComponent::class}}}
-            mButton("Slide Alert") {
-                attrs.onClick = {
-                    setState {
-                        alertDialogOpen = true;
-                        alertTransition = forwardRef<MSliderProps> { props, ref ->
-                            childList.add(cloneElement(buildElement {
-                                mSlide(direction = SlideTransitionDirection.down) {
-                                    attrs.ref = ref
-                                }
-                            }, props))
-                        }
-                    }
-                }
-            }
-
-            mButton("Confirmation (with dividers on)") {
+            br {  }
+            typography("Dialog Types:", variant = TypographyVariant.subtitle1)
+            button("Open Simple") { attrs.onClick = { setState { simpleDialogOpen = true }}}
+            button("Open Alert") { attrs.onClick = { setState { alertDialogOpen = true; useAlertSlideTransition = false }}}
+            button("Slide Alert") { attrs.onClick = { setState {alertDialogOpen = true; useAlertSlideTransition = true }}}
+            button("Confirmation (with dividers on)") {
                 attrs.onClick = {
                     setState {
                         confirmationDialogValue = confirmationDialogSelectedValue
@@ -125,7 +62,7 @@ class TestDialogs : RComponent<Props, State>() {
                     }
                 }
             }
-            mButton("Confirmation (Body Scroll)") {
+            button("Confirmation (Body Scroll)") {
                 attrs.onClick = {
                     setState {
                         confirmationDialogValue = confirmationDialogSelectedValue
@@ -133,9 +70,13 @@ class TestDialogs : RComponent<Props, State>() {
                     }
                 }
             }
-            mButton("Full Screen") { attrs.onClick = { setState {fullScreenDialogOpen = true}}}
-            mButton("Form") { attrs.onClick = { setState {formDialogOpen = true}}}
-            mButton("Draggable") { attrs.onClick = { setState {draggableDialogOpen = true}}}
+            button("Full Screen") { attrs.onClick = { setState {fullScreenDialogOpen = true}}}
+            button("Form") { attrs.onClick = { setState {formDialogOpen = true}}}
+            button("Draggable") { attrs.onClick = { setState {draggableDialogOpen = true}}}
+
+            br {  }
+            br {  }
+            typography("Selected Value: $selectedValue", variant = TypographyVariant.subtitle1)
 
             // Need to render whether simpleSnackbarOpen or closed so the close transition will occur!
             simpleDialog(simpleDialogOpen)
@@ -150,30 +91,35 @@ class TestDialogs : RComponent<Props, State>() {
 
     private fun RBuilder.simpleDialog(open: Boolean) {
         val emails = listOf("username@gmail.com", "user02@gmail.com")
-        mDialog(open) {
+        dialog(open) {
             attrs.onClose = { _, _ -> setState { simpleDialogOpen = false} }
             attrs.transitionProps = if (slow) slowTransitionProps else null
-            mDialogTitle("Set backup account")
+            dialogTitle("Set backup account")
             div {
-                mList {
+                list {
                     emails.forEach {email ->
-                        mListItem(button = true, onClick = { setState {
-                            this@TestDialogs.selectedValue = email
-                            this@TestDialogs.simpleDialogOpen = false
-                        }}) {
-                            mListItemAvatar {
-                                mAvatar {
+                        listItemButton {
+                            attrs.onClick = { setState {
+                                this@TestDialogs.selectedValue = email
+                                this@TestDialogs.simpleDialogOpen = false
+                            }}
+                            listItemAvatar {
+                                avatar {
                                     css(avatarStyle)
-                                    mIcon("person")
+                                    icon("person")
                                 }
                             }
-                            mListItemText(primary = email)
+                            listItemText(email)
                         }
                     }
-                    mListItemWithIcon("add", "add account", divider = false, useAvatar = true, onClick = { setState {
-                        this@TestDialogs.selectedValue = "add account"
-                        this@TestDialogs.simpleDialogOpen = false
-                    }})
+                    listItemButtonWithIcon("add", "add account", useAvatar = true) {
+                        attrs.onClick = {
+                            setState {
+                                this@TestDialogs.selectedValue = "add account"
+                                this@TestDialogs.simpleDialogOpen = false
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -184,21 +130,21 @@ class TestDialogs : RComponent<Props, State>() {
             setState { alertDialogOpen = false }
         }
 
-        mDialog(open) {
+        dialog(open) {
             attrs.onClose = { _, _ ->  closeAlertDialog() }
-//            attrs.transitionComponent = alertTransition
+            attrs.transitionComponent = if (useAlertSlideTransition) slideTransitionComponent else undefined
             attrs.transitionProps = if (slow) slowTransitionProps else null
             attrs.keepMounted = true
 
-            mDialogTitle("Use Google's location service?")
-            mDialogContent {
-                mDialogContentText("Let Google help apps determine location. This means sending anonymous location data to Google, even when no apps are running.")
+            dialogTitle("Use Google's location service?")
+            dialogContent {
+                dialogContentText("Let Google help apps determine location. This means sending anonymous location data to Google, even when no apps are running.")
             }
-            mDialogActions {
-                mButton("Disagree") {
+            dialogActions {
+                button("Disagree") {
                     attrs.onClick = { closeAlertDialog() }
                 }
-                mButton("Agree") {
+                button("Agree") {
                     attrs.onClick = { closeAlertDialog() }
                 }
             }
@@ -211,29 +157,30 @@ class TestDialogs : RComponent<Props, State>() {
 //        mDialog(disableBackdropClick = true, disableEscapeKeyDown = true, maxWidth = DialogMaxWidth.xs) {
 //        mDialog(disableEscapeKeyDown = true, maxWidth = DialogMaxWidth.xs) {
 
-        mDialog(open) {
+        dialog(open) {
             attrs.scroll = scroll
             attrs.transitionProps = if (slow) slowTransitionProps else null
             attrs.disableEscapeKeyDown = true
-            mDialogTitle("Phone Ringtone")
+            dialogTitle("Phone Ringtone")
             // We will show the dividers on one of the dialogs (i.e. the one with paper scroll
-            mDialogContent(scroll == DialogScroll.paper) {
-                mRadioGroup(value = confirmationDialogValue, onChange = {_, value -> setState { confirmationDialogValue = value }} ) {
+            dialogContent(scroll == DialogScroll.paper) {
+                radioGroup(confirmationDialogValue) {
+                    attrs.onChange = {_, value -> setState { confirmationDialogValue = value }}
                     options.forEach {
-                        mRadioWithLabel(it, value = it)
+                        radioWithLabel(it, value = it)
                     }
                 }
             }
-            mDialogActions {
-                mButton("Cancel") {
+            dialogActions {
+                button("Cancel") {
                     attrs.onClick = { setState {
                         confirmationDialogOpen = false
                         confirmationDialogScrollOpen = false
                     } }
                 }
-                mButton("Ok") {
+                button("Ok") {
                     attrs.onClick = { setState {
-                        confirmationDialogSelectedValue = confirmationDialogValue;
+                        confirmationDialogSelectedValue = confirmationDialogValue
                         confirmationDialogOpen = false
                         confirmationDialogScrollOpen = false
                     } }
@@ -246,28 +193,30 @@ class TestDialogs : RComponent<Props, State>() {
         fun handleClose() {
             setState { fullScreenDialogOpen = false}
         }
-        mDialog(open) {
+        dialog(open) {
             attrs.fullScreen = true
-            attrs.transitionComponent = SlideUpTransitionComponent::class
+            attrs.transitionComponent = slideTransitionComponent
             attrs.transitionProps = if (slow) slowTransitionProps else null
             attrs.onClose = { _, _ -> handleClose() }
 
-            mAppBar {
+            appBar {
                 css {
                     position = Position.relative
                 }
-                mToolbar {
-                    mIconButton(iconName = "close", MIconButtonColor.inherit) {
+                toolbar {
+                    iconButton(iconName = "close", IconButtonColor.inherit) {
                         attrs.onClick = { handleClose() }
                     }
-                    mToolbarTitle("Sound")
-                    mButton("save", MButtonColor.inherit, MButtonVariant.text) {
+                    toolbarTitle("Sound")
+                    button("save", ButtonColor.inherit, ButtonVariant.text) {
                         attrs.onClick = { handleClose() }
                     }
                 }
             }
-            mListItem(primaryText = "Phone ringtone", secondaryText = "Titania", divider = true)
-            mListItem(primaryText = "Default notification ringtone", secondaryText = "Tethys")
+            listItemText("Phone ringtone", "Titania") {
+                divider()
+            }
+            listItemText("Default notification ringtone", "Tethys")
         }
     }
 
@@ -275,19 +224,24 @@ class TestDialogs : RComponent<Props, State>() {
         fun handleClose() {
             setState { formDialogOpen = false}
         }
-        mDialog(open) {
+        dialog(open) {
             attrs.onClose =  { _, _ -> handleClose() }
             attrs.transitionProps = if (slow) slowTransitionProps else null
-            mDialogTitle("Subscribe")
-            mDialogContent {
-                mDialogContentText("To subscribe to this website, please enter your email address here. We will send updates occationally.")
-                mTextField("Email Address", autoFocus = true, margin = MFormControlMargin.dense, type = InputType.email, fullWidth = true)
+            dialogTitle("Subscribe")
+            dialogContent {
+                dialogContentText("To subscribe to this website, please enter your email address here. We will send updates occationally.")
+                textField("Email Address") {
+                    attrs.autoFocus = true
+                    attrs.margin = FormControlMargin.dense
+                    attrs.type = InputType.email.realValue
+                    attrs.fullWidth = true
+                }
             }
-            mDialogActions {
-                mButton("Cancel", variant = MButtonVariant.text) {
+            dialogActions {
+                button("Cancel", variant = ButtonVariant.text) {
                     attrs.onClick = { handleClose() }
                 }
-                mButton("Subscribe", variant = MButtonVariant.text) {
+                button("Subscribe", variant = ButtonVariant.text) {
                     attrs.onClick = { handleClose() }
                 }
             }
@@ -295,8 +249,9 @@ class TestDialogs : RComponent<Props, State>() {
     }
 
     private fun RBuilder.draggableDialog(open: Boolean) {
-        mSnackbar("Sorry, not implemented yet...", open, autoHideDuration = 3000,
-                onClose = { _, _ -> setState {draggableDialogOpen = false}})
+        snackbar("Sorry, not implemented yet...", open) {
+            attrs.autoHideDuration = 3000
+            attrs.onClose = { _, _ -> setState {draggableDialogOpen = false}}
 //        fun handleClose() {
 //            setState { draggableDialogOpen = false}
 //        }
@@ -314,5 +269,6 @@ class TestDialogs : RComponent<Props, State>() {
 //                mButton("Subscribe", color = MColor.primary, onClick = { handleClose() }, variant = MButtonVariant.text)
 //            }
 //        }
+        }
     }
 }

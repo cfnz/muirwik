@@ -1,9 +1,11 @@
 package com.ccfraser.muirwik.components
 
+import com.ccfraser.muirwik.components.utils.EnumPropToStringNullable
+import com.ccfraser.muirwik.components.utils.createStyled
 import kotlinext.js.jsObject
 import react.ComponentType
-import react.RBuilder
 import react.Props
+import react.RBuilder
 import react.createElement
 import styled.StyledHandler
 
@@ -11,27 +13,45 @@ import styled.StyledHandler
 private external val svgIconModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")
-private val svgIconComponentType: ComponentType<MSvgIconProps> = svgIconModule.default
+private val svgIconComponentType: ComponentType<SvgIconProps> = svgIconModule.default
 
 @Suppress("EnumEntryName")
 enum class SvgShapeRendering {
     auto, optimizeSpeed, crispEdges, geometricPrecision
 }
 
-external interface MSvgIconProps : MIconProps {
+external interface SvgIconProps : IconProps {
     var htmlColor: String?
     var titleAccess: String?
     var viewBox: String?
 }
-var MSvgIconProps.shapeRendering by EnumPropToStringNullable(SvgShapeRendering.values())
+var SvgIconProps.shapeRendering by EnumPropToStringNullable(SvgShapeRendering.values())
 
+fun RBuilder.svgIcon(
+    svgPath: String,
+    color: IconColor = IconColor.inherit,
+    htmlColor: String? = null,
+    handler: StyledHandler<SvgIconProps>? = null
+) {
+    createStyled(svgIconComponentType, handler) {
+        attrs.color = color
+        htmlColor?.let { attrs.htmlColor = it }
+
+        val props: Props =  jsObject {  }
+        props.asDynamic().d = svgPath
+
+        childList.add(createElement("path", props))
+    }
+}
+
+@Deprecated("Use the simpler 'non m' version.")
 fun RBuilder.mSvgIcon(
     svgPath: String,
-    color: MIconColor = MIconColor.inherit,
+    color: IconColor = IconColor.inherit,
     htmlColor: String? = null,
-    fontSize: MIconFontSize = MIconFontSize.default,
+    fontSize: IconFontSize = IconFontSize.medium,
     className: String? = null,
-    handler: StyledHandler<MSvgIconProps>? = null
+    handler: StyledHandler<SvgIconProps>? = null
 ) {
     createStyled(svgIconComponentType, className, handler) {
         attrs.color = color

@@ -1,12 +1,12 @@
 package com.ccfraser.muirwik.components
 
-import com.ccfraser.muirwik.components.transitions.MSlideProps
-import com.ccfraser.muirwik.components.transitions.TransitionDuration
-import com.ccfraser.muirwik.components.transitions.TransitionDurationDelegateNullable
+import com.ccfraser.muirwik.components.utils.EnumPropToString
+import com.ccfraser.muirwik.components.utils.StyledPropsWithCommonAttributes
+import com.ccfraser.muirwik.components.utils.createStyled
 import org.w3c.dom.events.Event
 import react.ComponentType
-import react.RBuilder
 import react.Props
+import react.RBuilder
 import styled.StyledHandler
 
 
@@ -14,20 +14,21 @@ import styled.StyledHandler
 private external val drawerModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")
-private val drawerComponentType: ComponentType<MDrawerProps> = drawerModule.default
+private val drawerComponentType: ComponentType<DrawerProps> = drawerModule.default
 
 @Suppress("EnumEntryName")
-enum class MDrawerAnchor {
+enum class DrawerAnchor {
     left, top, right, bottom
 }
 
 @Suppress("EnumEntryName")
-enum class MDrawerVariant {
+enum class DrawerVariant {
     permanent, persistent, temporary
 }
 
-external interface MDrawerProps : StyledPropsWithCommonAttributes {
+external interface DrawerProps : StyledPropsWithCommonAttributes {
     var elevation: Int
+    var hideBackdrop: Boolean
 
     @JsName("ModalProps")
     var modalProps: Props
@@ -36,29 +37,43 @@ external interface MDrawerProps : StyledPropsWithCommonAttributes {
     var open: Boolean
 
     @JsName("PaperProps")
-    var paperProps: MPaperProps
+    var paperProps: PaperProps
 
     @JsName("SlideProps")
-    var slideProps: MSlideProps
+    var slideProps: SlideProps
 
 }
-var MDrawerProps.anchor by EnumPropToString(MDrawerAnchor.values())
-var MDrawerProps.transitionDuration by TransitionDurationDelegateNullable()
-var MDrawerProps.variant by EnumPropToString(MDrawerVariant.values())
+var DrawerProps.anchor by EnumPropToString(DrawerAnchor.values())
+var DrawerProps.transitionDuration by TransitionDurationDelegateNullable()
+var DrawerProps.variant by EnumPropToString(DrawerVariant.values())
 
+fun RBuilder.drawer(
+    open: Boolean = false,
+    anchor: DrawerAnchor = DrawerAnchor.left,
+    variant: DrawerVariant = DrawerVariant.temporary,
+    handler: StyledHandler<DrawerProps>
+) {
+    createStyled(drawerComponentType, handler) {
+        attrs.anchor = anchor
+        attrs.open = open
+        attrs.variant = variant
+    }
+}
+
+@Deprecated("Use the simpler 'non m' version.")
 fun RBuilder.mDrawer(
-        open: Boolean = false,
-        anchor: MDrawerAnchor = MDrawerAnchor.left,
-        variant: MDrawerVariant = MDrawerVariant.temporary,
-        onClose: ((Event) -> Unit)? = null,
-        elevation: Int = 16,
-        modalProps: Props? = null,
-        paperProps: MPaperProps? = null,
-        slideProps: MSlideProps? = null,
-        transitionDuration: TransitionDuration? = null,
+    open: Boolean = false,
+    anchor: DrawerAnchor = DrawerAnchor.left,
+    variant: DrawerVariant = DrawerVariant.temporary,
+    onClose: ((Event) -> Unit)? = null,
+    elevation: Int = 16,
+    modalProps: Props? = null,
+    paperProps: PaperProps? = null,
+    slideProps: SlideProps? = null,
+    transitionDuration: TransitionDuration? = null,
 
-        className: String? = null,
-        handler: StyledHandler<MDrawerProps>
+    className: String? = null,
+    handler: StyledHandler<DrawerProps>
 ) {
     createStyled(drawerComponentType, className, handler) {
         attrs.anchor = anchor

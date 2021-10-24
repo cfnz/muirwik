@@ -31,11 +31,9 @@ kotlin {
 //    js(BOTH) {
         useCommonJs()
 
-
 //        compilations["main"].packageJson {
 //            customField("resolutions2", mapOf("@mui/styled-engine" to "npm:@mui/styled-engine-sc@latest"))
 //        }
-
 
         browser {
             binaries.executable()
@@ -49,7 +47,6 @@ kotlin {
                     useChromeHeadless()
                 }
             }
-
         }
     }
 }

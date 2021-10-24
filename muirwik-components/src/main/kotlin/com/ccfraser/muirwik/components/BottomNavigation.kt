@@ -1,10 +1,11 @@
 package com.ccfraser.muirwik.components
 
-import com.ccfraser.muirwik.components.button.MButtonBaseProps
+import com.ccfraser.muirwik.components.utils.ElementType
+import com.ccfraser.muirwik.components.utils.StyledPropsWithCommonAttributes
+import com.ccfraser.muirwik.components.utils.createStyled
 import org.w3c.dom.events.Event
 import react.ComponentType
 import react.RBuilder
-import react.ReactElement
 import styled.StyledHandler
 
 
@@ -16,12 +17,24 @@ private val bottomNavigationComponentType: ComponentType<MBottomNavigationProps>
 
 
 external interface MBottomNavigationProps: StyledPropsWithCommonAttributes {
-    var component: String
+    var component: ElementType
     var onChange: (event: Event, value: Any) -> Unit
     var showLabels: Boolean
     var value: Any
 }
 
+fun RBuilder.bottomNavigation(
+    value: Any = false, // false means none selected
+    showLabels: Boolean = false,
+    handler: StyledHandler<MBottomNavigationProps>
+) {
+    createStyled(bottomNavigationComponentType, handler) {
+        attrs.showLabels = showLabels
+        attrs.value = value
+    }
+}
+
+@Deprecated("Use the simpler 'non m' version.")
 fun RBuilder.mBottomNavigation(
     value: Any = false, // false means none selected
     showLabels: Boolean = false,
@@ -37,49 +50,3 @@ fun RBuilder.mBottomNavigation(
         attrs.value = value
     }
 }
-
-@JsModule("@mui/material/BottomNavigationAction")
-private external val bottomNavigationActionModule: dynamic
-
-@Suppress("UnsafeCastFromDynamic")
-private val bottomNavigationActionComponentType: ComponentType<MBottomNavigationActionProps> = bottomNavigationActionModule.default
-
-external interface MBottomNavigationActionProps: MButtonBaseProps {
-    var icon: ReactElement
-    var label: ReactElement
-    var showLabel: Boolean
-    var value: Any
-}
-
-@Suppress("UNCHECKED_CAST_TO_EXTERNAL_INTERFACE")
-fun RBuilder.mBottomNavigationAction(
-    label: String,
-    icon: ReactElement? = null,
-    showLabel: Boolean? = null,
-    value: Any? = null,
-    disabled: Boolean = false,
-    className: String? = null,
-    handler: StyledHandler<MBottomNavigationActionProps>? = null
-) {
-    mBottomNavigationAction(label.asDynamic() as ReactElement?, icon, showLabel, value, disabled, className, handler)
-}
-
-
-fun RBuilder.mBottomNavigationAction(
-    label: ReactElement? = null,
-    icon: ReactElement? = null,
-    showLabel: Boolean? = null,
-    value: Any? = null,
-    disabled: Boolean = false,
-    className: String? = null,
-    handler: StyledHandler<MBottomNavigationActionProps>? = null
-) {
-    createStyled(bottomNavigationActionComponentType, className, handler) {
-        attrs.disabled = disabled
-        icon?.let { attrs.icon = icon }
-        label?.let { attrs.label = it }
-        showLabel?.let { attrs.showLabel = showLabel }
-        value?.let { attrs.value = it }
-    }
-}
-

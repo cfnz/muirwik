@@ -2,8 +2,8 @@ package com.ccfraser.muirwik.components
 
 import kotlinext.js.jsObject
 import react.ComponentType
-import react.RBuilder
 import react.Props
+import react.RBuilder
 
 
 @JsModule("@mui/material/CssBaseline")

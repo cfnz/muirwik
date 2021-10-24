@@ -18,67 +18,96 @@ class TestSlider : RComponent<Props, State>() {
                 padding(2.spacingUnits)
                 width = 200.px
             }
-            mTypography("Volume")
-            mGridContainer(MGridSpacing.spacing2) {
-                mGridItem {
-                    mIcon("volume_down")
+            typography("Volume")
+            gridContainer(GridSpacing.spacing2) {
+                gridItem {
+                    icon("volume_down")
                 }
-                mGridItem(xs = MGridSize.cellsTrue) {
-                    mSlider(value, onChange = { _, newValue -> setState { value = newValue } })
+                gridItem {
+                    attrs.xs = GridSize.cellsTrue
+                    slider(value) {
+                        attrs.onChange = { _, newValue -> setState { value = newValue } }
+                    }
                 }
-                mGridItem {
-                    mIcon("volume_up")
+                gridItem {
+                    icon("volume_up")
                 }
             }
-            mSlider(10, disabled = true)
+            slider(10) { attrs.disabled = true }
         }
         styledDiv {
             css {
                 padding(2.spacingUnits)
                 width = 300.px
             }
-            mTypography("Temperature")
-            mSlider(defaultValue = 30, valueLabelDisplay = MSliderValueLabelDisplay.auto, showMarks = true,
-                    step = 10, min = 10, max = 110)
+            typography("Temperature")
+            slider {
+                attrs.defaultValue = 30
+                attrs.valueLabelDisplay = SliderValueLabelDisplay.auto
+                attrs.marks = true
+                attrs.step = 10
+                attrs.min = 10
+                attrs.max = 110
+                br {}
+                br {}
+            }
+            typography("Small Steps")
+            slider(null, -0.0000009, 0.0000009, 0.0000001) {
+                attrs.defaultValue = 0.0000005
+                attrs.valueLabelDisplay = SliderValueLabelDisplay.auto
+                attrs.marks = true
+                attrs.getAriaValueText = { v, _ -> "$v°C" }
+            }
             br {}
             br {}
-            mTypography("Small Steps")
-            mSlider(defaultValue = 0.0000005, valueLabelDisplay = MSliderValueLabelDisplay.auto, showMarks = true,
-                    step = 0.0000001, min = -.0000009, max = 0.0000009, getAriaValueText = { v, _ -> "$v°C" })
+            typography("Custom Marks (with one unlabeled)")
+            slider {
+                attrs.defaultValue = 20
+                attrs.valueLabelDisplay = SliderValueLabelDisplay.auto
+                attrs.step = 10
+                attrs.marks = arrayOf(
+                    SliderMark(0, "0°C"),
+                    SliderMark(20, "20°C"),
+                    SliderMark(37, "37°C"),
+                    SliderMark(50),
+                    SliderMark(100, "100°C")
+                )
+            }
             br {}
             br {}
-            mTypography("Custom Marks (with one unlabeled)")
-            mSlider(defaultValue = 20, valueLabelDisplay = MSliderValueLabelDisplay.auto, showMarks = true,
-                    step = 10, marks = listOf(
-                    MSliderMark(0, "0°C"),
-                    MSliderMark(20, "20°C"),
-                    MSliderMark(37, "37°C"),
-                    MSliderMark(50),
-                    MSliderMark(100, "100°C")
-            ))
+            typography("Restricted Values")
+            slider {
+                attrs.defaultValue = 20
+                attrs.valueLabelDisplay = SliderValueLabelDisplay.auto
+                attrs.step = null
+                attrs.marks = arrayOf(
+                    SliderMark(0, "0°C"),
+                    SliderMark(20, "20°C"),
+                    SliderMark(37, "37°C"),
+                    SliderMark(50),
+                    SliderMark(100, "100°C")
+                )
+            }
             br {}
             br {}
-            mTypography("Restricted Values")
-            mSlider(defaultValue = 20, valueLabelDisplay = MSliderValueLabelDisplay.auto, showMarks = true,
-                    step = null, marks = listOf(
-                    MSliderMark(0, "0°C"),
-                    MSliderMark(20, "20°C"),
-                    MSliderMark(37, "37°C"),
-                    MSliderMark(50),
-                    MSliderMark(100, "100°C")
-            ))
+            typography("Always Visible")
+            slider {
+                attrs.defaultValue = 80
+                attrs.valueLabelDisplay = SliderValueLabelDisplay.on
+                attrs.marks = true
+                attrs.step = 10
+            }
             br {}
             br {}
-            mTypography("Always Visible")
-            mSlider(defaultValue = 80, valueLabelDisplay = MSliderValueLabelDisplay.on, showMarks = true, step = 10)
-            br {}
-            br {}
-            mTypography("Temperature Range")
-            mSliderWithRange(defaultValue = Pair(20, 37), valueLabelDisplay = MSliderValueLabelDisplay.auto,
-                    showMarks = true, marks = listOf(
-                    MSliderMark(0, "0°C"),
-                    MSliderMark(100, "100°C")
-            ))
+            typography("Temperature Range")
+            sliderWithRange {
+                attrs.defaultValue = arrayOf(20, 37)
+                attrs.valueLabelDisplay = SliderValueLabelDisplay.auto
+                attrs.marks = arrayOf(
+                    SliderMark(0, "0°C"),
+                    SliderMark(100, "100°C")
+                )
+            }
         }
     }
 }

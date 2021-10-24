@@ -1,11 +1,6 @@
 package com.ccfraser.muirwik.testapp
 
 import com.ccfraser.muirwik.components.*
-import com.ccfraser.muirwik.components.button.MButtonColor
-import com.ccfraser.muirwik.components.button.MIconButtonColor
-import com.ccfraser.muirwik.components.button.mButton
-import com.ccfraser.muirwik.components.button.mIconButton
-import com.ccfraser.muirwik.components.input.mInput
 import com.ccfraser.muirwik.components.styles.Breakpoint
 import com.ccfraser.muirwik.components.styles.Theme
 import com.ccfraser.muirwik.components.styles.alpha
@@ -14,7 +9,10 @@ import kotlinx.css.*
 import kotlinx.css.properties.Timing
 import kotlinx.css.properties.Transition
 import kotlinx.css.properties.ms
-import react.*
+import react.Props
+import react.RBuilder
+import react.RComponent
+import react.State
 import styled.StyleSheet
 import styled.css
 import styled.styledDiv
@@ -36,7 +34,7 @@ class TestAppBar : RComponent<Props, State>() {
     }
 
     override fun RBuilder.render() {
-        mTypography("This demo shows the AppBar and Toolbar components")
+        typography("This demo shows the AppBar and Toolbar components")
 
         themeContext.Consumer { theme: Theme ->
             val themeStyles = object : StyleSheet("ComponentStyles", isStatic = true) {
@@ -77,9 +75,10 @@ class TestAppBar : RComponent<Props, State>() {
                 styledDiv {
                     css { flexGrow = 1.0; padding(2.spacingUnits) }
 
-                    mAppBar(MAppBarColor.default, MAppBarPosition.static) {
-                        mToolbar {
-                            mTypography("Title", variant = MTypographyVariant.h6, color = MTypographyColor.inherit)
+                    appBar(AppBarPosition.static) {
+                        attrs.color = AppBarColor.default
+                        toolbar {
+                            typography("Title", variant = TypographyVariant.h6, color = TypographyColor.inherit)
                         }
                     }
                 }
@@ -87,17 +86,17 @@ class TestAppBar : RComponent<Props, State>() {
                 styledDiv {
                     css { flexGrow = 1.0; padding(2.spacingUnits) }
 
-                    mAppBar(position = MAppBarPosition.static) {
-                        mToolbar {
-                            mIconButton("menu", color = MIconButtonColor.inherit) { css { marginLeft = -12.px; marginRight = 20.px }}
-                            mTypography("Title", variant = MTypographyVariant.h6, color = MTypographyColor.inherit) {
+                    appBar(AppBarPosition.static) {
+                        toolbar {
+                            iconButton("menu", color = IconButtonColor.inherit) { css { marginLeft = -12.px; marginRight = 20.px }}
+                            typography("Title", variant = TypographyVariant.h6, color = TypographyColor.inherit) {
                                 css { flexGrow = 1.0 }
                             }
                             if (loggedIn) {
-                                mIconButton ("account_circle", color = MIconButtonColor.inherit )
+                                iconButton ("account_circle", color = IconButtonColor.inherit )
 //                            mMenu(true, anchorEl = ) {  }
                             } else {
-                                mButton("Login", color = MButtonColor.inherit)
+                                button("Login", color = ButtonColor.inherit)
                             }
                         }
                     }
@@ -106,15 +105,15 @@ class TestAppBar : RComponent<Props, State>() {
                 styledDiv {
                     css { flexGrow = 1.0; padding(2.spacingUnits) }
 
-                    mAppBar(position = MAppBarPosition.static) {
-                        mToolbar {
-                            mIconButton("menu", color = MIconButtonColor.inherit) { css { marginLeft = -12.px; marginRight = 20.px }}
-                            mToolbarTitle("Toolbar Title One Liner")
+                    appBar(AppBarPosition.static) {
+                        toolbar {
+                            iconButton("menu", color = IconButtonColor.inherit) { css { marginLeft = -12.px; marginRight = 20.px }}
+                            toolbarTitle("Toolbar Title One Liner")
                             if (loggedIn) {
-                                mIconButton ("account_circle", color = MIconButtonColor.inherit )
+                                iconButton ("account_circle", color = IconButtonColor.inherit )
 //                            mMenu(true, anchorEl = ) {  }
                             } else {
-                                mButton("Login", color = MButtonColor.inherit)
+                                button("Login", color = ButtonColor.inherit)
                             }
                         }
                     }
@@ -123,11 +122,12 @@ class TestAppBar : RComponent<Props, State>() {
                 styledDiv {
                     css { flexGrow = 1.0; padding(2.spacingUnits) }
 
-                    mAppBar(position = MAppBarPosition.static) {
-                        mToolbar(disableGutters = true) {
-                            mIconButton("menu", color = MIconButtonColor.inherit)
-                            mToolbarTitle("Toolbar No Gutters")
-                            mIconButton ("account_circle", color = MIconButtonColor.inherit )
+                    appBar(AppBarPosition.static) {
+                        toolbar {
+                            attrs.disableGutters = true
+                            iconButton("menu", color = IconButtonColor.inherit)
+                            toolbarTitle("Toolbar No Gutters")
+                            iconButton ("account_circle", color = IconButtonColor.inherit )
                         }
                     }
                 }
@@ -135,21 +135,23 @@ class TestAppBar : RComponent<Props, State>() {
                 styledDiv {
                     css { flexGrow = 1.0; padding(2.spacingUnits) }
 
-                    mAppBar(position = MAppBarPosition.static) {
-                        mToolbar {
-                            mIconButton("menu", color = MIconButtonColor.inherit) { css { marginLeft = -12.px; marginRight = 20.px }}
-                            mToolbarTitle("Toolbar with Search")
+                    appBar(AppBarPosition.static) {
+                        toolbar {
+                            iconButton("menu", color = IconButtonColor.inherit) { css { marginLeft = -12.px; marginRight = 20.px }}
+                            toolbarTitle("Toolbar with Search")
                             styledDiv {
                                 css(themeStyles.search)
                                 styledDiv {
                                     css(ComponentStyles.searchIcon)
-                                    mIcon("search")
+                                    icon("search")
                                 }
 
                                 val inputProps = js("({})")
                                 inputProps.className = "${ComponentStyles.name}-inputInput"
 
-                                mInput(placeholder = "Search...", disableUnderline = true) {
+                                input {
+                                    attrs.placeholder = "Search..."
+                                    attrs.disableUnderline = true
                                     attrs.inputProps = inputProps
                                     css {
                                         color = Color.inherit
@@ -163,11 +165,11 @@ class TestAppBar : RComponent<Props, State>() {
                 styledDiv {
                     css { flexGrow = 1.0; padding(2.spacingUnits) }
 
-                    mAppBar(position = MAppBarPosition.static) {
-                        mToolbar(variant = ToolbarVariant.dense) {
-                            mIconButton("menu", color = MIconButtonColor.inherit) { css { marginLeft = -12.px; marginRight = 20.px }}
-                            mToolbarTitle("Toolbar dense (for Desktop use)")
-                            mButton("Login", color = MButtonColor.inherit)
+                    appBar(AppBarPosition.static) {
+                        toolbar(ToolbarVariant.dense) {
+                            iconButton("menu", color = IconButtonColor.inherit) { css { marginLeft = -12.px; marginRight = 20.px }}
+                            toolbarTitle("Toolbar dense (for Desktop use)")
+                            button("Login", color = ButtonColor.inherit)
                         }
                     }
                 }
@@ -175,11 +177,12 @@ class TestAppBar : RComponent<Props, State>() {
                 styledDiv {
                     css { flexGrow = 1.0; padding(2.spacingUnits) }
 
-                    mAppBar(position = MAppBarPosition.static) {
-                        mToolbar(variant = ToolbarVariant.dense, disableGutters = true) {
-                            mIconButton("menu", color = MIconButtonColor.inherit)
-                            mToolbarTitle("Toolbar dense and no gutters")
-                            mIconButton ("account_circle", color = MIconButtonColor.inherit )
+                    appBar(AppBarPosition.static) {
+                        toolbar(ToolbarVariant.dense) {
+                            attrs.disableGutters = true
+                            iconButton("menu", color = IconButtonColor.inherit)
+                            toolbarTitle("Toolbar dense and no gutters")
+                            iconButton ("account_circle", color = IconButtonColor.inherit )
                         }
                     }
                 }
@@ -187,12 +190,12 @@ class TestAppBar : RComponent<Props, State>() {
                 styledDiv {
                     css { flexGrow = 1.0; padding(2.spacingUnits) }
 
-                    mAppBar(position = MAppBarPosition.static, className = "hello") {
+                    appBar(AppBarPosition.static) {
                         attrs.elevation = 0
-                        mToolbar {
-                            mIconButton("menu", color = MIconButtonColor.inherit) { css { marginLeft = -12.px; marginRight = 20.px }}
-                            mToolbarTitle("Flat (elevation = 0)")
-                            mIconButton ("account_circle", color = MIconButtonColor.inherit )
+                        toolbar {
+                            iconButton("menu", color = IconButtonColor.inherit) { css { marginLeft = -12.px; marginRight = 20.px }}
+                            toolbarTitle("Flat (elevation = 0)")
+                            iconButton ("account_circle", color = IconButtonColor.inherit )
                         }
                     }
                 }

@@ -1,5 +1,5 @@
 plugins {
 //    base
-    id("org.jetbrains.kotlin.js") version "1.5.30" apply false
+    id("org.jetbrains.kotlin.js") version "1.5.31" apply false
 //    kotlin("js") apply false
 }

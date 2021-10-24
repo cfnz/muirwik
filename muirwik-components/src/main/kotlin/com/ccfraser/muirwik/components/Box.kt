@@ -1,5 +1,7 @@
 package com.ccfraser.muirwik.components
 
+import com.ccfraser.muirwik.components.utils.ElementType
+import com.ccfraser.muirwik.components.utils.createStyled
 import react.ComponentType
 import react.RBuilder
 import styled.StyledHandler
@@ -13,10 +15,10 @@ private external val boxModule: dynamic
 private val boxComponentType: ComponentType<MBoxProps> = boxModule.default
 
 external interface MBoxProps : StyledProps {
-    var component: String
+    var component: ElementType
 }
 
-fun RBuilder.mBox(component: String = "div", handler: StyledHandler<MBoxProps>) {
+fun RBuilder.box(component: ElementType = "div", handler: StyledHandler<MBoxProps>) {
     createStyled(boxComponentType, handler) {
         attrs.component = component
     }

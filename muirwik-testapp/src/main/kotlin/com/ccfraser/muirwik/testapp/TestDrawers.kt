@@ -1,16 +1,9 @@
 package com.ccfraser.muirwik.testapp
 
 import com.ccfraser.muirwik.components.*
-import com.ccfraser.muirwik.components.alert.MAlertSeverity
-import com.ccfraser.muirwik.components.alert.mAlert
-import com.ccfraser.muirwik.components.button.MIconButtonColor
-import com.ccfraser.muirwik.components.button.mButton
-import com.ccfraser.muirwik.components.button.mIconButton
-import com.ccfraser.muirwik.components.list.mList
-import com.ccfraser.muirwik.components.list.mListItemWithIcon
 import com.ccfraser.muirwik.components.styles.Breakpoint
 import com.ccfraser.muirwik.components.styles.up
-import com.ccfraser.muirwik.components.transitions.SimpleTransitionDuration
+import com.ccfraser.muirwik.components.utils.toolbarJsCssToPartialCss
 import com.ccfraser.muirwik.testapp.TestDrawers.ComponentStyles.drawer
 import kotlinext.js.js
 import kotlinext.js.jsObject
@@ -22,7 +15,6 @@ import kotlinx.html.js.onClickFunction
 import kotlinx.html.js.onKeyDownFunction
 import kotlinx.html.role
 import react.*
-import react.dom.br
 import react.dom.div
 import styled.StyleSheet
 import styled.css
@@ -57,32 +49,29 @@ class TestDrawers : RComponent<Props, State>() {
             themeContext.Consumer { theme ->
                 fun temporaryDrawer() {
                     demoPanel("Temporary Drawer") {
-                        mButton("Open Left", onClick = { setState { temporaryLeftOpen = true } })
-                        mButton("Open Right Slow", onClick = { setState { temporaryRightOpen = true } })
-                        mButton("Open Top", onClick = { setState { temporaryTopOpen = true } })
-                        mButton("Open Bottom", onClick = { setState { temporaryBottomOpen = true } })
+                        button("Open Left") { attrs.onClick = { setState { temporaryLeftOpen = true } } }
+                        button("Open Right Slow") { attrs.onClick = { setState { temporaryRightOpen = true } } }
+                        button("Open Top") { attrs.onClick = { setState { temporaryTopOpen = true } } }
+                        button("Open Bottom") { attrs.onClick = { setState { temporaryBottomOpen = true } } }
 
-                        mDrawer(temporaryLeftOpen, onClose = { setState { temporaryLeftOpen = false } }) {
+                        drawer(temporaryLeftOpen) {
+                            attrs.onClose = { setState { temporaryLeftOpen = false } }
                             mailPlaceholder(false)
                         }
-                        mDrawer(
-                            temporaryRightOpen,
-                            MDrawerAnchor.right,
-                            onClose = { setState { temporaryRightOpen = false } },
-                            transitionDuration = SimpleTransitionDuration(1000)
-                        ) {
+                        drawer(temporaryRightOpen) {
+                            attrs.anchor = DrawerAnchor.right
+                            attrs.onClose = { setState { temporaryRightOpen = false } }
+                            attrs.transitionDuration = SimpleTransitionDuration(1000)
                             mailPlaceholder(false)
                         }
-                        mDrawer(
-                            temporaryTopOpen,
-                            MDrawerAnchor.top,
-                            onClose = { setState { temporaryTopOpen = false } }) {
+                        drawer(temporaryTopOpen) {
+                            attrs.anchor = DrawerAnchor.top
+                            attrs.onClose = { setState { temporaryTopOpen = false } }
                             mailPlaceholder(true)
                         }
-                        mDrawer(
-                            temporaryBottomOpen,
-                            MDrawerAnchor.bottom,
-                            onClose = { setState { temporaryBottomOpen = false } }) {
+                        drawer(temporaryBottomOpen) {
+                            attrs.anchor = DrawerAnchor.bottom
+                            attrs.onClose = { setState { temporaryBottomOpen = false } }
                             mailPlaceholder(true)
                         }
                     }
@@ -90,33 +79,38 @@ class TestDrawers : RComponent<Props, State>() {
 
                 fun swipeableTemporaryDrawer() {
                     demoPanel("Swipeable Temporary Drawer") {
-                        mButton("Open Left", onClick = { setState { swipeableLeftOpen = true } })
-                        mButton("Open Right", onClick = { setState { swipeableRightOpen = true } })
-                        mButton("Open Top", onClick = { setState { swipeableTopOpen = true } })
-                        mButton("Open Bottom", onClick = { setState { swipeableBottomOpen = true } })
+                        button("Open Left") { attrs.onClick = { setState { swipeableLeftOpen = true } } }
+                        button("Open Right") { attrs.onClick = { setState { swipeableRightOpen = true } } }
+                        button("Open Top") { attrs.onClick = { setState { swipeableTopOpen = true } } }
+                        button("Open Bottom") { attrs.onClick = { setState { swipeableBottomOpen = true } } }
 
-                        mSwipeableDrawer(swipeableLeftOpen,
+                        swipeableDrawer(
+                            swipeableLeftOpen,
                             onOpen = { setState { swipeableLeftOpen = true } },
-                            onClose = { setState { swipeableLeftOpen = false } }) {
+                            onClose = { setState { swipeableLeftOpen = false } }
+                        ) {
                             mailPlaceholder(false)
                         }
-                        mSnackbar(swipeableRightOpen, autoHideDuration = 2500,
-                            onClose = { _, _: MSnackbarOnCloseReason -> setState { swipeableRightOpen = false } }) {
-                            mAlert("This interfers with the right scroll bar with how we have it arranged, so leaving it off for now", severity = MAlertSeverity.info)
+                        snackbar(swipeableRightOpen) {
+                            attrs.autoHideDuration = 2500
+                            attrs.onClose = { _, _: SnackbarOnCloseReason -> setState { swipeableRightOpen = false } }
+                            alert(
+                                "This interferes with the right scroll bar with how we have it arranged, so leaving it off for now",
+                                severity = AlertSeverity.info
+                            )
                         }
-//                            mSwipeableDrawer(swipeableRightOpen, MDrawerAnchor.right,
-//                                onOpen = { setState { swipeableRightOpen = true } },
-//                                onClose = { setState { swipeableRightOpen = false } }) {
-//                                mailPlaceholder(false)
-//                            }
-                        mSwipeableDrawer(swipeableTopOpen, MDrawerAnchor.top,
+                        swipeableDrawer(swipeableTopOpen,
                             onOpen = { setState { swipeableTopOpen = true } },
-                            onClose = { setState { swipeableTopOpen = false } }) {
+                            onClose = { setState { swipeableTopOpen = false } },
+                            DrawerAnchor.top
+                        ) {
                             mailPlaceholder(true)
                         }
-                        mSwipeableDrawer(swipeableBottomOpen, MDrawerAnchor.bottom,
+                        swipeableDrawer(swipeableBottomOpen,
                             onOpen = { setState { swipeableBottomOpen = true } },
-                            onClose = { setState { swipeableBottomOpen = false } }) {
+                            onClose = { setState { swipeableBottomOpen = false } },
+                            DrawerAnchor.bottom
+                        ) {
                             mailPlaceholder(true)
                         }
                     }
@@ -131,17 +125,19 @@ class TestDrawers : RComponent<Props, State>() {
                                 zIndex = 1
                             }
 
-                            mAppBar(position = MAppBarPosition.absolute) {
-                                mToolbar {
+                            appBar(AppBarPosition.absolute) {
+                                toolbar {
                                     css { marginLeft = drawerWidth.px }
-                                    mToolbarTitle("Permanent drawer - Full Height Nav")
+                                    toolbarTitle("Permanent drawer - Full Height Nav")
                                 }
                             }
 
                             //TODO: Not sure about this style... seems to work though...
-                            val pp: MPaperProps = jsObject { }
+                            val pp: PaperProps = jsObject { }
                             pp.asDynamic().style = js { position = "relative" }
-                            mDrawer(true, MDrawerAnchor.left, MDrawerVariant.permanent, paperProps = pp) {
+                            drawer(true, variant = DrawerVariant.permanent) {
+                                attrs.anchor = DrawerAnchor.left
+                                attrs.paperProps = pp
                                 spacer()
                                 mailPlaceholder(false)
                             }
@@ -151,7 +147,7 @@ class TestDrawers : RComponent<Props, State>() {
                                     backgroundColor = Color(theme.palette.background.paper)
                                 }
                                 spacer()
-                                mTypography("This is the main content area")
+                                typography("This is the main content area")
                             }
                         }
                     }
@@ -163,18 +159,20 @@ class TestDrawers : RComponent<Props, State>() {
                         styledDiv {
                             css(drawer)
 
-                            mAppBar(position = MAppBarPosition.absolute) {
+                            appBar(AppBarPosition.absolute) {
                                 css {
                                     zIndex = theme.zIndex.drawer + 1
                                 }
-                                mToolbar {
-                                    mToolbarTitle("Permanent drawer - Under Appbar nav")
+                                toolbar {
+                                    toolbarTitle("Permanent drawer - Under Appbar nav")
                                 }
                             }
 
-                            val pp: MPaperProps = jsObject { }
+                            val pp: PaperProps = jsObject { }
                             pp.asDynamic().style = js { position = "relative" }
-                            mDrawer(true, MDrawerAnchor.left, MDrawerVariant.permanent, paperProps = pp) {
+                            drawer(true, variant = DrawerVariant.permanent) {
+                                attrs.anchor = DrawerAnchor.left
+                                attrs.paperProps = pp
                                 spacer()
                                 mailPlaceholder(false)
                             }
@@ -184,7 +182,7 @@ class TestDrawers : RComponent<Props, State>() {
                                     backgroundColor = Color(theme.palette.background.paper)
                                 }
                                 spacer()
-                                mTypography("This is the main content area")
+                                typography("This is the main content area")
                             }
                         }
                     }
@@ -196,7 +194,7 @@ class TestDrawers : RComponent<Props, State>() {
                         styledDiv {
                             css(drawer)
 
-                            mAppBar(position = MAppBarPosition.absolute) {
+                            appBar(AppBarPosition.absolute) {
                                 css {
                                     position = Position.absolute
                                     transition += Transition("width", 195.ms, Timing.easeInOut, 0.ms)
@@ -205,25 +203,21 @@ class TestDrawers : RComponent<Props, State>() {
                                     if (slideOutDrawerOpen) width = 100.pct - drawerWidth.px
                                 }
 
-                                mToolbar(disableGutters = !slideOutDrawerOpen) {
+                                toolbar {
+                                    attrs.disableGutters = !slideOutDrawerOpen
                                     if (!slideOutDrawerOpen) {
-                                        mIconButton(
-                                            "menu",
-                                            color = MIconButtonColor.inherit,
-                                            onClick = { setState { slideOutDrawerOpen = true } })
+                                        iconButton("menu", IconButtonColor.inherit) {
+                                            attrs.onClick = { setState { slideOutDrawerOpen = true } }
+                                        }
                                     }
-                                    mToolbarTitle("Persistent drawer - Slideout Nav")
+                                    toolbarTitle("Persistent drawer - Slideout Nav")
                                 }
                             }
 
-                            val pp: MPaperProps = jsObject { }
+                            val pp: PaperProps = jsObject { }
                             pp.asDynamic().style = js { position = "relative" }
-                            mDrawer(
-                                slideOutDrawerOpen,
-                                MDrawerAnchor.left,
-                                MDrawerVariant.persistent,
-                                paperProps = pp
-                            ) {
+                            drawer(slideOutDrawerOpen, DrawerAnchor.left, DrawerVariant.persistent) {
+                                attrs.paperProps = pp
                                 css {
                                     transition += Transition("left", 5000.ms, Timing.easeInOut, 0.ms)
                                 }
@@ -232,9 +226,9 @@ class TestDrawers : RComponent<Props, State>() {
                                         display = Display.flex; alignItems = Align.center; justifyContent =
                                         JustifyContent.flexEnd; toolbarJsCssToPartialCss(theme.mixins.toolbar)
                                     }
-                                    mIconButton("chevron_left", onClick = { setState { slideOutDrawerOpen = false } })
+                                    iconButton("chevron_left") { attrs.onClick = { setState { slideOutDrawerOpen = false } } }
                                 }
-                                mDivider()
+                                divider()
                                 mailPlaceholder(false)
                             }
 
@@ -247,7 +241,7 @@ class TestDrawers : RComponent<Props, State>() {
                                     backgroundColor = Color(theme.palette.background.paper)
                                 }
                                 spacer()
-                                mTypography("This is the main content area")
+                                typography("This is the main content area")
                             }
                         }
                     }
@@ -259,24 +253,24 @@ class TestDrawers : RComponent<Props, State>() {
                         styledDiv {
                             css(drawer)
 
-                            mAppBar(position = MAppBarPosition.absolute) {
+                            appBar(AppBarPosition.absolute) {
                                 css {
                                     transition += Transition("width", 195.ms, Timing.materialStandard, 0.ms)
                                     zIndex = theme.zIndex.drawer + 1
                                     if (miniDrawerOpen) width = 100.pct - drawerWidth.px
                                 }
-                                mToolbar(disableGutters = !miniDrawerOpen) {
+                                toolbar {
+                                    attrs.disableGutters = !miniDrawerOpen
                                     if (!miniDrawerOpen) {
-                                        mIconButton(
-                                            "menu",
-                                            color = MIconButtonColor.inherit,
-                                            onClick = { setState { miniDrawerOpen = true } })
+                                        iconButton("menu", IconButtonColor.inherit) {
+                                            attrs.onClick = { setState { miniDrawerOpen = true } }
+                                        }
                                     }
-                                    mToolbarTitle("Mini drawer")
+                                    toolbarTitle("Mini drawer")
                                 }
                             }
 
-                            val pp: MPaperProps = jsObject { }
+                            val pp: PaperProps = jsObject { }
                             pp.asDynamic().style = js {
                                 position = "relative"
                                 transition = "width 195ms cubic-bezier(0.4, 0, 0.6, 1) 0ms"
@@ -287,15 +281,16 @@ class TestDrawers : RComponent<Props, State>() {
                                     width = drawerWidth + 1
                                 }
                             }
-                            mDrawer(miniDrawerOpen, MDrawerAnchor.left, MDrawerVariant.permanent, paperProps = pp) {
+                            drawer(miniDrawerOpen, DrawerAnchor.left, DrawerVariant.permanent) {
+                                attrs.paperProps = pp
                                 styledDiv {
                                     css {
                                         display = Display.flex; alignItems = Align.center; justifyContent =
                                         JustifyContent.flexEnd; toolbarJsCssToPartialCss(theme.mixins.toolbar)
                                     }
-                                    mIconButton("chevron_left", onClick = { setState { miniDrawerOpen = false } })
+                                    iconButton("chevron_left") { attrs.onClick = { setState { miniDrawerOpen = false } } }
                                 }
-                                mDivider()
+                                divider()
                                 mailPlaceholder(false)
                             }
 
@@ -305,7 +300,7 @@ class TestDrawers : RComponent<Props, State>() {
                                     backgroundColor = Color(theme.palette.background.paper)
                                 }
                                 spacer()
-                                mTypography("This is the main content area")
+                                typography("This is the main content area")
                             }
                         }
                     }
@@ -340,7 +335,7 @@ class TestDrawers : RComponent<Props, State>() {
                         backgroundColor = Color(theme.palette.background.paper)
                     }
 
-                    mAppBar(position = MAppBarPosition.absolute) {
+                    appBar(position = AppBarPosition.absolute) {
                         css {
                             position = Position.absolute
                             marginLeft = drawerWidth.px
@@ -348,57 +343,59 @@ class TestDrawers : RComponent<Props, State>() {
                                 width = 100.pct - drawerWidth.px
                             }
                         }
-                        mToolbar {
-                            mHidden(mdUp = true, implementation = MHiddenImplementation.css) {
-                                mIconButton(
-                                    "menu",
-                                    color = MIconButtonColor.inherit,
-                                    onClick = { setState { responsiveDrawerOpen = true } })
+                        toolbar {
+                            hidden {
+                                attrs.mdUp = true
+                                attrs.implementation = HiddenImplementation.css
+                                iconButton("menu", color = IconButtonColor.inherit) {
+                                    attrs.onClick = { setState { responsiveDrawerOpen = true } }
+                                }
                             }
-                            mToolbarTitle("Responsive Drawer")
+                            toolbarTitle("Responsive Drawer")
                         }
                     }
 
-                    val pp: MPaperProps = jsObject { }
+                    val pp: PaperProps = jsObject { }
                     pp.asDynamic().style = js {
                         width = drawerWidth + 1
                         position = "relative"
                     }
-                    mHidden(mdUp = true) {
-                        mDrawer(
-                            responsiveDrawerOpen,
-                            variant = MDrawerVariant.temporary,
-                            onClose = { setState { responsiveDrawerOpen = !responsiveDrawerOpen } },
-                            paperProps = pp
-                        ) {
+                    hidden {
+                        attrs.mdUp = true
+                        drawer(responsiveDrawerOpen, variant = DrawerVariant.temporary) {
+                            attrs.onClose = { setState { responsiveDrawerOpen = !responsiveDrawerOpen } }
+                            attrs.paperProps = pp
                             css {
                                 width = drawerWidth.px
                             }
                             mailPlaceholder(false)
                         }
                     }
-                    mHidden(smDown = true, implementation = MHiddenImplementation.css) {
-                        mDrawer(true, variant = MDrawerVariant.permanent, paperProps = pp) {
+                    hidden {
+                        attrs.smDown = true
+                        attrs.implementation = HiddenImplementation.css
+                        drawer(true, variant = DrawerVariant.permanent) {
+                            attrs.paperProps = pp
                             css {
                                 height = 100.pc
                             }
                             spacer()
                             mailPlaceholder(false)
                         }
-                    }
 
-                    styledDiv {
-                        css {
-                            flexGrow = 1.0
-                            backgroundColor = Color(theme.palette.background.default)
-                        }
-                        spacer()
                         styledDiv {
                             css {
-                                padding(2.spacingUnits)
-                                backgroundColor = Color(theme.palette.background.paper)
+                                flexGrow = 1.0
+                                backgroundColor = Color(theme.palette.background.default)
                             }
-                            mTypography("This is the main content area")
+                            spacer()
+                            styledDiv {
+                                css {
+                                    padding(2.spacingUnits)
+                                    backgroundColor = Color(theme.palette.background.paper)
+                                }
+                                typography("This is the main content area")
+                            }
                         }
                     }
                 }
@@ -416,18 +413,18 @@ class TestDrawers : RComponent<Props, State>() {
                 attrs.onClickFunction = { setState { temporaryLeftOpen = false }}
                 attrs.onKeyDownFunction = { setState { temporaryLeftOpen = false }}
             }
-            mList {
+            list {
                 css {
                     backgroundColor = Color(theme.palette.background.paper)
                     width = if (fullWidth) LinearDimension.auto else drawerWidth.px
 //                style = js { width = if (fullWidth) "auto" else drawerWidth; backgroundColor = "white" }
                 }
-                mListItemWithIcon("move_to_inbox", "Inbox", divider = false)
-                mListItemWithIcon("star", "Stared", divider = false)
-                mListItemWithIcon("send", "Send mail", divider = true)
-                mListItemWithIcon("mail", "All mail", divider = false)
-                mListItemWithIcon("delete", "Trash", divider = false)
-                mListItemWithIcon("error", "Spam", divider = false)
+                listItemButtonWithIcon("move_to_inbox", "Inbox")
+                listItemButtonWithIcon("star", "Stared")
+                listItemButtonWithIcon("send", "Send mail")
+                listItemButtonWithIcon("mail", "All mail")
+                listItemButtonWithIcon("delete", "Trash")
+                listItemButtonWithIcon("error", "Spam")
             }
         }
     }
@@ -441,7 +438,7 @@ class TestDrawers : RComponent<Props, State>() {
                     toolbarJsCssToPartialCss(theme.mixins.toolbar)
                 }
             }
-            mDivider { }
+            divider()
         }
     }
 

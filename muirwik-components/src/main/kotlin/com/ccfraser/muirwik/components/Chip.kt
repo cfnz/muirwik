@@ -1,10 +1,11 @@
 package com.ccfraser.muirwik.components
 
-import org.w3c.dom.Node
+import com.ccfraser.muirwik.components.utils.*
 import org.w3c.dom.events.Event
 import react.ComponentType
 import react.RBuilder
 import react.ReactElement
+import react.ReactNode
 import styled.StyledHandler
 
 
@@ -12,36 +13,55 @@ import styled.StyledHandler
 private external val chipModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")
-private val chipComponentType: ComponentType<MChipProps> = chipModule.default
+private val chipComponentType: ComponentType<ChipProps> = chipModule.default
 
 @Suppress("EnumEntryName")
-enum class MChipVariant {
+enum class ChipVariant {
     default, outlined
 }
 
-@Suppress("EnumEntryName")
-enum class MChipColor {
-    default, primary, secondary
-}
-
-enum class MChipSize {
+enum class ChipSize {
     small, medium
 }
 
-external interface MChipProps : StyledPropsWithCommonAttributes {
+typealias ChipColor = ControlColor
+
+external interface ChipProps : StyledPropsWithCommonAttributes {
     var avatar: ReactElement
     var clickable: Boolean
-    var component: String
+    var component: ElementType
     var deleteIcon: ReactElement
+    var disabled: Boolean
     var icon: ReactElement
-    var label: Node
+    var label: ReactNode
     var key: Any
     var onDelete: (Event) -> Unit
 }
-var MChipProps.color by EnumPropToString(MChipColor.values())
-var MChipProps.size by EnumPropToString(MChipSize.values())
-var MChipProps.variant by EnumPropToString(MChipVariant.values())
+var ChipProps.color by EnumPropToString(ChipColor.values())
+var ChipProps.size by EnumPropToString(ChipSize.values())
+var ChipProps.variant by EnumPropToString(ChipVariant.values())
 
+
+fun RBuilder.chip(handler: StyledHandler<ChipProps>) {
+    createStyled(chipComponentType, handler)
+}
+
+fun RBuilder.chip(
+    label: String,
+    avatar: ReactElement? = null,
+    key: Any? = null,
+    color: ChipColor = ChipColor.default,
+    handler: StyledHandler<ChipProps>? = null
+) {
+    createStyled(chipComponentType, handler) {
+        avatar?.let { attrs.avatar = it }
+        attrs.color = color
+        attrs.label = ReactNode(label)
+        key?.let { attrs.key = it }
+    }
+}
+
+@Deprecated("Use the simpler 'non m' version.")
 /**
  * This is the simpler version of the chip component allowing you to pass in a string label for the chip
  */
@@ -51,11 +71,11 @@ fun RBuilder.mChip(
     onClick: ((Event) -> Unit)? = null,
     onDelete: ((Event) -> Unit)? = null,
     key: Any? = null,
-    color: MChipColor = MChipColor.default,
-    size: MChipSize = MChipSize.medium,
-    variant: MChipVariant = MChipVariant.default,
+    color: ControlColor = ControlColor.default,
+    size: ChipSize = ChipSize.medium,
+    variant: ChipVariant = ChipVariant.default,
     className: String? = null,
-    handler: StyledHandler<MChipProps>? = null
+    handler: StyledHandler<ChipProps>? = null
 ) {
     createStyled(chipComponentType, className, handler) {
         avatar?.let { attrs.avatar = it }

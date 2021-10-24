@@ -1,14 +1,12 @@
 package com.ccfraser.muirwik.testapp
 
 import com.ccfraser.muirwik.components.*
-import com.ccfraser.muirwik.components.button.MIconButtonColor
-import com.ccfraser.muirwik.components.button.mIconButton
-import com.ccfraser.muirwik.components.list.mList
-import com.ccfraser.muirwik.components.list.mListItem
-import com.ccfraser.muirwik.components.list.mListItemText
 import com.ccfraser.muirwik.components.styles.Breakpoint
 import com.ccfraser.muirwik.components.styles.down
 import com.ccfraser.muirwik.components.styles.up
+import com.ccfraser.muirwik.components.utils.Colors
+import com.ccfraser.muirwik.components.utils.toolbarJsCssToPartialCss
+import com.ccfraser.muirwik.testapp.MainFrame.ComponentStyles.demoListItemText
 import kotlinext.js.js
 import kotlinext.js.jsObject
 import kotlinx.css.*
@@ -34,6 +32,13 @@ class MainFrame(props: MainFrameProps) : RComponent<MainFrameProps, MainFrameSta
         responsiveDrawerOpen = false
     }
 
+    private object ComponentStyles : StyleSheet("ComponentStyles", isStatic = true) {
+        val demoListItemText by css {
+            paddingRight = 0.px
+            margin(0.px)
+        }
+    }
+
     override fun RBuilder.render() {
         mCssBaseline()
 
@@ -54,18 +59,20 @@ class MainFrame(props: MainFrameProps) : RComponent<MainFrameProps, MainFrameSta
                     // App Frame
                     css { overflow = Overflow.hidden; position = Position.relative; display = Display.flex; width = 100.pct}
 
-                    mAppBar(position = MAppBarPosition.absolute) {
+                    appBar(position = AppBarPosition.absolute) {
                         css {
                             zIndex = theme.zIndex.drawer + 1
                         }
-                        mToolbar {
-                            mHidden(mdUp = true, implementation = MHiddenImplementation.css) {
-                                mIconButton("menu", MIconButtonColor.inherit) {
+                        toolbar {
+                            hidden {
+                                attrs.mdUp = true
+                                attrs.implementation = HiddenImplementation.css
+                                iconButton("menu", IconButtonColor.inherit) {
                                     attrs.onClick = { setState { responsiveDrawerOpen = true }}
                                 }
                             }
-                            mToolbarTitle("Muirwik - Material-UI React Wrapper in Kotlin - Demo (or play) Area - ${ state.page.title }")
-                            mIconButton("lightbulb_outline") {
+                            toolbarTitle("Muirwik - Material-UI React Wrapper in Kotlin - Demo (or play) Area - ${ state.page.title }")
+                            iconButton("lightbulb_outline") {
                                 attrs.onClick = {
                                     props.onThemeSwitch()
                                 }
@@ -73,17 +80,22 @@ class MainFrame(props: MainFrameProps) : RComponent<MainFrameProps, MainFrameSta
                         }
                     }
 
-                    val p: MPaperProps = jsObject { }
+                    val p: PaperProps = jsObject { }
                     p.asDynamic().style = js { position = "relative"; width = drawerWidth.value; display = "block"; height = "100%"; minHeight = "100vh" }
-                    mHidden(mdUp = true) {
-                        mDrawer(state.responsiveDrawerOpen, MDrawerAnchor.left, MDrawerVariant.temporary, paperProps = p,
-                                onClose = { setState { responsiveDrawerOpen = !responsiveDrawerOpen }}) {
+                    hidden {
+                        attrs.mdUp = true
+                        drawer(state.responsiveDrawerOpen, DrawerAnchor.left, DrawerVariant.temporary) {
+                            attrs.paperProps = p
+                            attrs.onClose = { setState { responsiveDrawerOpen = !responsiveDrawerOpen }}
                             spacer()
                             demoItems()
                         }
                     }
-                    mHidden(smDown = true, implementation = MHiddenImplementation.css) {
-                        mDrawer(true, MDrawerAnchor.left, MDrawerVariant.permanent, paperProps = p) {
+                    hidden {
+                        attrs.smDown = true
+                        attrs.implementation = HiddenImplementation.css
+                        drawer(true, DrawerAnchor.left, DrawerVariant.permanent) {
+                            attrs.paperProps = p
                             spacer()
                             demoItems()
                         }
@@ -124,12 +136,12 @@ class MainFrame(props: MainFrameProps) : RComponent<MainFrameProps, MainFrameSta
 
     private fun RBuilder.demoItems() {
         fun RBuilder.addListItem(page: Page) {
-//            mListItem(caption, onClick = {setState {currentView = caption}})
             // We want to get rid of the extra right padding, so must use the longer version as below
-            mListItem(true, onClick = { setState { this.page = page; responsiveDrawerOpen = false }}) {
-                mListItemText(page.title) {
+            listItemButton {
+                attrs.onClick = { setState { this.page = page; responsiveDrawerOpen = false }}
+                listItemText(page.title, className = "SelectedMine2") {
                     css {
-                        paddingRight = 0.px
+                        +demoListItemText
                         if (page == state.page) {
                             descendants {
                                 color = Colors.Blue.shade500
@@ -141,7 +153,7 @@ class MainFrame(props: MainFrameProps) : RComponent<MainFrameProps, MainFrameSta
         }
 
         themeContext.Consumer { theme ->
-            mList {
+            list {
                 css {
                     media(theme.breakpoints.down(Breakpoint.sm)) {
                         height = 100.vh - 57.px
@@ -172,7 +184,7 @@ fun RBuilder.spacer() {
         styledDiv {
             css(themeStyles.toolbar)
         }
-        mDivider {  }
+        divider {  }
     }
 }
 
@@ -210,12 +222,14 @@ enum class Page(val title: String, val kClass: KClass<out RComponent<Props, out 
     Skeleton("Skeletons", TestSkeletons::class),
     Sliders("Sliders", TestSlider::class),
     Snackbars("Snackbars", TestSnackbar::class),
+    SpeedDials("SpeedDials", TestSpeedDial::class),
     Styles("Styles", TestStyles::class),
     Switches("Switches", TestSwitches::class),
     Tables("Tables", TestTables::class),
     Tabs("Tabs", TestTabs::class),
     TextFields("Text Fields", TestTextFields::class),
     Themes("Themes", TestThemes::class),
+    ToggleButtons("Toggle Buttons", TestToggleButtons::class),
     Tooltips("Tooltips", TestTooltips::class),
     Transitions("Transitions", TestTransitions::class);
 }

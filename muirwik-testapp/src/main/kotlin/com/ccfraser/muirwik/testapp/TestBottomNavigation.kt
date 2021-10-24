@@ -1,11 +1,7 @@
 package com.ccfraser.muirwik.testapp
 
-import com.ccfraser.muirwik.components.mBottomNavigation
-import com.ccfraser.muirwik.components.mBottomNavigationAction
-import com.ccfraser.muirwik.components.mIcon
-import com.ccfraser.muirwik.components.mTypography
+import com.ccfraser.muirwik.components.*
 import react.*
-import react.dom.br
 
 
 class TestBottomNavigation : RComponent<Props, State>() {
@@ -15,18 +11,20 @@ class TestBottomNavigation : RComponent<Props, State>() {
     override fun RBuilder.render() {
         demoContainer {
             demoPanel("Bottom Nav with showLabels = true") {
-                mBottomNavigation(value1, true, onChange = { _, indexValue -> setState { value1 = indexValue }}) {
-                    mBottomNavigationAction("Recents", buildElement { mIcon("restore") })
-                    mBottomNavigationAction("Favourites", buildElement { mIcon("favorite") })
-                    mBottomNavigationAction("Nearby", buildElement { mIcon("location_on") })
+                bottomNavigation(value1, true) {
+                    attrs.onChange = { _, indexValue -> setState { value1 = indexValue }}
+                    bottomNavigationAction("Recents", buildElement { icon("restore") })
+                    bottomNavigationAction("Favourites", buildElement { icon("favorite") })
+                    bottomNavigationAction("Nearby", buildElement { icon("location_on") })
                 }
             }
             demoPanel("Bottom Nav with showLabels = false (the default)") {
-                mBottomNavigation(value2, onChange = { _, indexValue -> setState { value2 = indexValue }}) {
-                    mBottomNavigationAction("Recents", buildElement { mIcon("restore") }, value = "recents")
-                    mBottomNavigationAction("Favourites", buildElement { mIcon("favorite") }, value = "favorite")
-                    mBottomNavigationAction("Nearby", buildElement { mIcon("location_on") }, value = "nearby")
-                    mBottomNavigationAction("Folder", buildElement { mIcon("folder") }, value = "folder")
+                bottomNavigation(value2) {
+                    attrs.onChange = { _, indexValue -> setState { value2 = indexValue }}
+                    bottomNavigationAction("Recents", buildElement { icon("restore") }, value = "recents")
+                    bottomNavigationAction("Favourites", buildElement { icon("favorite") }, value = "favorite")
+                    bottomNavigationAction("Nearby", buildElement { icon("location_on") }, value = "nearby")
+                    bottomNavigationAction("Folder", buildElement { icon("folder") }, value = "folder")
                 }
             }
         }

@@ -1,10 +1,7 @@
 package com.ccfraser.muirwik.testapp
 
-import com.ccfraser.muirwik.components.Colors
-import com.ccfraser.muirwik.components.button.mButton
-import com.ccfraser.muirwik.components.mClickAwayListener
-import com.ccfraser.muirwik.components.mPaper
-import com.ccfraser.muirwik.components.spacingUnits
+import com.ccfraser.muirwik.components.*
+import com.ccfraser.muirwik.components.utils.Colors
 import com.ccfraser.muirwik.testapp.TestClickAwayListener.ComponentStyles.fake
 import kotlinx.css.*
 import react.*
@@ -34,11 +31,13 @@ class TestClickAwayListener : RComponent<Props, State>() {
                 position = Position.relative
                 width = 200.px
             }
-            mClickAwayListener({ setState { open = false }}) {
+            clickAwayListener {
+                attrs.onClickAway = { setState { open = false }}
+
                 div {
-                    mButton("Open Fake Menu", onClick = { setState { open = true }})
+                    button("Open Fake Menu") { attrs.onClick = { setState { open = true } } }
                     if (open) {
-                        mPaper {
+                        paper {
                             css {
                                 position = Position.absolute
                                 top = 36.px

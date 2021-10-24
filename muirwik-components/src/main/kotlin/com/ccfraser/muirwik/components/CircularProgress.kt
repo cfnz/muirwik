@@ -1,5 +1,8 @@
 package com.ccfraser.muirwik.components
 
+import com.ccfraser.muirwik.components.utils.EnumPropToString
+import com.ccfraser.muirwik.components.utils.LinearDimensionDelegate
+import com.ccfraser.muirwik.components.utils.createStyled
 import kotlinx.css.LinearDimension
 import kotlinx.css.px
 import react.ComponentType
@@ -12,36 +15,56 @@ import styled.StyledProps
 private external val circularProgressModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")
-private val circularProgressComponentType: ComponentType<MCircularProgressProps> = circularProgressModule.default
+private val circularProgressComponentType: ComponentType<CircularProgressProps> = circularProgressModule.default
 
 @Suppress("EnumEntryName")
-enum class MCircularProgressColor {
-    primary, secondary, inherit
+enum class CircularProgressColor {
+    inherit, primary, secondary, error, info, success, warning
 }
 
 @Suppress("EnumEntryName")
-enum class MCircularProgressVariant {
+enum class CircularProgressVariant {
     determinate, indeterminate, static
 }
 
-external interface MCircularProgressProps : StyledProps {
+external interface CircularProgressProps : StyledProps {
     var disableShrink: Boolean
     var thickness: Double
     var value: Double
 }
-var MCircularProgressProps.color by EnumPropToString(MCircularProgressColor.values())
-var MCircularProgressProps.variant by EnumPropToString(MCircularProgressVariant.values())
-var MCircularProgressProps.size by LinearDimensionDelegate()
+var CircularProgressProps.color by EnumPropToString(CircularProgressColor.values())
+var CircularProgressProps.variant by EnumPropToString(CircularProgressVariant.values())
+var CircularProgressProps.size by LinearDimensionDelegate()
 
+fun RBuilder.circularProgress(handler: StyledHandler<CircularProgressProps>) {
+    createStyled(circularProgressComponentType, handler)
+}
+
+fun RBuilder.circularProgress(
+    value: Double? = null,
+    color: CircularProgressColor = CircularProgressColor.primary,
+    variant: CircularProgressVariant = CircularProgressVariant.indeterminate,
+    size: LinearDimension = 40.px,
+    handler: StyledHandler<CircularProgressProps>? = null
+) {
+    createStyled(circularProgressComponentType, handler) {
+        attrs.color = color
+        attrs.size = size
+        attrs.variant = variant
+        value?.let { attrs.value = it }
+    }
+}
+
+@Deprecated("Use the simpler 'non m' version.")
 fun RBuilder.mCircularProgress(
     value: Double? = null,
-    variant: MCircularProgressVariant = MCircularProgressVariant.indeterminate,
+    variant: CircularProgressVariant = CircularProgressVariant.indeterminate,
     size: LinearDimension = 40.px,
-    color: MCircularProgressColor = MCircularProgressColor.primary,
+    color: CircularProgressColor = CircularProgressColor.primary,
     thickness: Double = 3.6,
     disableShrink: Boolean = false,
     className: String? = null,
-    handler: StyledHandler<MCircularProgressProps>? = null
+    handler: StyledHandler<CircularProgressProps>? = null
 ) {
     createStyled(circularProgressComponentType, className, handler) {
         attrs.color = color

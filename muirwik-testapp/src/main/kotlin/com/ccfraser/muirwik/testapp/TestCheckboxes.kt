@@ -1,14 +1,10 @@
 package com.ccfraser.muirwik.testapp
 
 import com.ccfraser.muirwik.components.*
-import com.ccfraser.muirwik.components.form.*
-import kotlinx.css.Display
-import kotlinx.css.display
+import com.ccfraser.muirwik.components.utils.ControlColor
 import kotlinx.css.paddingLeft
 import react.*
-import react.dom.br
 import styled.css
-import styled.styledDiv
 
 class TestCheckboxes : RComponent<Props, State>() {
     private var checked1: Boolean = false
@@ -19,27 +15,31 @@ class TestCheckboxes : RComponent<Props, State>() {
     override fun RBuilder.render() {
         demoContainer {
             demoPanel("Checkboxes") {
-                mCheckbox(checked = checked1, onChange = { _, _ -> setState { checked1 = !checked1 } })
-                mCheckbox(checked = checked2, onChange = { _, _ -> setState { checked2 = !checked2 } })
-                mCheckbox(checked = checked3, onChange = { _, _ -> setState { checked3 = !checked3 } }) {
-                    attrs.icon = buildElement { mIcon("clear") }
-                    attrs.checkedIcon = buildElement { mIcon("done") }
+                checkbox(checked1) { attrs. onChange = { _, _ -> setState { checked1 = !checked1 } } }
+                checkbox(checked2) { attrs. onChange = { _, _ -> setState { checked2 = !checked2 } } }
+                checkbox(checked3) { attrs. onChange = { _, _ -> setState { checked3 = !checked3 } }
+                    attrs.icon = buildElement { icon("clear") }
+                    attrs.checkedIcon = buildElement { icon("done") }
                 }
-                mFormControlLabel(
+                formControlLabel(
                     "As Form Control",
                     control = buildElement {
-                        mCheckbox(checked4, MOptionColor.primary, true, onChange = { _, _ -> setState { checked4 = !checked4 } })
+                        checkbox(checked4, ControlColor.primary) {
+                            attrs.disabled = true
+                            attrs.onChange = { _, _ -> setState { checked4 = !checked4 } }
+                        }
                     }
                 )
             }
             demoPanel("With Labels") {
                 css { paddingLeft = 3.spacingUnits }
-                mFormControl(component = MFormControlComponent.fieldSet) {
-                    mFormLabel("In a FormGroup", component = "legend")
+                formControl {
+                    attrs.component = FormControlComponent.fieldSet
+                    formLabel("In a FormGroup") { attrs.component = "legend" }
                     mFormGroup {
-                        mCheckboxWithLabel("Option 1", checked1, onChange = { _, _ -> setState { checked1 = !checked1 } })
-                        mCheckboxWithLabel("Option 2", checked2, onChange = { _, _ -> setState { checked2 = !checked2 } })
-                        mCheckboxWithLabel("Option 3", checked3, onChange = { _, _ -> setState { checked3 = !checked3 } })
+                        checkboxWithLabel("Option 1", checked1) { attrs.onChange = { _, _ -> setState { checked1 = !checked1 } } }
+                        checkboxWithLabel("Option 2", checked2) { attrs.onChange = { _, _ -> setState { checked2 = !checked2 } } }
+                        checkboxWithLabel("Option 3", checked3) { attrs.onChange = { _, _ -> setState { checked3 = !checked3 } } }
                     }
                 }
             }

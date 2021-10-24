@@ -1,22 +1,16 @@
 package com.ccfraser.muirwik.testapp
 
 import com.ccfraser.muirwik.components.*
-import com.ccfraser.muirwik.components.button.MButtonVariant
-import com.ccfraser.muirwik.components.button.mButton
-import com.ccfraser.muirwik.components.form.mFormControl
-import com.ccfraser.muirwik.components.form.mFormLabel
 import kotlinx.css.*
 import react.*
-import react.dom.div
-import react.dom.span
 import styled.StyleSheet
 import styled.css
 import styled.styledDiv
 
 
 class TestBadges : RComponent<Props, State>() {
-    var anchorOriginHorizontal = MBadgeAnchorOriginHorizontal.left
-    var anchorOriginVertical = MBadgeAnchorOriginVertical.top
+    var anchorOriginHorizontal = BadgeAnchorOriginHorizontal.left
+    var anchorOriginVertical = BadgeAnchorOriginVertical.top
 
     private object ComponentStyles : StyleSheet("ComponentStyles", isStatic = true) {
         val margin by css {
@@ -30,48 +24,52 @@ class TestBadges : RComponent<Props, State>() {
     override fun RBuilder.render() {
         demoContainer {
             demoPanel("Icon Badges") {
-                mBadge(4, color = MBadgeColor.primary) {
-                    mIcon("mail", color = MIconColor.action)
+                badge(4, color = BadgeColor.primary) {
+                    icon("mail", IconColor.action)
                 }
-                mBadge(10, color = MBadgeColor.secondary) {
+                badge(10, color = BadgeColor.secondary) {
                     css(ComponentStyles.margin)
-                    mIcon("mail")
+                    icon("mail")
                 }
             }
 
             demoPanel("App Bar") {
-                mAppBar(position = MAppBarPosition.static) {
-                    mTabs(0) {
-                        mTab(label = buildElement {
-                            mBadge(4, color = MBadgeColor.secondary) {
-                                css(ComponentStyles.padding)
-                                +"Item 1"
+                appBar(position = AppBarPosition.static) {
+                    tabs(0) {
+                        attrs.textColor = TabTextColor.inherit
+                        attrs.indicatorColor = TabIndicatorColor.secondary
+                        tab {
+                            attrs.label = buildElement {
+                                badge(4, color = BadgeColor.secondary) {
+                                    css(ComponentStyles.padding)
+                                    +"Item 1"
+                                }
                             }
-                        })
-                        mTab("Item 2")
-                        mTab("Item 3")
+                        }
+                        tab("Item 2")
+                        tab("Item 3")
                     }
                 }
             }
 
             demoPanel("Component Badges") {
-                mBadge(100, color = MBadgeColor.primary) {
+                badge(100, color = BadgeColor.primary) {
                     css(ComponentStyles.margin)
-                    mTypography("Typography") { css(ComponentStyles.padding) }
+                    typography("Typography") { css(ComponentStyles.padding) }
                 }
-                mBadge("Hello", color = MBadgeColor.secondary) {
+                badge("Hello", color = BadgeColor.secondary) {
                     css(ComponentStyles.margin)
-                    mButton("Button", variant = MButtonVariant.contained)
+                    button("Button", variant = ButtonVariant.contained)
                 }
-                mBadgeDot(MBadgeColor.secondary) {
+                badgeDot(BadgeColor.secondary) {
                     css(ComponentStyles.margin)
-                    mTypography("Dot badge")
+                    typography("Dot badge")
                 }
             }
 
             demoPanel("Overlap Prop") {
                 themeContext.Consumer { theme ->
-                    mBadgeDot(MBadgeColor.secondary) {
+                    badgeDot(BadgeColor.secondary) {
                         css(ComponentStyles.margin)
                         styledDiv {
                             css {
@@ -81,9 +79,9 @@ class TestBadges : RComponent<Props, State>() {
                             }
                         }
                     }
-                    mBadgeDot(MBadgeColor.secondary) {
+                    badgeDot(BadgeColor.secondary) {
                         css(ComponentStyles.margin)
-                        attrs.overlap = MBadgeOverlap.circular
+                        attrs.overlap = BadgeOverlap.circular
                         styledDiv {
                             css {
                                 backgroundColor = Color(theme.palette.primary.main)
@@ -97,51 +95,49 @@ class TestBadges : RComponent<Props, State>() {
             }
 
             demoPanel("Badge Alignment") {
-                mGridContainer {
+                gridContainer {
                     css {
                         +ComponentStyles.margin
                         marginBottom = 2.spacingUnits
                     }
-                    mGridItem {
-                        mFormControl {
-                            mFormLabel("Vertical")
-                            mRadioGroup(value = anchorOriginVertical.toString(), onChange = { _, value ->
-                                setState { anchorOriginVertical = MBadgeAnchorOriginVertical.valueOf(value) }
-                            }) {
-                                mRadioWithLabel("Top", value = MBadgeAnchorOriginVertical.top.toString())
-                                mRadioWithLabel("Bottom", value = MBadgeAnchorOriginVertical.bottom.toString())
+                    gridItem {
+                        formControl {
+                            formLabel("Vertical")
+                            radioGroup(value = anchorOriginVertical.toString()) {
+                                attrs.onChange = { _, value -> setState { anchorOriginVertical = BadgeAnchorOriginVertical.valueOf(value) } }
+                                radioWithLabel("Top", value = BadgeAnchorOriginVertical.top.toString())
+                                radioWithLabel("Bottom", value = BadgeAnchorOriginVertical.bottom.toString())
                             }
                         }
                     }
-                    mGridItem {
-                        mFormControl {
-                            mFormLabel("Horizontal")
-                            mRadioGroup(value = anchorOriginHorizontal.toString(), onChange = { _, value ->
-                                setState { anchorOriginHorizontal = MBadgeAnchorOriginHorizontal.valueOf(value) }
-                            }) {
-                                mRadioWithLabel("Left", value = MBadgeAnchorOriginHorizontal.left.toString())
-                                mRadioWithLabel("Right", value = MBadgeAnchorOriginHorizontal.right.toString())
+                    gridItem {
+                        formControl {
+                            formLabel("Horizontal")
+                            radioGroup(value = anchorOriginHorizontal.toString()) {
+                                attrs.onChange = { _, value -> setState { anchorOriginHorizontal = BadgeAnchorOriginHorizontal.valueOf(value) }}
+                                radioWithLabel("Left", value = BadgeAnchorOriginHorizontal.left.toString())
+                                radioWithLabel("Right", value = BadgeAnchorOriginHorizontal.right.toString())
                             }
                         }
                     }
                 }
-                mBadgeDot(MBadgeColor.primary) {
+                badgeDot(BadgeColor.primary) {
                     css(ComponentStyles.margin)
                     attrs.anchorOriginHorizontal = anchorOriginHorizontal
                     attrs.anchorOriginVertical = anchorOriginVertical
-                    mIcon("mail", color = MIconColor.action)
+                    icon("mail", color = IconColor.action)
                 }
-                mBadge(4, color = MBadgeColor.primary) {
+                badge(4, color = BadgeColor.primary) {
                     css(ComponentStyles.margin)
                     attrs.anchorOriginHorizontal = anchorOriginHorizontal
                     attrs.anchorOriginVertical = anchorOriginVertical
-                    mIcon("mail", color = MIconColor.action)
+                    icon("mail", color = IconColor.action)
                 }
-                mBadge(14, color = MBadgeColor.primary) {
+                badge(14, color = BadgeColor.primary) {
                     css(ComponentStyles.margin)
                     attrs.anchorOriginHorizontal = anchorOriginHorizontal
                     attrs.anchorOriginVertical = anchorOriginVertical
-                    mIcon("mail", color = MIconColor.action)
+                    icon("mail", color = IconColor.action)
                 }
             }
         }

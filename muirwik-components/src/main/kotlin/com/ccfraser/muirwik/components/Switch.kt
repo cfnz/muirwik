@@ -1,8 +1,9 @@
 package com.ccfraser.muirwik.components
 
-import com.ccfraser.muirwik.components.button.MIconButtonSize
-import com.ccfraser.muirwik.components.form.MFormControlLabelProps
-import com.ccfraser.muirwik.components.form.mFormControlLabel
+import com.ccfraser.muirwik.components.utils.ControlColor
+import com.ccfraser.muirwik.components.utils.EnumPropToString
+import com.ccfraser.muirwik.components.utils.StyledPropsWithCommonAttributes
+import com.ccfraser.muirwik.components.utils.createStyled
 import kotlinx.html.InputType
 import org.w3c.dom.events.Event
 import react.*
@@ -13,14 +14,14 @@ import styled.StyledHandler
 private external val switchDefault: dynamic
 
 @Suppress("UnsafeCastFromDynamic")
-private val switchComponentType: ComponentType<MSwitchProps> = switchDefault.default
+private val switchComponentType: ComponentType<SwitchProps> = switchDefault.default
 
 @Suppress("EnumEntryName")
 enum class MSwitchEdge {
     start, end // We assume if the prop is null, then the default false will be used, so we don't have this as a value
 }
 
-external interface MSwitchProps : StyledPropsWithCommonAttributes {
+external interface SwitchProps : StyledPropsWithCommonAttributes {
     var checked: Boolean
     var checkedIcon: ReactElement
     var disabled: Boolean
@@ -32,13 +33,42 @@ external interface MSwitchProps : StyledPropsWithCommonAttributes {
     var type: String
     var value: String
 }
-var MSwitchProps.color by EnumPropToString(MOptionColor.values())
-var MSwitchProps.edge by EnumPropToString(MSwitchEdge.values())
-var MSwitchProps.size by EnumPropToString(MIconButtonSize.values())
+var SwitchProps.color by EnumPropToString(ControlColor.values())
+var SwitchProps.edge by EnumPropToString(MSwitchEdge.values())
+var SwitchProps.size by EnumPropToString(MIconButtonSize.values())
 
+
+fun RBuilder.switch(
+    checked: Boolean = false,
+    color: ControlColor = ControlColor.primary,
+    value: String? = null,
+    handler: StyledHandler<SwitchProps>? = null
+) {
+    createStyled(switchComponentType, handler) {
+        attrs.checked = checked
+        attrs.color = color
+        value?.let {attrs.value = value}
+    }
+}
+
+/**
+ * A label with switch built in. Note, if you want to style the switch or label separately you will have to use
+ * mFormControlLabel and pass in a mSwitch.
+ */
+fun RBuilder.switchWithLabel(
+    label: String,
+    checked: Boolean = false,
+    color: ControlColor = ControlColor.secondary,
+    handler: StyledHandler<FormControlLabelProps>? = null
+) {
+    val switch = buildElement { switch(checked, color) }
+    formControlLabel(label, switch, handler)
+}
+
+@Deprecated("Use the simpler 'non m' version.")
 fun RBuilder.mSwitch(
     checked: Boolean = false,
-    color: MOptionColor = MOptionColor.secondary,
+    color: ControlColor = ControlColor.secondary,
     disabled: Boolean = false,
     required: Boolean? = null,
     size: MIconButtonSize = MIconButtonSize.medium,
@@ -48,7 +78,7 @@ fun RBuilder.mSwitch(
     value: String? = null,
     edge: MSwitchEdge? = null,
     className: String? = null,
-    handler: StyledHandler<MSwitchProps>? = null
+    handler: StyledHandler<SwitchProps>? = null
 ) {
     createStyled(switchComponentType, className, handler) {
         attrs.checked = checked
@@ -70,10 +100,12 @@ fun RBuilder.mSwitch(
  * A label with switch built in. Note, if you want to style the switch or label separately you will have to use
  * mFormControlLabel and pass in a mSwitch.
  */
+@Deprecated("Use the simpler 'non m' version.")
+@Suppress("DEPRECATION")
 fun RBuilder.mSwitchWithLabel(
     label: String,
     checked: Boolean = false,
-    color: MOptionColor = MOptionColor.secondary,
+    color: ControlColor = ControlColor.secondary,
     disabled: Boolean = false,
     required: Boolean? = null,
     size: MIconButtonSize = MIconButtonSize.medium,
@@ -83,7 +115,7 @@ fun RBuilder.mSwitchWithLabel(
     value: String? = null,
     edge: MSwitchEdge? = null,
     className: String? = null,
-    handler: StyledHandler<MFormControlLabelProps>? = null
+    handler: StyledHandler<FormControlLabelProps>? = null
 ) {
     val switch = buildElements { mSwitch(checked, color, disabled, required, size, onChange, id, inputProps, value, edge) }
     mFormControlLabel(label, switch, checked, disabled, value = value, className = className, handler = handler)

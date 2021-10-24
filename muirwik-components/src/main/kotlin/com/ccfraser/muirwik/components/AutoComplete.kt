@@ -1,6 +1,10 @@
 package com.ccfraser.muirwik.components
 
-import kotlinext.js.Object
+import com.ccfraser.muirwik.components.utils.ElementType
+import com.ccfraser.muirwik.components.utils.EnumPropToString
+import com.ccfraser.muirwik.components.utils.OnEventWithReasonDelegate
+import com.ccfraser.muirwik.components.utils.StyledPropsWithCommonAttributes
+import com.ccfraser.muirwik.components.utils.createStyled
 import org.w3c.dom.Node
 import org.w3c.dom.events.Event
 import react.*
@@ -13,7 +17,7 @@ private external val autoCompleteModule: dynamic
 private val autoCompleteComponentType = autoCompleteModule.default
 
 @Suppress("EnumEntryName")
-enum class MAutoCompleteBlurOnSelect {
+enum class AutoCompleteBlurOnSelect {
     mouse, touch, yes, no;
 
     override fun toString(): String {
@@ -27,7 +31,7 @@ enum class MAutoCompleteBlurOnSelect {
 }
 
 @Suppress("EnumEntryName")
-enum class MAutoCompleteForcePopupIcon {
+enum class AutoCompleteForcePopupIcon {
     auto, yes, no;
 
     override fun toString(): String {
@@ -39,7 +43,7 @@ enum class MAutoCompleteForcePopupIcon {
     }
 }
 
-enum class MAutoCompleteOnCloseReason {
+enum class AutoCompleteOnCloseReason {
     toggleInput, escape, selectOption, blur
 }
 
@@ -47,20 +51,19 @@ enum class MAutoCompleteOnCloseReason {
  * Because the Material UI AutoComplete uses union types for its onChange and defaultValue (a T or an array of T), we
  * create two separate components, one that is for the singular use case, and one where we want to use mutli-values.
  */
-external interface MAutoCompleteBaseProps<T> : StyledPropsWithCommonAttributes {
+external interface AutoCompleteBaseProps<T> : StyledPropsWithCommonAttributes {
     var autoComplete: Boolean
     var autoHighlight: Boolean
     var autoSelect: Boolean
-    var blurOnSelect: MAutoCompleteBlurOnSelect
+    var blurOnSelect: AutoCompleteBlurOnSelect
     @JsName("ChipProps")
     var chipProps: Props
     var clearIcon: Node
     var clearOnBlur: Boolean
     var clearOnEscape: Boolean
     var clearText: String
-    var closeIcon: Node
     var closeText: String
-    var componentProps: Props
+    var componentsProps: Props
     var disableClearable: Boolean
     var disableCloseOnSelect: Boolean
     var disabled: Boolean
@@ -69,7 +72,7 @@ external interface MAutoCompleteBaseProps<T> : StyledPropsWithCommonAttributes {
     var disablePortal: Boolean
     var filterOptions: (options: Array<T>, state: Any) -> Unit
     var filterSelectedOptions: Boolean
-    var forcePopupIcon: MAutoCompleteForcePopupIcon
+    var forcePopupIcon: AutoCompleteForcePopupIcon
     var freeSolo: Boolean
     var fullWidth: Boolean
     var getLimitTagsText: (more: Int) -> ReactElement
@@ -109,14 +112,14 @@ external interface MAutoCompleteBaseProps<T> : StyledPropsWithCommonAttributes {
     var renderTags: (value: Array<T>, getTagProps: () -> Props) -> ReactElement
     var selectOnFocus: Boolean
 }
-var <T> MAutoCompleteBaseProps<T>.size by EnumPropToString(MRatingSize.values())
-var <T> MAutoCompleteBaseProps<T>.onClose by OnClosePropWithReasonDelegate(MAutoCompleteOnCloseReason.values())
+var <T> AutoCompleteBaseProps<T>.size by EnumPropToString(RatingSize.values())
+var <T> AutoCompleteBaseProps<T>.onClose by OnEventWithReasonDelegate(AutoCompleteOnCloseReason.values())
 // Have not wrapped the other events with reasons yet as they have more params than onClose which is already implemented...
 
 /**
  * This is the props for an auto complete that only has one value (multiple = false)
  */
-external interface MAutoCompleteProps<T> : MAutoCompleteBaseProps<T> {
+external interface AutoCompleteProps<T> : AutoCompleteBaseProps<T> {
     var defaultValue: T?
     var onChange: (event: Event, value: T?, reason: String) -> Unit
     var value: T?
@@ -125,7 +128,7 @@ external interface MAutoCompleteProps<T> : MAutoCompleteBaseProps<T> {
 /**
 * This is the props for an auto complete that can have multiple values (multiple = true)
 */
-external interface MAutoCompletePropsMultiValue<T> : MAutoCompleteBaseProps<T> {
+external interface AutoCompletePropsMultiValue<T> : AutoCompleteBaseProps<T> {
     var defaultValue: Array<T>?
     var onChange: (event: Event, value: Array<T>, reason: String) -> Unit
     var value: Array<T>?
@@ -135,16 +138,15 @@ external interface MAutoCompletePropsMultiValue<T> : MAutoCompleteBaseProps<T> {
  * This version of AutoComplete allows only single values. In Material UI, the AutoComplete control handles both
  * singular and multi-value controls via union types which we can't simulate, so we have two separate components instead.
  */
-fun <T> RBuilder.mAutoComplete(
+fun <T> RBuilder.autoComplete(
     options: Array<T>,
     renderInput: (params: Props) -> ReactElement,
     value: T? = null,
-   className: String? = null,
-    handler: StyledHandler<MAutoCompleteProps<T>>? = null
+    handler: StyledHandler<AutoCompleteProps<T>>? = null
 ) {
-    val myComponent: ComponentType<MAutoCompleteProps<T>> = autoCompleteComponentType
+    val myComponent: ComponentType<AutoCompleteProps<T>> = autoCompleteComponentType
 
-    createStyled(myComponent, className, handler) {
+    createStyled(myComponent, handler) {
         attrs.options = options
         attrs.renderInput = renderInput
         value?.let { attrs.value = it }
@@ -155,14 +157,56 @@ fun <T> RBuilder.mAutoComplete(
  * This version of AutoComplete allows multiple values. In Material UI, the AutoComplete control handles both
  * singular and multi-value controls via union types which we can't simulate, so we have two separate components instead.
  */
+fun <T> RBuilder.autoCompleteMultiValue(
+    options: Array<T>,
+    renderInput: (params: Props) -> ReactElement,
+    value: Array<T>? = null,
+    handler: StyledHandler<AutoCompletePropsMultiValue<T>>? = null
+) {
+    val myComponent: ComponentType<AutoCompletePropsMultiValue<T>> = autoCompleteComponentType
+
+    createStyled(myComponent, handler) {
+        attrs.options = options
+        attrs.renderInput = renderInput
+        attrs.multiple = true
+        value?.let { attrs.value = it }
+    }
+}
+
+@Deprecated("Use the simpler 'non m' version.")
+/**
+ * This version of AutoComplete allows only single values. In Material UI, the AutoComplete control handles both
+ * singular and multi-value controls via union types which we can't simulate, so we have two separate components instead.
+ */
+fun <T> RBuilder.mAutoComplete(
+    options: Array<T>,
+    renderInput: (params: Props) -> ReactElement,
+    value: T? = null,
+   className: String? = null,
+    handler: StyledHandler<AutoCompleteProps<T>>? = null
+) {
+    val myComponent: ComponentType<AutoCompleteProps<T>> = autoCompleteComponentType
+
+    createStyled(myComponent, className, handler) {
+        attrs.options = options
+        attrs.renderInput = renderInput
+        value?.let { attrs.value = it }
+    }
+}
+
+@Deprecated("Use the simpler 'non m' version.")
+/**
+ * This version of AutoComplete allows multiple values. In Material UI, the AutoComplete control handles both
+ * singular and multi-value controls via union types which we can't simulate, so we have two separate components instead.
+ */
 fun <T> RBuilder.mAutoCompleteMultiValue(
     options: Array<T>,
     renderInput: (params: Props) -> ReactElement,
     value: Array<T>? = null,
     className: String? = null,
-    handler: StyledHandler<MAutoCompletePropsMultiValue<T>>? = null
+    handler: StyledHandler<AutoCompletePropsMultiValue<T>>? = null
 ) {
-    val myComponent: ComponentType<MAutoCompletePropsMultiValue<T>> = autoCompleteComponentType
+    val myComponent: ComponentType<AutoCompletePropsMultiValue<T>> = autoCompleteComponentType
 
     createStyled(myComponent, className, handler) {
         attrs.options = options

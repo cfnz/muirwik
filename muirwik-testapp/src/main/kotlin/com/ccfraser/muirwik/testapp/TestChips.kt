@@ -7,7 +7,6 @@ import kotlinx.css.*
 import react.*
 import styled.StyleSheet
 import styled.css
-import styled.styledDiv
 
 
 class TestChips : RComponent<Props, State>() {
@@ -38,73 +37,63 @@ class TestChips : RComponent<Props, State>() {
         demoContainer {
             demoPanel("Standard Chips") {
                 css { display = Display.flex; justifyContent = JustifyContent.center; flexWrap = FlexWrap.wrap }
-                mChip("Basic Chip") {
+                chip("Basic Chip") {
                     css(margin)
                 }
-                mChip(
-                    "Clickable Chip",
-                    avatar = buildElement { mAvatar { +"MB" } },
-                    onClick = { handleClick() }
-                ) {
+                chip("Clickable Chip", avatar = buildElement { avatar { +"MB" } }) {
+                    attrs.onClick = { handleClick() }
                     css(margin)
                 }
-                mChip(
-                    "Deletable Chip",
-                    avatar = buildElement { mAvatar(src = "/images/cards/contemplative-reptile.jpg") },
-                    onDelete = { handleDelete() }
-                ) {
+                chip("Deletable Chip", avatar = buildElement { avatar(src = "/images/cards/contemplative-reptile.jpg") }) {
+                    attrs.onDelete = { handleDelete() }
                     css(margin)
                 }
-                mChip(
-                    "Clickable Deletable Chip",
-                    avatar = buildElement { mAvatar { buildElement { mIcon("face") }}},
-                    onClick = { handleClick() },
-                    onDelete = { handleDelete() }
-                ) {
+                chip("Clickable Deletable Chip", avatar = buildElement { avatar { buildElement { icon("face") }}}) {
+                    attrs.onClick = { handleClick() }
+                    attrs.onDelete = { handleDelete() }
                     css(margin)
                 }
-                mChip(
-                    "Custom delete icon Chip".asDynamic(),
-                    onClick = { handleClick() },
-                    onDelete = { handleDelete() }
-                ) {
-                    css(margin)
-                    attrs.deleteIcon = buildElement { mIcon("done") }
-                }
-                mChip("Primary Color Chip", color = MChipColor.primary, onClick = { handleClick() }, onDelete = { handleDelete() }) {
+                chip("Custom delete icon Chip") {
+                    attrs.onClick = { handleClick() }
+                    attrs.onDelete = { handleDelete() }
+                    attrs.deleteIcon = buildElement { icon("done") }
                     css(margin)
                 }
-                mChip("Secondary Color Chip", color = MChipColor.secondary, onClick = { handleClick() }, onDelete = { handleDelete() }) {
+                chip("Primary Color Chip", color = ChipColor.primary) {
+                    attrs.onClick = { handleClick() }
+                    attrs.onDelete = { handleDelete() }
                     css(margin)
                 }
-                mChip("Primary Outline Chip", color = MChipColor.primary, variant = MChipVariant.outlined, onClick = { handleClick() }, onDelete = { handleDelete() }) {
+                chip("Secondary Color Chip", color = ChipColor.secondary) {
+                    attrs.onClick = { handleClick() }
+                    attrs.onDelete = { handleDelete() }
+                    css(margin)
+                }
+                chip("Primary Outline Chip", color = ChipColor.primary) {
+                    attrs.variant = ChipVariant.outlined
+                    attrs.onClick = { handleClick() }
+                    attrs.onDelete = { handleDelete() }
                     css(margin)
                 }
             }
             demoPanel("Small Chips") {
-                mChip(
-                    "Primary Color Chip",
-                    color = MChipColor.primary,
-                    size = MChipSize.small,
-                    onClick = { handleClick() },
-                    onDelete = { handleDelete() }) {
+                chip("Primary Color Chip", color = ChipColor.primary) {
+                    attrs.size = ChipSize.small
+                    attrs.onClick = { handleClick() }
+                    attrs.onDelete = { handleDelete() }
                     css(margin)
                 }
-                mChip(
-                    "Secondary Color Chip",
-                    color = MChipColor.secondary,
-                    size = MChipSize.small,
-                    onClick = { handleClick() },
-                    onDelete = { handleDelete() }) {
+                chip("Secondary Color Chip", color = ChipColor.secondary) {
+                    attrs.size = ChipSize.small
+                    attrs.onClick = { handleClick() }
+                    attrs.onDelete = { handleDelete() }
                     css(margin)
                 }
-                mChip(
-                    "Primary Outline Chip",
-                    color = MChipColor.primary,
-                    size = MChipSize.small,
-                    variant = MChipVariant.outlined,
-                    onClick = { handleClick() },
-                    onDelete = { handleDelete() }) {
+                chip("Primary Outline Chip", color = ChipColor.primary) {
+                    attrs.size = ChipSize.small
+                    attrs.variant = ChipVariant.outlined
+                    attrs.onClick = { handleClick() }
+                    attrs.onDelete = { handleDelete() }
                     css(margin)
                 }
             }
@@ -112,18 +101,17 @@ class TestChips : RComponent<Props, State>() {
                 css { display = Display.flex; justifyContent = JustifyContent.center; flexWrap = FlexWrap.wrap; padding(2.spacingUnits) }
 
                 chipData.forEach { entry ->
-                    mChip(
-                        entry.value,
+                    chip(entry.value,
                         key = entry.key,
-                        avatar = if (entry.value == "React" || entry.value == "Kotlin") buildElement { mAvatar { buildElement { mIcon("tag_faces")}}} else null,
-                        onDelete = {
+                        avatar = if (entry.value == "React" || entry.value == "Kotlin") buildElement { avatar { buildElement { icon("tag_faces")}}} else null
+                    ) {
+                        attrs.onDelete = {
                             if (entry.value == "React" || entry.value == "Kotlin") {
                                 window.alert("Why would you want to delete ${entry.value}? :-)")
                             } else {
                                 setState { chipData.remove(entry.key) }
                             }
                         }
-                    ) {
                         css(margin)
                     }
                 }

@@ -1,7 +1,7 @@
 package com.ccfraser.muirwik.components
 
-import com.ccfraser.muirwik.components.form.MFormControlVariant
-import com.ccfraser.muirwik.components.input.MInputBaseNoOnChangeProps
+import com.ccfraser.muirwik.components.utils.SimpleEvent
+import com.ccfraser.muirwik.components.utils.createStyled
 import org.w3c.dom.events.Event
 import react.*
 import styled.StyledHandler
@@ -11,23 +11,29 @@ import styled.StyledHandler
 private external val selectModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")
-private val selectComponentType: ComponentType<MSelectProps> = selectModule.default
+private val selectComponentType: ComponentType<SelectProps> = selectModule.default
 
 /**
  * MSelectProps inherits from MInputBaseNoOnChangeProps rather than MInputProps as MInputProps has
  * the wrong function prototype for onChange. We introduce our own onChange here as well as the
  * displayUnderline prop which was the only thing (at time of writing) added to MInputProps.
  */
-external interface MSelectProps : MInputBaseNoOnChangeProps {
+external interface SelectProps : InputBaseNoOnChangeProps {
+    // From OutlinedInputProps
+    var label: ReactNode
+    var notched: Boolean
+
+
     var autoWidth: Boolean
-    var disableUnderline: Boolean
     var displayEmpty: Boolean
 
+
     @JsName("IconComponent")
-    var iconComponent: RComponent<MIconProps, State>?
+    var iconComponent: RComponent<IconProps, State>?
 
     var input: ReactElement?
-    var margin: String
+
+    var labelId: String
 
     @JsName("MenuProps")
     var menuProps: Props?
@@ -35,7 +41,7 @@ external interface MSelectProps : MInputBaseNoOnChangeProps {
     var multiple: Boolean
     var native: Boolean
 
-    var onChange: ((event: Event, child: ReactElement?) -> Unit)?
+    var onChange: ((event: Event, child: ReactElement?) -> Unit)
     var onClose: SimpleEvent?
     var onOpen: SimpleEvent?
     var open: Boolean
@@ -47,13 +53,43 @@ external interface MSelectProps : MInputBaseNoOnChangeProps {
     var variant: String
 }
 
+
+fun RBuilder.select(
+    open: Boolean,
+    value: Any? = null,
+    color: FormControlColor = FormControlColor.primary,
+    variant: FormControlVariant? = null,
+    handler: StyledHandler<SelectProps>? = null
+) {
+    createStyled(selectComponentType, handler) {
+        attrs.open = open
+        value?.let { attrs.value = it }
+        attrs.color = color
+        variant?.let {attrs.variant = it.toString() }
+    }
+}
+
+fun RBuilder.select(
+    value: Any? = null,
+    color: FormControlColor = FormControlColor.primary,
+    variant: FormControlVariant? = null,
+    handler: StyledHandler<SelectProps>? = null
+) {
+    createStyled(selectComponentType, handler) {
+        value?.let { attrs.value = it }
+        attrs.color = color
+        variant?.let {attrs.variant = it.toString() }
+    }
+}
+
+@Deprecated("Use the simpler 'non m' version.")
 fun RBuilder.mSelect(
     value: Any?,
     open: Boolean? = null,
     error: Boolean? = null,
     disabled: Boolean? = null,
     multiple: Boolean = false,
-    variant: MFormControlVariant? = null,
+    variant: FormControlVariant? = null,
     autoWidth: Boolean = false,
     fullWidth: Boolean = false,
     displayEmpty: Boolean = false,
@@ -64,7 +100,7 @@ fun RBuilder.mSelect(
     native: Boolean = false,
     onChange: ((event: Event, child: ReactElement?) -> Unit)? = null,
     className: String? = null,
-    handler: StyledHandler<MSelectProps>? = null
+    handler: StyledHandler<SelectProps>? = null
 ) {
     createStyled(selectComponentType, className, handler) {
         autoFocus?.let { attrs.autoFocus = it }

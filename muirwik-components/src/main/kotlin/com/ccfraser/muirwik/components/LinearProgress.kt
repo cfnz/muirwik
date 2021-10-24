@@ -1,5 +1,7 @@
 package com.ccfraser.muirwik.components
 
+import com.ccfraser.muirwik.components.utils.EnumPropToString
+import com.ccfraser.muirwik.components.utils.createStyled
 import react.ComponentType
 import react.RBuilder
 import styled.StyledHandler
@@ -10,34 +12,48 @@ import styled.StyledProps
 private external val linearProgressModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")
-private val linearProgressComponentType: ComponentType<MLinearProgressProps> = linearProgressModule.default
+private val linearProgressComponentType: ComponentType<LinearProgressProps> = linearProgressModule.default
 
 @Suppress("EnumEntryName")
-enum class MLinearProgressColor {
-    primary, secondary
+enum class LinearProgressColor {
+    inherit, primary, secondary
 }
 
 @Suppress("EnumEntryName")
-enum class MLinearProgressVariant {
-    determinate, indeterminate, buffer, query
+enum class LinearProgressVariant {
+    buffer, determinate, indeterminate, query
 }
 
-external interface MLinearProgressProps : StyledProps {
+external interface LinearProgressProps : StyledProps {
     var value: Double
     var valueBuffer: Double
 }
-var MLinearProgressProps.color by EnumPropToString(MLinearProgressColor.values())
-var MLinearProgressProps.variant by EnumPropToString(MLinearProgressVariant.values())
+var LinearProgressProps.color by EnumPropToString(LinearProgressColor.values())
+var LinearProgressProps.variant by EnumPropToString(LinearProgressVariant.values())
 
 
+fun RBuilder.linearProgress(
+    value: Double? = null,
+    color: LinearProgressColor = LinearProgressColor.primary,
+    variant: LinearProgressVariant = LinearProgressVariant.indeterminate,
+    handler: StyledHandler<LinearProgressProps>? = null
+) {
+    createStyled(linearProgressComponentType, handler) {
+        attrs.color = color
+        value?.let { attrs.value = it }
+        attrs.variant = variant
+    }
+}
+
+@Deprecated("Use the simpler 'non m' version.")
 fun RBuilder.mLinearProgress(
     value: Double? = null,
     valueBuffer: Double? = null,
-    variant: MLinearProgressVariant = MLinearProgressVariant.indeterminate,
-    color: MLinearProgressColor = MLinearProgressColor.primary,
+    variant: LinearProgressVariant = LinearProgressVariant.indeterminate,
+    color: LinearProgressColor = LinearProgressColor.primary,
 
     className: String? = null,
-    handler: StyledHandler<MLinearProgressProps>? = null
+    handler: StyledHandler<LinearProgressProps>? = null
 ) {
     createStyled(linearProgressComponentType, className, handler) {
         attrs.color = color

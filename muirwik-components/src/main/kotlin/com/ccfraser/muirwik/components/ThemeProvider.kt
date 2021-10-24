@@ -5,7 +5,6 @@ import com.ccfraser.muirwik.components.styles.ThemeOptions
 import com.ccfraser.muirwik.components.styles.createTheme
 import com.ccfraser.muirwik.components.styles.invoke
 import kotlinx.css.LinearDimension
-import kotlinx.css.px
 import react.*
 
 
@@ -37,7 +36,7 @@ val Int.spacingUnits get(): LinearDimension {
 
 
 
-class MThemeProvider(props: MuiThemeProviderProps) : RComponent<MuiThemeProviderProps, State>(props) {
+class ThemeProvider(props: MuiThemeProviderProps) : RComponent<MuiThemeProviderProps, State>(props) {
     override fun RBuilder.render() {
         @Suppress("DEPRECATION")
         mMuiThemeProvider(props.theme) {
@@ -48,7 +47,7 @@ class MThemeProvider(props: MuiThemeProviderProps) : RComponent<MuiThemeProvider
     }
 }
 
-fun RBuilder.mThemeProvider(theme: Theme = createTheme(), handler: RHandler<Props>? = null) = child(MThemeProvider::class) {
+fun RBuilder.themeProvider(theme: Theme = createTheme(), handler: RHandler<Props>? = null) = child(ThemeProvider::class) {
     attrs.theme = theme
     if (handler != null) handler()
 }

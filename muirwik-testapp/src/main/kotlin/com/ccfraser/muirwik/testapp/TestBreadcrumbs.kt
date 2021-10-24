@@ -1,6 +1,7 @@
 package com.ccfraser.muirwik.testapp
 
 import com.ccfraser.muirwik.components.*
+import com.ccfraser.muirwik.components.utils.HRefOptions
 import com.ccfraser.muirwik.testapp.TestBreadcrumbs.ComponentStyles.icon
 import com.ccfraser.muirwik.testapp.TestBreadcrumbs.ComponentStyles.paper
 import kotlinx.css.*
@@ -26,74 +27,85 @@ class TestBreadcrumbs : RComponent<Props, State>() {
     override fun RBuilder.render() {
         demoContainer {
             demoPanel("Simple Breadcrumbs") {
-                mPaper {
+                paper {
                     css {
                         padding(1.spacingUnits, 2.spacingUnits)
                         width = LinearDimension.maxContent
                     }
-                    mBreadcrumbs {
+                    breadcrumbs {
                         mLink("Material-UI", HRefOptions("#"))
                         mLink("Core", HRefOptions("#"))
-                        mTypography("Breadcrumb")
+                        typography("Breadcrumb")
                     }
                 }
             }
             demoPanel("Custom Separator") {
-                mPaper {
+                paper {
                     css(paper)
-                    mBreadcrumbs(">") {
+                    breadcrumbs(">") {
                         mLink("Material-UI", HRefOptions("#"))
                         mLink("Core", HRefOptions("#"))
-                        mTypography("Breadcrumb")
+                        typography("Breadcrumb")
                     }
                 }
                 br {}
-                mPaper {
+                paper {
                     css(paper)
-                    mBreadcrumbs("-") {
+                    breadcrumbs("-") {
                         mLink("Material-UI", HRefOptions("#"))
                         mLink("Core", HRefOptions("#"))
-                        mTypography("Breadcrumb")
+                        typography("Breadcrumb")
                     }
                 }
                 br {}
-                mPaper {
+                paper {
                     css(paper)
-                    mBreadcrumbs(buildElement { mIcon("navigate_next", fontSize = MIconFontSize.small) }) {
+                    breadcrumbs {
+                        attrs.separator = buildElement { icon("navigate_next") { attrs.fontSize = IconFontSize.small} }
                         mLink("Material-UI", HRefOptions("#"))
                         mLink("Core", HRefOptions("#"))
-                        mTypography("Breadcrumb")
+                        typography("Breadcrumb")
                     }
                 }
             }
             demoPanel("Breadcrumbs with Icons") {
-                mPaper {
+                paper {
                     css(paper)
-                    mBreadcrumbs {
+                    breadcrumbs {
                         mLink(hRefOptions = HRefOptions("#")) {
-                            mIcon("home", fontSize = MIconFontSize.small) { css(icon) }
+                            icon("home") {
+                                attrs.fontSize = IconFontSize.small
+                                css(icon)
+                            }
                             +"Material-UI"
                         }
                         mLink(hRefOptions = HRefOptions("#")) {
-                            mIcon("whatshot", fontSize = MIconFontSize.small) { css(icon) }
+                            icon("whatshot") {
+                                attrs.fontSize = IconFontSize.small
+                                css(icon)
+                            }
                             +"Core"
                         }
-                        mTypography {
-                            mIcon("grain", fontSize = MIconFontSize.small) { css(icon) }
+                        typography {
+                            icon("grain") {
+                                attrs.fontSize = IconFontSize.small
+                                css(icon)
+                            }
                             +"Breadcrumb"
                         }
                     }
                 }
             }
             demoPanel("Collapsed Breadcrumbs") {
-                mPaper {
+                paper {
                     css(paper)
-                    mBreadcrumbs(maxItems = 2) {
+                    breadcrumbs {
+                        attrs.maxItems = 2
                         mLink("Home", HRefOptions("#"))
                         mLink("Catalog", HRefOptions("#"))
                         mLink("Accessories", HRefOptions("#"))
                         mLink("New Collection", HRefOptions("#"))
-                        mTypography("Belts")
+                        typography("Belts")
                     }
                 }
             }

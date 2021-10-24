@@ -1,9 +1,6 @@
 package com.ccfraser.muirwik.testapp
 
 import com.ccfraser.muirwik.components.*
-import com.ccfraser.muirwik.components.MIconContainerProps
-import com.ccfraser.muirwik.components.MRatingSize
-import com.ccfraser.muirwik.components.mRating
 import com.ccfraser.muirwik.testapp.RatingsStyles.margin
 import kotlinx.css.*
 import react.*
@@ -25,42 +22,47 @@ public val testRatings = fc<Props> { _ ->
             var value: Number? by useState(2)
             styledDiv {
                 css(margin)
-                mTypography("Controlled", component = "legend")
-                mRating("simple-controlled", value, onChange = { _, newValue -> value = newValue })
+                typography("Controlled") { attrs.component = "legend" }
+                rating("simple-controlled", value) {
+                    attrs.onChange = { _, newValue -> value = newValue }
+                }
             }
             styledDiv {
                 css(margin)
-                mTypography("Read Only", component = "legend")
-                mRating("read-only", value, readOnly = true)
+                typography("Read Only") { attrs.component = "legend" }
+                rating("read-only", value) { attrs.readOnly = true }
 
             }
             styledDiv {
                 css(margin)
-                mTypography("Disabled", component = "legend")
-                mRating("disabled", value, disabled = true)
+                typography("Disabled") { attrs.component = "legend" }
+                rating("disabled", value,) { attrs.disabled = true }
             }
             styledDiv {
                 css(margin)
-                mTypography("Pristine", component = "legend")
-                mRating("pristine")
+                typography("Pristine") { attrs.component = "legend" }
+                rating("pristine")
             }
         }
         demoPanel("Customized Rating") {
             var value: Number? by useState(2)
             styledDiv {
                 css(margin)
-                mTypography("Custom empty icon", component = "legend")
-                mRating("customized-empty", value, precision = 0.5, onChange = { _, newValue -> value = newValue }) {
-                    attrs.emptyIcon = buildElement { mIcon("star_border", fontSize = MIconFontSize.inherit) }
+                typography("Custom empty icon") { attrs.component = "legend" }
+                rating("customized-empty", value) {
+                    attrs.precision = 0.5
+                    attrs.onChange = { _, newValue -> value = newValue }
+                    attrs.emptyIcon = buildElement { icon("star_border") { attrs.fontSize = IconFontSize.inherit} }
                 }
             }
             styledDiv {
                 css(margin)
-                mTypography("Custom icon and color", component = "legend")
-                mRating("customized-empty", value, precision = 0.5, onChange = { _, newValue -> value = newValue },
-                    icon = buildElement { mIcon("favorite", fontSize = MIconFontSize.inherit) },
-                    emptyIcon =  buildElement { mIcon("favorite_border", fontSize = MIconFontSize.inherit) }
-                ) {
+                typography("Custom icon and color") { attrs.component = "legend" }
+                rating("customized-empty", value) {
+                    attrs.precision = 0.5
+                    attrs.onChange = { _, newValue -> value = newValue }
+                    attrs.icon = buildElement { icon("favorite") { attrs.fontSize = IconFontSize.inherit} }
+                    attrs.emptyIcon =  buildElement { icon("favorite_border") { attrs.fontSize = IconFontSize.inherit} }
                     css {
                         ".MuiRating-iconFilled" {
                             color = Color("#ff6d75")
@@ -73,16 +75,16 @@ public val testRatings = fc<Props> { _ ->
             }
             styledDiv {
                 css(margin)
-                mTypography("Custom icon set", component = "legend")
-                mRating("customized-icons", value, onChange = { _, newValue -> value = newValue }) {
+                typography("Custom icon set") { attrs.component = "legend" }
+                rating("customized-icons", value) {
+                    attrs.onChange = { _, newValue -> value = newValue }
                     attrs.iconContainerComponent = iconContainer
                 }
-
             }
             styledDiv {
                 css(margin)
-                mTypography("10 Starts", component = "legend")
-                mRating("customized-10", null, max = 10)
+                typography("10 Starts") { attrs.component = "legend" }
+                rating("customized-10", null, max = 10)
             }
         }
         demoPanel("Hover Feedback") {
@@ -94,7 +96,8 @@ public val testRatings = fc<Props> { _ ->
                     alignItems = Align.center
                 }
                 var hover: Number by useState(-1)
-                mRating("hover-feedback", value, precision = 0.5) {
+                rating("hover-feedback", value) {
+                    attrs.precision = 0.5
                     attrs.onChange = { _, newValue -> value = newValue }
                     attrs.onChangeActive = { _, hoverValue -> hover = hoverValue }
                 }
@@ -111,9 +114,9 @@ public val testRatings = fc<Props> { _ ->
                     display = Display.flex
                     flexDirection = FlexDirection.column
                 }
-                mRating("size-s", null, size = MRatingSize.small)
-                mRating("size-m", null, size = MRatingSize.medium)
-                mRating("size-l", null, size = MRatingSize.large)
+                rating("size-s", null) { attrs.size = RatingSize.small }
+                rating("size-m", null) { attrs.size = RatingSize.medium }
+                rating("size-l", null) { attrs.size = RatingSize.large }
             }
         }
     }
@@ -133,14 +136,14 @@ private fun labelForValue(value: Number) = when(value) {
     else -> "Unknown"
 }
 
-private val iconContainer = fc<MIconContainerProps> { props ->
+private val iconContainer = fc<IconContainerProps> { props ->
     span {
         when (props.value) {
-            1 -> mIcon("sentiment_very_dissatisfied", className = props.className)
-            2 -> mIcon("sentiment_dissatisfied", className = props.className)
-            3 -> mIcon("sentiment_satisfied", className = props.className)
-            4 -> mIcon("sentiment_satisfied_alt", className = props.className)
-            else -> mIcon("sentiment_very_satisfied", className = props.className)
+            1 -> icon("sentiment_very_dissatisfied") { attrs.className = props.className }
+            2 -> icon("sentiment_dissatisfied") { attrs.className = props.className }
+            3 -> icon("sentiment_satisfied") { attrs.className = props.className }
+            4 -> icon("sentiment_satisfied_alt") { attrs.className = props.className }
+            else -> icon("sentiment_very_satisfied") { attrs.className = props.className }
         }
     }
 }

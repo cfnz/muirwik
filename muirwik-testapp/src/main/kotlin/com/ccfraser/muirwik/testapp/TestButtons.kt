@@ -1,8 +1,8 @@
 package com.ccfraser.muirwik.testapp
 
 import com.ccfraser.muirwik.components.*
-import com.ccfraser.muirwik.components.button.*
-import com.ccfraser.muirwik.components.form.MFormControlProps
+import com.ccfraser.muirwik.components.utils.ControlColor
+import com.ccfraser.muirwik.components.utils.HRefOptions
 import com.ccfraser.muirwik.testapp.TestButtons.ComplexComponentStyles.image
 import com.ccfraser.muirwik.testapp.TestButtons.ComplexComponentStyles.imageBackdrop
 import com.ccfraser.muirwik.testapp.TestButtons.ComplexComponentStyles.imageButton
@@ -20,8 +20,12 @@ import kotlinx.html.id
 import kotlinx.html.js.onClickFunction
 import kotlinx.html.js.onMouseMoveFunction
 import react.*
-import react.dom.*
+import react.dom.attrs
+import react.dom.br
+import react.dom.div
+import react.dom.label
 import styled.*
+import react.dom.button as stdButton
 
 
 class TestButtons : RComponent<Props, State>() {
@@ -40,8 +44,8 @@ class TestButtons : RComponent<Props, State>() {
     override fun RBuilder.render() {
         demoContainer {
             buttonSet("Standard (Text) buttons")
-            buttonSet("Outlined buttons", MButtonVariant.outlined)
-            buttonSet("Contained buttons", MButtonVariant.contained)
+            buttonSet("Outlined buttons", ButtonVariant.outlined)
+            buttonSet("Contained buttons", ButtonVariant.contained)
             groupedButtons()
             splitButtons()
             iconButtons()
@@ -55,18 +59,18 @@ class TestButtons : RComponent<Props, State>() {
     }
 
     // Since we are creating 3 sets of buttons almost the same, we will put them into a function
-    private fun RBuilder.buttonSet(heading: String, variant: MButtonVariant = MButtonVariant.text) {
+    private fun RBuilder.buttonSet(heading: String, variant: ButtonVariant = ButtonVariant.text) {
         demoPanel(heading) {
             css {
                 child("button") { margin(1.spacingUnits) }
             }
-            mButton("Default", variant = variant)
-            mButton("Primary", MButtonColor.primary, variant = variant)
-            mButton("Secondary", MButtonColor.secondary, variant = variant)
-            mButton("Disabled", variant = variant) {
+            button("Default", variant = variant)
+            button("Primary", ButtonColor.primary, variant = variant)
+            button("Secondary", ButtonColor.secondary, variant = variant)
+            button("Disabled", variant = variant) {
                 attrs.disabled = true
             }
-            mButton("Link", hRefOptions = HRefOptions("https://github.com/cfnz/muirwik"), variant = variant) {
+            button("Link", hRefOptions = HRefOptions("https://github.com/cfnz/muirwik"), variant = variant) {
                 css(buttonMargin)
             }
             styledInput {
@@ -80,7 +84,7 @@ class TestButtons : RComponent<Props, State>() {
             }
             label {
                 attrs["htmlFor"] = "button-file" // This worked whereas (for some reason) attrs.hmlFor did not
-                mButton("Upload", variant = variant) {
+                button("Upload", variant = variant) {
                     css(buttonMargin)
                     attrs.component = "span"
                 }
@@ -90,36 +94,36 @@ class TestButtons : RComponent<Props, State>() {
 
     private fun RBuilder.groupedButtons() {
         demoPanel("Grouped buttons") {
-            mButtonGroup {
-                mButton("One")
-                mButton("Two")
-                mButton("Three")
+            buttonGroup {
+                button("One")
+                button("Two")
+                button("Three")
             }
             br { }
             br { }
-            mButtonGroup(MButtonColor.primary, MButtonGroupVariant.contained) {
-                mButton("One", MButtonColor.primary)
-                mButton("Two", MButtonColor.primary)
-                mButton("Three", MButtonColor.primary)
+            buttonGroup(ButtonColor.primary, ButtonGroupVariant.contained) {
+                button("One", ButtonColor.primary)
+                button("Two", ButtonColor.primary)
+                button("Three", ButtonColor.primary)
             }
             br { }
             br { }
-            mButtonGroup(orientation = MButtonGroupOrientation.vertical) {
-                mButton("One")
-                mButton("Two")
-                mButton("Three")
+            buttonGroup(orientation = ButtonGroupOrientation.vertical) {
+                button("One")
+                button("Two")
+                button("Three")
             }
         }
     }
 
     private fun RBuilder.splitButtons() {
         demoPanel("Split buttons") {
-            mButtonGroup(MButtonColor.primary, MButtonGroupVariant.contained) {
-                mButton("One")
-                mButton {
-                    attrs.variant = MButtonVariant.contained
-                    attrs.size = MButtonSize.small
-                    mIcon("arrow_drop_down")
+            buttonGroup(ButtonColor.primary, ButtonGroupVariant.contained) {
+                button("One")
+                button {
+                    attrs.variant = ButtonVariant.contained
+                    attrs.size = ButtonSize.small
+                    icon("arrow_drop_down")
                 }
             }
         }
@@ -127,26 +131,26 @@ class TestButtons : RComponent<Props, State>() {
 
     private fun RBuilder.iconButtons() {
         demoPanel("Icon buttons") {
-            mIconButton("send") { attrs.onClick = { window.alert("I was clicked") } }
-            mIconButton("star")
-            mIconButton("delete", MIconButtonColor.primary)
-            mIconButton("delete", color = MIconButtonColor.secondary)
+            iconButton("send") { attrs.onClick = { window.alert("I was clicked") } }
+            iconButton("star")
+            iconButton("delete", IconButtonColor.primary)
+            iconButton("delete", color = IconButtonColor.secondary)
         }
         demoPanel("Buttons with icons") {
             css {
                 child("button") { +buttonMargin }
             }
-            mButton("Delete", MButtonColor.secondary, MButtonVariant.contained) {
-                attrs.startIcon = buildElement { mIcon("delete", fontSize = MIconFontSize.small) }
+            button("Delete", ButtonColor.secondary, ButtonVariant.contained) {
+                attrs.startIcon = buildElement { icon("delete") { attrs.fontSize = IconFontSize.small } }
             }
-            mButton("Send", MButtonColor.primary, MButtonVariant.contained) {
-                attrs.endIcon = buildElement { mIcon("send", fontSize = MIconFontSize.small) }
+            button("Send", ButtonColor.primary, ButtonVariant.contained) {
+                attrs.endIcon = buildElement { icon("send") { attrs.fontSize = IconFontSize.small } }
             }
-            mButton("Upload", variant = MButtonVariant.contained) {
-                attrs.startIcon = buildElement { mIcon("cloud_upload", fontSize = MIconFontSize.small) }
+            button("Upload", variant = ButtonVariant.contained) {
+                attrs.startIcon = buildElement { icon("cloud_upload") { attrs.fontSize = IconFontSize.small } }
             }
-            mButton("Svg Icon", variant = MButtonVariant.contained) {
-                attrs.startIcon = buildElement { mSvgIcon("M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z") }
+            button("Svg Icon", variant = ButtonVariant.contained) {
+                attrs.startIcon = buildElement { svgIcon("M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z") }
             }
         }
     }
@@ -156,56 +160,56 @@ class TestButtons : RComponent<Props, State>() {
             css {
                 child("button") { +buttonMargin }
             }
-            mFab("add", MFabColor.primary)
-            mFab("edit-icon", MFabColor.secondary)
-            mFab("navigation-icon") {
+            fab("add", FabColor.primary)
+            fab("edit-icon", FabColor.secondary)
+            fab("navigation-icon") {
                 attrs.disabled = true
             }
-            mFab("navigation-icon", "Extended", color = MFabColor.secondary)
-            mFab("add", MFabColor.secondary)
+            fab("navigation-icon", "Extended", color = FabColor.secondary)
+            fab("add", FabColor.secondary)
         }
     }
 
     private fun RBuilder.buttonSizes() {
         demoPanel("Sizes") {
-            buttons(MButtonVariant.text)
-            buttons(MButtonVariant.outlined)
-            buttons(MButtonVariant.contained)
+            buttons(ButtonVariant.text)
+            buttons(ButtonVariant.outlined)
+            buttons(ButtonVariant.contained)
             div {
-                mFab("add", MFabColor.secondary, size = MButtonSize.small) { css(buttonMargin) }
-                mFab("add", MFabColor.secondary, size = MButtonSize.medium) { css(buttonMargin) }
-                mFab("add", MFabColor.secondary, size = MButtonSize.large) { css(buttonMargin) }
+                fab("add", FabColor.secondary, size = ButtonSize.small) { css(buttonMargin) }
+                fab("add", FabColor.secondary, size = ButtonSize.medium) { css(buttonMargin) }
+                fab("add", FabColor.secondary, size = ButtonSize.large) { css(buttonMargin) }
             }
             div {
-                mFab("navigation", "Extended", size = MButtonSize.small) { css(buttonMargin) }
-                mFab("navigation", "Extended", size = MButtonSize.medium) { css(buttonMargin) }
-                mFab("navigation", "Extended", size = MButtonSize.large) { css(buttonMargin) }
+                fab("navigation", "Extended", size = ButtonSize.small) { css(buttonMargin) }
+                fab("navigation", "Extended", size = ButtonSize.medium) { css(buttonMargin) }
+                fab("navigation", "Extended", size = ButtonSize.large) { css(buttonMargin) }
             }
             div {
-                mIconButton("delete", size = MIconButtonSize.small) { css(buttonMargin) }
-                mIconButton("delete", size = MIconButtonSize.medium) { css(buttonMargin) }
-                mIconButton {
+                iconButton("delete", size = MIconButtonSize.small) { css(buttonMargin) }
+                iconButton("delete", size = MIconButtonSize.medium) { css(buttonMargin) }
+                iconButton {
                     css(buttonMargin)
-                    mIcon("delete", fontSize = MIconFontSize.large)
+                    icon("delete") { attrs.fontSize = IconFontSize.small }
                 }
             }
         }
     }
 
-    private fun RBuilder.buttons(variant: MButtonVariant) {
+    private fun RBuilder.buttons(variant: ButtonVariant) {
         styledDiv {
             css {
                 child("button") { +buttonMargin }
             }
-            mButton("Small", variant = variant, size = MButtonSize.small)
-            mButton("Medium", variant = variant, size = MButtonSize.medium)
-            mButton("Large", variant = variant, size = MButtonSize.large)
+            button("Small", variant = variant, size = ButtonSize.small)
+            button("Medium", variant = variant, size = ButtonSize.medium)
+            button("Large", variant = variant, size = ButtonSize.large)
         }
     }
 
     private fun RBuilder.loadingButtons() {
         demoPanel("Loading Buttons") {
-            mSwitchWithLabel("Loading", loading, MOptionColor.primary) {
+            switchWithLabel("Loading", loading, ControlColor.primary) {
                 attrs.onChange = { _, value -> setState { loading = value } }
                 css {
                     paddingBottom = 1.spacingUnits
@@ -219,17 +223,17 @@ class TestButtons : RComponent<Props, State>() {
                         margin(horizontal = 1.spacingUnits)
                     }
                 }
-                mLoadingButton("Disabled", loading, variant = MButtonVariant.outlined) { attrs.disabled = true }
-                mLoadingButton("Fetch data", loading, variant = MButtonVariant.outlined) {
+                loadingButton("Disabled", loading, variant = ButtonVariant.outlined) { attrs.disabled = true }
+                loadingButton("Fetch data", loading, variant = ButtonVariant.outlined) {
                     attrs.loadingIndicator = ReactNode("Loading...")
                 }
-                mLoadingButton("Send", loading, variant = MButtonVariant.contained) {
-                    attrs.loadingPosition = MLoadingPosition.end
-                    attrs.endIcon = buildElement { mIcon("send") }
+                loadingButton("Send", loading, variant = ButtonVariant.contained) {
+                    attrs.loadingPosition = LoadingPosition.end
+                    attrs.endIcon = buildElement { icon("send") }
                 }
-                mLoadingButton("Save", loading, MButtonColor.secondary, MButtonVariant.contained) {
-                    attrs.loadingPosition = MLoadingPosition.start
-                    attrs.startIcon = buildElement { mIcon("save") }
+                loadingButton("Save", loading, ButtonColor.secondary, ButtonVariant.contained) {
+                    attrs.loadingPosition = LoadingPosition.start
+                    attrs.startIcon = buildElement { icon("save") }
                 }
             }
         }
@@ -237,24 +241,24 @@ class TestButtons : RComponent<Props, State>() {
 
     private fun RBuilder.playaAroundWithButtons() {
         demoPanel("Some play around buttons (Check the console for event notifications...)") {
-            button {
+            stdButton {
                 +"Normal React Button"
                 attrs.onClickFunction = { console.log("Hello, I am clicked") }
                 attrs.onMouseMoveFunction = { console.log("Move") }
             }
             br { }
             br { }
-            mButton("Clk, Dbl Clk and Move") {
+            button("Clk, Dbl Clk and Move") {
                 css(buttonMargin)
                 attrs.onClick = { console.log("Yay, I clicked") }
                 attrs.onDoubleClick = { console.log("A Double Click?") }
                 attrs.onMouseMove = { handleMouseMove() }
             }
-            mButton("Contained", variant = MButtonVariant.contained) { css(buttonMargin) }
-            mButton("Primary", MButtonColor.primary, variant = MButtonVariant.contained) { css(buttonMargin) }
-            mButton("Secondary with HRef", color = MButtonColor.secondary, hRefOptions = HRefOptions("https://github.com/cfnz/muirwik"),
-                variant = MButtonVariant.contained) { css(buttonMargin) }
-            mButton("Styled Button") {
+            button("Contained", variant = ButtonVariant.contained) { css(buttonMargin) }
+            button("Primary", ButtonColor.primary, variant = ButtonVariant.contained) { css(buttonMargin) }
+            button("Secondary with HRef", color = ButtonColor.secondary, hRefOptions = HRefOptions("https://github.com/cfnz/muirwik"),
+                variant = ButtonVariant.contained) { css(buttonMargin) }
+            button("Styled Button") {
                 css {
                     background = "linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)"
                     borderRadius = 3.px
@@ -266,9 +270,9 @@ class TestButtons : RComponent<Props, State>() {
                     margin(1.spacingUnits)
                 }
             }
-            mButton("Icon", MButtonColor.primary, variant = MButtonVariant.contained) {
+            button("Icon", ButtonColor.primary, variant = ButtonVariant.contained) {
                 css(buttonMargin)
-                mIcon("send", MIconColor.inherit) {
+                icon("send", IconColor.inherit) {
                     css { marginLeft = 1.em }
                 }
             }
@@ -355,11 +359,10 @@ class TestButtons : RComponent<Props, State>() {
             demoPanel("More complex button...") {
                 css(root)
                 imageInfos.forEach {
-                    mButton(it.title) {
+                    button(it.title) {
                         css(image)
                         attrs.focusRipple = true
                         attrs.key = it.title
-//                    attrs.asDynamic().focusVisibleClassname = "${ComplexComponentStyles.name}-${ComplexComponentStyles::focusVisible.name}"
                         attrs.asDynamic().style = js { width = it.width }
                         styledSpan {
                             css {
@@ -378,16 +381,12 @@ class TestButtons : RComponent<Props, State>() {
                                 +imageButton
                                 color = Color(theme.palette.common.white)
                             }
-                            mTypography(color = MTypographyColor.inherit, variant = MTypographyVariant.subtitle1) {
+                            typography(it.title, TypographyVariant.subtitle1, TypographyColor.inherit) {
                                 css(imageTitle)
-                                +it.title
-                                //                        attrs.component = "span"
                                 styledSpan {
                                     css {
                                         +imageMarked
                                         backgroundColor = Color(theme.palette.common.white)
-//                                        val themejs = theme
-//                                        put("transition", js("themejs.transitions.create('opacity')"))
                                     }
                                 }
                             }

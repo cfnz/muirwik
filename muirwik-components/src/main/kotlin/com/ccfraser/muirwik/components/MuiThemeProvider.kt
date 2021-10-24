@@ -2,7 +2,10 @@ package com.ccfraser.muirwik.components
 
 import com.ccfraser.muirwik.components.styles.Theme
 import kotlinext.js.jsObject
-import react.*
+import react.ComponentType
+import react.PropsWithChildren
+import react.RBuilder
+import react.RHandler
 
 
 @JsModule("@mui/material/styles")

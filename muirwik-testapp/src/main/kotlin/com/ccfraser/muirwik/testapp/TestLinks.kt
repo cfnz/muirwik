@@ -1,9 +1,13 @@
 package com.ccfraser.muirwik.testapp
 
 import com.ccfraser.muirwik.components.*
+import com.ccfraser.muirwik.components.utils.HRefOptions
 import com.ccfraser.muirwik.testapp.TestLinks.CustomTabStyles.linkMargin
 import kotlinx.css.margin
-import react.*
+import react.Props
+import react.RBuilder
+import react.RComponent
+import react.State
 import styled.StyleSheet
 import styled.css
 
@@ -15,15 +19,15 @@ class TestLinks : RComponent<Props, State>() {
         }
     }
     override fun RBuilder.render() {
-        mTypography {
+        typography {
             mLink("Link Target Blank", hRefOptions = HRefOptions("#")) { css(linkMargin)}
             mLink("color = \"inherit\"", hRefOptions = HRefOptions("#", false)) {
                 css(linkMargin)
-                attrs.color = MTypographyColor.inherit
+                attrs.color = TypographyColor.inherit
             }
             mLink("variant = \"body2\"", hRefOptions = HRefOptions("#", false)) {
                 css(linkMargin)
-                attrs.variant = MTypographyVariant.body2
+                attrs.variant = TypographyVariant.body2
             }
         }
     }

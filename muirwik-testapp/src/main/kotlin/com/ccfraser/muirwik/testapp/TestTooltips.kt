@@ -1,40 +1,39 @@
 package com.ccfraser.muirwik.testapp
 
 import com.ccfraser.muirwik.components.*
-import com.ccfraser.muirwik.components.button.MFabColor
-import com.ccfraser.muirwik.components.button.mButton
-import com.ccfraser.muirwik.components.button.mFab
-import com.ccfraser.muirwik.components.button.mIconButton
 import kotlinx.css.*
-import react.*
-import react.dom.br
+import react.Props
+import react.RBuilder
+import react.RComponent
+import react.State
 import styled.css
-import styled.styledDiv
 
 class TestTooltips : RComponent<Props, State>() {
 
     override fun RBuilder.render() {
         demoPanel("Simple Tooltips") {
-            mTooltip("Delete") {
-                mIconButton("delete") { css { marginRight = 2.spacingUnits }}
+            tooltip("Delete") {
+                iconButton("delete") { css { marginRight = 2.spacingUnits }}
             }
-            mTooltip("Add") {
-                mFab("add") { css { marginRight = 2.spacingUnits }}
+            tooltip("Add") {
+                fab("add") { css { marginRight = 2.spacingUnits }}
             }
-            mTooltip("No Delay", enterDelay = 0) {
-                mButton("No Delay") { css { marginRight = 2.spacingUnits }}
+            tooltip("No Delay") {
+                attrs.enterDelay = 0
+                button("No Delay") { css { marginRight = 2.spacingUnits }}
             }
-            mTooltip("Long Delay", enterDelay = 750) {
-                mButton("Long Delay")
+            tooltip("Long Delay") {
+                attrs.enterDelay = 750
+                button("Long Delay")
             }
-            mTooltip("With Arrow", arrow = true) {
-                mButton("With Arrow")
+            tooltip("With Arrow", arrow = true) {
+                button("With Arrow")
             }
-            mTooltip("On the right", TooltipPlacement.right) {
-                mButton("On Right")
+            tooltip("On the right", TooltipPlacement.right) {
+                button("On Right")
             }
-            mTooltip("FAB") {
-                mFab("add", MFabColor.secondary) {
+            tooltip("FAB") {
+                fab("add", FabColor.secondary) {
                     css {
                         position = Position.absolute
                         bottom = 2.spacingUnits

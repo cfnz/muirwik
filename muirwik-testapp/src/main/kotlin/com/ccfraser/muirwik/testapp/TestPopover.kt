@@ -1,18 +1,15 @@
 package com.ccfraser.muirwik.testapp
 
 import com.ccfraser.muirwik.components.*
-import com.ccfraser.muirwik.components.button.MButtonVariant
-import com.ccfraser.muirwik.components.button.mButton
-import com.ccfraser.muirwik.components.form.mFormControl
-import com.ccfraser.muirwik.components.form.mFormControlLabel
-import com.ccfraser.muirwik.components.form.mFormLabel
+import com.ccfraser.muirwik.components.utils.Colors
+import com.ccfraser.muirwik.components.utils.ControlColor
+import com.ccfraser.muirwik.components.utils.targetInputValue
 import com.ccfraser.muirwik.testapp.TestPopover.ComponentStyles.dot
 import com.ccfraser.muirwik.testapp.TestPopover.ComponentStyles.greenRadio
 import kotlinx.css.*
 import org.w3c.dom.Node
 import react.*
 import react.dom.div
-import react.dom.findDOMNode
 import styled.StyleSheet
 import styled.css
 import styled.styledDiv
@@ -20,11 +17,11 @@ import styled.styledDiv
 
 class TestPopover : RComponent<Props, State>() {
     private var open: Boolean = false
-    private var anchorRef: MPopoverAnchorRef = MPopoverAnchorRef.anchorEl
-    private var anchorOriginVertical: MPopoverVerticalPosition = MPopoverVerticalPosition.top
-    private var anchorOriginHorizontal: MPopoverHorizontalPosition = MPopoverHorizontalPosition.left
-    private var transformOriginVertical: MPopoverVerticalPosition = MPopoverVerticalPosition.top
-    private var transformOriginHorizontal: MPopoverHorizontalPosition = MPopoverHorizontalPosition.left
+    private var anchorRef: PopoverAnchorRef = PopoverAnchorRef.anchorEl
+    private var anchorOriginVertical: PopoverVerticalPosition = PopoverVerticalPosition.top
+    private var anchorOriginHorizontal: PopoverHorizontalPosition = PopoverHorizontalPosition.left
+    private var transformOriginVertical: PopoverVerticalPosition = PopoverVerticalPosition.top
+    private var transformOriginHorizontal: PopoverHorizontalPosition = PopoverHorizontalPosition.left
     private var buttonRef = createRef<Node>()
     private var anchorPosTop: Int = 50
     private var anchorPosLeft: Int = 70
@@ -44,7 +41,7 @@ class TestPopover : RComponent<Props, State>() {
     }
 
     private fun greenRadio() = buildElement {
-        mRadio(color = MOptionColor.default) {
+        radio(color = ControlColor.default) {
             css(greenRadio)
         }
     }
@@ -55,28 +52,30 @@ class TestPopover : RComponent<Props, State>() {
                 minWidth = 600.px
             }
             div {
-                mGridContainer(justify = MGridJustify.center) {
-                    mGridItem {
+                gridContainer {
+                    attrs.justify = GridJustify.center
+                    gridItem {
                         css {
                             position = Position.relative
                             marginBottom = 32.px
                         }
-                        mButton("Open Popover", variant = MButtonVariant.contained, onClick = { setState { open = true }} ) {
+                        button("Open Popover", variant = ButtonVariant.contained) {
+                            attrs.onClick = { setState { open = true }}
                             ref = buttonRef
                         }
                         styledDiv {
                             css {
                                 +dot
-                                if (anchorRef == MPopoverAnchorRef.anchorEl) {
+                                if (anchorRef == PopoverAnchorRef.anchorEl) {
                                     when(anchorOriginVertical) {
-                                        MPopoverVerticalPosition.top -> top = -(5.px)
-                                        MPopoverVerticalPosition.center -> top = 50.pct - 5.px
-                                        MPopoverVerticalPosition.bottom -> bottom = -(5.px)
+                                        PopoverVerticalPosition.top -> top = -(5.px)
+                                        PopoverVerticalPosition.center -> top = 50.pct - 5.px
+                                        PopoverVerticalPosition.bottom -> bottom = -(5.px)
                                     }
                                     when(anchorOriginHorizontal) {
-                                        MPopoverHorizontalPosition.left -> left = -(5.px)
-                                        MPopoverHorizontalPosition.center -> left = 50.pct - 5.px
-                                        MPopoverHorizontalPosition.right -> right = -(5.px)
+                                        PopoverHorizontalPosition.left -> left = -(5.px)
+                                        PopoverHorizontalPosition.center -> left = 50.pct - 5.px
+                                        PopoverHorizontalPosition.right -> right = -(5.px)
                                     }
                                 } else {
                                     display = Display.none
@@ -86,10 +85,11 @@ class TestPopover : RComponent<Props, State>() {
                             }
                         }
                     }
-                    mPopover(open, onClose = { _, _ -> setState { open = false}} ) {
+                    popover(open) {
+                        attrs.onClose = { _, _ -> setState { open = false}}
                         attrs.anchorReference = anchorRef
                         attrs.anchorEl = buttonRef.current
-                        if (anchorRef == MPopoverAnchorRef.anchorEl) {
+                        if (anchorRef == PopoverAnchorRef.anchorEl) {
                             attrs.anchorOriginVertical = anchorOriginVertical
                             attrs.anchorOriginHorizontal = anchorOriginHorizontal
                         } else {
@@ -107,67 +107,83 @@ class TestPopover : RComponent<Props, State>() {
                     }
                 }
 
-                mGridContainer(MGridSpacing.spacing2, alignContent = MGridAlignContent.flexStart) {
-                    mGridItem(xs = MGridSize.cells12, sm = MGridSize.cells6) {
-                        mFormControl {
-                            mFormLabel("anchorRef")
-                            mRadioGroup(value = anchorRef.toString(), row = true, onChange = { _, value -> setState { anchorRef = MPopoverAnchorRef.valueOf(value) }}) {
-                                mRadioWithLabel("anchorEl", value = MPopoverAnchorRef.anchorEl.toString())
-                                mRadioWithLabel("anchorPosition", value = MPopoverAnchorRef.anchorPosition.toString())
+                gridContainer(GridSpacing.spacing2) {
+                    attrs.alignContent = GridAlignContent.flexStart
+                    gridItem {
+                        attrs.xs = GridSize.cells12
+                        attrs.sm = GridSize.cells6
+                        formControl {
+                            formLabel("anchorRef")
+                            radioGroup(value = anchorRef.toString()) {
+                                attrs.row = true
+                                attrs.onChange = { _, value -> setState { anchorRef = PopoverAnchorRef.valueOf(value) } }
+                                radioWithLabel("anchorEl", value = PopoverAnchorRef.anchorEl.toString())
+                                radioWithLabel("anchorPosition", value = PopoverAnchorRef.anchorPosition.toString())
                             }
                         }
                     }
-                    mGridItem(xs = MGridSize.cells12, sm = MGridSize.cells6) {
-                        mTextField("anchorPosition.top", anchorPosTop.toString(), onChange = {
-                            val v = it.targetInputValue
-                            setState { anchorPosTop = v.toIntOrNull() ?: 0 }
-                        }) {
+                    gridItem {
+                        attrs.xs = GridSize.cells12
+                        attrs.sm = GridSize.cells6
+                        textField("anchorPosition.top", anchorPosTop.toString()) {
+                            attrs.onChange = { setState { anchorPosTop = it.targetInputValue.toIntOrNull() ?: 0 } }
                             css { paddingRight = 1.spacingUnits }
                         }
-                        mTextField("anchorPosition.left", anchorPosLeft.toString(), onChange = {
-                            val v = it.targetInputValue
-                            setState { anchorPosLeft = v.toIntOrNull() ?: 0 }
-                        })
+                        textField("anchorPosition.left", anchorPosLeft.toString()) {
+                            attrs.onChange = { setState { anchorPosLeft = it.targetInputValue.toIntOrNull() ?: 0 } }
+                        }
                     }
-                    mGridItem(xs = MGridSize.cells12, sm = MGridSize.cells6) {
-                        mFormControl {
-                            mFormLabel("anchorOrigin.vertical")
-                            mRadioGroup(value = anchorOriginVertical.toString(), onChange = { _, value -> setState {
-                                anchorOriginVertical = MPopoverVerticalPosition.valueOf(value)
-                            }}) {
-                                mFormControlLabel("Top", value = MPopoverVerticalPosition.top.toString(), control = greenRadio())
-                                mFormControlLabel("Center", value = MPopoverVerticalPosition.center.toString(), control = greenRadio())
-                                mFormControlLabel("Bottom", value = MPopoverVerticalPosition.bottom.toString(), control = greenRadio())
+                    gridItem {
+                        attrs.xs = GridSize.cells12
+                        attrs.sm = GridSize.cells6
+                        formControl {
+                            formLabel("anchorOrigin.vertical")
+                            radioGroup(anchorOriginVertical.toString()) {
+                                attrs.onChange = { _, value -> setState { anchorOriginVertical = PopoverVerticalPosition.valueOf(value) } }
+                                formControlLabel("Top", value = PopoverVerticalPosition.top.toString(), control = greenRadio())
+                                formControlLabel("Center", value = PopoverVerticalPosition.center.toString(), control = greenRadio())
+                                formControlLabel("Bottom", value = PopoverVerticalPosition.bottom.toString(), control = greenRadio())
                             }
                         }
                     }
-                    mGridItem(xs = MGridSize.cells12, sm = MGridSize.cells6) {
-                        mFormControl {
-                            mFormLabel("transformOrigin.vertical")
-                            mRadioGroup(value = transformOriginVertical.toString(), onChange = { _, value -> setState { transformOriginVertical = MPopoverVerticalPosition.valueOf(value) }}) {
-                                mRadioWithLabel("Top", value = MPopoverVerticalPosition.top.toString())
-                                mRadioWithLabel("Center", value = MPopoverVerticalPosition.center.toString())
-                                mRadioWithLabel("Bottom", value = MPopoverVerticalPosition.bottom.toString())
+                    gridItem {
+                        attrs.xs = GridSize.cells12
+                        attrs.sm = GridSize.cells6
+                        formControl {
+                            formLabel("transformOrigin.vertical")
+                            radioGroup(transformOriginVertical.toString()) {
+                                attrs.onChange = { _, value -> setState { transformOriginVertical = PopoverVerticalPosition.valueOf(value) } }
+                                radioWithLabel("Top", value = PopoverVerticalPosition.top.toString())
+                                radioWithLabel("Center", value = PopoverVerticalPosition.center.toString())
+                                radioWithLabel("Bottom", value = PopoverVerticalPosition.bottom.toString())
                             }
                         }
                     }
-                    mGridItem(xs = MGridSize.cells12, sm = MGridSize.cells6) {
-                        mFormControl {
-                            mFormLabel("anchorOrigin.horizontal")
-                            mRadioGroup(value = anchorOriginHorizontal.toString(), row = true, onChange = { _, value -> setState { anchorOriginHorizontal = MPopoverHorizontalPosition.valueOf(value) }}) {
-                                mFormControlLabel("Left", value = MPopoverHorizontalPosition.left.toString(), control = greenRadio())
-                                mFormControlLabel("Center", value = MPopoverHorizontalPosition.center.toString(), control = greenRadio())
-                                mFormControlLabel("Right", value = MPopoverHorizontalPosition.right.toString(), control = greenRadio())
+                    gridItem {
+                        attrs.xs = GridSize.cells12
+                        attrs.sm = GridSize.cells6
+                        formControl {
+                            formLabel("anchorOrigin.horizontal")
+                            radioGroup(value = anchorOriginHorizontal.toString()) {
+                                attrs.row = true
+                                attrs.onChange = { _, value -> setState { anchorOriginHorizontal = PopoverHorizontalPosition.valueOf(value) } }
+                                formControlLabel("Left", value = PopoverHorizontalPosition.left.toString(), control = greenRadio())
+                                formControlLabel("Center", value = PopoverHorizontalPosition.center.toString(), control = greenRadio())
+                                formControlLabel("Right", value = PopoverHorizontalPosition.right.toString(), control = greenRadio())
                             }
                         }
                     }
-                    mGridItem(xs = MGridSize.cells12, sm = MGridSize.cells6) {
-                        mFormControl {
-                            mFormLabel("transformOrigin.horizontal")
-                            mRadioGroup(value = transformOriginHorizontal.toString(), row = true, onChange = { _, value -> setState { transformOriginHorizontal = MPopoverHorizontalPosition.valueOf(value) }}) {
-                                mRadioWithLabel("Left", value = MPopoverHorizontalPosition.left.toString())
-                                mRadioWithLabel("Center", value = MPopoverHorizontalPosition.center.toString())
-                                mRadioWithLabel("Right", value = MPopoverHorizontalPosition.right.toString())
+                    gridItem {
+                        attrs.xs = GridSize.cells12
+                        attrs.sm = GridSize.cells6
+                        formControl {
+                            formLabel("transformOrigin.horizontal")
+                            radioGroup(value = transformOriginHorizontal.toString()) {
+                                attrs.row = true
+                                attrs.onChange = { _, value -> setState { transformOriginHorizontal = PopoverHorizontalPosition.valueOf(value) } }
+                                radioWithLabel("Left", value = PopoverHorizontalPosition.left.toString())
+                                radioWithLabel("Center", value = PopoverHorizontalPosition.center.toString())
+                                radioWithLabel("Right", value = PopoverHorizontalPosition.right.toString())
                             }
                         }
                     }

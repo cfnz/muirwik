@@ -1,5 +1,8 @@
 package com.ccfraser.muirwik.components
 
+import com.ccfraser.muirwik.components.utils.EnumPropToString
+import com.ccfraser.muirwik.components.utils.StyledPropsWithCommonAttributes
+import com.ccfraser.muirwik.components.utils.createStyled
 import kotlinext.js.Object
 import react.ComponentType
 import react.FunctionComponent
@@ -11,22 +14,23 @@ import styled.StyledHandler
 private external val ratingModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")
-private val ratingComponentType: ComponentType<MRatingProps> = ratingModule.default
+private val ratingComponentType: ComponentType<RatingProps> = ratingModule.default
 
 @Suppress("EnumEntryName")
-enum class MRatingSize {
+enum class RatingSize {
     large, medium, small
 }
 
-external interface MRatingProps : StyledPropsWithCommonAttributes {
+external interface RatingProps : StyledPropsWithCommonAttributes {
     var defaultValue: Number
     var disabled: Boolean
     var emptyIcon: ReactElement
     var emptyLabelText: String
     var getLabelText: (value: Number) -> String
+    var highlightSelectedOnly: Boolean
     var icon: ReactElement
     @JsName("IconContainerComponent")
-    var iconContainerComponent: FunctionComponent<MIconContainerProps>
+    var iconContainerComponent: FunctionComponent<IconContainerProps>
     var max: Number
     var name: String
     var onChange: (event: Object, newValue: Number) -> Unit
@@ -35,12 +39,26 @@ external interface MRatingProps : StyledPropsWithCommonAttributes {
     var readOnly: Boolean
     var value: Number?
 }
-var MRatingProps.size by EnumPropToString(MRatingSize.values())
+var RatingProps.size by EnumPropToString(RatingSize.values())
 
-external interface MIconContainerProps : StyledPropsWithCommonAttributes {
+external interface IconContainerProps : StyledPropsWithCommonAttributes {
     var value: Int
 }
 
+fun RBuilder.rating(
+    name: String,
+    value: Number? = null,
+    max: Number = 5,
+    handler: StyledHandler<RatingProps>? = null
+) {
+    createStyled(ratingComponentType, handler) {
+        attrs.max = max
+        attrs.name = name
+        value?.let { attrs.value = it }
+    }
+}
+
+@Deprecated("Use the simpler 'non m' version.")
 fun RBuilder.mRating(
     name: String,
     value: Number? = null,
@@ -53,9 +71,9 @@ fun RBuilder.mRating(
     icon: ReactElement? = null,
     emptyIcon: ReactElement? = null,
     emptyLabelText: String = "Empty",
-    size: MRatingSize = MRatingSize.medium,
+    size: RatingSize = RatingSize.medium,
     className: String? = null,
-    handler: StyledHandler<MRatingProps>? = null
+    handler: StyledHandler<RatingProps>? = null
 ) {
     createStyled(ratingComponentType, className, handler) {
         defaultValue?.let { attrs.defaultValue = it }

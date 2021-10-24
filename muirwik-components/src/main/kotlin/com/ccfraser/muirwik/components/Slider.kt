@@ -1,9 +1,13 @@
 package com.ccfraser.muirwik.components
 
+import com.ccfraser.muirwik.components.utils.ElementType
+import com.ccfraser.muirwik.components.utils.EnumPropToString
+import com.ccfraser.muirwik.components.utils.StyledPropsWithCommonAttributes
+import com.ccfraser.muirwik.components.utils.createStyled
 import kotlinext.js.Object
 import react.ComponentType
+import react.Props
 import react.RBuilder
-import react.ReactElement
 import styled.StyledHandler
 
 
@@ -11,178 +15,100 @@ import styled.StyledHandler
 private external val sliderModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")
-private val sliderComponentType: ComponentType<MSliderProps> = sliderModule.default
+private val sliderComponentType: ComponentType<SliderProps> = sliderModule.default
+
+@Suppress("UnsafeCastFromDynamic")
+private val sliderWithRangeComponentType: ComponentType<SliderWithRangeValueProps> = sliderModule.default
 
 
 @Suppress("EnumEntryName")
-enum class MSliderOrientation {
+enum class SliderOrientation {
     horizontal, vertical
 }
 
 @Suppress("EnumEntryName")
-enum class MSliderValueLabelDisplay {
+enum class SliderColor {
+    primary, secondary
+}
+
+@Suppress("EnumEntryName")
+enum class SliderValueLabelDisplay {
     on, off, auto
 }
 
-data class MSliderMark(val value: Number, val label: String? = null)
+@Suppress("EnumEntryName")
+enum class SliderTrack {
+    inverted, normal, off
+}
 
-external interface MSliderProps : StyledPropsWithCommonAttributes {
-    var component: String
-    var defaultValue: Any
+data class SliderMark(val value: Number, val label: String? = null)
+
+external interface BaseSliderProps : StyledPropsWithCommonAttributes {
+    var component: ElementType
+    var components: dynamic
+    var componentsProps: Props
     var disabled: Boolean
+    var disabledSwap: Boolean
+    var getAriaLabel: (index: Number) -> String
     var getAriaValueText: (value: Number, index: Number) -> String
-    var marks: Any
+    var isRtl: Boolean
+    var marks: Any //sort this out
     var max: Number
     var min: Number
     var name: String
-    var onChange: (event: Object, value: dynamic) -> Unit
-    var onChangeCommitted: (event: Object, value: dynamic) -> Unit
+    var scale: (Number) -> Number
     var step: Number?
-
-    @JsName("ThumbComponent")
-    var thumbComponent: String
-
-    var value: dynamic
-
-    @JsName("ValueLabelComponent")
-    var valueLabelComponent: ReactElement
-
     var valueLabelFormat: (value: Number, index: Number) -> String
 }
-var MSliderProps.orientation by EnumPropToString(MSliderOrientation.values())
-var MSliderProps.valueLabelDisplay by EnumPropToString(MSliderValueLabelDisplay.values())
+var BaseSliderProps.color by EnumPropToString(SliderColor.values())
+var BaseSliderProps.orientation by EnumPropToString(SliderOrientation.values())
+var BaseSliderProps.size by EnumPropToString(FormControlSize.values())
+var BaseSliderProps.track: SliderTrack
+    get() = if (this.asDynamic().track == false) SliderTrack.off else SliderTrack.valueOf(this.asDynamic().track as String)
+    set(value) { this.asDynamic().track = if (value == SliderTrack.off) false else value.toString() }
+var BaseSliderProps.valueLabelDisplay by EnumPropToString(SliderValueLabelDisplay.values())
 
+external interface SliderProps : BaseSliderProps {
+    var defaultValue: Number
+    var onChange: (event: Object, value: Number) -> Unit
+    var onChangeCommitted: (event: Object, value: Number) -> Unit
+    var value: Number
+}
 
-fun RBuilder.mSlider(
+external interface SliderWithRangeValueProps : BaseSliderProps {
+    var defaultValue: Array<Number>
+    var onChange: (event: Object, value: Pair<Number, Number>) -> Unit
+    var onChangeCommitted: (event: Object, value: Pair<Number, Number>) -> Unit
+    var value: Array<Number>
+}
+
+fun RBuilder.slider(
     value: Number? = null,
     min: Number = 0,
     max: Number = 100,
     step: Number? = 1,
-    showMarks: Boolean = false,
-    marks: List<MSliderMark> = emptyList(),
-    defaultValue: Number? = null,
-
-    orientation: MSliderOrientation = MSliderOrientation.horizontal,
-    disabled: Boolean = false,
-
-    label: String? = null,
-    labelledBy: String? = null,
-    name: String? = null,
-    component: String = "span",
-    thumbComponent: String = "span",
-    valueText: String? = null,
-
-    onChange: ((event: Object, value: Number) -> Unit)? = null,
-    onChangeCommitted: ((event: Object, value: Number) -> Unit)? = null,
-    getAriaValueText: ((value: Number, index: Number) -> String)? = null,
-
-    valueLabelComponent: ReactElement? = null,
-    valueLabelDisplay: MSliderValueLabelDisplay = MSliderValueLabelDisplay.off,
-    valueLabelFormat: ((value: Number, index: Number) -> String)? = null,
-
-    className: String? = null,
-    handler: StyledHandler<MSliderProps>? = null
+    handler: StyledHandler<SliderProps>? = null
 ) {
-    createStyled(sliderComponentType, className, handler) {
-        setCommonAttrs(attrs, min, max, step, showMarks, marks, orientation, disabled, label, labelledBy, name, component,
-            thumbComponent, valueText, onChange, onChangeCommitted, getAriaValueText, valueLabelComponent,
-            valueLabelDisplay, valueLabelFormat)
-
-        defaultValue?.let { attrs.defaultValue = it }
+    createStyled(sliderComponentType, handler) {
         value?.let { attrs.value = it }
+        attrs.min = min
+        attrs.max = max
+        step?.let { attrs.step = it }
     }
 }
 
-fun RBuilder.mSliderWithRange(
-    value: Pair<Number, Number>? = null,
+fun RBuilder.sliderWithRange(
+    value: Array<Number>? = null,
     min: Number = 0,
     max: Number = 100,
-    step: Number? = 1,
-    showMarks: Boolean = false,
-    marks: List<MSliderMark> = emptyList(),
-    defaultValue: Pair<Number, Number>? = null,
-
-    orientation: MSliderOrientation = MSliderOrientation.horizontal,
-    disabled: Boolean = false,
-
-    label: String? = null,
-    labelledBy: String? = null,
-    name: String? = null,
-    component: String = "span",
-    thumbComponent: String = "span",
-    valueText: String? = null,
-
-    onChange: ((event: Object, value: Number) -> Unit)? = null,
-    onChangeCommitted: ((event: Object, value: Number) -> Unit)? = null,
-    getAriaValueText: ((value: Number, index: Number) -> String)? = null,
-
-    valueLabelComponent: ReactElement? = null,
-    valueLabelDisplay: MSliderValueLabelDisplay = MSliderValueLabelDisplay.off,
-    valueLabelFormat: ((value: Number, index: Number) -> String)? = null,
-    className: String? = null,
-    handler: StyledHandler<MSliderProps>? = null
+    step: Number = 1,
+    handler: StyledHandler<SliderWithRangeValueProps>? = null
 ) {
-    createStyled(sliderComponentType, className, handler) {
-        setCommonAttrs(attrs, min, max, step, showMarks, marks, orientation, disabled, label, labelledBy, name, component,
-            thumbComponent, valueText, onChange, onChangeCommitted, getAriaValueText, valueLabelComponent,
-            valueLabelDisplay, valueLabelFormat)
-
-        defaultValue?.let { attrs.defaultValue = it.toList().toTypedArray() }
-        value?.let { attrs.value = it.toList().toTypedArray() }
+    createStyled(sliderWithRangeComponentType, handler) {
+        value?.let { attrs.value = it }
+        attrs.min = min
+        attrs.max = max
+        attrs.step = step
     }
 }
 
-private fun setCommonAttrs(
-    attrs: MSliderProps,
-    min: Number,
-    max: Number,
-    step: Number?,
-    showMarks: Boolean,
-    marks: List<MSliderMark>,
-    orientation: MSliderOrientation,
-    disabled: Boolean,
-    label: String?,
-    labelledBy: String?,
-    name: String?,
-    component: String,
-    thumbComponent: String,
-    valueText: String?,
-    onChange: ((event: Object, value: Number) -> Unit)?,
-    onChangeCommitted: ((event: Object, value: Number) -> Unit)?,
-    getAriaValueText: ((value: Number, index: Number) -> String)?,
-    valueLabelComponent: ReactElement?,
-    valueLabelDisplay: MSliderValueLabelDisplay,
-    valueLabelFormat: ((value: Number, index: Number) -> String)?
-) {
-    attrs.component = component
-    attrs.asDynamic()["aria-label"] = label
-    attrs.asDynamic()["aria-labelledby"] = labelledBy
-    attrs.asDynamic()["aria-valuetext"] = valueText
-    attrs.component = component
-    attrs.disabled = disabled
-    getAriaValueText?.let { attrs.getAriaValueText = it }
-    if (showMarks) {
-        // Before the IR compiler we could do the below...
-        // attrs.marks = if (marks.isEmpty()) true else marks.toTypedArray()
-
-        val jsArray = js("([])")
-        marks.forEach {
-            val element = js("({})")
-            element.value = it.value
-            element.label = it.label
-            jsArray.push(element)
-        }
-        attrs.marks = if (marks.isEmpty()) true else jsArray
-    }
-    attrs.max = max
-    attrs.min = min
-    name?.let { attrs.name = it }
-    onChange?.let { attrs.onChange = it }
-    onChangeCommitted?.let { attrs.onChangeCommitted = it }
-    attrs.orientation = orientation
-    attrs.step = step
-    attrs.thumbComponent = thumbComponent
-    valueLabelComponent?.let { attrs.valueLabelComponent = it }
-    attrs.valueLabelDisplay = valueLabelDisplay
-    valueLabelFormat?.let { attrs.valueLabelFormat = it }
-}

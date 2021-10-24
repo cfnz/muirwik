@@ -1,9 +1,11 @@
 package com.ccfraser.muirwik.components
 
+import com.ccfraser.muirwik.components.utils.ElementType
+import com.ccfraser.muirwik.components.utils.EnumPropToString
+import com.ccfraser.muirwik.components.utils.createStyled
 import kotlinx.css.flexGrow
 import react.ComponentType
 import react.RBuilder
-import react.ReactElement
 import styled.StyledHandler
 import styled.StyledProps
 import styled.css
@@ -13,27 +15,24 @@ import styled.css
 private external val toolbarModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")
-private val toolbarComponentType: ComponentType<MToolbarProps> = toolbarModule.default
+private val toolbarComponentType: ComponentType<ToolbarProps> = toolbarModule.default
 
 @Suppress("EnumEntryName")
 enum class ToolbarVariant {
-    regular, dense
+    dense, regular
 }
 
-external interface MToolbarProps : StyledProps {
+external interface ToolbarProps : StyledProps {
+    var component: ElementType
     var disableGutters: Boolean
 }
-var MToolbarProps.variant by EnumPropToString(ToolbarVariant.values())
+var ToolbarProps.variant by EnumPropToString(ToolbarVariant.values())
 
-fun RBuilder.mToolbar(
-    disableGutters: Boolean = false,
+fun RBuilder.toolbar(
     variant: ToolbarVariant = ToolbarVariant.regular,
-
-    className: String? = null,
-    handler: StyledHandler<MToolbarProps>? = null
+    handler: StyledHandler<ToolbarProps>? = null
 ) {
-    createStyled(toolbarComponentType, className, handler) {
-        attrs.disableGutters = disableGutters
+    createStyled(toolbarComponentType, handler) {
         attrs.variant = variant
     }
 }
@@ -41,6 +40,9 @@ fun RBuilder.mToolbar(
 /**
  * Just a simple title with padding to push any items to the right, and no wrapping
  */
-fun RBuilder.mToolbarTitle(text: String) {
-    mTypography(text, variant = MTypographyVariant.h6, color = MTypographyColor.inherit, noWrap = true) { css { flexGrow = 1.0 }}
+fun RBuilder.toolbarTitle(text: String) {
+    typography(text, TypographyVariant.h6, TypographyColor.inherit) {
+        css { flexGrow = 1.0 }
+        attrs.noWrap = true
+    }
 }

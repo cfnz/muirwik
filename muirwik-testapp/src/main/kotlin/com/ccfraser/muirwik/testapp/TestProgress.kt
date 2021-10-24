@@ -1,9 +1,7 @@
 package com.ccfraser.muirwik.testapp
 
 import com.ccfraser.muirwik.components.*
-import com.ccfraser.muirwik.components.button.MButtonVariant
-import com.ccfraser.muirwik.components.button.mButton
-import com.ccfraser.muirwik.components.button.mFab
+import com.ccfraser.muirwik.components.utils.Colors
 import com.ccfraser.muirwik.testapp.TestProgress.ComponentStyles.buttonProgress
 import com.ccfraser.muirwik.testapp.TestProgress.ComponentStyles.buttonSuccess
 import com.ccfraser.muirwik.testapp.TestProgress.ComponentStyles.fabProgress
@@ -100,14 +98,14 @@ class TestProgress : RComponent<Props, State>() {
         }
     }
 
-
     override fun RBuilder.render() {
-        mTypography("Circular Indeterminate")
+        typography("Circular Indeterminate")
         div{
-            mCircularProgress { css { margin(2.spacingUnits) }}
-            mCircularProgress(size = 50.px) { css { margin(2.spacingUnits) }}
-            mCircularProgress(color = MCircularProgressColor.secondary) { css { margin(2.spacingUnits) }}
-            mCircularProgress(thickness = 7.0) {
+            circularProgress { css { margin(2.spacingUnits) }}
+            circularProgress(size = 50.px) { css { margin(2.spacingUnits) }}
+            circularProgress(color = CircularProgressColor.secondary) { css { margin(2.spacingUnits) }}
+            circularProgress {
+                attrs.thickness = 7.0
                 css {
                     margin(2.spacingUnits)
                     color = Colors.Purple.shade500
@@ -115,7 +113,7 @@ class TestProgress : RComponent<Props, State>() {
             }
         }
         br { }
-        mTypography("Interactive Integration")
+        typography("Interactive Integration")
         styledDiv {
             css {
                 display = Display.flex
@@ -123,34 +121,38 @@ class TestProgress : RComponent<Props, State>() {
             }
             styledDiv {
                 css(wrapper)
-                mFab(if (success) "done" else "save", onClick = { onClick() }) {
+                fab(if (success) "done" else "save") {
+                    attrs.onClick = { onClick() }
                     if (success) {
                         css(buttonSuccess)
                     }
                     if (loading) {
-                        mCircularProgress(size = 68.px) { css(fabProgress) }
+                        circularProgress(size = 68.px) { css(fabProgress) }
                     }
                 }
             }
             styledDiv {
                 css(wrapper)
-                mButton("Accept terms", disabled = loading, variant = MButtonVariant.contained, onClick = { onClick() }) {
+                button("Accept terms", variant = ButtonVariant.contained) {
+                    attrs.disabled = loading
+                    attrs.onClick = { onClick() }
                     if (success) {
                         css(buttonSuccess)
                     }
                 }
                 if (loading) {
-                    mCircularProgress(size = 24.px) { css(buttonProgress) }
+                    circularProgress(size = 24.px) { css(buttonProgress) }
                 }
             }
         }
         br { }
-        mTypography("Circular Determinate")
+        typography("Circular Determinate")
         div {
-            mCircularProgress(variant = MCircularProgressVariant.determinate, value = circularDeterminateValue.toDouble()) { css { margin(2.spacingUnits) }}
-            mCircularProgress(variant = MCircularProgressVariant.determinate, value = circularDeterminateValue.toDouble(), size = 50.px) { css { margin(2.spacingUnits) }}
-            mCircularProgress(variant = MCircularProgressVariant.determinate, value = circularDeterminateValue.toDouble(), color = MCircularProgressColor.secondary) { css { margin(2.spacingUnits) }}
-            mCircularProgress(variant = MCircularProgressVariant.determinate, value = circularDeterminateValue.toDouble(), thickness = 7.0) {
+            circularProgress(circularDeterminateValue.toDouble(), variant = CircularProgressVariant.determinate) { css { margin(2.spacingUnits) }}
+            circularProgress(circularDeterminateValue.toDouble(), variant = CircularProgressVariant.determinate, size = 50.px) { css { margin(2.spacingUnits) }}
+            circularProgress(circularDeterminateValue.toDouble(), variant = CircularProgressVariant.determinate, color = CircularProgressColor.secondary) { css { margin(2.spacingUnits) }}
+            circularProgress(circularDeterminateValue.toDouble(), variant = CircularProgressVariant.determinate) {
+                attrs.thickness = 7.0
                 css {
                     margin(2.spacingUnits)
                     color = Colors.Purple.shade500
@@ -158,13 +160,15 @@ class TestProgress : RComponent<Props, State>() {
             }
         }
         br { }
-        mTypography("Linear Indeterminate")
-        mLinearProgress()
+        typography("Linear Indeterminate")
+        linearProgress()
         br { }
-        mTypography("Linear Determinate")
-        mLinearProgress(color = MLinearProgressColor.secondary, variant = MLinearProgressVariant.determinate, value = linearValue.toDouble())
+        typography("Linear Determinate")
+        linearProgress(color = LinearProgressColor.secondary, variant = LinearProgressVariant.determinate, value = linearValue.toDouble())
         br { }
-        mTypography("Linear Buffer")
-        mLinearProgress(variant = MLinearProgressVariant.buffer, value = linearValue.toDouble(), valueBuffer = linearBuffer.toDouble())
+        typography("Linear Buffer")
+        linearProgress(variant = LinearProgressVariant.buffer, value = linearValue.toDouble()) {
+            attrs.valueBuffer = linearBuffer.toDouble()
+        }
     }
 }

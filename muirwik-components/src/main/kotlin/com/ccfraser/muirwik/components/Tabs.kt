@@ -1,10 +1,12 @@
 package com.ccfraser.muirwik.components
 
-import com.ccfraser.muirwik.components.button.MButtonBaseProps
+import com.ccfraser.muirwik.components.utils.ElementType
+import com.ccfraser.muirwik.components.utils.EnumPropToString
+import com.ccfraser.muirwik.components.utils.createStyled
 import org.w3c.dom.events.Event
 import react.ComponentType
-import react.RBuilder
 import react.Props
+import react.RBuilder
 import react.ReactElement
 import styled.StyledHandler
 import styled.StyledProps
@@ -14,36 +16,38 @@ import styled.StyledProps
 private external val tabsModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")
-private val tabsComponentType: ComponentType<MTabsProps> = tabsModule.default
+private val tabsComponentType: ComponentType<TabsProps> = tabsModule.default
 
 @Suppress("EnumEntryName")
-enum class MTabTextColor {
-    secondary, primary, inherit
+enum class TabIndicatorColor {
+    primary, secondary
 }
 
 @Suppress("EnumEntryName")
-enum class MTabScrollButtons {
-    auto, desktop, on, off
+enum class TabTextColor {
+    inherit, primary, secondary
 }
 
 @Suppress("EnumEntryName")
-enum class MTabIndicatorColor {
-    secondary, primary
+enum class TabScrollButtons {
+    auto, on, off
 }
 
 @Suppress("EnumEntryName")
-enum class MTabVariant {
-    standard, scrollable, fullWidth
+enum class TabVariant {
+    fullWidth, scrollable, standard
 }
 
 @Suppress("EnumEntryName")
-enum class MTabOrientation {
+enum class TabOrientation {
     horizontal, vertical
 }
 
-external interface MTabsProps: StyledProps {
+external interface TabsProps: StyledProps {
     var action: (actions: Any) -> Unit
+    var allowScrollButtonsMobile: Boolean
     var centered: Boolean
+    var component: ElementType
     var onChange: (event: Event, indexValue: Any) -> Unit
 
     @JsName("ScrollButtonComponent")
@@ -54,97 +58,34 @@ external interface MTabsProps: StyledProps {
     @JsName("TabIndicatorProps")
     var tabIndicatorProps: Props
 
+    @JsName("TabScrollButtonProps")
+    var tabScrollButtonProps: Props
+
     var value: Any
+
+    var visibleScrollbar: Boolean
 }
-var MTabsProps.indicatorColor by EnumPropToString(MTabIndicatorColor.values())
-var MTabsProps.orientation by EnumPropToString(MTabOrientation.values())
-var MTabsProps.scrollButtons by EnumPropToString(MTabScrollButtons.values())
-var MTabsProps.textColor by EnumPropToString(MTabTextColor.values())
-var MTabsProps.variant by EnumPropToString(MTabVariant.values())
+var TabsProps.indicatorColor by EnumPropToString(TabIndicatorColor.values())
+var TabsProps.orientation by EnumPropToString(TabOrientation.values())
+var TabsProps.scrollButtons: TabScrollButtons
+    get() { return when (this.asDynamic().scrollButtons) {
+        true -> TabScrollButtons.on
+        false -> TabScrollButtons.off
+        else -> TabScrollButtons.auto
+    }}
+    set(value) { this.asDynamic().scrollButtons = when(value) {
+        TabScrollButtons.on -> true
+        TabScrollButtons.off -> false
+        else -> "auto"
+    } }
+var TabsProps.textColor by EnumPropToString(TabTextColor.values())
+var TabsProps.variant by EnumPropToString(TabVariant.values())
 
-
-fun RBuilder.mTabs(
+fun RBuilder.tabs(
     value: Any = false, // false means none selected
-    centered: Boolean = false,
-    variant: MTabVariant = MTabVariant.standard,
-    orientation: MTabOrientation = MTabOrientation.horizontal,
-    indicatorColor: MTabIndicatorColor = MTabIndicatorColor.secondary,
-    textColor: MTabTextColor = MTabTextColor.inherit,
-    tabIndicatorProps: Props? = null,
-    scrollButtons: MTabScrollButtons = MTabScrollButtons.auto,
-    scrollButtonComponent: ReactElement? = null,
-    onChange: ((event: Event, indexValue: Any) -> Unit)? = null,
-    action: ((actions: Any) -> Unit)? = null,
-    className: String? = null,
-    handler: StyledHandler<MTabsProps>? = null
+    handler: StyledHandler<TabsProps>? = null
 ) {
-    createStyled(tabsComponentType, className, handler) {
-        action?.let { attrs.action = it }
-        attrs.centered = centered
-        attrs.indicatorColor = indicatorColor
-        onChange?.let { attrs.onChange = it }
-        attrs.orientation = orientation
-        scrollButtonComponent?.let { attrs.scrollButtonComponent = it }
-        attrs.scrollButtons = scrollButtons
-        tabIndicatorProps?.let { attrs.tabIndicatorProps = it }
-        attrs.textColor = textColor
-        attrs.value = value
-        attrs.variant = variant
-    }
-}
-
-
-@JsModule("@mui/material/Tab")
-private external val tabModule: dynamic
-
-@Suppress("UnsafeCastFromDynamic")
-private val tabComponentType: ComponentType<MTabProps> = tabModule.default
-
-external interface MTabProps: MButtonBaseProps {
-    var disableFocusRipple: Boolean
-    var icon: ReactElement
-    var label: ReactElement
-    var value: Any
-    var wrapped: Boolean
-}
-
-fun RBuilder.mTab(
-    label: ReactElement? = null,
-    value: Any? = null,
-    icon: ReactElement? = null,
-    disabled: Boolean = false,
-    disableRipple: Boolean? = null,
-    disableFocusRipple: Boolean? = null,
-    wrapped: Boolean = false,
-
-    className: String? = null,
-    handler: StyledHandler<MTabProps>? = null
-) {
-    createStyled(tabComponentType, className, handler) {
-        attrs.disabled = disabled
-        disableFocusRipple?.let { attrs.disableFocusRipple = it }
-        disableRipple?.let { attrs.disableRipple = it }
-        icon?.let { attrs.icon = icon }
-        label?.let {attrs.label = label }
-        value?.let { attrs.value = value }
-        attrs.wrapped = wrapped
-    }
-}
-
-
-fun RBuilder.mTab(
-    label: String,
-    value: Any = label,
-    icon: ReactElement? = null,
-    disabled: Boolean = false,
-    className: String? = null,
-    handler: StyledHandler<MTabProps>? = null
-) {
-    createStyled(tabComponentType, className, handler) {
-        attrs.disabled = disabled
-        icon?.let { attrs.icon = icon }
-        @Suppress("UnsafeCastFromDynamic")
-        attrs.label = label.asDynamic()
+    createStyled(tabsComponentType, handler) {
         attrs.value = value
     }
 }

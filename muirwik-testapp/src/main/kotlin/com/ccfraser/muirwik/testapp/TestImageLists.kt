@@ -1,12 +1,6 @@
 package com.ccfraser.muirwik.testapp
 
-import com.ccfraser.muirwik.components.MIconColor
-import com.ccfraser.muirwik.components.MTypographyVariant
-import com.ccfraser.muirwik.components.button.mIconButton
-import com.ccfraser.muirwik.components.imagelist.*
-import com.ccfraser.muirwik.components.list.mListSubheader
-import com.ccfraser.muirwik.components.mTypography
-import com.ccfraser.muirwik.components.spacingUnits
+import com.ccfraser.muirwik.components.*
 import com.ccfraser.muirwik.testapp.TestImageLists.ComponentStyles.icon
 import com.ccfraser.muirwik.testapp.TestImageLists.ComponentStyles.imageList
 import com.ccfraser.muirwik.testapp.TestImageLists.ComponentStyles.rootDiv
@@ -16,25 +10,23 @@ import react.*
 import react.dom.img
 import styled.StyleSheet
 import styled.css
-import styled.styledDiv
-import styled.styledImg
 
 
 class TestImageLists : RComponent<Props, State>() {
-    private data class TileData(val img: String, val title: String, val author: String, val cols: Int = 1, val featured: Boolean = false)
+    private data class TileData(val img: String, val title: String, val author: String, val rows: Int = 1, val cols: Int = 1, val featured: Boolean = false)
     private val tileData = listOf(
-            TileData("breakfast.jpg", "Breakfast", "jill111", 2, true),
+            TileData("breakfast.jpg", "Breakfast", "jill111", 2, 2, true),
             TileData("burgers.jpg", "Tasty Burger", "director90"),
             TileData("camera.jpg", "Camera", "Danson67"),
-            TileData("morning.jpg", "Morning", "fancycrave1", 1, true),
-            TileData("hats.jpg", "Hats", "Hans"),
-            TileData("honey.jpg", "Honey", "fancycravel"),
-            TileData("vegetables.jpg", "Vegetables", "jill111", 2),
+            TileData("morning.jpg", "Morning", "fancycrave1", 1, 2, true),
+            TileData("hats.jpg", "Hats", "Hans", 1, 2),
+            TileData("honey.jpg", "Honey", "fancycravel", 2, 2),
+            TileData("vegetables.jpg", "Vegetables", "jill111"),
             TileData("plant.jpg", "Water Plant", "BkrmadtyaKarki"),
-            TileData("mushroom.jpg", "Mushrooms", "PublicDomainPictures"),
+            TileData("mushroom.jpg", "Mushrooms", "PublicDomainPictures", 2, 2),
             TileData("olive.jpg", "Olive Oil", "congerdesign"),
-            TileData("starfish.jpg", "Star Fish", "821292", 2),
-            TileData("bike.jpg", "Bike", "danfador")
+            TileData("starfish.jpg", "Star Fish", "821292"),
+            TileData("bike.jpg", "Bike", "danfador", 1, 2)
     )
 
     private object ComponentStyles : StyleSheet("ComponentStyles", isStatic = true) {
@@ -64,10 +56,12 @@ class TestImageLists : RComponent<Props, State>() {
         demoContainer {
             demoPanel("Image Only Grid List") {
                 css(rootDiv)
-                mImageList(3, cellHeight = 160) {
+                imageList(4) {
                     css(imageList)
+                    attrs.rowHeight = 121
+                    attrs.variant = ImageListVariant.quilted
                     tileData.forEach {
-                        mGridImage(key = it.img, cols = it.cols) {
+                        imageListItem(it.cols, it.rows, it.img) {
                             img(src = "/images/grid-list/${it.img}", alt = it.title) {}
                         }
                     }
@@ -75,19 +69,21 @@ class TestImageLists : RComponent<Props, State>() {
             }
             demoPanel("Grid List with Title Bars") {
                 css(rootDiv)
-                mImageList(cellHeight = 180) {
+                imageList {
+                    attrs.rowHeight = 180
                     css(imageList)
-                    mGridImage("Subheader", 2) {
+                    imageListItem(2, 1,"Subheader") {
                         css { put("height", (6.spacingUnits).toString() + " !important") }
-                        mListSubheader("December", component = "div") {
+                        listSubheader("December") {
+                            attrs.component = "div"
                             css { height = LinearDimension.auto }
                         }
                     }
                     tileData.forEach {
-                        mGridImage(key = it.img) {
+                        imageListItem(key = it.img) {
                             img(src = "/images/grid-list/${it.img}", alt = it.title) {}
                             mImageListItemBar(it.title, "by ${it.author}",
-                                buildElement { mIconButton("info", iconColor = MIconColor.inherit) {
+                                buildElement { iconButton("info", color = IconButtonColor.inherit) {
                                     css(icon)
                                 }}
                             )
@@ -97,16 +93,17 @@ class TestImageLists : RComponent<Props, State>() {
             }
             demoPanel("With Rows and Cols") {
                 css(rootDiv)
-                mImageList(cellHeight = 200, spacing = 1) {
+                imageList {
+                    attrs.rowHeight = 200
                     css(imageList)
                     tileData.forEach {
-                        mGridImage(key = it.img, cols = if (it.featured) 2 else 1, rows = if (it.featured) 2 else 1) {
+                        imageListItem(if (it.featured) 2 else 1, if (it.featured) 2 else 1, it.img) {
                             img(src = "/images/grid-list/${it.img}", alt = it.title) {}
                             mImageListItemBar(
                                 it.title,
-                                titlePosition = MTitlePosition.top,
-                                actionPosition = MActionPosition.left,
-                                actionIcon = buildElement { mIconButton("star-border", iconColor = MIconColor.inherit) {
+                                position = ImageListItemBarPosition.top,
+                                actionPosition = ActionPosition.left,
+                                actionIcon = buildElement { iconButton("star-border", IconButtonColor.inherit) {
                                     css(icon)
                                 }}
                             ) {
@@ -118,16 +115,13 @@ class TestImageLists : RComponent<Props, State>() {
             }
             demoPanel("Single Line List") {
                 css(rootDiv)
-                mImageList(cellHeight = 200, cols = 2.5) {
-                    css {
-                        margin(0.px)
-                        flexWrap = FlexWrap.nowrap
-                    }
+                imageList(1) {
+                    css(imageList)
+                    attrs.rowHeight = 200
+                    attrs.variant = ImageListVariant.quilted
                     tileData.forEach {
-                        mGridImage(key = it.img) {
-                            styledImg(src = "/images/grid-list/${it.img}", alt = it.title) {
-//                            css { width = 100.pct }
-                            }
+                        imageListItem(key = it.img) {
+                            img(src = "/images/grid-list/${it.img}", alt = it.title) {}
                         }
                     }
                 }

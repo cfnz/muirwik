@@ -1,10 +1,9 @@
 package com.ccfraser.muirwik.testapp
 
 import com.ccfraser.muirwik.components.*
-import com.ccfraser.muirwik.components.form.mFormControlLabel
 import com.ccfraser.muirwik.components.styles.PaletteMode
 import com.ccfraser.muirwik.components.styles.mode
-import com.ccfraser.muirwik.components.transitions.*
+import com.ccfraser.muirwik.components.utils.Colors
 import kotlinext.js.js
 import kotlinext.js.jsObject
 import kotlinx.css.*
@@ -15,8 +14,6 @@ import react.dom.svg
 import styled.StyleSheet
 import styled.css
 import styled.styledDiv
-import kotlin.properties.ReadWriteProperty
-import kotlin.reflect.KProperty
 
 // This works in Legacy, but not IR
 //private open class ShapeProps (
@@ -54,7 +51,7 @@ private fun RBuilder.upsideDownV(w: Int, h: Int) {
 }
 
 private fun RBuilder.demoComponent() {
-    mPaper(elevation = 4) {
+    paper(elevation = 4) {
         css {
             width = 100.px
             height = 100.px
@@ -70,7 +67,7 @@ class TestTransitions : RComponent<Props, State>() {
     var growShown: Boolean = false
     var slideShown: Boolean = false
     var zoomShown: Boolean = false
-    val containerRef = createRef<HTMLElement>()
+    private val containerRef = createRef<HTMLElement>()
 
     object ComponentStyles : StyleSheet("TransitionStyles", isStatic = true) {
         val area by css {
@@ -85,52 +82,61 @@ class TestTransitions : RComponent<Props, State>() {
         div {
             styledDiv {
                 css(ComponentStyles.area)
-                mFormControlLabel("Collapse", buildElement { mSwitch(checked = collapseShown, onChange = {_, _ ->  setState {collapseShown = ! collapseShown}}) })
+                formControlLabel("Collapse", buildElement {
+                    switch(collapseShown) { attrs.onChange = { _, _ ->  setState { collapseShown = ! collapseShown } } }
+                })
 
                 styledDiv {
                     css { display = Display.flex }
-                    mCollapse(show = collapseShown) {
+                    collapse(collapseShown) {
                         attrs.timeout = AutoTransitionDuration()
                         demoComponent()
                     }
-                    mCollapse(show = collapseShown, collapsedSize = 40.px) {
+                    collapse(show = collapseShown) {
+                        attrs.collapsedSize = 40.px
                         demoComponent()
                     }
-                    mTypography("(Shows use of collapseHeight)")
+                    typography("(Shows use of collapseHeight)")
                 }
             }
 
             styledDiv {
                 css(ComponentStyles.area)
-                mFormControlLabel("Fade (with a slow duration set)", buildElement { mSwitch(checked = fadeShown, onChange = {_, _ ->  setState {fadeShown = ! fadeShown}}) })
+                formControlLabel("Fade (with a slow duration set)", buildElement {
+                    switch(fadeShown) { attrs.onChange = {_, _ ->  setState { fadeShown = ! fadeShown } } }
+                })
 
                 styledDiv {
                     css {
                         display = Display.flex
                     }
-                    mFade(show = fadeShown) {
+                    fade(fadeShown) {
                         demoComponent()
                     }
-                    mFade(show = fadeShown) {
+                    fade(fadeShown) {
                         attrs.timeout = SimpleTransitionDuration(1000)
                         demoComponent()
                     }
-                    mFade(show = fadeShown, timeout = SimpleTransitionDuration(2000)) {
+                    fade(fadeShown) {
+                        attrs.timeout = SimpleTransitionDuration(2000)
                         demoComponent()
                     }
                 }
             }
             styledDiv {
                 css(ComponentStyles.area)
-                mFormControlLabel("Grow", buildElement { mSwitch(checked = growShown, onChange = {_, _ ->  setState {growShown = ! growShown}}) })
+                formControlLabel("Grow", buildElement {
+                    switch(growShown) { attrs.onChange = {_, _ ->  setState { growShown = ! growShown } } }
+                })
                 styledDiv {
                     css { display = Display.flex }
-                    mGrow(show = growShown) {
+                    grow(growShown) {
                         demoComponent()
                     }
-                    mGrow(show = growShown, timeout = EnterExitTransitionDuration(500, 1500)) {
+                    grow(growShown) {
+                        attrs.timeout = EnterExitTransitionDuration(500, 1500)
                         attrs.asDynamic().style = js {transformOrigin = "0 0 0"}
-                        attrs.timeout = AutoTransitionDuration()
+//                        attrs.timeout = AutoTransitionDuration()
                         demoComponent()
                     }
                 }
@@ -142,13 +148,15 @@ class TestTransitions : RComponent<Props, State>() {
                 }
                 styledDiv {
                     css { width = 140.px}
-                    mFormControlLabel("Slide", buildElement { mSwitch(checked = slideShown, onChange = {_, _ ->  setState {slideShown = ! slideShown}}) })
-                    mSlide(show = slideShown, direction = SlideTransitionDirection.up) {
+                    formControlLabel("Slide", buildElement {
+                        switch(slideShown) { attrs.onChange = {_, _ ->  setState { slideShown = ! slideShown } } }
+                    })
+                    slide(slideShown, SlideTransitionDirection.up) {
                         demoComponent()
                     }
                 }
                 themeContext.Consumer { theme ->
-                    mBox {
+                    box {
                         css {
                             height = 150.px
                             width = 150.px
@@ -159,7 +167,8 @@ class TestTransitions : RComponent<Props, State>() {
                             overflow = Overflow.hidden
                         }
                         ref = containerRef
-                        mSlide(show = slideShown, direction = SlideTransitionDirection.up, container = containerRef.current) {
+                        slide(slideShown, SlideTransitionDirection.up) {
+                            containerRef.current?.let { attrs.container = it }
                             demoComponent()
                         }
                     }
@@ -167,13 +176,15 @@ class TestTransitions : RComponent<Props, State>() {
             }
             styledDiv {
                 css(ComponentStyles.area)
-                mFormControlLabel("Zoom", buildElement { mSwitch(checked = zoomShown, onChange = {_, _ ->  setState {zoomShown = ! zoomShown}}) })
+                formControlLabel("Zoom", buildElement {
+                    switch(zoomShown) { attrs.onChange = { _, _ -> setState { zoomShown = !zoomShown } } }
+                })
                 styledDiv {
                     css { display = Display.flex }
-                    mZoom(show = zoomShown) {
+                    zoom(zoomShown) {
                         demoComponent()
                     }
-                    mZoom(show = zoomShown) {
+                    zoom(zoomShown) {
                         attrs.asDynamic().style = js {transitionDelay = if (zoomShown) 500 else 0}
                         demoComponent()
                     }

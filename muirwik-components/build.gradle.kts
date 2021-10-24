@@ -24,18 +24,20 @@ dependencies {
 
     implementation(npm("@mui/material", "5.0.3"))
     implementation(npm("@mui/icons-material", "5.0.3"))
+
+    // For styling with Styled Components
     implementation(npm("@mui/styled-engine-sc", "5.0.3"))
     implementation(npm("styled-components", "5.3.1"))
     implementation(npm("@mui/styled-engine", "npm:@mui/styled-engine-sc@5.0.3"))
 
+    // For styling with Emotion
+//    implementation(npm("@emotion/react", "11.4.1"))
+//    implementation(npm("@emotion/styled","11.3.0"))
+
     // This is for legacy styling
     implementation(npm("@mui/styles", "5.0.1"))
 
-//    implementation(npm("@emotion/react", "11.4.1"))
-//    implementation(npm("@emotion/styled","11.3.0"))
     implementation(npm("@mui/lab", "5.0.0-alpha.48"))
-
-    implementation(devNpm("customize-cra", "latest"))
 }
 
 

@@ -27,7 +27,7 @@ class TestTabs : RComponent<Props, State>() {
     }
 
     private fun RBuilder.tabContainer(text: String) {
-        mTypography(text) {
+        typography(text) {
             css { padding(3.spacingUnits) }
         }
     }
@@ -54,7 +54,7 @@ class TestTabs : RComponent<Props, State>() {
             }
 
             fun RBuilder.customTab(label: String, value: Int) {
-                mTab(label, value) {
+                tab(label, value = value) {
                     css {
                         +themeStyles.tabRoot
                         if (tab3Value == value) {
@@ -67,11 +67,16 @@ class TestTabs : RComponent<Props, State>() {
 
             styledDiv {
                 css { flexGrow = 1.0; backgroundColor = Color(theme.palette.background.paper) }
-                mAppBar(position = MAppBarPosition.static) {
-                    mTabs(tab1Value, onChange = { _, value -> setState { tab1Value = value } }) {
-                        mTab("Item One with a really long name for a tab", "one")
-                        mTab("Item Two", "two")
-                        mTab("Item Three", "three")
+                appBar(position = AppBarPosition.static) {
+                    tabs(tab1Value) {
+                        attrs.textColor = TabTextColor.inherit
+                        attrs.indicatorColor = TabIndicatorColor.secondary
+                        attrs.onChange = { _, value -> setState { tab1Value = value } }
+                        tab("Item One with a really long name for a tab", "one") {
+                            attrs.wrapped = true
+                        }
+                        tab("Item Two", "two")
+                        tab("Item Three", "three")
                     }
                 }
                 when (tab1Value) {
@@ -82,16 +87,20 @@ class TestTabs : RComponent<Props, State>() {
             }
             styledDiv {
                 css { marginTop = 3.spacingUnits; flexGrow = 1.0; backgroundColor = Color(theme.palette.background.paper) }
-                mAppBar(position = MAppBarPosition.static, color = MAppBarColor.default) {
-                    mTabs(tab2Value, variant = MTabVariant.scrollable, textColor = MTabTextColor.primary, indicatorColor = MTabIndicatorColor.primary,
-                            onChange = { _, value -> setState { tab2Value = value }}) {
-                        mTab("Item One", 0, icon = buildElement { mIcon("phone") })
-                        mTab("Item Two", 1, icon = buildElement { mIcon("favorite") })
-                        mTab("Item Three", 2, icon = buildElement { mIcon("person_pin") })
-                        mTab("Item Four", 3, icon = buildElement { mIcon("help") })
-                        mTab("Item Five", 4, icon = buildElement { mIcon("shopping_basket") })
-                        mTab("Item Six", 5, icon = buildElement { mIcon("thumb_down") })
-                        mTab("Item Seven", 6, icon = buildElement { mIcon("thumb_up") })
+                appBar(AppBarPosition.static) {
+                    attrs.color = AppBarColor.default
+                    tabs(tab2Value) {
+                        attrs.variant = TabVariant.scrollable
+                        attrs.textColor = TabTextColor.primary
+                        attrs.indicatorColor = TabIndicatorColor.primary
+                        attrs.onChange = { _, value -> setState { tab2Value = value }}
+                        tab("Item One", 0, buildElement { icon("phone") })
+                        tab("Item Two", 1, buildElement { icon("favorite") })
+                        tab("Item Three", 2, buildElement { icon("person_pin") })
+                        tab("Item Four", 3, buildElement { icon("help") })
+                        tab("Item Five", 4, buildElement { icon("shopping_basket") })
+                        tab("Item Six", 5, buildElement { icon("thumb_down") })
+                        tab("Item Seven", 6, buildElement { icon("thumb_up") })
                     }
                 }
                 when (tab2Value) {
@@ -106,7 +115,9 @@ class TestTabs : RComponent<Props, State>() {
             }
             styledDiv {
                 css { marginTop = 3.spacingUnits; flexGrow = 1.0; backgroundColor = Color(theme.palette.background.paper) }
-                mTabs(tab3Value, textColor = MTabTextColor.primary, onChange = { _, value -> setState { tab3Value = value }}) {
+                tabs(tab3Value) {
+                    attrs.textColor = TabTextColor.primary
+                    attrs.onChange = { _, value -> setState { tab3Value = value }}
                     css { +CustomTabStyles.tabsRoot }
                     // TODO: Not sure how to set the style of the indicator... leave it for now...
 //                attrs.className = CustomTabStyles.name + "-" + "tabsIndicator"
@@ -114,7 +125,7 @@ class TestTabs : RComponent<Props, State>() {
                     customTab("Tab 2", 2)
                     customTab("Tab 3", 3)
                 }
-                mTypography("Ant Design") {
+                typography("Ant Design") {
                     css(CustomTabStyles.typography)
                 }
             }
@@ -126,14 +137,17 @@ class TestTabs : RComponent<Props, State>() {
                     flexGrow = 1.0
                     backgroundColor = Color(theme.palette.background.paper)
                 }
-                mTabs(tab4Value, orientation = MTabOrientation.vertical, variant = MTabVariant.scrollable, onChange = { _, value -> setState { tab4Value = value } }) {
+                tabs(tab4Value) {
+                    attrs.orientation = TabOrientation.vertical
+                    attrs.variant = TabVariant.scrollable
+                    attrs.onChange = { _, value -> setState { tab4Value = value } }
                     css { borderRight = "1px solid ${theme.palette.divider}" }
-                    mTab("Item One", 1)
-                    mTab("Item Two", 2)
-                    mTab("Item Three", 3)
-                    mTab("Item Four", 4)
-                    mTab("Item Five", 5)
-                    mTab("Item Size", 6)
+                    tab("Item One", 1)
+                    tab("Item Two", 2)
+                    tab("Item Three", 3)
+                    tab("Item Four", 4)
+                    tab("Item Five", 5)
+                    tab("Item Size", 6)
                 }
                 when (tab4Value) {
                     1 -> tabContainer("Item One - Vertical Tab")

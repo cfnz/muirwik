@@ -1,17 +1,10 @@
 package com.ccfraser.muirwik.testapp
 
 import com.ccfraser.muirwik.components.*
-import com.ccfraser.muirwik.components.button.MButtonVariant
-import com.ccfraser.muirwik.components.button.mButton
-import com.ccfraser.muirwik.components.alert.MAlertSeverity
-import com.ccfraser.muirwik.components.alert.MAlertVariant
-import com.ccfraser.muirwik.components.alert.mAlert
 import com.ccfraser.muirwik.components.styles.Breakpoint
 import com.ccfraser.muirwik.testapp.TestAlert.CustomStyles.margin
 import kotlinx.css.margin
 import kotlinx.css.marginTop
-import kotlinx.css.padding
-import kotlinx.css.px
 import react.*
 import styled.StyleSheet
 import styled.css
@@ -29,17 +22,17 @@ class TestAlert : RComponent<Props, State>() {
 
     override fun RBuilder.render() {
         styledDiv {
-            mGridContainer(MGridSpacing.spacing2) {
-                val breakpoints = MGridBreakpoints(MGridSize.cells6)
-                    .up(Breakpoint.lg, MGridSize.cells4)
-                    .down(Breakpoint.sm, MGridSize.cells12)
+            gridContainer(GridSpacing.spacing2) {
+                val breakpoints = GridBreakpoints(GridSize.cells6)
+                    .up(Breakpoint.lg, GridSize.cells4)
+                    .down(Breakpoint.sm, GridSize.cells12)
 
-                MAlertVariant.values().reversed().forEach { variant ->
-                    mGridItem(breakpoints) {
+                AlertVariant.values().reversed().forEach { variant ->
+                    gridItem(breakpoints) {
                         demoPanel("${variant.name.replaceFirstChar { it.titlecase() }} Alerts") {
-                            MAlertSeverity.values().forEach { severity ->
+                            AlertSeverity.values().forEach { severity ->
                                 val an = if (severity.name[0] in listOf('a', 'e', 'i', 'o', 'u')) "an" else "a"
-                                mAlert("This is $an ${severity.name} alert", variant, severity) {
+                                alert("This is $an ${severity.name} alert", severity, variant) {
                                     css(margin)
                                 }
                             }
@@ -49,31 +42,34 @@ class TestAlert : RComponent<Props, State>() {
             }
 
             demoPanel("This is an alert with a title") {
-                mAlert("Alert Title", "This is an error alert", severity = MAlertSeverity.error)
+                alert("Alert Title", "This is an error alert", severity = AlertSeverity.error)
             }
 
             demoPanel("This is an alert with a close (that does not do anything)") {
-                mAlert("Alert Title", "This is a success alert", onClose = { showSnackbarAlert("You hit close!") })
+                alert("Alert Title", "This is a success alert") { attrs.onClose = { showSnackbarAlert("You hit close!") } }
             }
 
             demoPanel("This is an alert with an action") {
-                mAlert("Alert Title", "This is a warning alert", severity = MAlertSeverity.warning, onClose = {}) {
+                alert("Alert Title", "This is a warning alert", AlertSeverity.warning) {
+                    attrs.onClose = {}
                     attrs.action = buildElement {
-                        mButton("Undo", onClick = { showSnackbarAlert("You hit Undo!") })
+                        button("Undo") {attrs.onClick = { showSnackbarAlert("You hit Undo!") } }
                     }
                 }
             }
         }
 
-        mButton("click me", onClick = { setState { open = true; snackbarAlertText = "Ths is a Snackbar Alert" } }, variant = MButtonVariant.outlined) {
+        button("click me", variant = ButtonVariant.outlined) {
+            attrs.onClick = { setState { open = true; snackbarAlertText = "Ths is a Snackbar Alert" } }
             css {
                 marginTop = 2.spacingUnits
             }
         }
 
-        mSnackbar(open, autoHideDuration = 2500,
-                onClose = { _, _: MSnackbarOnCloseReason -> setState { open = false } }) {
-            mAlert(snackbarAlertText, severity = MAlertSeverity.info)
+        snackbar(open) {
+            attrs.autoHideDuration = 2500
+            attrs.onClose = { _, _: SnackbarOnCloseReason -> setState { open = false } }
+            alert(snackbarAlertText, AlertSeverity.info)
         }
     }
 

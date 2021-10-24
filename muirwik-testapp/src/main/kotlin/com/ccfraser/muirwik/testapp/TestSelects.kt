@@ -1,15 +1,7 @@
 package com.ccfraser.muirwik.testapp
 
 import com.ccfraser.muirwik.components.*
-import com.ccfraser.muirwik.components.form.MFormControlVariant
-import com.ccfraser.muirwik.components.form.mFormControl
-import com.ccfraser.muirwik.components.form.mFormHelperText
-import com.ccfraser.muirwik.components.input.mFilledInput
-import com.ccfraser.muirwik.components.input.mInput
-import com.ccfraser.muirwik.components.input.mInputLabel
-import com.ccfraser.muirwik.components.input.mOutlinedInput
-import com.ccfraser.muirwik.components.list.mListItemText
-import com.ccfraser.muirwik.components.menu.mMenuItem
+import com.ccfraser.muirwik.components.utils.targetValue
 import com.ccfraser.muirwik.testapp.TestSelects.ComponentStyles.chip
 import com.ccfraser.muirwik.testapp.TestSelects.ComponentStyles.chips
 import com.ccfraser.muirwik.testapp.TestSelects.ComponentStyles.formControl
@@ -20,7 +12,10 @@ import org.w3c.dom.events.Event
 import react.*
 import react.dom.option
 import react.dom.span
-import styled.*
+import styled.StyleSheet
+import styled.StyledElementBuilder
+import styled.css
+import styled.styledDiv
 
 class TestSelects : RComponent<Props, State>() {
     private var age: Any = 10
@@ -87,119 +82,141 @@ class TestSelects : RComponent<Props, State>() {
     private fun RBuilder.simpleSelects() {
         demoPanel("Simple Selects") {
             css { display = Display.flex; flexWrap = FlexWrap.wrap; paddingBottom = 4.spacingUnits }
-            mFormControl {
+            formControl {
                 css(formControl)
-                mInputLabel("Age", htmlFor = "age-simple")
+                inputLabel("Age", htmlFor = "age-simple")
 
                 // Method 1, using input props
                 val inputProps: Props = jsObject { }
                 inputProps.asDynamic().name = "age"
                 inputProps.asDynamic().id = "age-simple"
-                mSelect(age, name = "age", onChange = { event, _ -> handleAgeChange(event) }) {
+                select(age) {
+                    attrs.name = "age"
+                    attrs.onChange = { event, _ -> handleAgeChange(event) }
                     attrs.inputProps = inputProps
-                    mMenuItem("None", value = "")
-                    mMenuItem("Ten", value = "10")
-                    mMenuItem("Twenty", value = "20")
-                    mMenuItem("Thirty", value = "30")
+                    menuItem("None", value = "")
+                    menuItem("Ten", value = "10")
+                    menuItem("Twenty", value = "20")
+                    menuItem("Thirty", value = "30")
                 }
             }
 
-            mFormControl {
+            formControl {
                 css(formControl)
-                mInputLabel("Age", htmlFor = "age-helper")
+                inputLabel("Age", htmlFor = "age-helper")
 
                 // Method 2, using an input element
-                mSelect(age, input = buildElement { mInput(name = "age", id = "age-helper") }, onChange = { event, _ -> handleAgeChange(event) }) {
-                    mMenuItem("None", value = "")
-                    mMenuItem("Ten", value = "10")
-                    mMenuItem("Twenty", value = "20")
-                    mMenuItem("Thirty", value = "30")
+                select(age) {
+                    attrs.input = buildElement { input { attrs.name = "age"; attrs.id = "age-helper"} }
+                    attrs.onChange = { event, _ -> handleAgeChange(event) }
+                    menuItem("None", value = "")
+                    menuItem("Ten", value = "10")
+                    menuItem("Twenty", value = "20")
+                    menuItem("Thirty", value = "30")
                 }
-                mFormHelperText("Some important helper text")
+                formHelperText("Some important helper text")
             }
-            mFormControl {
+            formControl {
                 css(formControl)
-                mSelect(age, displayEmpty = true, onChange = { event, _ -> handleAgeChange(event) }) {
+                select(age) {
+                    attrs.displayEmpty = true
+                    attrs.onChange = { event, _ -> handleAgeChange(event) }
                     css(selectEmpty)
-                    mMenuItem("None", value = "")
-                    mMenuItem("Ten", value = "10")
-                    mMenuItem("Twenty", value = "20")
-                    mMenuItem("Thirty", value = "30")
+                    menuItem("None", value = "")
+                    menuItem("Ten", value = "10")
+                    menuItem("Twenty", value = "20")
+                    menuItem("Thirty", value = "30")
                 }
-                mFormHelperText("Without Label")
+                formHelperText("Without Label")
             }
-            mFormControl {
+            formControl {
                 css(formControl)
-                mInputLabel("Age", htmlFor = "age-label-placeholder", shrink = true)
+                inputLabel("Age", htmlFor = "age-label-placeholder") { attrs.shrink = true }
 
-                mSelect(age, displayEmpty = true, input = buildElement { mInput(name = "age", id = "age-label-placeholder") },
-                        onChange = { event, _ -> handleAgeChange(event) }) {
-                    mMenuItem("None", value = "")
-                    mMenuItem("Ten", value = "10")
-                    mMenuItem("Twenty", value = "20")
-                    mMenuItem("Thirty", value = "30")
+                select(age) {
+                    attrs.displayEmpty = true
+                    attrs.input = buildElement { input { attrs.name = "age"; attrs.id = "age-label-placeholder"} }
+                    attrs.onChange = { event, _ -> handleAgeChange(event) }
+                    menuItem("None", value = "")
+                    menuItem("Ten", value = "10")
+                    menuItem("Twenty", value = "20")
+                    menuItem("Thirty", value = "30")
                 }
-                mFormHelperText("Label + placeholder")
+                formHelperText("Label + placeholder")
             }
-            mFormControl(disabled = true) {
+            formControl {
                 css(formControl)
-                mInputLabel("Name", htmlFor = "name-disabled")
-                mSelect(name, input = buildElement { mInput(name = "name", id = "name-disabled") },
-                        onChange = { event, _ -> handleNameChange(event) }) {
-                    mMenuItem("None", value = "")
-                    mMenuItem("Hai", value = "hai")
-                    mMenuItem("Oliver", value = "oliver")
-                    mMenuItem("Kevin", value = "kevin")
+                attrs.disabled = true
+                inputLabel("Name", htmlFor = "name-disabled")
+                select(name) {
+                    attrs.input = buildElement { input { attrs.name = "name"; attrs.id = "name-disabled" } }
+                    attrs.onChange = { event, _ -> handleNameChange(event) }
+                    menuItem("None", value = "")
+                    menuItem("Hai", value = "hai")
+                    menuItem("Oliver", value = "oliver")
+                    menuItem("Kevin", value = "kevin")
                 }
-                mFormHelperText("Disabled")
+                formHelperText("Disabled")
             }
-            mFormControl(error = true) {
+            formControl {
                 css(formControl)
-                mInputLabel("Name", htmlFor = "name-error")
-                mSelect(name, name = "name", input = buildElement { mInput(id = "name-error") },
-                        onChange = { event, _ -> handleNameChange(event) }) {
-                    attrs.renderValue = { value: Any -> buildElement { span { +"⚠  - ${value}" } } }
-                    mMenuItem("None", value = "")
-                    mMenuItem("Hai", value = "hai")
-                    mMenuItem("Oliver", value = "oliver")
-                    mMenuItem("Kevin", value = "kevin")
+                attrs.error = true
+                inputLabel("Name", htmlFor = "name-error")
+                select(name) {
+                    attrs.name = "name"
+                    attrs.input = buildElement { input { attrs.id = "name-error" } }
+                    attrs.onChange = { event, _ -> handleNameChange(event) }
+                    attrs.renderValue = { value: Any -> buildElement { span { +"⚠  - $value" } } }
+                    menuItem("None", value = "")
+                    menuItem("Hai", value = "hai")
+                    menuItem("Oliver", value = "oliver")
+                    menuItem("Kevin", value = "kevin")
                 }
-                mFormHelperText("Error")
+                formHelperText("Error")
             }
-            mFormControl {
+            formControl {
                 css(formControl)
-                mInputLabel("Name", htmlFor = "name-readonly")
-                mSelect(name, name = "name", input = buildElement { mInput(id = "name-readonly", readOnly = true) },
-                        onChange = { event, _ -> handleNameChange(event) }) {
-                    mMenuItem("None", value = "")
-                    mMenuItem("Hai", value = "hai")
-                    mMenuItem("Oliver", value = "oliver")
-                    mMenuItem("Kevin", value = "kevin")
+                inputLabel("Name", htmlFor = "name-readonly")
+                select(name) {
+                    attrs.name = "name"
+                    attrs.input = buildElement { input { attrs.id = "name-readonly"; attrs.readOnly = true} }
+                    attrs.onChange = { event, _ -> handleNameChange(event) }
+                    menuItem("None", value = "")
+                    menuItem("Hai", value = "hai")
+                    menuItem("Oliver", value = "oliver")
+                    menuItem("Kevin", value = "kevin")
                 }
-                mFormHelperText("Read Only")
+                formHelperText("Read Only")
             }
-            mFormControl {
+            formControl {
                 css(formControl)
-                mSelect(name, name = "name", displayEmpty = true, onChange = { event, _ -> handleNameChange(event) }) {
+                select(name) {
+                    attrs.name = "name"
+                    attrs.displayEmpty = true
+                    attrs.onChange = { event, _ -> handleNameChange(event) }
                     css(selectEmpty)
-                    mMenuItem("Placeholder", value = "", disabled = true)
-                    mMenuItem("Hai", value = "hai")
-                    mMenuItem("Oliver", value = "oliver")
-                    mMenuItem("Kevin", value = "kevin")
+                    menuItem("Placeholder", value = "") { attrs.disabled = true }
+                    menuItem("Hai", value = "hai")
+                    menuItem("Oliver", value = "oliver")
+                    menuItem("Kevin", value = "kevin")
                 }
-                mFormHelperText("Placeholder")
+                formHelperText("Placeholder")
             }
-            mFormControl(required = true) {
+            formControl {
                 css(formControl)
-                mInputLabel("Name", htmlFor = "name-required")
-                mSelect(name, name = "name", input = buildElement { mInput(id = "name-required") },
-                        onChange = { event, _ -> handleNameChange(event) }) {
-                    mMenuItem("None", value = "")
-                    mMenuItem("Hai", value = "hai")
-                    mMenuItem("Oliver", value = "oliver")
-                    mMenuItem("Kevin", value = "kevin")
+                attrs.required = true
+                inputLabel("Name", htmlFor = "name-required")
+                select(name) {
+                    attrs.name = "name"
+                    attrs.displayEmpty = true
+                    attrs.onChange = { event, _ -> handleNameChange(event) }
+                    attrs.input = buildElement { input { attrs.id = "name-required"} }
+                    menuItem("None", value = "")
+                    menuItem("Hai", value = "hai")
+                    menuItem("Oliver", value = "oliver")
+                    menuItem("Kevin", value = "kevin")
                 }
-                mFormHelperText("Required")
+                formHelperText("Required")
             }
         }
     }
@@ -207,11 +224,14 @@ class TestSelects : RComponent<Props, State>() {
     private fun RBuilder.nativeSelects() {
         demoPanel("Native Selects") {
             css { display = Display.flex; flexWrap = FlexWrap.wrap; paddingBottom = 4.spacingUnits }
-            mFormControl {
+            formControl {
                 css(formControl)
-                mInputLabel("Age", htmlFor = "native-age-simple")
-                mSelect(age, name = "age", native = true, input = buildElement { mInput(name = "age", id = "native-age-simple") },
-                        onChange = { event, _ -> handleAgeChange(event) }) {
+                inputLabel("Age", htmlFor = "native-age-simple")
+                select(age) {
+                    attrs.name = "age"
+                    attrs.native = true
+                    attrs.input = buildElement { input { attrs.name = "age"; attrs.id = "native-age-simple" } }
+                    attrs.onChange = { event, _ -> handleAgeChange(event) }
                     option { attrs.value = "None"; +"" }
                     option { attrs.value = "10"; +"Ten" }
                     option { attrs.value = "20"; +"Twenty" }
@@ -219,49 +239,58 @@ class TestSelects : RComponent<Props, State>() {
                 }
             }
 
-            mFormControl {
+            formControl {
                 css(formControl)
-                mInputLabel("Age", htmlFor = "native-age-helper")
-                mSelect(age, native = true, input = buildElement { mInput(name = "age", id = "native-age-helper") }, onChange = { event, _ -> handleAgeChange(event) }) {
+                inputLabel("Age", htmlFor = "native-age-helper")
+                select(age) {
+                    attrs.native = true
+                    attrs.input = buildElement { input { attrs.name = "age"; attrs.id = "native-age-helper" } }
+                    attrs.onChange = { event, _ -> handleAgeChange(event) }
                     option { attrs.value = "None"; +"" }
                     option { attrs.value = "10"; +"Ten" }
                     option { attrs.value = "20"; +"Twenty" }
                     option { attrs.value = "30"; +"Thirty" }
                 }
-                mFormHelperText("Some important helper text")
+                formHelperText("Some important helper text")
             }
-            mFormControl {
+            formControl {
                 css(formControl)
-                mSelect(age, native = true, displayEmpty = true, onChange = { event, _ -> handleAgeChange(event) }) {
+                select(age) {
+                    attrs.native = true
+                    attrs.displayEmpty = true
+                    attrs.onChange = { event, _ -> handleAgeChange(event) }
                     css(selectEmpty)
                     option { attrs.value = "None"; +"" }
                     option { attrs.value = "10"; +"Ten" }
                     option { attrs.value = "20"; +"Twenty" }
                     option { attrs.value = "30"; +"Thirty" }
                 }
-                mFormHelperText("Without Label")
+                formHelperText("Without Label")
             }
-            mFormControl {
+            formControl {
                 css(formControl)
-                mInputLabel("Age", htmlFor = "native-age-label-placeholder", shrink = true)
+                inputLabel("Age", htmlFor = "native-age-label-placeholder") { attrs.shrink = true }
 
-                mSelect(age, native = true, displayEmpty = true, input = buildElement { mInput(name = "age", id = "native-age-label-placeholder") },
-                        onChange = { event, _ -> handleAgeChange(event) }) {
+                select(age) {
+                    attrs.native = true
+                    attrs.displayEmpty = true
+                    attrs.input = buildElement { input { attrs.name = "age"; attrs.id = "native-age-label-placeholder"} }
+                    attrs.onChange = { event, _ -> handleAgeChange(event) }
                     option { attrs.value = "None"; +"" }
                     option { attrs.value = "10"; +"Ten" }
                     option { attrs.value = "20"; +"Twenty" }
                     option { attrs.value = "30"; +"Thirty" }
                 }
-                mFormHelperText("Label + placeholder")
+                formHelperText("Label + placeholder")
             }
         }
     }
 
     private fun RBuilder.multiSelects() {
         themeContext.Consumer {theme ->
-            fun addMenuItems(builder: StyledElementBuilder<MSelectProps>, useCheckBoxes: Boolean) {
+            fun addMenuItems(builder: StyledElementBuilder<SelectProps>, useCheckBoxes: Boolean) {
                 names.forEach {
-                    builder.mMenuItem(key = it, value = it) {
+                    builder.menuItem(key = it, value = it) {
                         css {
                             @Suppress("UNCHECKED_CAST")
                             fontWeight = when ((selectedNames as? Array<String>)?.contains(it) ?: false) {
@@ -273,8 +302,8 @@ class TestSelects : RComponent<Props, State>() {
                             false -> +it
                             else -> {
                                 @Suppress("UNCHECKED_CAST")
-                                mCheckbox((selectedNames as? Array<String>)?.contains(it) ?: false)
-                                mListItemText(it)
+                                checkbox((selectedNames as? Array<String>)?.contains(it) ?: false)
+                                listItemText(it)
                             }
                         }
                     }
@@ -283,35 +312,42 @@ class TestSelects : RComponent<Props, State>() {
 
             demoPanel("Multi Selects") {
                 css { display = Display.flex; flexWrap = FlexWrap.wrap; paddingBottom = 4.spacingUnits }
-                mFormControl {
+                formControl {
                     css(formControl)
-                    mInputLabel("Name", htmlFor = "select-multiple")
-                    mSelect(selectedNames, multiple = true, input = buildElement { mInput(id = "select-multiple") },
-                            onChange = { event, _ -> handleMultipleChange(event) }) {
+                    inputLabel("Name", "select-multiple")
+                    select(selectedNames) {
+                        attrs.multiple = true
+                        attrs.input = buildElement { input { attrs.id = "select-multiple" } }
+                        attrs.onChange = { event, _ -> handleMultipleChange(event) }
                         addMenuItems(this, false)
                     }
                 }
-                mFormControl {
+                formControl {
                     css(formControl)
-                    mInputLabel("Checkbox", htmlFor = "select-multiple-checkbox")
-                    mSelect(selectedNames, multiple = true, input = buildElement { mInput(id = "select-multiple-checkbox") },
-                            onChange = { event, _ -> handleMultipleChange(event) }) {
+                    inputLabel("Checkbox", "select-multiple-checkbox")
+                    select(selectedNames) {
+                        attrs.multiple = true
+                        attrs.input = buildElement { input { attrs.id = "select-multiple-checkbox" } }
+                        attrs.onChange = { event, _ -> handleMultipleChange(event) }
+
                         @Suppress("UNCHECKED_CAST")
                         attrs.renderValue = { value -> buildElement { span { +(value as Array<String>).joinToString(", ") }}}
                         addMenuItems(this, true)
                     }
                 }
-                mFormControl {
+                formControl {
                     css(formControl)
-                    mInputLabel("Chip", htmlFor = "select-multiple-chip")
-                    mSelect(selectedNames, multiple = true, input = buildElement { mInput(id = "select-multiple-chip") },
-                            onChange = { event, _ -> handleMultipleChange(event) }) {
+                    inputLabel("Chip", "select-multiple-chip")
+                    select(selectedNames) {
+                        attrs.multiple = true
+                        attrs.input = buildElement { input { attrs.id = "select-multiple-chip" } }
+                        attrs.onChange = { event, _ -> handleMultipleChange(event) }
                         attrs.renderValue = { value: Any -> buildElement {
                             styledDiv {
                                 css(chips)
                                 @Suppress("UNCHECKED_CAST")
                                 (value as Array<String>).forEach {
-                                    mChip(it, key = it) {
+                                    chip(it, key = it) {
                                         css(chip)
                                     }
                                 }
@@ -327,45 +363,48 @@ class TestSelects : RComponent<Props, State>() {
     private fun RBuilder.selectVariants() {
         demoPanel("Select Variants") {
 //            css { display = Display.flex; flexWrap = FlexWrap.wrap; paddingBottom = 4.spacingUnits }
-            mFormControl {
+            formControl {
                 css(formControl)
-                mInputLabel("Standard")
-                mSelect(age, variant = MFormControlVariant.standard, onChange = { event, _ -> handleAgeChange(event) }) {
-                    mMenuItem("None", value = "")
-                    mMenuItem("Ten", value = "10")
-                    mMenuItem("Twenty", value = "20")
-                    mMenuItem("Thirty", value = "30")
+                inputLabel("Standard")
+                select(age, variant = FormControlVariant.standard) {
+                    attrs.onChange = { event, _ -> handleAgeChange(event) }
+                    menuItem("None") { attrs.value = "" }
+                    menuItem("Ten", value = "10")
+                    menuItem("Twenty", value = "20")
+                    menuItem("Thirty", value = "30")
                 }
-                mFormHelperText("Some important helper text")
+                formHelperText("Some important helper text")
             }
-            mFormControl(variant = MFormControlVariant.filled) {
+            formControl(variant = FormControlVariant.filled) {
                 css(formControl)
-                mInputLabel("Filled", variant = MFormControlVariant.filled)
-                mSelect(age, input = buildElement { mFilledInput(id = "test") }, onChange = { event, _ -> handleAgeChange(event) }) {
-                    mMenuItem("None", value = "")
-                    mMenuItem("Ten", value = "10")
-                    mMenuItem("Twenty", value = "20")
-                    mMenuItem("Thirty", value = "30")
+                inputLabel("Filled", variant = FormControlVariant.filled)
+                select(age) {
+                    attrs.input = buildElement { filledInput { attrs.id = "test" } }
+                    attrs.onChange = { event, _ -> handleAgeChange(event) }
+                    menuItem("None", value = "")
+                    menuItem("Ten", value = "10")
+                    menuItem("Twenty", value = "20")
+                    menuItem("Thirty", value = "30")
                 }
             }
-            mFormControl(variant = MFormControlVariant.outlined) {
+            formControl(variant = FormControlVariant.outlined) {
                 css(formControl)
-                mInputLabel("Outlined", htmlFor = "outlined", variant = MFormControlVariant.outlined) {
+                inputLabel("Outlined", htmlFor = "outlined", variant = FormControlVariant.outlined) {
 //                    Need to get into storing ref element of label so we can get its width...
 //                    ... seems pretty low level stuff just to put an outlined control on a form...
 //                    See material-ui demo for more info.
 //                    ref { refElement = it } // findDOMNode(it) }
                 }
-                mSelect(age, native = true, input = buildElement { mOutlinedInput(name = "outline", id = "outlined",
-//                            labelWidth = refElement?.asDynamic().offsetWidth),
-                            labelWidth = 60) },
-                        onChange = { event, _ -> handleAgeChange(event) }) {
+                select(age) {
+                    attrs.native = true
+                    attrs.input = buildElement { outlinedInput { attrs.name = "outline"; attrs.id = "outlined" } }
+                    attrs.onChange = { event, _ -> handleAgeChange(event) }
                     option { attrs.value = "None"; +"" }
                     option { attrs.value = "10"; +"Ten" }
                     option { attrs.value = "20"; +"Twenty" }
                     option { attrs.value = "30"; +"Thirty" }
                 }
-                mFormHelperText("WIP... hard coded width :-o")
+                formHelperText("Native Select WIP... ")
             }
         }
     }

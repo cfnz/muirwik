@@ -1,14 +1,9 @@
 package com.ccfraser.muirwik.testapp
 
-import com.ccfraser.muirwik.components.Locales
-import com.ccfraser.muirwik.components.form.MFormControlVariant
-import com.ccfraser.muirwik.components.mTextFieldSelect
-import com.ccfraser.muirwik.components.mThemeProvider
-import com.ccfraser.muirwik.components.menu.mMenuItem
+import com.ccfraser.muirwik.components.*
 import com.ccfraser.muirwik.components.styles.Theme
 import com.ccfraser.muirwik.components.styles.createTheme
-import com.ccfraser.muirwik.components.table.mTablePagination
-import com.ccfraser.muirwik.components.targetValue
+import com.ccfraser.muirwik.components.utils.targetValue
 import kotlinx.css.Display
 import kotlinx.css.display
 import react.*
@@ -26,19 +21,17 @@ class TestLocalization : RComponent<Props, State>() {
                 display = Display.flex
             }
 
-            mThemeProvider(theme) {
-                mTextFieldSelect("Locale Key", locale, variant = MFormControlVariant.outlined, onChange = { setState { locale = it.targetValue as String } }) {
+            themeProvider(theme) {
+                textField("Locale Key", locale, variant = FormControlVariant.outlined) {
+                    attrs.select = true
+                    attrs.onChange = { setState { locale = it.targetValue as String } }
                     Locales.keys().forEach {
-                        mMenuItem(it, value = it)
+                        menuItem(it, value = it)
                     }
                 }
 
-                mTablePagination {
-                    attrs.count = 2000
-                    attrs.rowsPerPage = 10
-                    attrs.page = 1
+                tablePagination(1, 2000, 10, { _, _ ->  }) {
                     attrs.component = "span"
-                    attrs.onChangePage = {_, _ ->  }
                 }
             }
         }

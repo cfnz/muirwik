@@ -1,6 +1,9 @@
 package com.ccfraser.muirwik.components
 
 import com.ccfraser.muirwik.components.styles.Breakpoint
+import com.ccfraser.muirwik.components.utils.BreakpointNullToFalseDelegate
+import com.ccfraser.muirwik.components.utils.ElementType
+import com.ccfraser.muirwik.components.utils.createStyled
 import react.ComponentType
 import react.RBuilder
 import styled.StyledHandler
@@ -11,32 +14,30 @@ import styled.StyledProps
 private external val containerModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")
-private val containerComponentType: ComponentType<MContainerProps> = containerModule.default
+private val containerComponentType: ComponentType<ContainerProps> = containerModule.default
 
-external interface MContainerProps : StyledProps {
-    var component: String
+
+
+external interface ContainerProps : StyledProps {
+    var component: ElementType
     var disableGutters: Boolean
     var fixed: Boolean
-    var maxWidth: Any
 }
+var ContainerProps.maxWidth by BreakpointNullToFalseDelegate()
+
 
 /**
  * Basic Container layout component.
  * Note: Setting maxWidth to null will disable maxWidth (i.e. pass false to underlying Material UI)
  */
-fun RBuilder.mContainer(
+fun RBuilder.container(
     maxWidth: Breakpoint? = Breakpoint.lg,
     fixed: Boolean = false,
-    disableGutters: Boolean = false,
-    component: String = "div",
-    className: String? = null,
-    handler: StyledHandler<MContainerProps>? = null
+    handler: StyledHandler<ContainerProps>? = null
 ) {
-    createStyled(containerComponentType, className, handler) {
-        attrs.component = component
-        attrs.disableGutters = disableGutters
+    createStyled(containerComponentType, handler) {
         attrs.fixed = fixed
-        attrs.maxWidth = maxWidth?.toString() ?: false
+        attrs.maxWidth = maxWidth
     }
 }
 

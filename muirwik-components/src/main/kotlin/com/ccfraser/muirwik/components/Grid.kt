@@ -1,9 +1,13 @@
 package com.ccfraser.muirwik.components
 
 import com.ccfraser.muirwik.components.styles.Breakpoint
+import com.ccfraser.muirwik.components.utils.ElementType
+import com.ccfraser.muirwik.components.utils.EnumPropToString
+import com.ccfraser.muirwik.components.utils.createStyled
+import com.ccfraser.muirwik.components.utils.toHyphenCase
 import react.ComponentType
-import react.RBuilder
 import react.Props
+import react.RBuilder
 import styled.StyledHandler
 import styled.StyledProps
 import kotlin.properties.ReadWriteProperty
@@ -14,10 +18,10 @@ import kotlin.reflect.KProperty
 private external val gridDefault: dynamic
 
 @Suppress("UnsafeCastFromDynamic")
-private val gridComponentType: ComponentType<MGridProps> = gridDefault.default
+private val gridComponentType: ComponentType<GridProps> = gridDefault.default
 
 @Suppress("EnumEntryName")
-enum class MGridAlignContent {
+enum class GridAlignContent {
     stretch,
     center,
     flexStart,
@@ -31,7 +35,7 @@ enum class MGridAlignContent {
 }
 
 @Suppress("EnumEntryName")
-enum class MGridAlignItems {
+enum class GridAlignItems {
     stretch,
     center,
     flexStart,
@@ -44,7 +48,7 @@ enum class MGridAlignItems {
 }
 
 @Suppress("EnumEntryName")
-enum class MGridDirection {
+enum class GridDirection {
     row,
     rowReverse,
     column,
@@ -56,7 +60,7 @@ enum class MGridDirection {
 }
 
 @Suppress("EnumEntryName")
-enum class MGridJustify {
+enum class GridJustify {
     flexStart,
     center,
     flexEnd,
@@ -69,7 +73,7 @@ enum class MGridJustify {
 }
 
 @Suppress("EnumEntryName")
-enum class MGridSize(internal val sizeVal: Any) {
+enum class GridSize(internal val sizeVal: Any) {
     cellsFalse(false),
     cellsAuto("auto"),
     cellsTrue(true),
@@ -88,7 +92,7 @@ enum class MGridSize(internal val sizeVal: Any) {
 }
 
 @Suppress("EnumEntryName")
-enum class MGridWrap {
+enum class GridWrap {
     noWrap, wrap, wrapReverse;
 
     override fun toString(): String {
@@ -100,7 +104,8 @@ enum class MGridWrap {
     }
 }
 
-enum class MGridSpacing(internal val size: Int) {
+@Suppress("EnumEntryName")
+enum class GridSpacing(internal val size: Int) {
     spacing0(0),
     spacing1(1),
     spacing2(2),
@@ -115,17 +120,17 @@ enum class MGridSpacing(internal val size: Int) {
 }
 
 /**
- * This class as no companion in MaterialUI. We just use it to make setting grid breakpoints a bit easier
+ * This class has no companion in MaterialUI. We just use it to make setting grid breakpoints a bit easier
  */
-data class MGridBreakpoints(
-        val xs: MGridSize = MGridSize.cellsAuto,
-        val sm: MGridSize = MGridSize.cellsAuto,
-        val md: MGridSize = MGridSize.cellsAuto,
-        val lg: MGridSize = MGridSize.cellsAuto,
-        val xl: MGridSize = MGridSize.cellsAuto) {
-    constructor(defaultGridSize: MGridSize) : this(defaultGridSize, defaultGridSize, defaultGridSize, defaultGridSize, defaultGridSize)
+data class GridBreakpoints(
+    val xs: GridSize = GridSize.cellsAuto,
+    val sm: GridSize = GridSize.cellsAuto,
+    val md: GridSize = GridSize.cellsAuto,
+    val lg: GridSize = GridSize.cellsAuto,
+    val xl: GridSize = GridSize.cellsAuto) {
+    constructor(defaultGridSize: GridSize) : this(defaultGridSize, defaultGridSize, defaultGridSize, defaultGridSize, defaultGridSize)
 
-    fun down(breakpoint: Breakpoint, gridSize: MGridSize): MGridBreakpoints {
+    fun down(breakpoint: Breakpoint, gridSize: GridSize): GridBreakpoints {
         return when (breakpoint) {
             Breakpoint.xs -> copy(xs = gridSize)
             Breakpoint.sm -> copy(xs = gridSize, sm = gridSize)
@@ -135,7 +140,7 @@ data class MGridBreakpoints(
         }
     }
 
-    fun up(breakpoint: Breakpoint, gridSize: MGridSize): MGridBreakpoints {
+    fun up(breakpoint: Breakpoint, gridSize: GridSize): GridBreakpoints {
         return when (breakpoint) {
             Breakpoint.xs -> copy(xl = gridSize, lg = gridSize, md = gridSize, sm = gridSize, xs = gridSize)
             Breakpoint.sm -> copy(xl = gridSize, lg = gridSize, md = gridSize, sm = gridSize)
@@ -147,90 +152,124 @@ data class MGridBreakpoints(
 }
 
 
-external interface MGridProps : StyledProps {
-    var component: String
+external interface GridProps : StyledProps {
+    var columns: Int
+    var component: ElementType
     var container: Boolean
     var item: Boolean
     var zeroMinWidth: Boolean
 }
-var MGridProps.alignContent by EnumPropToString(MGridAlignContent.values())
-var MGridProps.alignItems by EnumPropToString(MGridAlignItems.values())
-var MGridProps.direction by EnumPropToString(MGridDirection.values())
-var MGridProps.justify by EnumPropToString(MGridJustify.values())
-var MGridProps.lg by GridSizeDelegate()
-var MGridProps.md by GridSizeDelegate()
-var MGridProps.sm by GridSizeDelegate()
-var MGridProps.spacing by GridSpacingDelegate()
-var MGridProps.wrap by EnumPropToString(MGridWrap.values())
-var MGridProps.xl by GridSizeDelegate()
-var MGridProps.xs by GridSizeDelegate()
+var GridProps.alignContent by EnumPropToString(GridAlignContent.values())
+var GridProps.alignItems by EnumPropToString(GridAlignItems.values())
+var GridProps.columnSpacing by GridSpacingDelegate()
+var GridProps.direction by EnumPropToString(GridDirection.values())
+var GridProps.justify by EnumPropToString(GridJustify.values())
+var GridProps.lg by GridSizeDelegate()
+var GridProps.md by GridSizeDelegate()
+var GridProps.rowSpacing by GridSpacingDelegate()
+var GridProps.sm by GridSizeDelegate()
+var GridProps.spacing by GridSpacingDelegate()
+var GridProps.wrap by EnumPropToString(GridWrap.values())
+var GridProps.xl by GridSizeDelegate()
+var GridProps.xs by GridSizeDelegate()
 
-class GridSizeDelegate : ReadWriteProperty<Props, MGridSize?> {
-    override fun getValue(thisRef: Props, property: KProperty<*>): MGridSize? {
+class GridSizeDelegate : ReadWriteProperty<Props, GridSize?> {
+    override fun getValue(thisRef: Props, property: KProperty<*>): GridSize? {
         return when (thisRef.asDynamic()[property.name]) {
             null -> null
             undefined -> null
-            true -> MGridSize.cellsTrue
-            false -> MGridSize.cellsFalse
-            1 -> MGridSize.cells1
-            2 -> MGridSize.cells2
-            3 -> MGridSize.cells3
-            4 -> MGridSize.cells4
-            5 -> MGridSize.cells5
-            6 -> MGridSize.cells6
-            7 -> MGridSize.cells7
-            8 -> MGridSize.cells8
-            9 -> MGridSize.cells9
-            10 -> MGridSize.cells10
-            11 -> MGridSize.cells11
-            12 -> MGridSize.cells12
-            else -> MGridSize.cellsAuto
+            true -> GridSize.cellsTrue
+            false -> GridSize.cellsFalse
+            1 -> GridSize.cells1
+            2 -> GridSize.cells2
+            3 -> GridSize.cells3
+            4 -> GridSize.cells4
+            5 -> GridSize.cells5
+            6 -> GridSize.cells6
+            7 -> GridSize.cells7
+            8 -> GridSize.cells8
+            9 -> GridSize.cells9
+            10 -> GridSize.cells10
+            11 -> GridSize.cells11
+            12 -> GridSize.cells12
+            else -> GridSize.cellsAuto
         }
     }
 
-    override fun setValue(thisRef: Props, property: KProperty<*>, value: MGridSize?) {
+    override fun setValue(thisRef: Props, property: KProperty<*>, value: GridSize?) {
         thisRef.asDynamic()[property.name] = value?.sizeVal
     }
 }
 
-class GridSpacingDelegate : ReadWriteProperty<Props, MGridSpacing?> {
-    override fun getValue(thisRef: Props, property: KProperty<*>): MGridSpacing? {
+class GridSpacingDelegate : ReadWriteProperty<Props, GridSpacing?> {
+    override fun getValue(thisRef: Props, property: KProperty<*>): GridSpacing? {
         return when (thisRef.asDynamic()[property.name]) {
             null -> null
             undefined -> null
-            1 -> MGridSpacing.spacing1
-            2 -> MGridSpacing.spacing2
-            3 -> MGridSpacing.spacing3
-            4 -> MGridSpacing.spacing4
-            5 -> MGridSpacing.spacing5
-            6 -> MGridSpacing.spacing6
-            7 -> MGridSpacing.spacing7
-            8 -> MGridSpacing.spacing8
-            9 -> MGridSpacing.spacing9
-            10 -> MGridSpacing.spacing10
-            else -> MGridSpacing.spacing0
+            1 -> GridSpacing.spacing1
+            2 -> GridSpacing.spacing2
+            3 -> GridSpacing.spacing3
+            4 -> GridSpacing.spacing4
+            5 -> GridSpacing.spacing5
+            6 -> GridSpacing.spacing6
+            7 -> GridSpacing.spacing7
+            8 -> GridSpacing.spacing8
+            9 -> GridSpacing.spacing9
+            10 -> GridSpacing.spacing10
+            else -> GridSpacing.spacing0
         }
     }
 
-    override fun setValue(thisRef: Props, property: KProperty<*>, value: MGridSpacing?) {
+    override fun setValue(thisRef: Props, property: KProperty<*>, value: GridSpacing?) {
         thisRef.asDynamic()[property.name] = value?.size
     }
 }
 
+fun RBuilder.grid(handler: StyledHandler<GridProps>) {
+    createStyled(gridComponentType, handler)
+}
+
+fun RBuilder.gridContainer(spacing: GridSpacing = GridSpacing.spacing0, handler: StyledHandler<GridProps>) {
+    createStyled(gridComponentType, handler) {
+        attrs.container = true
+        attrs.spacing = spacing
+    }
+}
+
+fun RBuilder.gridItem(handler: StyledHandler<GridProps>) {
+    createStyled(gridComponentType, handler) {
+        attrs.item = true
+        attrs.container = false
+    }
+}
+
+fun RBuilder.gridItem(breakpoints: GridBreakpoints, handler: StyledHandler<GridProps>? = null) {
+    gridItem {
+        attrs.xs = breakpoints.xs
+        attrs.sm = breakpoints.sm
+        attrs.md = breakpoints.md
+        attrs.lg = breakpoints.lg
+        attrs.xl = breakpoints.xl
+        handler?.invoke(this)
+    }
+}
+
+
+@Deprecated("Use the simpler 'non m' version.")
 /**
  * The material design components allows a grid item to be a container and an item. We have simplified things here
  * since different properties apply depending on if it is a container or an item. So, if you want both, you will have
  * to add an extra child item.
  */
 fun RBuilder.mGridContainer(
-    spacing: MGridSpacing = MGridSpacing.spacing0,
-    alignContent: MGridAlignContent = MGridAlignContent.stretch,
-    alignItems: MGridAlignItems = MGridAlignItems.stretch,
-    justify: MGridJustify = MGridJustify.flexStart,
-    wrap: MGridWrap = MGridWrap.wrap,
+    spacing: GridSpacing = GridSpacing.spacing0,
+    alignContent: GridAlignContent = GridAlignContent.stretch,
+    alignItems: GridAlignItems = GridAlignItems.stretch,
+    justify: GridJustify = GridJustify.flexStart,
+    wrap: GridWrap = GridWrap.wrap,
 
     className: String? = null,
-    handler: StyledHandler<MGridProps>? = null
+    handler: StyledHandler<GridProps>? = null
 ) {
     createStyled(gridComponentType, className, handler) {
         attrs.alignContent = alignContent
@@ -242,16 +281,17 @@ fun RBuilder.mGridContainer(
     }
 }
 
+@Deprecated("Use the simpler 'non m' version.")
 fun RBuilder.mGridItem(
-    xs: MGridSize = MGridSize.cellsFalse,
-    sm: MGridSize = MGridSize.cellsFalse,
-    md: MGridSize = MGridSize.cellsFalse,
-    lg: MGridSize = MGridSize.cellsFalse,
-    xl: MGridSize = MGridSize.cellsFalse,
+    xs: GridSize = GridSize.cellsFalse,
+    sm: GridSize = GridSize.cellsFalse,
+    md: GridSize = GridSize.cellsFalse,
+    lg: GridSize = GridSize.cellsFalse,
+    xl: GridSize = GridSize.cellsFalse,
     zeroMinWidth: Boolean? = null,
 
     className: String? = null,
-    handler: StyledHandler<MGridProps>? = null
+    handler: StyledHandler<GridProps>? = null
 ) {
     createStyled(gridComponentType, className, handler) {
         attrs.item = true
@@ -264,10 +304,12 @@ fun RBuilder.mGridItem(
     }
 }
 
+@Deprecated("Use the simpler 'non m' version.")
+@Suppress("DEPRECATION")
 fun RBuilder.mGridItem(
-    breakpoints: MGridBreakpoints,
+    breakpoints: GridBreakpoints,
     className: String? = null,
-    handler: StyledHandler<MGridProps>? = null
+    handler: StyledHandler<GridProps>? = null
 ) {
     mGridItem(
         breakpoints.xs,

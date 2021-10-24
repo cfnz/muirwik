@@ -1,13 +1,8 @@
 package com.ccfraser.muirwik.testapp
 
 import com.ccfraser.muirwik.components.*
-import com.ccfraser.muirwik.components.button.MButtonColor
-import com.ccfraser.muirwik.components.button.MButtonSize
-import com.ccfraser.muirwik.components.button.mButton
-import com.ccfraser.muirwik.components.button.mIconButton
-import com.ccfraser.muirwik.components.card.*
 import com.ccfraser.muirwik.components.styles.Breakpoint
-import com.ccfraser.muirwik.components.transitions.mCollapse
+import com.ccfraser.muirwik.components.utils.Colors
 import kotlinx.browser.window
 import kotlinx.css.*
 import kotlinx.css.properties.*
@@ -25,34 +20,33 @@ class TestCards : RComponent<Props, State>() {
             css {
                 padding(16.px)
             }
-            mGridContainer(MGridSpacing.spacing2) {
-                val breakpoints = MGridBreakpoints(MGridSize.cells6)
-                        .up(Breakpoint.lg, MGridSize.cells4)
-                        .down(Breakpoint.sm, MGridSize.cells12)
+            gridContainer(GridSpacing.spacing2) {
+                val breakpoints = GridBreakpoints(GridSize.cells6)
+                        .up(Breakpoint.lg, GridSize.cells4)
+                        .down(Breakpoint.sm, GridSize.cells12)
 
-                mGridItem(breakpoints) {
-                    mCard {
-                        mCardHeader("Shrimp and Chorizo Paella", "September 14") {
+                gridItem(breakpoints) {
+                    card {
+                        cardHeader("Shrimp and Chorizo Paella", "September 14") {
                             attrs.avatar = buildElement {
-                                mAvatar {
+                                avatar {
                                     css { backgroundColor = Colors.Red.shade500}
                                     +"R"
                                 }
                             }
-                            attrs.action = buildElement { mIconButton("more_vert") }
+                            attrs.action = buildElement { iconButton("more_vert") }
                         }
-                        mCardMedia("/images/cards/paella.jpg") {
+                        cardMedia("/images/cards/paella.jpg") {
                             css { height = 150.px }
                         }
-                        mCardContent {
-                            mTypography {
-                                +"This impressive paella is a perfect party dish and a fun meal to cook together with your guests. Add 1 cup of frozen peas along with the mussels, if you like."
-                            }
+                        cardContent {
+                            typography("This impressive paella is a perfect party dish and a fun meal to cook together " +
+                                    "with your guests. Add 1 cup of frozen peas along with the mussels, if you like.")
                         }
-                        mCardActions {
-                            mIconButton("star")
-                            mIconButton("send")
-                            mIconButton("expand_more") {
+                        cardActions {
+                            iconButton("star")
+                            iconButton("send")
+                            iconButton("expand_more") {
                                 css {
                                     if (rightExpanded) transform.rotate(180.deg)
                                     else transform.rotate(0.deg)
@@ -63,39 +57,46 @@ class TestCards : RComponent<Props, State>() {
                                 attrs.onClick = { setState { rightExpanded = !rightExpanded; count++ } }
                             }
                         }
-                        mCollapse(show = rightExpanded) {
-                            mCardContent {
-                                mTypography(paragraph = true) {
-                                    +"Heat 1/2 cup of the broth in a pot until simmering, add saffron and set aside for 10 minutes."
+                        collapse(show = rightExpanded) {
+                            cardContent {
+                                typography("Heat 1/2 cup of the broth in a pot until simmering, add saffron and set aside for 10 minutes.") {
+                                    attrs.paragraph = true
                                 }
                             }
                         }
                     }
                 }
-                mGridItem(breakpoints) {
-                    mCard {
-                        mCardActionArea {
+                gridItem(breakpoints) {
+                    card {
+                        cardActionArea {
                             attrs.onClick = { window.alert("You clicked the action area.") }
-                            mCardMedia("/images/cards/contemplative-reptile.jpg", "Contemplative Reptile") {
+                            cardMedia("/images/cards/contemplative-reptile.jpg") {
                                 css { height = 140.px }
                             }
-                            mCardContent {
-                                mTypography("Lizard", gutterBottom = true, variant = MTypographyVariant.h5, component = "h2")
-                                mTypography("Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging \n" +
-                                        "across all continents except Antarctica", component = "p")
+                            cardContent {
+                                typography("Lizard", variant = TypographyVariant.h5) {
+                                    attrs.component = "h2"
+                                    attrs.gutterBottom = true
+                                }
+                                typography(
+                                    "Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging \n" +
+                                            "across all continents except Antarctica"
+                                ) {
+                                    attrs.component = "p"
+                                }
                             }
                         }
-                        mCardActions {
-                            mButton("Share", MButtonColor.primary, size = MButtonSize.small)
-                            mButton("Learn More", MButtonColor.primary, size = MButtonSize.small)
+                        cardActions {
+                            button("Share", ButtonColor.primary, size = ButtonSize.small)
+                            button("Learn More", ButtonColor.primary, size = ButtonSize.small)
                         }
                     }
                 }
-                mGridItem(breakpoints) {
-                    mCard(raised = true) {
-                        mCardHeader("Expand for more info") {
+                gridItem(breakpoints) {
+                    card(raised = true) {
+                        cardHeader("Expand for more info") {
                             attrs.action = buildElement {
-                                mIconButton("expand_more") {
+                                iconButton("expand_more") {
                                     css {
                                         if (leftExpanded) transform.rotate(180.deg)
                                         else transform.rotate(0.deg)
@@ -106,17 +107,19 @@ class TestCards : RComponent<Props, State>() {
                                 }
                             }
                         }
-                        mCollapse(show = leftExpanded) {
-                            mCardContent {
-                                mTypography("This is a raised card. As well as being a card demo, this shows use " +
+                        collapse(show = leftExpanded) {
+                            cardContent {
+                                typography("This is a raised card. As well as being a card demo, this shows use " +
                                         "of the Grid component. Resize the window to see the responsive positioning of " +
-                                        "the items", paragraph = true)
+                                        "the items") {
+                                    attrs.paragraph = true
+                                }
                             }
                         }
                     }
                 }
-                mGridItem(breakpoints) {
-                    mCard {
+                gridItem(breakpoints) {
+                    card {
                         css { display = Display.flex }
                         styledDiv {
                             css {
@@ -124,10 +127,10 @@ class TestCards : RComponent<Props, State>() {
                                 flexDirection = FlexDirection.column
                                 flexGrow = 1.0
                             }
-                            mCardContent {
+                            cardContent {
                                 css { flex(1.0, 0.0, FlexBasis.auto) }
-                                mTypography("Live From Space", variant = MTypographyVariant.h5)
-                                mTypography("Mac Miller", variant = MTypographyVariant.subtitle1, color = MTypographyColor.textSecondary)
+                                typography("Live From Space", variant = TypographyVariant.h5)
+                                typography("Mac Miller", variant = TypographyVariant.subtitle1, color = TypographyColor.textSecondary)
                             }
                             styledDiv {
                                 css {
@@ -136,15 +139,15 @@ class TestCards : RComponent<Props, State>() {
                                     paddingLeft = 1.spacingUnits
                                     paddingBottom = 1.spacingUnits
                                 }
-                                mIconButton("skip_previous")
+                                iconButton("skip_previous")
 
                                 // Demo was using an svg icon, so could easily change the size...we will keep it the same for now
-                                mIconButton("play_arrow")
+                                iconButton("play_arrow")
 
-                                mIconButton("skip_next")
+                                iconButton("skip_next")
                             }
                         }
-                        mCardMedia("/images/cards/live-from-space.jpg", "Live from space album cover") {
+                        cardMedia("/images/cards/live-from-space.jpg") {
                             css { css { height = 151.px; width = 151.px } }
                         }
                     }

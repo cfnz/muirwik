@@ -1,18 +1,19 @@
 package com.ccfraser.muirwik.testapp
 
 import com.ccfraser.muirwik.components.*
+import com.ccfraser.muirwik.components.utils.Colors
+import com.ccfraser.muirwik.testapp.TestAvatars.ComponentStyles.container
 import com.ccfraser.muirwik.testapp.TestAvatars.ComponentStyles.green
 import com.ccfraser.muirwik.testapp.TestAvatars.ComponentStyles.orange
 import com.ccfraser.muirwik.testapp.TestAvatars.ComponentStyles.pink
 import com.ccfraser.muirwik.testapp.TestAvatars.ComponentStyles.standard
 import kotlinx.css.*
+import react.Props
 import react.RBuilder
 import react.RComponent
-import react.Props
 import react.State
 import styled.StyleSheet
 import styled.css
-import styled.styledDiv
 
 class TestAvatars : RComponent<Props, State>() {
 
@@ -36,17 +37,20 @@ class TestAvatars : RComponent<Props, State>() {
             color = Colors.white
             backgroundColor = Colors.DeepOrange.shade500
         }
+        val container by css {
+            display = Display.flex
+        }
     }
 
     override fun RBuilder.render() {
         demoContainer {
             demoPanel("Image Avatars") {
-                css { display = Display.flex }
-                mAvatar {
+                css(container)
+                avatar {
                     attrs.src = "/images/cards/contemplative-reptile.jpg"
                     attrs.alt = "Reptile"
                 }
-                mAvatar {
+                avatar {
                     css {
                         marginLeft = 2.spacingUnits
                         width = 60.px
@@ -56,50 +60,58 @@ class TestAvatars : RComponent<Props, State>() {
                     attrs.alt = "Reptile"
                 }
             }
-
             demoPanel("Icon Avatars") {
-                css { display = Display.flex }
-                mAvatar {
+                css(container)
+                avatar {
                     css(standard)
-                    mIcon("folder")
+                    icon("folder")
                 }
-                mAvatar {
+                avatar {
                     css(pink)
-                    mIcon("pageview")
+                    icon("pageview")
                 }
-                mAvatar {
+                avatar {
                     css(green)
-                    mIcon("assignment")
+                    icon("assignment")
                 }
             }
-
             demoPanel("Letter Avatars") {
-                css { display = Display.flex }
-                mAvatar {
+                css(container)
+                avatar {
                     css(green)
                     +"H"
                 }
-                mAvatar {
+                avatar {
                     css(orange)
                     +"N"
                 }
-                mAvatar {
+                avatar {
                     css(pink)
                     +"OP"
                 }
             }
-
             demoPanel("Variants") {
-                css { display = Display.flex }
-                mAvatar(MAvatarVariant.rounded) {
+                css(container)
+                avatar(AvatarVariant.rounded) {
                     attrs.src = "/images/cards/contemplative-reptile.jpg"
                     attrs.alt = "Reptile"
                     css { margin(1.spacingUnits) }
                 }
-                mAvatar(MAvatarVariant.square) {
+                avatar(AvatarVariant.square) {
                     attrs.src = "/images/cards/contemplative-reptile.jpg"
                     attrs.alt = "Reptile"
                     css { margin(1.spacingUnits) }
+                }
+            }
+            demoPanel("Groups") {
+                css(container)
+                avatarGroup(4) {
+                    avatar("/images/grid-list/plant.jpg", "Plant")
+                    avatar("/images/grid-list/burgers.jpg", "Burger")
+                    avatar("/images/grid-list/starfish.jpg", "Starfish")
+                    avatar("/images/grid-list/hats.jpg", "Hats")
+                    avatar("/images/grid-list/olive.jpg", "Olive")
+                    avatar("/images/grid-list/honey.jpg", "Honey")
                 }
             }
         }

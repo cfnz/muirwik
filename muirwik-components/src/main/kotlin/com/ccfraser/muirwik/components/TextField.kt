@@ -1,11 +1,14 @@
 package com.ccfraser.muirwik.components
 
-import com.ccfraser.muirwik.components.form.*
+import com.ccfraser.muirwik.components.utils.EnumPropToString
+import com.ccfraser.muirwik.components.utils.createStyled
 import kotlinx.html.InputType
+import org.w3c.dom.Node
 import org.w3c.dom.events.Event
 import react.ComponentType
-import react.RBuilder
 import react.Props
+import react.RBuilder
+import react.Ref
 import styled.StyledElementBuilder
 import styled.StyledHandler
 
@@ -14,14 +17,9 @@ import styled.StyledHandler
 private external val textFieldDefault: dynamic
 
 @Suppress("UnsafeCastFromDynamic")
-private val textFieldComponentType: ComponentType<MTextFieldProps> = textFieldDefault.default
+private val textFieldComponentType: ComponentType<TextFieldProps> = textFieldDefault.default
 
-@Suppress("EnumEntryName")
-enum class MTextFieldColor {
-    primary, secondary
-}
-
-external interface MTextFieldProps : MFormControlProps {
+external interface TextFieldProps : FormControlProps {
     var autoComplete: String
     var autoFocus: Boolean
     var defaultValue: String
@@ -37,7 +35,7 @@ external interface MTextFieldProps : MFormControlProps {
     @JsName("InputProps")
     var inputProps: Props
 
-    //    var inputRef	func		Use that property to pass a ref callback to the native input component.
+    var inputRef: Ref<Node>
 
     var label: String
 
@@ -59,20 +57,49 @@ external interface MTextFieldProps : MFormControlProps {
     var type: String
     var value: String
 }
-var MTextFieldProps.color by EnumPropToString(MTextFieldColor.values())
+var TextFieldProps.color by EnumPropToString(FormControlColor.values())
+
 
 /**
  * From Material-UI: The TextField wrapper component is a complete form control including a label, input and help text.
  * TextField is composed of smaller components ( FormControl, Input, FilledInput, InputLabel, OutlinedInput,
  * and FormHelperText ) that you can leverage directly to significantly customize your form inputs.
  */
+fun RBuilder.textField(
+    label: String,
+    value: String? = null,
+    helperText: String? = null,
+    defaultValue: String? = null,
+    placeholder: String? = null,
+    color: FormControlColor = FormControlColor.primary,
+    variant: FormControlVariant = FormControlVariant.standard,
+    handler: StyledHandler<TextFieldProps>? = null
+) {
+    createStyled(textFieldComponentType, handler) {
+        attrs.color = color
+        defaultValue?.let { attrs.defaultValue = it }
+        helperText?.let { attrs.helperText = it }
+        attrs.label = label
+        placeholder?.let { attrs.placeholder = it }
+        value?.let { attrs.value = it }
+        attrs.variant = variant
+    }
+}
+
+
+/**
+ * From Material-UI: The TextField wrapper component is a complete form control including a label, input and help text.
+ * TextField is composed of smaller components ( FormControl, Input, FilledInput, InputLabel, OutlinedInput,
+ * and FormHelperText ) that you can leverage directly to significantly customize your form inputs.
+ */
+@Deprecated("Use the simpler 'non m' version.")
 fun RBuilder.mTextField(
     label: String,
     value: String? = null,
     helperText: String? = null,
     defaultValue: String? = null,
     placeholder: String? = null,
-    variant: MFormControlVariant = MFormControlVariant.standard,
+    variant: FormControlVariant = FormControlVariant.standard,
     onChange: ((event: Event) -> Unit)? = null,
     type: InputType = InputType.text,
     required: Boolean = false,
@@ -80,12 +107,12 @@ fun RBuilder.mTextField(
     error: Boolean = false,
     autoFocus: Boolean = false,
     fullWidth: Boolean = false,
-    margin: MFormControlMargin = MFormControlMargin.normal,
+    margin: FormControlMargin = FormControlMargin.normal,
     autoComplete: String? = null,
     id: String? = null,
     name: String? = null,
     className: String? = null,
-    handler: StyledHandler<MTextFieldProps>? = null
+    handler: StyledHandler<TextFieldProps>? = null
 ) {
     createStyled(textFieldComponentType, className, handler) {
         setAttributes(this, autoComplete, autoFocus, defaultValue, disabled, error, fullWidth, helperText, id, label, margin,
@@ -93,27 +120,27 @@ fun RBuilder.mTextField(
     }
 }
 
+@Deprecated("Use the simpler 'non m' version.")
 fun RBuilder.mTextFieldMultiLine(
     label: String,
     value: String? = null,
     helperText: String? = null,
     defaultValue: String? = null,
     placeholder: String? = null,
-    variant: MFormControlVariant = MFormControlVariant.standard,
+    variant: FormControlVariant = FormControlVariant.standard,
     onChange: ((event: Event) -> Unit)? = null,
     required: Boolean = false,
     disabled: Boolean = false,
     error: Boolean = false,
     autoFocus: Boolean = false,
     fullWidth: Boolean = false,
-    margin: MFormControlMargin = MFormControlMargin.normal,
+    margin: FormControlMargin = FormControlMargin.normal,
     rows: Int? = null,
     maxRows: Int? = null,
-    minRows: Int? = null,
     id: String? = null,
     name: String? = null,
     className: String? = null,
-    handler: StyledHandler<MTextFieldProps>? = null
+    handler: StyledHandler<TextFieldProps>? = null
 ) {
     createStyled(textFieldComponentType, className, handler) {
         setAttributes(this, null, autoFocus, defaultValue, disabled, error, fullWidth, helperText, id, label, margin,
@@ -124,25 +151,26 @@ fun RBuilder.mTextFieldMultiLine(
 /**
  * I don't know why there is a text field select when there is a select... but here you go...
  */
+@Deprecated("Use the simpler 'non m' version.")
 fun RBuilder.mTextFieldSelect(
     label: String,
     value: String? = null,
     helperText: String? = null,
     defaultValue: String? = null,
     placeholder: String? = null,
-    variant: MFormControlVariant = MFormControlVariant.standard,
+    variant: FormControlVariant = FormControlVariant.standard,
     onChange: ((event: Event) -> Unit)? = null,
     required: Boolean = false,
     disabled: Boolean = false,
     error: Boolean = false,
     autoFocus: Boolean = false,
     fullWidth: Boolean = false,
-    margin: MFormControlMargin = MFormControlMargin.normal,
+    margin: FormControlMargin = FormControlMargin.normal,
     autoComplete: String? = null,
     id: String? = null,
     name: String? = null,
     className: String? = null,
-    handler: StyledHandler<MTextFieldProps>? = null
+    handler: StyledHandler<TextFieldProps>? = null
 ) {
     createStyled(textFieldComponentType, className, handler) {
         setAttributes(this, autoComplete, autoFocus, defaultValue, disabled, error, fullWidth, helperText, id, label, margin,
@@ -151,7 +179,7 @@ fun RBuilder.mTextFieldSelect(
 }
 
 private fun setAttributes(
-    textField: StyledElementBuilder<MTextFieldProps>,
+    textField: StyledElementBuilder<TextFieldProps>,
     autoComplete: String?,
     autoFocus: Boolean,
     defaultValue: String?,
@@ -161,7 +189,7 @@ private fun setAttributes(
     helperText: String?,
     id: String?,
     label: String,
-    margin: MFormControlMargin,
+    margin: FormControlMargin,
     multiline: Boolean,
     name: String?,
     onChange: ((event: Event) -> Unit)?,
@@ -172,7 +200,7 @@ private fun setAttributes(
     select: Boolean,
     type: InputType,
     value: String?,
-    variant: MFormControlVariant
+    variant: FormControlVariant
 ) {
     autoComplete?.let { textField.attrs.autoComplete = it }
     textField.attrs.autoFocus = autoFocus

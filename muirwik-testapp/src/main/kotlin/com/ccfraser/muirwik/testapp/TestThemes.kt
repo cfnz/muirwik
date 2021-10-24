@@ -1,10 +1,10 @@
 package com.ccfraser.muirwik.testapp
 
-import com.ccfraser.muirwik.components.Colors
-import com.ccfraser.muirwik.components.button.mButton
-import com.ccfraser.muirwik.components.mThemeProvider
-import com.ccfraser.muirwik.components.mTypography
+import com.ccfraser.muirwik.components.button
 import com.ccfraser.muirwik.components.styles.*
+import com.ccfraser.muirwik.components.themeProvider
+import com.ccfraser.muirwik.components.typography
+import com.ccfraser.muirwik.components.utils.Colors
 import kotlinx.css.Color
 import kotlinx.css.backgroundColor
 import react.*
@@ -23,13 +23,13 @@ class TestThemes : RComponent<Props, State>() {
         // Create a new theme with the default colours (darker primary colours than the demo)
         val theme: Theme = createTheme(themeOptions)
 
-        mThemeProvider(theme) {
+        themeProvider(theme) {
             styledDiv {
                 css { backgroundColor = Color(theme.palette.background.default) }
-                mTypography("First is the Default theme (darker than the demo theme), then a lighter theme using a functional component with a theme hook, then a repeat of the demo app")
-                mButton("Dark/Light Switch", onClick = {
-                    setState { themePaletteMode = if (themePaletteMode == PaletteMode.light) PaletteMode.dark else PaletteMode.light }
-                })
+                typography("First is the Default theme (darker than the demo theme), then a lighter theme using a functional component with a theme hook, then a repeat of the demo app")
+                button("Dark/Light Switch") {
+                    attrs.onClick = { setState { themePaletteMode = if (themePaletteMode == PaletteMode.light) PaletteMode.dark else PaletteMode.light } }
+                }
                 br {  }
                 testThemeComponent()
 
@@ -37,7 +37,7 @@ class TestThemes : RComponent<Props, State>() {
                 theme2Options.palette?.mode = themePaletteMode
                 theme2Options.palette?.primary?.main = Colors.Blue.shade200.toString()
 
-                mThemeProvider(createTheme(theme2Options)) {
+                themeProvider(createTheme(theme2Options)) {
                     testThemesComponentFunctional()
                 }
 

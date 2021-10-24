@@ -1,48 +1,67 @@
 package com.ccfraser.muirwik.components
 
+import com.ccfraser.muirwik.components.utils.ElementType
+import com.ccfraser.muirwik.components.utils.EnumPropToStringNullable
+import com.ccfraser.muirwik.components.utils.StyledPropsWithCommonAttributes
+import com.ccfraser.muirwik.components.utils.createStyled
 import react.ComponentType
-import react.RBuilder
 import react.Props
+import react.RBuilder
 import styled.StyledHandler
 
 @JsModule("@mui/material/Avatar")
 private external val avatarModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")
-private val avatarComponentType: ComponentType<MAvatarProps> = avatarModule.default
+private val avatarComponentType: ComponentType<AvatarProps> = avatarModule.default
 
 @Suppress("EnumEntryName")
-enum class MAvatarVariant {
+enum class AvatarVariant {
     circular, rounded, square
 }
 
-external interface MAvatarProps : StyledPropsWithCommonAttributes {
+external interface AvatarProps : StyledPropsWithCommonAttributes {
     var alt: String
-    var component: String
+    var component: ElementType
     var imgProps: Props
     var sizes: String
     var src: String
     var srcSet: String
 }
-var MAvatarProps.variant by EnumPropToStringNullable(MAvatarVariant.values())
+var AvatarProps.variant by EnumPropToStringNullable(AvatarVariant.values())
 
-fun RBuilder.mAvatar(variant: MAvatarVariant = MAvatarVariant.circular, handler: StyledHandler<MAvatarProps>) {
+fun RBuilder.avatar(variant: AvatarVariant = AvatarVariant.circular, handler: StyledHandler<AvatarProps>) {
     createStyled(avatarComponentType, handler) {
         attrs.variant = variant
     }
 }
 
-@Deprecated("Use the simpler version with attrs (params will mainly be used for required attributes).")
+fun RBuilder.avatar(
+    src: String,
+    alt: String? = null,
+    srcSet: String? = null,
+    variant: AvatarVariant = AvatarVariant.circular,
+    handler: StyledHandler<AvatarProps>? = null
+) {
+    createStyled(avatarComponentType, handler) {
+        alt?.let { attrs.alt = it }
+        attrs.src = src
+        srcSet?.let { attrs.srcSet = it }
+        attrs.variant = variant
+    }
+}
+
+@Deprecated("Use the simpler 'non m' version.")
 fun RBuilder.mAvatar(
     src: String? = null,
     alt: String? = null,
     srcSet: String? = null,
-    variant: MAvatarVariant = MAvatarVariant.circular,
+    variant: AvatarVariant = AvatarVariant.circular,
     component: String = "div",
     imgProps: Props? = null,
     sizes: String? = null,
     className: String? = null,
-    handler: StyledHandler<MAvatarProps>? = null
+    handler: StyledHandler<AvatarProps>? = null
 ) {
     createStyled(avatarComponentType, className, handler) {
         alt?.let { attrs.alt = alt }

@@ -1,10 +1,8 @@
 package com.ccfraser.muirwik.testapp
 
 import com.ccfraser.muirwik.components.*
-import com.ccfraser.muirwik.components.form.MFormControlMargin
-import com.ccfraser.muirwik.components.form.MFormControlVariant
-import com.ccfraser.muirwik.components.input.mInputAdornment
-import com.ccfraser.muirwik.components.menu.mMenuItem
+import com.ccfraser.muirwik.components.utils.persist
+import com.ccfraser.muirwik.components.utils.targetInputValue
 import com.ccfraser.muirwik.testapp.TestTextFields.ComponentStyles.textField
 import kotlinext.js.jsObject
 import kotlinx.css.*
@@ -14,8 +12,6 @@ import react.*
 import react.dom.form
 import styled.StyleSheet
 import styled.css
-import styled.styledDiv
-import styled.styledForm
 
 external interface TestTextFieldsState : State {
     var textValue: String
@@ -35,6 +31,7 @@ class TestTextFields : RComponent<Props, TestTextFieldsState>() {
 
     private object ComponentStyles : StyleSheet("ComponentStyles", isStatic = true) {
         val textField by css {
+            marginTop = 1.spacingUnits
             marginLeft = 1.spacingUnits
             marginRight = 1.spacingUnits
         }
@@ -47,48 +44,53 @@ class TestTextFields : RComponent<Props, TestTextFieldsState>() {
                 attrs.novalidate = true
 
                 demoPanel("Standard Text Fields") {
-                    renderTextFields(MFormControlVariant.standard)
+                    renderTextFields(FormControlVariant.standard)
                 }
                 demoPanel("Outlined Text Fields") {
-                    renderTextFields(MFormControlVariant.outlined)
+                    renderTextFields(FormControlVariant.outlined)
                 }
 
                 demoPanel("Filled Text Fields") {
-                    renderTextFields(MFormControlVariant.filled)
+                    renderTextFields(FormControlVariant.filled)
                 }
 
                 demoPanel("Variations") {
-                    renderVariations(MFormControlVariant.outlined)
+                    renderVariations(FormControlVariant.outlined)
                 }
             }
             demoPanel("Coloured (When selected)") {
                 css { paddingBottom = 3.spacingUnits }
 
-                mTextField(label = "Secondary Name", value = name, variant = MFormControlVariant.outlined, onChange = { event -> handleInputChange(event) }) {
+                textField("Secondary Name", name, variant = FormControlVariant.outlined) {
+                    attrs.onChange = { event -> handleInputChange(event) }
                     css(textField)
-                    attrs.color = MTextFieldColor.secondary
+                    attrs.color = FormControlColor.secondary
                 }
             }
         }
     }
 
-    private fun RBuilder.renderTextFields(variant: MFormControlVariant) {
-        mTextField(label = "Name", value = name, variant = variant, onChange = { event -> handleInputChange(event) }) {
+    private fun RBuilder.renderTextFields(variant: FormControlVariant) {
+        textField("Name", name, variant = variant) {
+            attrs.onChange = { event -> handleInputChange(event) }
             css(textField)
         }
-        mTextField(label = "Uncontrolled", defaultValue = "foo", variant = variant) {
+        textField("Uncontrolled", defaultValue = "foo", variant = variant) {
             css(textField)
         }
-        mTextField(label = "Required", required = true, defaultValue = "Hello World", variant = variant) {
+        textField("Required", defaultValue = "Hello World", variant = variant) {
+            attrs.required = true
             css(textField)
         }
-        mTextField(label = "Error", error = true, defaultValue = "Hello World", variant = variant) {
+        textField("Error", defaultValue = "Hello World", variant = variant) {
+            attrs.error = true
             css(textField)
         }
-        mTextField(label = "Disabled", disabled = true, defaultValue = "Hello World", variant = variant) {
+        textField("Disabled", defaultValue = "Hello World", variant = variant) {
+            attrs.disabled = true
             css(textField)
         }
-        mTextField(label = "Read Only", defaultValue = "Hello World", variant = variant) {
+        textField("Read Only", defaultValue = "Hello World", variant = variant) {
             css(textField)
 //                attrs.inputProps = object : Props { val readOnly = true } IR Compiler didn't like this way of doing things
             attrs.inputProps = jsObject {
@@ -97,73 +99,86 @@ class TestTextFields : RComponent<Props, TestTextFieldsState>() {
         }
     }
 
-    private fun RBuilder.renderVariations(variant: MFormControlVariant) {
-        mTextField(label = "Email", type = InputType.email, autoComplete = "email", variant = variant) {
+    private fun RBuilder.renderVariations(variant: FormControlVariant) {
+        textField("Email", variant = variant) {
+            attrs.type = InputType.email.realValue
+            attrs.autoComplete = "email"
             css(textField)
         }
-        mTextField(label = "Password", type = InputType.password, autoComplete = "current-password", variant = variant) {
+        textField("Password", variant = variant) {
+            attrs.type = InputType.password.realValue
+            attrs.autoComplete = "current-password"
             css(textField)
         }
-        mTextField(label = "Dense", margin = MFormControlMargin.dense, variant = variant) {
-            css {
-                +textField
-                marginTop = 16.px
-            }
+        textField("Dense", variant = variant) {
+            attrs.margin = FormControlMargin.dense
+            css(textField)
+            attrs.helperText = "Affects css margins"
+//            css {
+//                +textField
+//                marginTop = 16.px
+//            }
         }
-        mTextFieldMultiLine(label = "Multiline", maxRows = 4, value = state.multiLineValue, helperText = "Some helper text", variant = variant,
-            onChange = { val v = it.targetInputValue; setState { multiLineValue = v } }) {
+        textField("Multiline", state.multiLineValue, variant = variant) {
+            attrs.maxRows = 4
+            attrs.helperText = "Some helper text"
+            attrs.multiline = true
+            attrs.onChange = { val v = it.targetInputValue; setState { multiLineValue = v } }
             css(textField)
         }
-        mTextFieldMultiLine(label = "Multiline Fixed Rows", rows = 4, value = state.multiLineValue, variant = variant,
-            onChange = { event -> event.persist(); setState { multiLineValue = event.targetInputValue } }) {
+        textField("Multiline Fixed Rows", state.multiLineValue, variant = variant) {
+            attrs.rows = 4
+            attrs.onChange = { event -> event.persist(); setState { multiLineValue = event.targetInputValue } }
             css(textField)
         }
-        mTextField(label = "Helper Text", defaultValue = "Default Value", helperText = "Some helper text", variant = variant) {
+        textField("Helper Text", variant = variant, defaultValue = "Default Value", helperText = "Some helper text") {
             css(textField)
         }
-        mTextField(label = "With Placeholder", placeholder = "Placeholder Value", autoComplete = "current-password", variant = variant) {
+        textField("With Placeholder", variant = variant, placeholder = "Placeholder Value") {
+            attrs.autoComplete = "current-password"
             css(textField)
         }
-        mTextFieldMultiLine(label = "Multiline Placeholder", placeholder = "Placeholder Value", helperText = "With pre shrunk label", variant = variant) {
-            css(textField)
-//                attrs.inputLabelProps = object : Props { val shrink = true } IR Compiler didn't like this way of doing things
+        textField("Multiline Placeholder", variant = variant, placeholder = "Placeholder Value", helperText = "With pre shrunk label") {
+            attrs.multiline = true
             attrs.inputLabelProps = jsObject {
                 this.asDynamic().shrink = true
             }
+            css(textField)
+//                attrs.inputLabelProps = object : Props { val shrink = true } IR Compiler didn't like this way of doing things
         }
-        mTextField(label = "Number", type = InputType.number, value = state.age.toString(), variant = variant,
-            onChange = { val value = it.targetInputValue; setState { age = value.toIntOrNull() ?: 0 } }) {
+        textField("Number", state.age.toString(), variant = variant) {
+            attrs.type = InputType.number.realValue
+            attrs.onChange = { val value = it.targetInputValue; setState { age = value.toIntOrNull() ?: 0 } }
             css(textField)
         }
-        mTextField(label = "Search", type = InputType.search, variant = variant) {
+        textField("Search", variant = variant) {
+            attrs. type = InputType.search.realValue
             css(textField)
         }
-        mTextFieldSelect(label = "Select", value = selectValue, variant = variant,
-            onChange = { event: Event -> setState { selectValue = event.target.asDynamic().value } }) {
+        textField( "Select", value = selectValue, variant = variant) {
+            attrs.select = true
+            attrs.onChange = { event: Event -> setState { selectValue = event.target.asDynamic().value } }
             css {
                 +textField
                 width = 200.px
             }
-            mMenuItem {
-                +"Item 1"
+            menuItem("Item 1") {
                 attrs.key = "Item 1"
                 attrs.value = "Item 1"
             }
-            mMenuItem {
-                +"Item 2"
+            menuItem("Item 2") {
                 attrs.key = "Item 2"
                 attrs.value = "Item 2"
             }
-            mMenuItem {
-                +"Item 3"
+            menuItem("Item 3") {
                 attrs.key = "Item 3"
                 attrs.value = "Item 3"
             }
         }
 
-        mTextField(label = "Adornment", variant = variant) {
+        textField("Adornment", variant = variant) {
             css(textField)
-            val adornment = buildElement { mInputAdornment { +"Kg" } }
+            val adornment = buildElement { inputAdornment("Kg") }
             attrs.inputProps = jsObject { this.asDynamic().startAdornment = adornment }
         }
     }

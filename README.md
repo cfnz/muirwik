@@ -13,6 +13,36 @@ wrappers there.
 
 A couple of [screenshots](https://github.com/cfnz/muirwik/wiki) have been added to the wiki page.
 
+## Material UI (or MUI) Version 5 notes
+Version 5 of MUI has some breaking changes.
+
+Version 0.10 or MUIRWIK has lots of breaking changes.
+
+A brief summary is as follows:
+* The move to Material UI version 5 (or MUI 5 as it is called now) created some breaking changes.
+* Since there was already breaking changes, took the opportunity to tidy things up resulting in more breaking changes.
+* The "m" prefix convention on components has gone. For example mCard is now card
+* The "M" prefix on Props and Enums has also gone, so MButtonColor is now ButtonColor
+* Some components that were in sub-packages have been moved out to the main components package for consistency
+* The parameter Convention has changed. The old MUIRWIK had very large function param lists with lots of defaults.
+This made it a bit hard in the IDE to see what was going on. It also made more work when creating the wrappers.
+Version 0.5 has gone to a much more limited set of params, with only required props and those props which are almost
+always used. Other props are accessible by attrs.*
+* Props are more type safe. By using property delegates as well getter and setters it is possible to type
+the Props and have them converted to the proper types when set. The old version relied on the function
+parameters to do the conversion in the wrapping function. Now all Props should have the correct type.
+
+This will cause some pain if upgrading from the old version. Some depreciated functions remain to help ease the conversion.
+
+Some thought was put into should the component names be capitalized like they are in JSX and Compose, however 
+the decision was made to stick to lowercase letters for function names. This is more a Kotlin coding convention. In Compose,
+the composables are annotated and the IDE is then happy with the naming convention. In normal functions, the IDE
+(with default settings) complains about functions starting with an uppercase character. Another reason is all the 
+reference applications seen seems to use lowercase names for function components. All the RBuilder functions seem
+to start with lowercase characters. So we have gone for lowercase function names by convention.
+
+Muirwik tries to be a more typesafe Kotlin wrapper to MUI rather than a straight copy of the JSX components of MUI.
+
 ## IR-Compiler
 At time of writing using the IR-Compiler with the [Kotlin Wrappers](https://github.com/JetBrains/kotlin-wrappers), 
 particularly the  React Wrappers, has some [issues](https://kotlinlang.slack.com/archives/C0B8L3U69/p1585318146030900) 

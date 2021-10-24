@@ -1,7 +1,7 @@
 package com.ccfraser.muirwik.components.styles
 
-import com.ccfraser.muirwik.components.EnumPropToString
-import com.ccfraser.muirwik.components.EnumPropToStringNullable
+import com.ccfraser.muirwik.components.utils.EnumPropToString
+import com.ccfraser.muirwik.components.utils.EnumPropToStringNullable
 import react.Props
 
 /**

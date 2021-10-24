@@ -3,7 +3,10 @@ package com.ccfraser.muirwik.components.styles
 import kotlinext.js.Object
 import kotlinext.js.jsObject
 import org.w3c.dom.Element
-import react.*
+import react.ComponentType
+import react.Props
+import react.RBuilder
+import react.RHandler
 
 @JsModule("@mui/styles/StylesProvider")
 private external val stylesProviderModule: dynamic

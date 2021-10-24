@@ -1,25 +1,14 @@
 package com.ccfraser.muirwik.testapp
 
-import com.ccfraser.muirwik.components.button.mButton
-import com.ccfraser.muirwik.components.list.mList
-import com.ccfraser.muirwik.components.list.mListItem
-import com.ccfraser.muirwik.components.mPaper
-import com.ccfraser.muirwik.components.mTypography
-import com.ccfraser.muirwik.components.menu.*
-import com.ccfraser.muirwik.components.spacingUnits
-import com.ccfraser.muirwik.components.themeContext
-import com.ccfraser.muirwik.components.transitions.MTransitionProps
-import com.ccfraser.muirwik.components.transitions.SimpleTransitionDuration
-import com.ccfraser.muirwik.components.transitions.mFade
+import com.ccfraser.muirwik.components.*
+import com.ccfraser.muirwik.components.utils.spreadProps
 import kotlinext.js.js
 import kotlinext.js.jsObject
 import kotlinx.css.*
-import kotlinx.html.BUTTON
 import org.w3c.dom.Node
 import org.w3c.dom.events.Event
 import react.*
 import react.dom.div
-import react.dom.findDOMNode
 import styled.StyleSheet
 import styled.css
 import styled.styledDiv
@@ -59,98 +48,97 @@ class TestMenus : RComponent<Props, State>() {
 
     private val options = arrayOf("Show some love to Material-UI", "Show all notification content", "Hide sensitive notification content", "Hide all notification content")
     private val options2 = arrayOf("None", "Atria", "Callisto", "Dione", "Ganymede", "Hangouts Call", "Luna", "Oberon", "Phobos", "Pyxis", "Sedna", "Titania", "Triton", "Umbriel")
+    private val fadeTransitionComponent = forwardRef { props: Props, ref -> fade { attrs.ref = ref; spreadProps(props) } }
 
     override fun RBuilder.render() {
+        fun RBuilder.addStdSubItems() {
+            menuItem("Profile") { attrs.onClick = { handleSimpleClick() } }
+            menuItem("My account") { attrs.onClick = { handleSimpleClick() } }
+            menuItem("Logout") { attrs.onClick = { handleSimpleClick() } }
+        }
+
         styledDiv {
-            css { padding(2.spacingUnits)}
+            css { padding(2.spacingUnits) }
 
             styledDiv {
                 css { display = Display.inlineFlex }
 
-                mButton("Show Menu", onClick = { handleShowMenuClick(it, 1) })
+                button("Show Menu") { attrs.onClick = { handleShowMenuClick(it, 1) }}
                 div {
-                    mMenu(selectedMenuIndex == 1, anchorElement = anchorElement, onClose = { _, reason -> handleOnClose(reason) }) {
-                        mMenuItem("Profile", onClick = { handleSimpleClick() })
-                        mMenuItem("My account", onClick = { handleSimpleClick() })
-                        mMenuItem("Logout", onClick = { handleSimpleClick() })
+                    menu(selectedMenuIndex == 1) {
+                        attrs.anchorEl = anchorElement
+                        attrs.onClose = { _, reason -> handleOnClose(reason) }
+                        addStdSubItems()
                     }
                 }
 
-                mButton("Anchor with Ref", onClick = { setState { selectedMenuIndex = 2 } }) {
+                button("Anchor with Ref") {
+                    attrs.onClick = { setState { selectedMenuIndex = 2 } }
                     ref = refAnchorElement
                 }
                 div {
-                    mMenu(selectedMenuIndex == 2, anchorElement = refAnchorElement.current, onClose = { _, reason -> handleOnClose(reason) }) {
-                        mMenuItem("Profile", onClick = { handleSimpleClick() })
-                        mMenuItem("My account", onClick = { handleSimpleClick() })
-                        mMenuItem("Logout", onClick = { handleSimpleClick() })
+                    menu(selectedMenuIndex == 2) {
+                        attrs.anchorEl = refAnchorElement.current
+                        attrs.onClose = { _, reason -> handleOnClose(reason) }
+                        addStdSubItems()
                     }
                 }
 
-                mButton("Max Height Menu", onClick = { handleShowMenuClick(it, 3) })
+                button("Max Height Menu") { attrs.onClick = { handleShowMenuClick(it, 3) }}
                 styledDiv {
                     css { flexGrow = 1.0; padding(2.spacingUnits) }
 
-                    val menuListProps: MMenuListProps = jsObject { }
+                    val menuListProps: MenuListProps = jsObject { }
                     menuListProps.asDynamic().style = js {
                         maxHeight = 216
                     }
 
-                    mMenu(selectedMenuIndex == 3, anchorElement = anchorElement, onClose = { _, reason -> handleOnClose(reason) }, menuListProps = menuListProps) {
+                    menu(selectedMenuIndex == 3) {
+                        attrs.anchorEl = anchorElement
+                        attrs.onClose = { _, reason -> handleOnClose(reason) }
+                        attrs.menuListProps = menuListProps
+
                         options2.forEach {
-                            mMenuItem(primaryText = it, selected = it == "Pyxis", onClick = { handleSimpleClick() })
+                            menuItem(it, selected = it == "Pyxis") {
+                                attrs.onClick = { handleSimpleClick() }
+                            }
                         }
                     }
                 }
             }
             styledDiv {
                 css { display = Display.inlineFlex }
-                mList {
-                    mListItem(primaryText = "When device is locked", secondaryText = selectedOption, onClick = { handleShowMenuClick(it, 4) })
+                list {
+                    listItemButton("When device is locked", selectedOption) { attrs.onClick = { handleShowMenuClick(it, 4) } }
                 }
-                mMenu(selectedMenuIndex == 4, anchorElement = anchorElement, onClose = { _, reason -> handleOnClose(reason) }) {
+                menu(selectedMenuIndex == 4) {
+                    attrs.anchorEl = anchorElement
+                    attrs.onClose = { _, reason -> handleOnClose(reason) }
                     options.forEach { item ->
-                        mMenuItem(item, selected = item == selectedOption, onClick = { handleMenuItemClick(item) })
+                        menuItem(item, selected = item == selectedOption) { attrs.onClick = { handleMenuItemClick(item) }}
                     }
                 }
             }
             styledDiv {
                 css { display = Display.inlineFlex }
 
-                // For some reason this is a bit different to providing the snackbar a transition... this works for menu, not for snackbar
-                class FadeTransition(props: MTransitionProps) : RComponent<MTransitionProps, State>(props) {
-                    override fun RBuilder.render() {
-                        childList.add(cloneElement(buildElement { mFade() }, props))
+                button("With Slow Transition") { attrs.onClick = { handleShowMenuClick(it, 5) }}
+                div {
+                    menu(selectedMenuIndex == 5) {
+                        attrs.anchorEl = anchorElement
+                        attrs.onClose = { _, reason -> handleOnClose(reason) }
+                        attrs.transitionDuration = SimpleTransitionDuration(1000)
+                        addStdSubItems()
                     }
                 }
 
-                mButton("With Slow Transition", onClick = { handleShowMenuClick(it, 5) })
+                button("With Fade Transition") { attrs.onClick = { handleShowMenuClick(it, 6) }}
                 div {
-                    mMenu(selectedMenuIndex == 5, anchorElement = anchorElement, onClose = { _, reason -> handleOnClose(reason) },
-                            transitionDuration = SimpleTransitionDuration(1000)) {
-                        mMenuItem("Profile", onClick = { handleSimpleClick() })
-                        mMenuItem("My account", onClick = { handleSimpleClick() })
-                        mMenuItem("Logout", onClick = { handleSimpleClick() })
-                    }
-                }
-
-                mButton("With Fade Transition", onClick = { handleShowMenuClick(it, 6) })
-                div {
-                    mMenu(selectedMenuIndex == 6, anchorElement = anchorElement, onClose = { _, reason -> handleOnClose(reason) },
-                            transitionComponent = FadeTransition::class,
-                            transitionDuration = SimpleTransitionDuration(1000)) {
-                        mMenuItem("Profile", onClick = { handleSimpleClick() })
-                        mMenuItem("My account", onClick = { handleSimpleClick() })
-                        mMenuItem("Logout", onClick = { handleSimpleClick() })
-                    }
-                }
-
-                mButton("Secondary Text?", onClick = { handleShowMenuClick(it, 7) })
-                div {
-                    mMenu(selectedMenuIndex == 7, anchorElement = anchorElement, onClose = { _, reason -> handleOnClose(reason) }) {
-                        mMenuItem("Profile", secondaryText = "Perhaps some explanation", onClick = { handleSimpleClick() })
-                        mMenuItem("My account", secondaryText = "Don't know if this is needed", onClick = { handleSimpleClick() })
-                        mMenuItem("Logout", onClick = { handleSimpleClick() })
+                    menu(selectedMenuIndex == 6) {
+                        attrs.anchorEl = anchorElement
+                        attrs.onClose = { _, reason -> handleOnClose(reason) }
+                        attrs.transitionComponent = fadeTransitionComponent
+                        addStdSubItems()
                     }
                 }
             }
@@ -174,16 +162,16 @@ class TestMenus : RComponent<Props, State>() {
                     css {
                         +themeStyles.menuItem
                     }
-                    mTypography("Composition Example")
-                    mPaper {
-                        //                    mMenuList {
-                        mMenuItemWithIcon("send", "Sent mail") {
+                    typography("Composition Example")
+                    paper {
+                        //                    menuList {
+                        menuItemWithIcon("send", "Sent mail") {
                             css(themeStyles.menuItem)
                         }
-                        mMenuItemWithIcon("drafts", "Drafts") {
+                        menuItemWithIcon("drafts", "Drafts") {
                             css(themeStyles.menuItem)
                         }
-                        mMenuItemWithIcon("inbox", "Inbox") {
+                        menuItemWithIcon("inbox", "Inbox") {
                             css(themeStyles.menuItem)
                         }
                     }

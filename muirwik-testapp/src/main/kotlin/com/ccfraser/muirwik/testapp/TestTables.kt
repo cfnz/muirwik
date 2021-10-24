@@ -1,11 +1,9 @@
 package com.ccfraser.muirwik.testapp
 
 import com.ccfraser.muirwik.components.*
-import com.ccfraser.muirwik.components.button.mIconButton
 import com.ccfraser.muirwik.components.styles.PaletteMode
 import com.ccfraser.muirwik.components.styles.lighten
 import com.ccfraser.muirwik.components.styles.mode
-import com.ccfraser.muirwik.components.table.*
 import kotlinx.css.*
 import react.*
 import react.dom.br
@@ -18,75 +16,75 @@ import kotlin.math.min
 class TestTables : RComponent<Props, State>() {
     private data class Dessert(val id: Int, val dessertName: String, val calories: Int, val fat: Double, val carbs: Int, val protein: Double)
     private val androidDeserts = mutableListOf(
-            Dessert(1, "Cupcake", 305, 3.7, 67, 4.3),
-            Dessert(2, "Donut", 452, 25.0, 51, 4.9),
-            Dessert(3, "Eclair", 262, 16.0, 24, 6.0),
-            Dessert(4, "Frozen yoghurt", 159, 6.0, 24, 4.0),
-            Dessert(5, "Gingerbread", 356, 16.0, 49, 3.9),
-            Dessert(6, "Honeycomb", 408, 3.2, 87, 6.5),
-            Dessert(7, "Ice cream sandwich", 237, 9.0, 37, 4.3),
-            Dessert(8, "Jelly bean", 375, 0.0, 94, 0.0),
-            Dessert(9, "KitKat", 518, 26.0, 65, 7.0),
-            Dessert(10, "Lollipop", 392, 0.2, 98, 0.0),
-            Dessert(11, "Marshmallow", 318, 0.0, 81, 2.0),
-            Dessert(12, "Nougat", 360, 19.0, 9, 37.0),
-            Dessert(13, "Oreo", 437, 18.0, 63, 4.0)
+        Dessert(1, "Cupcake", 305, 3.7, 67, 4.3),
+        Dessert(2, "Donut", 452, 25.0, 51, 4.9),
+        Dessert(3, "Eclair", 262, 16.0, 24, 6.0),
+        Dessert(4, "Frozen yoghurt", 159, 6.0, 24, 4.0),
+        Dessert(5, "Gingerbread", 356, 16.0, 49, 3.9),
+        Dessert(6, "Honeycomb", 408, 3.2, 87, 6.5),
+        Dessert(7, "Ice cream sandwich", 237, 9.0, 37, 4.3),
+        Dessert(8, "Jelly bean", 375, 0.0, 94, 0.0),
+        Dessert(9, "KitKat", 518, 26.0, 65, 7.0),
+        Dessert(10, "Lollipop", 392, 0.2, 98, 0.0),
+        Dessert(11, "Marshmallow", 318, 0.0, 81, 2.0),
+        Dessert(12, "Nougat", 360, 19.0, 9, 37.0),
+        Dessert(13, "Oreo", 437, 18.0, 63, 4.0)
     )
 
     // Column Data used for the sort and select example
     private enum class ColumnId { Name, Calories, Fat, Carbs, Protein }
     private data class ColumnData(val name: ColumnId, val rightAligned: Boolean, val disablePadding: Boolean, val label: String)
     private val columnData = listOf(
-            ColumnData(ColumnId.Name, false, true, "Dessert (100g serving)"),
-            ColumnData(ColumnId.Calories, true, false, "Calories"),
-            ColumnData(ColumnId.Fat, true, false, "Fat (g)"),
-            ColumnData(ColumnId.Carbs, true, false, "Carbs (g)"),
-            ColumnData(ColumnId.Protein, true, false, "Protein (g)")
+        ColumnData(ColumnId.Name, false, true, "Dessert (100g serving)"),
+        ColumnData(ColumnId.Calories, true, false, "Calories"),
+        ColumnData(ColumnId.Fat, true, false, "Fat (g)"),
+        ColumnData(ColumnId.Carbs, true, false, "Carbs (g)"),
+        ColumnData(ColumnId.Protein, true, false, "Protein (g)")
     )
 
     // State for sort and select example
     private val selectedIds = mutableSetOf<Int>()
-    private var order = MTableCellSortDirection.asc
+    private var order = TableCellSortDirection.asc
     private var orderByColumn: ColumnId = ColumnId.Name
     private var page = 0
     private var rowsPerPage = 5
 
 
     override fun RBuilder.render() {
-        mTypography("Simple Table")
+        typography("Simple Table")
         simpleTable()
         br {  }
         br {  }
-        mTypography("Sorting and Selecting")
+        typography("Sorting and Selecting")
         sortingAndSelectingTable()
     }
 
     private fun RBuilder.simpleTable() {
-        mPaper {
+        paper {
             css {
                 width = 100.pct
                 marginTop = 3.spacingUnits
                 overflowX = Overflow.auto
             }
-            mTable() {
+            table {
                 css { minWidth = 700.px }
-                mTableHead {
-                    mTableRow {
-                        mTableCell { +"Dessert (100g serving)" }
-                        mTableCell(align = MTableCellAlign.right) { +"Calories" }
-                        mTableCell(align = MTableCellAlign.right) { +"Fat (g)" }
-                        mTableCell(align = MTableCellAlign.right) { +"Carbs (g)" }
-                        mTableCell(align = MTableCellAlign.right) { +"Protein (g)" }
+                tableHead {
+                    tableRow {
+                        tableCell("Dessert (100g serving)")
+                        tableCell("Calories") { attrs.align = TableCellAlign.right }
+                        tableCell("Fat (g)") { attrs.align = TableCellAlign.right }
+                        tableCell("Carbs (g)") { attrs.align = TableCellAlign.right }
+                        tableCell("Protein (g)") { attrs.align = TableCellAlign.right }
                     }
                 }
-                mTableBody {
+                tableBody {
                     androidDeserts.subList(0, 4).forEach {
-                        mTableRow(key = it.id) {
-                            mTableCell { +it.dessertName }
-                            mTableCell(align = MTableCellAlign.right) { +it.calories.toString() }
-                            mTableCell(align = MTableCellAlign.right) { +it.fat.toString() }
-                            mTableCell(align = MTableCellAlign.right) { +it.carbs.toString() }
-                            mTableCell(align = MTableCellAlign.right) { +it.protein.toString() }
+                        tableRow(key = it.id) {
+                            tableCell(it.dessertName)
+                            tableCell(it.calories.toString()) { attrs.align = TableCellAlign.right }
+                            tableCell(it.fat.toString()) { attrs.align = TableCellAlign.right }
+                            tableCell(it.carbs.toString()) { attrs.align = TableCellAlign.right }
+                            tableCell(it.protein.toString()) { attrs.align = TableCellAlign.right }
                         }
                     }
                 }
@@ -104,7 +102,7 @@ class TestTables : RComponent<Props, State>() {
         }
     }
 
-    private fun handleClick(id: Int): Unit {
+    private fun handleClick(id: Int) {
         setState {
             if (selectedIds.contains(id)) {
                 selectedIds.remove(id)
@@ -114,12 +112,12 @@ class TestTables : RComponent<Props, State>() {
         }
     }
 
-    private fun handleRequestSort(id: ColumnId): Unit {
+    private fun handleRequestSort(id: ColumnId) {
         setState {
-            if (orderByColumn == id) {
-                order = if (order == MTableCellSortDirection.asc) MTableCellSortDirection.desc else MTableCellSortDirection.asc
+            order = if (orderByColumn == id) {
+                if (order == TableCellSortDirection.asc) TableCellSortDirection.desc else TableCellSortDirection.asc
             } else {
-                order = MTableCellSortDirection.asc
+                TableCellSortDirection.asc
             }
 
             orderByColumn = id
@@ -132,90 +130,102 @@ class TestTables : RComponent<Props, State>() {
                 ColumnId.Protein -> a.protein.compareTo(b.protein)
             }
 
-            if (order == MTableCellSortDirection.asc) {
-                androidDeserts.sortWith( Comparator { a, b -> compareDesserts(a, b) })
+            if (order == TableCellSortDirection.asc) {
+                androidDeserts.sortWith { a, b -> compareDesserts(a, b) }
             } else {
-                androidDeserts.sortWith( Comparator { a, b -> compareDesserts(b, a) })
+                androidDeserts.sortWith { a, b -> compareDesserts(b, a) }
             }
         }
     }
 
     private fun RBuilder.sortingAndSelectingTable() {
-        mPaper {
+        paper {
             css {
                 width = 100.pct
                 marginTop = 3.spacingUnits
             }
             enhancedTableToolbar(selectedIds.size)
             styledDiv { css { overflowX = Overflow.auto }
-                mTable {
+                table {
                     css { minWidth = 700.px }
-                    enhancedTableHead(selectedIds.size, order, orderByColumn, androidDeserts.size,
-                            ::handleSelectAllClick, ::handleRequestSort)
-                    mTableBody {
+                    enhancedTableHead(selectedIds.size, order, orderByColumn, androidDeserts.size, ::handleSelectAllClick, ::handleRequestSort)
+                    tableBody {
                         androidDeserts.subList(page * rowsPerPage, min((page + 1) * rowsPerPage, androidDeserts.size)).forEach {
                             val isSelected = selectedIds.contains(it.id)
-                            mTableRow(it.id, isSelected, true, onClick = { _ -> handleClick(it.id) }) {
+                            tableRow(it.id, isSelected) {
+                                attrs.onClick = { _ -> handleClick(it.id) }
 //                                attrs.asDynamic().tabIndex = -1
 //                                attrs.asDynamic().role = "checkbox"
 
-                                mTableCell(padding = MTableCellPadding.checkbox) {
-                                    mCheckbox(isSelected)
+                                tableCell  {
+                                    attrs.padding = TableCellPadding.checkbox
+                                    checkbox(isSelected)
                                 }
-                                mTableCell(align = MTableCellAlign.left, padding = MTableCellPadding.none) { +it.dessertName }
-                                mTableCell(align = MTableCellAlign.right) { +it.calories.toString() }
-                                mTableCell(align = MTableCellAlign.right) { +it.fat.toString() }
-                                mTableCell(align = MTableCellAlign.right) { +it.carbs.toString() }
-                                mTableCell(align = MTableCellAlign.right) { +it.protein.toString() }
+                                tableCell(it.dessertName) {
+                                    attrs.align = TableCellAlign.left
+                                    attrs.padding = TableCellPadding.none
+                                }
+                                tableCell(it.calories.toString()) { attrs.align = TableCellAlign.right }
+                                tableCell(it.fat.toString()) { attrs.align = TableCellAlign.right }
+                                tableCell(it.carbs.toString()) { attrs.align = TableCellAlign.right }
+                                tableCell(it.protein.toString()) { attrs.align = TableCellAlign.right }
                             }
                         }
                         val emptyRows = rowsPerPage - min(rowsPerPage, androidDeserts.size - page * rowsPerPage)
                         if (emptyRows > 0) {
-                            mTableRow {
-                                css { height = (49 * emptyRows).px }
-                                mTableCell(colSpan = 6)
+                            tableRow {
+                                css { height = (53 * emptyRows).px }
+                                tableCell { attrs.colSpan = 6 }
                             }
                         }
                     }
                 }
             }
-            mTablePagination(
-                count = androidDeserts.size,
-                rowsPerPage = rowsPerPage,
-                rowsPerPageOptions = arrayOf(5, 10, 25),
-                page = page,
-                onChangePage = { _, newPage -> setState { page = newPage }},
-                onChangeRowsPerPage = { setState {
-                    rowsPerPage = it.target.asDynamic().value
-                    page = 0
-                }}
-            )
+            tablePagination(page, androidDeserts.size, rowsPerPage, { _, newPage -> setState { page = newPage } }) {
+                attrs.component = "div"
+                attrs.rowsPerPageOptions = arrayOf(5, 10, 25)
+                attrs.onRowsPerPageChange = {
+                    setState {
+                        rowsPerPage = it.target.asDynamic().value
+                        page = 0
+                    }
+                }
+            }
         }
     }
 
-    private fun RBuilder.enhancedTableHead(numSelected: Int,
-                                   order: MTableCellSortDirection,
-                                   orderByColumn: ColumnId,
-                                   rowCount: Int,
-                                   onSelectAllClick: (checked: Boolean) -> Unit,
-                                   onRequestSort: (id: ColumnId) -> Unit) {
-        mTableHead {
-            mTableRow {
-                mTableCell(padding = MTableCellPadding.checkbox) {
-                    mCheckbox(indeterminate = numSelected > 0 && numSelected < rowCount,
-                            checked = numSelected == rowCount,
-                            onChange = {_, checked -> onSelectAllClick(checked) })
+    private fun RBuilder.enhancedTableHead(
+        numSelected: Int,
+        order: TableCellSortDirection,
+        orderByColumn: ColumnId,
+        rowCount: Int,
+        onSelectAllClick: (checked: Boolean) -> Unit,
+        onRequestSort: (id: ColumnId) -> Unit
+    ) {
+        tableHead {
+            tableRow {
+                tableCell {
+                    attrs.padding = TableCellPadding.checkbox
+                    checkbox(numSelected == rowCount) {
+                        attrs.indeterminate = numSelected > 0 && numSelected < rowCount
+                        attrs.onChange = {_, checked -> onSelectAllClick(checked) }
+                    }
                 }
                 columnData.forEach { data ->
-                    mTableCell(data.name, 
-                            align = if (data.rightAligned) MTableCellAlign.right else MTableCellAlign.left,
-                            padding = if (data.disablePadding) MTableCellPadding.none else MTableCellPadding.default,
-                            sortDirection = if (orderByColumn == data.name) order else MTableCellSortDirection.False) {
-                        mTooltip("Sort", if (data.rightAligned) TooltipPlacement.bottomEnd else TooltipPlacement.bottomStart, enterDelay = 300) {
-                            mTableSortLabel(data.label, orderByColumn == data.name,
-//                                    iconFunction = { mIcon("star", addAsChild = false) },
-                                    direction = if (order == MTableCellSortDirection.asc) MTableSortLabelDirection.asc else MTableSortLabelDirection.desc,
-                                    onClick = { onRequestSort(data.name) }) 
+                    tableCell(key = data.name) {
+                        attrs.align = if (data.rightAligned) TableCellAlign.right else TableCellAlign.left
+                        attrs.padding = if (data.disablePadding) TableCellPadding.none else TableCellPadding.normal
+                        attrs.sortDirection = if (orderByColumn == data.name) order else TableCellSortDirection.False
+
+                        tooltip("Sort", if (data.rightAligned) TooltipPlacement.bottomEnd else TooltipPlacement.bottomStart) {
+                            attrs.enterDelay = 300
+                            tableSortLabel(
+                                data.label,
+                                orderByColumn == data.name,
+                                if (order == TableCellSortDirection.asc) TableSortLabelDirection.asc else TableSortLabelDirection.desc
+                            ) {
+                                attrs.onClick = { onRequestSort(data.name) }
+                            }
                         }
                     }
                 }
@@ -243,26 +253,26 @@ class TestTables : RComponent<Props, State>() {
                 }
             }
 
-            mToolbar {
+            toolbar {
                 if (numSelected > 0) css(styles.highlight)
                 styledDiv {
                     css { flex(0.0, 0.0, FlexBasis.auto) }
                     if (numSelected > 0) {
-                        mTypography("$numSelected selected", variant = MTypographyVariant.subtitle1)
+                        typography("$numSelected selected", variant = TypographyVariant.subtitle1)
                     } else {
-                        mTypography("Nutrition", variant = MTypographyVariant.h6)
+                        typography("Nutrition", variant = TypographyVariant.h6)
                     }
                 }
                 styledDiv { css(styles.spacer) }
                 styledDiv {
                     css(styles.actions)
                     if (numSelected > 0) {
-                        mTooltip("Delete") {
-                            mIconButton("delete")
+                        tooltip("Delete") {
+                            iconButton("delete")
                         }
                     } else {
-                        mTooltip("Filter list") {
-                            mIconButton("filter_list")
+                        tooltip("Filter list") {
+                            iconButton("filter_list")
                         }
                     }
                 }

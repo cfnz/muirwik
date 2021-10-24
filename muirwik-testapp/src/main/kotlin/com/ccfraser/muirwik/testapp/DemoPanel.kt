@@ -2,17 +2,19 @@ package com.ccfraser.muirwik.testapp
 
 import com.ccfraser.muirwik.components.*
 import kotlinx.css.*
-import react.*
-import styled.*
+import react.PropsWithClassName
+import react.RBuilder
+import styled.StyledHandler
+import styled.css
 
 public fun RBuilder.demoPanel(heading: String, handler: StyledHandler<out PropsWithClassName>) {
-    mTypography(heading) {
+    typography(heading) {
         css {
             paddingTop = 2.spacingUnits
         }
     }
 
-    mPaper(variant = MPaperVariant.outlined) {
+    paper(variant = PaperVariant.outlined) {
         css {
             padding(2.spacingUnits)
         }
@@ -22,7 +24,7 @@ public fun RBuilder.demoPanel(heading: String, handler: StyledHandler<out PropsW
 
 // The gist is we put demoPanels into the demoContainer
 public fun RBuilder.demoContainer(handler: StyledHandler<out PropsWithClassName>) {
-    mBox {
+    box {
         css {
             display = Display.flex
             flexDirection = FlexDirection.column

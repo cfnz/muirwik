@@ -1,8 +1,9 @@
 package com.ccfraser.muirwik.testapp
 
-import com.ccfraser.muirwik.components.button.mButton
+import com.ccfraser.muirwik.components.button
 import com.ccfraser.muirwik.components.mTypography
 import com.ccfraser.muirwik.components.spacingUnits
+import com.ccfraser.muirwik.components.typography
 import com.ccfraser.muirwik.testapp.TestStyles.ComponentStyles.aStyle
 import com.ccfraser.muirwik.testapp.TestStyles.ComponentStyles.divPadding
 import kotlinext.js.js
@@ -51,9 +52,9 @@ class TestStyles : RComponent<Props, State>() {
         styledDiv {
             css(divPadding)
 
-            mButton(caption = "Normal Button")
+            button("Normal Button")
 
-            mButton(caption = "Styled with inline CSS Builder") {
+            button("Styled with inline CSS Builder") {
                 css {
                     color = Color.white
                     background = Color.silver.toString()
@@ -64,11 +65,11 @@ class TestStyles : RComponent<Props, State>() {
         styledDiv {
             css(divPadding)
 
-            mButton("Styled With CSS Builder") {
+            button("Styled With CSS Builder") {
                 css(aStyle)
             }
 
-            mButton("Styled with CSS Builder + mods... should be black text") {
+            button("Styled with CSS Builder + mods... should be black text") {
                 // Sometimes this does not get applied as Black... a refresh of the page fixes, but not sure exactly what is going on.
                 css {
                     +aStyle
@@ -80,10 +81,10 @@ class TestStyles : RComponent<Props, State>() {
         styledDiv {
             css(divPadding)
 
-            mTypography("The following uses js Style methods. You would not style mButton this way since it is " +
+            typography("The following uses js Style methods. You would not style mButton this way since it is " +
                     "a styled component (i.e. uses CSSBulder), but sometimes you have to style a component that is not " +
                     "using CssBuilder... for example, when you have to pass the css as a prop. The following is some ways to do it.")
-            mButton("Styled asDynamic js Style") {
+            button("Styled asDynamic js Style") {
                 attrs.asDynamic().style = js {
                     background = "linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)"
                     borderRadius = 3
@@ -95,19 +96,19 @@ class TestStyles : RComponent<Props, State>() {
                 }
             }
 
-            mButton("Styled with asDynamic var") {
+            button("Styled with asDynamic var") {
                 attrs.asDynamic().style = styleByJs
             }
 
             // If you need to pass a style to some object (usually as a prop), you can also use a typesafe CssBuilder
             // and then convert it to a js style object.
             val myStyle = CssBuilder().apply { borderRadius = 6.px; background = Color.silver.toString() }.toStyle()
-            mButton("Styled with CssBuilder converted to js") {
+            button("Styled with CssBuilder converted to js") {
                 attrs.asDynamic().style = myStyle
             }
 
             // Sometimes you need the class name of the CSS Builder...
-            mButton("Sometimes you need to use class name") {
+            button("Sometimes you need to use class name") {
                 attrs.className = "${ComponentStyles.name}-${::aStyle.name}"
             }
         }
