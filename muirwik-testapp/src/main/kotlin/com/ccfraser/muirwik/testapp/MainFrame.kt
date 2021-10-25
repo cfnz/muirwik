@@ -213,6 +213,7 @@ enum class Page(val title: String, val kClass: KClass<out RComponent<Props, out 
     Tabs("Tabs", TestTabs::class),
     TextFields("Text Fields", TestTextFields::class),
     Themes("Themes", TestThemes::class),
+    ToggleButton("Toggle Button", null, testToggleButton),
     Tooltips("Tooltips", TestTooltips::class),
     Transitions("Transitions", TestTransitions::class),
     TreeView("Treeview", null, testTreeView),

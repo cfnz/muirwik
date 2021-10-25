@@ -43,8 +43,6 @@ private object TestTreeViewStyles : StyleSheet("TestTreeViewStyles", isStatic = 
 val testTreeView = fc<Props> {
   labNoteComponent()
 
-
-
   titledDiv("Basic tree view") {
     mTreeView(
         defaultCollapseIcon = buildElement { mIcon("expand_more") },
