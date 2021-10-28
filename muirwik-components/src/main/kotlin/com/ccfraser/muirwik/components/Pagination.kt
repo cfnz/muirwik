@@ -1,47 +1,47 @@
-package com.ccfraser.muirwik.components.lab.pagination
+package com.ccfraser.muirwik.components
 
-import com.ccfraser.muirwik.components.EnumPropToString
-import com.ccfraser.muirwik.components.StyledPropsWithCommonAttributes
-import com.ccfraser.muirwik.components.createStyled
+import com.ccfraser.muirwik.components.utils.EnumPropToString
+import com.ccfraser.muirwik.components.utils.createStyled
 import org.w3c.dom.events.Event
 import react.ComponentType
 import react.RBuilder
 import react.ReactNode
 import styled.StyledHandler
+import styled.StyledProps
 
-@JsModule("@material-ui/lab/Pagination")
+@JsModule("@mui/material/Pagination")
 private external val paginationModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")
-private val paginationComponentType: ComponentType<MPaginationProps> = paginationModule.default
+private val paginationComponentType: ComponentType<PaginationProps> = paginationModule.default
 
 @Suppress("EnumEntryName")
-enum class MPaginationColor {
+enum class PaginationColor {
   standard,
   primary,
   secondary
 }
 
 @Suppress("EnumEntryName")
-enum class MPaginationSize {
+enum class PaginationSize {
   large,
   medium,
   small
 }
 
 @Suppress("EnumEntryName")
-enum class MPaginationVariant {
+enum class PaginationVariant {
   text,
   outlined
 }
 
 @Suppress("EnumEntryName")
-enum class MPaginationShape {
+enum class PaginationShape {
   round,
   rounded
 }
 
-external interface MPaginationProps : StyledPropsWithCommonAttributes {
+external interface PaginationProps : StyledProps {
   var boundaryCount: Number
   var count: Number
   var defaultPage: Number
@@ -58,12 +58,12 @@ external interface MPaginationProps : StyledPropsWithCommonAttributes {
 
 }
 
-var MPaginationProps.color by EnumPropToString(MPaginationColor.values())
-var MPaginationProps.shape by EnumPropToString(MPaginationShape.values())
-var MPaginationProps.size by EnumPropToString(MPaginationSize.values())
-var MPaginationProps.variant by EnumPropToString(MPaginationVariant.values())
+var PaginationProps.color by EnumPropToString(PaginationColor.values())
+var PaginationProps.shape by EnumPropToString(PaginationShape.values())
+var PaginationProps.size by EnumPropToString(PaginationSize.values())
+var PaginationProps.variant by EnumPropToString(PaginationVariant.values())
 
-fun RBuilder.mPagination(
+fun RBuilder.pagination(
     boundaryCount: Number = 1,
     count: Number = 1,
     defaultPage: Number = 1,
@@ -78,13 +78,13 @@ fun RBuilder.mPagination(
     showLastButton: Boolean = false,
     siblingCount: Number = 1,
 
-    color: MPaginationColor = MPaginationColor.standard,
-    shape: MPaginationShape = MPaginationShape.round,
-    size: MPaginationSize = MPaginationSize.medium,
-    variant: MPaginationVariant = MPaginationVariant.text,
+    color: PaginationColor = PaginationColor.standard,
+    shape: PaginationShape = PaginationShape.round,
+    size: PaginationSize = PaginationSize.medium,
+    variant: PaginationVariant = PaginationVariant.text,
 
     className: String? = null,
-    handler: StyledHandler<MPaginationProps>? = null
+    handler: StyledHandler<PaginationProps>? = null
 ) {
   createStyled(paginationComponentType, className, handler) {
     attrs.boundaryCount = boundaryCount
