@@ -188,6 +188,7 @@ fun RBuilder.spacer() {
     }
 }
 
+
 enum class Page(val title: String, val kClass: KClass<out RComponent<Props, out State>>?, val fc: FC<Props>? = null){
     Intro("Intro", TestIntro::class),
     Accordion("Accordion", TestAccordion::class),
@@ -214,6 +215,7 @@ enum class Page(val title: String, val kClass: KClass<out RComponent<Props, out 
     Lists("Lists", TestLists::class),
     Localization("Localization", TestLocalization::class),
     Menus("Menus", TestMenus::class),
+    Pagination("Pagination", null, testPagination),
     Popover("Popover", TestPopover::class),
     Progress("Progress", TestProgress::class),
     RadioButtons("Radio Buttons", TestRadioButtons::class),
@@ -231,9 +233,10 @@ enum class Page(val title: String, val kClass: KClass<out RComponent<Props, out 
     Themes("Themes", TestThemes::class),
     ToggleButtons("Toggle Buttons", TestToggleButtons::class),
     Tooltips("Tooltips", TestTooltips::class),
-    Transitions("Transitions", TestTransitions::class);
+    Transitions("Transitions", TestTransitions::class),
+    TreeView("Treeview", null, testTreeView),
+    ;
 }
-
 
 fun RBuilder.mainFrame(initialView: Page, onThemeSwitch: () -> Unit) {
     child(MainFrame::class) {
