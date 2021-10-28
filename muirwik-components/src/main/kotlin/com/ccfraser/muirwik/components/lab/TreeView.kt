@@ -1,20 +1,20 @@
 package com.ccfraser.muirwik.components.lab
 
-import com.ccfraser.muirwik.components.StyledPropsWithCommonAttributes
-import com.ccfraser.muirwik.components.createStyled
+import com.ccfraser.muirwik.components.utils.createStyled
 import kotlinext.js.Object
 import react.ComponentType
 import react.RBuilder
 import react.ReactElement
 import styled.StyledHandler
+import styled.StyledProps
 
-@JsModule("@material-ui/lab/TreeView")
+@JsModule("@mui/lab/TreeView")
 private external val treeViewModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")
-private val treeViewComponentType: ComponentType<MTreeViewProps> = treeViewModule.default
+private val treeViewComponentType: ComponentType<TreeViewProps> = treeViewModule.default
 
-external interface MTreeViewProps : StyledPropsWithCommonAttributes {
+external interface TreeViewProps : StyledProps {
   var defaultCollapseIcon: ReactElement
   var defaultEndIcon: ReactElement
   var defaultExpanded: Array<String>
@@ -29,7 +29,7 @@ external interface MTreeViewProps : StyledPropsWithCommonAttributes {
   var selected: dynamic /*Array<String> | String*/
 }
 
-fun RBuilder.mTreeView(
+fun RBuilder.treeView(
     defaultCollapseIcon: ReactElement? = null,
     defaultEndIcon: ReactElement? = null,
     defaultExpanded: Array<String> = emptyArray(),
@@ -43,7 +43,7 @@ fun RBuilder.mTreeView(
     onNodeToggle: ((event: Object, nodeIds: Array<String>) -> Unit)? = null,
     selected: Any? /*Array<String> | String*/ = null                                            ,
     className: String? = null,
-    handler: StyledHandler<MTreeViewProps>? = null
+    handler: StyledHandler<TreeViewProps>? = null
 ) {
   createStyled(treeViewComponentType, className, handler) {
     defaultCollapseIcon?.let { attrs.defaultCollapseIcon = it }

@@ -1,12 +1,12 @@
 package com.ccfraser.muirwik.testapp
 
-import com.ccfraser.muirwik.components.MTypographyVariant
-import com.ccfraser.muirwik.components.lab.MTreeViewProps
-import com.ccfraser.muirwik.components.lab.mTreeItem
-import com.ccfraser.muirwik.components.lab.mTreeView
-import com.ccfraser.muirwik.components.mIcon
-import com.ccfraser.muirwik.components.mTypography
+import com.ccfraser.muirwik.components.TypographyVariant
+import com.ccfraser.muirwik.components.lab.TreeViewProps
+import com.ccfraser.muirwik.components.lab.treeItem
+import com.ccfraser.muirwik.components.lab.treeView
+import com.ccfraser.muirwik.components.icon
 import com.ccfraser.muirwik.components.spacingUnits
+import com.ccfraser.muirwik.components.typography
 import kotlinext.js.Object
 import kotlinx.css.flexGrow
 import kotlinx.css.height
@@ -42,13 +42,11 @@ private object TestTreeViewStyles : StyleSheet("TestTreeViewStyles", isStatic = 
 
 val testTreeView = fc<Props> {
   labNoteComponent()
-
-
-
+  
   titledDiv("Basic tree view") {
-    mTreeView(
-        defaultCollapseIcon = buildElement { mIcon("expand_more") },
-        defaultExpandIcon = buildElement { mIcon("chevron_right") },
+    treeView(
+        defaultCollapseIcon = buildElement { icon("expand_more") },
+        defaultExpandIcon = buildElement { icon("chevron_right") },
     ) {
       css(TestTreeViewStyles.root1)
       treeStructure()
@@ -56,9 +54,9 @@ val testTreeView = fc<Props> {
   }
 
   titledDiv("Multi Selection") {
-    mTreeView(
-        defaultCollapseIcon = buildElement { mIcon("expand_more") },
-        defaultExpandIcon = buildElement { mIcon("chevron_right") },
+    treeView(
+        defaultCollapseIcon = buildElement { icon("expand_more") },
+        defaultExpandIcon = buildElement { icon("chevron_right") },
         multiSelect = true
     ) {
       css(TestTreeViewStyles.root1)
@@ -78,9 +76,9 @@ val testTreeView = fc<Props> {
       setSelected(nodeIds)
     }
 
-    mTreeView(
-        defaultCollapseIcon = buildElement { mIcon("expand_more") },
-        defaultExpandIcon = buildElement { mIcon("chevron_right") },
+    treeView(
+        defaultCollapseIcon = buildElement { icon("expand_more") },
+        defaultExpandIcon = buildElement { icon("chevron_right") },
         expanded = expanded,
         selected = selected,
         onNodeToggle = handleToggle,
@@ -92,18 +90,18 @@ val testTreeView = fc<Props> {
   }
 }
 
-private fun StyledElementBuilder<MTreeViewProps>.treeStructure() {
-  mTreeItem(nodeId = "1", label = ReactNode("Applications")) {
-    mTreeItem(nodeId = "2", label = ReactNode("Calender"))
-    mTreeItem(nodeId = "3", label = ReactNode("Chrome"))
-    mTreeItem(nodeId = "4", label = ReactNode("Webstorm"))
+private fun StyledElementBuilder<TreeViewProps>.treeStructure() {
+  treeItem(nodeId = "1", label = ReactNode("Applications")) {
+    treeItem(nodeId = "2", label = ReactNode("Calender"))
+    treeItem(nodeId = "3", label = ReactNode("Chrome"))
+    treeItem(nodeId = "4", label = ReactNode("Webstorm"))
   }
-  mTreeItem(nodeId = "5", label = ReactNode("Documents")) {
-    mTreeItem(nodeId = "10", label = ReactNode("OSS"))
-    mTreeItem(nodeId = "6", label = ReactNode("Material-UI")) {
-      mTreeItem(nodeId = "7", label = ReactNode("src")) {
-        mTreeItem(nodeId = "8", label = ReactNode("index.js"))
-        mTreeItem(nodeId = "9", label = ReactNode("tree-view.js"))
+  treeItem(nodeId = "5", label = ReactNode("Documents")) {
+    treeItem(nodeId = "10", label = ReactNode("OSS"))
+    treeItem(nodeId = "6", label = ReactNode("Material-UI")) {
+      treeItem(nodeId = "7", label = ReactNode("src")) {
+        treeItem(nodeId = "8", label = ReactNode("index.js"))
+        treeItem(nodeId = "9", label = ReactNode("tree-view.js"))
       }
     }
   }
@@ -118,7 +116,7 @@ private fun RBuilder.titledDiv(subtitle: String, content: StyledDOMBuilder<DIV>.
       }
     }
 
-    mTypography(subtitle, MTypographyVariant.h4)
+    typography(subtitle, TypographyVariant.h4)
     content()
   }
 }

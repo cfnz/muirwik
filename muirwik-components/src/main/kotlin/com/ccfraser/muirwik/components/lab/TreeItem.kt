@@ -1,22 +1,22 @@
 package com.ccfraser.muirwik.components.lab
 
-import com.ccfraser.muirwik.components.ElementType
-import com.ccfraser.muirwik.components.StyledPropsWithCommonAttributes
-import com.ccfraser.muirwik.components.createStyled
+import com.ccfraser.muirwik.components.utils.ElementType
+import com.ccfraser.muirwik.components.utils.createStyled
 import kotlinext.js.Object
 import react.ComponentType
 import react.RBuilder
 import react.ReactElement
 import react.ReactNode
 import styled.StyledHandler
+import styled.StyledProps
 
-@JsModule("@material-ui/lab/TreeItem")
+@JsModule("@mui/lab/TreeItem")
 private external val treeItemModule: dynamic
 
 @Suppress("UnsafeCastFromDynamic")
-private val treeItemComponentType: ComponentType<MTreeItemProps> = treeItemModule.default
+private val treeItemComponentType: ComponentType<TreeItemProps> = treeItemModule.default
 
-external interface MTreeItemProps : StyledPropsWithCommonAttributes {
+external interface TreeItemProps : StyledProps {
   var collapseIcon: ReactElement
   var endIcon: ReactElement
   var expandIcon: ReactElement
@@ -31,7 +31,7 @@ external interface MTreeItemProps : StyledPropsWithCommonAttributes {
   var transitionProps: Object
 }
 
-fun RBuilder.mTreeItem(
+fun RBuilder.treeItem(
     collapseIcon: ReactElement? = null,
     endIcon: ReactElement? = null,
     expandIcon: ReactElement? = null,
@@ -43,7 +43,7 @@ fun RBuilder.mTreeItem(
     transitionComponent: ElementType? = null,
     transitionProps: Object? = null,
     className: String? = null,
-    handler: StyledHandler<MTreeItemProps>? = null
+    handler: StyledHandler<TreeItemProps>? = null
 ) {
   createStyled(treeItemComponentType, className, handler) {
     collapseIcon?.let { attrs.collapseIcon = it }
