@@ -15,94 +15,47 @@ private external val paginationModule: dynamic
 @Suppress("UnsafeCastFromDynamic")
 private val paginationComponentType: ComponentType<PaginationProps> = paginationModule.default
 
-@Suppress("EnumEntryName")
-enum class PaginationColor {
-  standard,
-  primary,
-  secondary
-}
-
-@Suppress("EnumEntryName")
-enum class PaginationSize {
-  large,
-  medium,
-  small
-}
-
-@Suppress("EnumEntryName")
-enum class PaginationVariant {
-  text,
-  outlined
-}
-
-@Suppress("EnumEntryName")
-enum class PaginationShape {
-  round,
-  rounded
-}
-
 external interface PaginationProps : StyledProps {
-  var boundaryCount: Number
-  var count: Number
-  var defaultPage: Number
-  var disabled: Boolean
-  var getItemAriaLabel: (String, Number, Boolean) -> String
-  var hideNextButton: Boolean
-  var hidePrevButton: Boolean
-  var onChange: (Event, Number) -> Unit
-  var page: Number
-  var renderItem: (Any/*PaginationRenderItemParams*/) -> ReactNode
-  var showFirstButton: Boolean
-  var showLastButton: Boolean
-  var siblingCount: Number
+    var boundaryCount: Int
+    var count: Int
+    var defaultPage: Int
+    var disabled: Boolean
+    var getItemAriaLabel: (type: String, page: Int, selected: Boolean) -> String
+    var hideNextButton: Boolean
+    var hidePrevButton: Boolean
+    var onChange: (event: Event, page: Int) -> Unit
+    var page: Int
+    var renderItem: (Any/*PaginationRenderItemParams*/) -> ReactNode
+    var showFirstButton: Boolean
+    var showLastButton: Boolean
+    var siblingCount: Int
 
 }
 
-var PaginationProps.color by EnumPropToString(PaginationColor.values())
-var PaginationProps.shape by EnumPropToString(PaginationShape.values())
-var PaginationProps.size by EnumPropToString(PaginationSize.values())
-var PaginationProps.variant by EnumPropToString(PaginationVariant.values())
+var PaginationProps.color by EnumPropToString(PaginationItemColor.values())
+var PaginationProps.shape by EnumPropToString(PaginationItemShape.values())
+var PaginationProps.size by EnumPropToString(PaginationItemSize.values())
+var PaginationProps.variant by EnumPropToString(PaginationItemVariant.values())
 
 fun RBuilder.pagination(
-    boundaryCount: Number = 1,
-    count: Number = 1,
-    defaultPage: Number = 1,
-    disabled: Boolean = false,
-    getItemAriaLabel: ((String, Number, Boolean) -> String)? = null,
-    hideNextButton: Boolean = false,
-    hidePrevButton: Boolean = false,
-    onChange: ((Event, Number) -> Unit)? = null,
-    page: Number? = null,
-    renderItem: ((Any) -> ReactNode)? = null,
-    showFirstButton: Boolean = false,
-    showLastButton: Boolean = false,
-    siblingCount: Number = 1,
+    count: Int = 1,
+    page: Int? = null,
+    defaultPage: Int? = null,
 
-    color: PaginationColor = PaginationColor.standard,
-    shape: PaginationShape = PaginationShape.round,
-    size: PaginationSize = PaginationSize.medium,
-    variant: PaginationVariant = PaginationVariant.text,
+    color: PaginationItemColor = PaginationItemColor.standard,
+    shape: PaginationItemShape = PaginationItemShape.circular,
+    size: PaginationItemSize = PaginationItemSize.medium,
+    variant: PaginationItemVariant = PaginationItemVariant.text,
 
-    className: String? = null,
     handler: StyledHandler<PaginationProps>? = null
 ) {
-  createStyled(paginationComponentType, className, handler) {
-    attrs.boundaryCount = boundaryCount
-    attrs.count = count
-    attrs.defaultPage = defaultPage
-    attrs.disabled = disabled
-    getItemAriaLabel?.let { attrs.getItemAriaLabel = it }
-    attrs.hideNextButton = hideNextButton
-    attrs.hidePrevButton = hidePrevButton
-    onChange?.let { attrs.onChange = it }
-    page?.let { attrs.page = it }
-    renderItem?.let { attrs.renderItem = it }
-    attrs.showFirstButton = showFirstButton
-    attrs.showLastButton = showLastButton
-    attrs.siblingCount = siblingCount
-    attrs.color = color
-    attrs.shape = shape
-    attrs.size = size
-    attrs.variant = variant
-  }
+    createStyled(paginationComponentType, handler) {
+        attrs.count = count
+        defaultPage?.let { attrs.defaultPage = it }
+        page?.let { attrs.page = it }
+        attrs.color = color
+        attrs.shape = shape
+        attrs.size = size
+        attrs.variant = variant
+    }
 }
