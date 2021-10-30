@@ -29,7 +29,6 @@ external interface PaginationProps : StyledProps {
     var showFirstButton: Boolean
     var showLastButton: Boolean
     var siblingCount: Int
-
 }
 
 var PaginationProps.color by EnumPropToString(PaginationItemColor.values())

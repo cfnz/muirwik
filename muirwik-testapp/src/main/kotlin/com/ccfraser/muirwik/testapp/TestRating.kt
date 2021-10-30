@@ -147,7 +147,3 @@ private val iconContainer = fc<IconContainerProps> { props ->
         }
     }
 }
-
-fun RBuilder.testRatings() {
-    child(testRatings) {}
-}

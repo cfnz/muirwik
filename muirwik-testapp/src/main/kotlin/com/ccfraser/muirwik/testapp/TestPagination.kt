@@ -1,79 +1,77 @@
 package com.ccfraser.muirwik.testapp
 
 import com.ccfraser.muirwik.components.*
-import kotlinx.css.marginBottom
-import kotlinx.css.marginTop
-import kotlinx.html.DIV
-import react.Props
-import react.RBuilder
-import react.fc
-import react.useState
-import styled.StyledDOMBuilder
-import styled.css
-import styled.styledDiv
+import kotlinx.css.*
+import react.*
+import styled.*
+
+private object TestPaginationStyles : StyleSheet("TestPaginationStyles", isStatic = true) {
+    val panel by css {
+        "& > *" {
+            not(":first-child") {
+                marginTop = 2.spacingUnits
+            }
+        }
+    }
+}
 
 val testPagination = fc<Props> {
     labNoteComponent()
 
-    titledDiv("Basic Pagination") {
-        pagination(count = 10)
-        pagination(count = 10, color = PaginationItemColor.primary)
-        pagination(count = 10, color = PaginationItemColor.secondary)
-        pagination(count = 10) { attrs.disabled = true }
-    }
-
-    titledDiv("Outlined Pagination") {
-        pagination(count = 10, variant = PaginationItemVariant.outlined)
-        pagination(count = 10, variant = PaginationItemVariant.outlined, color = PaginationItemColor.primary)
-        pagination(count = 10, variant = PaginationItemVariant.outlined, color = PaginationItemColor.secondary)
-        pagination(count = 10, variant = PaginationItemVariant.outlined) { attrs.disabled = true }
-    }
-
-    titledDiv("Rounded Pagination") {
-        pagination(count = 10, shape = PaginationItemShape.rounded)
-        pagination(count = 10, shape = PaginationItemShape.rounded, variant = PaginationItemVariant.outlined)
-    }
-
-    titledDiv("Pagination Size") {
-        pagination(count = 10, size = PaginationItemSize.small)
-        pagination(count = 10)
-        pagination(count = 10, size = PaginationItemSize.large)
-    }
-
-    titledDiv("Buttons") {
-        pagination(count = 10) {
-            attrs.showFirstButton = true
-            attrs.showLastButton = true
+    demoContainer {
+        demoPanel("Basic Pagination") {
+            css(TestPaginationStyles.panel)
+            pagination(count = 10)
+            pagination(count = 10, color = PaginationItemColor.primary)
+            pagination(count = 10, color = PaginationItemColor.secondary)
+            pagination(count = 10) { attrs.disabled = true }
         }
-        pagination(count = 10) {
-            attrs.hidePrevButton = true
-            attrs.hideNextButton = true
+
+        demoPanel("Outlined Pagination") {
+            css(TestPaginationStyles.panel)
+            pagination(count = 10, variant = PaginationItemVariant.outlined)
+            pagination(count = 10, variant = PaginationItemVariant.outlined, color = PaginationItemColor.primary)
+            pagination(count = 10, variant = PaginationItemVariant.outlined, color = PaginationItemColor.secondary)
+            pagination(count = 10, variant = PaginationItemVariant.outlined) { attrs.disabled = true }
         }
-    }
 
-    titledDiv("Pagination Ranges") {
-        pagination(count = 11, defaultPage = 6) { attrs.siblingCount = 0 }
-        pagination(count = 11, defaultPage = 6)
-        pagination(count = 11, defaultPage = 6) { attrs.siblingCount = 0; attrs.boundaryCount = 2}
-        pagination(count = 11, defaultPage = 6) { attrs.boundaryCount = 2 }
-    }
+        demoPanel("Rounded Pagination") {
+            css(TestPaginationStyles.panel)
+            pagination(count = 10, shape = PaginationItemShape.rounded)
+            pagination(count = 10, shape = PaginationItemShape.rounded, variant = PaginationItemVariant.outlined)
+        }
 
-    titledDiv("Controlled Pagination") {
-        val (page, setPage) = useState(2)
-        pagination(count = 10, page = page) { attrs.onChange = { _, newValue -> setPage(newValue) } }
-    }
-}
+        demoPanel("Pagination Size") {
+            css(TestPaginationStyles.panel)
+            pagination(count = 10, size = PaginationItemSize.small)
+            pagination(count = 10)
+            pagination(count = 10, size = PaginationItemSize.large)
+        }
 
-private fun RBuilder.titledDiv(subtitle: String, content: StyledDOMBuilder<DIV>.() -> Unit) {
-    styledDiv {
-        css {
-            marginBottom = 4.spacingUnits
-            "& > *" {
-                marginTop = 2.spacingUnits
+        demoPanel("Buttons") {
+            css(TestPaginationStyles.panel)
+            pagination(count = 10) {
+                attrs.showFirstButton = true
+                attrs.showLastButton = true
+            }
+            pagination(count = 10) {
+                attrs.hidePrevButton = true
+                attrs.hideNextButton = true
             }
         }
 
-        typography(subtitle, TypographyVariant.h4)
-        content()
+        demoPanel("Pagination Ranges") {
+            css(TestPaginationStyles.panel)
+            pagination(count = 11, defaultPage = 6) { attrs.siblingCount = 0 }
+            pagination(count = 11, defaultPage = 6)
+            pagination(count = 11, defaultPage = 6) { attrs.siblingCount = 0; attrs.boundaryCount = 2}
+            pagination(count = 11, defaultPage = 6) { attrs.boundaryCount = 2 }
+        }
+
+        demoPanel("Controlled Pagination") {
+            css(TestPaginationStyles.panel)
+            val (page, setPage) = useState(2)
+            pagination(count = 10, page = page) { attrs.onChange = { _, newValue -> setPage(newValue) } }
+        }
     }
 }
