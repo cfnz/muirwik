@@ -1,6 +1,6 @@
 # Muirwik
 
-Welcome to Muirwik - but note that Muiwik is going to be retired (see below) 
+Welcome to Muirwik - but note that Muirwik is going to be retired (see below) 
 
 Muirwik gets it name from being a [Material UI](https://material-ui.com/) [React](https://reactjs.org/) wrapper written 
 in [Kotlin](https://kotlinlang.org/).
@@ -13,32 +13,45 @@ wrappers there.
 
 A couple of [screenshots](https://github.com/cfnz/muirwik/wiki) have been added to the wiki page.
 
-## NOTE: Muirwik Is Going Into Retirement
-It has been a good couple of years and I have learnt lots in regards to Kotkin, JS, Material UI, now MUI, and the Kotlin react wrappers.
+There are two versions of Muirwik, one for Material UI 4 and one for Material UI (or MUI) 5.
+The branch for Material UI 4 is named MaterialUI-4 and will be Muirwik version 0.9.x and lower.
+Version 5 was in a separate branch, but has now been merged into master and will be Muirwik 
+version 0.10.x and beyond.
 
-The Kotlin wrappers have been updated fast, and I have not been able to keep up.
+See notes below on MUI version 5, but also see the next note about Muirwik retirement.
+
+## NOTE: Muirwik Is Going Into Retirement
+It has been a good couple of years, I have learnt lots related to Kotlin, JS, Material UI, now MUI, and the Kotlin react wrappers.
+
+The Kotlin wrappers and the Material UI project have been updating fast, and I have not kept fully up.
 
 The [latest change](https://github.com/JetBrains/kotlin-wrappers/blob/d0ef539948e49f297720fd5f8d1bb848ceb62c5d/CHANGELOG.md)
-spells the future. Any code written using attrs (all of Muiwik apps) will need to be modified or use the legacy
+spells the future. Any code written using attrs (likely all of Muirwik apps) will need to be modified or use the legacy
 version of the wrappers. This seems like a good place to pause and choose the best way forward.
 
-There now is a better supported and faster developed version of a MUI wrapper which is developed (or at least related)
-to the wrappers themselves.
+There now is a better supported and faster developed version of a MUI wrapper which is now part
+of the kotlin wrapper project itself. 
 
-Anyone new (or old), check out [kotin-mui](https://github.com/JetBrains/kotlin-wrappers/tree/master/kotlin-mui).
+Anyone new (or old), check out [kotlin-mui](https://github.com/JetBrains/kotlin-wrappers/tree/master/kotlin-mui).
 
-Kotlin-mui started of quite type unsafe, as lots of props were strings rather than enums (as from the MUI js, 
-but without the ide support) and didn't immediately appeal. However, just over a week or so ago (at time of writing), the 
+Kotlin-mui started of quite type unsafe, for example, lots of props were strings rather than enums
+and didn't immediately appeal. However, just over a week or so ago (at time of writing), the 
 props now appear to be typed and the thing is developing quite fast. I am probably going to head that way myself, and 
 put in any effort over there rather than what would seem a rather futile effort of supporting Muirwik here.
 
-I will attempt to migrate the version 5 milestone to the legacy wrapper version, but...
+This is particularly because if we want to use the non legacy version of the latest wrappers, 
+it would mean lots of code changes in existing apps... so may as well change it to the new kotlin-mui
+wrappers at the same time.
+
+Muirwik version 0.10.1 has been migrated to the latest legacy kotlin wrapper at time of writing but
+won't be migrating to the non-legacy version unless someone wants to take that on (which given the 
+kotlin-mui wrapper would seem unlikely).
 
 
 ## Material UI (or MUI) Version 5 Notes
 Version 5 of MUI has some breaking changes.
 
-Version 0.10 or MUIRWIK has lots of breaking changes.
+Version 0.10.x of MUIRWIK has lots of breaking changes.
 
 A brief summary is as follows:
 * The move to Material UI version 5 (or MUI 5 as it is called now) created some breaking changes.
