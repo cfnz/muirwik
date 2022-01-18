@@ -8,8 +8,8 @@ import org.w3c.dom.events.Event
 import react.ComponentType
 import react.Props
 import react.RBuilder
-import react.dom.MouseEvent
-import react.dom.NativeMouseEvent
+import react.dom.events.MouseEvent
+import react.dom.events.NativeMouseEvent
 import styled.StyledHandler
 
 

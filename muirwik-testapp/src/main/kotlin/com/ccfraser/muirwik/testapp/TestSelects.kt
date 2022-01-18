@@ -6,7 +6,7 @@ import com.ccfraser.muirwik.testapp.TestSelects.ComponentStyles.chip
 import com.ccfraser.muirwik.testapp.TestSelects.ComponentStyles.chips
 import com.ccfraser.muirwik.testapp.TestSelects.ComponentStyles.formControl
 import com.ccfraser.muirwik.testapp.TestSelects.ComponentStyles.selectEmpty
-import kotlinext.js.jsObject
+import kotlinext.js.jso
 import kotlinx.css.*
 import org.w3c.dom.events.Event
 import react.*
@@ -87,7 +87,7 @@ class TestSelects : RComponent<Props, State>() {
                 inputLabel("Age", htmlFor = "age-simple")
 
                 // Method 1, using input props
-                val inputProps: Props = jsObject { }
+                val inputProps: Props = jso { }
                 inputProps.asDynamic().name = "age"
                 inputProps.asDynamic().id = "age-simple"
                 select(age) {

@@ -1,6 +1,6 @@
 package com.ccfraser.muirwik.components
 
-import kotlinext.js.jsObject
+import kotlinext.js.jso
 import react.ComponentType
 import react.Props
 import react.RBuilder
@@ -13,6 +13,6 @@ private external val cssBaselineModule: dynamic
 private val cssBaselineComponentType: ComponentType<Props> = cssBaselineModule.default
 
 fun RBuilder.mCssBaseline() {
-    child(cssBaselineComponentType, jsObject()) {}
+    child(cssBaselineComponentType, jso()) {}
 }
 

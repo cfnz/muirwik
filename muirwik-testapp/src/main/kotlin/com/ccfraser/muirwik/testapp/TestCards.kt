@@ -52,7 +52,7 @@ class TestCards : RComponent<Props, State>() {
                                     else transform.rotate(0.deg)
 
                                     transition("transform", 500.ms, Timing.easeInOut)
-                                    css { put("marginLeft", "auto !important") }
+                                    put("marginLeft", "auto !important")
                                 }
                                 attrs.onClick = { setState { rightExpanded = !rightExpanded; count++ } }
                             }
@@ -148,7 +148,7 @@ class TestCards : RComponent<Props, State>() {
                             }
                         }
                         cardMedia("/images/cards/live-from-space.jpg") {
-                            css { css { height = 151.px; width = 151.px } }
+                            css { height = 151.px; width = 151.px }
                         }
                     }
                 }

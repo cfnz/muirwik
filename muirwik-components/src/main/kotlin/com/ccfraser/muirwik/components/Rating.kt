@@ -4,10 +4,7 @@ import com.ccfraser.muirwik.components.utils.EnumPropToString
 import com.ccfraser.muirwik.components.utils.StyledPropsWithCommonAttributes
 import com.ccfraser.muirwik.components.utils.createStyled
 import kotlinext.js.Object
-import react.ComponentType
-import react.FunctionComponent
-import react.RBuilder
-import react.ReactElement
+import react.*
 import styled.StyledHandler
 
 @JsModule("@mui/material/Rating")
@@ -30,7 +27,7 @@ external interface RatingProps : StyledPropsWithCommonAttributes {
     var highlightSelectedOnly: Boolean
     var icon: ReactElement
     @JsName("IconContainerComponent")
-    var iconContainerComponent: FunctionComponent<IconContainerProps>
+    var iconContainerComponent: FC<IconContainerProps>
     var max: Number
     var name: String
     var onChange: (event: Object, newValue: Number) -> Unit

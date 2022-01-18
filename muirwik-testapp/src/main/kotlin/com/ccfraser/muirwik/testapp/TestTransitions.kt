@@ -5,7 +5,7 @@ import com.ccfraser.muirwik.components.styles.PaletteMode
 import com.ccfraser.muirwik.components.styles.mode
 import com.ccfraser.muirwik.components.utils.Colors
 import kotlinext.js.js
-import kotlinext.js.jsObject
+import kotlinext.js.jso
 import kotlinx.css.*
 import org.w3c.dom.HTMLElement
 import react.*
@@ -32,7 +32,7 @@ external interface ShapeProps : Props {
 
 
 private fun RBuilder.upsideDownV(w: Int, h: Int) {
-    val shapeProps = jsObject<ShapeProps> {
+    val shapeProps = jso<ShapeProps> {
         points = "0,$h ${w/2},0 $w,$h"
         stroke = "silver"
         fill = "white"
@@ -44,7 +44,7 @@ private fun RBuilder.upsideDownV(w: Int, h: Int) {
         attrs["height"] = "$h"
 //        attrs["viewBox"] = "0 0 $w $h"
 
-//        Works in Legacy, but not IR... need to use the longer method of creating a jsObject as above
+//        Works in Legacy, but not IR... need to use the longer method of creating a jso as above
 //        child(createElement("polygon", ShapeProps("0,$h ${w/2},0 $w,$h", "silver", "white", 1)))
         child(createElement("polygon", shapeProps))
     }

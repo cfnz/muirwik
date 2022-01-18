@@ -1,7 +1,7 @@
 package com.ccfraser.muirwik.components.styles
 
 import kotlinext.js.Object
-import kotlinext.js.jsObject
+import kotlinext.js.jso
 import org.w3c.dom.Element
 import react.ComponentType
 import react.Props
@@ -64,7 +64,7 @@ fun RBuilder.mStylesProvider(
     jss: Object? = null,
     handler: RHandler<MStylesProviderProps>? = null
 ) {
-    child(stylesProviderComponentType, jsObject()) {
+    child(stylesProviderComponentType, jso()) {
         attrs.injectFirst = injectFirst
         attrs.disableGeneration = disableGeneration
         generateClassName?.let { attrs.generateClassName = it }

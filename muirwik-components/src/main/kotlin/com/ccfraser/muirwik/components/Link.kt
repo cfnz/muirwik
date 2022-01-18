@@ -43,6 +43,7 @@ fun RBuilder.link(
 /**
  * Sets up a link with text and an href anchor which will have a _blank target and rel="noopener"
  */
+@Deprecated("Use the simpler non 'm' version.")
 fun RBuilder.mLink(
     text: String,
     hRef: String,
@@ -57,6 +58,7 @@ fun RBuilder.mLink(
  * The convenience param targetBlank will, if href is used, set target to "_blank" and rel will be set to "nopener" as
  * recommended in https://material-ui.com/style/links/. When targetBlank is true target will not be used.
  */
+@Deprecated("Use the simpler non 'm' version.")
 fun RBuilder.mLink(
     text: String? = null,
     hRefOptions: HRefOptions? = null,
@@ -78,6 +80,7 @@ fun RBuilder.mLink(
 /**
  * Sets up a link with text and an href anchor which will have a _blank target and rel="noopener"
  */
+@Deprecated("Use the simpler non 'm' version.")
 fun RBuilder.mLink(
     text: String,
     hRef: String,

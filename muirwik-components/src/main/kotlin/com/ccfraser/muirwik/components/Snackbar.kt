@@ -48,7 +48,7 @@ external interface SnackbarProps : StyledProps {
     var resumeHideDuration: Int
 
     @JsName("TransitionComponent")
-    var transitionComponent: ElementType<Props>
+    var transitionComponent: ElementType<PropsWithRef<Any>>
 
     @JsName("TransitionProps")
     var transitionProps: Props

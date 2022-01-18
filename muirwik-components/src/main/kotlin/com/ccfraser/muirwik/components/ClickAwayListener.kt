@@ -1,12 +1,10 @@
 package com.ccfraser.muirwik.components
 
-import com.ccfraser.muirwik.components.utils.createStyled
-import kotlinext.js.jsObject
+import kotlinext.js.jso
 import react.ComponentType
 import react.Props
 import react.RBuilder
 import react.RHandler
-import styled.StyledProps
 
 
 @JsModule("@mui/material/ClickAwayListener")
@@ -48,7 +46,7 @@ var ClickAwayListenerProps.touchEvent: ClickAwayListenerTouchEvent
 
 
 fun RBuilder.clickAwayListener(handler: RHandler<ClickAwayListenerProps>) {
-    child(clickAwayListenerComponentType, jsObject()) {
+    child(clickAwayListenerComponentType, jso()) {
         handler()
     }
 }
@@ -60,7 +58,7 @@ fun RBuilder.mClickAwayListener(
     touchEvent: ClickAwayListenerTouchEvent = ClickAwayListenerTouchEvent.onTouchStart,
     handler: RHandler<ClickAwayListenerProps>? = null
 ) {
-    child(clickAwayListenerComponentType, jsObject()) {
+    child(clickAwayListenerComponentType, jso()) {
         attrs.mouseEvent = mouseEvent
         attrs.touchEvent = touchEvent
         attrs.onClickAway = onClickAway

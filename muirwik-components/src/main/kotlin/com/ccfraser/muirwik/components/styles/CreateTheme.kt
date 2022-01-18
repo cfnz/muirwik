@@ -1,6 +1,6 @@
 package com.ccfraser.muirwik.components.styles
 
-import kotlinext.js.jsObject
+import kotlinext.js.jso
 import react.Props
 
 /**
@@ -49,7 +49,7 @@ private external val createThemeModule: dynamic
 fun createTheme(themeOptions: ThemeOptions? = null, args: dynamic = null): Theme {
 
     // We shall just use default (i.e. blank) options if none are provided
-    val ourThemeOptions = themeOptions ?: jsObject {  }
+    val ourThemeOptions = themeOptions ?: jso {  }
 
     return createThemeModule.default(ourThemeOptions, args)
 }

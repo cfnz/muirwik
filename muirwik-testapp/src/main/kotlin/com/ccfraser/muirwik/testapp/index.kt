@@ -13,7 +13,7 @@ import react.dom.render
 fun main() {
 // Seems to work better without hot reloading for now
 //    val hotWrapper = hot(module)
-    render(document.getElementById("root")) {
+    render(document.getElementById("root")!!) {
         mStylesProvider("jss-insertion-point") {
             app()
     //        hotWrapper(app())

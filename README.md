@@ -1,6 +1,6 @@
 # Muirwik
 
-Welcome to Muirwik.
+Welcome to Muirwik - but note that Muiwik is going to be retired (see below) 
 
 Muirwik gets it name from being a [Material UI](https://material-ui.com/) [React](https://reactjs.org/) wrapper written 
 in [Kotlin](https://kotlinlang.org/).
@@ -13,14 +13,36 @@ wrappers there.
 
 A couple of [screenshots](https://github.com/cfnz/muirwik/wiki) have been added to the wiki page.
 
-## Material UI (or MUI) Version 5 notes
+## NOTE: Muirwik Is Going Into Retirement
+It has been a good couple of years and I have learnt lots in regards to Kotkin, JS, Material UI, now MUI, and the Kotlin react wrappers.
+
+The Kotlin wrappers have been updated fast, and I have not been able to keep up.
+
+The [latest change](https://github.com/JetBrains/kotlin-wrappers/blob/d0ef539948e49f297720fd5f8d1bb848ceb62c5d/CHANGELOG.md)
+spells the future. Any code written using attrs (all of Muiwik apps) will need to be modified or use the legacy
+version of the wrappers. This seems like a good place to pause and choose the best way forward.
+
+There now is a better supported and faster developed version of a MUI wrapper which is developed (or at least related)
+to the wrappers themselves.
+
+Anyone new (or old), check out [kotin-mui](https://github.com/JetBrains/kotlin-wrappers/tree/master/kotlin-mui).
+
+Kotlin-mui started of quite type unsafe, as lots of props were strings rather than enums (as from the MUI js, 
+but without the ide support) and didn't immediately appeal. However, just over a week or so ago (at time of writing), the 
+props now appear to be typed and the thing is developing quite fast. I am probably going to head that way myself, and 
+put in any effort over there rather than what would seem a rather futile effort of supporting Muirwik here.
+
+I will attempt to migrate the version 5 milestone to the legacy wrapper version, but...
+
+
+## Material UI (or MUI) Version 5 Notes
 Version 5 of MUI has some breaking changes.
 
 Version 0.10 or MUIRWIK has lots of breaking changes.
 
 A brief summary is as follows:
 * The move to Material UI version 5 (or MUI 5 as it is called now) created some breaking changes.
-* Since there was already breaking changes, took the opportunity to tidy things up resulting in more breaking changes.
+* Since there was already breaking changes, I took the opportunity to tidy things up resulting in more breaking changes.
 * The "m" prefix convention on components has gone. For example mCard is now card
 * The "M" prefix on Props and Enums has also gone, so MButtonColor is now ButtonColor
 * Some components that were in sub-packages have been moved out to the main components package for consistency

@@ -29,7 +29,7 @@ class TestDialogs : RComponent<Props, State>() {
     private var confirmationDialogValue: String = ""
     private var confirmationDialogSelectedValue: String = ""
 
-    private val slideTransitionComponent = forwardRef { props: Props, ref -> slide(direction = SlideTransitionDirection.up) { attrs.ref = ref; spreadProps(props)} }
+    private val slideTransitionComponent = forwardRef { props: PropsWithRef<Any>, ref -> slide(direction = SlideTransitionDirection.up) { attrs.ref = ref; spreadProps(props)} }
 //        forwardRef { props: Props, ref -> childList.add(cloneElement(buildElement { mSlide(direction = SlideTransitionDirection.down) { attrs.ref = ref} }, props)) }
 //        forwardRef { props: Props, ref -> child(cloneElement(buildElement { mSlide(direction = SlideTransitionDirection.down) { attrs.ref = ref} }, props)) }
 //        forwardRef { props: Props, ref -> child(buildElement { mSlide(direction = SlideTransitionDirection.down) { attrs.ref = ref; spreadProps(props)} }) }

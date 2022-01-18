@@ -64,8 +64,8 @@ class TestSnackbar : RComponent<Props, State>() {
         }
     }
 
-    private val slideTransitionComponent = forwardRef { props: Props, ref -> slide(direction = SlideTransitionDirection.up) { attrs.ref = ref; spreadProps(props)} }
-    private val fadeTransitionComponent = forwardRef { props: Props, ref -> fade {
+    private val slideTransitionComponent = forwardRef { props: PropsWithRef<Any>, ref -> slide(direction = SlideTransitionDirection.up) { attrs.ref = ref; spreadProps(props)} }
+    private val fadeTransitionComponent = forwardRef { props: PropsWithRef<Any>, ref -> fade {
         attrs.timeout = SimpleTransitionDuration(1000)
         attrs.ref = ref
         spreadProps(props)}

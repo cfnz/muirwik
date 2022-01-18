@@ -8,7 +8,7 @@ import com.ccfraser.muirwik.components.utils.Colors
 import com.ccfraser.muirwik.components.utils.toolbarJsCssToPartialCss
 import com.ccfraser.muirwik.testapp.MainFrame.ComponentStyles.demoListItemText
 import kotlinext.js.js
-import kotlinext.js.jsObject
+import kotlinext.js.jso
 import kotlinx.css.*
 import react.*
 import styled.StyleSheet
@@ -80,7 +80,7 @@ class MainFrame(props: MainFrameProps) : RComponent<MainFrameProps, MainFrameSta
                         }
                     }
 
-                    val p: PaperProps = jsObject { }
+                    val p: PaperProps = jso { }
                     p.asDynamic().style = js { position = "relative"; width = drawerWidth.value; display = "block"; height = "100%"; minHeight = "100vh" }
                     hidden {
                         attrs.mdUp = true

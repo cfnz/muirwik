@@ -117,6 +117,6 @@ fun RBuilder.mSwitchWithLabel(
     className: String? = null,
     handler: StyledHandler<FormControlLabelProps>? = null
 ) {
-    val switch = buildElements { mSwitch(checked, color, disabled, required, size, onChange, id, inputProps, value, edge) }
+    val switch = buildElement { mSwitch(checked, color, disabled, required, size, onChange, id, inputProps, value, edge) }
     mFormControlLabel(label, switch, checked, disabled, value = value, className = className, handler = handler)
 }

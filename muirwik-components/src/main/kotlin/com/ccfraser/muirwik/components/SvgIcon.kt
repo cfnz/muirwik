@@ -2,7 +2,7 @@ package com.ccfraser.muirwik.components
 
 import com.ccfraser.muirwik.components.utils.EnumPropToStringNullable
 import com.ccfraser.muirwik.components.utils.createStyled
-import kotlinext.js.jsObject
+import kotlinext.js.jso
 import react.ComponentType
 import react.Props
 import react.RBuilder
@@ -37,7 +37,7 @@ fun RBuilder.svgIcon(
         attrs.color = color
         htmlColor?.let { attrs.htmlColor = it }
 
-        val props: Props =  jsObject {  }
+        val props: Props =  jso {  }
         props.asDynamic().d = svgPath
 
         childList.add(createElement("path", props))
@@ -58,7 +58,7 @@ fun RBuilder.mSvgIcon(
         htmlColor?.let { attrs.htmlColor = it }
         attrs.fontSize = fontSize
 
-        val props: Props =  jsObject {  }
+        val props: Props =  jso {  }
         props.asDynamic().d = svgPath
 
         childList.add(createElement("path", props))

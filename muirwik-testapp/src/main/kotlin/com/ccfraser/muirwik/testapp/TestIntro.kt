@@ -1,6 +1,7 @@
 package com.ccfraser.muirwik.testapp
 
 import com.ccfraser.muirwik.components.*
+import com.ccfraser.muirwik.components.utils.HRefOptions
 import com.ccfraser.muirwik.testapp.TestIntro.ComponentStyles.typographyStyle
 import kotlinx.css.*
 import react.Props
@@ -33,11 +34,11 @@ class TestIntro : RComponent<Props, State>() {
             typography {
                 css(typographyStyle)
                 +"Muirwik gets it name from being a "
-                mLink("Material UI", "https://material-ui.com/")
+                link("Material UI", HRefOptions("https://material-ui.com/"))
                 +" "
-                mLink("React", "https://reactjs.org/")
+                link("React", HRefOptions("https://reactjs.org/"))
                 +" wrapper (written) in "
-                mLink("Kotlin", "https://kotlinlang.org/")
+                link("Kotlin", HRefOptions("https://kotlinlang.org/"))
                 +"."
             }
 
@@ -51,7 +52,7 @@ class TestIntro : RComponent<Props, State>() {
             typography {
                 css(typographyStyle)
                 +"For more information, see the above links (particularly the Material UI one) and this project's "
-                mLink("Github page", "https://github.com/cfnz/muirwik")
+                link("Github page", HRefOptions("https://github.com/cfnz/muirwik"))
                 +"."
             }
         }

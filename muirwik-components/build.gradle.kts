@@ -13,14 +13,14 @@ repositories {
 }
 
 dependencies {
-    val kotlinVersion = "1.5.31"
-    val kotlinJsVersion = "pre.248-kotlin-$kotlinVersion"
+    val kotlinVersion = "1.6.10"
+    val kotlinJsVersion = "pre.290-kotlin-$kotlinVersion"
     val kotlinReactVersion = "17.0.2-$kotlinJsVersion"
 
     implementation(kotlin("stdlib-js", kotlinVersion))
-    implementation("org.jetbrains.kotlin-wrappers", "kotlin-react", kotlinReactVersion)
-    implementation("org.jetbrains.kotlin-wrappers", "kotlin-react-dom", kotlinReactVersion)
-    implementation("org.jetbrains.kotlin-wrappers", "kotlin-styled", "5.3.1-$kotlinJsVersion")
+    implementation("org.jetbrains.kotlin-wrappers", "kotlin-react-legacy", kotlinReactVersion)
+    implementation("org.jetbrains.kotlin-wrappers", "kotlin-react-dom-legacy", kotlinReactVersion)
+    implementation("org.jetbrains.kotlin-wrappers", "kotlin-styled", "5.3.3-$kotlinJsVersion")
 
     implementation(npm("@mui/material", "5.0.3"))
     implementation(npm("@mui/icons-material", "5.0.3"))

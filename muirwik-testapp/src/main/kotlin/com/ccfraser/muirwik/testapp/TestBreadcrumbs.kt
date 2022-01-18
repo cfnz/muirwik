@@ -33,8 +33,8 @@ class TestBreadcrumbs : RComponent<Props, State>() {
                         width = LinearDimension.maxContent
                     }
                     breadcrumbs {
-                        mLink("Material-UI", HRefOptions("#"))
-                        mLink("Core", HRefOptions("#"))
+                        link("Material-UI", HRefOptions("#"))
+                        link("Core", HRefOptions("#"))
                         typography("Breadcrumb")
                     }
                 }
@@ -43,8 +43,8 @@ class TestBreadcrumbs : RComponent<Props, State>() {
                 paper {
                     css(paper)
                     breadcrumbs(">") {
-                        mLink("Material-UI", HRefOptions("#"))
-                        mLink("Core", HRefOptions("#"))
+                        link("Material-UI", HRefOptions("#"))
+                        link("Core", HRefOptions("#"))
                         typography("Breadcrumb")
                     }
                 }
@@ -52,8 +52,8 @@ class TestBreadcrumbs : RComponent<Props, State>() {
                 paper {
                     css(paper)
                     breadcrumbs("-") {
-                        mLink("Material-UI", HRefOptions("#"))
-                        mLink("Core", HRefOptions("#"))
+                        link("Material-UI", HRefOptions("#"))
+                        link("Core", HRefOptions("#"))
                         typography("Breadcrumb")
                     }
                 }
@@ -62,8 +62,8 @@ class TestBreadcrumbs : RComponent<Props, State>() {
                     css(paper)
                     breadcrumbs {
                         attrs.separator = buildElement { icon("navigate_next") { attrs.fontSize = IconFontSize.small} }
-                        mLink("Material-UI", HRefOptions("#"))
-                        mLink("Core", HRefOptions("#"))
+                        link("Material-UI", HRefOptions("#"))
+                        link("Core", HRefOptions("#"))
                         typography("Breadcrumb")
                     }
                 }
@@ -72,14 +72,16 @@ class TestBreadcrumbs : RComponent<Props, State>() {
                 paper {
                     css(paper)
                     breadcrumbs {
-                        mLink(hRefOptions = HRefOptions("#")) {
+                        link {
+                            attrs.hrefOptions = HRefOptions("#")
                             icon("home") {
                                 attrs.fontSize = IconFontSize.small
                                 css(icon)
                             }
                             +"Material-UI"
                         }
-                        mLink(hRefOptions = HRefOptions("#")) {
+                        link {
+                            attrs.hrefOptions = HRefOptions("#")
                             icon("whatshot") {
                                 attrs.fontSize = IconFontSize.small
                                 css(icon)
@@ -101,10 +103,10 @@ class TestBreadcrumbs : RComponent<Props, State>() {
                     css(paper)
                     breadcrumbs {
                         attrs.maxItems = 2
-                        mLink("Home", HRefOptions("#"))
-                        mLink("Catalog", HRefOptions("#"))
-                        mLink("Accessories", HRefOptions("#"))
-                        mLink("New Collection", HRefOptions("#"))
+                        link("Home", HRefOptions("#"))
+                        link("Catalog", HRefOptions("#"))
+                        link("Accessories", HRefOptions("#"))
+                        link("New Collection", HRefOptions("#"))
                         typography("Belts")
                     }
                 }

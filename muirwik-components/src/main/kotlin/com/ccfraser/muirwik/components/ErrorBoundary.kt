@@ -1,6 +1,6 @@
 package com.ccfraser.muirwik.components
 
-import kotlinext.js.jsObject
+import kotlinext.js.jso
 import react.*
 
 typealias ErrorBoundaryErrorEvent = (error: Throwable, info: ErrorInfo) -> Unit
@@ -39,7 +39,7 @@ class ErrorBoundary(props: ErrorBoundaryProps) : RComponent<ErrorBoundaryProps, 
     companion object : RStatics<ErrorBoundaryProps, ErrorBoundaryState, ErrorBoundary, Nothing>(ErrorBoundary::class) {
         init {
             getDerivedStateFromError = {
-                val result: ErrorBoundaryState = jsObject()
+                val result: ErrorBoundaryState = jso()
                 result.hasError = true
                 result
             }

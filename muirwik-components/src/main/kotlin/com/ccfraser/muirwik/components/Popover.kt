@@ -40,7 +40,7 @@ external interface PopoverProps : ModalProps {
     var transitionProps: Props?
 
     @JsName("TransitionComponent")
-    var transitionComponent: ElementType<Props>
+    var transitionComponent: ElementType<PropsWithRef<Any>>
 }
 
 /**

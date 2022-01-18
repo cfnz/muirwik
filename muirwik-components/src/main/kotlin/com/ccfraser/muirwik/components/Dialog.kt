@@ -6,10 +6,7 @@ import com.ccfraser.muirwik.components.utils.EnumPropToString
 import com.ccfraser.muirwik.components.utils.SimpleEvent
 import com.ccfraser.muirwik.components.utils.createStyled
 import org.w3c.dom.events.Event
-import react.ComponentType
-import react.ElementType
-import react.Props
-import react.RBuilder
+import react.*
 import styled.StyledHandler
 
 
@@ -45,7 +42,7 @@ external interface DialogProps : ModalProps {
     var transitionProps: Props?
 
     @JsName("TransitionComponent")
-    var transitionComponent: ElementType<Props>?
+    var transitionComponent: ElementType<PropsWithRef<Any>>?
 }
 var DialogProps.maxWidth by BreakpointNullToFalseDelegate()
 var DialogProps.scroll by EnumPropToString(DialogScroll.values())

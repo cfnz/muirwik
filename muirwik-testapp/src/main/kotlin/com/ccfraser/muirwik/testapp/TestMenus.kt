@@ -3,7 +3,7 @@ package com.ccfraser.muirwik.testapp
 import com.ccfraser.muirwik.components.*
 import com.ccfraser.muirwik.components.utils.spreadProps
 import kotlinext.js.js
-import kotlinext.js.jsObject
+import kotlinext.js.jso
 import kotlinx.css.*
 import org.w3c.dom.Node
 import org.w3c.dom.events.Event
@@ -48,7 +48,7 @@ class TestMenus : RComponent<Props, State>() {
 
     private val options = arrayOf("Show some love to Material-UI", "Show all notification content", "Hide sensitive notification content", "Hide all notification content")
     private val options2 = arrayOf("None", "Atria", "Callisto", "Dione", "Ganymede", "Hangouts Call", "Luna", "Oberon", "Phobos", "Pyxis", "Sedna", "Titania", "Triton", "Umbriel")
-    private val fadeTransitionComponent = forwardRef { props: Props, ref -> fade { attrs.ref = ref; spreadProps(props) } }
+    private val fadeTransitionComponent = forwardRef { props: PropsWithRef<Any>, ref -> fade { attrs.ref = ref; spreadProps(props) } }
 
     override fun RBuilder.render() {
         fun RBuilder.addStdSubItems() {
@@ -88,7 +88,7 @@ class TestMenus : RComponent<Props, State>() {
                 styledDiv {
                     css { flexGrow = 1.0; padding(2.spacingUnits) }
 
-                    val menuListProps: MenuListProps = jsObject { }
+                    val menuListProps: MenuListProps = jso { }
                     menuListProps.asDynamic().style = js {
                         maxHeight = 216
                     }
