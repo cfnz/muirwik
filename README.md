@@ -1,6 +1,6 @@
 # Muirwik
 
-Welcome to Muirwik - but note that Muirwik is going to be retired (see below) 
+Welcome to Muirwik - but note that Muirwik is probably going to be retired (see below). 
 
 Muirwik gets it name from being a [Material UI](https://material-ui.com/) [React](https://reactjs.org/) wrapper written 
 in [Kotlin](https://kotlinlang.org/).
@@ -21,8 +21,9 @@ version 0.10.x and beyond.
 See notes below on MUI version 5, but also see the next note about Muirwik retirement.
 
 ## NOTE: Muirwik Probable Retirement
-It has been a good couple of years, I have learnt lots related to Kotlin, JS, Material UI, now MUI, and the Kotlin react 
-wrappers. The Kotlin wrappers and the Material UI project have been updating fast, and I have not kept fully up.
+I have learnt lots related to Kotlin, JS, Material UI, now MUI, and the Kotlin react 
+wrappers over the last couple of years. The Kotlin wrappers and the Material UI project have been updating fast, and 
+I have not kept fully up-to-date.
 
 The [latest change](https://github.com/JetBrains/kotlin-wrappers/blob/d0ef539948e49f297720fd5f8d1bb848ceb62c5d/CHANGELOG.md)
 spells the future. Any code written using attrs (likely all of Muirwik apps) will need to be modified or use the legacy
@@ -33,12 +34,12 @@ of the kotlin wrapper project itself.
 
 Anyone new (or old) to Muirwik should check out [kotlin-mui](https://github.com/JetBrains/kotlin-wrappers/tree/master/kotlin-mui).
 
-Kotlin-mui started of quite type unsafe, for example, lots of props were strings rather than enums,
+Kotlin-mui started off quite type unsafe, for example, lots of props were strings rather than enums,
 and it didn't immediately appeal. However, just over a week or so ago (at time of writing), props now appear to be moving
 to typed versions, not all yet, but things seem to be developing quite fast. Muirwik tried to be quite type safe,
 introducing new types if required and using function parameters to enforce required props. The kotlin-mui wrappers 
-are more strictly aligned to the MUI project js (since they are an automated build from the js source, that makes sense).
-However, unlike the js IDE support, you don't get prompted for required props, for example, in Kotlin code. So it still has 
+are more strictly aligned to the MUI project JS (since they are an automated build from the JS source, that makes sense).
+However, unlike the JS IDE support, you don't get prompted for required props, for example, in Kotlin code. So it still has 
 its pros and cons.
 
 However, because of the speed of development and support, I am probably going to head that way myself, and
