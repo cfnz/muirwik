@@ -127,8 +127,8 @@ class TestLists : RComponent<Props, State>() {
                     listItemButton("Spam")
                     divider {  }
                     listSubheader("Cart Items")
-                    listItemButtonWithIcon("add_shopping_cart", "With Primary Text", "And secondary text")
-                    listItemButtonWithIcon("remove_shopping_cart", "With Primary Text", "And secondary text")
+                    listItemButtonWithIcon("add_shopping_cart", "With Primary Text", "And secondary text", key = "wpt1")
+                    listItemButtonWithIcon("remove_shopping_cart", "With Primary Text", "And secondary text", key = "wpt2")
                     divider {  }
                     listSubheader("Misc Items")
                     (0..10).forEach {
@@ -153,7 +153,7 @@ class TestLists : RComponent<Props, State>() {
                         }
                     }
                     listSubheader { +"Other Type of Items" }
-                    listItemButtonWithIcon("add_shopping_cart", "With Primary Text", "And secondary text")
+                    listItemButtonWithIcon("add_shopping_cart", "With Primary Text", "And secondary text", key = "wpt3")
                     listItemButton {
                         listItemText(primary = "With a secondary action")
                         listItemSecondaryAction {

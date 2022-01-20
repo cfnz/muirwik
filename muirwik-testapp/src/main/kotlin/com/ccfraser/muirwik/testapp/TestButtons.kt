@@ -95,23 +95,23 @@ class TestButtons : RComponent<Props, State>() {
     private fun RBuilder.groupedButtons() {
         demoPanel("Grouped buttons") {
             buttonGroup {
-                button("One")
-                button("Two")
-                button("Three")
+                button { +"One" }
+                button { +"Two" }
+                button { +"Three" }
             }
             br { }
             br { }
             buttonGroup(ButtonColor.primary, ButtonGroupVariant.contained) {
-                button("One", ButtonColor.primary)
-                button("Two", ButtonColor.primary)
-                button("Three", ButtonColor.primary)
+                button { +"One" }
+                button { +"Two" }
+                button { +"Three" }
             }
             br { }
             br { }
             buttonGroup(orientation = ButtonGroupOrientation.vertical) {
-                button("One")
-                button("Two")
-                button("Three")
+                button { +"One" }
+                button { +"Two" }
+                button { +"Three" }
             }
         }
     }
@@ -119,7 +119,7 @@ class TestButtons : RComponent<Props, State>() {
     private fun RBuilder.splitButtons() {
         demoPanel("Split buttons") {
             buttonGroup(ButtonColor.primary, ButtonGroupVariant.contained) {
-                button("One")
+                button("One", ButtonColor.primary, ButtonVariant.contained)
                 button {
                     attrs.variant = ButtonVariant.contained
                     attrs.size = ButtonSize.small

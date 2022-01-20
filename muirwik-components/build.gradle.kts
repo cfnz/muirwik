@@ -22,13 +22,13 @@ dependencies {
     implementation("org.jetbrains.kotlin-wrappers", "kotlin-react-dom-legacy", kotlinReactVersion)
     implementation("org.jetbrains.kotlin-wrappers", "kotlin-styled", "5.3.3-$kotlinJsVersion")
 
-    implementation(npm("@mui/material", "5.0.3"))
-    implementation(npm("@mui/icons-material", "5.0.3"))
+    implementation(npm("@mui/material", "5.3.0"))
+    implementation(npm("@mui/icons-material", "5.3.0"))
 
     // For styling with Styled Components
-    implementation(npm("@mui/styled-engine-sc", "5.0.3"))
+    implementation(npm("@mui/styled-engine-sc", "5.3.0"))
     implementation(npm("styled-components", "5.3.1"))
-    implementation(npm("@mui/styled-engine", "npm:@mui/styled-engine-sc@5.0.3"))
+    implementation(npm("@mui/styled-engine", "npm:@mui/styled-engine-sc@5.3.0"))
 
     // For styling with Emotion
 //    implementation(npm("@emotion/react", "11.4.1"))
@@ -37,7 +37,7 @@ dependencies {
     // This is for legacy styling
     implementation(npm("@mui/styles", "5.0.1"))
 
-    implementation(npm("@mui/lab", "5.0.0-alpha.48"))
+    implementation(npm("@mui/lab", "5.0.0-alpha.65"))
 }
 
 

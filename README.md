@@ -20,10 +20,9 @@ version 0.10.x and beyond.
 
 See notes below on MUI version 5, but also see the next note about Muirwik retirement.
 
-## NOTE: Muirwik Is Going Into Retirement
-It has been a good couple of years, I have learnt lots related to Kotlin, JS, Material UI, now MUI, and the Kotlin react wrappers.
-
-The Kotlin wrappers and the Material UI project have been updating fast, and I have not kept fully up.
+## NOTE: Muirwik Probable Retirement
+It has been a good couple of years, I have learnt lots related to Kotlin, JS, Material UI, now MUI, and the Kotlin react 
+wrappers. The Kotlin wrappers and the Material UI project have been updating fast, and I have not kept fully up.
 
 The [latest change](https://github.com/JetBrains/kotlin-wrappers/blob/d0ef539948e49f297720fd5f8d1bb848ceb62c5d/CHANGELOG.md)
 spells the future. Any code written using attrs (likely all of Muirwik apps) will need to be modified or use the legacy
@@ -32,20 +31,25 @@ version of the wrappers. This seems like a good place to pause and choose the be
 There now is a better supported and faster developed version of a MUI wrapper which is now part
 of the kotlin wrapper project itself. 
 
-Anyone new (or old), check out [kotlin-mui](https://github.com/JetBrains/kotlin-wrappers/tree/master/kotlin-mui).
+Anyone new (or old) to Muirwik should check out [kotlin-mui](https://github.com/JetBrains/kotlin-wrappers/tree/master/kotlin-mui).
 
-Kotlin-mui started of quite type unsafe, for example, lots of props were strings rather than enums
-and didn't immediately appeal. However, just over a week or so ago (at time of writing), the 
-props now appear to be typed and the thing is developing quite fast. I am probably going to head that way myself, and 
-put in any effort over there rather than what would seem a rather futile effort of supporting Muirwik here.
+Kotlin-mui started of quite type unsafe, for example, lots of props were strings rather than enums,
+and it didn't immediately appeal. However, just over a week or so ago (at time of writing), props now appear to be moving
+to typed versions, not all yet, but things seem to be developing quite fast. Muirwik tried to be quite type safe,
+introducing new types if required and using function parameters to enforce required props. The kotlin-mui wrappers 
+are more strictly aligned to the MUI project js (since they are an automated build from the js source, that makes sense).
+However, unlike the js IDE support, you don't get prompted for required props, for example, in Kotlin code. So it still has 
+its pros and cons.
 
-This is particularly because if we want to use the non legacy version of the latest wrappers, 
+However, because of the speed of development and support, I am probably going to head that way myself, and
+put in any major new effort over there rather than what would seem a rather futile effort of updating Muirwik to the
+now non legacy version of the Kotlin wrappers. This is particularly because if we want to use the non legacy version, 
 it would mean lots of code changes in existing apps... so may as well change it to the new kotlin-mui
 wrappers at the same time.
 
-Muirwik version 0.10.1 has been migrated to the latest legacy kotlin wrapper at time of writing but
-won't be migrating to the non-legacy version unless someone wants to take that on (which given the 
-kotlin-mui wrapper would seem unlikely).
+Muirwik version 0.10.1 has been migrated to the latest legacy kotlin wrapper at time of writing but I don't see it migrating
+to the new non-legacy version unless someone wants to take that on (which given the kotlin-mui wrapper project mentioned, 
+would seem unlikely).
 
 
 ## Material UI (or MUI) Version 5 Notes
@@ -111,8 +115,8 @@ repositories {
 
 dependencies {
     ...
-    implementation("org.jetbrains", "kotlin-styled", "5.3.0-$kotlinJsVersion")
-    implementation("com.ccfraser.muirwik:muirwik-components:0.9.0")
+    implementation("org.jetbrains", "kotlin-styled", "5.3.3-$kotlinJsVersion")
+    implementation("com.ccfraser.muirwik:muirwik-components:0.10.1")
 }
 ```
 
@@ -159,7 +163,7 @@ app which is quite a good starting point for real applications... (at least I th
 just trying to make the basic development workflow work.
 
 ## Todo
-Well, lots really, but as mentioned, it is in a working state as it is...
+Not much unless you want to move to the new non-legacy version of the kotlin react wrappers... (as mentioned above)
 
 ### Tests
 There are none, zip, zero, naught. The Material UI framework has them, but other than the test app, which is for user
@@ -167,7 +171,7 @@ based testing and experimentation, there is nothing else. I am not familiar with
 the only way I have tested thus far is with the demo app.
 
 ### State Management
-State management via Redux (or something) is something I have been meaning to look into. In the test app, most of 
+State management via Redux (or something) is something I have been meaning to look into. In the test app, most of the
 state is in local vars rather than in State objects. I tried both, but saw no real benefit in the state objects rather 
 than state vars. It didn't seem to help with hot module reloading either. It didn't seem to help with anything much. 
 Perhaps, with Redux it might all be quite different... it would be nice if Hot Module Reloading worked with state (as 

@@ -25,6 +25,7 @@ external interface SelectProps : InputBaseNoOnChangeProps {
 
 
     var autoWidth: Boolean
+    var defaultOpen: Boolean
     var displayEmpty: Boolean
 
 
